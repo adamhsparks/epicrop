@@ -1,11 +1,22 @@
-Package: cropsim
+Package: EPIRICE
 Type: Package
 Title: Simulation modeling of crops and their diseases
 Version: 0.2.0-5
 Date: 2009-9-27
 Depends: methods, raster, oldweather
-Author: Robert J. Hijmans, Serge Savary, Rene Pangga, Jorrel Aunario
-Maintainer: Robert J. Hijmans <r.hijmans@gmail.com>
-Description: nothing much so far
-License: GPL-3
-LazyLoad: yes
+Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
+    email = "adamhsparks@gmail.com"),
+    person("Robert", "Hijmans", role = c("cre", "aut"),
+    email = "robert.hijmans@gmail.com"),
+    person("Serge", "Savary", role = "aut",
+    email = "serge.savary@toulouse.inra.fr"),
+    person("Ireno", "Pangga", role = "aut",
+    email = "ibpangga@yahoo.com"),
+    person("Jorrel", "Aunario"", role = "aut",
+    email = "j.aunario@irri.org"))
+Maintainer: Adam Sparks <adamhsparks@gmail.com>
+Description: A fork of the cropsim R package by Hijmans et al. intended to make
+EPIRICE easier to use outside of IRRI.
+Depends: R (>= 3.0.0)
+License: GPL (>= 3)
+Encoding: UTF-8
