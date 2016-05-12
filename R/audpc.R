@@ -1,15 +1,15 @@
+# Adapted from cropsim package version 0.2.0-5 by Adam H. Sparks - USQ CCH
 
 audpc <- function(x) {
-	if (length(x$severity) > 0) {
-		return(sum(x$severity))
-	} else 	if (length(x$incidence) > 0) {
-		return(sum(x$incidence))
-	} else {
-		stop('cannot find incidence or severity')
-	}
+  if (length(x$severity) > 0) {
+    return(sum(x$severity))
+  } else   if (length(x$incidence) > 0) {
+    return(sum(x$incidence))
+  } else {
+    stop("cannot find incidence or severity")
+  }
 }
 
-
 raudpc <- function(x) {
-	audpc(x) / length(x[,1])
+  audpc(x) / length(x[, 1])
 }
