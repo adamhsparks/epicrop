@@ -1,7 +1,7 @@
 Package: EPIRICE
 Type: Package
 Title: Simulation modeling of crops and their diseases
-Version: 0.2.0-5
+Version: 0.1.0
 Date: 2009-9-27
 Depends: methods, raster, oldweather
 Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
