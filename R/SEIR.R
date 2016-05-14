@@ -1,12 +1,13 @@
-# Adapted from cropsim package version 0.2.0-5 by Adam H. Sparks - USQ CCH
-# Model development: Serge Savary & Rene Pangga.
-# Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
+#' @title SEIR
+#'@description Adapted from cropsim package version 0.2.0-5 by Adam H.
+#'Sparks - USQ CCH. Original model development: Serge Savary & Rene Pangga.
+#'Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario,
 # International Rice Research Institute
-# r.hijmans@gmail.com
-# Date: 10 November 2009
-# Version 0.3
-# Licence GPL v3
-
+#' @param wth
+#' @param emergence
+#' @details
+#' @examples
+#' @export
 brown_spot <- function(wth, emergence = "2000-05-15", ...) {
   age_coef_rc <- cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
   temp_coef_rc <- cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
