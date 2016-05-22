@@ -1,4 +1,4 @@
-Package: EPIRICE
+Package: epiRice
 Type: Package
 Title: Simulation modeling of crops and their diseases
 Version: 0.1.0
