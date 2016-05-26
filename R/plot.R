@@ -25,7 +25,6 @@ setMethod("plot", signature(x = "SEIR", y = "missing"),
   }
 )
 
-
 .splot1 <- function(x, ylim = c(0, 500), ...) {
   plot(x$date, x$sites, ylim = ylim, ylab = "sites", ...)
   points(x$date, x$diseased, col = "gray")
@@ -36,8 +35,6 @@ setMethod("plot", signature(x = "SEIR", y = "missing"),
          c("diseased", "removed", "latent", "infectious"),
          col = c("gray", "blue", "red", "green"), pch = 21)
 }
-
-
 
 .splot2 <- function(x, ...) {
   plot(x$date, x$sites, ylab = "sites", ...)
@@ -66,8 +63,6 @@ setMethod("plot", signature(x = "SEIR", y = "missing"),
     }
   }
 }
-
-
 
 .splot5 <- function(x, vars=2:length(x[1, ]), ...) {
   cols <- c("black", "gray", "blue", "red", "green")

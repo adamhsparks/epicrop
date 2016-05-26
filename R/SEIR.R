@@ -309,7 +309,7 @@ tungro <- function(wth, emergence = "2000-05-15", ...) {
 #' severity.
 #' @param wth - daily weather data frame containing relative humidity (relh),
 #' minimum temperature (tmin), and maximum temperature (tmax)
-#' @param emergence -expected date of plant emergence}
+#' @param emergence - expected date of plant emergence
 #' @param onset -expected number of days until the onset of disease after
 #' emergence date
 #' @param duration - simulation duration

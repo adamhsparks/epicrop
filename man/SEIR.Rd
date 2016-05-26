@@ -13,6 +13,8 @@ SenescType = 1)
 \item{wth}{- daily weather data frame containing relative humidity (relh),
 minimum temperature (tmin), and maximum temperature (tmax)}
 
+\item{emergence}{- expected date of plant emergence}
+
 \item{onset}{-expected number of days until the onset of disease after
 emergence date}
 
