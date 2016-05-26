@@ -2,13 +2,63 @@
 % Please edit documentation in R/SEIR.R
 \name{brown_spot}
 \alias{brown_spot}
-\title{SEIR}
+\title{Predict brown spot area under the disease progress curve (AUDPC)}
 \usage{
 brown_spot(wth, emergence = "2000-05-15", ...)
 }
+\arguments{
+\item{wth}{- Weather data source}
+
+\item{emergence}{- Expected date of crop emergence
+#' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }}
+}
+\value{
+A raster of AUDPC values for brown spot based on given weather data
+}
 \description{
-Adapted from cropsim package version 0.2.0-5 by Adam H.
-Sparks - USQ CCH. Original model development: Serge Savary & Rene Pangga.
-Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario,
+A dynamic mechanistic simulation of rice brown spot.
+The model is driven by daily weather data. Adapted from cropsim package
+version 0.2.0-5 by Adam H. Sparks - USQ CCH.
+Original model development: Serge Savary & Rene Pangga (IRRI).
+Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
+(IRRI).
+}
+\examples{
+wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
+package = "epiRice"), skip = 13)
+bs <- brown_spot(wth, onset = 20, duration = 120)
+plot(bs, type = 2)
+
+}
+\author{
+Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+}
+\references{
+Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera
+oryzae} in the Wageningen polder, Surinam. PhD thesis, 97p.
+
+Levy, Y. and Cohen, Y., 1980. Sporulation of \emph{
+Helminthosporium turcicum} on sweet corn: Effects of temperature and dew
+period. Canadian Journal of Plant Pathology 2:65-69.
+
+Padmanabhan, S.Y. and Ganguly, D. 1954. Relation between the age
+of rice plant and its susceptibility to \emph{Helminthosporium} and blast
+disease. Proceedings of the Indian Academy of Sciences B 29:44-50.
+
+Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and
+humidity on disease development and sporulation of \emph{Helminthosporium
+oryzae} on rice. Indian Phytopathology 30:258-259.
+
+Luo Wei-Hong, 1996. Simulation  and measurement of leaf wetness
+formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
+
+Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A
+Simulator of Southern Corn Leaf Blight. Bulletin of the Connecticut
+Experiment Station, New Haven, 85 p.
+}
+\seealso{
+\code{\link[epiRice]{leaf_blast}},
+\code{\link[epiRice]{tungro}}, \code{\link[epiRice]{sheath_blight}},
+\code{\link[epiRice]{bacterial_blight}}
 }
 

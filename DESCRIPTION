@@ -2,6 +2,7 @@ Package: epiRice
 Type: Package
 Title: Simulation modeling of crops and their diseases
 Version: 0.1.0
+Date: 2016-05-26
 Depends:
     R (>= 3.0.0)
 Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
@@ -15,12 +16,16 @@ Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
     person("Jorrel", "Aunario", role = "aut",
     email = "j.aunario@irri.org"))
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
-Description: A fork of the cropsim R package by Hijmans et al. This package is
-    intended to make the EPIRICE model easier to use outside of IRRI. This version
-    removes the "oldweather" package dependency, which makes it easier to use the
-    model without access to the IRRI geoclim database. Also removed are other models
-    and extra bits that were part of the original cropsim that were not necessary
-    for EPIRICE.
+Description: A fork of the cropsim R package by Hijmans \emph{et al}. This
+    package is intended to make the EPIRICE model easier to use while stripping
+    other functions not related to rice diseases from the R package.
+Imports:
+    raster,
+    readr
 License: GPL (>= 3)
 Encoding: UTF-8
 RoxygenNote: 5.0.1
+LazyData: true
+Encoding: UTF-8
+NeedsCompilation: no
+Repository: CRAN
