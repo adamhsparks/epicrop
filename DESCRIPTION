@@ -2,30 +2,30 @@ Package: epiRice
 Type: Package
 Title: Simulation modeling of crops and their diseases
 Version: 0.1.0
-Date: 2016-05-26
+Date: 2016-05-29
 Depends:
     R (>= 3.0.0)
 Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
     email = "adamhsparks@gmail.com"),
-    person("Robert", "Hijmans", role = c("aut"),
+    person("Robert", "Hijmans", role = c("aut", "trl"),
     email = "robert.hijmans@gmail.com"),
     person("Serge", "Savary", role = "aut",
     email = "serge.savary@toulouse.inra.fr"),
-    person("Ireno", "Pangga", role = "aut",
+    person("Ireno", "Pangga", role = c("aut", "trl"),
     email = "ibpangga@yahoo.com"),
-    person("Jorrel", "Aunario", role = "aut",
+    person("Jorrel", "Aunario", role = c("aut", "trl"),
     email = "j.aunario@irri.org"))
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
-Description: A fork of the cropsim R package by Hijmans \emph{et al}. This
+Description: A fork of the cropsim R package by Hijmans \emph{et al.}. This
     package is intended to make the EPIRICE model easier to use while stripping
     other functions not related to rice diseases from the R package.
 Imports:
     raster,
     readr
 License: GPL (>= 3)
-Encoding: UTF-8
 RoxygenNote: 5.0.1
 LazyData: true
 Encoding: UTF-8
 NeedsCompilation: no
 Repository: CRAN
+URL: https://github.com/adamhsparks/epiRice

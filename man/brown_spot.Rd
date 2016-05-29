@@ -9,8 +9,9 @@ brown_spot(wth, emergence = "2000-05-15", ...)
 \arguments{
 \item{wth}{- Weather data source}
 
-\item{emergence}{- Expected date of crop emergence
-#' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }}
+\item{emergence}{- Expected date of crop emergence}
+
+\item{...}{Additional arguments - See \link[epiRice]{SEIR}}
 }
 \value{
 A raster of AUDPC values for brown spot based on given weather data

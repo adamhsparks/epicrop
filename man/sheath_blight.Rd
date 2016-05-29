@@ -11,7 +11,7 @@ sheath_blight(wth, emergence = "2000-05-15", ...)
 
 \item{emergence}{- Expected date of crop emergence}
 
-\item{\item{...}{Additional}{arguments - See \link[epiRice]{SEIR} }}
+\item{...}{Additional arguments - See \link[epiRice]{SEIR}}
 }
 \value{
 A raster of AUDPC values for sheath blight based on given weather

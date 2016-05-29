@@ -10,7 +10,6 @@
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' #' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }
 #'
 #' @return A raster of AUDPC values for brown spot based on given weather data
 #'
@@ -27,7 +26,8 @@
 #' \code{\link[epiRice]{brown_spot}}, \code{\link[epiRice]{sheath_blight}}
 #'
 #' @export
-get_land_cells <- function(tablename, odbcname){
+get_land_cells <- function(){
+  mask <- GSIF:::landmask.rda
   cnt <- 0
   repeat {
     cnt <- cnt + 1

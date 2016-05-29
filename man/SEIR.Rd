@@ -28,13 +28,31 @@ emergence date}
 \item{wetness}{-simulate RHmax or rain threshold (0) or leaf wetness duration
 (1)}
 
+\item{init_sites}{-}
+
+\item{init_infection}{-}
+
+\item{age_rc}{-}
+
+\item{tmp_rc}{-}
+
+\item{rh_rc}{-}
+
 \item{base_rc}{- corrected basic infection rate}
 
 \item{latrans}{- latent period}
 
 \item{inftrans}{- infectious period}
 
-\item{senesc_type}{}
+\item{site_max}{-}
+
+\item{aggr}{-}
+
+\item{rr_physiol_senesc}{-}
+
+\item{rrg}{-}
+
+\item{senesc_type}{-}
 }
 \description{
 This function is used by specific disease models in EPIRICE to model disease

@@ -10,7 +10,7 @@
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' #' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }
+#' @param ... Additional arguments - See \link[epiRice]{SEIR}
 #'
 #' @return A raster of AUDPC values for brown spot based on given weather data
 #'
@@ -67,7 +67,7 @@ brown_spot <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }
+#' @param ... Additional arguments - See \link[epiRice]{SEIR}
 #'
 #' @return A raster of AUDPC values for leaf blast based on given weather data
 #'
@@ -133,7 +133,7 @@ leaf_blast <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }
+#' @param ... Additional arguments - See \link[epiRice]{SEIR}
 #'
 #' @return A raster of AUDPC values for bacterial blight based on given weather
 #' data
@@ -195,7 +195,7 @@ bacterial_blight <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }
+#' @param ... Additional arguments - See \link[epiRice]{SEIR}
 #'
 #' @return A raster of AUDPC values for sheath blight based on given weather
 #' data
@@ -260,7 +260,7 @@ sheath_blight <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param \item{...}{Additional arguments - See \link[epiRice]{SEIR} }
+#' @param ... Additional arguments - See \link[epiRice]{SEIR}
 #'
 #' @return A raster of AUDPC values for tungro based on given weather data
 #'
@@ -307,6 +307,7 @@ tungro <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' This function is used by specific disease models in EPIRICE to model disease
 #' severity.
+#'
 #' @param wth - daily weather data frame containing relative humidity (relh),
 #' minimum temperature (tmin), and maximum temperature (tmax)
 #' @param emergence - expected date of plant emergence
@@ -318,19 +319,19 @@ tungro <- function(wth, emergence = "2000-05-15", ...) {
 #' @param rainlim - threshold to decide whether leaves are wet or not
 #' @param wetness -simulate RHmax or rain threshold (0) or leaf wetness duration
 #' (1)
-#' @param init_sites
-#' @param init_infection
-#' @param age_rc
-#' @param tmp_rc
-#' @param rh_rc
+#' @param init_sites -
+#' @param init_infection -
+#' @param age_rc -
+#' @param tmp_rc -
+#' @param rh_rc -
 #' @param base_rc - corrected basic infection rate
 #' @param latrans - latent period
 #' @param inftrans - infectious period
-#' @param site_max
-#' @param aggr
-#' @param rr_physiol_senesc
-#' @param rrg
-#' @param senesc_type
+#' @param site_max -
+#' @param aggr -
+#' @param rr_physiol_senesc -
+#' @param rrg -
+#' @param senesc_type -
 #'
 #' @usage SEIR(wth, emergence, onset = 15, duration = 120, rhlim = 90,
 #' rainlim = 5, wetness = 0, initSites, initInfection = 1, ageRc, tmpRc, rhRc,
