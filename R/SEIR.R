@@ -329,7 +329,7 @@ tungro <- function(wth, emergence = "2000-05-15", ...) {
 #' @param inftrans - infectious period
 #' @param site_max -
 #' @param aggr -
-#' @param rr_physiol_senesc -
+#' @param rr_physiol_senesc - relative rate of physiological senescence
 #' @param rrg -
 #' @param senesc_type -
 #'
