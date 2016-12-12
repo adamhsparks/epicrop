@@ -27,4 +27,5 @@ RoxygenNote: 5.0.1
 LazyData: true
 Encoding: UTF-8
 NeedsCompilation: no
+ByteCompile: TRUE
 URL: https://github.com/adamhsparks/epiRice
