@@ -31,5 +31,6 @@ URL: https://github.com/adamhsparks/epirice
 Bugreports: https://github.com/adamhsparks/epirice/issues
 Suggests: knitr,
     rmarkdown,
-    testthat
+    testthat,
+    covr
 VignetteBuilder: knitr
