@@ -31,9 +31,6 @@ lb <- leaf_blast(wth, onset = 20, duration = 120)
 plot(lb, type = 2)
 
 }
-\author{
-Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
-}
 \references{
 Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant
 resistance on blast severity and yield of rice. Plant Disease 71:1035-1038.
@@ -66,4 +63,6 @@ University, 87 p.
 \code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
 \code{\link[epiRice]{tungro}}
 }
-
+\author{
+Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+}

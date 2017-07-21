@@ -32,9 +32,6 @@ sb <- sheath_blight(wth, onset = 20, duration = 120)
 plot(bb, type = 2)
 
 }
-\author{
-Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
-}
 \references{
 Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the
 spatio-temporal structure of rice sheath blight epidemics in a farmer's
@@ -71,4 +68,6 @@ ryegrass by \emph{Rhizoctonia solani}. Plant Disease 82:1012-1016.
 \code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
 \code{\link[epiRice]{tungro}}
 }
-
+\author{
+Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+}

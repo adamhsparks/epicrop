@@ -48,7 +48,7 @@ emergence date}
 
 \item{aggr}{-}
 
-\item{rr_physiol_senesc}{-}
+\item{rr_physiol_senesc}{- relative rate of physiological senescence}
 
 \item{rrg}{-}
 
@@ -67,4 +67,3 @@ SEIR is called by the following specific disease models:
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 }
-

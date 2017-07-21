@@ -31,9 +31,6 @@ tg <- tungro(wth, onset = 20, duration = 120)
 plot(tg, type = 2)
 
 }
-\author{
-Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
-}
 \references{
 Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
 Koganezawa, H., 1993. Serological monitoring of rice tungro disease
@@ -55,4 +52,6 @@ Philippine Phytopathology 11:46-57.
 \code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
 \code{\link[epiRice]{sheath_blight}}
 }
-
+\author{
+Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+}

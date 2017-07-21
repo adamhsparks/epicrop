@@ -1,8 +1,7 @@
-Package: epiRice
+Package: epirice
 Type: Package
 Title: Simulation modeling of crops and their diseases
 Version: 0.1.0
-Date: 2016-06-04
 Depends:
     R (>= 3.0.0)
 Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
@@ -23,9 +22,14 @@ Imports:
     raster,
     readr
 License: GPL (>= 3)
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 LazyData: true
 Encoding: UTF-8
 NeedsCompilation: no
 ByteCompile: TRUE
-URL: https://github.com/adamhsparks/epiRice
+URL: https://github.com/adamhsparks/epirice
+Bugreports: https://github.com/adamhsparks/epirice/issues
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr

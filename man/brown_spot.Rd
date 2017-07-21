@@ -31,9 +31,6 @@ bs <- brown_spot(wth, onset = 20, duration = 120)
 plot(bs, type = 2)
 
 }
-\author{
-Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
-}
 \references{
 Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera
 oryzae} in the Wageningen polder, Surinam. PhD thesis, 97p.
@@ -62,4 +59,6 @@ Experiment Station, New Haven, 85 p.
 \code{\link[epiRice]{tungro}}, \code{\link[epiRice]{sheath_blight}},
 \code{\link[epiRice]{bacterial_blight}}
 }
-
+\author{
+Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+}

@@ -32,9 +32,6 @@ bb <- bacterial_blight(wth, onset = 20, duration = 120)
 plot(bb, type = 2)
 
 }
-\author{
-Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
-}
 \references{
 Adhikari, T.B., 1991. Effects of rice genotype and environment on
 bacterial blight progression. PhD thesis, University of the Philippines at
@@ -64,4 +61,6 @@ Thesis, University of the Philippines at Los Baños, 81 p.
 \code{\link[epiRice]{sheath_blight}}, \code{\link[epiRice]{brown_spot}},
 \code{\link[epiRice]{tungro}}
 }
-
+\author{
+Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+}
