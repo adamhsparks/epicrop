@@ -15,15 +15,15 @@
 #'
 #' @examples
 #' wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-#' package = "epiRice"), skip = 13)
+#' package = "epirice"), skip = 13)
 #' bs <- brown_spot(wth, onset = 20, duration = 120)
 #' plot(bs, type = 2)
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
-#' @seealso  \code{\link[epiRice]{leaf_blast}},
-#' \code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{tungro}}
-#' \code{\link[epiRice]{brown_spot}}, \code{\link[epiRice]{sheath_blight}}
+#' @seealso  \code{\link[epirice]{leaf_blast}},
+#' \code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{tungro}}
+#' \code{\link[epirice]{brown_spot}}, \code{\link[epirice]{sheath_blight}}
 #'
 #' @export
 get_land_cells <- function(){

@@ -1,6 +1,6 @@
 Package: epirice
 Type: Package
-Title: Simulation modeling of crops and their diseases
+Title: Simulation modeling of rice crop diseases
 Version: 0.1.0
 Depends:
     R (>= 3.0.0)

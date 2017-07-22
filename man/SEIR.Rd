@@ -60,9 +60,9 @@ severity.
 }
 \details{
 SEIR is called by the following specific disease models:
-\code{\link[epiRice]{leaf_blast}}, \code{\link[epiRice]{bacterial_blight}},
-\code{\link[epiRice]{brown_spot}}, \code{\link[epiRice]{sheath_blight}},
-\code{\link[epiRice]{tungro}}
+\code{\link[epirice]{leaf_blast}}, \code{\link[epirice]{bacterial_blight}},
+\code{\link[epirice]{brown_spot}}, \code{\link[epirice]{sheath_blight}},
+\code{\link[epirice]{tungro}}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario

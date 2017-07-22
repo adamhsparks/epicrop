@@ -10,13 +10,13 @@
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param ... Additional arguments - See \link[epiRice]{SEIR}
+#' @param ... Additional arguments - See \link[epirice]{SEIR}
 #'
 #' @return A raster of AUDPC values for brown spot based on given weather data
 #'
 #' @examples
 #' wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-#' package = "epiRice"), skip = 13)
+#' package = "epirice"), skip = 13)
 #' bs <- brown_spot(wth, onset = 20, duration = 120)
 #' plot(bs, type = 2)
 #'
@@ -39,9 +39,9 @@
 #' Simulator of Southern Corn Leaf Blight. Bulletin of the Connecticut
 #' Experiment Station, New Haven, 85 p.
 #'
-#' @seealso \code{\link[epiRice]{leaf_blast}},
-#' \code{\link[epiRice]{tungro}}, \code{\link[epiRice]{sheath_blight}},
-#' \code{\link[epiRice]{bacterial_blight}}
+#' @seealso \code{\link[epirice]{leaf_blast}},
+#' \code{\link[epirice]{tungro}}, \code{\link[epirice]{sheath_blight}},
+#' \code{\link[epirice]{bacterial_blight}}
 #'
 #' @export
 brown_spot <- function(wth, emergence = "2000-05-15", ...) {
@@ -67,13 +67,13 @@ brown_spot <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param ... Additional arguments - See \link[epiRice]{SEIR}
+#' @param ... Additional arguments - See \link[epirice]{SEIR}
 #'
 #' @return A raster of AUDPC values for leaf blast based on given weather data
 #'
 #' @examples
 #' wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-#' package = "epiRice"), skip = 13)
+#' package = "epirice"), skip = 13)
 #' lb <- leaf_blast(wth, onset = 20, duration = 120)
 #' plot(lb, type = 2)
 #'
@@ -100,9 +100,9 @@ brown_spot <- function(wth, emergence = "2000-05-15", ...) {
 #' formation in paddy rice crops. PhD Thesis, Wageningen Agricultural
 #' University, 87 p.
 #'
-#' @seealso \code{\link[epiRice]{sheath_blight}},
-#' \code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
-#' \code{\link[epiRice]{tungro}}
+#' @seealso \code{\link[epirice]{sheath_blight}},
+#' \code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{brown_spot}},
+#' \code{\link[epirice]{tungro}}
 #'
 #' @export
 leaf_blast <- function(wth, emergence = "2000-05-15", ...) {
@@ -133,14 +133,14 @@ leaf_blast <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param ... Additional arguments - See \link[epiRice]{SEIR}
+#' @param ... Additional arguments - See \link[epirice]{SEIR}
 #'
 #' @return A raster of AUDPC values for bacterial blight based on given weather
 #' data
 #'
 #' @examples
 #' wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-#' package = "epiRice"), skip = 13)
+#' package = "epirice"), skip = 13)
 #' bb <- bacterial_blight(wth, onset = 20, duration = 120)
 #' plot(bb, type = 2)
 #'
@@ -164,9 +164,9 @@ leaf_blast <- function(wth, emergence = "2000-05-15", ...) {
 #' to two races of \emph{Xanthomonas oryzae} pv. \emph{oryzae}. Unpublished M.S.
 #' Thesis, University of the Philippines at Los Baños, 81 p.
 #'
-#' @seealso \code{\link[epiRice]{leaf_blast}},
-#' \code{\link[epiRice]{sheath_blight}}, \code{\link[epiRice]{brown_spot}},
-#' \code{\link[epiRice]{tungro}}
+#' @seealso \code{\link[epirice]{leaf_blast}},
+#' \code{\link[epirice]{sheath_blight}}, \code{\link[epirice]{brown_spot}},
+#' \code{\link[epirice]{tungro}}
 #'
 #' @export
 bacterial_blight <- function(wth, emergence = "2000-05-15", ...) {
@@ -195,14 +195,14 @@ bacterial_blight <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param ... Additional arguments - See \link[epiRice]{SEIR}
+#' @param ... Additional arguments - See \link[epirice]{SEIR}
 #'
 #' @return A raster of AUDPC values for sheath blight based on given weather
 #' data
 #'
 #' @examples
 #' wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-#' package = "epiRice"), skip = 13)
+#' package = "epirice"), skip = 13)
 #' sb <- sheath_blight(wth, onset = 20, duration = 120)
 #' plot(bb, type = 2)
 #'
@@ -232,9 +232,9 @@ bacterial_blight <- function(wth, emergence = "2000-05-15", ...) {
 #' influence of temperature and leaf wetness duration on infection of perennial
 #' ryegrass by \emph{Rhizoctonia solani}. Plant Disease 82:1012-1016.
 #'
-#' @seealso \code{\link[epiRice]{leaf_blast}},
-#' \code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
-#' \code{\link[epiRice]{tungro}}
+#' @seealso \code{\link[epirice]{leaf_blast}},
+#' \code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{brown_spot}},
+#' \code{\link[epirice]{tungro}}
 #'
 #' @export
 sheath_blight <- function(wth, emergence = "2000-05-15", ...) {
@@ -260,13 +260,13 @@ sheath_blight <- function(wth, emergence = "2000-05-15", ...) {
 #'
 #' @param wth - Weather data source
 #' @param emergence - Expected date of crop emergence
-#' @param ... Additional arguments - See \link[epiRice]{SEIR}
+#' @param ... Additional arguments - See \link[epirice]{SEIR}
 #'
 #' @return A raster of AUDPC values for tungro based on given weather data
 #'
 #' @examples
 #' wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-#' package = "epiRice"), skip = 13)
+#' package = "epirice"), skip = 13)
 #' tg <- tungro(wth, onset = 20, duration = 120)
 #' plot(tg, type = 2)
 #'
@@ -284,9 +284,9 @@ sheath_blight <- function(wth, emergence = "2000-05-15", ...) {
 #' transmission of rice tungro virus by \emph{Nephotettix virescens}.
 #' Philippine Phytopathology 11:46-57.
 #'
-#' @seealso \code{\link[epiRice]{leaf_blast}},
-#' \code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
-#' \code{\link[epiRice]{sheath_blight}}
+#' @seealso \code{\link[epirice]{leaf_blast}},
+#' \code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{brown_spot}},
+#' \code{\link[epirice]{sheath_blight}}
 #'
 #' @export
 tungro <- function(wth, emergence = "2000-05-15", ...) {
@@ -341,9 +341,9 @@ tungro <- function(wth, emergence = "2000-05-15", ...) {
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
 #' @details SEIR is called by the following specific disease models:
-#' \code{\link[epiRice]{leaf_blast}}, \code{\link[epiRice]{bacterial_blight}},
-#' \code{\link[epiRice]{brown_spot}}, \code{\link[epiRice]{sheath_blight}},
-#' \code{\link[epiRice]{tungro}}
+#' \code{\link[epirice]{leaf_blast}}, \code{\link[epirice]{bacterial_blight}},
+#' \code{\link[epirice]{brown_spot}}, \code{\link[epirice]{sheath_blight}},
+#' \code{\link[epirice]{tungro}}
 
 SEIR <- function(wth, emergence, onset = 15, duration = 120, rhlim = 90,
                  rainlim = 5, wetness = 0, init_sites, init_infection = 1,

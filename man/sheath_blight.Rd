@@ -11,7 +11,7 @@ sheath_blight(wth, emergence = "2000-05-15", ...)
 
 \item{emergence}{- Expected date of crop emergence}
 
-\item{...}{Additional arguments - See \link[epiRice]{SEIR}}
+\item{...}{Additional arguments - See \link[epirice]{SEIR}}
 }
 \value{
 A raster of AUDPC values for sheath blight based on given weather
@@ -27,7 +27,7 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 }
 \examples{
 wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-package = "epiRice"), skip = 13)
+package = "epirice"), skip = 13)
 sb <- sheath_blight(wth, onset = 20, duration = 120)
 plot(bb, type = 2)
 
@@ -64,9 +64,9 @@ influence of temperature and leaf wetness duration on infection of perennial
 ryegrass by \emph{Rhizoctonia solani}. Plant Disease 82:1012-1016.
 }
 \seealso{
-\code{\link[epiRice]{leaf_blast}},
-\code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
-\code{\link[epiRice]{tungro}}
+\code{\link[epirice]{leaf_blast}},
+\code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{brown_spot}},
+\code{\link[epirice]{tungro}}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario

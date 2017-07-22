@@ -11,7 +11,7 @@ tungro(wth, emergence = "2000-05-15", ...)
 
 \item{emergence}{- Expected date of crop emergence}
 
-\item{...}{Additional arguments - See \link[epiRice]{SEIR}}
+\item{...}{Additional arguments - See \link[epirice]{SEIR}}
 }
 \value{
 A raster of AUDPC values for tungro based on given weather data
@@ -26,7 +26,7 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 }
 \examples{
 wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-package = "epiRice"), skip = 13)
+package = "epirice"), skip = 13)
 tg <- tungro(wth, onset = 20, duration = 120)
 plot(tg, type = 2)
 
@@ -48,9 +48,9 @@ transmission of rice tungro virus by \emph{Nephotettix virescens}.
 Philippine Phytopathology 11:46-57.
 }
 \seealso{
-\code{\link[epiRice]{leaf_blast}},
-\code{\link[epiRice]{bacterial_blight}}, \code{\link[epiRice]{brown_spot}},
-\code{\link[epiRice]{sheath_blight}}
+\code{\link[epirice]{leaf_blast}},
+\code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{brown_spot}},
+\code{\link[epirice]{sheath_blight}}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
