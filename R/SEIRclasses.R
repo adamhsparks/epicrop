@@ -1,5 +1,4 @@
 
-
 # Adapted from cropsim package version 0.2.0-5 by Adam H. Sparks - USQ CCH
 # R classes
 # Author: Robert J. Hijmans, r.hijmans@gmail.com
@@ -19,7 +18,7 @@ setClass(
 
 setMethod("show", "SEIR",
           function(object) {
-            cat("class   :", class(object), "\n")
+            cat("class :", class(object), "\n")
             cat("\n")
             l <- dim(object@d)[1]
             if (l == 0) {
@@ -29,11 +28,11 @@ setMethod("show", "SEIR",
               if (l < 25) {
                 print(object@d)
               } else {
-                print(object@d[1:5,])
+                print(object@d[1:5, ])
                 cat("\n")
                 cat("  (... ...  ...)\n")
                 cat("\n")
-                print(object@d[(l - 5):l,])
+                print(object@d[(l - 5):l, ])
               }
             }
           })
