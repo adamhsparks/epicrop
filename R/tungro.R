@@ -8,7 +8,17 @@
 #' Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 #'(IRRI).
 #'
-#' @param wth Weather data source with temperature
+#' @param wth Weather data with a daily time-step, normally NASA-POWER, but any
+#' data that has the following fields will work:
+#' \describe{
+#'   \item{YEAR}{Year in YYYY format}
+#'   \item{DOY}{Numeric day of year, e.g. 1 - 365}
+#'   \item{T2M}{Mean daily temperature}
+#'   \item{T2MN}{Minimum daily temperature}
+#'   \item{T2MX}{Maximum daily temperature}
+#'   \item{RH2M}{Relative humidity}
+#'   \item{RAIN}{Precipitation}
+#' }
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see \code{\link{SEIR}}
 #'
@@ -16,7 +26,7 @@
 #'
 #' @examples
 #' wth <-
-#' tg <- predict_tungro(wth, onset = 20, duration = 120)
+#' tg <- predict_tungro(wth, emergence = "2000-05-15")
 #' plot(tg, type = 2)
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario

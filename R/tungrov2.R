@@ -1,12 +1,14 @@
 
 # Adapted from cropsim package version 0.2.0-5 by Adam H. Sparks - USQ CCH
 # Author: Serge Savary & Rene Pangga.
-# R translation: Robert J. Hijmans , Rene Pangga & Jorrel Aunario, r.hijmans@gmail.com (translated from STELLA TungroMod v6PRI)
+# R translation: Robert J. Hijmans , Rene Pangga & Jorrel Aunario,
+# r.hijmans@gmail.com (translated from STELLA TungroMod v6PRI)
 # International Rice Research Institute
 # Date :  23 August 2010
 # Version 0.2
 # Licence GPL v3
-#switch :  wetness (1) uses rhcoefrc = 1 vs wetness (0)  uses RH + rain threshold corresponding to  STELLA  TungroModv5T
+#switch :  wetness (1) uses rhcoefrc = 1 vs wetness (0)
+# uses RH + rain threshold corresponding to  STELLA  TungroModv5T
 
 # onset = 25 deleted as component of tungro function, as onset is not a constant
 #component on nb of rice crop per year should be added in the function

@@ -7,7 +7,17 @@
 predict_brown_spot(wth, emergence = "2000-05-15", ...)
 }
 \arguments{
-\item{wth}{Weather data source}
+\item{wth}{Weather data with a daily time-step, normally NASA-POWER, but any
+data that has the following fields will work:
+\describe{
+  \item{YEAR}{Year in YYYY format}
+  \item{DOY}{Numeric day of year, e.g. 1 - 365}
+  \item{T2M}{Mean daily temperature}
+  \item{T2MN}{Minimum daily temperature}
+  \item{T2MX}{Maximum daily temperature}
+  \item{RH2M}{Relative humidity}
+  \item{RAIN}{Precipitation}
+}}
 
 \item{emergence}{Expected date of crop emergence}
 
@@ -26,7 +36,7 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 }
 \examples{
 wth <-
-bs <- predict_brown_spot(wth, onset = 20, duration = 120)
+bs <- predict_brown_spot(wth, emergence = "2000-05-15")
 plot(bs, type = 2)
 
 }

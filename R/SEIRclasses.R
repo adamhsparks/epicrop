@@ -6,7 +6,6 @@
 # Version 0.1
 # Licence GPL v3
 
-
 setClass(
   "SEIR",
   representation(d = "data.frame"),
