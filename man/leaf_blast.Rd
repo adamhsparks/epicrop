@@ -11,7 +11,7 @@ leaf_blast(wth, emergence = "2000-05-15", ...)
 
 \item{emergence}{- Expected date of crop emergence}
 
-\item{...}{Additional arguments - See \link[epirice]{SEIR}}
+\item{...}{Additional arguments - See \code{\link{SEIR}}}
 }
 \value{
 A raster of AUDPC values for leaf blast based on given weather data
@@ -25,8 +25,7 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
-wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-package = "epirice"), skip = 13)
+wth <-
 lb <- leaf_blast(wth, onset = 20, duration = 120)
 plot(lb, type = 2)
 
@@ -59,9 +58,9 @@ formation in paddy rice crops. PhD Thesis, Wageningen Agricultural
 University, 87 p.
 }
 \seealso{
-\code{\link[epirice]{sheath_blight}},
-\code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{brown_spot}},
-\code{\link[epirice]{tungro}}
+\code{\link{sheath_blight}},
+\code{\link{bacterial_blight}}, \code{\link{brown_spot}},
+\code{\link{tungro}}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario

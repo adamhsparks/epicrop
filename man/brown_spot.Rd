@@ -11,7 +11,7 @@ brown_spot(wth, emergence = "2000-05-15", ...)
 
 \item{emergence}{- Expected date of crop emergence}
 
-\item{...}{Additional arguments - See \link[epirice]{SEIR}}
+\item{...}{Additional arguments - See \link{SEIR}}
 }
 \value{
 A raster of AUDPC values for brown spot based on given weather data
@@ -25,8 +25,7 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
-wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
-package = "epirice"), skip = 13)
+wth <-
 bs <- brown_spot(wth, onset = 20, duration = 120)
 plot(bs, type = 2)
 
@@ -55,9 +54,9 @@ Simulator of Southern Corn Leaf Blight. Bulletin of the Connecticut
 Experiment Station, New Haven, 85 p.
 }
 \seealso{
-\code{\link[epirice]{leaf_blast}},
-\code{\link[epirice]{tungro}}, \code{\link[epirice]{sheath_blight}},
-\code{\link[epirice]{bacterial_blight}}
+\code{\link{leaf_blast}},
+\code{\link{tungro}}, \code{\link{sheath_blight}},
+\code{\link{bacterial_blight}}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario

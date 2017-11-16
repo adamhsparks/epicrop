@@ -11,7 +11,7 @@ tungro(wth, emergence = "2000-05-15", ...)
 
 \item{emergence}{- Expected date of crop emergence}
 
-\item{...}{Additional arguments - See \link[epirice]{SEIR}}
+\item{...}{Additional arguments - See \link{SEIR}}
 }
 \value{
 A raster of AUDPC values for tungro based on given weather data
@@ -48,9 +48,9 @@ transmission of rice tungro virus by \emph{Nephotettix virescens}.
 Philippine Phytopathology 11:46-57.
 }
 \seealso{
-\code{\link[epirice]{leaf_blast}},
-\code{\link[epirice]{bacterial_blight}}, \code{\link[epirice]{brown_spot}},
-\code{\link[epirice]{sheath_blight}}
+\code{\link{leaf_blast}},
+\code{\link{bacterial_blight}}, \code{\link{brown_spot}},
+\code{\link{sheath_blight}}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
