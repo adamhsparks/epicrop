@@ -36,10 +36,11 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
+\dontrun{
 wth <-
 bb <- predict_bacterial_blight(wth, emergence = "2000-05-15")
 plot(bb, type = 2)
-
+}
 }
 \references{
 Adhikari, T.B., 1991. Effects of rice genotype and environment on
