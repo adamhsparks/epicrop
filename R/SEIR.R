@@ -34,7 +34,8 @@
 #' baseRc, latrans, inftrans, siteMax, AGGR, RRPhysiolSenesc, RRG,
 #' SenescType = 1)
 #'
-#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
+#' Adam H Sparks, Aji Sukarta
 #'
 #' @details SEIR is called by the following specific disease models:
 #' \code{\link{predict_leaf_blast}}, \code{\link{predict_bacterial_blight}},
@@ -67,10 +68,10 @@ SEIR <-
     emergence <- as.Date(emergence)
 
     # convert emergence date into Julian date, sequential day in year
-    emergence_doy <- strftime(emergence, format = "%j")
+    emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
     # subset weather data where date is greater than emergence minus one
-    wth@w <- subset(wth@w, wth@w$DOY >= emergence_doy - 1)
+    wth@w <- wth@w[wth@w$DOY >= emergence_doy - 1, ]
     if (dim(wth@w)[1] < duration) {
       stop("Incomplete weather data")
     }
