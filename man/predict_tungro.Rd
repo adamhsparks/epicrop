@@ -35,10 +35,11 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
+\dontrun{
 wth <-
 tg <- predict_tungro(wth, emergence = "2000-05-15")
 plot(tg, type = 2)
-
+}
 }
 \references{
 Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and

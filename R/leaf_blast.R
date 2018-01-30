@@ -25,10 +25,11 @@
 #' @return A raster of AUDPC values for leaf blast based on given weather data
 #'
 #' @examples
+#' \dontrun{
 #' wth <-
 #' lb <- predict_leaf_blast(wth, emergence = "2000-05-15")
 #' plot(lb, type = 2)
-#'
+#' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
 #' @references Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant

@@ -35,10 +35,11 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
+\dontrun{
 wth <-
 lb <- predict_leaf_blast(wth, emergence = "2000-05-15")
 plot(lb, type = 2)
-
+}
 }
 \references{
 Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant

@@ -25,10 +25,11 @@
 #' @return A raster of AUDPC values for brown spot based on given weather data
 #'
 #' @examples
+#' \dontrun{
 #' wth <-
 #' bs <- predict_brown_spot(wth, emergence = "2000-05-15")
 #' plot(bs, type = 2)
-#'
+#' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
 #' @references Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera

@@ -35,10 +35,11 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
+\dontrun{
 wth <-
 bs <- predict_brown_spot(wth, emergence = "2000-05-15")
 plot(bs, type = 2)
-
+}
 }
 \references{
 Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera

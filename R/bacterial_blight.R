@@ -26,10 +26,11 @@
 #' data
 #'
 #' @examples
+#' \dontrun{
 #' wth <-
 #' bb <- predict_bacterial_blight(wth, emergence = "2000-05-15")
 #' plot(bb, type = 2)
-#'
+#' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
 #' @references Adhikari, T.B., 1991. Effects of rice genotype and environment on

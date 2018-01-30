@@ -25,10 +25,11 @@
 #' @return A raster of AUDPC values for tungro based on given weather data
 #'
 #' @examples
+#' \dontrun{
 #' wth <-
 #' tg <- predict_tungro(wth, emergence = "2000-05-15")
 #' plot(tg, type = 2)
-#'
+#' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
 #' @references Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
