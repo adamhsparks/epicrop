@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Susceptible-Exposed-Infectious-Removed (SEIR) Model — SEIR • epirice</title>
+<title>Predict tungro area under the disease progress curve (AUDPC) — predict_tungro • epirice</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -83,123 +83,89 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Susceptible-Exposed-Infectious-Removed (SEIR) Model</h1>
+    <h1>Predict tungro area under the disease progress curve (AUDPC)</h1>
     </div>
 
     
-    <p>This function is used by specific disease models in EPIRICE to model disease
-severity.</p>
+    <p>A dynamic mechanistic simulation of tungro disease of rice.
+The model is driven by daily weather data. Adapted from cropsim package
+version 0.2.0-5 by Adam H. Sparks - USQ CCH.
+Original model development: Serge Savary &amp; Rene Pangga (IRRI).
+Original R implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel Aunario
+(IRRI).</p>
     
 
-    <pre class="usage"><span class='fu'>SEIR</span>(<span class='no'>wth</span>, <span class='no'>emergence</span>, <span class='kw'>onset</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>duration</span> <span class='kw'>=</span> <span class='fl'>120</span>, <span class='kw'>rhlim</span> <span class='kw'>=</span> <span class='fl'>90</span>,
-<span class='kw'>rainlim</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>wetness</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>initSites</span>, <span class='kw'>initInfection</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>ageRc</span>, <span class='no'>tmpRc</span>, <span class='no'>rhRc</span>,
-<span class='no'>baseRc</span>, <span class='no'>latrans</span>, <span class='no'>inftrans</span>, <span class='no'>siteMax</span>, <span class='no'>AGGR</span>, <span class='no'>RRPhysiolSenesc</span>, <span class='no'>RRG</span>,
-<span class='kw'>SenescType</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>predict_tungro</span>(<span class='no'>wth</span>, <span class='kw'>emergence</span> <span class='kw'>=</span> <span class='st'>"2000-05-15"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>wth</th>
-      <td><p>- daily weather data frame containing relative humidity (relh),
-minimum temperature (tmin), and maximum temperature (tmax)</p></td>
+      <td><p>Weather data with a daily time-step, normally NASA-POWER, but any
+data that has the following fields will work:</p><dl class='dl-horizontal'>
+  <dt>YEAR</dt><dd><p>Year in YYYY format</p></dd>
+  <dt>DOY</dt><dd><p>Numeric day of year, e.g. 1 - 365</p></dd>
+  <dt>T2M</dt><dd><p>Mean daily temperature</p></dd>
+  <dt>T2MN</dt><dd><p>Minimum daily temperature</p></dd>
+  <dt>T2MX</dt><dd><p>Maximum daily temperature</p></dd>
+  <dt>RH2M</dt><dd><p>Relative humidity</p></dd>
+  <dt>RAIN</dt><dd><p>Precipitation</p></dd>
+</dl></td>
     </tr>
     <tr>
       <th>emergence</th>
-      <td><p>- expected date of plant emergence</p></td>
+      <td><p>Expected date of crop emergence</p></td>
     </tr>
     <tr>
-      <th>onset</th>
-      <td><p>-expected number of days until the onset of disease after
-emergence date</p></td>
-    </tr>
-    <tr>
-      <th>duration</th>
-      <td><p>- simulation duration</p></td>
-    </tr>
-    <tr>
-      <th>rhlim</th>
-      <td><p>-threshold to decide whether leaves are wet or not (usually
-90%)</p></td>
-    </tr>
-    <tr>
-      <th>rainlim</th>
-      <td><p>- threshold to decide whether leaves are wet or not</p></td>
-    </tr>
-    <tr>
-      <th>wetness</th>
-      <td><p>-simulate RHmax or rain threshold (0) or leaf wetness duration
-(1)</p></td>
-    </tr>
-    <tr>
-      <th>init_sites</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>init_infection</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>age_rc</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>tmp_rc</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>rh_rc</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>base_rc</th>
-      <td><p>- corrected basic infection rate</p></td>
-    </tr>
-    <tr>
-      <th>latrans</th>
-      <td><p>- latent period</p></td>
-    </tr>
-    <tr>
-      <th>inftrans</th>
-      <td><p>- infectious period</p></td>
-    </tr>
-    <tr>
-      <th>site_max</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>aggr</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>rr_physiol_senesc</th>
-      <td><p>- relative rate of physiological senescence</p></td>
-    </tr>
-    <tr>
-      <th>rrg</th>
-      <td><p>-</p></td>
-    </tr>
-    <tr>
-      <th>senesc_type</th>
-      <td><p>-</p></td>
+      <th>...</th>
+      <td><p>Additional arguments, see <code>SEIR</code></p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>SEIR is called by the following specific disease models:
-<code>predict_leaf_blast</code>, <code>predict_bacterial_blight</code>,
-<code>predict_brown_spot</code>, <code>predict_sheath_blight</code></p>
+    <p>A raster of AUDPC values for tungro based on given weather data</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
+Koganezawa, H., 1993. Serological monitoring of rice tungro disease
+development in the field: its implication in disease management.
+Plant Disease 77:877-882.</p>
+<p>Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of
+tungro disease of rice. Plant Disease Reporter 49:127-131.</p>
+<p>Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected
+with the tungro virus at different ages. Philippines Agriculturist 50:165-177.</p>
+<p>Ling, K.C., and Tiongco, E.R., Effect of temperature on the
+transmission of rice tungro virus by <em>Nephotettix virescens</em>.
+Philippine Phytopathology 11:46-57.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>#' <code>predict_leaf_blast</code>,
+<code>predict_bacterial_blight</code>, <code>predict_brown_spot</code>,
+<code>predict_sheath_blight</code></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>wth</span> <span class='kw'>&lt;-</span>
+<span class='no'>tg</span> <span class='kw'>&lt;-</span> <span class='fu'>predict_tungro</span>(<span class='no'>wth</span>, <span class='kw'>emergence</span> <span class='kw'>=</span> <span class='st'>"2000-05-15"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in subset(wth@w, wth@w$DOY &gt;= emergence - 1): object 'wth' not found</span></div><div class='input'><span class='fu'>plot</span>(<span class='no'>tg</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(tg, type = 2): object 'tg' not found</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
-          </ul>
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     
