@@ -67,10 +67,10 @@ SEIR <-
     emergence <- as.Date(emergence)
 
     # convert emergence date into Julian date, sequential day in year
-    emergence <- strftime(emergence, format = "%j")
+    emergence_doy <- strftime(emergence, format = "%j")
 
     # subset weather data where date is greater than emergence minus one
-    wth@w <- subset(wth@w, wth@w$DOY >= emergence - 1)
+    wth@w <- subset(wth@w, wth@w$DOY >= emergence_doy - 1)
     if (dim(wth@w)[1] < duration) {
       stop("Incomplete weather data")
     }
