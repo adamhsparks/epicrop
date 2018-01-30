@@ -64,5 +64,6 @@ SEIR is called by the following specific disease models:
 \code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
 }
 \author{
-Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
+Adam H Sparks, Aji Sukarta
 }
