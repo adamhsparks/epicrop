@@ -1,8 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Travis-CI Build
+Status](https://travis-ci.org/adamhsparks/epirice.svg?branch=master)](https://travis-ci.org/adamhsparks/epirice)
 [![Coverage
-Status](https://travis-ci.org/adamhsparks/epirice/master.svg)](https://travis-ci.org/adamhsparks/epirice?branch=master)
+Status](https://img.shields.io/codecov/c/github/adamhsparks/epirice/master.svg)](https://codecov.io/github/adamhsparks/epirice?branch=master)
 
 # EPIRICE
 
