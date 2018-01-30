@@ -29,7 +29,7 @@ Description: A fork of the cropsim R package by Hijmans \emph{et al.}. This
 Imports:
     raster,
     readr
-License: GPL (>= 3)
+License: GPL-3 + file LICENSE
 RoxygenNote: 6.0.1
 LazyData: true
 Encoding: UTF-8
