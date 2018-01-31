@@ -9,16 +9,16 @@ Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
     comment = c(ORCID = "0000-0002-0061-8359")),
     person("Robert", "Hijmans", role = c("aut", "trl"),
     email = "robert.hijmans@gmail.com",
-    comment = "Author and maintainer of original R cropsim package"),
+    comment = "Original R Implementation"),
     person("Serge", "Savary", role = "aut",
     email = "serge.savary@toulouse.inra.fr",
-    comment = "Original author of the Epirice model in STELLA"),
+    comment = "Model Development"),
     person("Ireno", "Pangga", role = c("aut", "trl"),
     email = "ibpangga@yahoo.com",
-    comment = "Original package author and translator from STELLA to R"),
+    comment = "Model Development and Original R Implementation"),
     person("Jorrel", "Aunario", role = c("aut", "trl"),
     email = "j.aunario@irri.org",
-    comment = "Original package author and translator from STELLA to R"),
+    comment = "Original R Implementation"),
     person("Aji", "Sukarta", role = "ctb",
     email = "aji.ixb@gmail.com",
     comment = "Helped fix bug related to SEIR model and establishment date."))
@@ -31,6 +31,7 @@ Imports:
     readr
 License: GPL-3 + file LICENSE
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
 LazyData: true
 Encoding: UTF-8
 NeedsCompilation: no
