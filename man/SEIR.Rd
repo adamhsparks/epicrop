@@ -10,49 +10,78 @@ baseRc, latrans, inftrans, siteMax, AGGR, RRPhysiolSenesc, RRG,
 SenescType = 1)
 }
 \arguments{
-\item{wth}{- daily weather data frame containing relative humidity (relh),
-minimum temperature (tmin), and maximum temperature (tmax)}
+\item{wth}{a data frame of weather on a daily time-step containing data
+with the following field names.
 
-\item{emergence}{- expected date of plant emergence}
+\describe{
+\item{YEAR}{Year in YYYY format}
+\item{DOY}{Numeric day of year, e.g. 1 - 365}
+\item{T2M}{Mean daily temperature}
+\item{T2MN}{Minimum daily temperature}
+\item{T2MX}{Maximum daily temperature}
+\item{RH2M}{Relative humidity}
+\item{RAIN}{Precipitation}
+}}
 
-\item{onset}{-expected number of days until the onset of disease after
+\item{emergence}{expected date of plant emergence entered in \code{YYYY/MM/DD}
+format (usually supplied through the disease model function)}
+
+\item{onset}{expected number of days until the onset of disease after
 emergence date}
 
-\item{duration}{- simulation duration}
+\item{duration}{simulation duration}
 
-\item{rhlim}{-threshold to decide whether leaves are wet or not (usually
+\item{rhlim}{threshold to decide whether leaves are wet or not (usually
 90\%)}
 
-\item{rainlim}{- threshold to decide whether leaves are wet or not}
+\item{rainlim}{threshold to decide whether leaves are wet or not}
 
-\item{wetness}{-simulate RHmax or rain threshold (0) or leaf wetness duration
+\item{wetness}{simulate RHmax or rain threshold (0) or leaf wetness duration
 (1)}
 
-\item{init_sites}{-}
+\item{init_sites}{\itemize{
+\item 
+}}
 
-\item{init_infection}{-}
+\item{init_infection}{\itemize{
+\item 
+}}
 
-\item{age_rc}{-}
+\item{age_rc}{\itemize{
+\item 
+}}
 
-\item{tmp_rc}{-}
+\item{tmp_rc}{\itemize{
+\item 
+}}
 
-\item{rh_rc}{-}
+\item{rh_rc}{\itemize{
+\item 
+}}
 
-\item{base_rc}{- corrected basic infection rate}
+\item{base_rc}{corrected basic infection rate}
 
-\item{latrans}{- latent period}
+\item{latrans}{latent period}
 
-\item{inftrans}{- infectious period}
+\item{inftrans}{infectious period}
 
-\item{site_max}{-}
+\item{site_max}{\itemize{
+\item 
+}}
 
-\item{aggr}{-}
+\item{aggr}{\itemize{
+\item 
+}}
 
-\item{rr_physiol_senesc}{- relative rate of physiological senescence}
+\item{rr_physiol_senesc}{relative rate of physiological senescence}
 
-\item{rrg}{-}
+\item{rrg}{\itemize{
+\item 
+}}
 
-\item{senesc_type}{-}
+\item{senesc_type}{\itemize{
+\item 
+}}
 }
 \description{
 This function is used by specific disease models in EPIRICE to model disease

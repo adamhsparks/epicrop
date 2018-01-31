@@ -9,9 +9,9 @@
 #'(IRRI).
 #'
 #' @param wth Weather data with a daily time-step, normally NASA-POWER, but any
-#' data that has the following fields will work:
+#' data that has the following fields and proper data in them will work:
 #' \describe{
-#'   \item{YEAR}{Year in YYYY format}
+#'   \item{YYYYMMDD}{Date in YYYY-MM-DD format}
 #'   \item{DOY}{Numeric day of year, e.g. 1 - 365}
 #'   \item{T2M}{Mean daily temperature}
 #'   \item{T2MN}{Minimum daily temperature}
@@ -27,8 +27,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' wth <-
-#' bb <- predict_bacterial_blight(wth, emergence = "2000-05-15")
+#' library(nasapower)
+#' wth <- get_cell(lonlat = c(-179.5, -89.5), endate = "1983-05-31")
+#' bb <- predict_bacterial_blight(wth, emergence = "1983-01-15")
 #' plot(bb, type = 2)
 #' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario

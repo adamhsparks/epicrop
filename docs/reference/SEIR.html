@@ -101,95 +101,122 @@ severity.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>wth</th>
-      <td><p>- daily weather data frame containing relative humidity (relh),
-minimum temperature (tmin), and maximum temperature (tmax)</p></td>
+      <td><p>a data frame of weather on a daily time-step containing data
+with the following field names.</p><dl class='dl-horizontal'>
+<dt>YEAR</dt><dd><p>Year in YYYY format</p></dd>
+<dt>DOY</dt><dd><p>Numeric day of year, e.g. 1 - 365</p></dd>
+<dt>T2M</dt><dd><p>Mean daily temperature</p></dd>
+<dt>T2MN</dt><dd><p>Minimum daily temperature</p></dd>
+<dt>T2MX</dt><dd><p>Maximum daily temperature</p></dd>
+<dt>RH2M</dt><dd><p>Relative humidity</p></dd>
+<dt>RAIN</dt><dd><p>Precipitation</p></dd>
+</dl></td>
     </tr>
     <tr>
       <th>emergence</th>
-      <td><p>- expected date of plant emergence</p></td>
+      <td><p>expected date of plant emergence entered in <code>YYYY/MM/DD</code>
+format (usually supplied through the disease model function)</p></td>
     </tr>
     <tr>
       <th>onset</th>
-      <td><p>-expected number of days until the onset of disease after
+      <td><p>expected number of days until the onset of disease after
 emergence date</p></td>
     </tr>
     <tr>
       <th>duration</th>
-      <td><p>- simulation duration</p></td>
+      <td><p>simulation duration</p></td>
     </tr>
     <tr>
       <th>rhlim</th>
-      <td><p>-threshold to decide whether leaves are wet or not (usually
+      <td><p>threshold to decide whether leaves are wet or not (usually
 90%)</p></td>
     </tr>
     <tr>
       <th>rainlim</th>
-      <td><p>- threshold to decide whether leaves are wet or not</p></td>
+      <td><p>threshold to decide whether leaves are wet or not</p></td>
     </tr>
     <tr>
       <th>wetness</th>
-      <td><p>-simulate RHmax or rain threshold (0) or leaf wetness duration
+      <td><p>simulate RHmax or rain threshold (0) or leaf wetness duration
 (1)</p></td>
     </tr>
     <tr>
       <th>init_sites</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>init_infection</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>age_rc</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>tmp_rc</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>rh_rc</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>base_rc</th>
-      <td><p>- corrected basic infection rate</p></td>
+      <td><p>corrected basic infection rate</p></td>
     </tr>
     <tr>
       <th>latrans</th>
-      <td><p>- latent period</p></td>
+      <td><p>latent period</p></td>
     </tr>
     <tr>
       <th>inftrans</th>
-      <td><p>- infectious period</p></td>
+      <td><p>infectious period</p></td>
     </tr>
     <tr>
       <th>site_max</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>aggr</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>rr_physiol_senesc</th>
-      <td><p>- relative rate of physiological senescence</p></td>
+      <td><p>relative rate of physiological senescence</p></td>
     </tr>
     <tr>
       <th>rrg</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>senesc_type</th>
-      <td><p>-</p></td>
+      <td><ul>
+<li><p></p></li>
+</ul></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>SEIR is called by the following specific disease models:
-<code>predict_leaf_blast</code>, <code>predict_bacterial_blight</code>,
-<code>predict_brown_spot</code>, <code>predict_sheath_blight</code></p>
+<code><a href='predict_leaf_blast.html'>predict_leaf_blast</a></code>, <code><a href='predict_bacterial_blight.html'>predict_bacterial_blight</a></code>,
+<code><a href='predict_brown_spot.html'>predict_brown_spot</a></code>, <code><a href='predict_sheath_blight.html'>predict_sheath_blight</a></code></p>
     
 
   </div>

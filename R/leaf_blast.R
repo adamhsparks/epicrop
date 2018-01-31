@@ -9,9 +9,9 @@
 #'(IRRI).
 #'
 #' @param wth Weather data with a daily time-step, normally NASA-POWER, but any
-#' data that has the following fields will work:
+#' data that has the following fields and proper data in them will work:
 #' \describe{
-#'   \item{YEAR}{Year in YYYY format}
+#'   \item{YYYYMMDD}{Date in YYYY-MM-DD format}
 #'   \item{DOY}{Numeric day of year, e.g. 1 - 365}
 #'   \item{T2M}{Mean daily temperature}
 #'   \item{T2MN}{Minimum daily temperature}

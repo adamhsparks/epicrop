@@ -4,28 +4,39 @@
 #' This function is used by specific disease models in EPIRICE to model disease
 #' severity.
 #'
-#' @param wth - daily weather data frame containing relative humidity (relh),
-#' minimum temperature (tmin), and maximum temperature (tmax)
-#' @param emergence - expected date of plant emergence
-#' @param onset -expected number of days until the onset of disease after
+#' @param wth a data frame of weather on a daily time-step containing data
+#' with the following field names.
+#'
+#' \describe{
+#'   \item{YYYYMMDD}{Date in YYYY-MM-DD format}
+#'   \item{DOY}{Numeric day of year, e.g. 1 - 365}
+#'   \item{T2M}{Mean daily temperature}
+#'   \item{T2MN}{Minimum daily temperature}
+#'   \item{T2MX}{Maximum daily temperature}
+#'   \item{RH2M}{Relative humidity}
+#'   \item{RAIN}{Precipitation}
+#' }
+#' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
+#' format (usually supplied through the disease model function)
+#' @param onset expected number of days until the onset of disease after
 #' emergence date
-#' @param duration - simulation duration
-#' @param rhlim -threshold to decide whether leaves are wet or not (usually
+#' @param duration simulation duration
+#' @param rhlim threshold to decide whether leaves are wet or not (usually
 #' 90\%)
-#' @param rainlim - threshold to decide whether leaves are wet or not
-#' @param wetness -simulate RHmax or rain threshold (0) or leaf wetness duration
+#' @param rainlim threshold to decide whether leaves are wet or not
+#' @param wetness simulate RHmax or rain threshold (0) or leaf wetness duration
 #' (1)
 #' @param init_sites -
 #' @param init_infection -
 #' @param age_rc -
 #' @param tmp_rc -
 #' @param rh_rc -
-#' @param base_rc - corrected basic infection rate
-#' @param latrans - latent period
-#' @param inftrans - infectious period
+#' @param base_rc corrected basic infection rate
+#' @param latrans latent period
+#' @param inftrans infectious period
 #' @param site_max -
 #' @param aggr -
-#' @param rr_physiol_senesc - relative rate of physiological senescence
+#' @param rr_physiol_senesc relative rate of physiological senescence
 #' @param rrg -
 #' @param senesc_type -
 #'
@@ -66,16 +77,18 @@ SEIR <-
     leaf_wet <- NULL
 
     emergence <- as.Date(emergence)
+    wth$date
 
     # convert emergence date into Julian date, sequential day in year
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
     # subset weather data where date is greater than emergence minus one
-    wth@w <- wth@w[wth@w$DOY >= emergence_doy - 1, ]
-    if (dim(wth@w)[1] < duration) {
+    wth <- wth[wth$YYYYMMDD >= emergence - 1, ]
+
+    if (dim(wth)[1] < duration) {
       stop("Incomplete weather data")
     }
-    wth@w <- wth@w[1:(duration + 1), ]
+    wth <- wth[1:(duration + 1), ]
 
     if (wetness  ==  1) {
       W <- leaf_wet(wth, simple = TRUE)
@@ -123,8 +136,8 @@ SEIR <-
       }
 
       if (wetness == 0) {
-        if (wth@w$rhmax[day + 1] == rhlim |
-            wth@w$prec[day + 1] >= rainlim) {
+        if (wth$rhmax[day + 1] == rhlim |
+            wth$prec[day + 1] >= rainlim) {
           RHCoef[day + 1] <- 1
         }
       } else {
@@ -132,7 +145,7 @@ SEIR <-
       }
 
       rc[day + 1] <- base_rc * afgen(age_rc, day) *
-        afgen(tmp_rc, wth@w$tavg[day + 1]) * RHCoef[day + 1]
+        afgen(tmp_rc, wth$tavg[day + 1]) * RHCoef[day + 1]
       diseased[day + 1] <- sum(infectious) +
         now_latent[day + 1] + removed[day + 1]
       removed[day + 1] <- sum(infectious) - now_infectious[day + 1]
