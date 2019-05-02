@@ -7,7 +7,8 @@ audpc <- function(x) {
   } else if (length(x$incidence) > 0) {
     return(sum(x$incidence))
   } else {
-    stop("\nCannot find incidence or severity.\n")
+    stop("\nCannot find incidence or severity.\n",
+         call. = FALSE)
   }
 }
 

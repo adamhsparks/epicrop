@@ -1,8 +1,9 @@
 
-#' Predict tungro area under the disease progress curve (AUDPC)
+#' Predict Tungro Area Under the Disease Progress Curve (AUDPC)
 #'
-#' A dynamic mechanistic simulation of tungro disease of rice.
-#' The model is driven by daily weather data. Adapted from cropsim package
+#' A dynamic mechanistic simulation of tungro disease of rice, causal agents
+#' \emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Baciliform Virus}.
+#' The model is driven by daily weather data. Adapted from \pkg{cropsim} package
 #' version 0.2.0-5 by Adam H. Sparks - USQ CCH.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
 #' Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario

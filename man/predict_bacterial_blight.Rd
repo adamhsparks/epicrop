@@ -2,15 +2,15 @@
 % Please edit documentation in R/bacterial_blight.R
 \name{predict_bacterial_blight}
 \alias{predict_bacterial_blight}
-\title{Predict bacterial blight area under the disease progress curve (AUDPC)}
+\title{Predict Bacterial Blight Area Under the Disease Progress Curve (AUDPC)}
 \usage{
 predict_bacterial_blight(wth, emergence = "2000-05-15", ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER, but any
-data that has the following fields will work:
+data that has the following fields and proper data in them will work:
 \describe{
-\item{YEAR}{Year in YYYY format}
+\item{YYYYMMDD}{Date in YYYY-MM-DD format}
 \item{DOY}{Numeric day of year, e.g. 1 - 365}
 \item{T2M}{Mean daily temperature}
 \item{T2MN}{Minimum daily temperature}
@@ -28,17 +28,19 @@ A raster of AUDPC values for bacterial blight based on given weather
 data
 }
 \description{
-A dynamic mechanistic simulation of bacterial blight disease of rice.
-The model is driven by daily weather data. Adapted from cropsim package
+A dynamic mechanistic simulation of bacterial blight disease of rice,
+causal agent \emph{Xanthomonas oryzae} pv. \emph{oryzae}.
+The model is driven by daily weather data. Adapted from \pkg{cropsim} package
 version 0.2.0-5 by Adam H. Sparks - USQ CCH.
 Original model development: Serge Savary & Rene Pangga (IRRI).
-Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
-(IRRI).
+Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
+Aunario (IRRI).
 }
 \examples{
 \dontrun{
-wth <-
-bb <- predict_bacterial_blight(wth, emergence = "2000-05-15")
+library(nasapower)
+wth <- get_cell(lonlat = c(-179.5, -89.5), endate = "1983-05-31")
+bb <- predict_bacterial_blight(wth, emergence = "1983-01-15")
 plot(bb, type = 2)
 }
 }

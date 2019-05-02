@@ -14,7 +14,7 @@ SenescType = 1)
 with the following field names.
 
 \describe{
-\item{YEAR}{Year in YYYY format}
+\item{YYYYMMDD}{Date in YYYY-MM-DD format}
 \item{DOY}{Numeric day of year, e.g. 1 - 365}
 \item{T2M}{Mean daily temperature}
 \item{T2MN}{Minimum daily temperature}
@@ -23,7 +23,7 @@ with the following field names.
 \item{RAIN}{Precipitation}
 }}
 
-\item{emergence}{expected date of plant emergence entered in \code{YYYY/MM/DD}
+\item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
 format (usually supplied through the disease model function)}
 
 \item{onset}{expected number of days until the onset of disease after

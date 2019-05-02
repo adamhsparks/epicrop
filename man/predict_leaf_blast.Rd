@@ -2,15 +2,15 @@
 % Please edit documentation in R/leaf_blast.R
 \name{predict_leaf_blast}
 \alias{predict_leaf_blast}
-\title{Predict leaf blast area under the disease progress curve (AUDPC)}
+\title{Predict Leaf Blast Area Under the Disease Progress Curve (AUDPC)}
 \usage{
 predict_leaf_blast(wth, emergence = "2000-05-15", ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER, but any
-data that has the following fields will work:
+data that has the following fields and proper data in them will work:
 \describe{
-\item{YEAR}{Year in YYYY format}
+\item{YYYYMMDD}{Date in YYYY-MM-DD format}
 \item{DOY}{Numeric day of year, e.g. 1 - 365}
 \item{T2M}{Mean daily temperature}
 \item{T2MN}{Minimum daily temperature}
@@ -27,8 +27,9 @@ data that has the following fields will work:
 A raster of AUDPC values for leaf blast based on given weather data
 }
 \description{
-A dynamic mechanistic simulation of leaf blast disease of rice.
-The model is driven by daily weather data. Adapted from cropsim package
+A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
+\emph{Magnaporthe oryzae}.
+The model is driven by daily weather data. Adapted from \pkg{cropsim} package
 version 0.2.0-5 by Adam H. Sparks - USQ CCH.
 Original model development: Serge Savary & Rene Pangga (IRRI).
 Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario

@@ -1,8 +1,9 @@
 
-#' Predict leaf blast area under the disease progress curve (AUDPC)
+#' Predict Leaf Blast Area Under the Disease Progress Curve (AUDPC)
 #'
-#' A dynamic mechanistic simulation of leaf blast disease of rice.
-#' The model is driven by daily weather data. Adapted from cropsim package
+#' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
+#' \emph{Magnaporthe oryzae}.
+#' The model is driven by daily weather data. Adapted from \pkg{cropsim} package
 #' version 0.2.0-5 by Adam H. Sparks - USQ CCH.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
 #' Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
