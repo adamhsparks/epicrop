@@ -14,7 +14,7 @@
 #' @return A raster of AUDPC values for brown spot based on given weather data
 #'
 #' @examples
-#' wth <- readr::read_table(system.file("extdata", "daily_weather_28368.nasa",
+#' wth <- read_table(system.file("extdata", "daily_weather_28368.nasa",
 #' package = "epirice"), skip = 13)
 #' bs <- brown_spot(wth, onset = 20, duration = 120)
 #' plot(bs, type = 2)

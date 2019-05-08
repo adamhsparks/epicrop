@@ -23,12 +23,9 @@ Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
     email = "aji.ixb@gmail.com",
     comment = "Helped fix bug related to SEIR model and establishment date."))
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
-Description: A fork of the cropsim R package by Hijmans \emph{et al.}. This
-    package is intended to make the EPIRICE model easier to use while stripping
-    other functions not related to rice diseases from the R package.
-Imports:
-    raster,
-    readr
+Description: A fork of the cropsim R package by Hijmans et al. This package is
+    intended to make the EPIRICE model easier to use while stripping other
+    functions not related to rice diseases from the R package.
 License: GPL-3 + file LICENSE
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
@@ -39,6 +36,7 @@ ByteCompile: TRUE
 URL: https://github.com/adamhsparks/epirice
 Bugreports: https://github.com/adamhsparks/epirice/issues
 Suggests: knitr,
+    nasapower,
     rmarkdown,
     testthat,
     covr

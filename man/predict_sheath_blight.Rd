@@ -24,8 +24,7 @@ data that has the following fields and proper data in them will work:
 \item{...}{Additional arguments, see \code{\link{SEIR}}}
 }
 \value{
-A raster of AUDPC values for sheath blight based on given weather
-data
+An EPIRICE object
 }
 \description{
 A dynamic mechanistic simulation of sheath blight disease of rice, causal

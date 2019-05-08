@@ -23,7 +23,7 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see \code{\link{SEIR}}
 #'
-#' @return A raster of AUDPC values for tungro based on given weather data
+#' @return An EPIRICE object
 #'
 #' @examples
 #' \dontrun{
