@@ -149,7 +149,7 @@ SEIR <-
                               (sites[day + 1] + diseased[day + 1]))
 
       if (day == onset) {
-        # initialization of the disease
+        # initialisation of the disease
         infection[day + 1] <- init_infection
       } else if (day > onset) {
         infection[day + 1] <- now_infectious[day + 1] *
