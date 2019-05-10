@@ -23,13 +23,14 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see \code{\link{SEIR}}
 #'
-#' @return An EPIRICE object
+#' @return An \pkg{epirice} \code{SEIR} object
 #'
 #' @examples
+#' \donttest{
 #' wth <-
 #' sb <- predict_sheath_blight(wth, emergence = "2000-05-15")
 #' plot(bb, type = 2)
-#'
+#' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
 #' @references Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the

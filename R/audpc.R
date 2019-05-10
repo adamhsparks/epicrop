@@ -1,6 +1,7 @@
 
 # Adapted from cropsim package version 0.2.0-5 by Adam H. Sparks - USQ CCH
 
+#' @noRd
 audpc <- function(x) {
   if (length(x$severity) > 0) {
     return(sum(x$severity))

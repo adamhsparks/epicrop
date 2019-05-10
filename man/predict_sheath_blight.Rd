@@ -24,7 +24,7 @@ data that has the following fields and proper data in them will work:
 \item{...}{Additional arguments, see \code{\link{SEIR}}}
 }
 \value{
-An EPIRICE object
+An \pkg{epirice} \code{SEIR} object
 }
 \description{
 A dynamic mechanistic simulation of sheath blight disease of rice, causal
@@ -36,10 +36,11 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
+\donttest{
 wth <-
 sb <- predict_sheath_blight(wth, emergence = "2000-05-15")
 plot(bb, type = 2)
-
+}
 }
 \references{
 Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the

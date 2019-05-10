@@ -12,6 +12,7 @@
 
 # onset = 25 deleted as component of tungro function, as onset is not a constant
 #component on nb of rice crop per year should be added in the function
+#' @noRd
 tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
                     rainlim = 0, wetness = 1, pcisrice = 1) {
   emergence <- as.Date(emergence)
@@ -20,6 +21,7 @@ tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
   if (dim(wth@w)[1] < duration) {
     stop("Incomplete weather data")
   }
+
   wth@w <- wth@w[1:(duration + 1), ]
   rrg <- 0.1
   senesc_type <- 1
@@ -35,6 +37,8 @@ tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
   early <- 25
   late <- 40
   infday <- NULL
+  rhx <- NULL
+  rain <- NULL
 
   if (pcisrice  ==  1) {
     pc <- 1
@@ -163,7 +167,7 @@ colnames(res) <- c("date", "simday", "sites", "latent", "infectious",
                    "removed", "senesced", "rateinf", "rtransfer", "rgrowth",
                    "rsenesced", "diseased", "incidence", "prev_rainfall_index")
 
-result <- new("SEIR")
+result <- methods::new("SEIR")
 result@d <- res
 return(result)
 }

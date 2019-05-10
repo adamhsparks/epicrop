@@ -23,10 +23,10 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see \code{\link{SEIR}}
 #'
-#' @return An EPIRICE object
+#' @return An \pkg{epirice} \code{SEIR} object
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(nasapower)
 #' wth <- get_cell(lonlat = c(-179.5, -89.5), endate = "1983-05-31")
 #' bb <- predict_bacterial_blight(wth, emergence = "1983-01-15")

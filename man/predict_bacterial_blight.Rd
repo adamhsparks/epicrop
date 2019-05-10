@@ -24,7 +24,7 @@ data that has the following fields and proper data in them will work:
 \item{...}{Additional arguments, see \code{\link{SEIR}}}
 }
 \value{
-An EPIRICE object
+An \pkg{epirice} \code{SEIR} object
 }
 \description{
 A dynamic mechanistic simulation of bacterial blight disease of rice,
@@ -36,7 +36,7 @@ Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
 }
 \examples{
-\dontrun{
+\donttest{
 library(nasapower)
 wth <- get_cell(lonlat = c(-179.5, -89.5), endate = "1983-05-31")
 bb <- predict_bacterial_blight(wth, emergence = "1983-01-15")

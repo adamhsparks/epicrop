@@ -24,7 +24,7 @@ data that has the following fields and proper data in them will work:
 \item{...}{Additional arguments, see \code{\link{SEIR}}}
 }
 \value{
-An EPIRICE object
+An \pkg{epirice} \code{SEIR} object
 }
 \description{
 A dynamic mechanistic simulation of tungro disease of rice, causal agents

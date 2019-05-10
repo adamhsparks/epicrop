@@ -6,7 +6,6 @@
 # Version 0.1
 # Licence GPL v3
 
-
 setMethod("plot", signature(x = "SEIR", y = "missing"),
   function(x, y, type=1, ...) {
     x <- x@d
@@ -28,22 +27,22 @@ setMethod("plot", signature(x = "SEIR", y = "missing"),
 
 .splot1 <- function(x, ylim = c(0, 500), ...) {
   plot(x$date, x$sites, ylim = ylim, ylab = "sites", ...)
-  points(x$date, x$diseased, col = "gray")
-  points(x$date, x$removed, col = "blue")
-  points(x$date, x$latent, col = "red")
-  points(x$date, x$infectious, col = "green")
-  legend(x$date[2], ylim[2] - 10,
+  graphics::points(x$date, x$diseased, col = "gray")
+  graphics::points(x$date, x$removed, col = "blue")
+  graphics::points(x$date, x$latent, col = "red")
+  graphics::points(x$date, x$infectious, col = "green")
+  graphics::legend(x$date[2], ylim[2] - 10,
          c("diseased", "removed", "latent", "infectious"),
          col = c("gray", "blue", "red", "green"), pch = 21)
 }
 
 .splot2 <- function(x, ...) {
   plot(x$date, x$sites, ylab = "sites", ...)
-  points(x$date, x$diseased, col = "gray", ...)
-  points(x$date, x$removed, col = "blue", ...)
-  points(x$date, x$latent, col = "red", ...)
-  points(x$date, x$infectious, col = "green", ...)
-  legend(0, max(x$sites), legend =
+  graphics::points(x$date, x$diseased, col = "gray", ...)
+  graphics::points(x$date, x$removed, col = "blue", ...)
+  graphics::points(x$date, x$latent, col = "red", ...)
+  graphics::points(x$date, x$infectious, col = "green", ...)
+  graphics::legend(0, max(x$sites), legend =
            c("sites", "diseased", "removed", "latent", "infectious"),
          col = c("black", "gray", "blue", "red", "green"), pch = 21)
 }
@@ -51,7 +50,7 @@ setMethod("plot", signature(x = "SEIR", y = "missing"),
 .splot3 <- function(x, ...) {
   plot(x$date, x$severity, ylim = c(0, 100),
        ylab = "incidence or severity (%)", ...)
-  legend(0, 60, c("severity"), col = c("black"), pch = 21)
+  graphics::legend(0, 60, c("severity"), col = c("black"), pch = 21)
 }
 
 .splot4 <- function(x, vars=c("sites", "diseased", "removed", "latent",
@@ -60,7 +59,7 @@ setMethod("plot", signature(x = "SEIR", y = "missing"),
   plot(x$date, x[[vars[1]]], xlab = "time", ylab = "sites", col = cols[1], ...)
   if (length(vars) > 1) {
     for (i in 2:length(vars)) {
-      points(x$date, x[[vars[i]]], ylab = "sites", col = cols[i], ...)
+      graphics::points(x$date, x[[vars[i]]], ylab = "sites", col = cols[i], ...)
     }
   }
 }
@@ -70,7 +69,7 @@ setMethod("plot", signature(x = "SEIR", y = "missing"),
   plot(x$date, x[, vars[1]], xlab = "time", ylab = "sites", col = cols[1], ...)
   if (length(vars) > 1) {
     for (i in 2:length(vars)) {
-      points(x$date, x[, vars[i]], ylab = "sites", col = cols[i], ...)
+      graphics::points(x$date, x[, vars[i]], ylab = "sites", col = cols[i], ...)
     }
   }
 }

@@ -24,7 +24,7 @@ data that has the following fields and proper data in them will work:
 \item{...}{Additional arguments, see \code{\link{SEIR}}}
 }
 \value{
-An EPIRICE object
+An \pkg{epirice} \code{SEIR} object
 }
 \description{
 A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
@@ -36,7 +36,7 @@ Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
 (IRRI).
 }
 \examples{
-\dontrun{
+\donttest{
 wth <-
 lb <- predict_leaf_blast(wth, emergence = "2000-05-15")
 plot(lb, type = 2)

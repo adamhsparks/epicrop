@@ -23,10 +23,10 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see \code{\link{SEIR}}
 #'
-#' @return An EPIRICE object
+#' @return An \pkg{epirice} \code{SEIR} object
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' wth <-
 #' bs <- predict_brown_spot(wth, emergence = "2000-05-15")
 #' plot(bs, type = 2)
