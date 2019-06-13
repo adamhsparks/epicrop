@@ -71,8 +71,9 @@ SEIR <-
     infday <- NULL
     leaf_wet <- NULL
 
+    # set date formats
     emergence <- as.Date(emergence)
-    wth$date
+    wth$YYYYMMDD <- as.Date(wth$YYYYMMDD)
 
     # convert emergence date into Julian date, sequential day in year
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
@@ -131,8 +132,8 @@ SEIR <-
       }
 
       if (wetness == 0) {
-        if (wth$rhmax[day + 1] == rhlim |
-            wth$prec[day + 1] >= rainlim) {
+        if (wth$RH[day + 1] == rhlim |
+            wth$RAIN[day + 1] >= rainlim) {
           RHCoef[day + 1] <- 1
         }
       } else {
@@ -140,7 +141,7 @@ SEIR <-
       }
 
       rc[day + 1] <- base_rc * afgen(age_rc, day) *
-        afgen(tmp_rc, wth$tavg[day + 1]) * RHCoef[day + 1]
+        afgen(tmp_rc, wth$TM[day + 1]) * RHCoef[day + 1]
       diseased[day + 1] <- sum(infectious) +
         now_latent[day + 1] + removed[day + 1]
       removed[day + 1] <- sum(infectious) - now_infectious[day + 1]
@@ -210,4 +211,21 @@ SEIR <-
     result <- methods::new("SEIR")
     result@d <- res
     return(result)
+  }
+
+.leaf_wet <-
+  function(rhmn, rhmx, tmin, tmax, lat, date, simple = TRUE) {
+    rh <- (rhmn + rhmx) / 2
+    rh <- .diurnalRH(rh, tmin, tmax, lat, date)
+    if (simple) {
+      lw <- length(rh[rh >= 90])
+    } else {
+      w <- rh
+      x <- (rh - 80) / (95 - 80)
+      w[rh > 95] <- 1
+      w[rh < 95] <- x[rh < 95]
+      w[rh < 80] <- 0
+      lw <- sum(w)
+    }
+    return(lw)
   }
