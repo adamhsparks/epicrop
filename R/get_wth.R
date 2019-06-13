@@ -30,7 +30,7 @@ get_wth <- function(lonlat, dates) {
   )
 
   wth <- wth[,c(7, 6, 8, 10, 9, 11, 12)]
-  names(wth) <- c("YYYYMMDD", "DOY", "T2M", "T2MN", "T2MX", "RH2M", "RAIN")
+  names(wth) <- c("YYYYMMDD", "DOY", "TM", "TN", "TX", "RH", "RAIN")
 
   return(wth)
 }
