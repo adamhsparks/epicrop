@@ -27,7 +27,6 @@
 #'
 #' @examples
 #' \donttest{
-#' library(nasapower)
 #' wth <- get_wth(lonlat = c(-179.5, -89.5),
 #'                start = "1985-01-15,
 #'                end = "1983-05-31")
