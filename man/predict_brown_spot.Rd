@@ -8,15 +8,15 @@ predict_brown_spot(wth, emergence = "2000-05-15", ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER, but any
-data that has the following fields and proper data in them will work:
-\describe{
-\item{YYYYMMDD}{Date in YYYY-MM-DD format}
-\item{DOY}{Numeric day of year, e.g. 1 - 365}
-\item{T2M}{Mean daily temperature}
-\item{T2MN}{Minimum daily temperature}
-\item{T2MX}{Maximum daily temperature}
-\item{RH2M}{Relative humidity}
-\item{RAIN}{Precipitation}
+data that has the properly named fields data in them will work.
+\itemize{
+\item YYYYMMDD Date in YYYY-MM-DD format
+\item DOY Numeric day of year, e.g. 1 - 365
+\item T2M Mean daily temperature
+\item T2MN Minimum daily temperature
+\item T2MX Maximum daily temperature
+\item RH2M Relative humidity
+\item RAIN Precipitation
 }}
 
 \item{emergence}{Expected date of crop emergence}

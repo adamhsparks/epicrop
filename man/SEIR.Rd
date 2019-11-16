@@ -30,15 +30,14 @@ SEIR(
 \arguments{
 \item{wth}{a data frame of weather on a daily time-step containing data
 with the following field names.
-
-\describe{
-\item{YYYYMMDD}{Date in YYYY-MM-DD format}
-\item{DOY}{Numeric day of year, e.g. 1 - 365}
-\item{T2M}{Mean daily temperature}
-\item{T2MN}{Minimum daily temperature}
-\item{T2MX}{Maximum daily temperature}
-\item{RH2M}{Relative humidity}
-\item{RAIN}{Precipitation}
+\itemize{
+\item YYYYMMDD Date in YYYY-MM-DD format
+\item DOY Numeric day of year, e.g. 1 - 365
+\item T2M Mean daily temperature
+\item T2MN Minimum daily temperature
+\item T2MX Maximum daily temperature
+\item RH2M Relative humidity
+\item RAIN Precipitation
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
@@ -50,32 +49,22 @@ emergence date}
 \item{duration}{simulation duration}
 
 \item{rhlim}{threshold to decide whether leaves are wet or not (usually
-90\\%)}
+90 pct)}
 
 \item{rainlim}{threshold to decide whether leaves are wet or not}
 
 \item{wetness}{simulate RHmax or rain threshold (0) or leaf wetness duration
 (1)}
 
-\item{init_sites}{\itemize{
-\item 
-}}
+\item{init_sites}{NA}
 
-\item{init_infection}{\itemize{
-\item 
-}}
+\item{init_infection}{NA}
 
-\item{age_rc}{\itemize{
-\item 
-}}
+\item{age_rc}{NA}
 
-\item{tmp_rc}{\itemize{
-\item 
-}}
+\item{tmp_rc}{NA}
 
-\item{rh_rc}{\itemize{
-\item 
-}}
+\item{rh_rc}{NA}
 
 \item{base_rc}{corrected basic infection rate}
 
@@ -83,23 +72,15 @@ emergence date}
 
 \item{inftrans}{infectious period}
 
-\item{site_max}{\itemize{
-\item 
-}}
+\item{site_max}{NA}
 
-\item{aggr}{\itemize{
-\item 
-}}
+\item{aggr}{NA}
 
 \item{rr_physiol_senesc}{relative rate of physiological senescence}
 
-\item{rrg}{\itemize{
-\item 
-}}
+\item{rrg}{NA}
 
-\item{senesc_type}{\itemize{
-\item 
-}}
+\item{senesc_type}{NA}
 }
 \description{
 This function is used by specific disease models in EPIRICE to model disease

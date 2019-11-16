@@ -6,39 +6,36 @@
 #'
 #' @param wth a data frame of weather on a daily time-step containing data
 #' with the following field names.
-#'
-#' \describe{
-#'   \item{YYYYMMDD}{Date in YYYY-MM-DD format}
-#'   \item{DOY}{Numeric day of year, e.g. 1 - 365}
-#'   \item{T2M}{Mean daily temperature}
-#'   \item{T2MN}{Minimum daily temperature}
-#'   \item{T2MX}{Maximum daily temperature}
-#'   \item{RH2M}{Relative humidity}
-#'   \item{RAIN}{Precipitation}
-#' }
+#'   * YYYYMMDD Date in YYYY-MM-DD format
+#'   * DOY Numeric day of year, e.g. 1 - 365
+#'   * T2M Mean daily temperature
+#'   * T2MN Minimum daily temperature
+#'   * T2MX Maximum daily temperature
+#'   * RH2M Relative humidity
+#'   * RAIN Precipitation
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
 #' format (usually supplied through the disease model function)
 #' @param onset expected number of days until the onset of disease after
 #' emergence date
 #' @param duration simulation duration
 #' @param rhlim threshold to decide whether leaves are wet or not (usually
-#' 90\%)
+#' 90 pct)
 #' @param rainlim threshold to decide whether leaves are wet or not
 #' @param wetness simulate RHmax or rain threshold (0) or leaf wetness duration
 #' (1)
-#' @param init_sites -
-#' @param init_infection -
-#' @param age_rc -
-#' @param tmp_rc -
-#' @param rh_rc -
+#' @param init_sites NA
+#' @param init_infection NA
+#' @param age_rc NA
+#' @param tmp_rc NA
+#' @param rh_rc NA
 #' @param base_rc corrected basic infection rate
 #' @param latrans latent period
 #' @param inftrans infectious period
-#' @param site_max -
-#' @param aggr -
+#' @param site_max NA
+#' @param aggr NA
 #' @param rr_physiol_senesc relative rate of physiological senescence
-#' @param rrg -
-#' @param senesc_type -
+#' @param rrg NA
+#' @param senesc_type NA
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' Adam H Sparks, Aji Sukarta
