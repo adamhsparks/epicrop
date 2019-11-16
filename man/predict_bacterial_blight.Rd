@@ -35,6 +35,16 @@ Original model development: Serge Savary & Rene Pangga (IRRI).
 Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
 }
+\examples{
+\donttest{
+wth <- get_wth(lonlat = c(-179.5, -89.5),
+               start = "1985-01-15",
+               end = "1983-05-31")
+bb <- predict_bacterial_blight(wth, emergence = "1983-01-15")
+plot(bb, type = 2)
+}
+
+}
 \references{
 Adhikari, T.B., 1991. Effects of rice genotype and environment on
 bacterial blight progression. PhD thesis, University of the Philippines at

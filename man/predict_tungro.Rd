@@ -32,12 +32,14 @@ A dynamic mechanistic simulation of tungro disease of rice, causal agents
 The model is driven by daily weather data. Adapted from \pkg{cropsim} package
 version 0.2.0-5 by Adam H. Sparks - USQ CCH.
 Original model development: Serge Savary & Rene Pangga (IRRI).
-Original R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
-(IRRI).
+Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
+Aunario (IRRI).
 }
 \examples{
 \dontrun{
-wth <-
+wth <- get_wth(lonlat = c(-179.5, -89.5),
+               start = "1985-01-15",
+               end = "1983-05-31")
 tg <- predict_tungro(wth, emergence = "2000-05-15")
 plot(tg, type = 2)
 }

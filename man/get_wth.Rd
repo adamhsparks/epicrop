@@ -19,6 +19,11 @@ A \code{data.frame} of weather data suitable for use in \pkg{epirice}.
 Get Weather Data from NASA POWER
 }
 \examples{
+\donttest{
 wth <- get_wth(lonlat = c(151.81, -27.48),
                dates = c("2015-01-15", "2015-05-15"))
+}
+}
+\author{
+Adam H. Sparks,
 }

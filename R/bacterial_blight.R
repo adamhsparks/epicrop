@@ -28,11 +28,12 @@
 #' @examples
 #' \donttest{
 #' wth <- get_wth(lonlat = c(-179.5, -89.5),
-#'                start = "1985-01-15,
+#'                start = "1985-01-15",
 #'                end = "1983-05-31")
 #' bb <- predict_bacterial_blight(wth, emergence = "1983-01-15")
 #' plot(bb, type = 2)
 #' }
+#'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
 #' @references Adhikari, T.B., 1991. Effects of rice genotype and environment on

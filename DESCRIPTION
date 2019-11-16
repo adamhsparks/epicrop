@@ -25,9 +25,10 @@ Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
 Description: A fork of the 'cropsim' R package by Hijmans et al. This package is
     intended to make the EPIRICE model easier to use while stripping other
-    functions not related to rice diseases from the R package.
+    functions not related to rice diseases from the R package and removing
+    the hooks to the IRRI GIS lab databases.
 License: GPL-3 + file LICENSE
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Encoding: UTF-8

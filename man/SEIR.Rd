@@ -4,10 +4,28 @@
 \alias{SEIR}
 \title{Susceptible-Exposed-Infectious-Removed (SEIR) Model}
 \usage{
-SEIR(wth, emergence, onset = 15, duration = 120, rhlim = 90,
-  rainlim = 5, wetness = 0, init_sites, init_infection = 1, age_rc,
-  tmp_rc, rh_rc, base_rc, latrans, inftrans, site_max, aggr,
-  rr_physiol_senesc, rrg, senesc_type = 1)
+SEIR(
+  wth,
+  emergence,
+  onset = 15,
+  duration = 120,
+  rhlim = 90,
+  rainlim = 5,
+  wetness = 0,
+  init_sites,
+  init_infection = 1,
+  age_rc,
+  tmp_rc,
+  rh_rc,
+  base_rc,
+  latrans,
+  inftrans,
+  site_max,
+  aggr,
+  rr_physiol_senesc,
+  rrg,
+  senesc_type = 1
+)
 }
 \arguments{
 \item{wth}{a data frame of weather on a daily time-step containing data
@@ -32,7 +50,7 @@ emergence date}
 \item{duration}{simulation duration}
 
 \item{rhlim}{threshold to decide whether leaves are wet or not (usually
-90\%)}
+90\\%)}
 
 \item{rainlim}{threshold to decide whether leaves are wet or not}
 
