@@ -2,13 +2,14 @@
 % Please edit documentation in R/sheath_blight.R
 \name{predict_sheath_blight}
 \alias{predict_sheath_blight}
-\title{Predict sheath blight area under the disease progress curve (AUDPC)}
+\title{Predict rice sheath blight area under the disease progress curve (AUDPC)}
 \usage{
 predict_sheath_blight(wth, emergence = "2000-05-15", ...)
 }
 \arguments{
-\item{wth}{Weather data with a daily time-step, normally NASA-POWER, but any
-data that has the properly named fields data in them will work.
+\item{wth}{Weather data with a daily time-step, normally NASA-POWER from
+\code{\link{get_wth}}, but any data that has the properly named fields data
+in them will work.
 \itemize{
 \item YYYYMMDD Date in YYYY-MM-DD format
 \item DOY Numeric day of year, e.g. 1 - 365
@@ -28,7 +29,7 @@ An \pkg{epirice} \code{SEIR} object
 }
 \description{
 A dynamic mechanistic simulation of sheath blight disease of rice, causal
-agent \emph{Thanatephorus cucumeris}.
+agent \emph{Rhizoctonia solani} AG1-1A Kühn.
 The model is driven by daily weather data. Adapted from \pkg{cropsim} package
 version 0.2.0-5 by Adam H. Sparks - USQ CCH.
 Original model development: Serge Savary & Rene Pangga (IRRI).

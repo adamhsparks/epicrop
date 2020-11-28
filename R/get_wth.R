@@ -1,5 +1,5 @@
 
-#' Get Weather Data from NASA POWER
+#' Get weather data from NASA POWER
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
 #'  entered as x, y coordinates.
@@ -26,10 +26,11 @@ get_wth <- function(lonlat, dates) {
                "T2M_MIN",
                "RH2M",
                "PRECTOT"),
-      temporal_average = "DAILY")
+      temporal_average = "DAILY"
+    )
   )
 
-  wth <- wth[,c(7, 6, 8, 10, 9, 11, 12)]
+  wth <- wth[, c(7, 6, 8, 10, 9, 11, 12)]
   names(wth) <- c("YYYYMMDD", "DOY", "TM", "TN", "TX", "RH", "RAIN")
 
   return(wth)

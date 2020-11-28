@@ -2,13 +2,14 @@
 % Please edit documentation in R/leaf_blast.R
 \name{predict_leaf_blast}
 \alias{predict_leaf_blast}
-\title{Predict Leaf Blast Area Under the Disease Progress Curve (AUDPC)}
+\title{Predict rice leaf blast area under the disease progress curve (AUDPC)}
 \usage{
 predict_leaf_blast(wth, emergence = "2000-05-15", ...)
 }
 \arguments{
-\item{wth}{Weather data with a daily time-step, normally NASA-POWER, but any
-data that has the properly named fields data in them will work.
+\item{wth}{Weather data with a daily time-step, normally NASA-POWER from
+\code{\link{get_wth}}, but any data that has the properly named fields data
+in them will work.
 \itemize{
 \item YYYYMMDD Date in YYYY-MM-DD format
 \item DOY Numeric day of year, e.g. 1 - 365

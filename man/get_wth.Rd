@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wth.R
 \name{get_wth}
 \alias{get_wth}
-\title{Get Weather Data from NASA POWER}
+\title{Get weather data from NASA POWER}
 \usage{
 get_wth(lonlat, dates)
 }
@@ -16,7 +16,7 @@ entered as x, y coordinates.}
 A \code{data.frame} of weather data suitable for use in \pkg{epirice}.
 }
 \description{
-Get Weather Data from NASA POWER
+Get weather data from NASA POWER
 }
 \examples{
 \donttest{

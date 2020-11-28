@@ -1,5 +1,5 @@
 
-#' Susceptible-Exposed-Infectious-Removed (SEIR) Model
+#' Susceptible-Exposed-Infectious-Removed (SEIR) model
 #'
 #' This function is used by specific disease models in EPIRICE to model disease
 #' severity.
@@ -44,7 +44,7 @@
 #' \code{\link{predict_leaf_blast}}, \code{\link{predict_bacterial_blight}},
 #' \code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
 #'
-#' @noRd
+#' @export
 #'
 SEIR <-
   function(wth,

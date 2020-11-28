@@ -1,5 +1,5 @@
 
-#' Predict Leaf Blast Area Under the Disease Progress Curve (AUDPC)
+#' Predict rice leaf blast area under the disease progress curve (AUDPC)
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 #' \emph{Magnaporthe oryzae}.
@@ -9,8 +9,9 @@
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).
 #'
-#' @param wth Weather data with a daily time-step, normally NASA-POWER, but any
-#' data that has the properly named fields data in them will work.
+#' @param wth Weather data with a daily time-step, normally NASA-POWER from
+#' \code{\link{get_wth}}, but any data that has the properly named fields data
+#' in them will work.
 #'   * YYYYMMDD Date in YYYY-MM-DD format
 #'   * DOY Numeric day of year, e.g. 1 - 365
 #'   * T2M Mean daily temperature
