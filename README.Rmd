@@ -12,10 +12,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Travis-CI Build Status](https://travis-ci.org/adamhsparks/epirice.svg?branch=master)](https://travis-ci.org/adamhsparks/epirice)
-[![Coverage Status](https://img.shields.io/codecov/c/github/adamhsparks/epirice/master.svg)](https://codecov.io/github/adamhsparks/epirice?branch=master)
-
-
 # EPIRICE
 
 A fork of the R [cropsim package](https://r-forge.r-project.org/R/?group_id=335)
