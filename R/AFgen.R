@@ -8,14 +8,14 @@ afgen <- function(xy, x) {
   } else if (x >= xy[d[1], 1]) {
     res <- xy[d[1], 2]
   } else {
-    a <- xy[xy[, 1] <= x,]
-    b <- xy[xy[, 1] >= x,]
+    a <- xy[xy[, 1] <= x, ]
+    b <- xy[xy[, 1] >= x, ]
     if (length(a) == 2) {
-      int <- rbind(a, b[1,])
+      int <- rbind(a, b[1, ])
     } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1],], b)
+      int <- rbind(a[dim(a)[1], ], b)
     } else {
-      int <- rbind(a[dim(a)[1],], b[1,])
+      int <- rbind(a[dim(a)[1], ], b[1, ])
     }
     if (x == int[1, 1]) {
       res <- int[1, 2]
