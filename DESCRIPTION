@@ -28,7 +28,7 @@ Description: A fork of the 'cropsim' R package by Hijmans et al. This package is
     functions not related to rice diseases from the R package and removing
     the hooks to the IRRI GIS lab databases.
 License: GPL-3 + file LICENSE
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Encoding: UTF-8

@@ -44,6 +44,8 @@
 #' \code{\link{predict_leaf_blast}}, \code{\link{predict_bacterial_blight}},
 #' \code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
 #'
+#' @noRd
+#'
 SEIR <-
   function(wth,
            emergence,
