@@ -39,9 +39,8 @@ Aunario (IRRI).
 \examples{
 \donttest{
 wth <- get_wth(lonlat = c(-179.5, -89.5),
-               start = "1985-01-15",
-               end = "1983-05-31")
-bs <- predict_brown_spot(wth, emergence = "2000-05-15")
+               dates = c("2000-01-15", "2000-05-31"))
+bs <- predict_brown_spot(wth, emergence = "2000-01-15")
 plot(bs, type = 2)
 }
 

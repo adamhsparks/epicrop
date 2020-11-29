@@ -39,8 +39,7 @@ Aunario (IRRI).
 \examples{
 \donttest{
 wth <- get_wth(lonlat = c(-179.5, -89.5),
-               start = "1985-01-15",
-               end = "1983-05-31")
+               dates = c("2000-01-15", "2000-05-31"))
 lb <- predict_leaf_blast(wth, emergence = "2000-05-15")
 plot(lb, type = 2)
 }

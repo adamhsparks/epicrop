@@ -38,9 +38,8 @@ Aunario (IRRI).
 \examples{
 \donttest{
 wth <- get_wth(lonlat = c(-179.5, -89.5),
-               start = "1985-01-15",
-               end = "1983-05-31")
-bb <- predict_bacterial_blight(wth, emergence = "1983-01-15")
+               dates = c("2000-01-15", "2000-05-31"))
+bb <- predict_bacterial_blight(wth, emergence = "2000-01-15")
 plot(bb, type = 2)
 }
 

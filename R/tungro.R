@@ -28,9 +28,8 @@
 #' @examples
 #' \dontrun{
 #' wth <- get_wth(lonlat = c(-179.5, -89.5),
-#'                start = "1985-01-15",
-#'                end = "1983-05-31")
-#' tg <- predict_tungro(wth, emergence = "2000-05-15")
+#'                dates = c("2000-01-15", "2000-05-31"))
+#' tg <- predict_tungro(wth, emergence = "2000-01-15")
 #' plot(tg, type = 2)
 #' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
