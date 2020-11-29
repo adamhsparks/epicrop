@@ -215,7 +215,7 @@ SEIR <-
   function(rhmn, rhmx, tmin, tmax, lat, date, simple = TRUE) {
     rh <- (rhmn + rhmx) / 2
     rh <- meteor::.diurnalRH(rh, tmin, tmax, lat, date)
-    if (simple) {
+    if (isTRUE(simple)) {
       lw <- length(rh[rh >= 90])
     } else {
       w <- rh
