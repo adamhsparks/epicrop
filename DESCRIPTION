@@ -49,7 +49,7 @@ ByteCompile: TRUE
 URL: https://github.com/adamhsparks/epirice
 Bugreports: https://github.com/adamhsparks/epirice/issues
 Depends:
-    R (>= 3.0.0)
+    R (>= 3.5.0)
 Imports:
     data.table,
     graphics,
