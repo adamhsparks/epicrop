@@ -62,7 +62,7 @@ transmission of rice tungro virus by \emph{Nephotettix virescens}.
 Philippine Phytopathology 11:46-57.
 }
 \seealso{
-#' \code{\link{predict_leaf_blast}},
+\code{\link{predict_leaf_blast}},
 \code{\link{predict_bacterial_blight}}, \code{\link{predict_brown_spot}},
 \code{\link{predict_sheath_blight}}
 }
