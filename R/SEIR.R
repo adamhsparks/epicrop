@@ -211,20 +211,3 @@ SEIR <-
     result@d <- res
     return(result)
   }
-
-.leaf_wet <-
-  function(rhmn, rhmx, tmin, tmax, lat, date, simple = TRUE) {
-    rh <- (rhmn + rhmx) / 2
-    rh <- meteor::.diurnalRH(rh, tmin, tmax, lat, date)
-    if (isTRUE(simple)) {
-      lw <- length(rh[rh >= 90])
-    } else {
-      w <- rh
-      x <- (rh - 80) / (95 - 80)
-      w[rh > 95] <- 1
-      w[rh < 95] <- x[rh < 95]
-      w[rh < 80] <- 0
-      lw <- sum(w)
-    }
-    return(lw)
-  }
