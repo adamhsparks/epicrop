@@ -4,24 +4,38 @@ Title: Simulation modeling of rice crop diseases
 Version: 0.0.0.9000
 Depends:
     R (>= 3.0.0)
-Authors@R: c(person("Adam", "Sparks", role = c("cre", "aut"),
-    email = "adamhsparks@gmail.com",
-    comment = c(ORCID = "0000-0002-0061-8359")),
-    person("Robert", "Hijmans", role = c("aut", "trl"),
-    email = "robert.hijmans@gmail.com",
-    comment = "Original R Implementation"),
-    person("Serge", "Savary", role = "aut",
-    email = "serge.savary@toulouse.inra.fr",
-    comment = "Model Development"),
-    person("Ireno", "Pangga", role = c("aut", "trl"),
-    email = "ibpangga@yahoo.com",
-    comment = "Model Development and Original R Implementation"),
-    person("Jorrel", "Aunario", role = c("aut", "trl"),
-    email = "j.aunario@irri.org",
-    comment = "Original R Implementation"),
-    person("Aji", "Sukarta", role = "ctb",
-    email = "aji.ixb@gmail.com",
-    comment = "Helped fix bug related to SEIR model and establishment date."))
+Authors@R: c(
+    person(given = "Adam",
+           family = "Sparks",
+           role = c("cre", "aut"),
+           email = "adamhsparks@gmail.com",
+           comment = c(ORCID = "0000-0002-0061-8359")),
+    person(given = "Robert",
+           family = "Hijmans",
+           role = c("aut", "trl"),
+           email = "robert.hijmans@gmail.com",
+           comment = "Original R Implementation"),
+    person(given = "Serge",
+           family = "Savary",
+           role = c("aut", "ccp"),
+           email = "serge.savary@toulouse.inra.fr",
+           comment = "Model idea and development"),
+    person(given = "Ireno",
+           family = "Pangga",
+           role = c("aut", "trl"),
+           email = "ibpangga@yahoo.com",
+           comment = "Model Development and Original R Implementation"),
+    person(given = "Jorrel",
+           family = "Aunario",
+           role = c("aut", "trl"),
+           email = "j.aunario@irri.org",
+           comment = "Original R Implementation"),
+    person(given = "Aji",
+           family = "Sukarta",
+           role = "ctb",
+           email = "aji.ixb@gmail.com",
+           comment = "Helped fix bug related to SEIR model and establishment
+           date."))
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
 Description: A fork of the 'cropsim' R package by Hijmans et al. This package is
     intended to make the EPIRICE model easier to use while stripping other
@@ -39,6 +53,7 @@ Bugreports: https://github.com/adamhsparks/epirice/issues
 Imports:
     graphics,
     methods,
+    meteor,
     nasapower
 Suggests:
     knitr,
