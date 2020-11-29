@@ -2,8 +2,6 @@ Package: epirice
 Type: Package
 Title: Simulation modeling of rice crop diseases
 Version: 0.0.0.9000
-Depends:
-    R (>= 3.0.0)
 Authors@R: c(
     person(given = "Adam",
            family = "Sparks",
@@ -50,7 +48,10 @@ NeedsCompilation: no
 ByteCompile: TRUE
 URL: https://github.com/adamhsparks/epirice
 Bugreports: https://github.com/adamhsparks/epirice/issues
+Depends:
+    R (>= 3.0.0)
 Imports:
+    data.table,
     graphics,
     methods,
     meteor,
