@@ -13,10 +13,16 @@ entered as x, y coordinates.}
 \item{dates}{A character vector of start and end dates in that order.}
 }
 \value{
-A \code{data.frame} of weather data suitable for use in \pkg{epirice}.
+A \code{\link[data.table]{data.table}} of weather data suitable for
+use in \pkg{epirice}.
 }
 \description{
 Get weather data from NASA POWER
+}
+\details{
+This function is just a wrapper for the \cranpkg{nasapower}
+\code{\link[nasapower]{get_power}} function with predefined parameters
+suitable for use in EPIRICE.
 }
 \examples{
 \donttest{

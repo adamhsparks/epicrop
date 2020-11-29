@@ -5,7 +5,12 @@
 #'  entered as x, y coordinates.
 #' @param dates A character vector of start and end dates in that order.
 #'
-#' @return A `data.frame` of weather data suitable for use in \pkg{epirice}.
+#' @return A \code{\link[data.table]{data.table}} of weather data suitable for
+#'  use in \pkg{epirice}.
+#'
+#' @details This function is just a wrapper for the \cranpkg{nasapower}
+#'  \code{\link[nasapower]{get_power}} function with predefined parameters
+#'  suitable for use in EPIRICE.
 #'
 #' @examples
 #' \donttest{
@@ -16,7 +21,7 @@
 #' @export get_wth
 
 get_wth <- function(lonlat, dates) {
-  wth <- as.data.frame(
+  wth <- setDT(
     nasapower::get_power(
       lonlat = lonlat,
       dates = dates,
@@ -30,8 +35,23 @@ get_wth <- function(lonlat, dates) {
     )
   )
 
-  wth <- wth[, c(7, 6, 8, 10, 9, 11, 12)]
-  names(wth) <- c("YYYYMMDD", "DOY", "TM", "TN", "TX", "RH", "RAIN")
+  wth[, c("YEAR", "MM", "DD") := NULL][]
+  setnames(
+    wth,
+    old = c(
+      "LON",
+      "LAT",
+      "DOY",
+      "YYYYMMDD",
+      "T2M",
+      "T2M_MAX",
+      "T2M_MIN",
+      "RH2M",
+      "PRECTOT"
+    ),
+    new = c("LON", "LAT", "YYYYMMDD", "DOY", "TM", "TN", "TX", "RH", "RAIN")
+  )
+  setcolorder(wth, c("YYYYMMDD", "DOY", "TM", "TN", "TX", "RH", "RAIN"))
 
   return(wth)
 }
