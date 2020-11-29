@@ -67,8 +67,9 @@ SEIR <-
            rr_physiol_senesc,
            rrg,
            senesc_type = 1) {
-    infday <- NULL
-    leaf_wet <- NULL
+
+    # CRAN NOTE avoidance
+    infday <- leaf_wet <- DOY <- NULL #nocov
 
     # set date formats
     emergence <- as.Date(emergence)
