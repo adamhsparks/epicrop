@@ -85,7 +85,7 @@ SEIR <-
     }
     wth <- wth[1:(duration + 1), ]
 
-    if (wetness  ==  1) {
+    if (wetness ==  1) {
       W <- leaf_wet(wth, simple = TRUE)
     }
 
@@ -215,7 +215,7 @@ SEIR <-
 .leaf_wet <-
   function(rhmn, rhmx, tmin, tmax, lat, date, simple = TRUE) {
     rh <- (rhmn + rhmx) / 2
-    rh <- .diurnalRH(rh, tmin, tmax, lat, date)
+    rh <- meteor::.diurnalRH(rh, tmin, tmax, lat, date)
     if (simple) {
       lw <- length(rh[rh >= 90])
     } else {
