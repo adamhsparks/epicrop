@@ -20,7 +20,7 @@ use in \pkg{epirice}.
 Get weather data from NASA POWER
 }
 \details{
-This function is just a wrapper for the \cranpkg{nasapower}
+This function is just a wrapper for the \CRANpkg{nasapower}
 \code{\link[nasapower]{get_power}} function with predefined parameters
 suitable for use in EPIRICE.
 }
