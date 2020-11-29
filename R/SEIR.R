@@ -72,7 +72,6 @@ SEIR <-
 
     # set date formats
     emergence <- as.Date(emergence)
-    wth$YYYYMMDD <- as.Date(wth$YYYYMMDD)
 
     # convert emergence date into Julian date, sequential day in year
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
