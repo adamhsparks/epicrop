@@ -77,7 +77,7 @@ SEIR <-
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
     # subset weather data where date is greater than emergence minus one
-    wth[DOI >= emergence - 1, ]
+    wth[DOY >= emergence - 1, ]
 
     if (dim(wth)[1] < duration) {
       stop("Incomplete weather data")
