@@ -77,15 +77,15 @@ SEIR <-
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
     # subset weather data where date is greater than emergence minus one
-    wth <- wth[wth$YYYYMMDD >= emergence - 1, ]
+    wth[DOI >= emergence - 1, ]
 
     if (dim(wth)[1] < duration) {
       stop("Incomplete weather data")
     }
     wth <- wth[1:(duration + 1), ]
 
-    if (wetness ==  1) {
-      W <- leaf_wet(wth, simple = TRUE)
+    if (wetness == 1) {
+      W <- .leaf_wet(wth, simple = TRUE)
     }
 
     # outputvars
