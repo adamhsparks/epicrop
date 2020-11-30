@@ -6,8 +6,17 @@
 #' @param dates A character vector of start and end dates in that order.
 #'
 #' @return A \code{\link[data.table]{data.table}} of weather data suitable for
-#'  use in \pkg{epirice}.
-#'
+#'  use in \pkg{epirice} with the following columns:
+#'   \tabular{rl}{
+#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
+#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
+#'   **TM**:\tab Mean daily temperature (°C).\cr
+#'   **TN**:\tab Minimum daily temperature (°C).\cr
+#'   **TX**:\tab Maximum daily temperature (°C).\cr
+#'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
+#'   **RH**:\tab Mean daily relative humidity (%).\cr
+#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
+#'   }
 #' @details This function is just a wrapper for the \CRANpkg{nasapower}
 #'  \code{\link[nasapower]{get_power}} function with predefined parameters
 #'  suitable for use in EPIRICE.
@@ -20,7 +29,7 @@
 #'   dates = c("2000-01-15", "2000-05-31")
 #' )
 #' }
-#' @author Adam H. Sparks,
+#' @author Adam H. Sparks
 #' @export get_wth
 
 get_wth <- function(lonlat, dates) {

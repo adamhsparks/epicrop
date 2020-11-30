@@ -14,7 +14,17 @@ entered as x, y coordinates.}
 }
 \value{
 A \code{\link[data.table]{data.table}} of weather data suitable for
-use in \pkg{epirice}.
+use in \pkg{epirice} with the following columns:
+\tabular{rl}{
+\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
+\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
+\strong{TM}:\tab Mean daily temperature (°C).\cr
+\strong{TN}:\tab Minimum daily temperature (°C).\cr
+\strong{TX}:\tab Maximum daily temperature (°C).\cr
+\strong{TDEW}:\tab Mean daily dew point temperature (°C).\cr
+\strong{RH}:\tab Mean daily relative humidity (\%).\cr
+\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
+}
 }
 \description{
 Get weather data from NASA POWER
@@ -34,5 +44,5 @@ wth <- get_wth(
 }
 }
 \author{
-Adam H. Sparks,
+Adam H. Sparks
 }
