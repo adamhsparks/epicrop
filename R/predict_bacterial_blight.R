@@ -1,5 +1,5 @@
 
-#' Predict rice bacterial blight area under the disease progress curve (AUDPC)
+#' Predict rice bacterial blight severity
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent \emph{Xanthomonas oryzae} pv. \emph{oryzae}.

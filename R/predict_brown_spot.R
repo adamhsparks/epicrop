@@ -1,5 +1,5 @@
 
-#' Predict rice brown spot area under the disease progress curve (AUDPC)
+#' Predict rice brown spot severity
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
 #' \emph{Cochliobolus miyabeanus}.

@@ -1,5 +1,5 @@
 
-#' Predict rice tungro area under the disease progress curve (AUDPC)
+#' Predict rice tungro severity
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
 #' \emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Baciliform Virus}.

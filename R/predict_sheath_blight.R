@@ -1,5 +1,5 @@
 
-#' Predict rice sheath blight area under the disease progress curve (AUDPC)
+#' Predict rice sheath blight severity
 #'
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal
 #' agent \emph{Rhizoctonia solani} AG1-1A Kühn.

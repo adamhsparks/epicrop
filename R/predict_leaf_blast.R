@@ -1,5 +1,5 @@
 
-#' Predict rice leaf blast area under the disease progress curve (AUDPC)
+#' Predict rice leaf severity
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 #' \emph{Magnaporthe oryzae}.
