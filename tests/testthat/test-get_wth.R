@@ -13,9 +13,7 @@ test_that("Weather data is as expected after fetching from POWER API", {
                  "TX",
                  "TDEW",
                  "RH",
-                 "RAIN",
-                 "LON",
-                 "LAT"
+                 "RAIN"
                ))
   expect_is(wth, c("data.table", "data.frame"))
 })
