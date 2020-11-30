@@ -8,16 +8,17 @@ predict_brown_spot(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER from
-\code{\link{get_wth}}, but any data that has the properly named fields data
-in them will work.
-\itemize{
-\item YYYYMMDD Date in YYYY-MM-DD format
-\item DOY Numeric day of year, e.g. 1 - 365
-\item T2M Mean daily temperature
-\item T2MN Minimum daily temperature
-\item T2MX Maximum daily temperature
-\item RH2M Relative humidity
-\item RAIN Precipitation
+\code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
+the following properly named fields in them will work.
+\tabular{rl}{
+\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
+\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
+\strong{TM}:\tab Mean daily temperature (°C).\cr
+\strong{TN}:\tab Minimum daily temperature (°C).\cr
+\strong{TX}:\tab Maximum daily temperature (°C).\cr
+\strong{TDEW}:\tab Mean daily dew point temperature (°C).\cr
+\strong{RH}:\tab Mean daily relative humidity (\%).\cr
+\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
 }}
 
 \item{emergence}{Expected date of crop emergence}
