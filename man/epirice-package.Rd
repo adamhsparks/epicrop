@@ -23,7 +23,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Robert Hijmans \email{robert.hijmans@gmail.com} (Original R Implementation) [translator]
+  \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R Implementation) [translator]
   \item Serge Savary \email{serge.savary@toulouse.inra.fr} (Model idea and development) [conceptor]
   \item Ireno Pangga \email{ibpangga@yahoo.com} (Model Development and Original R Implementation) [translator]
   \item Jorrel Aunario \email{j.aunario@irri.org} (Original R Implementation) [translator]
