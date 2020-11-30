@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# EPIRICE
+# epirice
 
 A fork of the R [cropsim
 package](https://r-forge.r-project.org/R/?group_id=335) designed to make
@@ -15,6 +15,17 @@ published in Crop Protection,
 > Jorrel Aunario. Modeling and mapping potential epidemics of rice
 > diseases globally. Crop Protection, Volume 34, 2012, Pages 6-17, ISSN
 > 0261-2194 DOI: <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
+
+# Installation
+
+`epirice` is not yet on CRAN. You can install it this way.
+
+``` r
+if (!require("remotes"))
+  install.packages("remotes")
+remotes::install_github("adamshsparks/epirice"
+)
+```
 
 # Meta
 
