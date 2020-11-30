@@ -249,7 +249,6 @@ SEIR <-
       )
     )
 
-    result <- methods::new("SEIR")
-    result@d <- res
-    return(result)
+    class(res) <- union("SEIR", class(res))
+    return(res)
   }
