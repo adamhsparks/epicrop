@@ -146,7 +146,8 @@ SEIR <-
           removed_today <- 0
         }
 
-        sites[day + 1] <- sites[day] + rgrowth[day] - infection[day] -
+        sites[day + 1] <-
+          sites[day] + rgrowth[day] - infection[day] -
           rsenesced[day]
         rsenesced[day + 1] <- removed_today * senesc_type +
           rr_physiol_senesc * sites[day + 1]
@@ -245,6 +246,7 @@ SEIR <-
         "diseased",
         "severity"
       )
+    )
 
     result <- methods::new("SEIR")
     result@d <- res
