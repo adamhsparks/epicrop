@@ -24,7 +24,8 @@ predict_bacterial_blight(wth, emergence, ...)
 \item{...}{Additional arguments, see \code{\link{SEIR}}}
 }
 \value{
-An \pkg{epirice} \code{SEIR} object
+A \code{\link[data.table]{data.table}} of disease severity and
+infection sites.
 }
 \description{
 A dynamic mechanistic simulation of bacterial blight disease of rice,

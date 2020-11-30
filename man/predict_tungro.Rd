@@ -25,7 +25,8 @@ in them will work.
 \item{...}{Additional arguments, see \code{\link{SEIR}}}
 }
 \value{
-An \pkg{epirice} \code{SEIR} object
+A \code{\link[data.table]{data.table}} of disease severity and
+infection sites.
 }
 \description{
 A dynamic mechanistic simulation of tungro disease of rice, causal agents

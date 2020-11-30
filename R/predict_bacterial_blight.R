@@ -22,7 +22,8 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see \code{\link{SEIR}}
 #'
-#' @return An \pkg{epirice} \code{SEIR} object
+#' @return A \code{\link[data.table]{data.table}} of disease severity and
+#'  infection sites.
 #'
 #' @examples
 #' \donttest{
