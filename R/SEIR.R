@@ -39,7 +39,7 @@
 #' @param senesc_type NA
 #'
 #' @examples
-#' \donttest {
+#' \donttest{
 #' # get weather for IRRI Zeigler Experiment Station in dry season 2000
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
@@ -71,7 +71,6 @@
 #'   rrg = 0.1
 #' )
 #' }
-
 #' @details \code{SEIR} is called by the following specific disease models:
 #' \code{\link{predict_leaf_blast}}, \code{\link{predict_bacterial_blight}},
 #' \code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
