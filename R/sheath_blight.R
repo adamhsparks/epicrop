@@ -27,8 +27,11 @@
 #'
 #' @examples
 #' \donttest{
-#' wth <- get_wth(lonlat = c(-179.5, -89.5),
-#'                dates = c("2000-01-15", "2000-05-31"))
+#' # get weather for IRRI Zeigler Experiment Station in dry season 2000
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-01-15", "2000-05-31")
+#' )
 #' sb <- predict_sheath_blight(wth, emergence = "2000-01-15")
 #' plot(bb, type = 2)
 #' }
@@ -63,7 +66,7 @@
 #' \code{\link{predict_sheath_blight}}
 #'
 #' @export
-predict_sheath_blight <- function(wth, emergence = "2000-05-15", ...) {
+predict_sheath_blight <- function(wth, emergence, ...) {
   age_coef_rc <-
     cbind(0:12 * 10,
           c(

@@ -4,7 +4,7 @@
 \alias{predict_tungro}
 \title{Predict rice tungro area under the disease progress curve (AUDPC)}
 \usage{
-predict_tungro(wth, emergence = "2000-05-15", ...)
+predict_tungro(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER from
@@ -37,9 +37,12 @@ Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
 }
 \examples{
-\dontrun{
-wth <- get_wth(lonlat = c(-179.5, -89.5),
-               dates = c("2000-01-15", "2000-05-31"))
+\donttest{
+# get weather for IRRI Zeigler Experiment Station in dry season 2000
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-01-15", "2000-05-31")
+)
 tg <- predict_tungro(wth, emergence = "2000-01-15")
 plot(tg, type = 2)
 }

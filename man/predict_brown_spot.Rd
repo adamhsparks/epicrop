@@ -4,7 +4,7 @@
 \alias{predict_brown_spot}
 \title{Predict rice brown spot area under the disease progress curve (AUDPC)}
 \usage{
-predict_brown_spot(wth, emergence = "2000-01-15", ...)
+predict_brown_spot(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER from
@@ -38,8 +38,11 @@ Aunario (IRRI).
 }
 \examples{
 \donttest{
-wth <- get_wth(lonlat = c(-179.5, -89.5),
-               dates = c("2000-01-15", "2000-05-31"))
+# get weather for IRRI Zeigler Experiment Station in dry season 2000
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-01-15", "2000-05-31")
+)
 bs <- predict_brown_spot(wth, emergence = "2000-01-15")
 plot(bs, type = 2)
 }

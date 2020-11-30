@@ -4,7 +4,7 @@
 \alias{predict_sheath_blight}
 \title{Predict rice sheath blight area under the disease progress curve (AUDPC)}
 \usage{
-predict_sheath_blight(wth, emergence = "2000-05-15", ...)
+predict_sheath_blight(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER from
@@ -38,8 +38,11 @@ Aunario (IRRI).
 }
 \examples{
 \donttest{
-wth <- get_wth(lonlat = c(-179.5, -89.5),
-               dates = c("2000-01-15", "2000-05-31"))
+# get weather for IRRI Zeigler Experiment Station in dry season 2000
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-01-15", "2000-05-31")
+)
 sb <- predict_sheath_blight(wth, emergence = "2000-01-15")
 plot(bb, type = 2)
 }

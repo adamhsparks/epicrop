@@ -26,9 +26,12 @@
 #' @return An \pkg{epirice} \code{SEIR} object
 #'
 #' @examples
-#' \dontrun{
-#' wth <- get_wth(lonlat = c(-179.5, -89.5),
-#'                dates = c("2000-01-15", "2000-05-31"))
+#' \donttest{
+#' # get weather for IRRI Zeigler Experiment Station in dry season 2000
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-01-15", "2000-05-31")
+#' )
 #' tg <- predict_tungro(wth, emergence = "2000-01-15")
 #' plot(tg, type = 2)
 #' }
@@ -51,7 +54,7 @@
 #' \code{\link{predict_sheath_blight}}
 #'
 #' @export
-predict_tungro <- function(wth, emergence = "2000-05-15", ...) {
+predict_tungro <- function(wth, emergence, ...) {
   age_coef_rc <-
     cbind(0:8 * 15, c(1.0, 1.0, 0.98, 0.73, 0.51, 0.34, 0, 0, 0))
   temp_coef_rc <- cbind(c(9, 10 + (0:9 * 3.1111), 40),

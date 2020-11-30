@@ -4,7 +4,7 @@
 \alias{predict_leaf_blast}
 \title{Predict rice leaf blast area under the disease progress curve (AUDPC)}
 \usage{
-predict_leaf_blast(wth, emergence = "2000-05-15", ...)
+predict_leaf_blast(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER from
@@ -38,9 +38,12 @@ Aunario (IRRI).
 }
 \examples{
 \donttest{
-wth <- get_wth(lonlat = c(-179.5, -89.5),
-               dates = c("2000-01-15", "2000-05-31"))
-lb <- predict_leaf_blast(wth, emergence = "2000-05-15")
+# get weather for IRRI Zeigler Experiment Station in dry season 2000
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-01-15", "2000-05-31")
+)
+lb <- predict_leaf_blast(wth, emergence = "2000-01-15")
 plot(lb, type = 2)
 }
 }
