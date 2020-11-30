@@ -260,10 +260,12 @@ SEIR <-
         "rgrowth",
         "rsenesced",
         "diseased",
-        "severity"
+        "severity",
+        "dates"
       )
     )
 
-    class(res) <- union("SEIR", class(res))
+    setcolorder(res, c("simday", "dates"))
+
     return(res)
   }
