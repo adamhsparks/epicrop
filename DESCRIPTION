@@ -52,10 +52,11 @@ Depends:
     R (>= 3.5.0)
 Imports:
     data.table,
-    ggplot2,
     nasapower
 Suggests:
     knitr,
+    ggplot2,
     rmarkdown,
-    testthat
+    testthat,
+    tidyr
 VignetteBuilder: knitr
