@@ -114,12 +114,12 @@ SEIR <-
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
     # subset weather data where date is greater than emergence minus one
-    wth[DOY >= emergence_doy - 1,]
+    wth[DOY >= emergence_doy - 1, ]
 
     if (dim(wth)[1] < duration) {
       stop("Incomplete weather data")
     }
-    wth <- wth[1:(duration + 1),]
+    wth <- wth[1:(duration + 1), ]
 
     if (wetness == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
@@ -127,7 +127,8 @@ SEIR <-
 
     # outputvars
     cofr <-
-      rc <- RHCoef <- latency <- infectious <- severity <- rsenesced <-
+      rc <-
+      RHCoef <- latency <- infectious <- severity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <- now_latent <- sites <- total_sites <-
@@ -225,7 +226,7 @@ SEIR <-
         diseased,
         severity
       )
-    res <- data.table(res[1:(day + 1),])
+    res <- data.table(res[1:(day + 1), ])
 
     res[, dates := dates[1:(day + 1)]]
 
