@@ -83,9 +83,23 @@ emergence date}
 \item{senesc_type}{NA}
 }
 \value{
-A \code{SEIR} \code{\link{class}} object that is a
-\code{\link[data.table]{data.table}} that allows for simple plotting of the
-contents
+A \code{\link[data.table]{data.table}} containing the following
+columns
+#'   \tabular{rl}{
+\strong{simday}:\tab Zero indexed day of simulation that was run.\cr
+\strong{dates}:\tab  Date of simulation.\cr
+\strong{sites}:\tab Total number of sites present on day "x".\cr
+\strong{latent}:\tab Number of latent sites present on day "x".\cr
+\strong{infectious}:\tab Number of infectious sites present on day "x".\cr
+\strong{removed}:\tab Number of removed sites present on day "x".\cr
+\strong{senesced}:\tab Number of senesced sites present on day "x".\cr
+\strong{rateinf}:\tab ...\cr
+\strong{rtransfer}:\tab ...\cr
+\strong{rgrowth}:\tab ...\cr
+\strong{rsenesced}:\tab  ...\cr
+\strong{diseased}:\tab  ...\cr
+\strong{severity}:\tab  Disease severity or incidence (for tungro).\cr
+}
 }
 \description{
 This function is used by specific disease models in EPIRICE to model disease
