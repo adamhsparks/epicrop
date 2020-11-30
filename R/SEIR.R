@@ -78,6 +78,10 @@
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' Adam H. Sparks, Aji Sukarta
 #'
+#' @return A \code{SEIR} \code{\link{class}} object that is a
+#'  \code{\link[data.table]{data.table}} that allows for simple plotting of the
+#'  contents
+#'
 #' @export
 #'
 SEIR <-

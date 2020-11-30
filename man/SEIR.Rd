@@ -82,6 +82,11 @@ emergence date}
 
 \item{senesc_type}{NA}
 }
+\value{
+A \code{SEIR} \code{\link{class}} object that is a
+\code{\link[data.table]{data.table}} that allows for simple plotting of the
+contents
+}
 \description{
 This function is used by specific disease models in EPIRICE to model disease
 severity of several rice diseases.  It should be generic enough to port to
