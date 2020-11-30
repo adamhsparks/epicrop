@@ -80,7 +80,7 @@
 #'
 #' @return A \code{\link[data.table]{data.table}} containing the following
 #'  columns
-#'  #'   \tabular{rl}{
+#'   \tabular{rl}{
 #'   **simday**:\tab Zero indexed day of simulation that was run.\cr
 #'   **dates**:\tab  Date of simulation.\cr
 #'   **sites**:\tab Total number of sites present on day "x".\cr
