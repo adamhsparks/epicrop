@@ -39,12 +39,10 @@ get_wth <- function(lonlat, dates) {
     )
   )
 
-  wth[, c("YEAR", "MM", "DD") := NULL][]
+  wth[, c("YEAR", "MM", "DD", "LON", "LAT") := NULL][]
   setnames(
     wth,
     old = c(
-      "LON",
-      "LAT",
       "DOY",
       "YYYYMMDD",
       "T2M",
@@ -55,8 +53,6 @@ get_wth <- function(lonlat, dates) {
       "PRECTOT"
     ),
     new = c(
-      "LON",
-      "LAT",
       "YYYYMMDD",
       "DOY",
       "TM",
