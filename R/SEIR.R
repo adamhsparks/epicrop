@@ -140,7 +140,7 @@ SEIR <-
     }
 
     # subset weather data where date is greater than emergence minus one
-    wth[DOY >= emergence_doy - 1, ]
+    wth[DOY >= emergence_doy - 1,]
 
     if (wetness == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
@@ -233,20 +233,22 @@ SEIR <-
     } # end loop
 
     res <-
-      data.table(cbind(
-        0:duration,
-        sites,
-        now_latent,
-        now_infectious,
-        removed,
-        senesced,
-        infection,
-        rtransfer,
-        rgrowth,
-        rsenesced,
-        diseased,
-        severity
-      ))
+      data.table(
+        cbind(
+          0:duration,
+          sites,
+          now_latent,
+          now_infectious,
+          removed,
+          senesced,
+          infection,
+          rtransfer,
+          rgrowth,
+          rsenesced,
+          diseased,
+          severity
+        )
+      )
 
     res[, dates := dates[1:(day + 1)]][]
 
