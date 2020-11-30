@@ -2,58 +2,28 @@
 # Taken from: CRAN package meteor
 # License GPL3
 
-# use ea/es calculations from GSODR
-.saturatedVaporPressure <- function(tmp) {
-  .611 * 10 ^ (7.5 * tmp / (237.7 + tmp))  #kpa
+.calculate_ea <- function(TDEW) {
+  round(0.61094 * exp((17.625 * (TDEW)) /
+                        ((TDEW) + 243.04)), 1)
+}
+
+# ES derived from average temperature
+.calculate_es <- function(TM) {
+  round(0.61094 * exp((17.625 * (TM)) /
+                        ((TM) + 243.04)), 1)
 }
 
 
-.vaporPressureDeficit <- function(tmp, rh) {
-  svp <- .saturatedVaporPressure(tmp)
-  (1 - (rh / 100)) * svp
+.saturatedVaporPressure <- function(TM) {
+  .611 * 10 ^ (7.5 * TM / (237.7 + TM))  #kpa
 }
 
 
-.rhMinMax <- function(rh, tmin, tmax) {
-  tmin <- pmax(tmin, -5)
-  tmax <- pmax(tmax, -5)
-  tmp <- (tmin + tmax) / 2
-
-  es <- .saturatedVaporPressure(tmp)
-  vp <- rh / 100 * es
-
-  es <- .saturatedVaporPressure(tmax)
-  rhmn <- 100 * vp / es
-
-  rhmn <- pmax(0, pmin(100, rhmn))
-
-  es <- .saturatedVaporPressure(tmin)
-  rhmx <- 100 * vp / es
-
-  rhmx <- pmax(0, pmin(100, rhmx))
-  cbind(rhmn, rhmx)
+.vaporPressureDeficit <- function(TM, RH) {
+  svp <- .saturatedVaporPressure(TM)
+  (1 - (RH / 100)) * svp
 }
 
-
-.rhMinMax2 <- function(tmin, tmax, rhum) {
-  tmin <- pmax(tmin, -5)
-  tmax <- pmax(tmax, -5)
-  tmp <- (tmin + tmax) / 2
-
-  es <- .saturatedVaporPressure(tmp)
-  vp <- rhum / 100 * es
-
-  es <- .saturatedVaporPressure(tmax)
-  rhmn <- 100 * vp / es
-
-  rhmn <- pmax(0, pmin(100, rhmn))
-
-  es <- .saturatedVaporPressure(tmin)
-  rhmx <- 100 * vp / es
-
-  rhmx <- pmax(0, pmin(100, rhmx))
-  cbind(rhmn, rhmx)
-}
 
 .diurnalRH <- function(rh, tmin, tmax, lat, date) {
   tmin <- pmax(tmin, -5)
