@@ -78,9 +78,23 @@
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' Adam H. Sparks, Aji Sukarta
 #'
-#' @return A \code{SEIR} \code{\link{class}} object that is a
-#'  \code{\link[data.table]{data.table}} that allows for simple plotting of the
-#'  contents
+#' @return A \code{\link[data.table]{data.table}} containing the following
+#'  columns
+#'  #'   \tabular{rl}{
+#'   **simday**:\tab Zero indexed day of simulation that was run.\cr
+#'   **dates**:\tab  Date of simulation.\cr
+#'   **sites**:\tab Total number of sites present on day "x".\cr
+#'   **latent**:\tab Number of latent sites present on day "x".\cr
+#'   **infectious**:\tab Number of infectious sites present on day "x".\cr
+#'   **removed**:\tab Number of removed sites present on day "x".\cr
+#'   **senesced**:\tab Number of senesced sites present on day "x".\cr
+#'   **rateinf**:\tab ...\cr
+#'   **rtransfer**:\tab ...\cr
+#'   **rgrowth**:\tab ...\cr
+#'   **rsenesced**:\tab  ...\cr
+#'   **diseased**:\tab  ...\cr
+#'   **severity**:\tab  Disease severity or incidence (for tungro).\cr
+#'   }
 #'
 #' @export
 #'
