@@ -220,11 +220,12 @@ SEIR <-
         diseased,
         severity
       )
-    res <- data.table(res[1:(day + 1), ])
+    res <- data.table(res[1:(day + 1),])
 
-    dates <- seq(emergence - 1, emergence + duration, 1)
-    res <- cbind(dates[1:(day + 1)], res)
-    colnames(res) <-
+    res[, dates := dates[1:(day + 1)]]
+
+    setnames(
+      res,
       c(
         "date",
         "simday",
