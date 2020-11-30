@@ -26,8 +26,11 @@ suitable for use in EPIRICE.
 }
 \examples{
 \donttest{
-wth <- get_wth(lonlat = c(151.81, -27.48),
-               dates = c("2015-01-15", "2015-05-15"))
+# get weather for IRRI Zeigler Experiment Station in dry season 2000
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-01-15", "2000-05-31")
+)
 }
 }
 \author{
