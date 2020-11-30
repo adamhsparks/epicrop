@@ -42,7 +42,7 @@
 <meta property="og:title" content="Susceptible-Exposed-Infectious-Removed (SEIR) model — SEIR" />
 <meta property="og:description" content="This function is used by specific disease models in EPIRICE to model disease
 severity of several rice diseases.  It should be generic enough to port to
-other pathosystems." />
+other pathosystems given proper values." />
 
 
 
@@ -116,7 +116,7 @@ other pathosystems." />
     <div class="ref-description">
     <p>This function is used by specific disease models in EPIRICE to model disease
 severity of several rice diseases.  It should be generic enough to port to
-other pathosystems.</p>
+other pathosystems given proper values.</p>
     </div>
 
     <pre class="usage"><span class='fu'>SEIR</span><span class='op'>(</span>
@@ -170,12 +170,12 @@ emergence date</p></td>
     </tr>
     <tr>
       <th>duration</th>
-      <td><p>simulation duration</p></td>
+      <td><p>simulation duration, usually 120 days</p></td>
     </tr>
     <tr>
       <th>rhlim</th>
       <td><p>threshold to decide whether leaves are wet or not (usually
-90 pct)</p></td>
+90 %)</p></td>
     </tr>
     <tr>
       <th>rainlim</th>
@@ -188,23 +188,23 @@ emergence date</p></td>
     </tr>
     <tr>
       <th>init_sites</th>
-      <td><p>Number of initial infection sites</p></td>
+      <td><p>Initial number of plant's healthy sites</p></td>
     </tr>
     <tr>
       <th>init_infection</th>
-      <td><p>NA</p></td>
+      <td><p>Initial number of infective sites</p></td>
     </tr>
     <tr>
       <th>age_rc</th>
-      <td><p>NA</p></td>
+      <td><p>crop age curve for pathogen optimum</p></td>
     </tr>
     <tr>
       <th>tmp_rc</th>
-      <td><p>NA</p></td>
+      <td><p>temperature curve for pathogen optimum</p></td>
     </tr>
     <tr>
       <th>rh_rc</th>
-      <td><p>NA</p></td>
+      <td><p>relative curve for pathogen optimum</p></td>
     </tr>
     <tr>
       <th>base_rc</th>
@@ -262,9 +262,15 @@ columns</p><table class='table'>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>SEIR</code> is called by the following specific disease models:
-<code><a href='predict_leaf_blast.html'>predict_leaf_blast</a></code>, <code><a href='predict_bacterial_blight.html'>predict_bacterial_blight</a></code>,
-<code><a href='predict_brown_spot.html'>predict_brown_spot</a></code>, <code><a href='predict_sheath_blight.html'>predict_sheath_blight</a></code></p>
+    <p><code>SEIR</code> is called by the following specific disease modelling
+functions:</p><ul>
+<li><p><code><a href='predict_bacterial_blight.html'>predict_bacterial_blight</a></code>,</p></li>
+<li><p><code><a href='predict_brown_spot.html'>predict_brown_spot</a></code>,</p></li>
+<li><p><code><a href='predict_leaf_blast.html'>predict_leaf_blast</a></code>,</p></li>
+<li><p><code><a href='predict_sheath_blight.html'>predict_sheath_blight</a></code>,</p></li>
+<li><p><code><a href='predict_tungro.html'>predict_tungro</a></code></p></li>
+</ul>
+
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
@@ -282,9 +288,9 @@ Adam H. Sparks, Aji Sukarta</p>
 <span class='va'>age_rc</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>6</span> <span class='op'>*</span> <span class='fl'>20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.35</span>, <span class='fl'>0.35</span>, <span class='fl'>0.35</span>, <span class='fl'>0.47</span>, <span class='fl'>0.59</span>, <span class='fl'>0.71</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>tmp_rc</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>15</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.06</span>, <span class='fl'>1.0</span>, <span class='fl'>0.85</span>, <span class='fl'>0.16</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>rh_rc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>8</span> <span class='op'>*</span> <span class='fl'>3</span>,
-             <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.12</span>, <span class='fl'>0.20</span>, <span class='fl'>0.38</span>, <span class='fl'>0.46</span>, <span class='fl'>0.60</span>, <span class='fl'>0.73</span>, <span class='fl'>0.87</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>T <span class='op'>=</span> <span class='fl'>15</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>5</span>, RcT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.06</span>, <span class='fl'>1.0</span>, <span class='fl'>0.85</span>, <span class='fl'>0.16</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>rh_rc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>RH_hr <span class='op'>=</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>8</span> <span class='op'>*</span> <span class='fl'>3</span>,
+             RcRH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.12</span>, <span class='fl'>0.20</span>, <span class='fl'>0.38</span>, <span class='fl'>0.46</span>, <span class='fl'>0.60</span>, <span class='fl'>0.73</span>, <span class='fl'>0.87</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>emergence</span> <span class='op'>&lt;-</span> <span class='st'>"2000-01-15"</span>
 
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>SEIR</span><span class='op'>(</span>
