@@ -131,13 +131,12 @@ SEIR <-
     # convert emergence date into Julian date, sequential day in year
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
-    # subset weather data where date is greater than emergence minus one
-    wth[DOY >= emergence_doy - 1, ]
-
     if (dim(wth)[1] < duration) {
       stop("Incomplete weather data")
     }
-    wth <- wth[1:(duration + 1), ]
+
+    # subset weather data where date is greater than emergence minus one
+    wth[DOY >= emergence_doy - 1, ]
 
     if (wetness == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
