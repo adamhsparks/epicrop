@@ -38,12 +38,45 @@
 #' @param rrg NA
 #' @param senesc_type NA
 #'
-#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
-#' Adam H Sparks, Aji Sukarta
+#' @examples {
+#' # get weather for IRRI Zeigler Experiment Station in dry season 2000
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-01-15", "2000-05-31")
+#' )
 #'
-#' @details SEIR is called by the following specific disease models:
+#' # provide suitable values for brown spot severity
+#' age_rc <-
+#'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
+#' tmp_rc <-
+#'   cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
+#' rh_rc <- cbind(0:8 * 3,
+#'              c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
+#' emergence <- "2000-01-15"
+#'
+#' x <- SEIR(
+#'   wth = wth,
+#'   emergence = emergence,
+#'   age_rc = age_rc,
+#'   tmp_rc = tmp_rc,
+#'   rh_rc = rh_rc,
+#'   base_rc = 0.61,
+#'   latrans = 6,
+#'   inftrans = 19,
+#'   init_sites = 600,
+#'   aggr = 1,
+#'   site_max = 100000,
+#'   rr_physiol_senesc = 0.01,
+#'   rrg = 0.1
+#' )
+#' }
+
+#' @details \code{SEIR} is called by the following specific disease models:
 #' \code{\link{predict_leaf_blast}}, \code{\link{predict_bacterial_blight}},
 #' \code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
+#'
+#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
+#' Adam H. Sparks, Aji Sukarta
 #'
 #' @export
 #'
