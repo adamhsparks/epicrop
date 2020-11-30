@@ -242,15 +242,13 @@ SEIR <-
         rsenesced,
         diseased,
         severity
-      )
-    res <- data.table(res[1:(day + 1), ])
+      ))
 
-    res[, dates := dates[1:(day + 1)]]
+    res[, dates := dates[1:(day + 1)]][]
 
     setnames(
       res,
       c(
-        "date",
         "simday",
         "sites",
         "latent",
