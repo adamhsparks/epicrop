@@ -41,61 +41,6 @@
 
 
 
-
-.tDew <- function(temp, rh) {
-  temp - (100 - rh) / 5
-}
-
-
-.FtoC <- function(x) {
-  (5 / 9) * (x - 32)
-}
-.CtoF <- function(x) {
-  x * 9 / 5 + 32
-}
-
-.atmp <- function(alt) {
-  101.325 * (1 - 2.25577 * 10 ^ -5 * alt) ^ 5.25588   # kPa
-}
-
-
-.rel2abshum <- function(rh, t) {
-  es <- .saturatedVaporPressure(t)
-  ea <- rh * es / 100
-  M <- 18.02 # g/mol
-  R <- 8.314472 # Pa?m?/(mol?K)
-  T <- t + 273.15  # C to K
-  hum <- ea * M / (T * R)
-  return(hum)
-}
-
-
-.abs2rhumum <- function(hum, t) {
-  M <- 18.02 # g/mol
-  R <- 8.314472 # Pa?m?/(mol?K)
-  T <- t + 273.15  # C to K
-  ea <- hum / (M / (T * R))
-  es <- .saturatedVaporPressure(t)
-  rh <- 100 * ea / es
-  rh  <- pmin(rh, 100)
-  return(rh)
-}
-
-
-
-.rel2spechum <- function(rh, t, alt) {
-  es <- .saturatedVaporPressure(t)
-  ea <- es * (rh / 100)
-  p <- .atmp(0)
-  0.62198 * ea / (p - ea)
-}
-
-.spec2rhumum <- function(spec, t, alt) {
-  es <- .saturatedVaporPressure(t)
-  100 * (spec * .atmp(alt)) / ((0.62198 + spec) * es)
-}
-
-
 .eLW <- function(rhmin, rhmax, tmin) {
   # emperical leaf wetness estimation according to Hijmans, Forbes and Walker, 2001
   ewhr <-
