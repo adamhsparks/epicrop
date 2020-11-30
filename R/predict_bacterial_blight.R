@@ -11,7 +11,7 @@
 #'
 #' @param wth Weather data with a daily time-step, normally NASA-POWER from
 #' \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
-#' the following properly named fields in them will work.
+#' the following properly named columns in them will work.
 #'   \tabular{rl}{
 #'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
 #'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
@@ -27,7 +27,8 @@
 #' @param ... Additional arguments, see \code{\link{SEIR}}
 #'
 #' @return A \code{\link[data.table]{data.table}} of disease severity and
-#'  infection sites.
+#'  infection sites. See \code{\link{SEIR}} for a full description of the
+#'  column values.
 #'
 #' @examples
 #' \donttest{
@@ -37,6 +38,7 @@
 #'   dates = c("2000-05-15", "2000-12-31")
 #' )
 #' bb <- predict_bacterial_blight(wth, emergence = "2000-05-18")
+#' plot(x = bb$dates, y = bb$severity, type = "l")
 #' }
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
@@ -59,9 +61,12 @@
 #' to two races of \emph{Xanthomonas oryzae} pv. \emph{oryzae}. Unpublished M.S.
 #' Thesis, University of the Philippines at Los Baños, 81 p.
 #'
-#' @seealso \code{\link{predict_leaf_blast}},
-#' \code{\link{predict_bacterial_blight}}, \code{\link{predict_brown_spot}},
-#' \code{\link{predict_sheath_blight}}
+#' @seealso
+#' * \code{\link{SEIR}},
+#' * \code{\link{predict_brown_spot}},
+#' * \code{\link{predict_leaf_blast}},
+#' * \code{\link{predict_sheath_blight}}
+#' * \code{\link{predict_tungro}}
 #'
 #' @export
 predict_bacterial_blight <- function(wth, emergence, ...) {

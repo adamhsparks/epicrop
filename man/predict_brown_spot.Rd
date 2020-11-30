@@ -9,7 +9,7 @@ predict_brown_spot(wth, emergence, ...)
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER from
 \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
-the following properly named fields in them will work.
+the following properly named columns in them will work.
 \tabular{rl}{
 \strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
 \strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
@@ -27,7 +27,8 @@ the following properly named fields in them will work.
 }
 \value{
 A \code{\link[data.table]{data.table}} of disease severity and
-infection sites.
+infection sites. See \code{\link{SEIR}} for a full description of the
+column values.
 }
 \description{
 A dynamic mechanistic simulation of rice brown spot, causal agent
@@ -46,6 +47,7 @@ wth <- get_wth(
   dates = c("2000-05-15", "2000-12-31")
 )
 bs <- predict_brown_spot(wth, emergence = "2000-05-18")
+plot(x = bs$dates, y = bs$severity, type = "l")
 }
 
 }
@@ -73,9 +75,13 @@ Simulator of Southern Corn Leaf Blight. Bulletin of the Connecticut
 Experiment Station, New Haven, 85 p.
 }
 \seealso{
-\code{\link{predict_leaf_blast}},
-\code{\link{predict_bacterial_blight}}, \code{\link{predict_brown_spot}},
-\code{\link{predict_sheath_blight}}
+\itemize{
+\item \code{\link{SEIR}},
+\item \code{\link{predict_bacterial_blight}},
+\item \code{\link{predict_leaf_blast}},
+\item \code{\link{predict_sheath_blight}}
+\item \code{\link{predict_tungro}}
+}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
