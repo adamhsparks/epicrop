@@ -56,7 +56,7 @@ emergence date}
 \item{wetness}{simulate RHmax or rain threshold (0) or leaf wetness duration
 (1)}
 
-\item{init_sites}{NA}
+\item{init_sites}{Number of initial infection sites}
 
 \item{init_infection}{NA}
 

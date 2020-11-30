@@ -24,7 +24,7 @@
 #' @param rainlim threshold to decide whether leaves are wet or not
 #' @param wetness simulate RHmax or rain threshold (0) or leaf wetness duration
 #' (1)
-#' @param init_sites NA
+#' @param init_sites Number of initial infection sites
 #' @param init_infection NA
 #' @param age_rc NA
 #' @param tmp_rc NA
