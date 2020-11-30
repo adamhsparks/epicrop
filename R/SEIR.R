@@ -226,10 +226,10 @@ SEIR <-
         (1 - (total_sites[day + 1] / site_max))
       severity[day + 1] <- (diseased[day + 1] - removed[day + 1]) /
         (total_sites[day + 1] - removed[day + 1]) * 100
-    }
+    } # end loop
 
     res <-
-      cbind(
+      data.table(cbind(
         0:duration,
         sites,
         now_latent,
