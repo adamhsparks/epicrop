@@ -167,7 +167,6 @@ colnames(res) <- c("date", "simday", "sites", "latent", "infectious",
                    "removed", "senesced", "rateinf", "rtransfer", "rgrowth",
                    "rsenesced", "diseased", "incidence", "prev_rainfall_index")
 
-result <- methods::new("SEIR")
-result@d <- res
-return(result)
+class(res) <- union("SEIR", class(res))
+return(res)
 }
