@@ -140,15 +140,18 @@ Aunario (IRRI).</p>
     <tr>
       <th>wth</th>
       <td><p>Weather data with a daily time-step, normally NASA-POWER from
-<code><a href='get_wth.html'>get_wth</a></code>, but any data that has the properly named fields data</p><ul>
-<li><p>YYYYMMDD Date in YYYY-MM-DD format</p></li>
-<li><p>DOY Numeric day of year, e.g. 1 - 365</p></li>
-<li><p>T2M Mean daily temperature</p></li>
-<li><p>T2MN Minimum daily temperature</p></li>
-<li><p>T2MX Maximum daily temperature</p></li>
-<li><p>RH2M Relative humidity</p></li>
-<li><p>RAIN Precipitation</p></li>
-</ul></td>
+<code><a href='get_wth.html'>get_wth</a></code>, but any <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> object that has
+the following properly named fields in them will work.</p><table class='table'>
+<tr><td><strong>YYYYMMDD</strong>:</td><td>Date as Year Month Day (ISO8601).</td></tr>
+<tr><td><strong>DOY</strong>:</td><td>Consecutive day of year, commonly called "Julian date".</td></tr>
+<tr><td><strong>TM</strong>:</td><td>Mean daily temperature (°C).</td></tr>
+<tr><td><strong>TN</strong>:</td><td>Minimum daily temperature (°C).</td></tr>
+<tr><td><strong>TX</strong>:</td><td>Maximum daily temperature (°C).</td></tr>
+<tr><td><strong>TDEW</strong>:</td><td>Mean daily dew point temperature (°C).</td></tr>
+<tr><td><strong>RH</strong>:</td><td>Mean daily relative humidity (%).</td></tr>
+<tr><td><strong>RAIN</strong>:</td><td>Mean daily rainfall (mm).</td></tr>
+</table>
+</td>
     </tr>
     <tr>
       <th>emergence</th>
