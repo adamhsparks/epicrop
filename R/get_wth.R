@@ -29,6 +29,7 @@ get_wth <- function(lonlat, dates) {
       pars = c("T2M",
                "T2M_MAX",
                "T2M_MIN",
+               "T2MDEW",
                "RH2M",
                "PRECTOT"),
       temporal_average = "DAILY"
@@ -46,12 +47,25 @@ get_wth <- function(lonlat, dates) {
       "T2M",
       "T2M_MAX",
       "T2M_MIN",
+      "T2MDEW",
       "RH2M",
       "PRECTOT"
     ),
-    new = c("LON", "LAT", "YYYYMMDD", "DOY", "TM", "TN", "TX", "RH", "RAIN")
+    new = c(
+      "LON",
+      "LAT",
+      "YYYYMMDD",
+      "DOY",
+      "TM",
+      "TN",
+      "TX",
+      "TDEW",
+      "RH",
+      "RAIN"
+    )
   )
-  setcolorder(wth, c("YYYYMMDD", "DOY", "TM", "TN", "TX", "RH", "RAIN"))
+  setcolorder(wth,
+              c("YYYYMMDD", "DOY", "TM", "TN", "TX", "TDEW", "RH", "RAIN"))
 
   return(wth)
 }
