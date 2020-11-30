@@ -2,7 +2,8 @@
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model
 #'
 #' This function is used by specific disease models in EPIRICE to model disease
-#' severity.
+#' severity of several rice diseases.  It should be generic enough to port to
+#' other pathosystems.
 #'
 #' @param wth a data frame of weather on a daily time-step containing data
 #' with the following field names.
