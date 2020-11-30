@@ -3,7 +3,7 @@
 #'
 #' This function is used by specific disease models in EPIRICE to model disease
 #' severity of several rice diseases.  It should be generic enough to port to
-#' other pathosystems.
+#' other pathosystems given proper values.
 #'
 #' @param wth a data frame of weather on a daily time-step containing data
 #' with the following field names.
@@ -18,17 +18,17 @@
 #' format (usually supplied through the disease model function)
 #' @param onset expected number of days until the onset of disease after
 #' emergence date
-#' @param duration simulation duration
+#' @param duration simulation duration, usually 120 days
 #' @param rhlim threshold to decide whether leaves are wet or not (usually
-#' 90 pct)
+#' 90 %)
 #' @param rainlim threshold to decide whether leaves are wet or not
 #' @param wetness simulate RHmax or rain threshold (0) or leaf wetness duration
 #' (1)
-#' @param init_sites Number of initial infection sites
-#' @param init_infection NA
-#' @param age_rc NA
-#' @param tmp_rc NA
-#' @param rh_rc NA
+#' @param init_sites Initial number of plant's healthy sites
+#' @param init_infection Initial number of infective sites
+#' @param age_rc crop age curve for pathogen optimum
+#' @param tmp_rc temperature curve for pathogen optimum
+#' @param rh_rc relative curve for pathogen optimum
 #' @param base_rc corrected basic infection rate
 #' @param latrans latent period
 #' @param inftrans infectious period
@@ -71,9 +71,13 @@
 #'   rrg = 0.1
 #' )
 #' }
-#' @details \code{SEIR} is called by the following specific disease models:
-#' \code{\link{predict_leaf_blast}}, \code{\link{predict_bacterial_blight}},
-#' \code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
+#' @details \code{SEIR} is called by the following specific disease modelling
+#'  functions:
+#' * \code{\link{predict_bacterial_blight}},
+#' * \code{\link{predict_brown_spot}},
+#' * \code{\link{predict_leaf_blast}},
+#' * \code{\link{predict_sheath_blight}},
+#' * \code{\link{predict_tungro}}
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' Adam H. Sparks, Aji Sukarta

@@ -46,25 +46,25 @@ format (usually supplied through the disease model function)}
 \item{onset}{expected number of days until the onset of disease after
 emergence date}
 
-\item{duration}{simulation duration}
+\item{duration}{simulation duration, usually 120 days}
 
 \item{rhlim}{threshold to decide whether leaves are wet or not (usually
-90 pct)}
+90 \%)}
 
 \item{rainlim}{threshold to decide whether leaves are wet or not}
 
 \item{wetness}{simulate RHmax or rain threshold (0) or leaf wetness duration
 (1)}
 
-\item{init_sites}{Number of initial infection sites}
+\item{init_sites}{Initial number of plant's healthy sites}
 
-\item{init_infection}{NA}
+\item{init_infection}{Initial number of infective sites}
 
-\item{age_rc}{NA}
+\item{age_rc}{crop age curve for pathogen optimum}
 
-\item{tmp_rc}{NA}
+\item{tmp_rc}{temperature curve for pathogen optimum}
 
-\item{rh_rc}{NA}
+\item{rh_rc}{relative curve for pathogen optimum}
 
 \item{base_rc}{corrected basic infection rate}
 
@@ -104,12 +104,18 @@ columns
 \description{
 This function is used by specific disease models in EPIRICE to model disease
 severity of several rice diseases.  It should be generic enough to port to
-other pathosystems.
+other pathosystems given proper values.
 }
 \details{
-\code{SEIR} is called by the following specific disease models:
-\code{\link{predict_leaf_blast}}, \code{\link{predict_bacterial_blight}},
-\code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
+\code{SEIR} is called by the following specific disease modelling
+functions:
+\itemize{
+\item \code{\link{predict_bacterial_blight}},
+\item \code{\link{predict_brown_spot}},
+\item \code{\link{predict_leaf_blast}},
+\item \code{\link{predict_sheath_blight}},
+\item \code{\link{predict_tungro}}
+}
 }
 \examples{
 \donttest{
@@ -123,9 +129,9 @@ wth <- get_wth(
 age_rc <-
   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 tmp_rc <-
-  cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
-rh_rc <- cbind(0:8 * 3,
-             c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
+  cbind(T = 15 + (0:5) * 5, RcT = c(0, 0.06, 1.0, 0.85, 0.16, 0))
+rh_rc <- cbind(RH_hr = 0:8 * 3,
+             RcRH = c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
 emergence <- "2000-01-15"
 
 x <- SEIR(
