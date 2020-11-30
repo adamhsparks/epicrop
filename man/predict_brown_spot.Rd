@@ -4,7 +4,7 @@
 \alias{predict_brown_spot}
 \title{Predict rice brown spot area under the disease progress curve (AUDPC)}
 \usage{
-predict_brown_spot(wth, emergence = "2000-05-15", ...)
+predict_brown_spot(wth, emergence = "2000-01-15", ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA-POWER from

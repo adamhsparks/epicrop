@@ -57,7 +57,7 @@
 #' \code{\link{predict_sheath_blight}}
 #'
 #' @export
-predict_brown_spot <- function(wth, emergence = "2000-05-15", ...) {
+predict_brown_spot <- function(wth, emergence = "2000-01-15", ...) {
   age_coef_rc <-
     cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
   temp_coef_rc <-
