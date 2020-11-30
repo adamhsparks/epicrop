@@ -93,7 +93,7 @@ other pathosystems.
 \code{\link{predict_brown_spot}}, \code{\link{predict_sheath_blight}}
 }
 \examples{
-{
+\donttest {
 # get weather for IRRI Zeigler Experiment Station in dry season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
