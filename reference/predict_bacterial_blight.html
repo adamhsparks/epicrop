@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict rice bacterial blight area under the disease progress curve (AUDPC) — predict_bacterial_blight • epirice</title>
+<title>Predict rice bacterial blight severity — predict_bacterial_blight • epirice</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Predict rice bacterial blight area under the disease progress curve (AUDPC) — predict_bacterial_blight" />
+<meta property="og:title" content="Predict rice bacterial blight severity — predict_bacterial_blight" />
 <meta property="og:description" content="A dynamic mechanistic simulation of bacterial blight disease of rice,
 causal agent Xanthomonas oryzae pv. oryzae.
 The model is driven by daily weather data. Adapted from cropsim package
@@ -117,8 +117,8 @@ Aunario (IRRI)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict rice bacterial blight area under the disease progress curve (AUDPC)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epirice/blob/master/R/bacterial_blight.R'><code>R/bacterial_blight.R</code></a></small>
+    <h1>Predict rice bacterial blight severity</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epirice/blob/master/R/predict_bacterial_blight.R'><code>R/predict_bacterial_blight.R</code></a></small>
     <div class="hidden name"><code>predict_bacterial_blight.Rd</code></div>
     </div>
 
@@ -162,7 +162,8 @@ Aunario (IRRI).</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <span class="pkg">epirice</span> <code>SEIR</code> object</p>
+    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
+infection sites.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Adhikari, T.B., 1991. Effects of rice genotype and environment on

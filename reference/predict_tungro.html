@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict rice tungro area under the disease progress curve (AUDPC) — predict_tungro • epirice</title>
+<title>Predict rice tungro severity — predict_tungro • epirice</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Predict rice tungro area under the disease progress curve (AUDPC) — predict_tungro" />
+<meta property="og:title" content="Predict rice tungro severity — predict_tungro" />
 <meta property="og:description" content="A dynamic mechanistic simulation of tungro disease of rice, causal agents
 Rice Tungro Spherical Virus and Rice Tungro Baciliform Virus.
 The model is driven by daily weather data. Adapted from cropsim package
@@ -117,8 +117,8 @@ Aunario (IRRI)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict rice tungro area under the disease progress curve (AUDPC)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epirice/blob/master/R/tungro.R'><code>R/tungro.R</code></a></small>
+    <h1>Predict rice tungro severity</h1>
+    <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epirice/blob/master/R/predict_tungro.R'><code>R/predict_tungro.R</code></a></small>
     <div class="hidden name"><code>predict_tungro.Rd</code></div>
     </div>
 
@@ -163,7 +163,8 @@ in them will work.</p><ul>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <span class="pkg">epirice</span> <code>SEIR</code> object</p>
+    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
+infection sites.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
