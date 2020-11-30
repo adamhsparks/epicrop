@@ -101,31 +101,35 @@ SEIR <-
            rr_physiol_senesc,
            rrg,
            senesc_type = 1) {
-
     # CRAN NOTE avoidance
     infday <- leaf_wet <- DOY <- NULL #nocov
 
     # set date formats
     emergence <- as.Date(emergence)
 
+    # create vector of dates
+    dates <- seq(emergence - 1, emergence + duration, 1)
+
     # convert emergence date into Julian date, sequential day in year
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
     # subset weather data where date is greater than emergence minus one
-    wth[DOY >= emergence - 1, ]
+    wth[DOY >= emergence_doy - 1,]
 
     if (dim(wth)[1] < duration) {
       stop("Incomplete weather data")
     }
-    wth <- wth[1:(duration + 1), ]
+    wth <- wth[1:(duration + 1),]
 
     if (wetness == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
     }
 
     # outputvars
-    cofr <- rc <- RHCoef <- latency <- infectious <- severity <- rsenesced <-
-      rgrowth <- rtransfer <- infection <- diseased <- senesced <- removed <-
+    cofr <-
+      rc <- RHCoef <- latency <- infectious <- severity <- rsenesced <-
+      rgrowth <-
+      rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <- now_latent <- sites <- total_sites <-
       rep(0, times = duration + 1)
 
