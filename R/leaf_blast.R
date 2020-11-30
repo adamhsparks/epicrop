@@ -30,10 +30,9 @@
 #' # get weather for IRRI Zeigler Experiment Station in dry season 2000
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-01-15", "2000-05-31")
+#'   dates = c("2000-05-15", "2000-12-31")
 #' )
-#' lb <- predict_leaf_blast(wth, emergence = "2000-01-15")
-#' plot(lb, type = 2)
+#' lb <- predict_leaf_blast(wth, emergence = "2000-05-18")
 #' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
