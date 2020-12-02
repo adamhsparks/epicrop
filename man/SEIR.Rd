@@ -11,76 +11,74 @@ SEIR(
   duration = 120,
   rhlim = 90,
   rainlim = 5,
-  wetness = 0,
-  init_sites,
-  init_infection = 1,
-  age_rc,
-  tmp_rc,
-  rh_rc,
-  base_rc,
-  latrans,
-  inftrans,
-  site_max,
-  aggr,
-  rr_physiol_senesc,
-  rrg,
-  senesc_type = 1
+  wetness_type = 0,
+  H0,
+  I0 = 1,
+  RcA,
+  RcT,
+  RcW,
+  RcOpt,
+  l,
+  i,
+  Sx,
+  a,
+  RRS,
+  RRG
 )
 }
 \arguments{
-\item{wth}{a data frame of weather on a daily time-step containing data
-with the following field names.
+\item{wth}{a data frame of weather on a daily time-step containing data with
+the following field names.
 \itemize{
 \item YYYYMMDD Date in YYYY-MM-DD format
 \item DOY Numeric day of year, e.g. 1 - 365
-\item T2M Mean daily temperature
-\item T2MN Minimum daily temperature
-\item T2MX Maximum daily temperature
-\item RH2M Relative humidity
+\item TM Mean daily temperature
+\item TN Minimum daily temperature
+\item TX Maximum daily temperature
+\item TDEW Mean daily dewpoint temperature
+\item RH Relative humidity
 \item RAIN Precipitation
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
-format (usually supplied through the disease model function)}
+format}
 
 \item{onset}{expected number of days until the onset of disease after
 emergence date}
 
-\item{duration}{simulation duration, usually 120 days}
+\item{duration}{simulation duration (growing season length)}
 
 \item{rhlim}{threshold to decide whether leaves are wet or not (usually
 90 \%)}
 
 \item{rainlim}{threshold to decide whether leaves are wet or not}
 
-\item{wetness}{simulate RHmax or rain threshold (0) or leaf wetness duration
-(1)}
+\item{wetness_type}{simulate RHmax or rain threshold (0) or leaf wetness
+duration (1)}
 
-\item{init_sites}{Initial number of plant's healthy sites}
+\item{H0}{Initial number of plant's healthy sites}
 
-\item{init_infection}{Initial number of infective sites}
+\item{I0}{Initial number of infective sites}
 
-\item{age_rc}{crop age curve for pathogen optimum}
+\item{RcA}{crop age curve for pathogen optimum}
 
-\item{tmp_rc}{temperature curve for pathogen optimum}
+\item{RcT}{temperature curve for pathogen optimum}
 
-\item{rh_rc}{relative curve for pathogen optimum}
+\item{RcW}{relative curve for pathogen optimum}
 
-\item{base_rc}{corrected basic infection rate}
+\item{RcOpt}{potential basic infection rate corrected for removals}
 
-\item{latrans}{latent period}
+\item{l}{latent period}
 
-\item{inftrans}{infectious period}
+\item{i}{infectious period}
 
-\item{site_max}{NA}
+\item{Sx}{maximum number of sites}
 
-\item{aggr}{NA}
+\item{a}{aggregation coefficient}
 
-\item{rr_physiol_senesc}{relative rate of physiological senescence}
+\item{RRS}{relative rate of physiological senescence}
 
-\item{rrg}{NA}
-
-\item{senesc_type}{NA}
+\item{RRG}{relative rate of growth}
 }
 \value{
 A \code{\link[data.table]{data.table}} containing the following
