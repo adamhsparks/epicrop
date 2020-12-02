@@ -38,6 +38,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' sb <- predict_sheath_blight(wth, emergence = "2000-07-01")
+#' plot(x = sb$dates, y = sb$severity, type = "l")
 #' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
