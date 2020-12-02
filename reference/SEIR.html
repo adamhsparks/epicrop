@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Susceptible-Exposed-Infectious-Removed (SEIR) model — SEIR • epirice</title>
+<title>Susceptible-Exposed-Infectious-Removed (SEIR) model framework — SEIR • epirice</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,10 @@
 
 
 
-<meta property="og:title" content="Susceptible-Exposed-Infectious-Removed (SEIR) model — SEIR" />
-<meta property="og:description" content="This function is used by specific disease models in EPIRICE to model disease
-severity of several rice diseases.  It should be generic enough to port to
-other pathosystems given proper values." />
+<meta property="og:title" content="Susceptible-Exposed-Infectious-Removed (SEIR) model framework — SEIR" />
+<meta property="og:description" content="This function is originally used by specific disease models in EPIRICE to
+model disease severity of several rice diseases.  Given proper values it can
+be used with other pathosystems as well." />
 
 
 
@@ -108,15 +108,15 @@ other pathosystems given proper values." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Susceptible-Exposed-Infectious-Removed (SEIR) model</h1>
+    <h1>Susceptible-Exposed-Infectious-Removed (SEIR) model framework</h1>
     
     <div class="hidden name"><code>SEIR.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function is used by specific disease models in EPIRICE to model disease
-severity of several rice diseases.  It should be generic enough to port to
-other pathosystems given proper values.</p>
+    <p>This function is originally used by specific disease models in EPIRICE to
+model disease severity of several rice diseases.  Given proper values it can
+be used with other pathosystems as well.</p>
     </div>
 
     <pre class="usage"><span class='fu'>SEIR</span><span class='op'>(</span>
@@ -126,20 +126,19 @@ other pathosystems given proper values.</p>
   duration <span class='op'>=</span> <span class='fl'>120</span>,
   rhlim <span class='op'>=</span> <span class='fl'>90</span>,
   rainlim <span class='op'>=</span> <span class='fl'>5</span>,
-  wetness <span class='op'>=</span> <span class='fl'>0</span>,
-  <span class='va'>init_sites</span>,
-  init_infection <span class='op'>=</span> <span class='fl'>1</span>,
-  <span class='va'>age_rc</span>,
-  <span class='va'>tmp_rc</span>,
-  <span class='va'>rh_rc</span>,
-  <span class='va'>base_rc</span>,
-  <span class='va'>latrans</span>,
-  <span class='va'>inftrans</span>,
-  <span class='va'>site_max</span>,
-  <span class='va'>aggr</span>,
-  <span class='va'>rr_physiol_senesc</span>,
-  <span class='va'>rrg</span>,
-  senesc_type <span class='op'>=</span> <span class='fl'>1</span>
+  wetness_type <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>H0</span>,
+  I0 <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>RcA</span>,
+  <span class='va'>RcT</span>,
+  <span class='va'>RcW</span>,
+  <span class='va'>RcOpt</span>,
+  <span class='va'>l</span>,
+  <span class='va'>i</span>,
+  <span class='va'>Sx</span>,
+  <span class='va'>a</span>,
+  <span class='va'>RRS</span>,
+  <span class='va'>RRG</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -147,21 +146,22 @@ other pathosystems given proper values.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>wth</th>
-      <td><p>a data frame of weather on a daily time-step containing data
-with the following field names.</p><ul>
+      <td><p>a data frame of weather on a daily time-step containing data with
+the following field names.</p><ul>
 <li><p>YYYYMMDD Date in YYYY-MM-DD format</p></li>
 <li><p>DOY Numeric day of year, e.g. 1 - 365</p></li>
-<li><p>T2M Mean daily temperature</p></li>
-<li><p>T2MN Minimum daily temperature</p></li>
-<li><p>T2MX Maximum daily temperature</p></li>
-<li><p>RH2M Relative humidity</p></li>
+<li><p>TM Mean daily temperature</p></li>
+<li><p>TN Minimum daily temperature</p></li>
+<li><p>TX Maximum daily temperature</p></li>
+<li><p>TDEW Mean daily dewpoint temperature</p></li>
+<li><p>RH Relative humidity</p></li>
 <li><p>RAIN Precipitation</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>emergence</th>
       <td><p>expected date of plant emergence entered in <code>YYYY-MM-DD</code>
-format (usually supplied through the disease model function)</p></td>
+format</p></td>
     </tr>
     <tr>
       <th>onset</th>
@@ -170,7 +170,7 @@ emergence date</p></td>
     </tr>
     <tr>
       <th>duration</th>
-      <td><p>simulation duration, usually 120 days</p></td>
+      <td><p>simulation duration (growing season length)</p></td>
     </tr>
     <tr>
       <th>rhlim</th>
@@ -182,61 +182,57 @@ emergence date</p></td>
       <td><p>threshold to decide whether leaves are wet or not</p></td>
     </tr>
     <tr>
-      <th>wetness</th>
-      <td><p>simulate RHmax or rain threshold (0) or leaf wetness duration
-(1)</p></td>
+      <th>wetness_type</th>
+      <td><p>simulate RHmax or rain threshold (0) or leaf wetness
+duration (1)</p></td>
     </tr>
     <tr>
-      <th>init_sites</th>
+      <th>H0</th>
       <td><p>Initial number of plant's healthy sites</p></td>
     </tr>
     <tr>
-      <th>init_infection</th>
+      <th>I0</th>
       <td><p>Initial number of infective sites</p></td>
     </tr>
     <tr>
-      <th>age_rc</th>
+      <th>RcA</th>
       <td><p>crop age curve for pathogen optimum</p></td>
     </tr>
     <tr>
-      <th>tmp_rc</th>
+      <th>RcT</th>
       <td><p>temperature curve for pathogen optimum</p></td>
     </tr>
     <tr>
-      <th>rh_rc</th>
+      <th>RcW</th>
       <td><p>relative curve for pathogen optimum</p></td>
     </tr>
     <tr>
-      <th>base_rc</th>
-      <td><p>corrected basic infection rate</p></td>
+      <th>RcOpt</th>
+      <td><p>potential basic infection rate corrected for removals</p></td>
     </tr>
     <tr>
-      <th>latrans</th>
+      <th>l</th>
       <td><p>latent period</p></td>
     </tr>
     <tr>
-      <th>inftrans</th>
+      <th>i</th>
       <td><p>infectious period</p></td>
     </tr>
     <tr>
-      <th>site_max</th>
-      <td><p>NA</p></td>
+      <th>Sx</th>
+      <td><p>maximum number of sites</p></td>
     </tr>
     <tr>
-      <th>aggr</th>
-      <td><p>NA</p></td>
+      <th>a</th>
+      <td><p>aggregation coefficient</p></td>
     </tr>
     <tr>
-      <th>rr_physiol_senesc</th>
+      <th>RRS</th>
       <td><p>relative rate of physiological senescence</p></td>
     </tr>
     <tr>
-      <th>rrg</th>
-      <td><p>NA</p></td>
-    </tr>
-    <tr>
-      <th>senesc_type</th>
-      <td><p>NA</p></td>
+      <th>RRG</th>
+      <td><p>relative rate of growth</p></td>
     </tr>
     </table>
 
@@ -271,6 +267,12 @@ functions:</p><ul>
 <li><p><code><a href='predict_tungro.html'>predict_tungro</a></code></p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga
+and Jorrel Aunario. Modeling and mapping potential epidemics of rice
+diseases globally. Crop Protection, Volume 34, 2012, Pages 6-17, ISSN
+0261-2194 DOI: <a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a></p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
@@ -285,28 +287,28 @@ Adam H. Sparks, Aji Sukarta</p>
 <span class='op'>)</span>
 
 <span class='co'># provide suitable values for brown spot severity</span>
-<span class='va'>age_rc</span> <span class='op'>&lt;-</span>
+<span class='va'>RcA</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>6</span> <span class='op'>*</span> <span class='fl'>20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.35</span>, <span class='fl'>0.35</span>, <span class='fl'>0.35</span>, <span class='fl'>0.47</span>, <span class='fl'>0.59</span>, <span class='fl'>0.71</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>tmp_rc</span> <span class='op'>&lt;-</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>T <span class='op'>=</span> <span class='fl'>15</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>5</span>, RcT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.06</span>, <span class='fl'>1.0</span>, <span class='fl'>0.85</span>, <span class='fl'>0.16</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>rh_rc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>RH_hr <span class='op'>=</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>8</span> <span class='op'>*</span> <span class='fl'>3</span>,
-             RcRH <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.12</span>, <span class='fl'>0.20</span>, <span class='fl'>0.38</span>, <span class='fl'>0.46</span>, <span class='fl'>0.60</span>, <span class='fl'>0.73</span>, <span class='fl'>0.87</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>RcT</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>15</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.06</span>, <span class='fl'>1.0</span>, <span class='fl'>0.85</span>, <span class='fl'>0.16</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>RcW</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>8</span> <span class='op'>*</span> <span class='fl'>3</span>,
+             <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.12</span>, <span class='fl'>0.20</span>, <span class='fl'>0.38</span>, <span class='fl'>0.46</span>, <span class='fl'>0.60</span>, <span class='fl'>0.73</span>, <span class='fl'>0.87</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>emergence</span> <span class='op'>&lt;-</span> <span class='st'>"2000-01-15"</span>
 
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>SEIR</span><span class='op'>(</span>
   wth <span class='op'>=</span> <span class='va'>wth</span>,
   emergence <span class='op'>=</span> <span class='va'>emergence</span>,
-  age_rc <span class='op'>=</span> <span class='va'>age_rc</span>,
-  tmp_rc <span class='op'>=</span> <span class='va'>tmp_rc</span>,
-  rh_rc <span class='op'>=</span> <span class='va'>rh_rc</span>,
-  base_rc <span class='op'>=</span> <span class='fl'>0.61</span>,
-  latrans <span class='op'>=</span> <span class='fl'>6</span>,
-  inftrans <span class='op'>=</span> <span class='fl'>19</span>,
-  init_sites <span class='op'>=</span> <span class='fl'>600</span>,
-  aggr <span class='op'>=</span> <span class='fl'>1</span>,
-  site_max <span class='op'>=</span> <span class='fl'>100000</span>,
-  rr_physiol_senesc <span class='op'>=</span> <span class='fl'>0.01</span>,
-  rrg <span class='op'>=</span> <span class='fl'>0.1</span>
+  RcA <span class='op'>=</span> <span class='va'>RcA</span>,
+  RcT <span class='op'>=</span> <span class='va'>RcT</span>,
+  RcW <span class='op'>=</span> <span class='va'>RcW</span>,
+  RcOpt <span class='op'>=</span> <span class='fl'>0.61</span>,
+  l <span class='op'>=</span> <span class='fl'>6</span>,
+  i <span class='op'>=</span> <span class='fl'>19</span>,
+  H0 <span class='op'>=</span> <span class='fl'>600</span>,
+  a <span class='op'>=</span> <span class='fl'>1</span>,
+  Sx <span class='op'>=</span> <span class='fl'>100000</span>,
+  RRS <span class='op'>=</span> <span class='fl'>0.01</span>,
+  RRG <span class='op'>=</span> <span class='fl'>0.1</span>
 <span class='op'>)</span>
 <span class='co'># }</span>
 </div></pre>
