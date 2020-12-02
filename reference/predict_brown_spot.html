@@ -167,9 +167,9 @@ column values.</p>
 
     <p>Klomp, A.O., 1977. Early senescence of rice and <em>Dreschslera
 oryzae</em> in the Wageningen polder, Surinam. PhD thesis, 97p.</p>
-<p>Levy, Y. and Cohen, Y., 1980. Sporulation of <em>
-Helminthosporium turcicum</em> on sweet corn: Effects of temperature and dew
-period. Canadian Journal of Plant Pathology 2:65-69.</p>
+<p>Levy, Y. and Cohen, Y., 1980. Sporulation of
+<em>Helminthosporium turcicum</em> on sweet corn: Effects of temperature and
+dew period. Canadian Journal of Plant Pathology 2:65-69.</p>
 <p>Padmanabhan, S.Y. and Ganguly, D. 1954. Relation between the age
 of rice plant and its susceptibility to <em>Helminthosporium</em> and blast
 disease. Proceedings of the Indian Academy of Sciences B 29:44-50.</p>
@@ -201,9 +201,9 @@ Experiment Station, New Haven, 85 p.</p>
 <span class='co'># get weather for IRRI Zeigler Experiment Station in dry season 2000</span>
 <span class='va'>wth</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_wth.html'>get_wth</a></span><span class='op'>(</span>
   lonlat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>121.25562</span>, <span class='fl'>14.6774</span><span class='op'>)</span>,
-  dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-05-15"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span>
+  dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-06-30"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span>
 <span class='op'>)</span>
-<span class='va'>bs</span> <span class='op'>&lt;-</span> <span class='fu'>predict_brown_spot</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-05-18"</span><span class='op'>)</span>
+<span class='va'>bs</span> <span class='op'>&lt;-</span> <span class='fu'>predict_brown_spot</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bs</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>bs</span><span class='op'>$</span><span class='va'>severity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
 </div><div class='img'><img src='predict_brown_spot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
