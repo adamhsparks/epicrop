@@ -100,9 +100,9 @@ columns
 }
 }
 \description{
-This function is used by specific disease models in EPIRICE to model disease
-severity of several rice diseases.  It should be generic enough to port to
-other pathosystems given proper values.
+This function is originally used by specific disease models in EPIRICE to
+model disease severity of several rice diseases.  Given proper values it can
+be used with other pathosystems as well.
 }
 \details{
 \code{SEIR} is called by the following specific disease modelling
