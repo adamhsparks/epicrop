@@ -42,7 +42,7 @@
 
 
 .eLW <- function(rhmin, rhmax, tmin) {
-  # emperical leaf wetness estimation according to Hijmans, Forbes and Walker, 2001
+  # empirical leaf wetness estimation according to Hijmans, Forbes and Walker, 2001
   ewhr <-
     exp(-8.093137318 + 0.11636662 * rhmax - 0.03715678 * rhmin + 0.000358713 *
           rhmin * rhmin)
