@@ -44,9 +44,9 @@ Aunario (IRRI).
 # get weather for IRRI Zeigler Experiment Station in dry season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
-  dates = c("2000-05-15", "2000-12-31")
+  dates = c("2000-06-30", "2000-12-31")
 )
-sb <- predict_sheath_blight(wth, emergence = "2000-05-18")
+sb <- predict_sheath_blight(wth, emergence = "2000-07-01")
 }
 }
 \references{

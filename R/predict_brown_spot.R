@@ -1,4 +1,5 @@
 
+
 #' Predict rice brown spot severity
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
@@ -35,9 +36,9 @@
 #' # get weather for IRRI Zeigler Experiment Station in dry season 2000
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-05-15", "2000-12-31")
+#'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' bs <- predict_brown_spot(wth, emergence = "2000-05-18")
+#' bs <- predict_brown_spot(wth, emergence = "2000-07-01")
 #' plot(x = bs$dates, y = bs$severity, type = "l")
 #' }
 #'
@@ -45,9 +46,9 @@
 #'
 #' @references Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera
 #' oryzae} in the Wageningen polder, Surinam. PhD thesis, 97p.
-#' @references Levy, Y. and Cohen, Y., 1980. Sporulation of \emph{
-#' Helminthosporium turcicum} on sweet corn: Effects of temperature and dew
-#' period. Canadian Journal of Plant Pathology 2:65-69.
+#' @references Levy, Y. and Cohen, Y., 1980. Sporulation of
+#' \emph{Helminthosporium turcicum} on sweet corn: Effects of temperature and
+#' dew period. Canadian Journal of Plant Pathology 2:65-69.
 #' @references Padmanabhan, S.Y. and Ganguly, D. 1954. Relation between the age
 #' of rice plant and its susceptibility to \emph{Helminthosporium} and blast
 #' disease. Proceedings of the Indian Academy of Sciences B 29:44-50.
