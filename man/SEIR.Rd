@@ -124,30 +124,36 @@ wth <- get_wth(
 )
 
 # provide suitable values for brown spot severity
-age_rc <-
+RcA <-
   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
-tmp_rc <-
-  cbind(T = 15 + (0:5) * 5, RcT = c(0, 0.06, 1.0, 0.85, 0.16, 0))
-rh_rc <- cbind(RH_hr = 0:8 * 3,
-             RcRH = c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
+RcT <-
+  cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
+RcW <- cbind(0:8 * 3,
+             c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
 emergence <- "2000-01-15"
 
 x <- SEIR(
   wth = wth,
   emergence = emergence,
-  age_rc = age_rc,
-  tmp_rc = tmp_rc,
-  rh_rc = rh_rc,
-  base_rc = 0.61,
-  latrans = 6,
-  inftrans = 19,
-  init_sites = 600,
-  aggr = 1,
-  site_max = 100000,
-  rr_physiol_senesc = 0.01,
-  rrg = 0.1
+  RcA = RcA,
+  RcT = RcT,
+  RcW = RcW,
+  RcOpt = 0.61,
+  l = 6,
+  i = 19,
+  H0 = 600,
+  a = 1,
+  Sx = 100000,
+  RRS = 0.01,
+  RRG = 0.1
 )
 }
+}
+\references{
+Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga
+and Jorrel Aunario. Modeling and mapping potential epidemics of rice
+diseases globally. Crop Protection, Volume 34, 2012, Pages 6-17, ISSN
+0261-2194 DOI: \url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
