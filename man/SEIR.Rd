@@ -2,7 +2,7 @@
 % Please edit documentation in R/SEIR.R
 \name{SEIR}
 \alias{SEIR}
-\title{Susceptible-Exposed-Infectious-Removed (SEIR) model}
+\title{Susceptible-Exposed-Infectious-Removed (SEIR) model framework}
 \usage{
 SEIR(
   wth,
