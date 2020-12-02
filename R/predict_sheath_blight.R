@@ -99,17 +99,17 @@ predict_sheath_blight <- function(wth, emergence, ...) {
     SEIR(
       wth = wth,
       emergence = emergence,
-      age_rc = age_coef_rc,
-      tmp_rc = temp_coef_rc,
-      rh_rc = rh_coef_rc,
-      base_rc = 0.46,
-      latrans = 3,
-      inftrans = 120,
-      site_max = 800,
-      aggr = 2.8,
-      init_sites = 25,
-      rr_physiol_senesc = 0.005,
-      rrg = 0.2,
+      RcA = age_coef_rc,
+      RcT = temp_coef_rc,
+      RcW = rh_coef_rc,
+      RcOpt = 0.46,
+      l = 3,
+      i = 120,
+      Sx = 800,
+      a = 2.8,
+      H0 = 25,
+      RRS = 0.005,
+      RRG = 0.2,
       ...
     )
   )

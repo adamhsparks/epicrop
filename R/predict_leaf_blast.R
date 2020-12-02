@@ -59,7 +59,7 @@
 #' tropics with special reference to the leaf wetness in relation to disease
 #' development. PhD Thesis, Indian Agricultural Research Institute, New Delhi,
 #' 195 p.
-#' @references Luo Wei-Hong, 1996. Simulation  and measurement of leaf wetness
+#' @references Luo Wei-Hong, 1996. Simulation  and measurement of leaf wetness_type
 #' formation in paddy rice crops. PhD Thesis, Wageningen Agricultural
 #' University, 87 p.
 #'
@@ -112,17 +112,17 @@ predict_leaf_blast <- function(wth, emergence, ...) {
     SEIR(
       wth = wth,
       emergence = emergence,
-      age_rc = age_coef_rc,
-      tmp_rc = temp_coef_rc,
-      rh_rc = rh_coef_rc,
-      base_rc = 1.14,
-      latrans = 5,
-      inftrans = 20,
-      init_sites = 600,
-      aggr = 1,
-      site_max = 30000,
-      rr_physiol_senesc = 0.01,
-      rrg = 0.1,
+      RcA = age_coef_rc,
+      RcT = temp_coef_rc,
+      RcW = rh_coef_rc,
+      RcOpt = 1.14,
+      l = 5,
+      i = 20,
+      H0 = 600,
+      a = 1,
+      Sx = 30000,
+      RRS = 0.01,
+      RRG = 0.1,
       ...
     )
   )

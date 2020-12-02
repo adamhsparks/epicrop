@@ -54,7 +54,7 @@
 #' @references Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and
 #' humidity on disease development and sporulation of \emph{Helminthosporium
 #' oryzae} on rice. Indian Phytopathology 30:258-259.
-#' @references Luo Wei-Hong, 1996. Simulation  and measurement of leaf wetness
+#' @references Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
 #' formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 #' @references Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A
 #' Simulator of Southern Corn Leaf Blight. Bulletin of the Connecticut
@@ -79,17 +79,17 @@ predict_brown_spot <- function(wth, emergence, ...) {
     SEIR(
       wth = wth,
       emergence = emergence,
-      age_rc = age_coef_rc,
-      tmp_rc = temp_coef_rc,
-      rh_rc = rh_coef_rc,
-      base_rc = 0.61,
-      latrans = 6,
-      inftrans = 19,
-      init_sites = 600,
-      aggr = 1,
-      site_max = 100000,
-      rr_physiol_senesc = 0.01,
-      rrg = 0.1,
+      RcA = age_coef_rc,
+      RcT = temp_coef_rc,
+      RcW = rh_coef_rc,
+      RcOpt = 0.61,
+      l = 6,
+      i = 19,
+      H0 = 600,
+      a = 1,
+      Sx = 100000,
+      RRS = 0.01,
+      RRG = 0.1,
       ...
     )
   )

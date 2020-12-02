@@ -73,7 +73,7 @@ tropics with special reference to the leaf wetness in relation to disease
 development. PhD Thesis, Indian Agricultural Research Institute, New Delhi,
 195 p.
 
-Luo Wei-Hong, 1996. Simulation  and measurement of leaf wetness
+Luo Wei-Hong, 1996. Simulation  and measurement of leaf wetness_type
 formation in paddy rice crops. PhD Thesis, Wageningen Agricultural
 University, 87 p.
 }

@@ -7,14 +7,14 @@
 # Date :  23 August 2010
 # Version 0.2
 # Licence GPL v3
-#switch :  wetness (1) uses rhcoefrc = 1 vs wetness (0)
+#switch :  wetness_type (1) uses rhcoefrc = 1 vs wetness_type (0)
 # uses RH + rain threshold corresponding to  STELLA  TungroModv5T
 
 # onset = 25 deleted as component of tungro function, as onset is not a constant
 #component on nb of rice crop per year should be added in the function
 #' @noRd
 tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
-                    rainlim = 0, wetness = 1, pcisrice = 1) {
+                    rainlim = 0, wetness_type = 1, pcisrice = 1) {
   emergence <- as.Date(emergence)
 
   wth@w <- subset(wth@w, wth@w$date >= emergence - 1)
@@ -23,13 +23,13 @@ tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
   }
 
   wth@w <- wth@w[1:(duration + 1), ]
-  rrg <- 0.1
+  RRG <- 0.1
   senesc_type <- 1
-  aggr   <- 1
-  base_rc <- 0.18
-  site_max <- 100
-  init_infection <- 1
-  init_sites <- 100
+  a   <- 1
+  RcOpt <- 0.18
+  Sx <- 100
+  I0 <- 1
+  H0 <- 100
   infectious_transit_time <- 120
   latency_transit_time <- 6
   extinct_pri <- -0.025
@@ -110,7 +110,7 @@ tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
     }
     onset <- pc * epidonset_endemic
 
-    if (wetness == 0) {
+    if (wetness_type == 0) {
       if (rhx[day + 1] >=  rhlim | rain[day + 1] >= rainlim) {
         rhcoef[day] <- 1
       }
@@ -118,7 +118,7 @@ tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
       rhcoef[day + 1] <- rhcoefrc
     }
 
-    rc[day + 1] <- base_rc * afgen(agerc, day) *
+    rc[day + 1] <- RcOpt * afgen(agerc, day) *
       afgen(tmprc, wth@w$tavg[day + 1]) * rhcoef[day + 1]
 
     diseased[day + 1] <- sum(infectious) + now_latent[day + 1] +
@@ -129,10 +129,10 @@ tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
                             (sites[day + 1] + diseased[day + 1]))
 
     if (day  ==  onset) {
-      rinfection[day + 1] <- init_infection
+      rinfection[day + 1] <- I0
     } else if (day > onset) {
       rinfection[day + 1] <- now_infectious[day + 1] * rc[day + 1] *
-        (cofr[day + 1] ^ aggr)
+        (cofr[day + 1] ^ a)
     } else {
       rinfection[day + 1] <- 0
     }
@@ -146,8 +146,8 @@ tungro2 <- function(wth, emergence = "2000-05-15", duration = 120, rhlim = 0,
   }
 
   total_sites[day + 1] <- diseased[day + 1] + sites[day + 1]
-  rgrowth[day + 1] <- rrg * sites[day + 1] *
-    (1 - (total_sites[day + 1] / site_max))
+  rgrowth[day + 1] <- RRG * sites[day + 1] *
+    (1 - (total_sites[day + 1] / Sx))
 
   # consider natural senescence
   incidence[day + 1] <- (diseased[day + 1] - removed[day + 1]) /

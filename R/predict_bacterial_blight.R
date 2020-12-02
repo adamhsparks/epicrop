@@ -86,17 +86,17 @@ predict_bacterial_blight <- function(wth, emergence, ...) {
     SEIR(
       wth = wth,
       emergence = emergence,
-      age_rc = age_coef_rc,
-      tmp_rc = temp_coef_rc,
-      rh_rc = rh_coef_rc,
-      base_rc = 0.87,
-      latrans = 5,
-      inftrans = 30,
-      site_max = 3200,
-      aggr = 4,
-      init_sites = 100,
-      rr_physiol_senesc = 0.01,
-      rrg = 0.1,
+      RcA = age_coef_rc,
+      RcT = temp_coef_rc,
+      RcW = rh_coef_rc,
+      RcOpt = 0.87,
+      l = 5,
+      i = 30,
+      Sx = 3200,
+      a = 4,
+      H0 = 100,
+      RRS = 0.01,
+      RRG = 0.1,
       ...
     )
   )

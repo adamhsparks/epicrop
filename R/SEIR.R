@@ -1,42 +1,47 @@
 
-#' Susceptible-Exposed-Infectious-Removed (SEIR) model
+#' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
-#' This function is used by specific disease models in EPIRICE to model disease
-#' severity of several rice diseases.  It should be generic enough to port to
-#' other pathosystems given proper values.
+#' This function is originally used by specific disease models in EPIRICE to
+#'  model disease severity of several rice diseases.  Given proper values it can
+#'  be used with other pathosystems as well.
 #'
-#' @param wth a data frame of weather on a daily time-step containing data
-#' with the following field names.
+#' @param wth a data frame of weather on a daily time-step containing data with
+#'  the following field names.
 #'   * YYYYMMDD Date in YYYY-MM-DD format
 #'   * DOY Numeric day of year, e.g. 1 - 365
-#'   * T2M Mean daily temperature
-#'   * T2MN Minimum daily temperature
-#'   * T2MX Maximum daily temperature
-#'   * RH2M Relative humidity
+#'   * TM Mean daily temperature
+#'   * TN Minimum daily temperature
+#'   * TX Maximum daily temperature
+#'   * TDEW Mean daily dewpoint temperature
+#'   * RH Relative humidity
 #'   * RAIN Precipitation
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
-#' format (usually supplied through the disease model function)
+#' format
 #' @param onset expected number of days until the onset of disease after
 #' emergence date
-#' @param duration simulation duration, usually 120 days
+#' @param duration simulation duration (growing season length)
 #' @param rhlim threshold to decide whether leaves are wet or not (usually
 #' 90 %)
 #' @param rainlim threshold to decide whether leaves are wet or not
-#' @param wetness simulate RHmax or rain threshold (0) or leaf wetness duration
-#' (1)
-#' @param init_sites Initial number of plant's healthy sites
-#' @param init_infection Initial number of infective sites
-#' @param age_rc crop age curve for pathogen optimum
-#' @param tmp_rc temperature curve for pathogen optimum
-#' @param rh_rc relative curve for pathogen optimum
-#' @param base_rc corrected basic infection rate
-#' @param latrans latent period
-#' @param inftrans infectious period
-#' @param site_max NA
-#' @param aggr NA
-#' @param rr_physiol_senesc relative rate of physiological senescence
-#' @param rrg NA
-#' @param senesc_type NA
+#' @param wetness_type simulate RHmax or rain threshold (0) or leaf wetness
+#'  duration (1)
+#' @param H0 Initial number of plant's healthy sites
+#' @param I0 Initial number of infective sites
+#' @param RcA crop age curve for pathogen optimum
+#' @param RcT temperature curve for pathogen optimum
+#' @param RcW relative curve for pathogen optimum
+#' @param RcOpt potential basic infection rate corrected for removals
+#' @param l latent period
+#' @param i infectious period
+#' @param Sx maximum number of sites
+#' @param a aggregation coefficient
+#' @param RRS relative rate of physiological senescence
+#' @param RRG relative rate of growth
+#'
+#' @references Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga
+#'  and Jorrel Aunario. Modeling and mapping potential epidemics of rice
+#'  diseases globally. Crop Protection, Volume 34, 2012, Pages 6-17, ISSN
+#'  0261-2194 DOI: <http://dx.doi.org/10.1016/j.cropro.2011.11.009>
 #'
 #' @examples
 #' \donttest{
@@ -47,28 +52,28 @@
 #' )
 #'
 #' # provide suitable values for brown spot severity
-#' age_rc <-
+#' RcA <-
 #'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
-#' tmp_rc <-
+#' RcT <-
 #'   cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
-#' rh_rc <- cbind(0:8 * 3,
+#' RcW <- cbind(0:8 * 3,
 #'              c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
 #' emergence <- "2000-01-15"
 #'
 #' x <- SEIR(
 #'   wth = wth,
 #'   emergence = emergence,
-#'   age_rc = age_rc,
-#'   tmp_rc = tmp_rc,
-#'   rh_rc = rh_rc,
-#'   base_rc = 0.61,
-#'   latrans = 6,
-#'   inftrans = 19,
-#'   init_sites = 600,
-#'   aggr = 1,
-#'   site_max = 100000,
-#'   rr_physiol_senesc = 0.01,
-#'   rrg = 0.1
+#'   RcA = RcA,
+#'   RcT = RcT,
+#'   RcW = RcW,
+#'   RcOpt = 0.61,
+#'   l = 6,
+#'   i = 19,
+#'   H0 = 600,
+#'   a = 1,
+#'   Sx = 100000,
+#'   RRS = 0.01,
+#'   RRG = 0.1
 #' )
 #' }
 #' @details \code{SEIR} is called by the following specific disease modelling
@@ -109,20 +114,19 @@ SEIR <-
            duration = 120,
            rhlim = 90,
            rainlim = 5,
-           wetness = 0,
-           init_sites,
-           init_infection = 1,
-           age_rc,
-           tmp_rc,
-           rh_rc,
-           base_rc,
-           latrans,
-           inftrans,
-           site_max,
-           aggr,
-           rr_physiol_senesc,
-           rrg,
-           senesc_type = 1) {
+           wetness_type = 0,
+           H0,
+           I0 = 1,
+           RcA,
+           RcT,
+           RcW,
+           RcOpt,
+           l,
+           i,
+           Sx,
+           a,
+           RRS,
+           RRG) {
     # CRAN NOTE avoidance
     infday <- leaf_wet <- DOY <- NULL #nocov
 
@@ -140,9 +144,9 @@ SEIR <-
     }
 
     # subset weather data where date is greater than emergence minus one
-    wth[DOY >= emergence_doy - 1,]
+    wth[DOY >= emergence_doy - 1, ]
 
-    if (wetness == 1) {
+    if (wetness_type == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
     }
 
@@ -159,10 +163,10 @@ SEIR <-
       # State calculations
       if (day == 0) {
         # start crop growth
-        sites[day + 1] <- init_sites
-        rsenesced[day + 1] <- rr_physiol_senesc * sites[day + 1]
+        sites[day + 1] <- H0
+        rsenesced[day + 1] <- RRS * sites[day + 1]
       } else {
-        if (day > inftrans) {
+        if (day > i) {
           removed_today <- infectious[infday + 2]
         } else {
           removed_today <- 0
@@ -171,17 +175,16 @@ SEIR <-
         sites[day + 1] <-
           sites[day] + rgrowth[day] - infection[day] -
           rsenesced[day]
-        rsenesced[day + 1] <- removed_today * senesc_type +
-          rr_physiol_senesc * sites[day + 1]
+        rsenesced[day + 1] <- removed_today + RRS * sites[day + 1]
         senesced[day + 1] <- senesced[day] + rsenesced[day]
 
         latency[day + 1] <- infection[day]
-        latday <- day - latrans + 1
+        latday <- day - l + 1
         latday <- max(0, latday)
         now_latent[day + 1] <- sum(latency[latday:day + 1])
 
         infectious[day + 1] <- rtransfer[day]
-        infday <- day - inftrans + 1
+        infday <- day - i + 1
         infday <- max(0, infday)
         now_infectious[day + 1] <- sum(infectious[infday:day + 1])
       }
@@ -191,17 +194,17 @@ SEIR <-
         break
       }
 
-      if (wetness == 0) {
+      if (wetness_type == 0) {
         if (wth$RH[day + 1] == rhlim |
             wth$RAIN[day + 1] >= rainlim) {
           RHCoef[day + 1] <- 1
         }
       } else {
-        RHCoef[day + 1] <- afgen(rh_rc, W[day + 1])
+        RHCoef[day + 1] <- afgen(RcW, W[day + 1])
       }
 
-      rc[day + 1] <- base_rc * afgen(age_rc, day) *
-        afgen(tmp_rc, wth$TM[day + 1]) * RHCoef[day + 1]
+      rc[day + 1] <- RcOpt * afgen(RcA, day) *
+        afgen(RcT, wth$TM[day + 1]) * RHCoef[day + 1]
       diseased[day + 1] <- sum(infectious) +
         now_latent[day + 1] + removed[day + 1]
       removed[day + 1] <- sum(infectious) - now_infectious[day + 1]
@@ -211,23 +214,23 @@ SEIR <-
 
       if (day == onset) {
         # initialisation of the disease
-        infection[day + 1] <- init_infection
+        infection[day + 1] <- I0
       } else if (day > onset) {
         infection[day + 1] <- now_infectious[day + 1] *
-          rc[day + 1] * (cofr[day + 1] ^ aggr)
+          rc[day + 1] * (cofr[day + 1] ^ a)
       } else {
         infection[day + 1] <- 0
       }
 
-      if (day >=  latrans) {
+      if (day >=  l) {
         rtransfer[day + 1] <- latency[latday + 1]
       } else {
         rtransfer[day + 1] <- 0
       }
 
       total_sites[day + 1] <- diseased[day + 1] + sites[day + 1]
-      rgrowth[day + 1] <- rrg * sites[day + 1] *
-        (1 - (total_sites[day + 1] / site_max))
+      rgrowth[day + 1] <- RRG * sites[day + 1] *
+        (1 - (total_sites[day + 1] / Sx))
       severity[day + 1] <- (diseased[day + 1] - removed[day + 1]) /
         (total_sites[day + 1] - removed[day + 1]) * 100
     } # end loop

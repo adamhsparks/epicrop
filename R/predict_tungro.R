@@ -72,17 +72,17 @@ predict_tungro <- function(wth, emergence, ...) {
     SEIR(
       wth = wth,
       emergence = emergence,
-      age_rc = age_coef_rc,
-      tmp_rc = temp_coef_rc,
-      rh_rc = rh_coef_rc,
-      base_rc = 0.18,
-      latrans = 6,
-      inftrans = 120,
-      site_max = 100,
-      aggr = 1,
-      init_sites = 100,
-      rr_physiol_senesc = 0.01,
-      rrg = 0.1,
+      RcA = age_coef_rc,
+      RcT = temp_coef_rc,
+      RcW = rh_coef_rc,
+      RcOpt = 0.18,
+      l = 6,
+      i = 120,
+      Sx = 100,
+      a = 1,
+      H0 = 100,
+      RRS = 0.01,
+      RRG = 0.1,
       ...
     )
   )

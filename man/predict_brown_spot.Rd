@@ -67,7 +67,7 @@ Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and
 humidity on disease development and sporulation of \emph{Helminthosporium
 oryzae} on rice. Indian Phytopathology 30:258-259.
 
-Luo Wei-Hong, 1996. Simulation  and measurement of leaf wetness
+Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
 formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 
 Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A
