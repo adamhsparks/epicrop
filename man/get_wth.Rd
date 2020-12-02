@@ -13,8 +13,9 @@ entered as x, y coordinates.}
 \item{dates}{A character vector of start and end dates in that order.}
 }
 \value{
-A \code{\link[data.table]{data.table}} of weather data suitable for
-use in \pkg{epirice} with the following columns:
+A \code{\link[data.table]{data.table}} of weather data, dates and
+geolocation information (LAT/LON values) suitable for use in \pkg{epirice}
+with the following columns:
 \tabular{rl}{
 \strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
 \strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
@@ -24,6 +25,8 @@ use in \pkg{epirice} with the following columns:
 \strong{TDEW}:\tab Mean daily dew point temperature (°C).\cr
 \strong{RH}:\tab Mean daily relative humidity (\%).\cr
 \strong{RAIN}:\tab Mean daily rainfall (mm).\cr
+\strong{LAT}:\tab Latitude of area of interest.\cr
+\strong{LON}:\tab Longitude of area of interest.\cr
 }
 }
 \description{

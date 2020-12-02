@@ -1,12 +1,14 @@
 
+
 #' Get weather data from NASA POWER
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
 #'  entered as x, y coordinates.
 #' @param dates A character vector of start and end dates in that order.
 #'
-#' @return A \code{\link[data.table]{data.table}} of weather data suitable for
-#'  use in \pkg{epirice} with the following columns:
+#' @return A \code{\link[data.table]{data.table}} of weather data, dates and
+#'  geolocation information (LAT/LON values) suitable for use in \pkg{epirice}
+#'  with the following columns:
 #'   \tabular{rl}{
 #'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
 #'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
@@ -16,6 +18,8 @@
 #'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
 #'   **RH**:\tab Mean daily relative humidity (%).\cr
 #'   **RAIN**:\tab Mean daily rainfall (mm).\cr
+#'   **LAT**:\tab Latitude of area of interest.\cr
+#'   **LON**:\tab Longitude of area of interest.\cr
 #'   }
 #' @details This function is just a wrapper for the \CRANpkg{nasapower}
 #'  \code{\link[nasapower]{get_power}} function with predefined parameters
@@ -48,7 +52,7 @@ get_wth <- function(lonlat, dates) {
     )
   )
 
-  wth[, c("YEAR", "MM", "DD", "LON", "LAT") := NULL][]
+  wth[, c("YEAR", "MM", "DD") := NULL][]
   setnames(
     wth,
     old = c(
@@ -59,21 +63,36 @@ get_wth <- function(lonlat, dates) {
       "T2M_MIN",
       "T2MDEW",
       "RH2M",
-      "PRECTOT"
+      "PRECTOT",
+      "LAT",
+      "LON"
     ),
     new = c(
-      "YYYYMMDD",
       "DOY",
+      "YYYYMMDD",
       "TM",
       "TN",
       "TX",
       "TDEW",
       "RH",
-      "RAIN"
+      "RAIN",
+      "LAT",
+      "LON"
     )
   )
   setcolorder(wth,
-              c("YYYYMMDD", "DOY", "TM", "TN", "TX", "TDEW", "RH", "RAIN"))
+              c(
+                "YYYYMMDD",
+                "DOY",
+                "TM",
+                "TN",
+                "TX",
+                "TDEW",
+                "RH",
+                "RAIN",
+                "LAT",
+                "LON"
+              ))
 
   return(wth)
 }
