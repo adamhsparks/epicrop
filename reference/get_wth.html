@@ -133,8 +133,9 @@ entered as x, y coordinates.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of weather data suitable for
-use in <span class="pkg">epirice</span> with the following columns:</p><table class='table'>
+    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of weather data, dates and
+geolocation information (LAT/LON values) suitable for use in <span class="pkg">epirice</span>
+with the following columns:</p><table class='table'>
 <tr><td><strong>YYYYMMDD</strong>:</td><td>Date as Year Month Day (ISO8601).</td></tr>
 <tr><td><strong>DOY</strong>:</td><td>Consecutive day of year, commonly called "Julian date".</td></tr>
 <tr><td><strong>TM</strong>:</td><td>Mean daily temperature (°C).</td></tr>
@@ -143,6 +144,8 @@ use in <span class="pkg">epirice</span> with the following columns:</p><table cl
 <tr><td><strong>TDEW</strong>:</td><td>Mean daily dew point temperature (°C).</td></tr>
 <tr><td><strong>RH</strong>:</td><td>Mean daily relative humidity (%).</td></tr>
 <tr><td><strong>RAIN</strong>:</td><td>Mean daily rainfall (mm).</td></tr>
+<tr><td><strong>LAT</strong>:</td><td>Latitude of area of interest.</td></tr>
+<tr><td><strong>LON</strong>:</td><td>Longitude of area of interest.</td></tr>
 </table>
 
 
