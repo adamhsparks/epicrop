@@ -38,6 +38,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' tg <- predict_tungro(wth, emergence = "2000-07-01")
+#' plot(x = tg$dates, y = tg$severity, type = "l")
 #' }
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
