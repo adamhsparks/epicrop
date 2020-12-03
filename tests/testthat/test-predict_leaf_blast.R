@@ -38,7 +38,7 @@ test_that("Values are as expected", {
 
   # check infectious sites
   expect_equal(lb[[1, 5]], 0)
-  expect_equal(lb[[121, 5]], 0, tolerance = 0.1)
+  expect_equal(lb[[121, 5]], 0.08658, tolerance = 0.1)
 
   # check removed sites
   expect_equal(lb[[1, 6]], 0)

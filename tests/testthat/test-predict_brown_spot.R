@@ -30,45 +30,45 @@ test_that("Values are as expected", {
 
   # check total sites
   expect_equal(bs[[1, 3]], 600) # 600 default to start sites
-  expect_equal(bs[[121, 3]], 85621.2, tolerance = 0.01)
+  expect_equal(bs[[121, 3]], 85803.1, tolerance = 0.01)
 
   # check latent sites
   expect_equal(bs[[1, 4]], 0) # 600 default to start sites
-  expect_equal(bs[[121, 4]], 2615, tolerance = 0.1)
+  expect_equal(bs[[121, 4]], 2500, tolerance = 0.1)
 
   # check infectious sites
   expect_equal(bs[[1, 5]], 0)
-  expect_equal(bs[[121, 5]], 1274.7, tolerance = 0.01)
+  expect_equal(bs[[121, 5]], 1217.6, tolerance = 0.01)
 
   # check removed sites
   expect_equal(bs[[1, 6]], 0)
-  expect_equal(bs[[121, 6]], 149.93, tolerance = 0.01)
+  expect_equal(bs[[121, 6]], 143, tolerance = 0.01)
 
   # check senesced sites
   expect_equal(bs[[1, 7]], 0)
-  expect_equal(bs[[121, 7]], 56004.46, tolerance = 0.01)
+  expect_equal(bs[[121, 7]], 56012.04, tolerance = 0.01)
 
   # check rateinf
   expect_equal(bs[[1, 8]], 0)
-  expect_equal(bs[[121, 8]], 681.1, tolerance = 0.01)
+  expect_equal(bs[[121, 8]], 652, tolerance = 0.01)
 
   # check rtransfer
   expect_equal(bs[[1, 9]], 0)
-  expect_equal(bs[[121, 9]], 310.04, tolerance = 0.01)
+  expect_equal(bs[[121, 9]], 296.3, tolerance = 0.01)
 
   # check rgrowth
   expect_equal(bs[[1, 10]], 59.64, tolerance = 0.01)
-  expect_equal(bs[[121, 10]], 885.29, tolerance = 0.01)
+  expect_equal(bs[[121, 10]], 886.86, tolerance = 0.01)
 
   # check rsenesced
   expect_equal(bs[[1, 11]], 6)
-  expect_equal(bs[[121, 11]], 880.402, tolerance = 0.0001)
+  expect_equal(bs[[121, 11]], 881.112, tolerance = 0.0001)
 
   # check diseased
   expect_equal(bs[[1, 12]], 0)
-  expect_equal(bs[[121, 12]], 4039, tolerance = 0.01)
+  expect_equal(bs[[121, 12]], 3861, tolerance = 0.01)
 
   # check severity values
   expect_equal(bs[[1, 13]], 0)
-  expect_equal(bs[[121, 13]], 4.345, tolerance = 0.0001)
+  expect_equal(bs[[121, 13]], 4.153, tolerance = 0.0001)
 })
