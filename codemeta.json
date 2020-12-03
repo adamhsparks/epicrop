@@ -1,0 +1,243 @@
+{
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
+  "@type": "SoftwareSourceCode",
+  "identifier": "epirice",
+  "description": "A fork of the 'cropsim' R package by Hijmans et al. This package is\n    intended to make the EPIRICE model easier to use while stripping other\n    functions not related to rice diseases from the R package and removing\n    the hooks to the IRRI GIS lab databases.",
+  "name": "epirice: Simulation modeling of rice crop diseases",
+  "codeRepository": "https://github.com/adamhsparks/epirice/",
+  "license": "https://spdx.org/licenses/GPL-3.0",
+  "version": "0.0.0.9000",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Adam",
+      "familyName": "Sparks",
+      "email": "adamhsparks@gmail.com",
+      "@id": "https://orcid.org/0000-0002-0061-8359"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Robert",
+      "familyName": "Hijmans",
+      "email": "robert.hijmans@gmail.com",
+      "@id": "https://orcid.org/0000-0001-5872-2872"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Serge",
+      "familyName": "Savary",
+      "email": "serge.savary@toulouse.inra.fr"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Ireno",
+      "familyName": "Pangga",
+      "email": "ibpangga@yahoo.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Jorrel",
+      "familyName": "Aunario",
+      "email": "j.aunario@irri.org"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Aji",
+      "familyName": "Sukarta",
+      "email": "aji.ixb@gmail.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Robert",
+      "familyName": "Hijmans",
+      "email": "robert.hijmans@gmail.com",
+      "@id": "https://orcid.org/0000-0001-5872-2872"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Ireno",
+      "familyName": "Pangga",
+      "email": "ibpangga@yahoo.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Jorrel",
+      "familyName": "Aunario",
+      "email": "j.aunario@irri.org"
+    }
+  ],
+  "copyrightHolder": {},
+  "funder": {},
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Adam",
+      "familyName": "Sparks",
+      "email": "adamhsparks@gmail.com",
+      "@id": "https://orcid.org/0000-0002-0061-8359"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ggplot2",
+      "name": "ggplot2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggplot2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    }
+  ],
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.5.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "data.table",
+      "name": "data.table",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=data.table"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "geosphere",
+      "name": "geosphere",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=geosphere"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "nasapower",
+      "name": "nasapower",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=nasapower"
+    }
+  ],
+  "readme": "https://github.com/adamhsparks/epirice/blob/main/README.md",
+  "fileSize": "132.847KB",
+  "contIntegration": "https://codecov.io/gh/adamhsparks/epirice",
+  "keywords": [
+    "rice-diseases",
+    "epirice-model",
+    "r",
+    "rstats",
+    "crop-protection",
+    "rice"
+  ],
+  "citation": [
+    {
+      "@type": "SoftwareSourceCode",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Adam",
+          "familyName": "Sparks"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Robert",
+          "familyName": "Hijmans"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Serge",
+          "familyName": "Savary"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Ireno",
+          "familyName": "Pangga"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Jorel",
+          "familyName": "Aunario"
+        }
+      ],
+      "name": "{epirice}: Simulation modeling of rice crop diseases",
+      "url": "https://github.com/adamhsparks/epirice"
+    }
+  ],
+  "issueTracker": "https://github.com/adamhsparks/epirice/issues"
+}

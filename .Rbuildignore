@@ -11,3 +11,4 @@
 ^\.github$
 ^tic\.R$
 ^\_pkgdown\.yml$
+^codemeta\.json$
