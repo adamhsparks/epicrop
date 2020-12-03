@@ -48,26 +48,30 @@
 #' bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 #' plot(x = bb$dates, y = bb$severity, type = "l")
 #' }
-#'
-#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
+#' and Adam H. Sparks
 #'
 #' @references Adhikari, T.B., 1991. Effects of rice genotype and environment on
 #' bacterial blight progression. PhD thesis, University of the Philippines at
 #' Los Baños, 143 p.
-#' @references Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components
-#' of resistance to bacterial blight disease of rice. Journal of Phytopathology
-#' 119:312-318.
 #' @references Baw A. and Mew, T.W., 1988. Scoring systems for evaluating rice
 #' varietal resistance to bacterial blight (BB): lesion size by growth stage.
 #' International Rice Research Newsletter 13:10-11.
-#' @references Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
-#' formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 #' @references Horino, O., Mew, T.W., Yamada, T., 1982. The effect of
 #' temperature on the development of bacterial leaf blight on rice. Annals of
-#' the Phytopathological Society of Japan 48: 72-75
+#' the Phytopathological Society of Japan 48: 72-75.
+#' @references Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
+#' formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 #' @references Medalla, E. 1992. Characterization of resistance of IR cultivars
 #' to two races of \emph{Xanthomonas oryzae} pv. \emph{oryzae}. Unpublished M.S.
 #' Thesis, University of the Philippines at Los Baños, 81 p.
+#' @references Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components
+#' of resistance to bacterial blight disease of rice. Journal of Phytopathology
+#' 119:312-318.
+#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+#' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
 #'
 #' @seealso
 #' * \code{\link{SEIR}},

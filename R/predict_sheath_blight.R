@@ -48,31 +48,36 @@
 #' sb <- predict_sheath_blight(wth, emergence = "2000-07-01")
 #' plot(x = sb$dates, y = sb$severity, type = "l")
 #' }
-#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
+#' and Adam H. Sparks
 #'
-#' @references Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the
-#' spatio-temporal structure of rice sheath blight epidemics in a farmer's
-#' field. Plant Pathology 50:53-68.
-#' @references Savary, S., Willocquet, L., Teng, P.S., 1997. Modelling sheath
-#' blight epidemics on rice tillers. Agricultural Systems 55:359-384.
 #' @references Castilla, N.P., Leano, R.M., Elazegui, F.A., Teng, P.S., Savary,
 #' S., 1996. Effects of plant contacts, inoculation pattern, leaf wetness
 #' regime, and nitrogen supply on inoculum efficiency in rice sheath blight.
 #' Journal of Phytopathology 144:187-192.
-#' @references Sharma, N.R., Teng, P.S., Olivares, F.M., 1990. Effect of rice
-#' growth stage on sheath blight (ShB) development and yield loss. International
-#' Rice Research Newsletter 15:19-20.
+#' @references Gross, M.K., Santini, J.B., Tikhonova, I. and Latin, R. 1998. The
+#' influence of temperature and leaf wetness duration on infection of perennial
+#' ryegrass by \emph{Rhizoctonia solani}. Plant Disease 82:1012-1016.
 #' @references Hashiba, T. and Ijiri, T., 1989. Estimation of yield loss and
 #' computerized forecasting system (BLIGHTAS) for rice sheath blight disease.
 #' International Symposium on Tropical Agricultural Research: Crop losses due to
 #' disease outbreaks in the tropics and countermeasures. Tropical Agricultural
 #' Research Series (Japan) No. 22 pp. 163-171.
+#' @references Savary, S., Willocquet, L., Teng, P.S., 1997. Modelling sheath
+#' blight epidemics on rice tillers. Agricultural Systems 55:359-384.
+#' @references Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the
+#' spatio-temporal structure of rice sheath blight epidemics in a farmer's
+#' field. Plant Pathology 50:53-68.
+#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+#' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
+#' @references Sharma, N.R., Teng, P.S., Olivares, F.M., 1990. Effect of rice
+#' growth stage on sheath blight (ShB) development and yield loss. International
+#' Rice Research Newsletter 15:19-20.
 #' @references Tu, C.C., Chang, Y.C., Wang, C.W., 1979. Studies on the ecology
 #' of \emph{Rhizoctonia solani}, the causal organism of rice sheath blight.
 #' National Science Council Monthly, ROC 7:1208-1219.
-#' @references Gross, M.K., Santini, J.B., Tikhonova, I. and Latin, R. 1998. The
-#' influence of temperature and leaf wetness duration on infection of perennial
-#' ryegrass by \emph{Rhizoctonia solani}. Plant Disease 82:1012-1016.
 #'
 #' @seealso
 #' * \code{\link{SEIR}},
