@@ -46,6 +46,10 @@ CCH.
 Original model development: Serge Savary & Rene Pangga (IRRI).
 Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
+
+The optimum temperature for leaf blast as presented in Table 2 of
+Savary \emph{et al.} 2012 has a typo. The optimal value should be 20 °C, not
+25 °C as shown. The correct value, 20 °C, is used in this implementation.
 }
 \examples{
 \donttest{
