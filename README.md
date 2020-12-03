@@ -114,7 +114,7 @@ ggplot(data = bb,
   theme_light()
 ```
 
-![](README_files/figure-gfm/plot_severity-1.png)<!-- -->
+<img src="man/figures/plot_severity-1.png">
 
 # Meta
 
