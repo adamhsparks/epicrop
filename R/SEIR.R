@@ -7,41 +7,53 @@
 #'
 #' @param wth a data frame of weather on a daily time-step containing data with
 #'  the following field names.
-#'   * YYYYMMDD Date in YYYY-MM-DD format
-#'   * DOY Numeric day of year, e.g. 1 - 365
-#'   * TM Mean daily temperature
-#'   * TN Minimum daily temperature
-#'   * TX Maximum daily temperature
-#'   * TDEW Mean daily dewpoint temperature
-#'   * RH Relative humidity
-#'   * RAIN Precipitation
+#'   \tabular{rl}{
+#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
+#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
+#'   **TM**:\tab Mean daily temperature (°C).\cr
+#'   **TN**:\tab Minimum daily temperature (°C).\cr
+#'   **TX**:\tab Maximum daily temperature (°C).\cr
+#'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
+#'   **RH**:\tab Mean daily relative humidity (%).\cr
+#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
+#'   }
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
-#' format
+#' format. From Table 1 Savary \emph{et al.} 2012.
 #' @param onset expected number of days until the onset of disease after
-#' emergence date
-#' @param duration simulation duration (growing season length)
+#' emergence date. From Table 1 Savary \emph{et al.} 2012.
+#' @param duration simulation duration (growing season length). From Table 1
+#'  Savary \emph{et al.} 2012.
 #' @param rhlim threshold to decide whether leaves are wet or not (usually
-#' 90 %)
-#' @param rainlim threshold to decide whether leaves are wet or not
+#' 90 %). From Table 1 Savary \emph{et al.} 2012.
+#' @param rainlim threshold to decide whether leaves are wet or not. From Table
+#'  1 Savary \emph{et al.} 2012.
 #' @param wetness_type simulate RHmax or rain threshold (0) or leaf wetness
-#'  duration (1)
-#' @param H0 Initial number of plant's healthy sites
-#' @param I0 Initial number of infective sites
-#' @param RcA crop age curve for pathogen optimum
-#' @param RcT temperature curve for pathogen optimum
-#' @param RcW relative curve for pathogen optimum
-#' @param RcOpt potential basic infection rate corrected for removals
-#' @param l latent period
-#' @param i infectious period
-#' @param Sx maximum number of sites
-#' @param a aggregation coefficient
-#' @param RRS relative rate of physiological senescence
-#' @param RRG relative rate of growth
+#'  duration (1). From Table 1 Savary \emph{et al.} 2012.
+#' @param H0 initial number of plant's healthy sites. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param I0 initial number of infective sites. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param RcA crop age curve for pathogen optimum. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param RcT temperature curve for pathogen optimum. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param RcW relative curve for pathogen optimum. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param RcOpt potential basic infection rate corrected for removals. From
+#'  Table 1 Savary \emph{et al.} 2012.
+#' @param i duration of infectious period. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param p duration of latent period. From Table 1 Savary \emph{et al.} 2012.
+#' @param Sx maximum number of sites. From Table 1 Savary \emph{et al.} 2012.
+#' @param a aggregation coefficient. From Table 1 Savary \emph{et al.} 2012.
+#' @param RRS relative rate of physiological senescence. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param RRG relative rate of growth. From Table 1 Savary \emph{et al.} 2012.
 #'
-#' @references Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga
-#'  and Jorrel Aunario. Modeling and mapping potential epidemics of rice
-#'  diseases globally. Crop Protection, Volume 34, 2012, Pages 6-17, ISSN
-#'  0261-2194 DOI: <http://dx.doi.org/10.1016/j.cropro.2011.11.009>
+#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+#' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.>
 #'
 #' @examples
 #' \donttest{
