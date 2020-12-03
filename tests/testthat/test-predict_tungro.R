@@ -22,7 +22,9 @@ test_that("Values are as expected", {
       "rgrowth",
       "rsenesced",
       "diseased",
-      "severity"
+      "severity",
+      "LAT",
+      "LON"
     )
   )
   expect_is(t, c("data.table", "data.frame"))
@@ -71,4 +73,8 @@ test_that("Values are as expected", {
   # check severity values
   expect_equal(t[[1, 13]], 0)
   expect_equal(t[[121, 13]], 12.17, tolerance = 0.01)
+
+  # check lat/lon values
+  expect_equal(t[[1, 14]], 14.68, tolerance = 0.01)
+  expect_equal(t[[1, 15]], 121.3, tolerance = 0.1)
 })
