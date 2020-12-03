@@ -114,7 +114,7 @@
 #'   **rgrowth**:\tab ...\cr
 #'   **rsenesced**:\tab  ...\cr
 #'   **diseased**:\tab  ...\cr
-#'   **severity**:\tab  Disease severity or incidence (for tungro).\cr
+#'   **severity**:\tab Disease severity or incidence (for tungro).\cr
 #'   }
 #'
 #' @export
