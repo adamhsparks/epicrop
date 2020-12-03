@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wth.R
 \name{get_wth}
 \alias{get_wth}
-\title{Get weather data from NASA POWER}
+\title{Get weather data from NASA POWER API}
 \usage{
 get_wth(lonlat, dates)
 }
@@ -30,7 +30,7 @@ with the following columns:
 }
 }
 \description{
-Get weather data from NASA POWER
+Get weather data from NASA POWER API
 }
 \details{
 This function is just a wrapper for the \CRANpkg{nasapower}
