@@ -23,8 +23,8 @@ test_that("Values are as expected", {
       "rsenesced",
       "diseased",
       "severity",
-      "LAT",
-      "LON"
+      "lat",
+      "lon"
     )
   )
   expect_is(t, c("data.table", "data.frame"))
