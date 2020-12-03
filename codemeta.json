@@ -5,7 +5,7 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "epirice",
-  "description": "A fork of the 'cropsim' R package by Hijmans et al. This package is\n    intended to make the EPIRICE model easier to use while stripping other\n    functions not related to rice diseases from the R package and removing\n    the hooks to the IRRI GIS lab databases.",
+  "description": "A fork of the 'cropsim' R package by Hijmans et al., this package\n    intends to make the EPIRICE model easier to use. The original manuscript by\n    Savary et al. (2012) detailing the model use and results modeling global\n    epidemics of rice diseases was published in Crop Protection\n    (<DOI: 10.1016/j.cropro.2011.11.009>) detailing global disease risk of five\n    major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight\n    and tungro. `epirice` simulates all of these diseases and also provides a\n    generic Susceptible-Exposed-Infectious-Removed model that is suitable for\n    use in other pathosystems as well provided the proper inputs.",
   "name": "epirice: Simulation modeling of rice crop diseases",
   "codeRepository": "https://github.com/adamhsparks/epirice/",
   "license": "https://spdx.org/licenses/GPL-3.0",
@@ -195,7 +195,7 @@
     }
   ],
   "readme": "https://github.com/adamhsparks/epirice/blob/main/README.md",
-  "fileSize": "132.847KB",
+  "fileSize": "133.66KB",
   "contIntegration": "https://codecov.io/gh/adamhsparks/epirice",
   "keywords": [
     "rice-diseases",
@@ -239,5 +239,6 @@
       "url": "https://github.com/adamhsparks/epirice"
     }
   ],
-  "issueTracker": "https://github.com/adamhsparks/epirice/issues"
+  "issueTracker": "https://github.com/adamhsparks/epirice/issues",
+  "developmentStatus": "https://www.repostatus.org/#active"
 }
