@@ -17,18 +17,7 @@ knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
 
 ## Introduction to epirice
 
-`epirice` provides an R package of the EPIRICE model as described in Savary *et al.* 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases,
-
-* bacterial blight,
-
-* brown spot,
-
-* leaf blast,
-
-* sheath blight and
-
-* tungro
-are provided.
+`epirice` provides an R package of the EPIRICE model as described in Savary *et al.* 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases, bacterial blight; brown spot; leaf blast; sheath blight and tungro are provided.
 The model uses daily weather data to estimate disease severity.
 A function, `get_wth()` is provided to simplify downloading weather data from the [https://power.larc.nasa.gov](NASA POWER web API) that are suitable for use in `epirice`.
 
