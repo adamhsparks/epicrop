@@ -1,4 +1,4 @@
-*epirice*: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model <img src="man/figures/logo.png" style="text-align: right">
+*epirice*: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model <img src="man/figures/logo.png" style="float: right">
 ================
 
 <!-- badges: start -->
