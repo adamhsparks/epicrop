@@ -4,17 +4,18 @@
 \name{epirice-package}
 \alias{epirice}
 \alias{epirice-package}
-\title{epirice: Simulation modeling of rice crop diseases}
+\title{epirice: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model}
 \description{
 A fork of the 'cropsim' R package by Hijmans et al., this package
-    intends to make the EPIRICE model easier to use. The original manuscript by
-    Savary et al. (2012) detailing the model use and results modeling global
+    intends to make the `EPIRICE` model easier to use. The original manuscript
+    by Savary et al. (2012) detailing the model use and results modeling global
     epidemics of rice diseases was published in Crop Protection
     (<DOI: 10.1016/j.cropro.2011.11.009>) detailing global disease risk of five
     major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight
-    and tungro. `epirice` simulates all of these diseases and also provides a
-    generic Susceptible-Exposed-Infectious-Removed model that is suitable for
-    use in other pathosystems as well provided the proper inputs.
+    and tungro. `epirice` provides functions to simulate all of these diseases
+    and also provides a generic Susceptible-Exposed-Infectious-Removed (SEIR)
+    model that is suitable for use in other pathosystems as well provided the
+    proper inputs.
 }
 \seealso{
 Useful links:
