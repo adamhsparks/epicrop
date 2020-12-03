@@ -7,15 +7,14 @@
 \title{epirice: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model}
 \description{
 A fork of the 'cropsim' R package by Hijmans et al., this package
-    intends to make the `EPIRICE` model easier to use. The original manuscript
-    by Savary et al. (2012) detailing the model use and results modeling global
-    epidemics of rice diseases was published in Crop Protection
-    (<DOI: 10.1016/j.cropro.2011.11.009>) detailing global disease risk of five
-    major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight
-    and tungro. `epirice` provides functions to simulate all of these diseases
-    and also provides a generic Susceptible-Exposed-Infectious-Removed (SEIR)
-    model that is suitable for use in other pathosystems as well provided the
-    proper inputs.
+    intends to make the 'EPIRICE' model easier to use. The original manuscript
+    by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailed the
+    model's development, use and results from modeling global unmanaged
+    epidemics of rice diseases for five major rice diseases, bacterial blight,
+    brown spot, leaf blast, sheath blight and tungro. `epirice` provides
+    functions to simulate all of these diseases and also provides a generic
+    Susceptible-Exposed-Infectious-Removed ('SEIR') model that is suitable for
+    use in other pathosystems as well provided the proper inputs.
 }
 \seealso{
 Useful links:
@@ -30,10 +29,10 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R Implementation) [translator]
+  \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R implementation) [translator]
   \item Serge Savary \email{serge.savary@toulouse.inra.fr} (Model idea and development) [conceptor]
-  \item Ireno Pangga \email{ibpangga@yahoo.com} (Model Development and Original R Implementation) [translator]
-  \item Jorrel Aunario \email{j.aunario@irri.org} (Original R Implementation) [translator]
+  \item Ireno Pangga \email{ibpangga@yahoo.com} (Model development and original R implementation) [translator]
+  \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator]
 }
 
 Other contributors:
