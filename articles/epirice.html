@@ -94,44 +94,44 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"> <span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span>
    lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
-   dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2000-05-15"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span>
+   dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span>
  <span class="op">)</span></code></pre></div>
 </div>
 <div id="predict-bacterial-blight" class="section level3">
 <h3 class="hasAnchor">
 <a href="#predict-bacterial-blight" class="anchor"></a>Predict bacterial blight</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-05-18"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"> <span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb</span><span class="op">)</span></code></pre></div>
 <pre><code>##      simday        dates                sites            latent        
-##  Min.   :  0   Min.   :2000-05-17   Min.   : 100.0   Min.   :  0.0000  
-##  1st Qu.: 30   1st Qu.:2000-06-16   1st Qu.: 944.9   1st Qu.:  0.7693  
-##  Median : 60   Median :2000-07-16   Median :1680.1   Median : 30.9778  
-##  Mean   : 60   Mean   :2000-07-16   Mean   :1517.2   Mean   : 51.6364  
-##  3rd Qu.: 90   3rd Qu.:2000-08-15   3rd Qu.:2177.9   3rd Qu.: 83.9667  
-##  Max.   :120   Max.   :2000-09-14   Max.   :2433.0   Max.   :215.1669  
+##  Min.   :  0   Min.   :2000-06-30   Min.   : 100.0   Min.   :  0.0000  
+##  1st Qu.: 30   1st Qu.:2000-07-30   1st Qu.: 947.2   1st Qu.:  0.6813  
+##  Median : 60   Median :2000-08-29   Median :1809.4   Median : 10.4624  
+##  Mean   : 60   Mean   :2000-08-29   Mean   :1627.4   Mean   : 51.7850  
+##  3rd Qu.: 90   3rd Qu.:2000-09-28   3rd Qu.:2379.3   3rd Qu.: 87.7289  
+##  Max.   :120   Max.   :2000-10-28   Max.   :2617.9   Max.   :217.5892  
 ##    infectious        removed          senesced         rateinf     
 ##  Min.   :  0.00   Min.   :  0.00   Min.   :   0.0   Min.   : 0.00  
-##  1st Qu.:  2.52   1st Qu.:  0.00   1st Qu.: 115.4   1st Qu.: 0.00  
-##  Median : 93.72   Median :  2.52   Median : 645.3   Median : 1.00  
-##  Mean   :230.18   Mean   : 97.91   Mean   : 841.1   Mean   :10.58  
-##  3rd Qu.:497.27   3rd Qu.: 96.24   3rd Qu.:1422.1   3rd Qu.:17.90  
-##  Max.   :640.76   Max.   :689.32   Max.   :2512.8   Max.   :68.18  
-##    rtransfer        rgrowth         rsenesced         diseased      
-##  Min.   : 0.00   Min.   : 9.688   Min.   : 1.000   Min.   :   0.00  
-##  1st Qu.: 0.00   1st Qu.:27.175   1st Qu.: 9.449   1st Qu.:   2.52  
-##  Median : 0.00   Median :31.123   Median :19.085   Median : 176.67  
-##  Mean   :10.12   Mean   :40.871   Mean   :20.869   Mean   : 379.72  
-##  3rd Qu.:17.90   3rd Qu.:56.601   3rd Qu.:25.332   3rd Qu.: 689.32  
-##  Max.   :68.18   Max.   :79.323   Max.   :82.692   Max.   :1271.72  
+##  1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 115.6   1st Qu.: 0.00  
+##  Median : 19.77   Median :  1.00   Median : 655.4   Median : 0.00  
+##  Mean   :217.26   Mean   : 38.37   Mean   : 822.7   Mean   :10.82  
+##  3rd Qu.:391.55   3rd Qu.: 21.46   3rd Qu.:1435.6   3rd Qu.:16.73  
+##  Max.   :932.28   Max.   :413.01   Max.   :2369.0   Max.   :62.56  
+##    rtransfer        rgrowth         rsenesced         diseased       
+##  Min.   : 0.00   Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  
+##  1st Qu.: 0.00   1st Qu.:23.407   1st Qu.: 9.472   1st Qu.:   1.681  
+##  Median : 0.00   Median :32.658   Median :22.135   Median :  31.627  
+##  Mean   :10.13   Mean   :40.455   Mean   :20.026   Mean   : 307.417  
+##  3rd Qu.:13.68   3rd Qu.:57.084   3rd Qu.:26.147   3rd Qu.: 629.709  
+##  Max.   :62.56   Max.   :79.705   Max.   :59.794   Max.   :1292.132  
 ##     severity      
 ##  Min.   : 0.0000  
-##  1st Qu.: 0.3342  
-##  Median : 6.9052  
-##  Mean   :11.7008  
-##  3rd Qu.:22.7135  
-##  Max.   :33.5192</code></pre>
+##  1st Qu.: 0.1772  
+##  Median : 1.2067  
+##  Mean   :10.2562  
+##  3rd Qu.:21.5366  
+##  Max.   :40.1701</code></pre>
 </div>
 </div>
 <div id="plotting-using-ggplot2" class="section level2">

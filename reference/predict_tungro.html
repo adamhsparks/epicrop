@@ -42,11 +42,9 @@
 <meta property="og:title" content="Predict rice tungro severity — predict_tungro" />
 <meta property="og:description" content="A dynamic mechanistic simulation of tungro disease of rice, causal agents
 Rice Tungro Spherical Virus and Rice Tungro Baciliform Virus.
-The model is driven by daily weather data. Adapted from cropsim package
-version 0.2.0-5 by Adam H. Sparks - USQ CCH.
-Original model development: Serge Savary &amp;amp; Rene Pangga (IRRI).
-Original R implementation by Robert J. Hijmans, Rene Pangga, &amp;amp; Jorrel
-Aunario (IRRI)." />
+The model is driven by daily weather data, which can easily be accessed using
+get_wth to download weather data from NASA
+POWER using nasapower." />
 
 
 
@@ -125,11 +123,9 @@ Aunario (IRRI)." />
     <div class="ref-description">
     <p>A dynamic mechanistic simulation of tungro disease of rice, causal agents
 <em>Rice Tungro Spherical Virus</em> and <em>Rice Tungro Baciliform Virus</em>.
-The model is driven by daily weather data. Adapted from <span class="pkg">cropsim</span> package
-version 0.2.0-5 by Adam H. Sparks - USQ CCH.
-Original model development: Serge Savary &amp; Rene Pangga (IRRI).
-Original <span style="R">R</span> implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel
-Aunario (IRRI).</p>
+The model is driven by daily weather data, which can easily be accessed using
+<code><a href='get_wth.html'>get_wth</a></code> to download weather data from <acronym>NASA</acronym>
+<acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_tungro</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -168,20 +164,35 @@ the following properly named columns in them will work.</p><table class='table'>
     <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
 infection sites. See <code><a href='SEIR.html'>SEIR</a></code> for a full description of the
 column values.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Default values for this disease model are derived from Table 2 (Savary
+<em>et al.</em> 2012).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Adapted from <span class="pkg">cropsim</span> package version 0.2.0-5 by Adam H. Sparks - USQ
+CCH.
+Original model development: Serge Savary &amp; Rene Pangga (IRRI).
+Original <span style="R">R</span> implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel
+Aunario (IRRI).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
-Koganezawa, H., 1993. Serological monitoring of rice tungro disease
-development in the field: its implication in disease management.
-Plant Disease 77:877-882.</p>
-<p>Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of
-tungro disease of rice. Plant Disease Reporter 49:127-131.</p>
+    <p>Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
+transmission of rice tungro virus by <em>Nephotettix virescens</em>.
+Philippine Phytopathology 11:46-57.</p>
 <p>Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected
 with the tungro virus at different ages. Philippines Agriculturist
 50:165-177.</p>
-<p>Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
-transmission of rice tungro virus by <em>Nephotettix virescens</em>.
-Philippine Phytopathology 11:46-57.</p>
+<p>Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of
+tungro disease of rice. Plant Disease Reporter 49:127-131.</p>
+<p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+<a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a>.</p>
+<p>Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
+Koganezawa, H., 1993. Serological monitoring of rice tungro disease
+development in the field: its implication in disease management.
+Plant Disease 77:877-882.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -195,7 +206,8 @@ Philippine Phytopathology 11:46-57.</p>
 </div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario</p>
+    <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+and Adam H. Sparks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

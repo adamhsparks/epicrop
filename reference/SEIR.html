@@ -127,8 +127,8 @@ be used with other pathosystems as well.</p>
     <pre class="usage"><span class='fu'>SEIR</span><span class='op'>(</span>
   <span class='va'>wth</span>,
   <span class='va'>emergence</span>,
-  onset <span class='op'>=</span> <span class='fl'>15</span>,
-  duration <span class='op'>=</span> <span class='fl'>120</span>,
+  <span class='va'>onset</span>,
+  <span class='va'>duration</span>,
   rhlim <span class='op'>=</span> <span class='fl'>90</span>,
   rainlim <span class='op'>=</span> <span class='fl'>5</span>,
   wetness_type <span class='op'>=</span> <span class='fl'>0</span>,
@@ -138,7 +138,7 @@ be used with other pathosystems as well.</p>
   <span class='va'>RcT</span>,
   <span class='va'>RcW</span>,
   <span class='va'>RcOpt</span>,
-  <span class='va'>l</span>,
+  <span class='va'>p</span>,
   <span class='va'>i</span>,
   <span class='va'>Sx</span>,
   <span class='va'>a</span>,
@@ -152,92 +152,103 @@ be used with other pathosystems as well.</p>
     <tr>
       <th>wth</th>
       <td><p>a data frame of weather on a daily time-step containing data with
-the following field names.</p><ul>
-<li><p>YYYYMMDD Date in YYYY-MM-DD format</p></li>
-<li><p>DOY Numeric day of year, e.g. 1 - 365</p></li>
-<li><p>TM Mean daily temperature</p></li>
-<li><p>TN Minimum daily temperature</p></li>
-<li><p>TX Maximum daily temperature</p></li>
-<li><p>TDEW Mean daily dewpoint temperature</p></li>
-<li><p>RH Relative humidity</p></li>
-<li><p>RAIN Precipitation</p></li>
-</ul></td>
+the following field names.</p><table class='table'>
+<tr><td><strong>YYYYMMDD</strong>:</td><td>Date as Year Month Day (ISO8601).</td></tr>
+<tr><td><strong>DOY</strong>:</td><td>Consecutive day of year, commonly called "Julian date".</td></tr>
+<tr><td><strong>TM</strong>:</td><td>Mean daily temperature (°C).</td></tr>
+<tr><td><strong>TN</strong>:</td><td>Minimum daily temperature (°C).</td></tr>
+<tr><td><strong>TX</strong>:</td><td>Maximum daily temperature (°C).</td></tr>
+<tr><td><strong>TDEW</strong>:</td><td>Mean daily dew point temperature (°C).</td></tr>
+<tr><td><strong>RH</strong>:</td><td>Mean daily relative humidity (%).</td></tr>
+<tr><td><strong>RAIN</strong>:</td><td>Mean daily rainfall (mm).</td></tr>
+</table>
+</td>
     </tr>
     <tr>
       <th>emergence</th>
       <td><p>expected date of plant emergence entered in <code>YYYY-MM-DD</code>
-format</p></td>
+format. From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>onset</th>
       <td><p>expected number of days until the onset of disease after
-emergence date</p></td>
+emergence date. From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>duration</th>
-      <td><p>simulation duration (growing season length)</p></td>
+      <td><p>simulation duration (growing season length). From Table 1
+Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>rhlim</th>
       <td><p>threshold to decide whether leaves are wet or not (usually
-90 %)</p></td>
+90 %). From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>rainlim</th>
-      <td><p>threshold to decide whether leaves are wet or not</p></td>
+      <td><p>threshold to decide whether leaves are wet or not. From Table
+1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>wetness_type</th>
       <td><p>simulate RHmax or rain threshold (0) or leaf wetness
-duration (1)</p></td>
+duration (1). From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>H0</th>
-      <td><p>Initial number of plant's healthy sites</p></td>
+      <td><p>initial number of plant's healthy sites. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>I0</th>
-      <td><p>Initial number of infective sites</p></td>
+      <td><p>initial number of infective sites. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RcA</th>
-      <td><p>crop age curve for pathogen optimum</p></td>
+      <td><p>crop age curve for pathogen optimum. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RcT</th>
-      <td><p>temperature curve for pathogen optimum</p></td>
+      <td><p>temperature curve for pathogen optimum. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RcW</th>
-      <td><p>relative curve for pathogen optimum</p></td>
+      <td><p>relative curve for pathogen optimum. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RcOpt</th>
-      <td><p>potential basic infection rate corrected for removals</p></td>
+      <td><p>potential basic infection rate corrected for removals. From
+Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
-      <th>l</th>
-      <td><p>latent period</p></td>
+      <th>p</th>
+      <td><p>duration of latent period. From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>i</th>
-      <td><p>infectious period</p></td>
+      <td><p>duration of infectious period. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>Sx</th>
-      <td><p>maximum number of sites</p></td>
+      <td><p>maximum number of sites. From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>a</th>
-      <td><p>aggregation coefficient</p></td>
+      <td><p>aggregation coefficient. From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RRS</th>
-      <td><p>relative rate of physiological senescence</p></td>
+      <td><p>relative rate of physiological senescence. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RRG</th>
-      <td><p>relative rate of growth</p></td>
+      <td><p>relative rate of growth. From Table 1 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     </table>
 
@@ -274,10 +285,10 @@ functions:</p><ul>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga
-and Jorrel Aunario. Modeling and mapping potential epidemics of rice
-diseases globally. Crop Protection, Volume 34, 2012, Pages 6-17, ISSN
-0261-2194 DOI: <a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a></p>
+    <p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+<a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a>.&gt;</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
@@ -303,11 +314,13 @@ Adam H. Sparks, Aji Sukarta</p>
 <span class='op'>(</span><span class='fu'>SEIR</span><span class='op'>(</span>
   wth <span class='op'>=</span> <span class='va'>wth</span>,
   emergence <span class='op'>=</span> <span class='va'>emergence</span>,
+  onset <span class='op'>=</span> <span class='fl'>20</span>,
+  duration <span class='op'>=</span> <span class='fl'>120</span>,
   RcA <span class='op'>=</span> <span class='va'>RcA</span>,
   RcT <span class='op'>=</span> <span class='va'>RcT</span>,
   RcW <span class='op'>=</span> <span class='va'>RcW</span>,
   RcOpt <span class='op'>=</span> <span class='fl'>0.61</span>,
-  l <span class='op'>=</span> <span class='fl'>6</span>,
+  p <span class='op'>=</span>  <span class='fl'>6</span>,
   i <span class='op'>=</span> <span class='fl'>19</span>,
   H0 <span class='op'>=</span> <span class='fl'>600</span>,
   a <span class='op'>=</span> <span class='fl'>1</span>,
@@ -322,23 +335,23 @@ Adam H. Sparks, Aji Sukarta</p>
 #&gt;   4:      3 2000-07-17   775.6170    0.0000      0.000   0.0000    19.65680
 #&gt;   5:      4 2000-07-18   844.8209    0.0000      0.000   0.0000    27.41297
 #&gt;  ---                                                                       
-#&gt; 117:    116 2000-11-07 87150.0478  639.5869   1532.042 184.5089 52458.86623
-#&gt; 118:    117 2000-11-08 87193.0837  356.4226   1815.206 184.5089 53330.36671
-#&gt; 119:    118 2000-11-09 86218.4703 1370.3407   1815.206 184.5089 54202.29754
-#&gt; 120:    119 2000-11-10 85187.7869 2039.0156   2130.566 225.5716 55105.54487
-#&gt; 121:    120 2000-11-11 84026.5464 3235.7845   2130.566 225.5716 55957.42274
+#&gt; 117:    116 2000-11-07 88004.1105  420.0799   1001.359 120.1544 52488.07402
+#&gt; 118:    117 2000-11-08 88044.0904  234.2597   1187.179 120.1544 53368.11512
+#&gt; 119:    118 2000-11-09 87411.2473  903.5810   1187.179 120.1544 54248.55603
+#&gt; 120:    119 2000-11-10 86738.0725 1348.7742   1394.690 146.9034 55149.41748
+#&gt; 121:    120 2000-11-11 85973.0319 2146.0432   1394.690 146.9034 56016.79821
 #&gt;       rateinf rtransfer   rgrowth  rsenesced diseased severity
-#&gt;   1:    0.000    0.0000  59.64000   6.000000    0.000 0.000000
-#&gt;   2:    0.000    0.0000  64.93675   6.536400    0.000 0.000000
-#&gt;   3:    0.000    0.0000  70.69703   7.120404    0.000 0.000000
-#&gt;   4:    0.000    0.0000  76.96012   7.756170    0.000 0.000000
-#&gt;   5:    0.000    0.0000  83.76837   8.448209    0.000 0.000000
+#&gt;   1:   0.0000    0.0000  59.64000   6.000000    0.000 0.000000
+#&gt;   2:   0.0000    0.0000  64.93675   6.536400    0.000 0.000000
+#&gt;   3:   0.0000    0.0000  70.69703   7.120404    0.000 0.000000
+#&gt;   4:   0.0000    0.0000  76.96012   7.756170    0.000 0.000000
+#&gt;   5:   0.0000    0.0000  83.76837   8.448209    0.000 0.000000
 #&gt;  ---                                                          
-#&gt; 117:    0.000  283.1643 914.53642 871.500478 2356.138 2.431245
-#&gt; 118: 1013.918    0.0000 911.23560 871.930837 2356.138 2.430074
-#&gt; 119: 1025.097  356.4226 897.66133 903.247326 3370.056 3.563092
-#&gt; 120: 1196.769    0.0000 887.40626 851.877869 4395.153 4.666187
-#&gt; 121: 1209.412    0.0000 872.32422 840.265464 5591.922 6.003106</div><div class='input'><span class='co'># }</span>
+#&gt; 117:   0.0000  185.8202 920.02103 880.041105 1541.593 1.589522
+#&gt; 118: 669.3212    0.0000 916.91899 880.440904 1541.593 1.588812
+#&gt; 119: 679.4530  234.2597 907.13977 900.861455 2210.915 2.335993
+#&gt; 120: 797.2690    0.0000 899.60910 867.380725 2890.368 3.065956
+#&gt; 121: 809.6519    0.0000 888.90367 859.730319 3687.637 3.955518</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

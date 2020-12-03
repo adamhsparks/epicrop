@@ -41,12 +41,9 @@
 
 <meta property="og:title" content="Predict rice leaf severity — predict_leaf_blast" />
 <meta property="og:description" content="A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-Magnaporthe oryzae.
-The model is driven by daily weather data. Adapted from cropsim package
-version 0.2.0-5 by Adam H. Sparks - USQ CCH.
-Original model development: Serge Savary &amp;amp; Rene Pangga (IRRI).
-Original R implementation by Robert J. Hijmans, Rene Pangga, &amp;amp; Jorrel
-Aunario (IRRI)." />
+Magnaporthe oryzae. The model is driven by daily weather data,
+which can easily be accessed using get_wth to download weather
+data from NASA POWER using nasapower." />
 
 
 
@@ -124,12 +121,9 @@ Aunario (IRRI)." />
 
     <div class="ref-description">
     <p>A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-<em>Magnaporthe oryzae</em>.
-The model is driven by daily weather data. Adapted from <span class="pkg">cropsim</span> package
-version 0.2.0-5 by Adam H. Sparks - USQ CCH.
-Original model development: Serge Savary &amp; Rene Pangga (IRRI).
-Original <span style="R">R</span> implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel
-Aunario (IRRI).</p>
+<em>Magnaporthe oryzae</em>. The model is driven by daily weather data,
+which can easily be accessed using <code><a href='get_wth.html'>get_wth</a></code> to download weather
+data from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_leaf_blast</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -168,28 +162,43 @@ the following properly named columns in them will work.</p><table class='table'>
     <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
 infection sites. See <code><a href='SEIR.html'>SEIR</a></code> for a full description of the
 column values.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Default values for this disease model are derived from Table 2 (Savary
+<em>et al.</em> 2012).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Adapted from <span class="pkg">cropsim</span> package version 0.2.0-5 by Adam H. Sparks - USQ
+CCH.
+Original model development: Serge Savary &amp; Rene Pangga (IRRI).
+Original <span style="R">R</span> implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel
+Aunario (IRRI).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant
-resistance on blast severity and yield of rice. Plant Disease 71:1035-1038.</p>
+    <p>El Refaei, M.I., 1977. Epidemiology of rice blast disease in the
+tropics with special reference to the leaf wetness in relation to disease
+development. PhD Thesis, Indian Agricultural Research Institute, New Delhi,
+195 p.</p>
 <p>Hemmi, T., Abe, T., Ikaya, J., and Inoue, Y. 1936. Studies on the
 rice blast disease. IV. Relation of the environment to the development of
 blast disease and physiologic specialization in the rice blast fungus.
 Materials for Rural Improvement, Department of Agriculture and Forestry,
 Japan No. 105, 145p.</p>
+<p>Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant
+resistance on blast severity and yield of rice. Plant Disease 71:1035-1038.</p>
 <p>Kato, H and Kozaka, T., 1974. Effect of temperature on lesion
 enlargement and sporulation of <em>Pyricularia oryzae</em> in rice leaves.
 Phytopathology 64:828-830.</p>
-<p>Torres, C.Q., 1986. Effect of plant age on the expression of
-resistance to <em>Pyricularia oryzae</em> Cav. in upland rice varieties. PhD
-Thesis, University of the Philippines at Los Banos, 82 p.</p>
-<p>El Refaei, M.I., 1977. Epidemiology of rice blast disease in the
-tropics with special reference to the leaf wetness in relation to disease
-development. PhD Thesis, Indian Agricultural Research Institute, New Delhi,
-195 p.</p>
 <p>Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
 formation in paddy rice crops. PhD Thesis, Wageningen Agricultural
 University, 87 p.</p>
+<p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+<a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a>.</p>
+<p>Torres, C.Q., 1986. Effect of plant age on the expression of
+resistance to <em>Pyricularia oryzae</em> Cav. in upland rice varieties. PhD
+Thesis, University of the Philippines at Los Banos, 82 p.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -203,7 +212,8 @@ University, 87 p.</p>
 </div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario</p>
+    <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
+and Adam H. Sparks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

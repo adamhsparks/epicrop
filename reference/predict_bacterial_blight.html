@@ -42,11 +42,9 @@
 <meta property="og:title" content="Predict rice bacterial blight severity — predict_bacterial_blight" />
 <meta property="og:description" content="A dynamic mechanistic simulation of bacterial blight disease of rice,
 causal agent Xanthomonas oryzae pv. oryzae.
-The model is driven by daily weather data. Adapted from cropsim package
-version 0.2.0-5 by Adam H. Sparks - USQ CCH.
-Original model development: Serge Savary &amp;amp; Rene Pangga (IRRI).
-Original R implementation by Robert J. Hijmans, Rene Pangga, &amp;amp; Jorrel
-Aunario (IRRI)." />
+The model is driven by daily weather data, which can easily be accessed using
+get_wth to download weather data from NASA
+POWER using nasapower." />
 
 
 
@@ -125,11 +123,9 @@ Aunario (IRRI)." />
     <div class="ref-description">
     <p>A dynamic mechanistic simulation of bacterial blight disease of rice,
 causal agent <em>Xanthomonas oryzae</em> pv. <em>oryzae</em>.
-The model is driven by daily weather data. Adapted from <span class="pkg">cropsim</span> package
-version 0.2.0-5 by Adam H. Sparks - USQ CCH.
-Original model development: Serge Savary &amp; Rene Pangga (IRRI).
-Original <span style="R">R</span> implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel
-Aunario (IRRI).</p>
+The model is driven by daily weather data, which can easily be accessed using
+<code><a href='get_wth.html'>get_wth</a></code> to download weather data from <acronym>NASA</acronym>
+<acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_bacterial_blight</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -168,25 +164,40 @@ the following properly named columns in them will work.</p><table class='table'>
     <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
 infection sites. See <code><a href='SEIR.html'>SEIR</a></code> for a full description of the
 column values.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Default values for this disease model are derived from Table 2 (Savary
+<em>et al.</em> 2012).</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Adapted from <span class="pkg">cropsim</span> package version 0.2.0-5 by Adam H. Sparks - USQ
+CCH.
+Original model development: Serge Savary &amp; Rene Pangga (IRRI).
+Original <span style="R">R</span> implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel
+Aunario (IRRI).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Adhikari, T.B., 1991. Effects of rice genotype and environment on
 bacterial blight progression. PhD thesis, University of the Philippines at
 Los Baños, 143 p.</p>
-<p>Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components
-of resistance to bacterial blight disease of rice. Journal of Phytopathology
-119:312-318.</p>
 <p>Baw A. and Mew, T.W., 1988. Scoring systems for evaluating rice
 varietal resistance to bacterial blight (BB): lesion size by growth stage.
 International Rice Research Newsletter 13:10-11.</p>
-<p>Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
-formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.</p>
 <p>Horino, O., Mew, T.W., Yamada, T., 1982. The effect of
 temperature on the development of bacterial leaf blight on rice. Annals of
-the Phytopathological Society of Japan 48: 72-75</p>
+the Phytopathological Society of Japan 48: 72-75.</p>
+<p>Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
+formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.</p>
 <p>Medalla, E. 1992. Characterization of resistance of IR cultivars
 to two races of <em>Xanthomonas oryzae</em> pv. <em>oryzae</em>. Unpublished M.S.
 Thesis, University of the Philippines at Los Baños, 81 p.</p>
+<p>Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components
+of resistance to bacterial blight disease of rice. Journal of Phytopathology
+119:312-318.</p>
+<p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+<a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
@@ -200,7 +211,8 @@ Thesis, University of the Philippines at Los Baños, 81 p.</p>
 </div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario</p>
+    <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
+and Adam H. Sparks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -212,7 +224,6 @@ Thesis, University of the Philippines at Los Baños, 81 p.</p>
 <span class='va'>bb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_bacterial_blight</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>bb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>bb</span><span class='op'>$</span><span class='va'>severity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
 </div><div class='img'><img src='predict_bacterial_blight-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
