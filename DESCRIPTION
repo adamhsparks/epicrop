@@ -37,15 +37,14 @@ Authors@R: c(
            date."))
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
 Description: A fork of the 'cropsim' R package by Hijmans et al., this package
-    intends to make the `EPIRICE` model easier to use. The original manuscript
-    by Savary et al. (2012) detailing the model use and results modeling global
-    epidemics of rice diseases was published in Crop Protection
-    (<DOI: 10.1016/j.cropro.2011.11.009>) detailing global disease risk of five
-    major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight
-    and tungro. `epirice` provides functions to simulate all of these diseases
-    and also provides a generic Susceptible-Exposed-Infectious-Removed (SEIR)
-    model that is suitable for use in other pathosystems as well provided the
-    proper inputs.
+    intends to make the 'EPIRICE' model easier to use. The original manuscript
+    by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailed the
+    model's development, use and results from modeling global unmanaged
+    epidemics of rice diseases for five major rice diseases, bacterial blight,
+    brown spot, leaf blast, sheath blight and tungro. `epirice` provides
+    functions to simulate all of these diseases and also provides a generic
+    Susceptible-Exposed-Infectious-Removed ('SEIR') model that is suitable for
+    use in other pathosystems as well provided the proper inputs.
 License: GPL-3 + file LICENSE
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
