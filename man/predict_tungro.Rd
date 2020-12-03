@@ -60,7 +60,8 @@ Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of
 tungro disease of rice. Plant Disease Reporter 49:127-131.
 
 Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected
-with the tungro virus at different ages. Philippines Agriculturist 50:165-177.
+with the tungro virus at different ages. Philippines Agriculturist
+50:165-177.
 
 Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
 transmission of rice tungro virus by \emph{Nephotettix virescens}.

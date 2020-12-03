@@ -1,5 +1,4 @@
 
-
 #' Get weather data from NASA POWER
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region

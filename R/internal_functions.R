@@ -87,7 +87,8 @@ afgen <- function(xy, x) {
            (tsunst - tmin) * exp(-(hr + 24 - sunset) / TC)) /
         (1 - exp(-nigthl / TC))
     } else if (hr < (12 + P)) {
-      #  period b: dhour between sunrise and normal time that tmax is reached (after noon)
+      # period b: dhour between sunrise and normal time that tmax is reached
+      # (after noon)
       hrtemp[hr] <-
         tmin + (tmax - tmin) * sin(pi * (hr - sunris) / (dayl +
                                                            2 * P))
