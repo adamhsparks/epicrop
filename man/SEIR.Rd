@@ -101,11 +101,12 @@ columns
 \strong{infectious}:\tab Number of infectious sites present on day "x".\cr
 \strong{removed}:\tab Number of removed sites present on day "x".\cr
 \strong{senesced}:\tab Number of senesced sites present on day "x".\cr
-\strong{rateinf}:\tab ...\cr
-\strong{rtransfer}:\tab ...\cr
-\strong{rgrowth}:\tab ...\cr
-\strong{rsenesced}:\tab  ...\cr
-\strong{diseased}:\tab  ...\cr
+\strong{rateinf}:\tab Rate of infection. \cr
+\strong{rtransfer}:\tab Rate of transfer from latent to infectious sites. \cr
+\strong{rgrowth}:\tab Rate of growth of healthy sites. \cr
+\strong{rsenesced}:\tab Rate of senescence of healthy sites. \cr
+\strong{diseased}:\tab Number of diseased (latent + infectious + removed)
+sites. \cr
 \strong{severity}:\tab Disease severity or incidence (for tungro).\cr
 }
 }

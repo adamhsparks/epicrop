@@ -111,11 +111,12 @@
 #'   **infectious**:\tab Number of infectious sites present on day "x".\cr
 #'   **removed**:\tab Number of removed sites present on day "x".\cr
 #'   **senesced**:\tab Number of senesced sites present on day "x".\cr
-#'   **rateinf**:\tab ...\cr
-#'   **rtransfer**:\tab ...\cr
-#'   **rgrowth**:\tab ...\cr
-#'   **rsenesced**:\tab  ...\cr
-#'   **diseased**:\tab  ...\cr
+#'   **rateinf**:\tab Rate of infection. \cr
+#'   **rtransfer**:\tab Rate of transfer from latent to infectious sites. \cr
+#'   **rgrowth**:\tab Rate of growth of healthy sites. \cr
+#'   **rsenesced**:\tab Rate of senescence of healthy sites. \cr
+#'   **diseased**:\tab Number of diseased (latent + infectious + removed)
+#'    sites. \cr
 #'   **severity**:\tab Disease severity or incidence (for tungro).\cr
 #'   }
 #'

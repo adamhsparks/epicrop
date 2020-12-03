@@ -195,7 +195,7 @@
     }
   ],
   "readme": "https://github.com/adamhsparks/epirice/blob/main/README.md",
-  "fileSize": "270.579KB",
+  "fileSize": "266.459KB",
   "contIntegration": "https://codecov.io/gh/adamhsparks/epirice",
   "keywords": ["rice", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
   "citation": [
