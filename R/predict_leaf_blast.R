@@ -9,9 +9,8 @@
 #' Default values for this disease model are derived from Table 2 (Savary
 #' \emph{et al.} 2012).
 #'
-#' @note
-#' Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks - USQ
-#' CCH.
+#' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
+#' University of Southern Queensland Centre for Crop Health.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).
@@ -20,7 +19,7 @@
 #' Savary \emph{et al.} 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
-#' @param wth Weather data with a daily time-step, normally NASA-POWER from
+#' @param wth Weather data with a daily time-step, normally NASA POWER from
 #' \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
 #' the following properly named columns in them will work.
 #'   \tabular{rl}{
