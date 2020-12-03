@@ -35,6 +35,7 @@ library(epirice)
 ### Get weather data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
+See `?naspower::get_power()` for more details of this functionality and details on the data.
 
 ```{r power}
 # Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station
@@ -92,8 +93,9 @@ ggplot(data = dat,
        x = "Date") +
   geom_line(aes(group = site, colour = site)) +
   geom_point(aes(colour = site)) +
-  labs(title = "Bacterial blight site states over time",
-       caption = "Data source: NASA POWER API")
+  labs(title = "Bacterial blight disease progress over time",
+       caption = "These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.") +
+   theme_light()
 ```
 
 ### Severity
@@ -109,7 +111,8 @@ ggplot(data = dat,
   geom_line() +
   geom_point() +
   labs(title = "Bacterial blight disease progress over time",
-       caption = "Data source: NASA POWER API")
+       caption = "Weather data acknowledgement:\nThese data were obtained from the NASA Langley Research Center POWER Project\nfunded through the NASA Earth Science Directorate Applied Science Program.") +
+   theme_light()
 ```
 
 # References
