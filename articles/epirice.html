@@ -83,26 +83,57 @@
 
     
     
-<div id="predicting-disease-severity" class="section level2">
+<div id="introduction-to-epirice" class="section level2">
 <h2 class="hasAnchor">
-<a href="#predicting-disease-severity" class="anchor"></a>Predicting disease severity</h2>
+<a href="#introduction-to-epirice" class="anchor"></a>Introduction to epirice</h2>
+<p><code>epirice</code> provides an R package of the EPIRICE model as described in Savary <em>et al.</em> 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases,</p>
+<ul>
+<li><p>bacterial blight,</p></li>
+<li><p>brown spot,</p></li>
+<li><p>leaf blast,</p></li>
+<li><p>sheath blight and</p></li>
+<li><p>tungro are provided. The model uses daily weather data to estimate disease severity. A function, <code><a href="../reference/get_wth.html">get_wth()</a></code> is provided to simplify downloading weather data from the <a href="NASA%20POWER%20web%20API">https://power.larc.nasa.gov</a> that are suitable for use in <code>epirice</code>.</p></li>
+</ul>
+<p>Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the <code><a href="../reference/SEIR.html">SEIR()</a></code> function. If you are interested in modelling other pathosystems, please refer to Savary <em>et al.</em> 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.</p>
+<div id="getting-started" class="section level3">
+<h3 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting started</h3>
+<p>Load the library.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adamhsparks/epirice/">epirice</a></span><span class="op">)</span></code></pre></div>
+</div>
 <div id="get-weather-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#get-weather-data" class="anchor"></a>Get weather data</h3>
+<p>The most simple way to use the model is to download weather data from NASA POWER using <code><a href="../reference/get_wth.html">get_wth()</a></code>, which provides the data in a format suitable for use in the model and is freely available.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="co"># Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station</span>
+ <span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span>
    lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
    dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span>
- <span class="op">)</span></code></pre></div>
+ <span class="op">)</span>
+
+<span class="va">wth</span></code></pre></div>
+<pre><code>##        YYYYMMDD DOY    TM    TN    TX  TDEW    RH  RAIN      LAT      LON
+##   1: 2000-06-30 182 25.94 29.19 22.97 23.63 87.22 11.36 14.67741 121.2556
+##   2: 2000-07-01 183 25.34 28.31 23.65 23.76 91.07 24.87 14.67741 121.2556
+##   3: 2000-07-02 184 25.99 29.91 23.28 23.40 85.71 17.63 14.67741 121.2556
+##   4: 2000-07-03 185 25.35 27.23 24.00 24.32 94.01 33.52 14.67741 121.2556
+##   5: 2000-07-04 186 25.58 27.35 24.20 24.42 93.28 16.21 14.67741 121.2556
+##  ---                                                                     
+## 181: 2000-12-27 362 24.27 26.20 22.65 23.06 92.93 26.32 14.67741 121.2556
+## 182: 2000-12-28 363 24.39 26.87 23.16 23.08 92.33  6.67 14.67741 121.2556
+## 183: 2000-12-29 364 24.39 27.46 22.58 22.94 91.57  7.19 14.67741 121.2556
+## 184: 2000-12-30 365 24.96 28.50 22.60 22.67 87.13  2.97 14.67741 121.2556
+## 185: 2000-12-31 366 24.22 28.49 21.26 21.95 87.21  3.04 14.67741 121.2556</code></pre>
 </div>
 <div id="predict-bacterial-blight" class="section level3">
 <h3 class="hasAnchor">
 <a href="#predict-bacterial-blight" class="anchor"></a>Predict bacterial blight</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></code></pre></div>
+<p>All of the <code>predict_()</code> family of functions work in exactly the same manner. You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease severity over the season and other values associated with the model. See <code>?SEIR()</code> for more on the values returned.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"> <span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb</span><span class="op">)</span></code></pre></div>
 <pre><code>##      simday        dates                sites            latent        
 ##  Min.   :  0   Min.   :2000-06-30   Min.   : 100.0   Min.   :  0.0000  
@@ -137,13 +168,15 @@
 <div id="plotting-using-ggplot2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-using-ggplot2" class="anchor"></a>Plotting using ggplot2</h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>The data are in a wide format by default and need to be converted to long format for use in <code>ggplot2</code> if you wish to plot more than one variable at a time.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
 <div id="sites" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sites" class="anchor"></a>Sites</h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>The model records the number of sites for each bin daily, this can be graphed as follows.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
   <span class="va">bb</span>,
   cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,
@@ -161,28 +194,26 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Sites"</span>,
        x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">site</span>, colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="epirice_files/figure-html/plot_sites-1.png" width="700"></p>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bacterial blight site states over time"</span>,
+       caption <span class="op">=</span> <span class="st">"Data source: NASA POWER API"</span><span class="op">)</span></code></pre></div>
+<p><img src="epirice_files/figure-html/plot_sites-1.png" width="672"></p>
 </div>
 <div id="severity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#severity" class="anchor"></a>Severity</h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
-  <span class="va">bb</span>,
-  cols <span class="op">=</span> <span class="st">"severity"</span>,
-  names_to <span class="op">=</span> <span class="st">"severity"</span>,
-  values_to <span class="op">=</span> <span class="st">"value"</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>,
+<p>Plotting severity over time does not require any data manipulation.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
-           y <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Severity or Incidence"</span>,
+           y <span class="op">=</span> <span class="va">severity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Severity"</span>,
        x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="epirice_files/figure-html/plot_severity-1.png" width="700"></p>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bacterial blight disease progress over time"</span>,
+       caption <span class="op">=</span> <span class="st">"Data source: NASA POWER API"</span><span class="op">)</span></code></pre></div>
+<p><img src="epirice_files/figure-html/plot_severity-1.png" width="672"></p>
 </div>
 </div>
   </div>
