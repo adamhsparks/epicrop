@@ -94,7 +94,7 @@ ggplot(data = dat,
   geom_line(aes(group = site, colour = site)) +
   geom_point(aes(colour = site)) +
   labs(title = "Bacterial blight disease progress over time",
-       caption = "These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.") +
+       caption = "Weather data acknowledgement:\nThese data were obtained from the NASA Langley Research Center POWER Project\nfunded through the NASA Earth Science Directorate Applied Science Program.") +
    theme_light()
 ```
 
