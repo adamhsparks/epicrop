@@ -3,8 +3,16 @@
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent \emph{Xanthomonas oryzae} pv. \emph{oryzae}.
-#' The model is driven by daily weather data. Adapted from \pkg{cropsim} package
-#' version 0.2.0-5 by Adam H. Sparks - USQ CCH.
+#' The model is driven by daily weather data, which can easily be accessed using
+#' \code{\link{get_wth}} to download weather data from \acronym{NASA}
+#' \acronym{POWER} using \CRANpkg{nasapower}.
+#'
+#' Default values for this disease model are derived from Table 2 (Savary
+#' \emph{et al.} 2012).
+#'
+#' @note
+#' Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks - USQ
+#' CCH.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).
