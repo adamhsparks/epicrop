@@ -2,7 +2,7 @@
 Susceptible-Infectious-Removed (SEIR) Model
 ================
 
-<img style="float:right" src="man/figures/logo.png">
+<img style="text-align:right" src="man/figures/logo.png">
 
 <!-- badges: start -->
 
