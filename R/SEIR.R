@@ -118,6 +118,8 @@
 #'   **diseased**:\tab Number of diseased (latent + infectious + removed)
 #'    sites. \cr
 #'   **severity**:\tab Disease severity or incidence (for tungro).\cr
+#'   **LAT**:\tab Latitude value as provided by `wth` object.\cr
+#'   **LON**:\tab Longitude value as provided by `wth` object.\cr
 #'   }
 #'
 #' @export
@@ -143,7 +145,7 @@ SEIR <-
            RRS,
            RRG) {
     # CRAN NOTE avoidance
-    infday <- leaf_wet <- DOY <- YYYYMMDD <- NULL #nocov
+    infday <- leaf_wet <- DOY <- YYYYMMDD <- LAT <- LON <- NULL #nocov
 
     # set date formats
     emergence <- as.Date(emergence)
@@ -270,7 +272,7 @@ SEIR <-
         )
       )
 
-    res[, dates := dates[1:(day + 1)]][]
+    res[, dates := dates[1:(day + 1)]]
 
     setnames(
       res,
@@ -293,5 +295,8 @@ SEIR <-
 
     setcolorder(res, c("simday", "dates"))
 
-    return(res)
+    res[, LAT := rep_len(wth[, LAT], .N)]
+    res[, LON := rep_len(wth[, LON], .N)]
+
+    return(res[])
   }

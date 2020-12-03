@@ -108,6 +108,8 @@ columns
 \strong{diseased}:\tab Number of diseased (latent + infectious + removed)
 sites. \cr
 \strong{severity}:\tab Disease severity or incidence (for tungro).\cr
+\strong{LAT}:\tab Latitude value as provided by \code{wth} object.\cr
+\strong{LON}:\tab Longitude value as provided by \code{wth} object.\cr
 }
 }
 \description{
