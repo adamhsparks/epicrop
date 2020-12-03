@@ -128,7 +128,7 @@ SEIR <-
            RRS,
            RRG) {
     # CRAN NOTE avoidance
-    infday <- leaf_wet <- DOY <- NULL #nocov
+    infday <- leaf_wet <- DOY <- YYYYMMDD <- NULL #nocov
 
     # set date formats
     emergence <- as.Date(emergence)
@@ -139,8 +139,10 @@ SEIR <-
     # convert emergence date into Julian date, sequential day in year
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
-    if (dim(wth)[1] < duration) {
-      stop("Incomplete weather data")
+    # check that the dates roughly align
+    if (!(emergence >= wth[1, YYYYMMDD]) |
+        !(emergence_doy <= max(wth[, DOY]) + duration)) {
+      stop("Incomplete weather data or dates do not align")
     }
 
     # subset weather data where date is greater than emergence minus one
