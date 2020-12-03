@@ -11,7 +11,33 @@ vignette: >
   %\VignetteDepends{data.table}
 ---
 
-## Predicting disease severity
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
+```
+
+## Introduction to epirice
+
+`epirice` provides an R package of the EPIRICE model as described in Savary *et al.* 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases,
+
+* bacterial blight,
+
+* brown spot,
+
+* leaf blast,
+
+* sheath blight and
+
+* tungro
+are provided.
+The model uses daily weather data to estimate disease severity.
+A function, `get_wth()` is provided to simplify downloading weather data from the [https://power.larc.nasa.gov](NASA POWER web API) that are suitable for use in `epirice`.
+
+Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
+If you are interested in modelling other pathosystems, please refer to Savary *et al.* 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
+
+### Getting started
+
+Load the library.
 
 ```{r epirice}
 library(epirice)
@@ -19,14 +45,23 @@ library(epirice)
 
 ### Get weather data
 
+The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
+
 ```{r power}
+# Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station
  wth <- get_wth(
    lonlat = c(121.25562, 14.6774),
    dates = c("2000-06-30", "2000-12-31")
  )
+
+wth
 ```
 
 ### Predict bacterial blight
+
+All of the `predict_()` family of functions work in exactly the same manner.
+You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease severity over the season and other values associated with the model.
+See `?SEIR()` for more on the values returned.
 
 ```{r predict_bb}
  bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
@@ -35,7 +70,10 @@ library(epirice)
 ```{r bb}
 summary(bb)
 ```
+
 ## Plotting using ggplot2
+
+The data are in a wide format by default and need to be converted to long format for use in `ggplot2` if you wish to plot more than one variable at a time.
 
 ```{r ggplot2}
 library(ggplot2)
@@ -43,6 +81,8 @@ library(tidyr)
 ```
 
 ### Sites
+
+The model records the number of sites for each bin daily, this can be graphed as follows.
 
 ```{r plot_sites}
 dat <- pivot_longer(
@@ -62,24 +102,23 @@ ggplot(data = dat,
   labs(y = "Sites",
        x = "Date") +
   geom_line(aes(group = site, colour = site)) +
-  geom_point(aes(colour = site))
+  geom_point(aes(colour = site)) +
+  labs(title = "Bacterial blight site states over time",
+       caption = "Data source: NASA POWER API")
 ```
 
 ### Severity
 
-```{r plot_severity}
-dat <- pivot_longer(
-  bb,
-  cols = "severity",
-  names_to = "severity",
-  values_to = "value"
-)
+Plotting severity over time does not require any data manipulation.
 
+```{r plot_severity}
 ggplot(data = dat,
        aes(x = dates,
-           y = value)) +
-  labs(y = "Severity or Incidence",
+           y = severity)) +
+  labs(y = "Severity",
        x = "Date") +
   geom_line() +
-  geom_point()
+  geom_point() +
+  labs(title = "Bacterial blight disease progress over time",
+       caption = "Data source: NASA POWER API")
 ```
