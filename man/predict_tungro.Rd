@@ -33,8 +33,17 @@ column values.
 \description{
 A dynamic mechanistic simulation of tungro disease of rice, causal agents
 \emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Baciliform Virus}.
-The model is driven by daily weather data. Adapted from \pkg{cropsim} package
-version 0.2.0-5 by Adam H. Sparks - USQ CCH.
+The model is driven by daily weather data, which can easily be accessed using
+\code{\link{get_wth}} to download weather data from \acronym{NASA}
+\acronym{POWER} using \CRANpkg{nasapower}.
+}
+\details{
+Default values for this disease model are derived from Table 2 (Savary
+\emph{et al.} 2012).
+}
+\note{
+Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks - USQ
+CCH.
 Original model development: Serge Savary & Rene Pangga (IRRI).
 Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
@@ -51,21 +60,26 @@ plot(x = tg$dates, y = tg$severity, type = "l")
 }
 }
 \references{
-Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
-Koganezawa, H., 1993. Serological monitoring of rice tungro disease
-development in the field: its implication in disease management.
-Plant Disease 77:877-882.
-
-Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of
-tungro disease of rice. Plant Disease Reporter 49:127-131.
+Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
+transmission of rice tungro virus by \emph{Nephotettix virescens}.
+Philippine Phytopathology 11:46-57.
 
 Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected
 with the tungro virus at different ages. Philippines Agriculturist
 50:165-177.
 
-Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
-transmission of rice tungro virus by \emph{Nephotettix virescens}.
-Philippine Phytopathology 11:46-57.
+Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of
+tungro disease of rice. Plant Disease Reporter 49:127-131.
+
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+\url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.
+
+Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
+Koganezawa, H., 1993. Serological monitoring of rice tungro disease
+development in the field: its implication in disease management.
+Plant Disease 77:877-882.
 }
 \seealso{
 \itemize{
@@ -78,4 +92,5 @@ Philippine Phytopathology 11:46-57.
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
+and Adam H. Sparks
 }

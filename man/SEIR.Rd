@@ -7,8 +7,8 @@
 SEIR(
   wth,
   emergence,
-  onset = 15,
-  duration = 120,
+  onset,
+  duration,
   rhlim = 90,
   rainlim = 5,
   wetness_type = 0,
@@ -18,7 +18,7 @@ SEIR(
   RcT,
   RcW,
   RcOpt,
-  l,
+  p,
   i,
   Sx,
   a,
@@ -29,56 +29,66 @@ SEIR(
 \arguments{
 \item{wth}{a data frame of weather on a daily time-step containing data with
 the following field names.
-\itemize{
-\item YYYYMMDD Date in YYYY-MM-DD format
-\item DOY Numeric day of year, e.g. 1 - 365
-\item TM Mean daily temperature
-\item TN Minimum daily temperature
-\item TX Maximum daily temperature
-\item TDEW Mean daily dewpoint temperature
-\item RH Relative humidity
-\item RAIN Precipitation
+\tabular{rl}{
+\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
+\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
+\strong{TM}:\tab Mean daily temperature (°C).\cr
+\strong{TN}:\tab Minimum daily temperature (°C).\cr
+\strong{TX}:\tab Maximum daily temperature (°C).\cr
+\strong{TDEW}:\tab Mean daily dew point temperature (°C).\cr
+\strong{RH}:\tab Mean daily relative humidity (\%).\cr
+\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
-format}
+format. From Table 1 Savary \emph{et al.} 2012.}
 
 \item{onset}{expected number of days until the onset of disease after
-emergence date}
+emergence date. From Table 1 Savary \emph{et al.} 2012.}
 
-\item{duration}{simulation duration (growing season length)}
+\item{duration}{simulation duration (growing season length). From Table 1
+Savary \emph{et al.} 2012.}
 
 \item{rhlim}{threshold to decide whether leaves are wet or not (usually
-90 \%)}
+90 \%). From Table 1 Savary \emph{et al.} 2012.}
 
-\item{rainlim}{threshold to decide whether leaves are wet or not}
+\item{rainlim}{threshold to decide whether leaves are wet or not. From Table
+1 Savary \emph{et al.} 2012.}
 
 \item{wetness_type}{simulate RHmax or rain threshold (0) or leaf wetness
-duration (1)}
+duration (1). From Table 1 Savary \emph{et al.} 2012.}
 
-\item{H0}{Initial number of plant's healthy sites}
+\item{H0}{initial number of plant's healthy sites. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{I0}{Initial number of infective sites}
+\item{I0}{initial number of infective sites. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{RcA}{crop age curve for pathogen optimum}
+\item{RcA}{crop age curve for pathogen optimum. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{RcT}{temperature curve for pathogen optimum}
+\item{RcT}{temperature curve for pathogen optimum. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{RcW}{relative curve for pathogen optimum}
+\item{RcW}{relative curve for pathogen optimum. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{RcOpt}{potential basic infection rate corrected for removals}
+\item{RcOpt}{potential basic infection rate corrected for removals. From
+Table 1 Savary \emph{et al.} 2012.}
 
-\item{l}{latent period}
+\item{p}{duration of latent period. From Table 1 Savary \emph{et al.} 2012.}
 
-\item{i}{infectious period}
+\item{i}{duration of infectious period. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{Sx}{maximum number of sites}
+\item{Sx}{maximum number of sites. From Table 1 Savary \emph{et al.} 2012.}
 
-\item{a}{aggregation coefficient}
+\item{a}{aggregation coefficient. From Table 1 Savary \emph{et al.} 2012.}
 
-\item{RRS}{relative rate of physiological senescence}
+\item{RRS}{relative rate of physiological senescence. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{RRG}{relative rate of growth}
+\item{RRG}{relative rate of growth. From Table 1 Savary \emph{et al.} 2012.}
 }
 \value{
 A \code{\link[data.table]{data.table}} containing the following
@@ -96,7 +106,7 @@ columns
 \strong{rgrowth}:\tab ...\cr
 \strong{rsenesced}:\tab  ...\cr
 \strong{diseased}:\tab  ...\cr
-\strong{severity}:\tab  Disease severity or incidence (for tungro).\cr
+\strong{severity}:\tab Disease severity or incidence (for tungro).\cr
 }
 }
 \description{
@@ -139,7 +149,7 @@ emergence <- "2000-07-15"
   RcT = RcT,
   RcW = RcW,
   RcOpt = 0.61,
-  l = 6,
+  p =  6,
   i = 19,
   H0 = 600,
   a = 1,
@@ -150,10 +160,10 @@ emergence <- "2000-07-15"
 }
 }
 \references{
-Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga
-and Jorrel Aunario. Modeling and mapping potential epidemics of rice
-diseases globally. Crop Protection, Volume 34, 2012, Pages 6-17, ISSN
-0261-2194 DOI: \url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+\url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.>
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
