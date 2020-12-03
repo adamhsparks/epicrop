@@ -12,3 +12,4 @@
 ^tic\.R$
 ^\_pkgdown\.yml$
 ^codemeta\.json$
+^README_files$
