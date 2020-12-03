@@ -193,7 +193,7 @@ SEIR <-
         senesced[day + 1] <- senesced[day] + rsenesced[day]
 
         latency[day + 1] <- infection[day]
-        latday <- day - l + 1
+        latday <- day - p + 1
         latday <- max(0, latday)
         now_latent[day + 1] <- sum(latency[latday:day + 1])
 
@@ -236,7 +236,7 @@ SEIR <-
         infection[day + 1] <- 0
       }
 
-      if (day >=  l) {
+      if (day >=  p) {
         rtransfer[day + 1] <- latency[latday + 1]
       } else {
         rtransfer[day + 1] <- 0
