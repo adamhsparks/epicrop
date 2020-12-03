@@ -122,8 +122,8 @@
 SEIR <-
   function(wth,
            emergence,
-           onset = 15,
-           duration = 120,
+           onset,
+           duration,
            rhlim = 90,
            rainlim = 5,
            wetness_type = 0,
