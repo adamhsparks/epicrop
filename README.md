@@ -1,3 +1,6 @@
+*epirice* <img img align="right" src="man/figures/logo.png">
+================
+
 <!-- badges: start -->
 
 [![tic](https://github.com/adamhsparks/epirice/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epirice/actions)
@@ -7,8 +10,7 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
-*epirice*: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model <img img align="right" src="man/figures/logo.png">
-================
+## Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model
 
 A fork of the R [cropsim
 package](https://r-forge.r-project.org/R/?group_id=335) designed to make
