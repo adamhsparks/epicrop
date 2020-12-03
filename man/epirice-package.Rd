@@ -14,7 +14,8 @@ A fork of the 'cropsim' R package by Hijmans et al. This package is
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://adamhsparks.github.io/epirice/}
+  \item \url{https://github.com/adamhsparks/epirice/}
+  \item Report bugs at \url{https://github.com/adamhsparks/epirice/issues}
 }
 
 }

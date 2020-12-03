@@ -47,8 +47,8 @@ LazyData: true
 Encoding: UTF-8
 NeedsCompilation: no
 ByteCompile: TRUE
-URL: http://adamhsparks.github.io/epirice/
-Bugreports: https://github.com/adamhsparks/epirice/issues
+URL: https://github.com/adamhsparks/epirice/
+BugReports: https://github.com/adamhsparks/epirice/issues
 Depends:
     R (>= 3.5.0)
 Imports:
