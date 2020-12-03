@@ -68,3 +68,8 @@ Suggests:
     testthat,
     tidyr
 VignetteBuilder: knitr
+X-schema.org-applicationCategory: Tools
+X-schema.org-keywords: rice, botanical-epidemiology, disease, model, seir,
+    agricultural-modelling, agricultural-modeling, crop-protection,
+    agricultural-research, model, modelling, modeling, seir-model
+
