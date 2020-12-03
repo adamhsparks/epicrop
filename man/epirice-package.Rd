@@ -6,6 +6,8 @@
 \alias{epirice-package}
 \title{epirice: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 A fork of the 'cropsim' R package by Hijmans et al., this package
     intends to make the 'EPIRICE' model easier to use. The original manuscript
     by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailed the
