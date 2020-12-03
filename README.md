@@ -1,4 +1,4 @@
-_epirice_: Simulation Modelling of Rice Diseases <img align="right" src="man/figures/logo.png">
+<img align="right" src="man/figures/logo.png"> _epirice_: Simulation Modelling of Rice Diseases 
 ================
 <!-- badges: start -->
 [![tic](https://github.com/adamhsparks/epirice/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epirice/actions)
