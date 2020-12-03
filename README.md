@@ -1,5 +1,4 @@
-*epirice* <img img align="right" src="man/figures/logo.png">
-================
+# _epirice_ <img align="right" src="man/figures/logo.png">
 
 <!-- badges: start -->
 
