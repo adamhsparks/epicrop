@@ -133,7 +133,7 @@ SEIR <-
            RcT,
            RcW,
            RcOpt,
-           l,
+           p,
            i,
            Sx,
            a,
