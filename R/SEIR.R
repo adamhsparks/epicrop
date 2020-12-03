@@ -75,6 +75,8 @@
 #' (SEIR(
 #'   wth = wth,
 #'   emergence = emergence,
+#'   onset = 20,
+#'   duration = 120,
 #'   RcA = RcA,
 #'   RcT = RcT,
 #'   RcW = RcW,
