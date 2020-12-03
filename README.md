@@ -1,11 +1,10 @@
-
+_epirice_: Simulation Modelling of Rice Diseases <img align="right" src="man/figures/logo.png">
+================
 <!-- badges: start -->
 [![tic](https://github.com/adamhsparks/epirice/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epirice/actions)
 [![codecov](https://codecov.io/gh/adamhsparks/epirice/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epirice)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
-
-# epirice
 
 A fork of the R [cropsim
 package](https://r-forge.r-project.org/R/?group_id=335) designed to make using the EPIRICE model for rice diseases easier to use.
