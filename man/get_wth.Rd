@@ -39,7 +39,7 @@ suitable for use in EPIRICE.
 }
 \examples{
 \donttest{
-# get weather for IRRI Zeigler Experiment Station in dry season 2000
+# get weather for IRRI Zeigler Experiment Station in wet season 2000
 (wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-06-30", "2000-12-31")
