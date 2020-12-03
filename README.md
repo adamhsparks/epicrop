@@ -7,7 +7,7 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
-<img img align="right" src="man/figures/logo.png"> *epirice*: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model
+*epirice*: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model <img img align="right" src="man/figures/logo.png">
 ================
 
 A fork of the R [cropsim
