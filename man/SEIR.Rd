@@ -120,7 +120,7 @@ functions:
 # get weather for IRRI Zeigler Experiment Station in dry season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
-  dates = c("2000-01-15", "2000-05-31")
+  dates = c("2000-06-30", "2000-12-31")
 )
 
 # provide suitable values for brown spot severity
@@ -130,9 +130,9 @@ RcT <-
   cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
 RcW <- cbind(0:8 * 3,
              c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
-emergence <- "2000-01-15"
+emergence <- "2000-07-15"
 
-x <- SEIR(
+(SEIR(
   wth = wth,
   emergence = emergence,
   RcA = RcA,
@@ -146,7 +146,7 @@ x <- SEIR(
   Sx = 100000,
   RRS = 0.01,
   RRG = 0.1
-)
+))
 }
 }
 \references{
