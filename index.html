@@ -95,13 +95,13 @@
 <h2 class="hasAnchor">
 <a href="#simulation-modelling-of-rice-crop-diseases-using-a-susceptible-infectious-removed-seir-model" class="anchor"></a>Simulation Modelling of Rice Crop Diseases Using a Susceptible-Infectious-Removed (SEIR) Model</h2>
 <p>A fork of the R <a href="https://r-forge.r-project.org/R/?group_id=335">cropsim package</a> designed to make using the EPIRICE model for rice diseases easier to use. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower"><em>nasapower</em></a> package and predict disease severity of five rice diseases using a generic SEIR model (Zadoks 1971) function, <code><a href="reference/SEIR.html">SEIR()</a></code>.</p>
-<p>The original manuscript, Savary et al. (2012), which details the model and results of its use to model global epidemics of rice diseases was published in Crop Protection detailing global disease risk of five major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro.</p>
+<p>The original manuscript, Savary et al. (2012), which details the model and results of its use to model global epidemics of rice diseases was published in Crop Protection detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and tungro, which are included in this package.</p>
 </div>
 </div>
 <div id="quick-start" class="section level1">
 <h1 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h1>
-<p>You can easily simulate unmanaged rice disease for five rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro.</p>
+<p>You can easily simulate any of the five diseases for rice grown anywhere in the world from 1983 to near current given internal functionality. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
 <p><code>epirice</code> is not yet on CRAN. You can install it this way.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span>
