@@ -1,6 +1,4 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
 [![tic](https://github.com/adamhsparks/epirice/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epirice/actions)
 [![codecov](https://codecov.io/gh/adamhsparks/epirice/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epirice)
