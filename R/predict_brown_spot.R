@@ -1,5 +1,4 @@
 
-
 #' Predict rice brown spot severity
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
