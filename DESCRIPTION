@@ -13,7 +13,7 @@ Authors@R: c(
            role = c("aut", "trl"),
            email = "robert.hijmans@gmail.com",
            comment = c("Original R implementation",
-                      c(ORCID = "0000-0001-5872-2872"))),
+                     c(ORCID = "0000-0001-5872-2872"))),
     person(given = "Serge",
            family = "Savary",
            role = c("aut", "ccp"),
@@ -34,7 +34,13 @@ Authors@R: c(
            role = "ctb",
            email = "aji.ixb@gmail.com",
            comment = "Helped fix bug related to SEIR model and establishment
-           date."))
+           date."),
+    person(given = "Emerson",
+           family = "Del Ponte",
+           role = "ctb",
+           email = "delponte@ufv.br",
+           comment = c("Suggested fixes for several typos in the documentation",
+                     c(ORCID = "0000-0003-4398-409X"))))
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
 Description: A fork of the 'cropsim' R package by Hijmans et al., this package
     intends to make the 'EPIRICE' model easier to use. The original manuscript
