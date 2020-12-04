@@ -4,7 +4,7 @@
 \name{epirice-package}
 \alias{epirice}
 \alias{epirice-package}
-\title{epirice: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Exposed-Infectious-Removed(SEIR) Model}
+\title{epirice: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
