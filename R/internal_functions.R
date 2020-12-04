@@ -115,7 +115,10 @@ afgen <- function(xy, x) {
 #' @param TM Mean temperature as provided by `wth`
 #'
 #' @return Single double precision value of es as kilopascals
-
+#'
+#' @references Alduchov and Eskridge 1995,
+#'  <doi:10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2>
+#'
 .saturated_vapor_pressure <- function(TM) {
-  .611 * 10 ^ (7.5 * TM / (237.7 + TM))
+  0.61094 * exp((17.625 * (TM)) / ((TM) + 243.04))
 }
