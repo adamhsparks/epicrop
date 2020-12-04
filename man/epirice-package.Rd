@@ -16,7 +16,7 @@ A fork of the 'cropsim' R package by Hijmans et al., this package
     brown spot, leaf blast, sheath blight and tungro. `epirice` provides
     functions to simulate all of these diseases and also provides a generic
     Susceptible-Exposed-Infectious-Removed ('SEIR') model that is suitable for
-    use in other pathosystems as well provided the proper inputs.
+    use in other pathosystems as well when provided with the proper inputs.
 }
 \seealso{
 Useful links:
