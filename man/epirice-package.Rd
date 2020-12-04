@@ -32,7 +32,7 @@ Useful links:
 Authors:
 \itemize{
   \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R implementation) [translator]
-  \item Serge Savary \email{serge.savary@toulouse.inra.fr} (Model idea and development) [conceptor]
+  \item Serge Savary \email{serge.savary@toulouse.inra.fr} (Model conception and development in Stella) [conceptor]
   \item Ireno Pangga \email{ibpangga@yahoo.com} (Model development and original R implementation) [translator]
   \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator]
 }

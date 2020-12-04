@@ -18,7 +18,7 @@ Authors@R: c(
            family = "Savary",
            role = c("aut", "ccp"),
            email = "serge.savary@toulouse.inra.fr",
-           comment = "Model idea and development"),
+           comment = "Model conception and development in Stella"),
     person(given = "Ireno",
            family = "Pangga",
            role = c("aut", "trl"),
