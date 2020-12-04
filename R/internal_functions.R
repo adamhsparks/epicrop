@@ -110,6 +110,12 @@ afgen <- function(xy, x) {
   return(hrtemp)
 }
 
+#' Calculate saturated vapour pressure, es
+#'
+#' @param TM Mean temperature as provided by `wth`
+#'
+#' @return Single double precision value of es as kilopascals
+
 .saturated_vapor_pressure <- function(TM) {
-  .611 * 10 ^ (7.5 * TM / (237.7 + TM))  #kpa
+  .611 * 10 ^ (7.5 * TM / (237.7 + TM))
 }
