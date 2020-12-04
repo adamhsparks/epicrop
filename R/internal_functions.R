@@ -70,6 +70,17 @@ afgen <- function(xy, x) {
   return(rh)
 }
 
+#' Calculate hourly temperature from DOY, location (LAT) and TMIN and TMAX
+#'
+#' @param lat Latitude provided by `wth`
+#' @param doy Sequential day of year provided by `wth`
+#' @param tmin Minimum temperature provided by `wth`
+#' @param tmax Maximum temperature provided by `wth`
+#'
+#' @return A numeric vector of hourly temperature values
+#'
+#' @noRd
+#'
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
   TC <- 4.0
   P <- 1.5
@@ -79,8 +90,8 @@ afgen <- function(xy, x) {
   sunset <- 12 + 0.5 * dayl
   hrtemp <- vector(length = 24)
   for (hr in 1:24) {
-    #    period a: dhour between midnight and sunrise;
-    if (hr < sunris)  {
+    # period a: dhour between midnight and sunrise;
+    if (hr < sunris) {
       tsunst <- tmin + (tmax - tmin) * sin(pi * (dayl / (dayl + 2 * P)))
       hrtemp[hr] <-
         (tmin - tsunst * exp(-nigthl / TC) +
@@ -93,7 +104,7 @@ afgen <- function(xy, x) {
         tmin + (tmax - tmin) * sin(pi * (hr - sunris) / (dayl +
                                                            2 * P))
     } else if (hr < sunset) {
-      #  period c: dhour between time of tmax and sunset;
+      # period c: dhour between time of tmax and sunset;
       hrtemp[hr] <-
         tmin + (tmax - tmin) * sin(pi * (hr - sunris) / (dayl +
                                                            2 * P))
