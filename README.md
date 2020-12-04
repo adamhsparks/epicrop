@@ -82,7 +82,7 @@ diseases by providing the emergence or crop establishment date for
 transplanted rice.
 
 ``` r
- bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 
 bb
 ```
