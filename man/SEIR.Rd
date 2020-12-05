@@ -23,7 +23,8 @@ SEIR(
   Sx,
   a,
   RRS,
-  RRG
+  RRG,
+  RRLEX
 )
 }
 \arguments{
@@ -108,6 +109,7 @@ columns
 \strong{rtransfer}:\tab Rate of transfer from latent to infectious sites. \cr
 \strong{rgrowth}:\tab Rate of growth of healthy sites. \cr
 \strong{rsenesced}:\tab Rate of senescence of healthy sites. \cr
+\strong{rrlex}:\tab Rate of lesion expansion. \cr
 \strong{diseased}:\tab Number of diseased (latent + infectious + removed)
 sites. \cr
 \strong{severity}:\tab Disease severity or incidence (for tungro).\cr

@@ -123,6 +123,7 @@
 #'   **rtransfer**:\tab Rate of transfer from latent to infectious sites. \cr
 #'   **rgrowth**:\tab Rate of growth of healthy sites. \cr
 #'   **rsenesced**:\tab Rate of senescence of healthy sites. \cr
+#'   **rrlex**:\tab Rate of lesion expansion. \cr
 #'   **diseased**:\tab Number of diseased (latent + infectious + removed)
 #'    sites. \cr
 #'   **severity**:\tab Disease severity or incidence (for tungro).\cr
@@ -151,7 +152,8 @@ SEIR <-
            Sx,
            a,
            RRS,
-           RRG) {
+           RRG,
+           RRLEX) {
     # CRAN NOTE avoidance
     infday <- DOY <- YYYYMMDD <- lat <- # nocov start
     lon <- LAT <- LON <- NULL #nocov end
@@ -184,7 +186,7 @@ SEIR <-
       RHCoef <- latency <- infectious <- severity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
-      now_infectious <- now_latent <- sites <- total_sites <-
+      now_infectious <- now_latent <- sites <- total_sites <- rrlex <-
       rep(0, times = duration + 1)
 
     for (day in 0:duration) {
