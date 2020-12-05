@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get weather data from NASA POWER API — get_wth • epirice</title>
+<title>Get weather data from NASA POWER API — get_wth • epicrop</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -79,7 +79,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">epirice</a>
+        <a class="navbar-link" href="../index.html">epicrop</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -93,15 +93,24 @@
   </a>
 </li>
 <li>
-  <a href="../articles/epirice.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/epirice.html">epicrop</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/adamhsparks/epirice/">
+  <a href="https://github.com/adamhsparks/epicrop/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -120,7 +129,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get weather data from NASA POWER API</h1>
-    <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epirice/blob/master/R/get_wth.R'><code>R/get_wth.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/R/get_wth.R'><code>R/get_wth.R</code></a></small>
     <div class="hidden name"><code>get_wth.Rd</code></div>
     </div>
 
@@ -147,7 +156,7 @@ entered as x, y coordinates.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of weather data, dates and
-geolocation information (LAT/LON values) suitable for use in <span class="pkg">epirice</span>
+geolocation information (LAT/LON values) suitable for use in <span class="pkg">epicrop</span>
 with the following columns:</p><table class='table'>
 <tr><td><strong>YYYYMMDD</strong>:</td><td>Date as Year Month Day (ISO8601).</td></tr>
 <tr><td><strong>DOY</strong>:</td><td>Consecutive day of year, commonly called "Julian date".</td></tr>
@@ -166,7 +175,7 @@ with the following columns:</p><table class='table'>
 
     <p>This function is just a wrapper for the <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>
 <code><a href='https://docs.ropensci.org/nasapower/reference/get_power.html'>get_power</a></code> function with predefined parameters
-suitable for use in <span class="pkg">epirice</span>.</p>
+suitable for use in <span class="pkg">epicrop</span>.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Adam H. Sparks</p>
