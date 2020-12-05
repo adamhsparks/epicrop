@@ -22,7 +22,7 @@
 #'   }
 #' @details This function is just a wrapper for the \CRANpkg{nasapower}
 #'  \code{\link[nasapower]{get_power}} function with predefined parameters
-#'  suitable for use in EPIRICE.
+#'  suitable for use in \pkg{epirice}.
 #'
 #' @examples
 #' \donttest{
