@@ -6,19 +6,19 @@
 #' @param dates A character vector of start and end dates in that order.
 #'
 #' @return A \code{\link[data.table]{data.table}} of weather data, dates and
-#'  geolocation information (LAT/LON values) suitable for use in \pkg{epirice}
+#'  geolocation information (lat/lon values) suitable for use in \pkg{epirice}
 #'  with the following columns:
 #'   \tabular{rl}{
-#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TM**:\tab Mean daily temperature (°C).\cr
-#'   **TN**:\tab Minimum daily temperature (°C).\cr
-#'   **TX**:\tab Maximum daily temperature (°C).\cr
-#'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
-#'   **RH**:\tab Mean daily relative humidity (%).\cr
-#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
-#'   **LAT**:\tab Latitude of area of interest.\cr
-#'   **LON**:\tab Longitude of area of interest.\cr
+#'   **yyyymmdd**:\tab Date as Year Month Day (ISO8601).\cr
+#'   **doy**:\tab  Consecutive day of year, commonly called "Julian date".\cr
+#'   **tmp**:\tab Mean daily temperature (°C).\cr
+#'   **tmn**:\tab Minimum daily temperature (°C).\cr
+#'   **tmx**:\tab Maximum daily temperature (°C).\cr
+#'   **tdew**:\tab Mean daily dew point temperature (°C).\cr
+#'   **rh**:\tab Mean daily relative humidity (%).\cr
+#'   **rain**:\tab Mean daily rainfall (mm).\cr
+#'   **lat**:\tab Latitude of area of interest.\cr
+#'   **lon**:\tab Longitude of area of interest.\cr
 #'   }
 #' @details This function is just a wrapper for the \CRANpkg{nasapower}
 #'  \code{\link[nasapower]{get_power}} function with predefined parameters
@@ -45,7 +45,7 @@ get_wth <- function(lonlat, dates) {
                "T2M_MAX",
                "T2M_MIN",
                "T2MDEW",
-               "RH2M",
+               "rh2M",
                "PRECTOT"),
       temporal_average = "DAILY"
     )
@@ -67,30 +67,30 @@ get_wth <- function(lonlat, dates) {
       "LON"
     ),
     new = c(
-      "DOY",
-      "YYYYMMDD",
-      "TM",
-      "TN",
-      "TX",
-      "TDEW",
-      "RH",
-      "RAIN",
-      "LAT",
-      "LON"
+      "doy",
+      "yyyymmdd",
+      "tmp",
+      "tmx",
+      "tmn",
+      "tdew",
+      "rh",
+      "rain",
+      "lat",
+      "lon"
     )
   )
   setcolorder(wth,
               c(
-                "YYYYMMDD",
-                "DOY",
-                "TM",
-                "TN",
-                "TX",
-                "TDEW",
-                "RH",
-                "RAIN",
-                "LAT",
-                "LON"
+                "yyyymmdd",
+                "doy",
+                "tmp",
+                "tmn",
+                "tmx",
+                "tdew",
+                "rh",
+                "rain",
+                "lat",
+                "lon"
               ))
 
   return(wth)

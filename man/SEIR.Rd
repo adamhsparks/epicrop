@@ -30,14 +30,14 @@ SEIR(
 \item{wth}{a data frame of weather on a daily time-step containing data with
 the following field names.
 \tabular{rl}{
-\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
-\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
-\strong{TM}:\tab Mean daily temperature (°C).\cr
-\strong{TN}:\tab Minimum daily temperature (°C).\cr
-\strong{TX}:\tab Maximum daily temperature (°C).\cr
-\strong{TDEW}:\tab Mean daily dew point temperature (°C).\cr
-\strong{RH}:\tab Mean daily relative humidity (\%).\cr
-\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
+\strong{yyyymmdd}:\tab Date as Year Month Day (ISO8601).\cr
+\strong{doy}:\tab  Consecutive day of year, commonly called "Julian date".\cr
+\strong{tmp}:\tab Mean daily temperature (°C).\cr
+\strong{tmn}:\tab Minimum daily temperature (°C).\cr
+\strong{tmx}:\tab Maximum daily temperature (°C).\cr
+\strong{tdew}:\tab Mean daily dew point temperature (°C).\cr
+\strong{rh}:\tab Mean daily relative humidity (\%).\cr
+\strong{rain}:\tab Mean daily rainfall (mm).\cr
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
@@ -55,7 +55,7 @@ Savary \emph{et al.} 2012.}
 \item{rainlim}{threshold to decide whether leaves are wet or not. From Table
 1 Savary \emph{et al.} 2012.}
 
-\item{wetness_type}{simulate RHmax or rain threshold (0) or leaf wetness
+\item{wetness_type}{simulate rhmax or rain threshold (0) or leaf wetness
 duration (1). From Table 1 Savary \emph{et al.} 2012.}
 
 \item{H0}{initial number of plant's healthy sites. From Table 1 Savary

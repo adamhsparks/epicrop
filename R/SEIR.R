@@ -8,14 +8,14 @@
 #' @param wth a data frame of weather on a daily time-step containing data with
 #'  the following field names.
 #'   \tabular{rl}{
-#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TM**:\tab Mean daily temperature (°C).\cr
-#'   **TN**:\tab Minimum daily temperature (°C).\cr
-#'   **TX**:\tab Maximum daily temperature (°C).\cr
-#'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
-#'   **RH**:\tab Mean daily relative humidity (%).\cr
-#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
+#'   **yyyymmdd**:\tab Date as Year Month Day (ISO8601).\cr
+#'   **doy**:\tab  Consecutive day of year, commonly called "Julian date".\cr
+#'   **tmp**:\tab Mean daily temperature (°C).\cr
+#'   **tmn**:\tab Minimum daily temperature (°C).\cr
+#'   **tmx**:\tab Maximum daily temperature (°C).\cr
+#'   **tdew**:\tab Mean daily dew point temperature (°C).\cr
+#'   **rh**:\tab Mean daily relative humidity (%).\cr
+#'   **rain**:\tab Mean daily rainfall (mm).\cr
 #'   }
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
 #' format. From Table 1 Savary \emph{et al.} 2012.
@@ -27,7 +27,7 @@
 #' 90 %). From Table 1 Savary \emph{et al.} 2012.
 #' @param rainlim threshold to decide whether leaves are wet or not. From Table
 #'  1 Savary \emph{et al.} 2012.
-#' @param wetness_type simulate RHmax or rain threshold (0) or leaf wetness
+#' @param wetness_type simulate rhmax or rain threshold (0) or leaf wetness
 #'  duration (1). From Table 1 Savary \emph{et al.} 2012.
 #' @param H0 initial number of plant's healthy sites. From Table 1 Savary
 #'  \emph{et al.} 2012.
@@ -145,8 +145,8 @@ SEIR <-
            RRS,
            RRG) {
     # CRAN NOTE avoidance
-    infday <- leaf_wet <- DOY <- YYYYMMDD <- lat <- # nocov start
-    lon <- LAT <- LON <- NULL #nocov end
+    infday <- leaf_wet <- doy <- yyyymmdd <- lat <- # nocov start
+    lon <- lat <- lon <- NULL #nocov end
 
     # set date formats
     emergence <- as.Date(emergence)
@@ -158,13 +158,13 @@ SEIR <-
     emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
 
     # check that the dates roughly align
-    if (!(emergence >= wth[1, YYYYMMDD]) |
-        !(emergence_doy <= max(wth[, DOY]) + duration)) {
+    if (!(emergence >= wth[1, yyyymmdd]) |
+        !(emergence_doy <= max(wth[, doy]) + duration)) {
       stop("Incomplete weather data or dates do not align")
     }
 
     # subset weather data where date is greater than emergence minus one
-    wth[DOY >= emergence_doy - 1, ]
+    wth[doy >= emergence_doy - 1, ]
 
     if (wetness_type == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
@@ -173,7 +173,7 @@ SEIR <-
     # outputvars
     cofr <-
       rc <-
-      RHCoef <- latency <- infectious <- severity <- rsenesced <-
+      rhCoef <- latency <- infectious <- severity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <- now_latent <- sites <- total_sites <-
@@ -215,16 +215,16 @@ SEIR <-
       }
 
       if (wetness_type == 0) {
-        if (wth$RH[day + 1] == rhlim |
-            wth$RAIN[day + 1] >= rainlim) {
-          RHCoef[day + 1] <- 1
+        if (wth$rh[day + 1] == rhlim |
+            wth$rain[day + 1] >= rainlim) {
+          rhCoef[day + 1] <- 1
         }
       } else {
-        RHCoef[day + 1] <- afgen(RcW, W[day + 1])
+        rhCoef[day + 1] <- afgen(RcW, W[day + 1])
       }
 
       rc[day + 1] <- RcOpt * afgen(RcA, day) *
-        afgen(RcT, wth$TM[day + 1]) * RHCoef[day + 1]
+        afgen(RcT, wth$TM[day + 1]) * rhCoef[day + 1]
       diseased[day + 1] <- sum(infectious) +
         now_latent[day + 1] + removed[day + 1]
       removed[day + 1] <- sum(infectious) - now_infectious[day + 1]
@@ -296,8 +296,8 @@ SEIR <-
 
     setcolorder(res, c("simday", "dates"))
 
-    res[, lat := rep_len(wth[, LAT], .N)]
-    res[, lon := rep_len(wth[, LON], .N)]
+    res[, lat := rep_len(wth[, lat], .N)]
+    res[, lon := rep_len(wth[, lon], .N)]
 
     return(res[])
   }
