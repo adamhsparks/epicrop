@@ -67,24 +67,29 @@ plot(x = bs$dates, y = bs$severity, type = "l")
 Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera
 oryzae} in the Wageningen polder, Surinam. PhD thesis, 97p.
 
-Levy, Y. and Cohen, Y., 1980. Sporulation of
-\emph{Helminthosporium turcicum} on sweet corn: Effects of temperature and
-dew period. Canadian Journal of Plant Pathology 2:65-69.
+Levy, Y. and Cohen, Y., 1980. Sporulation of \emph{Helminthosporium turcicum}
+on sweet corn: Effects of temperature and dew period. Canadian Journal of
+Plant Pathology 2:65-69. DOI: \url{https://doi.org/10.1080/07060668009501440}.
 
-Padmanabhan, S.Y. and Ganguly, D. 1954. Relation between the age
-of rice plant and its susceptibility to \emph{Helminthosporium} and blast
-disease. Proceedings of the Indian Academy of Sciences B 29:44-50.
+Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
+paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 
-Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and
-humidity on disease development and sporulation of \emph{Helminthosporium
-oryzae} on rice. Indian Phytopathology 30:258-259.
+Padmanabhan, S.Y. and Ganguly, D. 1954. Relation between the age of rice
+plant and its susceptibility to \emph{Helminthosporium} and blast disease.
+Proceedings of the Indian Academy of Sciences B 29:44-50.
 
-Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
-formation in paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
+Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and humidity on
+disease development and sporulation of \emph{Helminthosporium oryzae} on
+rice. Indian Phytopathology 30:258-259.
 
-Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A
-Simulator of Southern Corn Leaf Blight. Bulletin of the Connecticut
-Experiment Station, New Haven, 85 p.
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
+and mapping potential epidemics of rice diseases globally. Crop Protection,
+Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+\url{https://doi.org/10.1016/j.cropro.2011.11.009}.
+
+Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A Simulator of
+Southern Corn Leaf Blight. Bulletin of the Connecticut Experiment Station,
+New Haven, 85 p.
 }
 \seealso{
 \itemize{

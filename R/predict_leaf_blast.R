@@ -58,26 +58,31 @@
 #' tropics with special reference to the leaf wetness in relation to disease
 #' development. PhD Thesis, Indian Agricultural Research Institute, New Delhi,
 #' 195 p.
-#' @references Hemmi, T., Abe, T., Ikaya, J., and Inoue, Y. 1936. Studies on the
-#' rice blast disease. IV. Relation of the environment to the development of
-#' blast disease and physiologic specialization in the rice blast fungus.
-#' Materials for Rural Improvement, Department of Agriculture and Forestry,
-#' Japan No. 105, 145p.
-#' @references Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant
-#' resistance on blast severity and yield of rice. Plant Disease 71:1035-1038.
-#' @references Kato, H and Kozaka, T., 1974. Effect of temperature on lesion
-#' enlargement and sporulation of \emph{Pyricularia oryzae} in rice leaves.
-#' Phytopathology 64:828-830.
-#' @references Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness
-#' formation in paddy rice crops. PhD Thesis, Wageningen Agricultural
-#' University, 87 p.
-#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-#' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+#'
+#' Hemmi, T., Abe, T., Ikaya, J., and Inoue, Y. 1936. Studies on the rice blast
+#' disease. IV. Relation of the environment to the development of blast disease
+#' and physiologic specialization in the rice blast fungus. Materials for Rural
+#' Improvement, Department of Agriculture and Forestry, Japan No. 105, 145p.
+#'
+#' Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant resistance
+#' on blast severity and yield of rice. Plant Disease 71:1035-1038. DOI:
+#' <https://doi.org/10.1094/PD-71-1035>.
+#'
+#' Kato, H and Kozaka, T., 1974. Effect of temperature on lesion enlargement and
+#' sporulation of \emph{Pyricularia oryzae} in rice leaves. Phytopathology
+#' 64:828-830. DOI: <https://doi.org/10.1094/Phyto-64-828>.
+#'
+#' Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
+#' paddy rice crops. PhD Thesis, Wageningen Agricultural University, 87 p.
+#'
+#' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
+#' Modeling and mapping potential epidemics of rice diseases globally. Crop
 #' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
-#' @references Torres, C.Q., 1986. Effect of plant age on the expression of
-#' resistance to \emph{Pyricularia oryzae} Cav. in upland rice varieties. PhD
-#' Thesis, University of the Philippines at Los Banos, 82 p.
+#' <https://doi.org/10.1016/j.cropro.2011.11.009>.
+#'
+#' Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
+#' \emph{Pyricularia oryzae} Cav. in upland rice varieties. PhD Thesis,
+#' University of the Philippines at Los Banos, 82 p.
 #'
 #' @seealso
 #' * \code{\link{SEIR}},
