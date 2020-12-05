@@ -125,7 +125,9 @@ ggplot(data = bb,
   labs(title = "Bacterial blight disease progress over time",
        subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
        Station shown",
-       caption = "Weather data acknowledgement:\nThese data were obtained from the NASA Langley Research Center POWER Project\nfunded through the NASA Earth Science Directorate Applied Science Program.") +
+       caption = "Weather data acknowledgement:\nThese data were obtained from
+       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
 
