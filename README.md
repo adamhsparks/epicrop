@@ -147,6 +147,12 @@ diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN
 0261-2194 DOI:
 [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
+Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet.
+Modelling and Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf
+Rust and Septoria Tritici Blotch Using EPIWHEAT. *European Journal of Plant
+Pathology* 142, no. 4 (August 1, 2015): 771–90. DOI:
+[10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
+
 Jan C. Zadoks. Systems Analysis and the Dynamics of Epidemics.
 Laboratory of Phytopathology, Agricultural University, Wageningen, The
 Netherlands; *Phytopathology* 61:600. DOI:

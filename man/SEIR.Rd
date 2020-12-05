@@ -168,7 +168,7 @@ emergence <- "2000-07-15"
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 J. Modeling and mapping potential epidemics of rice diseases globally. Crop
 Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-\url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.>
+\url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
