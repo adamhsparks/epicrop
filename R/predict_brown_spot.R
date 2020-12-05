@@ -23,14 +23,14 @@
 #' \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
 #' the following properly named columns in them will work.
 #'   \tabular{rl}{
-#'   **yyyymmdd**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **doy**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **tmp**:\tab Mean daily temperature (°C).\cr
-#'   **tmn**:\tab Minimum daily temperature (°C).\cr
-#'   **tmx**:\tab Maximum daily temperature (°C).\cr
-#'   **tdew**:\tab Mean daily dew point temperature (°C).\cr
-#'   **rh**:\tab Mean daily relative humidity (%).\cr
-#'   **rain**:\tab Mean daily rainfall (mm).\cr
+#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
+#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
+#'   **TM**:\tab Mean daily temperature (°C).\cr
+#'   **TN**:\tab Minimum daily temperature (°C).\cr
+#'   **TX**:\tab Maximum daily temperature (°C).\cr
+#'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
+#'   **RH**:\tab Mean daily relative humidity (%).\cr
+#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
 #'   }
 #'
 #' @param emergence Expected date of crop emergence

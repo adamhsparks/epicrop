@@ -36,13 +36,12 @@ afgen <- function(xy, x) {
 .leaf_wet <-
   function(wth = wth, simple = TRUE) {
     # CRAN NOTE Avoidance
-    rh <- tmn <- tmx <- lat <- NULL # nocov
+    RH <- TMN <- TMX <- LAT <- NULL # nocov
     rh <- .diurnal_rh(
-      rh = wth[, rh],
-      tmin = wth[, tmn],
-      tmax  = wth[, tmx],
-      lat = wth[, lat],
-      doy = wth[, doy]
+      rh = wth[, RH],
+      tmin = wth[, TMN],
+      tmax  = wth[, TMX],
+      lat = wth[, LAT]
     )
     if (isTRUE(simple)) {
       lw <- length(rh[rh >= 90])

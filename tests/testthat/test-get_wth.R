@@ -6,16 +6,16 @@ test_that("Weather data is as expected after fetching from POWER API", {
                  dates = c("2015-01-15", "2015-05-15"))
   expect_named(wth,
                c(
-                 "yyyymmdd",
-                 "doy",
-                 "tmp",
-                 "tmn",
-                 "tmx",
-                 "tdew",
-                 "rh",
-                 "rh",
-                 "lat",
-                 "lon"
+                 "YYYYMMDD",
+                 "DOY",
+                 "TM",
+                 "TN",
+                 "TX",
+                 "TDEW",
+                 "RH",
+                 "RAIN",
+                 "LAT",
+                 "LON"
                ))
   expect_is(wth, c("data.table", "data.frame"))
 })

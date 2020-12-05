@@ -8,7 +8,7 @@
 # Version 0.2
 # Licence GPL v3
 #switch :  wetness_type (1) uses rhcoefrc = 1 vs wetness_type (0)
-# uses rh + rain threshold corresponding to  STELLA  TungroModv5T
+# uses RH + rain threshold corresponding to  STELLA  TungroModv5T
 
 # onset = 25 deleted as component of tungro function, as onset is not a constant
 #component on nb of rice crop per year should be added in the function

@@ -11,14 +11,14 @@ predict_leaf_blast(wth, emergence, ...)
 \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
 the following properly named columns in them will work.
 \tabular{rl}{
-\strong{yyyymmdd}:\tab Date as Year Month Day (ISO8601).\cr
-\strong{doy}:\tab  Consecutive day of year, commonly called "Julian date".\cr
-\strong{tmp}:\tab Mean daily temperature (°C).\cr
-\strong{tmn}:\tab Minimum daily temperature (°C).\cr
-\strong{tmx}:\tab Maximum daily temperature (°C).\cr
-\strong{tdew}:\tab Mean daily dew point temperature (°C).\cr
-\strong{rh}:\tab Mean daily relative humidity (\%).\cr
-\strong{rain}:\tab Mean daily rainfall (mm).\cr
+\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
+\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
+\strong{TM}:\tab Mean daily temperature (°C).\cr
+\strong{TN}:\tab Minimum daily temperature (°C).\cr
+\strong{TX}:\tab Maximum daily temperature (°C).\cr
+\strong{TDEW}:\tab Mean daily dew point temperature (°C).\cr
+\strong{RH}:\tab Mean daily relative humidity (\%).\cr
+\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
 }}
 
 \item{emergence}{Expected date of crop emergence}
