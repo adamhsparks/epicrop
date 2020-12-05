@@ -13,3 +13,5 @@
 ^\_pkgdown\.yml$
 ^codemeta\.json$
 ^README_files$
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$
