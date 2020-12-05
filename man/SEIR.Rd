@@ -32,11 +32,11 @@ the following field names.
 \tabular{rl}{
 \strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
 \strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
-\strong{TM}:\tab Mean daily temperature (°C).\cr
-\strong{TN}:\tab Minimum daily temperature (°C).\cr
-\strong{TX}:\tab Maximum daily temperature (°C).\cr
+\strong{TEMP}:\tab Mean daily temperature (°C).\cr
+\strong{TMIN}:\tab Minimum daily temperature (°C).\cr
+\strong{TMAX}:\tab Maximum daily temperature (°C).\cr
 \strong{TDEW}:\tab Mean daily dew point temperature (°C).\cr
-\strong{RH}:\tab Mean daily relative humidity (\%).\cr
+\strong{RHUM}:\tab Mean daily temperature (°C).\cr
 \strong{RAIN}:\tab Mean daily rainfall (mm).\cr
 }}
 

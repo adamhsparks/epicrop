@@ -10,11 +10,11 @@
 #'   \tabular{rl}{
 #'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
 #'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TM**:\tab Mean daily temperature (°C).\cr
-#'   **TN**:\tab Minimum daily temperature (°C).\cr
-#'   **TX**:\tab Maximum daily temperature (°C).\cr
+#'   **TEMP**:\tab Mean daily temperature (°C).\cr
+#'   **TMIN**:\tab Minimum daily temperature (°C).\cr
+#'   **TMAX**:\tab Maximum daily temperature (°C).\cr
 #'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
-#'   **RH**:\tab Mean daily relative humidity (%).\cr
+#'   **RHUM**:\tab Mean daily temperature (°C).\cr
 #'   **RAIN**:\tab Mean daily rainfall (mm).\cr
 #'   }
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
@@ -215,7 +215,7 @@ SEIR <-
       }
 
       if (wetness_type == 0) {
-        if (wth$RH[day + 1] == rhlim |
+        if (wth$RHUM[day + 1] == rhlim |
             wth$RAIN[day + 1] >= rainlim) {
           RHCoef[day + 1] <- 1
         }
@@ -224,7 +224,7 @@ SEIR <-
       }
 
       rc[day + 1] <- RcOpt * afgen(RcA, day) *
-        afgen(RcT, wth$TM[day + 1]) * RHCoef[day + 1]
+        afgen(RcT, wth$TEMP[day + 1]) * RHCoef[day + 1]
       diseased[day + 1] <- sum(infectious) +
         now_latent[day + 1] + removed[day + 1]
       removed[day + 1] <- sum(infectious) - now_infectious[day + 1]

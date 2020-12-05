@@ -11,11 +11,11 @@
 #'   \tabular{rl}{
 #'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
 #'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TM**:\tab Mean daily temperature (°C).\cr
-#'   **TN**:\tab Minimum daily temperature (°C).\cr
-#'   **TX**:\tab Maximum daily temperature (°C).\cr
+#'   **TEMP**:\tab Mean daily temperature (°C).\cr
+#'   **TMIN**:\tab Minimum daily temperature (°C).\cr
+#'   **TMAX**:\tab Maximum daily temperature (°C).\cr
 #'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
-#'   **RH**:\tab Mean daily relative humidity (%).\cr
+#'   **RHUM**:\tab Mean daily temperature (°C).\cr
 #'   **RAIN**:\tab Mean daily rainfall (mm).\cr
 #'   **LAT**:\tab Latitude of area of interest.\cr
 #'   **LON**:\tab Longitude of area of interest.\cr
@@ -69,11 +69,11 @@ get_wth <- function(lonlat, dates) {
     new = c(
       "DOY",
       "YYYYMMDD",
-      "TM",
-      "TN",
-      "TX",
+      "TEMP",
+      "TMIN",
+      "TMAX",
       "TDEW",
-      "RH",
+      "RHUM",
       "RAIN",
       "LAT",
       "LON"
@@ -83,11 +83,11 @@ get_wth <- function(lonlat, dates) {
               c(
                 "YYYYMMDD",
                 "DOY",
-                "TM",
-                "TN",
-                "TX",
+                "TEMP",
+                "TMIN",
+                "TMAX",
                 "TDEW",
-                "RH",
+                "RHUM",
                 "RAIN",
                 "LAT",
                 "LON"
