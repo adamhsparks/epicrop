@@ -14,7 +14,7 @@ entered as x, y coordinates.}
 }
 \value{
 A \code{\link[data.table]{data.table}} of weather data, dates and
-geolocation information (LAT/LON values) suitable for use in \pkg{epirice}
+geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
 with the following columns:
 \tabular{rl}{
 \strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
@@ -35,7 +35,7 @@ Get weather data from NASA POWER API
 \details{
 This function is just a wrapper for the \CRANpkg{nasapower}
 \code{\link[nasapower]{get_power}} function with predefined parameters
-suitable for use in \pkg{epirice}.
+suitable for use in \pkg{epicrop}.
 }
 \examples{
 \donttest{

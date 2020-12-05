@@ -4,10 +4,10 @@
     "http://schema.org"
   ],
   "@type": "SoftwareSourceCode",
-  "identifier": "epirice",
-  "description": "A fork of the 'cropsim' R package by Hijmans et al., this package\n    intends to make the 'EPIRICE' model easier to use. The original manuscript\n    by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailed the\n    model's development, use and results from modeling global unmanaged\n    epidemics of rice diseases for five major rice diseases, bacterial blight,\n    brown spot, leaf blast, sheath blight and tungro. `epirice` provides\n    functions to simulate all of these diseases and also provides a generic\n    Susceptible-Exposed-Infectious-Removed ('SEIR') model that is suitable for\n    use in other pathosystems as well when provided with the proper inputs.",
-  "name": "epirice: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
-  "codeRepository": "https://github.com/adamhsparks/epirice/",
+  "identifier": "epicrop",
+  "description": "Generic simulation modelling of crop diseases using a Susceptibe-\n    Exposed-Infectious-Removed ('SEIR') model. This type of model was first\n    described in botanical epidemiology by Zadoks (1971)\n    <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary\n    et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's\n    development, use and results from modeling global unmanaged\n    epidemics of rice diseases for five major rice diseases, bacterial blight,\n    brown spot, leaf blast, sheath blight and tungro. A second model, 'EPIWHEAT'\n    was published by Savary et al. (2015) <doi:10.1007/s10658-015-0650-7> that\n    added a lesion expansion parameter and modelled potential disease epidemics\n    of leaf (brown) rust and Septoria tritici blotch. Specific functions are\n    provided to simulate all of these diseases with a generic 'SEIR' model\n    function that is suitable for parameterising for use with other pathosystems\n    as demonstrated in Savary et al. 2012 and 2015.",
+  "name": "epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
+  "codeRepository": "https://github.com/adamhsparks/epicrop/",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "0.0.0.9000",
   "programmingLanguage": {
@@ -189,10 +189,10 @@
       "sameAs": "https://CRAN.R-project.org/package=nasapower"
     }
   ],
-  "readme": "https://github.com/adamhsparks/epirice/blob/main/README.md",
-  "fileSize": "293.09KB",
-  "contIntegration": "https://codecov.io/gh/adamhsparks/epirice",
-  "keywords": ["rice", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
+  "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
+  "fileSize": "293.779KB",
+  "contIntegration": "https://codecov.io/gh/adamhsparks/epicrop",
+  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -223,11 +223,11 @@
           "familyName": "Aunario"
         }
       ],
-      "name": "{epirice}: Simulation modeling of rice crop diseases",
-      "url": "https://github.com/adamhsparks/epirice"
+      "name": "{epicrop}: Simulation modeling of rice crop diseases",
+      "url": "https://github.com/adamhsparks/epicrop"
     }
   ],
-  "issueTracker": "https://github.com/adamhsparks/epirice/issues",
+  "issueTracker": "https://github.com/adamhsparks/epicrop/issues",
   "developmentStatus": "https://www.repostatus.org/#active",
   "applicationCategory": "Tools"
 }

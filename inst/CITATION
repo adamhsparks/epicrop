@@ -1,10 +1,10 @@
-citHeader("To cite epirice in publications, please use:")
+citHeader("To cite epicrop in publications, please use:")
 
 year <- sub("-.*", "", meta$Date)
 note <- sprintf("R package version %s", meta$Version)
 
 bibentry(bibtype = "Manual",
-         title = "{epirice}: Simulation modeling of rice crop diseases",
+         title = "{epicrop}: Simulation modeling of rice crop diseases",
          author = c(person("Adam", "Sparks"),
                     person("Robert", "Hijmans"),
                     person("Serge", "Savary"),
@@ -12,4 +12,4 @@ bibentry(bibtype = "Manual",
                     person("Jorel", "Aunario")),
          year = year,
          note = note,
-         url = "https://github.com/adamhsparks/epirice")
+         url = "https://github.com/adamhsparks/epicrop")

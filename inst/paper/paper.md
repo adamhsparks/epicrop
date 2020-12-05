@@ -1,5 +1,5 @@
 ---
-title: 'epirice: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Exposed-Infectious-Removed :(SEIR) Model in R'
+title: 'epicrop: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Exposed-Infectious-Removed :(SEIR) Model in R'
 authors:
 - affiliation: 1
   name: Adam H Sparks

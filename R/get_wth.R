@@ -6,7 +6,7 @@
 #' @param dates A character vector of start and end dates in that order.
 #'
 #' @return A \code{\link[data.table]{data.table}} of weather data, dates and
-#'  geolocation information (LAT/LON values) suitable for use in \pkg{epirice}
+#'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
 #'  with the following columns:
 #'   \tabular{rl}{
 #'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
@@ -22,7 +22,7 @@
 #'   }
 #' @details This function is just a wrapper for the \CRANpkg{nasapower}
 #'  \code{\link[nasapower]{get_power}} function with predefined parameters
-#'  suitable for use in \pkg{epirice}.
+#'  suitable for use in \pkg{epicrop}.
 #'
 #' @examples
 #' \donttest{

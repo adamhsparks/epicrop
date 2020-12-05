@@ -1,6 +1,6 @@
 # Original author of these functions is Robert J. Hijmans
 # Adapted from CRAN package meteor
-# Adapted for epirice package package by Adam H. Sparks
+# Adapted for epicrop package package by Adam H. Sparks
 # License GPL3
 
 #' @noRd

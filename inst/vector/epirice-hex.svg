@@ -8,17 +8,17 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2"
-   sodipodi:docname="epirice-hex.svg"
+   sodipodi:docname="epicrop-hex.svg"
    viewBox="0 0 155.55118 179.99998"
    version="1.1"
    inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
    width="4.3899999cm"
    height="5.0799999cm"
-   inkscape:export-filename="/Users/adamsparks/Sources/GitHub/R/epirice/man/figures/logo.png"
+   inkscape:export-filename="/Users/adamsparks/Sources/GitHub/R/epicrop/man/figures/logo.png"
    inkscape:export-xdpi="90.709999"
    inkscape:export-ydpi="90.709999">
   <title
-     id="title2108">epirice</title>
+     id="title2108">epicrop</title>
   <defs
      id="defs4">
     <marker
@@ -836,10 +836,10 @@
             <dc:title />
           </cc:Agent>
         </dc:publisher>
-        <dc:title>epirice</dc:title>
+        <dc:title>epicrop</dc:title>
         <dc:date>2020-12-03</dc:date>
-        <dc:description>R epirice package hex sticker, https://github.com/adamhsparks/epirice</dc:description>
-        <dc:source>https://github.com/adamhsparks/epirice/inst/vector/</dc:source>
+        <dc:description>R epicrop package hex sticker, https://github.com/adamhsparks/epicrop</dc:description>
+        <dc:source>https://github.com/adamhsparks/epicrop/inst/vector/</dc:source>
         <dc:creator>
           <cc:Agent>
             <dc:title>adamhsparks</dc:title>

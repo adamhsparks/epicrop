@@ -1,11 +1,11 @@
-# *epirice*: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
+# *epicrop*: Simulation Modelling of Rice Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
 
 <!-- badges: start -->
 
-[![tic](https://github.com/adamhsparks/epirice/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epirice/actions)
-[![codecov](https://codecov.io/gh/adamhsparks/epirice/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epirice)
+[![tic](https://github.com/adamhsparks/epicrop/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epicrop/actions)
+[![codecov](https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epicrop)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -32,24 +32,24 @@ in the world from 1983 to near current given internal functionality.
 Alternatively, you can supply your own weather data for any time period
 as long as it fits the model’s requirements.
 
-`epirice` is not yet on CRAN. You can install it this way.
+`epicrop` is not yet on CRAN. You can install it this way.
 
 ``` r
 if (!require("remotes"))
   install.packages("remotes")
-remotes::install_github("adamhsparks/epirice"
+remotes::install_github("adamhsparks/epicrop"
 )
 ```
 
 ## Get weather data
 
-First you need to provide weather data for the model. *epirice* provides
+First you need to provide weather data for the model. *epicrop* provides
 the `get_wth()` function to do this. Using it you can fetch weather data
 for any place in the world from 1983 to near present by providing the
 longitude and latitude and dates.
 
 ``` r
-library(epirice)
+library(epicrop)
 
 # Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station
  wth <- get_wth(

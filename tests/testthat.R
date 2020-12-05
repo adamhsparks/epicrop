@@ -1,4 +1,4 @@
 library(testthat)
-library(epirice)
+library(epicrop)
 
-test_check("epirice")
+test_check("epicrop")

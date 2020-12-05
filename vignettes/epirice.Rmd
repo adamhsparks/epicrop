@@ -1,10 +1,10 @@
 ---
-title: "epirice"
+title: "epicrop"
 author: "Adam H Sparks"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{epirice}
+  %\VignetteIndexEntry{epicrop}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
@@ -15,11 +15,11 @@ vignette: >
 knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
 ```
 
-## Introduction to epirice
+## Introduction to epicrop
 
-`epirice` provides an R package of the EPIRICE model as described in Savary *et al.* 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases, bacterial blight; brown spot; leaf blast; sheath blight and tungro are provided.
+`epicrop` provides an R package of the EPIRICE model as described in Savary *et al.* 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases, bacterial blight; brown spot; leaf blast; sheath blight and tungro are provided.
 The model uses daily weather data to estimate disease severity.
-A function, `get_wth()` is provided to simplify downloading weather data from the [https://power.larc.nasa.gov](NASA POWER web API) that are suitable for use in `epirice`.
+A function, `get_wth()` is provided to simplify downloading weather data from the [https://power.larc.nasa.gov](NASA POWER web API) that are suitable for use in `epicrop`.
 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
 If you are interested in modelling other pathosystems, please refer to Savary *et al.* 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
@@ -28,8 +28,8 @@ If you are interested in modelling other pathosystems, please refer to Savary *e
 
 Load the library.
 
-```{r epirice}
-library(epirice)
+```{r epicrop}
+library(epicrop)
 ```
 
 ### Get weather data
