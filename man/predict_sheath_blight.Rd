@@ -65,34 +65,37 @@ S., 1996. Effects of plant contacts, inoculation pattern, leaf wetness
 regime, and nitrogen supply on inoculum efficiency in rice sheath blight.
 Journal of Phytopathology 144:187-192.
 
-Gross, M.K., Santini, J.B., Tikhonova, I. and Latin, R. 1998. The
-influence of temperature and leaf wetness duration on infection of perennial
-ryegrass by \emph{Rhizoctonia solani}. Plant Disease 82:1012-1016.
+Gross, M.K., Santini, J.B., Tikhonova, I. and Latin, R. 1998. The influence
+of temperature and leaf wetness duration on infection of perennial ryegrass
+by \emph{Rhizoctonia solani}. Plant Disease 82:1012-1016. DOI:
+\url{https://doi.org/10.1094/PDIS.1998.82.9.1012}
 
-Hashiba, T. and Ijiri, T., 1989. Estimation of yield loss and
-computerized forecasting system (BLIGHTAS) for rice sheath blight disease.
-International Symposium on Tropical Agricultural Research: Crop losses due to
-disease outbreaks in the tropics and countermeasures. Tropical Agricultural
+Hashiba, T. and Ijiri, T., 1989. Estimation of yield loss and computerized
+forecasting system (BLIGHTAS) for rice sheath blight disease. International
+Symposium on Tropical Agricultural Research: Crop losses due to disease
+outbreaks in the tropics and countermeasures. Tropical Agricultural
 Research Series (Japan) No. 22 pp. 163-171.
 
-Savary, S., Willocquet, L., Teng, P.S., 1997. Modelling sheath
-blight epidemics on rice tillers. Agricultural Systems 55:359-384.
+Savary, S., Willocquet, L., Teng, P.S., 1997. Modelling sheath blight
+epidemics on rice tillers. Agricultural Systems 55:359-384. DOI:
+\url{https://doi.org/10.1016/S0308-521X(97)00014-0}.
 
-Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the
-spatio-temporal structure of rice sheath blight epidemics in a farmer's
-field. Plant Pathology 50:53-68.
+Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the spatio-
+temporal structure of rice sheath blight epidemics in a farmer's field.
+Plant Pathology 50:53-68. DOI:
+\url{https://doi.org/10.1046/j.1365-3059.2001.00531.x}
 
-Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-J. Modeling and mapping potential epidemics of rice diseases globally. Crop
-Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-\url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
+and mapping potential epidemics of rice diseases globally. Crop Protection,
+Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+\url{https://doi.org/10.1016/j.cropro.2011.11.009}.
 
-Sharma, N.R., Teng, P.S., Olivares, F.M., 1990. Effect of rice
-growth stage on sheath blight (ShB) development and yield loss. International
-Rice Research Newsletter 15:19-20.
+Sharma, N.R., Teng, P.S., Olivares, F.M., 1990. Effect of rice growth stage
+on sheath blight (ShB) development and yield loss. International Rice
+Research Newsletter 15:19-20.
 
-Tu, C.C., Chang, Y.C., Wang, C.W., 1979. Studies on the ecology
-of \emph{Rhizoctonia solani}, the causal organism of rice sheath blight.
+Tu, C.C., Chang, Y.C., Wang, C.W., 1979. Studies on the ecology of
+\emph{Rhizoctonia solani}, the causal organism of rice sheath blight.
 National Science Council Monthly, ROC 7:1208-1219.
 }
 \seealso{

@@ -53,19 +53,22 @@
 #' @references Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
 #' transmission of rice tungro virus by \emph{Nephotettix virescens}.
 #' Philippine Phytopathology 11:46-57.
-#' @references Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected
-#' with the tungro virus at different ages. Philippines Agriculturist
-#' 50:165-177.
-#' @references Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of
-#' tungro disease of rice. Plant Disease Reporter 49:127-131.
-#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-#' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
+#'
+#' Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected with the
+#' tungro virus at different ages. Philippines Agriculturist 50:165-177.
+#'
+#' Rivera, C.T. and Ou, S.H., 1965. Leafhopper transmission of tungro disease of
+#' rice. Plant Disease Reporter 49:127-131.
+#'
+#' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
+#' Modeling and mapping potential epidemics of rice diseases globally. Crop
 #' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
-#' @references Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and
-#' Koganezawa, H., 1993. Serological monitoring of rice tungro disease
-#' development in the field: its implication in disease management.
-#' Plant Disease 77:877-882.
+#' <https://doi.org/10.1016/j.cropro.2011.11.009>.
+#'
+#' Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and Koganezawa, H.,
+#' 1993. Serological monitoring of rice tungro disease development in the field:
+#' its implication in disease management. Plant Disease 77:877-882. DOI
+#' <https://doi.org/10.1094/PD-77-0877>.
 #'
 #' @seealso
 #' * \code{\link{SEIR}},
