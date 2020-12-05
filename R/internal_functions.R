@@ -57,80 +57,170 @@ afgen <- function(xy, x) {
     return(lw)
   }
 
-.diurnal_rh <- function(rh, tmin, tmax, lat, date) {
-  tmin <- pmax(tmin, -5)
-  tmax <- pmax(tmax, -5)
-  tmp <- (tmin + tmax) / 2
-  vp <- .saturated_vapor_pressure(tmp) * rh / 100
-
-  hrtemp <- .diurnal_temp(lat, date, tmin, tmax)
+#' Calculate hourly relative humidity for a given day
+#'
+#' Uses mean rh, doy, location (lat), mean tmp, TMIN and TMAX to calculate
+#'  hourly rh values.
+#'
+#' @param rh Mean daily relative humidity as provided by `wth` via `SEIR()`
+#' @param tmin Minimum temperature as provided by `wth` via `SEIR()`
+#' @param tmax Maximum temperature as provided by `wth` via `SEIR()`
+#' @param tmp Mean daily temperature as provided by `wth` via `SEIR()`
+#' @param doy Sequential day of year as provided by `wth` via `SEIR()`
+#' @param lat Latitude provided by `wth` via `SEIR()`
+#'
+#' @examples
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
+#' )
+#'
+#' .diurnal_rh(rh = wth[, rh],
+#'             tmin = wth[, tmn],
+#'             tmax = wth[, tmx],
+#'             tmp = wth[, tmp],
+#'             doy = wth[, doy],
+#'             lat = wth[, lat])
+#'
+#' @return A numeric vector of relative humidity values
+#'
+#' @noRd
+.diurnal_rh <- function(rh, tmin, tmax, tmp, doy, lat) {
+  # CRAN NOTE avoidance
+  lat <- doy <- tmn <- tmx <- tmp <- NULL #nocov
+  vp <- .saturated_vapour_pressure(tmp) * rh / 100
+  hrtemp <- .diurnal_temp(lat = lat,
+                          doy = doy,
+                          tmin = tmin,
+                          tmax = tmax)
   hr <- 1:24
-  es <- .saturated_vapor_pressure(hrtemp[hr])
+  es <- .saturated_vapour_pressure(hrtemp)
   rh <- 100 * vp / es
   rh <- pmin(100, pmax(0, rh))
   return(rh)
 }
 
-#' Calculate hourly temperature from DOY, location (LAT) and TMIN and TMAX
+#' Calculate hourly temperature for a given day
 #'
-#' @param lat Latitude provided by `wth`
-#' @param doy Sequential day of year provided by `wth`
-#' @param tmin Minimum temperature provided by `wth`
-#' @param tmax Maximum temperature provided by `wth`
+#' Uses doy, location (lat) and TMIN and TMAX to calculate hourly temperatures.
 #'
-#' @return A numeric vector of hourly temperature values
+#' @param lat Latitude as provided by `wth` via `SEIR()`
+#' @param doy Sequential day of year as provided by `wth` via `SEIR()`
+#' @param tmin Minimum temperature as provided by `wth` via `SEIR()`
+#' @param tmax Maximum temperature as provided by `wth` via `SEIR()`
+#' @param dayl Daylight hours as provided by `wth` via `SEIR()`
+#'
+#' @return A numeric vector of hourly temperature values for the duration of
+#'  `wth` data
+#'
+#' @examples
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
+#' )
+#'
+#' .diurnal_temp(lat = wth[, lat],
+#'               doy = wth[, doy],
+#'               tmin = wth[, tmn],
+#'               tmax = wth[, tmx])
 #'
 #' @noRd
-#'
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
   TC <- 4.0
-  P <- 1.5
-  dayl <- geosphere::daylength(lat = lat, doy = doy)
-  nigthl <- 24 - dayl
+  dayl <- .daylength(lat = lat, doy = doy)
+  nightl <- 24 - dayl
   sunris <- 12 - 0.5 * dayl
   sunset <- 12 + 0.5 * dayl
-  hrtemp <- vector(length = 24)
-  for (hr in 1:24) {
-    # period a: dhour between midnight and sunrise;
-    if (hr < sunris) {
-      tsunst <- tmin + (tmax - tmin) * sin(pi * (dayl / (dayl + 2 * P)))
-      hrtemp[hr] <-
-        (tmin - tsunst * exp(-nigthl / TC) +
-           (tsunst - tmin) * exp(-(hr + 24 - sunset) / TC)) /
-        (1 - exp(-nigthl / TC))
-    } else if (hr < (12 + P)) {
-      # period b: dhour between sunrise and normal time that tmax is reached
-      # (after noon)
-      hrtemp[hr] <-
-        tmin + (tmax - tmin) * sin(pi * (hr - sunris) / (dayl +
-                                                           2 * P))
-    } else if (hr < sunset) {
-      # period c: dhour between time of tmax and sunset;
-      hrtemp[hr] <-
-        tmin + (tmax - tmin) * sin(pi * (hr - sunris) / (dayl +
-                                                           2 * P))
-    } else {
-      #  period d: dhour between sunset and midnight;
-      tsunst <-
-        tmin + (tmax - tmin) * sin(pi * (dayl / (dayl + 2 * P)))
-      hrtemp[hr] <-
-        (tmin - tsunst * exp(-nigthl / TC) +
-           (tsunst - tmin) * exp(-(hr - sunset) / TC)) /
-        (1 - exp(-nigthl / TC))
+  hour <- rep(1:24, )
+  dt <- t(cbind(dayl, nightl, sunris, sunset, tmin, tmax))
+
+  .hourly_t <- function(x) {
+    hr_temp <- vector(mode = "numeric", length = 24)
+    for (hr in 1:24) {
+      # period a: dhour between midnight and sunrise;
+      if (hr < x["sunris"]) {
+        tsunst <-
+          x["tmin"] + (x["tmax"] - x["tmin"]) * sin(
+            pi * (x["dayl"] / (x["dayl"] + 3)))
+        hr_temp[[hr]] <-
+          (x["tmin"] - tsunst * exp(-x["nightl"] / TC) +
+             (tsunst - x["tmin"]) * exp(
+               -(hr + 24 - x["sunset"]) / TC)) /
+          (1 - exp(-x["nightl"] / TC))
+      } else if (hr < x["sunset"]) {
+        # period b: dhour between time of sunrise and sunset
+        hr_temp[[hr]] <-
+          x["tmin"] + (x["tmax"] - x["tmin"]) * sin(
+            pi * (hr - x["sunris"]) / (x["dayl"] + 3))
+      } else {
+        #  period c: dhour between sunset and midnight;
+        tsunst <-
+          x["tmin"] + (x["tmax"] - x["tmin"]) * sin(
+            pi * (x["dayl"] / (x["dayl"] + 3)))
+        hr_temp[[hr]] <-
+          (x["tmin"] - tsunst * exp(-x["nightl"] / TC) +
+             (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / TC)) /
+          (1 - exp(-x["nightl"] / TC))
+      }
     }
+    return(hr_temp)
   }
-  return(hrtemp)
+
+  x <- as.vector(apply(X = dt, MARGIN = 2, FUN = .hourly_t))
+  return(x)
+}
+
+#' Calculate day length for a given latitude on a given date
+#'
+#' @param lat Latitude as provided by `wth` via `SEIR()`
+#' @param doy Sequential day of year (Julian date) as provided by `wth` via
+#'  `SEIR()`
+#'
+#' @examples
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
+#' )
+#'  .daylength(lat = wth[, lat], doy = wth[, doy])
+#'
+#' @return A numeric vector of daylight hours based on latitude and date
+#'
+#' @noRd
+.daylength <- function(lat, doy) {
+  if (class(doy) == 'Date' | class(doy) == 'character') {
+    doy <- as.character(doy)
+    as.numeric(format(as.Date(doy), "%j"))
+  }
+  lat[lat > 90 | lat < -90] <- NA
+  doy <- doy %% 365
+  # William C. Forsythe and Edward J. Rykiel and Randal S. Stahl and Hsin-i Wu
+  # and Robert M. Schoolfield. Ecological Modeling, Volume 80 (1995) pp. 87-95,
+  # "A Model Comparison for Daylength as a Function of Latitude and Day of the
+  # Year", <DOI: 10.1016/0304-3800(94)00034-F>
+  P <-
+    asin(0.39795 * cos(
+      0.2163108 + 2 * atan(0.9671396 * tan(0.00860 * (doy - 186)))))
+  a <-
+    (sin(0.8333 * 0.01745) + sin(lat * 0.01745) * sin(P)) /
+    (cos(lat * 0.01745) * cos(P))
+
+  a <- pmin(pmax(a, -1), 1)
+  dl <- 24 - (24 / pi) * acos(a)
+  return(dl)
 }
 
 #' Calculate saturated vapour pressure, es
 #'
-#' @param TM Mean temperature as provided by `wth`
+#' @param TM Mean temperature as provided by `wth` via `SEIR()`
 #'
 #' @return Single double precision value of es as kilopascals
 #'
 #' @references Alduchov and Eskridge 1995,
 #'  <doi:10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2>
 #'
-.saturated_vapor_pressure <- function(TM) {
-  0.61094 * exp((17.625 * (TM)) / ((TM) + 243.04))
+#' @example .saturated_vapour_pressure(0)
+#'
+#' @noRd
+.saturated_vapour_pressure <- function(tmp) {
+  0.61094 * exp((17.625 * (tmp)) / ((tmp) + 243.04))
 }
