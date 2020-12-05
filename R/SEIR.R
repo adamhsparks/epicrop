@@ -49,11 +49,19 @@
 #' @param RRS relative rate of physiological senescence. From Table 1 Savary
 #'  \emph{et al.} 2012.
 #' @param RRG relative rate of growth. From Table 1 Savary \emph{et al.} 2012.
+#' @param RRLEX relative rate of lesion expansion. From Table 1 Savary
+#'  \emph{et al.} 2015.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
 #' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 #' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
+#'
+#' Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. Modelling and
+#' Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
+#' Septoria Tritici Blotch Using EPIWHEAT. European Journal of Plant Pathology
+#' 142, no. 4 (August 1, 2015): 771–90. DOI:
+#' <https://doi.org/10.1007/s10658-015-0650-7>.
 #'
 #' @examples
 #' \donttest{
