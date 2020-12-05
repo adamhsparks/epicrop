@@ -26,28 +26,49 @@ afgen <- function(xy, x) {
     } else if (x == int[2, 1]) {
       res <- int[2, 2]
     } else {
-      res <- int[1, 2] + (x - int[1, 1]) * ((int[2, 2] - int[1, 2]) /
-                                              (int[2, 1] - int[1, 1]))
+      res <- int[1, 2] + (x - int[1, 1]) *
+        ((int[2, 2] - int[1, 2]) /
+           (int[2, 1] - int[1, 1]))
     }
   }
   return(res[[1]])
 }
 
+#' Calculate leaf wetness
+#'
+#' @param wth Weather data in the proper format
+#' @param simple Logical value whether to use RH >= 90 to equal free moisture
+#'  or perform more complex calculation to estimate leaf wetness that weights
+#'  values > 95% (1), < 95 & > 80 ((rh - 80) / 15) or > 80 % (0)
+#'
+#' @examples
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
+#' )
+#'
+#' .leaf_wet(wth = wth, simple = TRUE)
+#'
+#' @return A numeric value for hours of leaf wetness based on RH
+#' @noRd
+
 .leaf_wet <-
   function(wth = wth, simple = TRUE) {
     # CRAN NOTE Avoidance
-    RH <- TMN <- TMX <- LAT <- NULL # nocov
+    RHUM <- TMIN <- TMAX <- LAT <- DOY <- TEMP <- NULL # nocov
     rh <- .diurnal_rh(
-      rh = wth[, RH],
-      tmin = wth[, TMN],
-      tmax  = wth[, TMX],
+      doy = wth[, DOY],
+      rh = wth[, RHUM],
+      tmin = wth[, TMIN],
+      tmax = wth[, TMAX],
+      tmp = wth[, TEMP],
       lat = wth[, LAT]
     )
     if (isTRUE(simple)) {
       lw <- length(rh[rh >= 90])
     } else {
       w <- rh
-      x <- (rh - 80) / (95 - 80)
+      x <- (rh - 80) / 15
       w[rh > 95] <- 1
       w[rh < 95] <- x[rh < 95]
       w[rh < 80] <- 0
@@ -71,22 +92,21 @@ afgen <- function(xy, x) {
 #' @examples
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-06-30", "2000-12-31")
+#'   dates = c("2000-06-30")
 #' )
 #'
-#' .diurnal_rh(rh = wth[, rh],
-#'             tmin = wth[, tmn],
-#'             tmax = wth[, tmx],
-#'             tmp = wth[, tmp],
-#'             doy = wth[, doy],
-#'             lat = wth[, lat])
+#' .diurnal_rh(rh = wth[, RHUM],
+#'             tmin = wth[, TMIN],
+#'             tmax = wth[, TMAX],
+#'             tmp = wth[, TEMP],
+#'             doy = wth[, DOY],
+#'             lat = wth[, LAT])
 #'
 #' @return A numeric vector of relative humidity values
 #'
 #' @noRd
 .diurnal_rh <- function(rh, tmin, tmax, tmp, doy, lat) {
   # CRAN NOTE avoidance
-  lat <- doy <- tmn <- tmx <- tmp <- NULL #nocov
   vp <- .saturated_vapour_pressure(tmp) * rh / 100
   hrtemp <- .diurnal_temp(lat = lat,
                           doy = doy,
@@ -118,10 +138,10 @@ afgen <- function(xy, x) {
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #'
-#' .diurnal_temp(lat = wth[, lat],
-#'               doy = wth[, doy],
-#'               tmin = wth[, tmn],
-#'               tmax = wth[, tmx])
+#' .diurnal_temp(lat = wth[, LAT],
+#'               doy = wth[, DOY],
+#'               tmin = wth[, TMIN],
+#'               tmax = wth[, TMAX])
 #'
 #' @noRd
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
@@ -180,7 +200,7 @@ afgen <- function(xy, x) {
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#'  .daylength(lat = wth[, lat], doy = wth[, doy])
+#'  .daylength(lat = wth[, LAT], doy = wth[, DOY])
 #'
 #' @return A numeric vector of daylight hours based on latitude and date
 #'
