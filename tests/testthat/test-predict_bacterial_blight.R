@@ -1,5 +1,4 @@
 
-context("predict_bacterial_blight()")
 test_that("Values are as expected", {
    wth <- get_wth(
      lonlat = c(121.25562, 14.6774),
