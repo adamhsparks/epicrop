@@ -64,7 +64,6 @@ Depends:
     R (>= 3.5.0)
 Imports:
     data.table,
-    geosphere,
     nasapower
 Suggests:
     knitr,
