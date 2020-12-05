@@ -70,7 +70,8 @@ afgen <- function(xy, x) {
       w <- rh
       x <- (rh - 80) / 15
       w[rh > 95] <- 1
-      w[rh < 95] <- x[rh < 95]
+      cs_1 <- rh < 95
+      w[cs_1] <- x[cs_1]
       w[rh < 80] <- 0
       lw <- sum(w)
     }
@@ -112,7 +113,6 @@ afgen <- function(xy, x) {
                           doy = doy,
                           tmin = tmin,
                           tmax = tmax)
-  hr <- 1:24
   es <- .saturated_vapour_pressure(hrtemp)
   rh <- 100 * vp / es
   rh <- pmin(100, pmax(0, rh))
@@ -148,9 +148,10 @@ afgen <- function(xy, x) {
   TC <- 4.0
   dayl <- .daylength(lat = lat, doy = doy)
   nightl <- 24 - dayl
-  sunris <- 12 - 0.5 * dayl
-  sunset <- 12 + 0.5 * dayl
-  hour <- rep(1:24, )
+  cs_1 <- 0.5 * dayl
+  sunris <- 12 - cs_1
+  sunset <- 12 + cs_1
+  rep(1:24, )
   dt <- t(cbind(dayl, nightl, sunris, sunset, tmin, tmax))
 
   .hourly_t <- function(x) {
