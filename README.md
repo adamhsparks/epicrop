@@ -37,7 +37,7 @@ as long as it fits the model’s requirements.
 ``` r
 if (!require("remotes"))
   install.packages("remotes")
-remotes::install_github("adamshsparks/epirice"
+remotes::install_github("adamhsparks/epirice"
 )
 ```
 
@@ -60,7 +60,7 @@ library(epirice)
 wth
 ```
 
-    ##        YYYYMMDD DOY    TM    TN    TX  TDEW    RH  RAIN   LAT   LON
+    ##        YYYYMMDD DOY  TEMP  TMIN  TMAX  TDEW  RHUM  RAIN   LAT   LON
     ##   1: 2000-06-30 182 25.94 29.19 22.97 23.63 87.22 11.36 14.68 121.3
     ##   2: 2000-07-01 183 25.34 28.31 23.65 23.76 91.07 24.87 14.68 121.3
     ##   3: 2000-07-02 184 25.99 29.91 23.28 23.40 85.71 17.63 14.68 121.3
@@ -123,6 +123,8 @@ ggplot(data = bb,
   geom_line() +
   geom_point() +
   labs(title = "Bacterial blight disease progress over time",
+       subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
+       Station shown",
        caption = "Weather data acknowledgement:\nThese data were obtained from the NASA Langley Research Center POWER Project\nfunded through the NASA Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
