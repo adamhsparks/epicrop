@@ -102,7 +102,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"adamshsparks/epirice"</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"adamhsparks/epirice"</span>
 <span class="op">)</span></code></pre></div>
 <div id="get-weather-data" class="section level2">
 <h2 class="hasAnchor">
@@ -118,7 +118,7 @@
  <span class="op">)</span>
 
 <span class="va">wth</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">##        YYYYMMDD DOY    TM    TN    TX  TDEW    RH  RAIN   LAT   LON</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">##        YYYYMMDD DOY  TEMP  TMIN  TMAX  TDEW  RHUM  RAIN   LAT   LON</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="co">##   1: 2000-06-30 182 25.94 29.19 22.97 23.63 87.22 11.36 14.68 121.3</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co">##   2: 2000-07-01 183 25.34 28.31 23.65 23.76 91.07 24.87 14.68 121.3</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co">##   3: 2000-07-02 184 25.99 29.91 23.28 23.40 85.71 17.63 14.68 121.3</span></span>
@@ -175,6 +175,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bacterial blight disease progress over time"</span>,
+       subtitle <span class="op">=</span> <span class="st">"Results for wet season year 2000 at IRRI Zeigler Experiment
+       Station shown"</span>,
        caption <span class="op">=</span> <span class="st">"Weather data acknowledgement:\nThese data were obtained from the NASA Langley Research Center POWER Project\nfunded through the NASA Earth Science Directorate Applied Science Program."</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/plot_severity-1.png"></p>
