@@ -93,9 +93,13 @@ ggplot(data = dat,
        x = "Date") +
   geom_line(aes(group = site, colour = site)) +
   geom_point(aes(colour = site)) +
-  labs(title = "Bacterial blight disease progress over time",
-       caption = "Weather data acknowledgement:\nThese data were obtained from the NASA Langley Research Center POWER Project\nfunded through the NASA Earth Science Directorate Applied Science Program.") +
-   theme_light()
+  labs(title = "Site states over time for bacterial blight",
+       subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
+       Station shown",
+       caption = "Weather data acknowledgement:\nThese data were obtained from
+       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       Earth Science Directorate Applied Science Program.") +
+  theme_light()
 ```
 
 ### Severity
@@ -111,8 +115,12 @@ ggplot(data = dat,
   geom_line() +
   geom_point() +
   labs(title = "Bacterial blight disease progress over time",
-       caption = "Weather data acknowledgement:\nThese data were obtained from the NASA Langley Research Center POWER Project\nfunded through the NASA Earth Science Directorate Applied Science Program.") +
-   theme_light()
+       subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
+       Station shown",
+       caption = "Weather data acknowledgement:\nThese data were obtained from
+       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       Earth Science Directorate Applied Science Program.") +
+  theme_light()
 ```
 
 # References
