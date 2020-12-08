@@ -93,6 +93,8 @@ Table 1 Savary \emph{et al.} 2012.}
 
 \item{RRLEX}{relative rate of lesion expansion. From Table 1 Savary
 \emph{et al.} 2015.}
+
+\item{lesion_size}{...  From Table 1 Savary \emph{et al.} 2015.}
 }
 \value{
 A \code{\link[data.table]{data.table}} containing the following
@@ -109,7 +111,7 @@ columns
 \strong{rtransfer}:\tab Rate of transfer from latent to infectious sites. \cr
 \strong{rgrowth}:\tab Rate of growth of healthy sites. \cr
 \strong{rsenesced}:\tab Rate of senescence of healthy sites. \cr
-\strong{rrlex}:\tab Rate of lesion expansion. \cr
+\strong{rlex}:\tab Rate of lesion expansion. \cr
 \strong{diseased}:\tab Number of diseased (latent + infectious + removed)
 sites. \cr
 \strong{severity}:\tab Disease severity or incidence (for tungro).\cr

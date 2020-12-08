@@ -51,6 +51,7 @@
 #' @param RRG relative rate of growth. From Table 1 Savary \emph{et al.} 2012.
 #' @param RRLEX relative rate of lesion expansion. From Table 1 Savary
 #'  \emph{et al.} 2015.
+#' @param lesion_size ...  From Table 1 Savary \emph{et al.} 2015.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
@@ -123,7 +124,7 @@
 #'   **rtransfer**:\tab Rate of transfer from latent to infectious sites. \cr
 #'   **rgrowth**:\tab Rate of growth of healthy sites. \cr
 #'   **rsenesced**:\tab Rate of senescence of healthy sites. \cr
-#'   **rrlex**:\tab Rate of lesion expansion. \cr
+#'   **rlex**:\tab Rate of lesion expansion. \cr
 #'   **diseased**:\tab Number of diseased (latent + infectious + removed)
 #'    sites. \cr
 #'   **severity**:\tab Disease severity or incidence (for tungro).\cr
