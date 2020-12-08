@@ -1,10 +1,7 @@
 
 test_that("Values are as expected", {
-   wth <- get_wth(
-     lonlat = c(121.25562, 14.6774),
-     dates = c("2000-05-15", "2000-12-31")
-   )
-   bs <- predict_brown_spot(wth, emergence = "2000-05-18")
+  wth <- epicrop:::wth
+  bs <- predict_brown_spot(wth, emergence = "2000-05-18")
 
   expect_named(
     bs,

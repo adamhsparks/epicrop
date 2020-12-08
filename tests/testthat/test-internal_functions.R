@@ -6,8 +6,9 @@ test_that("es is properly calculated", {
 
 # diurnal rh to hourly rh ------------------------------------------------------
 # Create a wth object for use in multiple tests
-wth <- get_wth(lonlat = c(121.25562, 14.6774),
-               dates = c("2000-06-30"))
+
+wth <- epicrop:::wth
+wth <- subset(wth, YYYYMMDD == "2000-06-30")
 
 test_that("hourly rh is properly calculated", {
   expect_equal(
