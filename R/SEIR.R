@@ -159,7 +159,7 @@ SEIR <-
 
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) |
-        !(emergence_doy <= max(wth[, DOY]) + duration)) {
+        (max(dates) > max(wth[, YYYYMMDD])))
       stop("Incomplete weather data or dates do not align")
     }
 
