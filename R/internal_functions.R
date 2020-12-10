@@ -145,7 +145,6 @@ afgen <- function(xy, x) {
 #'
 #' @noRd
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
-  TC <- 4.0
   dayl <- .daylength(lat = lat, doy = doy)
   nightl <- 24 - dayl
   sandhya <- 0.5 * dayl
@@ -162,10 +161,10 @@ afgen <- function(xy, x) {
           x["tmin"] + (x["tmax"] - x["tmin"]) * sin(
             pi * (x["dayl"] / (x["dayl"] + 3)))
         hr_temp[[hr]] <-
-          (x["tmin"] - tsunst * exp(-x["nightl"] / TC) +
+          (x["tmin"] - tsunst * exp(-x["nightl"] / 4L) +
              (tsunst - x["tmin"]) * exp(
-               -(hr + 24 - x["sunset"]) / TC)) /
-          (1 - exp(-x["nightl"] / TC))
+               -(hr + 24 - x["sunset"]) / 4L)) /
+          (1 - exp(-x["nightl"] / 4L))
       } else if (hr < x["sunset"]) {
         # period b: dhour between time of sunrise and sunset
         hr_temp[[hr]] <-
@@ -177,9 +176,9 @@ afgen <- function(xy, x) {
           x["tmin"] + (x["tmax"] - x["tmin"]) * sin(
             pi * (x["dayl"] / (x["dayl"] + 3)))
         hr_temp[[hr]] <-
-          (x["tmin"] - tsunst * exp(-x["nightl"] / TC) +
-             (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / TC)) /
-          (1 - exp(-x["nightl"] / TC))
+          (x["tmin"] - tsunst * exp(-x["nightl"] / 4L) +
+             (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4L)) /
+          (1 - exp(-x["nightl"] / 4L))
       }
     }
     return(hr_temp)
