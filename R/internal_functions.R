@@ -151,7 +151,6 @@ afgen <- function(xy, x) {
   cs_1 <- 0.5 * dayl
   sunris <- 12 - cs_1
   sunset <- 12 + cs_1
-  rep(1:24, )
   dt <- t(cbind(dayl, nightl, sunris, sunset, tmin, tmax))
 
   .hourly_t <- function(x) {
