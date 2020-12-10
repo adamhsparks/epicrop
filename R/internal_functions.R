@@ -211,8 +211,13 @@ afgen <- function(xy, x) {
     doy <- as.character(doy)
     as.numeric(format(as.Date(doy), "%j"))
   }
-  lat[lat > 90 | lat < -90] <- NA
-  doy <- doy %% 365
+  if (lat > 90 | lat < -90) {
+    stop(call. = FALSE,
+         "Latitude values must fall between -90 and 90 degrees")
+  }
+
+  doy <- doy %% 366
+
   # William C. Forsythe and Edward J. Rykiel and Randal S. Stahl and Hsin-i Wu
   # and Robert M. Schoolfield. Ecological Modeling, Volume 80 (1995) pp. 87-95,
   # "A Model Comparison for Daylength as a Function of Latitude and Day of the
