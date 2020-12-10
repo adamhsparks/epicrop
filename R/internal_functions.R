@@ -216,11 +216,11 @@ afgen <- function(xy, x) {
   # and Robert M. Schoolfield. Ecological Modeling, Volume 80 (1995) pp. 87-95,
   # "A Model Comparison for Daylength as a Function of Latitude and Day of the
   # Year", <DOI: 10.1016/0304-3800(94)00034-F>
-  P <-
-    asin(0.39795 * cos(
-      0.2163108 + 2 * atan(0.9671396 * tan(0.00860 * (doy - 186)))))
-  a <-
-    (sin(0.8333 * 0.01745) + sin(lat * 0.01745) * sin(P)) /
+  P <- asin(0.39795 * cos(0.2163108 + 2 * atan(0.9671396 *
+                                                 tan(0.00860 * (
+                                                   doy - 186
+                                                 )))))
+  a <- (0.01454 + sin(lat * 0.01745) * sin(P)) /
     (cos(lat * 0.01745) * cos(P))
 
   a <- pmin(pmax(a, -1), 1)
