@@ -148,9 +148,9 @@ afgen <- function(xy, x) {
   TC <- 4.0
   dayl <- .daylength(lat = lat, doy = doy)
   nightl <- 24 - dayl
-  cs_1 <- 0.5 * dayl
-  sunris <- 12 - cs_1
-  sunset <- 12 + cs_1
+  sandhya <- 0.5 * dayl
+  sunris <- 12 - sandhya
+  sunset <- 12 + sandhya
   dt <- t(cbind(dayl, nightl, sunris, sunset, tmin, tmax))
 
   .hourly_t <- function(x) {
