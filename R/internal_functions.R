@@ -145,13 +145,11 @@ afgen <- function(xy, x) {
 #'
 #' @noRd
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
-  TC <- 4.0
   dayl <- .daylength(lat = lat, doy = doy)
   nightl <- 24 - dayl
-  cs_1 <- 0.5 * dayl
-  sunris <- 12 - cs_1
-  sunset <- 12 + cs_1
-  rep(1:24, )
+  sandhya <- 0.5 * dayl
+  sunris <- 12 - sandhya
+  sunset <- 12 + sandhya
   dt <- t(cbind(dayl, nightl, sunris, sunset, tmin, tmax))
 
   .hourly_t <- function(x) {
@@ -163,10 +161,10 @@ afgen <- function(xy, x) {
           x["tmin"] + (x["tmax"] - x["tmin"]) * sin(
             pi * (x["dayl"] / (x["dayl"] + 3)))
         hr_temp[[hr]] <-
-          (x["tmin"] - tsunst * exp(-x["nightl"] / TC) +
+          (x["tmin"] - tsunst * exp(-x["nightl"] / 4L) +
              (tsunst - x["tmin"]) * exp(
-               -(hr + 24 - x["sunset"]) / TC)) /
-          (1 - exp(-x["nightl"] / TC))
+               -(hr + 24 - x["sunset"]) / 4L)) /
+          (1 - exp(-x["nightl"] / 4L))
       } else if (hr < x["sunset"]) {
         # period b: dhour between time of sunrise and sunset
         hr_temp[[hr]] <-
@@ -178,9 +176,9 @@ afgen <- function(xy, x) {
           x["tmin"] + (x["tmax"] - x["tmin"]) * sin(
             pi * (x["dayl"] / (x["dayl"] + 3)))
         hr_temp[[hr]] <-
-          (x["tmin"] - tsunst * exp(-x["nightl"] / TC) +
-             (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / TC)) /
-          (1 - exp(-x["nightl"] / TC))
+          (x["tmin"] - tsunst * exp(-x["nightl"] / 4L) +
+             (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4L)) /
+          (1 - exp(-x["nightl"] / 4L))
       }
     }
     return(hr_temp)
@@ -207,12 +205,13 @@ afgen <- function(xy, x) {
 #'
 #' @noRd
 .daylength <- function(lat, doy) {
-  if (class(doy) == 'Date' | class(doy) == 'character') {
-    doy <- as.character(doy)
-    as.numeric(format(as.Date(doy), "%j"))
+  if (lat > 90 | lat < -90) {
+    stop(call. = FALSE,
+         "Latitude values must fall between -90 and 90 degrees")
   }
-  lat[lat > 90 | lat < -90] <- NA
-  doy <- doy %% 365
+
+  doy <- doy %% 366
+
   # William C. Forsythe and Edward J. Rykiel and Randal S. Stahl and Hsin-i Wu
   # and Robert M. Schoolfield. Ecological Modeling, Volume 80 (1995) pp. 87-95,
   # "A Model Comparison for Daylength as a Function of Latitude and Day of the
