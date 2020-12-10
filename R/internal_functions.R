@@ -206,10 +206,6 @@ afgen <- function(xy, x) {
 #'
 #' @noRd
 .daylength <- function(lat, doy) {
-  if (class(doy) == 'Date' | class(doy) == 'character') {
-    doy <- as.character(doy)
-    as.numeric(format(as.Date(doy), "%j"))
-  }
   if (lat > 90 | lat < -90) {
     stop(call. = FALSE,
          "Latitude values must fall between -90 and 90 degrees")
