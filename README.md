@@ -130,6 +130,6 @@ Netherlands; *Phytopathology* 61:600. DOI:
 [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
-Client for R. Journal of Open Source Software, 3(30), 1035, https://doi.org/10.21105/joss.01035
+Client for R. Journal of Open Source Software, 3(30), 1035, <https://doi.org/10.21105/joss.01035>.
 
-Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, <URL: https://CRAN.R-project.org/package=nasapower>.
+Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
