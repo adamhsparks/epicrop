@@ -122,63 +122,64 @@
 <h2 class="hasAnchor">
 <a href="#get-weather-data" class="anchor"></a>Get weather data</h2>
 <p>First you need to provide weather data for the model. <em>epicrop</em> provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. Using it you can fetch weather data for any place in the world from 1983 to near present by providing the longitude and latitude and dates.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adamhsparks/epicrop/">epicrop</a></span><span class="op">)</span>
-
-<span class="co"># Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station</span>
- <span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_wth.html">get_wth</a></span><span class="op">(</span>
-   lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
-   dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span>
- <span class="op">)</span>
-
-<span class="va">wth</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">##        YYYYMMDD DOY  TEMP  TMIN  TMAX  TDEW  RHUM  RAIN   LAT   LON</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">##   1: 2000-06-30 182 25.94 29.19 22.97 23.63 87.22 11.36 14.68 121.3</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">##   2: 2000-07-01 183 25.34 28.31 23.65 23.76 91.07 24.87 14.68 121.3</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">##   3: 2000-07-02 184 25.99 29.91 23.28 23.40 85.71 17.63 14.68 121.3</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">##   4: 2000-07-03 185 25.35 27.23 24.00 24.32 94.01 33.52 14.68 121.3</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">##   5: 2000-07-04 186 25.58 27.35 24.20 24.42 93.28 16.21 14.68 121.3</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">##  ---                                                               </span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">## 181: 2000-12-27 362 24.27 26.20 22.65 23.06 92.93 26.32 14.68 121.3</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">## 182: 2000-12-28 363 24.39 26.87 23.16 23.08 92.33  6.67 14.68 121.3</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">## 183: 2000-12-29 364 24.39 27.46 22.58 22.94 91.57  7.19 14.68 121.3</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">## 184: 2000-12-30 365 24.96 28.50 22.60 22.67 87.13  2.97 14.68 121.3</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">## 185: 2000-12-31 366 24.22 28.49 21.26 21.95 87.21  3.04 14.68 121.3</span></span></code></pre></div>
+<p>`` r library(epicrop)</p>
 </div>
-<div id="modelling-bacterial-blight-disease-severity" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modelling-bacterial-blight-disease-severity" class="anchor"></a>Modelling bacterial blight disease severity</h2>
-<p>Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span>
+</div>
+<div id="fetch-weather-for-year-2000-wet-season-at-the-irri-zeigler-experiment-station" class="section level1">
+<h1 class="hasAnchor">
+<a href="#fetch-weather-for-year-2000-wet-season-at-the-irri-zeigler-experiment-station" class="anchor"></a>Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station</h1>
+<p>wth &lt;- get_wth( lonlat = c(121.25562, 14.6774), dates = c(“2000-06-30”, “2000-12-31”) )</p>
+<p>wth</p>
+<pre><code>
+    ##        YYYYMMDD DOY  TEMP  TMIN  TMAX  TDEW  RHUM  RAIN   LAT   LON
+    ##   1: 2000-06-30 182 25.94 29.19 22.97 23.63 87.22 11.36 14.68 121.3
+    ##   2: 2000-07-01 183 25.34 28.31 23.65 23.76 91.07 24.87 14.68 121.3
+    ##   3: 2000-07-02 184 25.99 29.91 23.28 23.40 85.71 17.63 14.68 121.3
+    ##   4: 2000-07-03 185 25.35 27.23 24.00 24.32 94.01 33.52 14.68 121.3
+    ##   5: 2000-07-04 186 25.58 27.35 24.20 24.42 93.28 16.21 14.68 121.3
+    ##  ---                                                               
+    ## 181: 2000-12-27 362 24.27 26.20 22.65 23.06 92.93 26.32 14.68 121.3
+    ## 182: 2000-12-28 363 24.39 26.87 23.16 23.08 92.33  6.67 14.68 121.3
+    ## 183: 2000-12-29 364 24.39 27.46 22.58 22.94 91.57  7.19 14.68 121.3
+    ## 184: 2000-12-30 365 24.96 28.50 22.60 22.67 87.13  2.97 14.68 121.3
+    ## 185: 2000-12-31 366 24.22 28.49 21.26 21.95 87.21  3.04 14.68 121.3
 
-<span class="va">bb</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">##      simday      dates  sites latent infectious removed senesced rateinf</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">##   1:      0 2000-06-30  100.0   0.00        0.0     0.0    0.000    0.00</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">##   2:      1 2000-07-01  108.7   0.00        0.0     0.0    1.000    0.00</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">##   3:      2 2000-07-02  118.1   0.00        0.0     0.0    2.087    0.00</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">##   4:      3 2000-07-03  128.3   0.00        0.0     0.0    3.268    0.00</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">##   5:      4 2000-07-04  139.3   0.00        0.0     0.0    4.551    0.00</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">##  ---                                                                    </span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">## 117:    116 2000-10-24 1454.8  27.84      901.1   296.2 2195.459    0.00</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">## 118:    117 2000-10-25 1463.9  27.84      901.1   296.2 2210.007   25.41</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">## 119:    118 2000-10-26 1405.3  25.41      887.1   338.1 2266.527   22.32</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">## 120:    119 2000-10-27 1354.0  47.73      848.3   376.9 2319.390   19.22</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">## 121:    120 2000-10-28 1309.4  66.95      812.2   413.0 2369.048   16.73</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">##      rtransfer rgrowth rsenesced diseased severity   lat   lon</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">##   1:      0.00   9.688     1.000        0     0.00 14.68 121.3</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">##   2:      0.00  10.500     1.087        0     0.00 14.68 121.3</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">##   3:      0.00  11.374     1.181        0     0.00 14.68 121.3</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">##   4:      0.00  12.315     1.283        0     0.00 14.68 121.3</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">##   5:      0.00  13.326     1.393        0     0.00 14.68 121.3</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">##  ---                                                          </span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">## 117:      0.00  23.642    14.548     1225    38.97 14.68 121.3</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">## 118:     27.84  23.374    56.521     1225    38.82 14.68 121.3</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">## 119:      0.00  23.895    52.863     1251    39.37 14.68 121.3</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">## 120:      0.00  24.249    49.657     1273    39.82 14.68 121.3</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">## 121:      0.00  24.489    54.158     1292    40.17 14.68 121.3</span></span></code></pre></div>
+## Modelling bacterial blight disease severity
+
+Once you have the weather data, run the model for any of the five rice
+diseases by providing the emergence or crop establishment date for
+transplanted rice.
+
+``` r
+bb &lt;- predict_bacterial_blight(wth, emergence = "2000-07-01")
+
+bb</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">##      simday      dates  sites latent infectious removed senesced rateinf</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">##   1:      0 2000-06-30  100.0   0.00        0.0     0.0    0.000    0.00</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">##   2:      1 2000-07-01  108.7   0.00        0.0     0.0    1.000    0.00</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">##   3:      2 2000-07-02  118.1   0.00        0.0     0.0    2.087    0.00</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">##   4:      3 2000-07-03  128.3   0.00        0.0     0.0    3.268    0.00</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">##   5:      4 2000-07-04  139.3   0.00        0.0     0.0    4.551    0.00</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">##  ---                                                                    </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">## 117:    116 2000-10-24 1454.8  27.84      901.1   296.2 2195.459    0.00</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">## 118:    117 2000-10-25 1463.9  27.84      901.1   296.2 2210.007   25.41</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">## 119:    118 2000-10-26 1405.3  25.41      887.1   338.1 2266.527   22.32</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">## 120:    119 2000-10-27 1354.0  47.73      848.3   376.9 2319.390   19.22</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">## 121:    120 2000-10-28 1309.4  66.95      812.2   413.0 2369.048   16.73</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">##      rtransfer rgrowth rsenesced diseased severity   lat   lon</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">##   1:      0.00   9.688     1.000        0     0.00 14.68 121.3</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">##   2:      0.00  10.500     1.087        0     0.00 14.68 121.3</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">##   3:      0.00  11.374     1.181        0     0.00 14.68 121.3</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">##   4:      0.00  12.315     1.283        0     0.00 14.68 121.3</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">##   5:      0.00  13.326     1.393        0     0.00 14.68 121.3</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">##  ---                                                          </span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">## 117:      0.00  23.642    14.548     1225    38.97 14.68 121.3</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">## 118:     27.84  23.374    56.521     1225    38.82 14.68 121.3</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">## 119:      0.00  23.895    52.863     1251    39.37 14.68 121.3</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">## 120:      0.00  24.249    49.657     1273    39.82 14.68 121.3</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">## 121:      0.00  24.489    54.158     1292    40.17 14.68 121.3</span></span></code></pre></div>
 <p>Once you have the results you can visualise them.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb</span>,
@@ -196,7 +197,6 @@
        Earth Science Directorate Applied Science Program."</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/plot_severity-1.png"></p>
-</div>
 </div>
 <div id="meta" class="section level1">
 <h1 class="hasAnchor">
