@@ -116,11 +116,11 @@
 <a href="#get-weather-data" class="anchor"></a>Get weather data</h3>
 <p>The most simple way to use the model is to download weather data from NASA POWER using <code><a href="../reference/get_wth.html">get_wth()</a></code>, which provides the data in a format suitable for use in the model and is freely available. See <code>?naspower::get_power()</code> for more details of this functionality and details on the data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station</span>
- <span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span>
-   lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
-   dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span>
- <span class="op">)</span>
+<code class="sourceCode R"><span class="co"># Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station</span>
+<span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span>
+  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
+  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span>
+<span class="op">)</span>
 
 <span class="va">wth</span></code></pre></div>
 <pre><code>##        YYYYMMDD DOY  TEMP  TMIN  TMAX  TDEW  RHUM  RAIN      LAT      LON
@@ -141,9 +141,10 @@
 <a href="#predict-bacterial-blight" class="anchor"></a>Predict bacterial blight</h3>
 <p>All of the <code>predict_()</code> family of functions work in exactly the same manner. You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease severity over the season and other values associated with the model. See <code>?SEIR()</code> for more on the values returned.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># Predict bacterial blight severity for the year 2000 wet season at IRRI</span>
+<span class="va">bb_wet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb_wet</span><span class="op">)</span></code></pre></div>
 <pre><code>##      simday        dates                sites            latent        
 ##  Min.   :  0   Min.   :2000-06-30   Min.   : 100.0   Min.   :  0.0000  
 ##  1st Qu.: 30   1st Qu.:2000-07-30   1st Qu.: 947.2   1st Qu.:  0.6813  
@@ -187,7 +188,7 @@
 <p>The model records the number of sites for each bin daily, this can be graphed as follows.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
-  <span class="va">bb</span>,
+  <span class="va">bb_wet</span>,
   cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,
   names_to <span class="op">=</span> <span class="st">"site"</span>,
   values_to <span class="op">=</span> <span class="st">"value"</span>
@@ -235,10 +236,75 @@
 <p><img src="epirice_files/figure-html/plot_severity-1.png" width="672"></p>
 </div>
 </div>
+<div id="comparing-epidemics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#comparing-epidemics" class="anchor"></a>Comparing Epidemics</h2>
+<p>The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977). This is easily calculated from the output of any of the <code>predict_*()</code> functions or a custom <code><a href="../reference/SEIR.html">SEIR()</a></code> run using the <em>epifitter</em> package (Alves and Del Pont 2020).</p>
+<p>Load <em>eipfitter</em> and simulate the disease severity in the dry season starting in January to compare with the initial <code>bb_wet</code> results.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlvesKS/epifitter">epifitter</a></span><span class="op">)</span>
+
+<span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span>
+  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
+  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2000-01-01"</span>, <span class="st">"2000-06-01"</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></code></pre></div>
+<pre><code>##      simday        dates                sites            latent      
+##  Min.   :  0   Min.   :2000-01-04   Min.   : 100.0   Min.   : 0.000  
+##  1st Qu.: 30   1st Qu.:2000-02-03   1st Qu.: 947.5   1st Qu.: 0.000  
+##  Median : 60   Median :2000-03-04   Median :2528.5   Median : 1.348  
+##  Mean   : 60   Mean   :2000-03-04   Mean   :1908.6   Mean   : 6.675  
+##  3rd Qu.: 90   3rd Qu.:2000-04-03   3rd Qu.:2702.5   3rd Qu.: 8.688  
+##  Max.   :120   Max.   :2000-05-03   Max.   :2783.9   Max.   :64.641  
+##    infectious         removed          senesced         rateinf      
+##  Min.   :  0.000   Min.   : 0.000   Min.   :   0.0   Min.   : 0.000  
+##  1st Qu.:  1.000   1st Qu.: 0.000   1st Qu.: 115.6   1st Qu.: 0.000  
+##  Median :  9.918   Median : 1.000   Median : 655.9   Median : 0.000  
+##  Mean   : 32.744   Mean   : 9.538   Mean   : 840.6   Mean   : 1.335  
+##  3rd Qu.: 50.841   3rd Qu.:11.262   3rd Qu.:1479.1   3rd Qu.: 0.000  
+##  Max.   :126.782   Max.   :62.103   Max.   :2344.6   Max.   :23.954  
+##    rtransfer         rgrowth         rsenesced         diseased      
+##  Min.   : 0.000   Min.   : 9.688   Min.   : 1.000   Min.   :  0.000  
+##  1st Qu.: 0.000   1st Qu.:28.875   1st Qu.: 9.475   1st Qu.:  1.344  
+##  Median : 0.000   Median :34.324   Median :25.285   Median : 11.262  
+##  Mean   : 1.335   Mean   :42.382   Mean   :19.599   Mean   : 48.957  
+##  3rd Qu.: 0.000   3rd Qu.:57.310   3rd Qu.:27.601   3rd Qu.: 96.890  
+##  Max.   :23.954   Max.   :79.657   Max.   :37.847   Max.   :161.530  
+##     severity           lat             lon       
+##  Min.   :0.0000   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.1656   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.4908   Median :14.68   Median :121.3  
+##  Mean   :1.4381   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:3.0018   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :4.9826   Max.   :14.68   Max.   :121.3</code></pre>
+<p>Calculate the AUDPC using the <code><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC()</a></code> from <em>epifitter</em> for both seasons.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Dry season</span>
+<span class="fu"><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC</a></span><span class="op">(</span>
+  time <span class="op">=</span> <span class="va">bb_dry</span><span class="op">$</span><span class="va">simday</span>,
+  y <span class="op">=</span> <span class="va">bb_dry</span><span class="op">$</span><span class="va">severity</span>,
+  y_proportion <span class="op">=</span> <span class="cn">FALSE</span>,
+  type <span class="op">=</span> <span class="st">"relative"</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.01435209</code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Wet season</span>
+<span class="fu"><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC</a></span><span class="op">(</span>
+  time <span class="op">=</span> <span class="va">bb_wet</span><span class="op">$</span><span class="va">simday</span>,
+  y <span class="op">=</span> <span class="va">bb_wet</span><span class="op">$</span><span class="va">severity</span>,
+  y_proportion <span class="op">=</span> <span class="cn">FALSE</span>,
+  type <span class="op">=</span> <span class="st">"relative"</span>
+<span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.1017425</code></pre>
+</div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
+<p>Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0. <a href="https://CRAN.R-project.org/package=epifitter" class="uri">https://CRAN.R-project.org/package=epifitter</a>.</p>
 <p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009">10.1016/j.cropro.2011.11.009</a>.</p>
+<p>Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. <em>Phytopathology</em> Volume 67.8, 1977, Pages 1051-1056.</p>
 </div>
   </div>
 
