@@ -17,4 +17,7 @@ test_that("Weather data is as expected after fetching from POWER API", {
                  "LON"
                ))
   expect_is(wth, c("data.table", "data.frame"))
+  expect_true(all(wth[, TMIN] < wth[, TEMP]))
+  expect_true(all(wth[, TMIN] < wth[, TMAX]))
+  expect_true(all(wth[, TEMP] < wth[, TMAX]))
 })
