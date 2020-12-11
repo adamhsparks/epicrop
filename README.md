@@ -27,10 +27,8 @@ which are included in this package.
 
 # Quick start
 
-You can easily simulate any of the five diseases for rice grown anywhere
-in the world from 1983 to near current given internal functionality.
-Alternatively, you can supply your own weather data for any time period
-as long as it fits the model’s requirements.
+You can easily simulate any of the five diseases for rice or two diseases for wheat grown anywhere in the world from 1983 to near current given internal functionality that uses the _nasapower_ package (Sparks 2020) to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov). 
+Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.
 
 `epicrop` is not yet on CRAN. You can install it this way.
 
@@ -130,3 +128,8 @@ Jan C. Zadoks. Systems Analysis and the Dynamics of Epidemics.
 Laboratory of Phytopathology, Agricultural University, Wageningen, The
 Netherlands; *Phytopathology* 61:600. DOI:
 [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+
+Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
+Client for R. Journal of Open Source Software, 3(30), 1035, https://doi.org/10.21105/joss.01035
+
+Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, <URL: https://CRAN.R-project.org/package=nasapower>.
