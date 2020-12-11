@@ -141,7 +141,7 @@ ggplot(data = bb_wet,
 The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977).
 This is easily calculated from the output of any of the `predict_*()` functions or a custom `SEIR()` run using the _epifitter_ package (Alves and Del Ponte 2020).
 
-Load _eipfitter_ and simulate the disease severity in the dry season starting in January to compare with the initial `bb_wet` results.
+Load _epifitter_ and simulate the disease severity in the dry season starting in January to compare with the initial `bb_wet` results.
 
 ```{r epifitter}
 library(epifitter)
