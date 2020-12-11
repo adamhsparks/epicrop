@@ -1,7 +1,7 @@
 
 test_that("Values are as expected", {
   wth <- epicrop:::wth
-  t <- predict_tungro(wth, emergence = "2000-05-18")
+  t <- predict_tungro(wth, emergence = "2000-07-01")
 
   expect_named(
     t,
@@ -28,7 +28,7 @@ test_that("Values are as expected", {
 
   # check total sites
   expect_equal(t[[1, 3]], 100) # 600 default to start sites
-  expect_equal(t[[121, 3]], 79.05, tolerance = 0.01)
+  expect_equal(t[[121, 3]], 81.85, tolerance = 0.01)
 
   # check latent sites
   expect_equal(t[[1, 4]], 0) # 600 default to start sites
@@ -36,7 +36,7 @@ test_that("Values are as expected", {
 
   # check infectious sites
   expect_equal(t[[1, 5]], 0)
-  expect_equal(t[[121, 5]], 10.95, tolerance = 0.01)
+  expect_equal(t[[121, 5]], 8.15, tolerance = 0.01)
 
   # check removed sites
   expect_equal(t[[1, 6]], 0)
@@ -44,7 +44,7 @@ test_that("Values are as expected", {
 
   # check senesced sites
   expect_equal(t[[1, 7]], 0)
-  expect_equal(t[[121, 7]], 102.107, tolerance = 0.01)
+  expect_equal(t[[121, 7]], 104.2, tolerance = 0.01)
 
   # check rateinf
   expect_equal(t[[1, 8]], 0)
@@ -56,19 +56,19 @@ test_that("Values are as expected", {
 
   # check rgrowth
   expect_equal(t[[1, 10]], 0, tolerance = 0.01)
-  expect_equal(t[[121, 10]], 0.7904, tolerance = 0.0001)
+  expect_equal(t[[121, 10]], 0.8185, tolerance = 0.0001)
 
   # check rsenesced
   expect_equal(t[[1, 11]], 1)
-  expect_equal(t[[121, 11]], 0.7905, tolerance = 0.0001)
+  expect_equal(t[[121, 11]], 0.8185, tolerance = 0.0001)
 
   # check diseased
   expect_equal(t[[1, 12]], 0)
-  expect_equal(t[[121, 12]], 10.95, tolerance = 0.01)
+  expect_equal(t[[121, 12]], 8.15, tolerance = 0.01)
 
   # check severity values
   expect_equal(t[[1, 13]], 0)
-  expect_equal(t[[121, 13]], 12.17, tolerance = 0.01)
+  expect_equal(t[[121, 13]], 9.055, tolerance = 0.01)
 
   # check lat/lon values
   expect_equal(t[[1, 14]], 14.68, tolerance = 0.01)
