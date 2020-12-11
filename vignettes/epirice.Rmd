@@ -9,6 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
   %\VignetteDepends{data.table}
+  %\VignetteDepends{epifitter}
 ---
 
 ```{r setup, include=FALSE}
@@ -38,11 +39,11 @@ The most simple way to use the model is to download weather data from NASA POWER
 See `?naspower::get_power()` for more details of this functionality and details on the data.
 
 ```{r power}
-# Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station
- wth <- get_wth(
-   lonlat = c(121.25562, 14.6774),
-   dates = c("2000-06-30", "2000-12-31")
- )
+# Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-06-30", "2000-12-31")
+)
 
 wth
 ```
@@ -54,11 +55,12 @@ You provide them with weather data and an emergence date, that falls within the 
 See `?SEIR()` for more on the values returned.
 
 ```{r predict_bb}
- bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+# Predict bacterial blight severity for the year 2000 wet season at IRRI
+bb_wet <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 ```
 
-```{r bb}
-summary(bb)
+```{r bb_wet}
+summary(bb_wet)
 ```
 
 ## Plotting using ggplot2
@@ -76,7 +78,7 @@ The model records the number of sites for each bin daily, this can be graphed as
 
 ```{r plot_sites}
 dat <- pivot_longer(
-  bb,
+  bb_wet,
   cols = c("diseased", "removed", "latent", "infectious"),
   names_to = "site",
   values_to = "value"
@@ -123,5 +125,48 @@ ggplot(data = dat,
   theme_light()
 ```
 
+## Comparing Epidemics
+
+The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977).
+This is easily calculated from the output of any of the `predict_*()` functions or a custom `SEIR()` run using the _epifitter_ package (Alves and Del Pont 2020).
+
+Load _eipfitter_ and simulate the disease severity in the dry season starting in January to compare with the initial `bb_wet` results.
+
+```{r epifitter}
+library(epifitter)
+
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-01-01", "2000-06-01")
+)
+
+bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
+summary(bb_dry)
+```
+
+Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons.
+
+```{r audpc}
+# Dry season
+AUDPC(
+  time = bb_dry$simday,
+  y = bb_dry$severity,
+  y_proportion = FALSE,
+  type = "relative"
+)
+
+# Wet season
+AUDPC(
+  time = bb_wet$simday,
+  y = bb_wet$severity,
+  y_proportion = FALSE,
+  type = "relative"
+)
+```
+
 # References
+Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0.  <https://CRAN.R-project.org/package=epifitter>.
+
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
+
+Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. *Phytopathology* Volume 67.8, 1977, Pages 1051-1056.

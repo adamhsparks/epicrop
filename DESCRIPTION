@@ -71,6 +71,7 @@ Imports:
     data.table,
     nasapower
 Suggests:
+    epifitter,
     knitr,
     ggplot2,
     rmarkdown,
