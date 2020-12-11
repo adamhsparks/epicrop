@@ -17,7 +17,7 @@ knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
 
 suggested_packages <- c("ggplot2", "epifitter")
 
-opts_chunk$set(eval = all(
+knitr::opts_chunk$set(eval = all(
   vapply(
     suggested_packages,
     requireNamespace,
@@ -109,8 +109,8 @@ ggplot(data = dat,
   labs(title = "Site states over time for bacterial blight",
        subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
        Station shown",
-       caption = "Weather data acknowledgement:\nThese data were obtained from
-       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       caption = "Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project funded through the NASA
        Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
@@ -123,15 +123,15 @@ Plotting severity over time does not require any data manipulation.
 ggplot(data = bb_wet,
        aes(x = dates,
            y = severity)) +
-  labs(y = "Severity",
+  labs(y = "Severity (%)",
        x = "Date") +
   geom_line() +
   geom_point() +
   labs(title = "Bacterial blight disease progress over time",
        subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
        Station shown",
-       caption = "Weather data acknowledgement:\nThese data were obtained from
-       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       caption = "Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project nfunded through the NASA
        Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
@@ -152,26 +152,26 @@ summary(bb_dry)
 
 ### Dry season severity
 
-Plotting severity over time does not require any data manipulation.
+Check the disease progress curve for the dry season.
 
 ```{r dry_plot_severity}
 ggplot(data = bb_dry,
        aes(x = dates,
            y = severity)) +
-  labs(y = "Severity",
+  labs(y = "Severity (%)",
        x = "Date") +
   geom_line() +
   geom_point() +
   labs(title = "Bacterial blight disease progress over time",
        subtitle = "Results for dry season year 2000 at IRRI Zeigler Experiment
        Station shown",
-       caption = "Weather data acknowledgement:\nThese data were obtained from
-       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       caption = "Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project funded through the NASA
        Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
 
-Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons.
+Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons and compare.
 
 ```{r audpc}
 # Dry season
@@ -190,6 +190,10 @@ AUDPC(
   type = "relative"
 )
 ```
+
+The AUDPC of the wet season is greater than that of the dry season.
+Checking the data and referring to the curves, the wet season severity reaches a peak value of `r round(max(bb_wet$severity), 2)`% and the dry season tops out at `r round(max(bb_dry$severity), 2)`%.
+So this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease severity.
 
 # References
 Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0.  <https://CRAN.R-project.org/package=epifitter>.
