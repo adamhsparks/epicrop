@@ -48,7 +48,7 @@ the `get_wth()` function to do this. Using it you can fetch weather data
 for any place in the world from 1983 to near present by providing the
 longitude and latitude and dates.
 
-``` r
+`` r
 library(epicrop)
 
 # Fetch weather for year 2000 wet season at the IRRI Zeigler Experiment Station
