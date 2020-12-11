@@ -47,7 +47,7 @@ library(epicrop)
 ### Get weather data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
-See `?naspower::get_power()` for more details of this functionality and details on the data.
+See `?naspower::get_power()` for more details of this functionality and details on the data (Sparks 2020).
 
 ```{r power}
 # Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station
@@ -201,3 +201,8 @@ Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Sim
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
 Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. *Phytopathology* Volume 67.8, 1977, Pages 1051-1056.
+
+Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
+Client for R. Journal of Open Source Software, 3(30), 1035, https://doi.org/10.21105/joss.01035
+
+Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, <URL: https://CRAN.R-project.org/package=nasapower>.
