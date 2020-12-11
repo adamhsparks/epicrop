@@ -13,48 +13,49 @@ wth <- subset(wth, YYYYMMDD == "2000-06-30")
 test_that("hourly rh is properly calculated", {
   expect_equal(
     .diurnal_rh(
-    rh = wth[, RHUM],
-    tmin = wth[, TMIN],
-    tmax = wth[, TMAX],
-    tmp = wth[, TEMP],
-    doy = wth[, DOY],
-    lat = wth[, LAT]
-  ),
-  c(
-    74.20,
-    73.51,
-    72.98,
-    72.57,
-    72.25,
-    74.67,
-    80.07,
-    85.57,
-    90.88,
-    95.68,
-    99.66,
-    100.00,
-    100.00,
-    100.00,
-    100.00,
-    99.66,
-    95.68,
-    90.88,
-    86.03,
-    82.46,
-    79.79,
-    77.78,
-    76.26,
-    75.09
-  ),
-  tolerance = 0.01)
+      rh = wth[, RHUM],
+      tmin = wth[, TMIN],
+      tmax = wth[, TMAX],
+      tmp = wth[, TEMP],
+      doy = wth[, DOY],
+      lat = wth[, LAT]
+    ),
+    c(
+      100.00,
+      100.00,
+      100.00,
+      100.00,
+      100.00,
+      100.00,
+      93.52,
+      87.45,
+      82.36,
+      78.30,
+      75.26,
+      73.25,
+      72.24,
+      72.24,
+      73.25,
+      75.26,
+      78.30,
+      82.36,
+      86.97,
+      90.77,
+      93.85,
+      96.34,
+      98.32,
+      99.90
+    ),
+    tolerance = 0.01
+  )
 })
 
 # leaf wetness calculations ----------------------------------------------------
 
 test_that(".leaf_wet simple returns a simple integer value", {
-  expect_equal(.leaf_wet(wth = wth, simple = TRUE), 10)
+  expect_equal(.leaf_wet(wth = wth, simple = TRUE), 12)
 })
 
 test_that(".leaf_wet simple returns a simple integer value", {
-  expect_equal(.leaf_wet(wth = wth, simple = FALSE), 10.39, tolerance = 0.01)
+  expect_equal(.leaf_wet(wth = wth, simple = FALSE), 12.82, tolerance = 0.01)
 })
