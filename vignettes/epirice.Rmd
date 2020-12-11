@@ -196,7 +196,7 @@ Checking the data and referring to the curves, the wet season severity reaches a
 So this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease severity.
 
 # References
-Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0.  <https://CRAN.R-project.org/package=epifitter>.
+Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0. URL: <https://CRAN.R-project.org/package=epifitter>.
 
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
