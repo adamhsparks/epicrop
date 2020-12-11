@@ -14,6 +14,17 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
+
+suggested_packages <- c("ggplot2", "epifitter")
+
+opts_chunk$set(eval = all(
+  vapply(
+    suggested_packages,
+    requireNamespace,
+    quietly = TRUE,
+    FUN.VALUE = FALSE
+  )
+))
 ```
 
 ## Introduction to epicrop
