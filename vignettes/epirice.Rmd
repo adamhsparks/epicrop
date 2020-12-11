@@ -47,7 +47,7 @@ library(epicrop)
 ### Get weather data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
-See `?naspower::get_power()` for more details of this functionality and details on the data (Sparks 2020).
+See `?naspower::get_power()` for more details of this functionality and details on the data (Sparks 2018, Sparks 2020).
 
 ```{r power}
 # Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station

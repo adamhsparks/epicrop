@@ -9,8 +9,8 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
-A fork of the R [cropsim package](https://r-forge.r-project.org/R/?group_id=335) designed to make using the EPIRICE model (Savary et al. 2012) for rice diseases easier to use and also incorporates new features from the EPIWHEAT model (Savary et al. 2015).
-This version provides easy to use functions to fetch weather data from NASA POWER, via the [*nasapower*](https://cran.r-project.org/package=nasapower) package and predict disease severity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+A fork of the R [cropsim package](https://r-forge.r-project.org/R/?group_id=335) designed to make using the EPIRICE model (Savary et al. 2012) for rice diseases easier to use.
+This version provides easy to use functions to fetch weather data from NASA POWER, via the [*nasapower*](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease severity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 The original EPIRICE manuscript, Savary et al. (2012), which details the model and results of its use to model global epidemics of rice diseases was published in *Crop Protection* detailing global unmanaged disease risk
 of bacterial blight, brown spot, leaf blast, sheath blight and tungro, which are included in this package.
@@ -19,7 +19,7 @@ EPIWHEAT (Savary et al. 2015) details the addition of a parameter for lesion exp
 
 # Quick start
 
-You can easily simulate any of the five diseases for rice or two diseases for wheat grown anywhere in the world from 1983 to near current given internal functionality that uses the _nasapower_ package (Sparks 2020) to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov). 
+You can easily simulate any of the five diseases for rice grown anywhere in the world from 1983 to near current using `get_wth()` to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov). 
 Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.
 
 *epicrop* is not yet on CRAN.
