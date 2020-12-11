@@ -136,7 +136,7 @@ ggplot(data = bb_wet,
   theme_light()
 ```
 
-## Comparing Epidemics
+## Comparing epidemics
 
 The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977).
 This is easily calculated from the output of any of the `predict_*()` functions or a custom `SEIR()` run using the _epifitter_ package (Alves and Del Pont 2020).
