@@ -203,6 +203,6 @@ Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunar
 Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. *Phytopathology* Volume 67.8, 1977, Pages 1051-1056.
 
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
-Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [doi.org/10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
+Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
 Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
