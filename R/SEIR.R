@@ -163,8 +163,10 @@ SEIR <-
       stop("Incomplete weather data or dates do not align")
     }
 
-    # subset weather data where date is greater than emergence minus one
-    wth[DOY >= emergence_doy - 1, ]
+    # subset weather data where date is greater than emergence minus one and
+    # less than duration
+    wth <- wth[DOY >= emergence_doy - 1, ]
+    wth <- wth[DOY <= emergence_doy + duration, ]
 
     if (wetness_type == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
