@@ -42,7 +42,7 @@ See `?naspower::get_power()` for more details of this functionality and details 
 # Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
+  dates = c("2000-01-01", "2000-12-31")
 )
 
 wth
@@ -72,11 +72,11 @@ library(ggplot2)
 library(tidyr)
 ```
 
-### Sites
+### Wet season sites
 
 The model records the number of sites for each bin daily, this can be graphed as follows.
 
-```{r plot_sites}
+```{r wet_plot_sites}
 dat <- pivot_longer(
   bb_wet,
   cols = c("diseased", "removed", "latent", "infectious"),
@@ -104,12 +104,12 @@ ggplot(data = dat,
   theme_light()
 ```
 
-### Severity
+### Wet season severity
 
 Plotting severity over time does not require any data manipulation.
 
-```{r plot_severity}
-ggplot(data = dat,
+```{r wet_plot_severity}
+ggplot(data = bb_wet,
        aes(x = dates,
            y = severity)) +
   labs(y = "Severity",
@@ -135,13 +135,29 @@ Load _eipfitter_ and simulate the disease severity in the dry season starting in
 ```{r epifitter}
 library(epifitter)
 
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-01-01", "2000-06-01")
-)
-
 bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
 summary(bb_dry)
+```
+
+### Dry season severity
+
+Plotting severity over time does not require any data manipulation.
+
+```{r dry_plot_severity}
+ggplot(data = bb_dry,
+       aes(x = dates,
+           y = severity)) +
+  labs(y = "Severity",
+       x = "Date") +
+  geom_line() +
+  geom_point() +
+  labs(title = "Bacterial blight disease progress over time",
+       subtitle = "Results for dry season year 2000 at IRRI Zeigler Experiment
+       Station shown",
+       caption = "Weather data acknowledgement:\nThese data were obtained from
+       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       Earth Science Directorate Applied Science Program.") +
+  theme_light()
 ```
 
 Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons.
