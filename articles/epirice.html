@@ -208,8 +208,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Site states over time for bacterial blight"</span>,
        subtitle <span class="op">=</span> <span class="st">"Results for wet season year 2000 at IRRI Zeigler Experiment
        Station shown"</span>,
-       caption <span class="op">=</span> <span class="st">"Weather data acknowledgement:\nThese data were obtained from
-       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       caption <span class="op">=</span> <span class="st">"Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project funded through the NASA
        Earth Science Directorate Applied Science Program."</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="epirice_files/figure-html/wet_plot_sites-1.png" width="672"></p>
@@ -222,15 +222,15 @@
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_wet</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
            y <span class="op">=</span> <span class="va">severity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Severity"</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Severity (%)"</span>,
        x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bacterial blight disease progress over time"</span>,
        subtitle <span class="op">=</span> <span class="st">"Results for wet season year 2000 at IRRI Zeigler Experiment
        Station shown"</span>,
-       caption <span class="op">=</span> <span class="st">"Weather data acknowledgement:\nThese data were obtained from
-       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       caption <span class="op">=</span> <span class="st">"Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project nfunded through the NASA
        Earth Science Directorate Applied Science Program."</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="epirice_files/figure-html/wet_plot_severity-1.png" width="672"></p>
@@ -277,24 +277,24 @@
 <div id="dry-season-severity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dry-season-severity" class="anchor"></a>Dry season severity</h3>
-<p>Plotting severity over time does not require any data manipulation.</p>
+<p>Check the disease progress curve for the dry season.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_dry</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
            y <span class="op">=</span> <span class="va">severity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Severity"</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Severity (%)"</span>,
        x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bacterial blight disease progress over time"</span>,
        subtitle <span class="op">=</span> <span class="st">"Results for dry season year 2000 at IRRI Zeigler Experiment
        Station shown"</span>,
-       caption <span class="op">=</span> <span class="st">"Weather data acknowledgement:\nThese data were obtained from
-       the NASA Langley Research Center POWER Project\nfunded through the NASA
+       caption <span class="op">=</span> <span class="st">"Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project funded through the NASA
        Earth Science Directorate Applied Science Program."</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="epirice_files/figure-html/dry_plot_severity-1.png" width="672"></p>
-<p>Calculate the AUDPC using the <code><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC()</a></code> from <em>epifitter</em> for both seasons.</p>
+<p>Calculate the AUDPC using the <code><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC()</a></code> from <em>epifitter</em> for both seasons and compare.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Dry season</span>
 <span class="fu"><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC</a></span><span class="op">(</span>
@@ -313,6 +313,7 @@
   type <span class="op">=</span> <span class="st">"relative"</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.1017425</code></pre>
+<p>The AUDPC of the wet season is greater than that of the dry season. Checking the data and referring to the curves, the wet season severity reaches a peak value of 40.17% and the dry season tops out at 4.42%. So this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease severity.</p>
 </div>
 </div>
 <div id="references" class="section level1">
