@@ -165,8 +165,7 @@ SEIR <-
 
     # subset weather data where date is greater than emergence minus one and
     # less than duration
-    wth <- wth[DOY >= emergence_doy - 1, ]
-    wth <- wth[DOY <= emergence_doy + duration, ]
+    wth <- wth[YYYYMMDD %between% c(emergence - 1, emergence + duration)]
 
     if (wetness_type == 1) {
       W <- .leaf_wet(wth, simple = TRUE)
