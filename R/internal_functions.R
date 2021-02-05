@@ -145,7 +145,7 @@ afgen <- function(xy, x) {
 #'
 #' @noRd
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
-  dayl <- .daylength(lat = lat, doy = doy)
+  dayl <- mapply(FUN = .daylength, lat = lat, doy = doy)
   nightl <- 24 - dayl
   sandhya <- 0.5 * dayl
   sunris <- 12 - sandhya
