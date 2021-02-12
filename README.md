@@ -109,3 +109,4 @@ Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar En
 Client for R. Journal of Open Source Software, 3(30), 1035, [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
 Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
+
