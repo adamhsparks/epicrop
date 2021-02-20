@@ -15,7 +15,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R version 4.0.4 (2021-02-15)",
   "author": [
     {
       "@type": "Person",
@@ -96,6 +96,18 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "epifitter",
+      "name": "epifitter",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=epifitter"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "knitr",
@@ -190,7 +202,7 @@
     }
   ],
   "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
-  "fileSize": "295.544KB",
+  "fileSize": "287.133KB",
   "contIntegration": "https://codecov.io/gh/adamhsparks/epicrop",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
   "citation": [
