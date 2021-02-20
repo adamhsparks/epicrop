@@ -23,8 +23,7 @@ SEIR(
   Sx,
   a,
   RRS,
-  RRG,
-  RRLEX
+  RRG
 )
 }
 \arguments{
@@ -90,11 +89,6 @@ Table 1 Savary \emph{et al.} 2012.}
 \emph{et al.} 2012.}
 
 \item{RRG}{relative rate of growth. From Table 1 Savary \emph{et al.} 2012.}
-
-\item{RRLEX}{relative rate of lesion expansion. From Table 1 Savary
-\emph{et al.} 2015.}
-
-\item{lesion_size}{...  From Table 1 Savary \emph{et al.} 2015.}
 }
 \value{
 A \code{\link[data.table]{data.table}} containing the following

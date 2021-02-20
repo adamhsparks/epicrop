@@ -49,9 +49,6 @@
 #' @param RRS relative rate of physiological senescence. From Table 1 Savary
 #'  \emph{et al.} 2012.
 #' @param RRG relative rate of growth. From Table 1 Savary \emph{et al.} 2012.
-#' @param RRLEX relative rate of lesion expansion. From Table 1 Savary
-#'  \emph{et al.} 2015.
-#' @param lesion_size ...  From Table 1 Savary \emph{et al.} 2015.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. Crop
@@ -153,8 +150,7 @@ SEIR <-
            Sx,
            a,
            RRS,
-           RRG,
-           RRLEX) {
+           RRG) {
     # CRAN NOTE avoidance
     infday <- DOY <- YYYYMMDD <- lat <- # nocov start
     lon <- LAT <- LON <- NULL #nocov end
