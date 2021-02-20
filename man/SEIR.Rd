@@ -11,7 +11,6 @@ SEIR(
   duration,
   rhlim = 90,
   rainlim = 5,
-  wetness_type = 0,
   H0,
   I0 = 1,
   RcA,
@@ -42,56 +41,53 @@ the following field names.
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
-format. From Table 1 Savary \emph{et al.} 2012.}
+format, from Table 1 Savary \emph{et al.} 2012.}
 
 \item{onset}{expected number of days until the onset of disease after
-emergence date. From Table 1 Savary \emph{et al.} 2012.}
+emergence date, from Table 1 Savary \emph{et al.} 2012.}
 
-\item{duration}{simulation duration (growing season length). From Table 1
+\item{duration}{simulation duration (growing season length), from Table 1
 Savary \emph{et al.} 2012.}
 
-\item{rhlim}{threshold to decide whether leaves are wet or not (usually
-90 \%). From Table 1 Savary \emph{et al.} 2012.}
+\item{rhlim}{relative humidity value threshold to decide whether leaves are
+wet or not (usually 90\%), from Table 1 Savary \emph{et al.} 2012.}
 
-\item{rainlim}{threshold to decide whether leaves are wet or not. From Table
-1 Savary \emph{et al.} 2012.}
+\item{rainlim}{rainfall threshold to decide whether leaves are wet or not
+(usually 5mm). From Table 1 Savary \emph{et al.} 2012.}
 
-\item{wetness_type}{simulate RHmax or rain threshold (0) or leaf wetness
-duration (1). From Table 1 Savary \emph{et al.} 2012.}
-
-\item{H0}{initial number of plant's healthy sites. From Table 1 Savary
+\item{H0}{initial number of plant's healthy sites, from Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{I0}{initial number of infective sites. From Table 1 Savary
+\item{I0}{initial number of infective sites, from Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{RcA}{crop age curve for pathogen optimum. From Table 1 Savary
+\item{RcA}{crop age curve for pathogen optimum, from Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{RcT}{temperature curve for pathogen optimum. From Table 1 Savary
+\item{RcT}{temperature curve for pathogen optimum, from Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{RcW}{relative curve for pathogen optimum. From Table 1 Savary
+\item{RcW}{relative curve for pathogen optimum, from Table 1 Savary
 \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals. From
 Table 1 Savary \emph{et al.} 2012.}
 
-\item{p}{duration of latent period. From Table 1 Savary \emph{et al.} 2012.}
+\item{p}{duration of latent period, from Table 1 Savary \emph{et al.} 2012.}
 
-\item{i}{duration of infectious period. From Table 1 Savary
+\item{i}{duration of infectious period, from Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{Sx}{maximum number of sites. From Table 1 Savary \emph{et al.} 2012.}
+\item{Sx}{maximum number of sites, from Table 1 Savary \emph{et al.} 2012.}
 
-\item{a}{aggregation coefficient. From Table 1 Savary \emph{et al.} 2012.}
+\item{a}{aggregation coefficient, from Table 1 Savary \emph{et al.} 2012.}
 
-\item{RRS}{relative rate of physiological senescence. From Table 1 Savary
+\item{RRS}{relative rate of physiological senescence, from Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{RRG}{relative rate of growth. From Table 1 Savary \emph{et al.} 2012.}
+\item{RRG}{relative rate of growth, from Table 1 Savary \emph{et al.} 2012.}
 
-\item{RRLEX}{relative rate of lesion expansion. From Table 1 Savary
+\item{RRLEX}{relative rate of lesion expansion, from Table 1 Savary
 \emph{et al.} 2015.}
 
 \item{lesion_size}{...  From Table 1 Savary \emph{et al.} 2015.}

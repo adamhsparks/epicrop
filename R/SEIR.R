@@ -18,38 +18,36 @@
 #'   **RAIN**:\tab Mean daily rainfall (mm).\cr
 #'   }
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
-#' format. From Table 1 Savary \emph{et al.} 2012.
+#' format, from Table 1 Savary \emph{et al.} 2012.
 #' @param onset expected number of days until the onset of disease after
-#' emergence date. From Table 1 Savary \emph{et al.} 2012.
-#' @param duration simulation duration (growing season length). From Table 1
+#' emergence date, from Table 1 Savary \emph{et al.} 2012.
+#' @param duration simulation duration (growing season length), from Table 1
 #'  Savary \emph{et al.} 2012.
-#' @param rhlim threshold to decide whether leaves are wet or not (usually
-#' 90 %). From Table 1 Savary \emph{et al.} 2012.
-#' @param rainlim threshold to decide whether leaves are wet or not. From Table
-#'  1 Savary \emph{et al.} 2012.
-#' @param wetness_type simulate RHmax or rain threshold (0) or leaf wetness
-#'  duration (1). From Table 1 Savary \emph{et al.} 2012.
-#' @param H0 initial number of plant's healthy sites. From Table 1 Savary
+#' @param rhlim relative humidity value threshold to decide whether leaves are
+#'  wet or not (usually 90%), from Table 1 Savary \emph{et al.} 2012.
+#' @param rainlim rainfall threshold to decide whether leaves are wet or not
+#'  (usually 5mm). From Table 1 Savary \emph{et al.} 2012.
+#' @param H0 initial number of plant's healthy sites, from Table 1 Savary
 #'  \emph{et al.} 2012.
-#' @param I0 initial number of infective sites. From Table 1 Savary
+#' @param I0 initial number of infective sites, from Table 1 Savary
 #'  \emph{et al.} 2012.
-#' @param RcA crop age curve for pathogen optimum. From Table 1 Savary
+#' @param RcA crop age curve for pathogen optimum, from Table 1 Savary
 #'  \emph{et al.} 2012.
-#' @param RcT temperature curve for pathogen optimum. From Table 1 Savary
+#' @param RcT temperature curve for pathogen optimum, from Table 1 Savary
 #'  \emph{et al.} 2012.
-#' @param RcW relative curve for pathogen optimum. From Table 1 Savary
+#' @param RcW relative curve for pathogen optimum, from Table 1 Savary
 #'  \emph{et al.} 2012.
 #' @param RcOpt potential basic infection rate corrected for removals. From
 #'  Table 1 Savary \emph{et al.} 2012.
-#' @param i duration of infectious period. From Table 1 Savary
+#' @param i duration of infectious period, from Table 1 Savary
 #'  \emph{et al.} 2012.
-#' @param p duration of latent period. From Table 1 Savary \emph{et al.} 2012.
-#' @param Sx maximum number of sites. From Table 1 Savary \emph{et al.} 2012.
-#' @param a aggregation coefficient. From Table 1 Savary \emph{et al.} 2012.
-#' @param RRS relative rate of physiological senescence. From Table 1 Savary
+#' @param p duration of latent period, from Table 1 Savary \emph{et al.} 2012.
+#' @param Sx maximum number of sites, from Table 1 Savary \emph{et al.} 2012.
+#' @param a aggregation coefficient, from Table 1 Savary \emph{et al.} 2012.
+#' @param RRS relative rate of physiological senescence, from Table 1 Savary
 #'  \emph{et al.} 2012.
-#' @param RRG relative rate of growth. From Table 1 Savary \emph{et al.} 2012.
-#' @param RRLEX relative rate of lesion expansion. From Table 1 Savary
+#' @param RRG relative rate of growth, from Table 1 Savary \emph{et al.} 2012.
+#' @param RRLEX relative rate of lesion expansion, from Table 1 Savary
 #'  \emph{et al.} 2015.
 #' @param lesion_size ...  From Table 1 Savary \emph{et al.} 2015.
 #'
@@ -141,7 +139,6 @@ SEIR <-
            duration,
            rhlim = 90,
            rainlim = 5,
-           wetness_type = 0,
            H0,
            I0 = 1,
            RcA,
@@ -177,10 +174,6 @@ SEIR <-
     # subset weather data where date is greater than emergence minus one and
     # less than duration
     wth <- wth[YYYYMMDD %between% c(emergence - 1, emergence + duration)]
-
-    if (wetness_type == 1) {
-      W <- .leaf_wet(wth, simple = TRUE)
-    }
 
     # outputvars
     cofr <-
@@ -228,13 +221,10 @@ SEIR <-
         break
       }
 
-      if (wetness_type == 0) {
-        if (wth$RHUM[cs_2] == rhlim |
-            wth$RAIN[cs_2] >= rainlim) {
-          RHCoef[cs_2] <- 1
-        }
-      } else {
-        RHCoef[cs_2] <- afgen(RcW, W[day + 1])
+      # calculate if leaves are wet nor not
+      if (wth$RHUM[cs_2] == rhlim |
+          wth$RAIN[cs_2] >= rainlim) {
+        RHCoef[cs_2] <- 1
       }
 
       cs_6 <- day + 1
