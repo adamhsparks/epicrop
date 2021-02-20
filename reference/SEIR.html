@@ -148,7 +148,6 @@ be used with other pathosystems as well.</p>
   <span class='va'>duration</span>,
   rhlim <span class='op'>=</span> <span class='fl'>90</span>,
   rainlim <span class='op'>=</span> <span class='fl'>5</span>,
-  wetness_type <span class='op'>=</span> <span class='fl'>0</span>,
   <span class='va'>H0</span>,
   I0 <span class='op'>=</span> <span class='fl'>1</span>,
   <span class='va'>RcA</span>,
@@ -198,18 +197,15 @@ Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>rhlim</th>
-      <td><p>threshold to decide whether leaves are wet or not (usually
-90 %). From Table 1 Savary <em>et al.</em> 2012.</p></td>
+      <td><p>relative humidity value threshold to decide whether leaves are
+wet or not. Savary <em>et al.</em> 2012 used 90%. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>rainlim</th>
-      <td><p>threshold to decide whether leaves are wet or not. From Table
-1 Savary <em>et al.</em> 2012.</p></td>
-    </tr>
-    <tr>
-      <th>wetness_type</th>
-      <td><p>simulate RHmax or rain threshold (0) or leaf wetness
-duration (1). From Table 1 Savary <em>et al.</em> 2012.</p></td>
+      <td><p>rainfall amount (mm) threshold to decide whether leaves are
+wet or not. Savary <em>et al.</em> 2012 used 5mm. From Table 1 Savary
+<em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>H0</th>
@@ -284,6 +280,7 @@ columns</p><table class='table'>
 <tr><td><strong>rtransfer</strong>:</td><td>Rate of transfer from latent to infectious sites.</td></tr>
 <tr><td><strong>rgrowth</strong>:</td><td>Rate of growth of healthy sites.</td></tr>
 <tr><td><strong>rsenesced</strong>:</td><td>Rate of senescence of healthy sites.</td></tr>
+<tr><td><strong>rlex</strong>:</td><td>Rate of lesion expansion.</td></tr>
 <tr><td><strong>diseased</strong>:</td><td>Number of diseased (latent + infectious + removed)
 sites.</td></tr>
 <tr><td><strong>severity</strong>:</td><td>Disease severity or incidence (for tungro).</td></tr>
@@ -309,6 +306,11 @@ functions:</p><ul>
 J. Modeling and mapping potential epidemics of rice diseases globally. Crop
 Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 <a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a>.</p>
+<p>Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. Modelling and
+Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
+Septoria Tritici Blotch Using EPIWHEAT. European Journal of Plant Pathology
+142, no. 4 (August 1, 2015): 771–90. DOI:
+<a href='https://doi.org/10.1007/s10658-015-0650-7'>https://doi.org/10.1007/s10658-015-0650-7</a>.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
