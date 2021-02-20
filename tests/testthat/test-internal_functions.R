@@ -59,3 +59,11 @@ test_that(".leaf_wet simple returns a simple integer value", {
 test_that(".leaf_wet simple returns a simple integer value", {
   expect_equal(.leaf_wet(wth = wth, simple = FALSE), 12.82, tolerance = 0.01)
 })
+
+test_that(".daylength stops if lon/lat out of bounds", {
+  expect_error(.daylength(lat = 100, doy = 1))
+})
+
+test_that(".daylength stops if lon/lat out of bounds", {
+  expect_error(.daylength(lat = -90.1, doy = 1))
+})
