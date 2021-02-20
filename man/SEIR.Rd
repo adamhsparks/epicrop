@@ -11,7 +11,6 @@ SEIR(
   duration,
   rhlim = 90,
   rainlim = 5,
-  wetness_type = 0,
   H0,
   I0 = 1,
   RcA,
@@ -49,14 +48,13 @@ emergence date. From Table 1 Savary \emph{et al.} 2012.}
 \item{duration}{simulation duration (growing season length). From Table 1
 Savary \emph{et al.} 2012.}
 
-\item{rhlim}{threshold to decide whether leaves are wet or not (usually
-90 \%). From Table 1 Savary \emph{et al.} 2012.}
+\item{rhlim}{relative humidity value threshold to decide whether leaves are
+wet or not. Savary \emph{et al.} 2012 used 90\%. From Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{rainlim}{threshold to decide whether leaves are wet or not. From Table
-1 Savary \emph{et al.} 2012.}
-
-\item{wetness_type}{simulate RHmax or rain threshold (0) or leaf wetness
-duration (1). From Table 1 Savary \emph{et al.} 2012.}
+\item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
+wet or not. Savary \emph{et al.} 2012 used 5mm. From Table 1 Savary
+\emph{et al.} 2012.}
 
 \item{H0}{initial number of plant's healthy sites. From Table 1 Savary
 \emph{et al.} 2012.}

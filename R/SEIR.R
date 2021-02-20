@@ -1,4 +1,5 @@
 
+
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
 #' This function is originally used by specific disease models in EPIRICE to
@@ -23,12 +24,12 @@
 #' emergence date. From Table 1 Savary \emph{et al.} 2012.
 #' @param duration simulation duration (growing season length). From Table 1
 #'  Savary \emph{et al.} 2012.
-#' @param rhlim threshold to decide whether leaves are wet or not (usually
-#' 90 %). From Table 1 Savary \emph{et al.} 2012.
-#' @param rainlim threshold to decide whether leaves are wet or not. From Table
-#'  1 Savary \emph{et al.} 2012.
-#' @param wetness_type simulate RHmax or rain threshold (0) or leaf wetness
-#'  duration (1). From Table 1 Savary \emph{et al.} 2012.
+#' @param rhlim relative humidity value threshold to decide whether leaves are
+#'  wet or not. Savary \emph{et al.} 2012 used 90%. From Table 1 Savary
+#'  \emph{et al.} 2012.
+#' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
+#'  wet or not. Savary \emph{et al.} 2012 used 5mm. From Table 1 Savary
+#'  \emph{et al.} 2012.
 #' @param H0 initial number of plant's healthy sites. From Table 1 Savary
 #'  \emph{et al.} 2012.
 #' @param I0 initial number of infective sites. From Table 1 Savary
@@ -138,7 +139,6 @@ SEIR <-
            duration,
            rhlim = 90,
            rainlim = 5,
-           wetness_type = 0,
            H0,
            I0 = 1,
            RcA,
@@ -153,7 +153,7 @@ SEIR <-
            RRG) {
     # CRAN NOTE avoidance
     infday <- DOY <- YYYYMMDD <- lat <- # nocov start
-    lon <- LAT <- LON <- NULL #nocov end
+      lon <- LAT <- LON <- NULL #nocov end
 
     # set date formats
     emergence <- as.Date(emergence)
@@ -172,11 +172,8 @@ SEIR <-
 
     # subset weather data where date is greater than emergence minus one and
     # less than duration
-    wth <- wth[YYYYMMDD %between% c(emergence - 1, emergence + duration)]
-
-    if (wetness_type == 1) {
-      W <- .leaf_wet(wth, simple = TRUE)
-    }
+    wth <-
+      wth[YYYYMMDD %between% c(emergence - 1, emergence + duration)]
 
     # outputvars
     cofr <-
@@ -184,7 +181,8 @@ SEIR <-
       RHCoef <- latency <- infectious <- severity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
-      now_infectious <- now_latent <- sites <- total_sites <- rrlex <-
+      now_infectious <-
+      now_latent <- sites <- total_sites <- rrlex <-
       rep(0, times = duration + 1)
 
     for (day in 0:duration) {
@@ -224,13 +222,9 @@ SEIR <-
         break
       }
 
-      if (wetness_type == 0) {
-        if (wth$RHUM[cs_2] == rhlim |
-            wth$RAIN[cs_2] >= rainlim) {
-          RHCoef[cs_2] <- 1
-        }
-      } else {
-        RHCoef[cs_2] <- afgen(RcW, W[day + 1])
+      if (wth$RHUM[cs_2] == rhlim |
+          wth$RAIN[cs_2] >= rainlim) {
+        RHCoef[cs_2] <- 1
       }
 
       cs_6 <- day + 1
@@ -244,7 +238,7 @@ SEIR <-
       removed[cs_4] <- sum(infectious) - now_infectious[cs_5]
 
       cofr[cs_5] <- 1 - (diseased[cs_5] /
-                              (sites[cs_5] + diseased[cs_5]))
+                           (sites[cs_5] + diseased[cs_5]))
 
       if (day == onset) {
         # initialisation of the disease
