@@ -47,7 +47,7 @@ library(epicrop)
 ### Get weather data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
-See `?naspower::get_power()` for more details of this functionality and details on the data (Sparks 2018, Sparks 2020).
+See the help file for `naspower::get_power()` for more details of this functionality and details on the data (Sparks 2018, Sparks 2020).
 
 ```{r power}
 # Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station
@@ -63,7 +63,7 @@ wth
 
 All of the `predict_()` family of functions work in exactly the same manner.
 You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease severity over the season and other values associated with the model.
-See `?SEIR()` for more on the values returned.
+See the help file for `SEIR()` for more on the values returned.
 
 ```{r predict_bb}
 # Predict bacterial blight severity for the year 2000 wet season at IRRI
