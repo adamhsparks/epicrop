@@ -76,7 +76,7 @@ summary(bb_wet)
 
 ## Plotting using ggplot2
 
-The data are in a wide format by default and need to be converted to long format for use in `ggplot2` if you wish to plot more than one variable at a time.
+The data are in a wide format by default and need to be converted to long format for use in _ggplot2_ if you wish to plot more than one variable at a time.
 
 ```{r ggplot2}
 library(ggplot2)
