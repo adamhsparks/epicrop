@@ -1,0 +1,208 @@
+---
+title: "epicrop"
+author: "Adam H Sparks"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{epicrop}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{ggplot2}
+  %\VignetteDepends{data.table}
+  %\VignetteDepends{epifitter}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
+
+suggested_packages <- c("ggplot2", "epifitter")
+
+knitr::opts_chunk$set(eval = all(
+  vapply(
+    suggested_packages,
+    requireNamespace,
+    quietly = TRUE,
+    FUN.VALUE = FALSE
+  )
+))
+```
+
+## Introduction to epicrop
+
+`epicrop` provides an R package of the EPIRICE model as described in Savary *et al.* 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
+The model uses daily weather data to estimate disease severity.
+A function, `get_wth()`, is provided to simplify downloading weather data from the [NASA POWER web API](https://power.larc.nasa.gov) that are suitable for use in `epicrop`.
+
+Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
+If you are interested in modelling other pathosystems, please refer to Savary *et al.* 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
+
+### Getting started
+
+Load the library.
+
+```{r epicrop}
+library(epicrop)
+```
+
+### Get weather data
+
+The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
+See the help file for `naspower::get_power()` for more details of this functionality and details on the data (Sparks 2018, Sparks 2020).
+
+```{r power}
+# Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-01-01", "2000-12-31")
+)
+
+wth
+```
+
+### Predict bacterial blight
+
+All of the `predict_()` family of functions work in exactly the same manner.
+You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease severity over the season and other values associated with the model.
+See the help file for `SEIR()` for more on the values returned.
+
+```{r predict_bb}
+# Predict bacterial blight severity for the year 2000 wet season at IRRI
+bb_wet <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+```
+
+```{r bb_wet}
+summary(bb_wet)
+```
+
+## Plotting using ggplot2
+
+The data are in a wide format by default and need to be converted to long format for use in _ggplot2_ if you wish to plot more than one variable at a time.
+
+```{r ggplot2}
+library(ggplot2)
+library(tidyr)
+```
+
+### Wet season sites
+
+The model records the number of sites for each bin daily, this can be graphed as follows.
+
+```{r wet_plot_sites}
+dat <- pivot_longer(
+  bb_wet,
+  cols = c("diseased", "removed", "latent", "infectious"),
+  names_to = "site",
+  values_to = "value"
+)
+
+ggplot(data = dat,
+       aes(
+         x = dates,
+         y = value,
+         shape = site,
+         linetype = site
+       )) +
+  labs(y = "Sites",
+       x = "Date") +
+  geom_line(aes(group = site, colour = site)) +
+  geom_point(aes(colour = site)) +
+  labs(title = "Site states over time for bacterial blight",
+       subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
+       Station shown",
+       caption = "Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project funded through the NASA
+       Earth Science Directorate Applied Science Program.") +
+  theme_light()
+```
+
+### Wet season severity
+
+Plotting severity over time does not require any data manipulation.
+
+```{r wet_plot_severity}
+ggplot(data = bb_wet,
+       aes(x = dates,
+           y = severity)) +
+  labs(y = "Severity (%)",
+       x = "Date") +
+  geom_line() +
+  geom_point() +
+  labs(title = "Bacterial blight disease progress over time",
+       subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
+       Station shown",
+       caption = "Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project nfunded through the NASA
+       Earth Science Directorate Applied Science Program.") +
+  theme_light()
+```
+
+## Comparing epidemics
+
+The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977).
+This is easily calculated from the output of any of the `predict_()` family of functions or a custom `SEIR()` run using the _epifitter_ package (Alves and Del Ponte 2020).
+
+Load _epifitter_ and simulate the disease severity in the dry season starting in January to compare with the initial `bb_wet` results.
+
+```{r epifitter}
+library(epifitter)
+
+bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
+summary(bb_dry)
+```
+
+### Dry season severity
+
+Check the disease progress curve for the dry season.
+
+```{r dry_plot_severity}
+ggplot(data = bb_dry,
+       aes(x = dates,
+           y = severity)) +
+  labs(y = "Severity (%)",
+       x = "Date") +
+  geom_line() +
+  geom_point() +
+  labs(title = "Bacterial blight disease progress over time",
+       subtitle = "Results for dry season year 2000 at IRRI Zeigler Experiment
+       Station shown",
+       caption = "Weather data acknowledgement: These data were obtained from
+       the NASA Langley Research Center POWER Project funded through the NASA
+       Earth Science Directorate Applied Science Program.") +
+  theme_light()
+```
+
+Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons and compare.
+
+```{r audpc}
+# Dry season
+AUDPC(
+  time = bb_dry$simday,
+  y = bb_dry$severity,
+  y_proportion = FALSE,
+  type = "relative"
+)
+
+# Wet season
+AUDPC(
+  time = bb_wet$simday,
+  y = bb_wet$severity,
+  y_proportion = FALSE,
+  type = "relative"
+)
+```
+
+The AUDPC of the wet season is greater than that of the dry season.
+Checking the data and referring to the curves, the wet season severity reaches a peak value of `r round(max(bb_wet$severity), 2)`% and the dry season tops out at `r round(max(bb_dry$severity), 2)`%.
+So this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease severity.
+
+# References
+Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0. URL: <https://CRAN.R-project.org/package=epifitter>.
+
+Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
+
+Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. *Phytopathology* Volume 67.8, 1977, Pages 1051-1056.
+
+Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
+Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
+
+Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
