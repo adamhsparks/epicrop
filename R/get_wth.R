@@ -1,4 +1,5 @@
 
+
 #' Get weather data from NASA POWER API
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
@@ -15,9 +16,6 @@
 #'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
 #'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
 #'   **TEMP**:\tab Mean daily temperature (°C).\cr
-#'   **TMIN**:\tab Minimum daily temperature (°C).\cr
-#'   **TMAX**:\tab Maximum daily temperature (°C).\cr
-#'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
 #'   **RHUM**:\tab Mean daily temperature (°C).\cr
 #'   **RAIN**:\tab Mean daily rainfall (mm).\cr
 #'   **LAT**:\tab Latitude of area of interest.\cr
@@ -46,7 +44,6 @@
 #' @export get_wth
 
 get_wth <- function(lonlat, dates, season_length) {
-
   if (!missing(season_length) & length(dates != 2)) {
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) +
@@ -59,9 +56,6 @@ get_wth <- function(lonlat, dates, season_length) {
       dates = dates,
       community = "AG",
       pars = c("T2M",
-               "T2M_MAX",
-               "T2M_MIN",
-               "T2MDEW",
                "RH2M",
                "PRECTOT"),
       temporal_average = "DAILY"
@@ -71,43 +65,39 @@ get_wth <- function(lonlat, dates, season_length) {
   wth[, c("YEAR", "MM", "DD") := NULL][]
   setnames(
     wth,
-    old = c(
-      "DOY",
-      "YYYYMMDD",
-      "T2M",
-      "T2M_MAX",
-      "T2M_MIN",
-      "T2MDEW",
-      "RH2M",
-      "PRECTOT",
-      "LAT",
-      "LON"
-    ),
-    new = c(
-      "DOY",
-      "YYYYMMDD",
-      "TEMP",
-      "TMAX",
-      "TMIN",
-      "TDEW",
-      "RHUM",
-      "RAIN",
-      "LAT",
-      "LON"
-    )
+    old = c("DOY",
+            "YYYYMMDD",
+            "T2M",
+            "PRECTOT",
+            "RH2M",
+            "LAT",
+            "LON"),
+    new = c("DOY",
+            "YYYYMMDD",
+            "TEMP",
+            "RAIN",
+            "RHUM",
+            "LAT",
+            "LON")
   )
   setcolorder(wth,
-              c(
-                "YYYYMMDD",
+              c("YYYYMMDD",
                 "DOY",
                 "TEMP",
-                "TMIN",
-                "TMAX",
-                "TDEW",
                 "RHUM",
                 "RAIN",
                 "LAT",
-                "LON"
-              ))
+                "LON"))
+
+  if (anyNA(wth[, c("TEMP", "RHUM", "RAIN")])) {
+    message(
+      "The POWER weather data have missing values in your request.\n",
+      "This can cause errors when running the model.\n",
+      "You should inspect the weather data carefully and either fill missing\n",
+      "or try again to download to see if that provides a complete set of data."
+    )
+  }
+
+  return(wth)
 
 }
