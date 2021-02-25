@@ -44,10 +44,10 @@
 #' @export get_wth
 
 get_wth <- function(lonlat, dates, season_length) {
-  if (!missing(season_length) & length(dates != 2)) {
+
+  if (!missing(season_length)) {
     dates[2] <-
-      as.character(as.Date(as.Date(dates[1]) +
-                             (season_length + 1)))
+      as.character(as.Date(as.Date(dates[1]) + (season_length)))
   }
 
   wth <- setDT(
