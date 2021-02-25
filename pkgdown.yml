@@ -2,6 +2,6 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  epirice: epirice.html
-last_built: 2021-02-25T04:28Z
+  epicrop: epicrop.html
+last_built: 2021-02-25T07:47Z
 
