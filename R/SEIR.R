@@ -1,5 +1,4 @@
 
-
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
 #' This function is originally used by specific disease models in EPIRICE to
