@@ -48,7 +48,7 @@ test_that("Values are as expected", {
 
   # check rateinf
   expect_equal(lb[[1, 8]], 0)
-  expect_equal(lb[[121, 8]], 0.0007928 , tolerance = 0.0000001)
+  expect_equal(lb[[121, 8]], 0.0007928, tolerance = 0.0000001)
 
   # check rtransfer
   expect_equal(lb[[1, 9]], 0)

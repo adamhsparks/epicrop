@@ -161,9 +161,6 @@ SEIR <-
     # create vector of dates
     dates <- seq(emergence - 1, emergence + duration, 1)
 
-    # convert emergence date into Julian date, sequential day in year
-    emergence_doy <- as.numeric(strftime(emergence, format = "%j"))
-
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) |
         (max(dates) > max(wth[, YYYYMMDD]))) {
