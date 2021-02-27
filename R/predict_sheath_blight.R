@@ -23,9 +23,6 @@
 #'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
 #'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
 #'   **TEMP**:\tab Mean daily temperature (°C).\cr
-#'   **TMIN**:\tab Minimum daily temperature (°C).\cr
-#'   **TMAX**:\tab Maximum daily temperature (°C).\cr
-#'   **TDEW**:\tab Mean daily dew point temperature (°C).\cr
 #'   **RHUM**:\tab Mean daily temperature (°C).\cr
 #'   **RAIN**:\tab Mean daily rainfall (mm).\cr
 #'   }
