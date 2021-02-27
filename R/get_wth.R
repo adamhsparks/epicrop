@@ -89,7 +89,15 @@ get_wth <- function(lonlat, dates, season_length) {
                 "LAT",
                 "LON"))
 
-  if (anyNA(wth[, c("TEMP", "RHUM", "RAIN")])) {
+  .check_na(.wth = wth)
+
+  return(wth)
+
+}
+
+#' @noRd
+.check_na <- function(.wth) {
+  if (anyNA(.wth[, c("TEMP", "RHUM", "RAIN")])) {
     message(
       "The POWER weather data have missing values in your request.\n",
       "This can cause errors when running the model.\n",
@@ -97,7 +105,4 @@ get_wth <- function(lonlat, dates, season_length) {
       "or try again to download to see if that provides a complete set of data."
     )
   }
-
-  return(wth)
-
 }

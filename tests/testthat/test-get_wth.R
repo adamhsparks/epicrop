@@ -22,3 +22,17 @@ test_that("Supplying the season overrides an end-date value", {
                         season_length = 90)
   expect_equal(nrow(wth_season), 91)
 })
+
+test_that("Any NA values in the POWER data will emit a message", {
+  expect_message(.check_na(
+    .wth = data.frame(
+      "YYYYMMDD" = 2015 - 01 - 15,
+      "DOY" = 15,
+      "TEMP" = 26.05,
+      "RHUM" = 56.6,
+      "RAIN" = NA,
+      "LAT" = -27.48,
+      "LON" = 151.8
+    )
+  ))
+})
