@@ -3,10 +3,6 @@ title: "*epicrop*: Simulation Modelling of Crop Diseases Using a Susceptible-Exp
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.path = "man/figures")
-```
-
 <img align="right" src="man/figures/logo.png">
 
 <!-- badges: start -->
@@ -15,6 +11,10 @@ knitr::opts_chunk$set(fig.path = "man/figures")
 [![codecov](https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epicrop)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.path = "man/figures/")
+```
 
 A fork of the R [cropsim package](https://r-forge.r-project.org/R/?group_id=335) designed to make using the EPIRICE model (Savary et al. 2012) for rice diseases easier to use.
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [*nasapower*](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease severity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
@@ -65,7 +65,7 @@ bb
 ```
 Once you have the results you can visualise them.
 
-```{r}
+```{r fig1}
 library(ggplot2)
 
 ggplot(data = bb,
