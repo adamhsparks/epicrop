@@ -137,7 +137,7 @@ ggplot(data = bb,
   theme_light()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](man/figuresunnamed-chunk-1-1.png)<!-- -->
 
 # Meta
 

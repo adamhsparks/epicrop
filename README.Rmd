@@ -3,6 +3,10 @@ title: "*epicrop*: Simulation Modelling of Crop Diseases Using a Susceptible-Exp
 output: github_document
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.path = "man/figures")
+```
+
 <img align="right" src="man/figures/logo.png">
 
 <!-- badges: start -->
