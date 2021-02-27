@@ -1,13 +1,14 @@
 
-
 #' Get weather data from NASA POWER API
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
 #'  entered as x, y coordinates.
 #' @param dates A character vector of start and end dates in that order.
-#' @param season_length A numeric value indicating how many days a single
+#' @param duration A numeric value indicating how many days a single
 #'  growing season being simulated is to be. If this is used, only the start
-#'  date will be used and the end date will be ignored if supplied.
+#'  date will be used and the end date will be ignored if supplied. This must
+#'  match the `duration` parameter value passed along to any of the `predict`
+#'  functions.
 #'
 #' @return A \code{\link[data.table]{data.table}} of weather data, dates and
 #'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
@@ -37,17 +38,17 @@
 #' (wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = "2000-06-30",
-#'   season_length = 120
+#'   duration = 120
 #' ))
 #' }
 #' @author Adam H. Sparks
 #' @export get_wth
 
-get_wth <- function(lonlat, dates, season_length) {
+get_wth <- function(lonlat, dates, duration) {
 
-  if (!missing(season_length)) {
+  if (!missing(duration)) {
     dates[2] <-
-      as.character(as.Date(as.Date(dates[1]) + (season_length)))
+      as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
 
   wth <- setDT(

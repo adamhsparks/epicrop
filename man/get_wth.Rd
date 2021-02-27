@@ -4,7 +4,7 @@
 \alias{get_wth}
 \title{Get weather data from NASA POWER API}
 \usage{
-get_wth(lonlat, dates, season_length)
+get_wth(lonlat, dates, duration)
 }
 \arguments{
 \item{lonlat}{A numeric vector of geographic coordinates for a cell or region
@@ -12,9 +12,11 @@ entered as x, y coordinates.}
 
 \item{dates}{A character vector of start and end dates in that order.}
 
-\item{season_length}{A numeric value indicating how many days a single
+\item{duration}{A numeric value indicating how many days a single
 growing season being simulated is to be. If this is used, only the start
-date will be used and the end date will be ignored if supplied.}
+date will be used and the end date will be ignored if supplied. This must
+match the \code{duration} parameter value passed along to any of the \code{predict}
+functions.}
 }
 \value{
 A \code{\link[data.table]{data.table}} of weather data, dates and
@@ -50,7 +52,7 @@ suitable for use in \pkg{epicrop}.
 (wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = "2000-06-30",
-  season_length = 120
+  duration = 120
 ))
 }
 }
