@@ -1,6 +1,4 @@
-*epicrop*: Simulation Modelling of Crop Diseases Using a
-Susceptible-Exposed-Infectious-Removed (SEIR) Model
-================
+# *epicrop*: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
 
@@ -56,7 +54,8 @@ shown below.
 ``` r
 library(epicrop)
 
-# Fetch weather for year 2000 wet season for a 120 rice variety at the IRRI Zeigler Experiment Station
+# Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI
+# Zeigler Experiment Station
  wth <- get_wth(
    lonlat = c(121.25562, 14.6774),
    dates = "2000-07-01",
