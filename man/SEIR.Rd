@@ -59,14 +59,14 @@ wet or not. Savary \emph{et al.} 2012 used 5mm. From Table 1 Savary
 \item{I0}{initial number of infective sites. From Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{RcA}{crop age curve for pathogen optimum. From Table 1 Savary
-\emph{et al.} 2012.}
+\item{RcA}{modifier for Rc for crop age. From Table 1 Savary \emph{et al.}
+2012.}
 
-\item{RcT}{temperature curve for pathogen optimum. From Table 1 Savary
-\emph{et al.} 2012.}
+\item{RcT}{modifier for Rc for temperature. From Table 1 Savary \emph{et al.}
+2012.}
 
-\item{RcW}{relative curve for pathogen optimum. From Table 1 Savary
-\emph{et al.} 2012.}
+\item{RcW}{modifier for Rc for wetness. From Table 1 Savary \emph{et al.}
+2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals. From
 Table 1 Savary \emph{et al.} 2012.}

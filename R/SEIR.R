@@ -30,12 +30,12 @@
 #'  \emph{et al.} 2012.
 #' @param I0 initial number of infective sites. From Table 1 Savary
 #'  \emph{et al.} 2012.
-#' @param RcA crop age curve for pathogen optimum. From Table 1 Savary
-#'  \emph{et al.} 2012.
-#' @param RcT temperature curve for pathogen optimum. From Table 1 Savary
-#'  \emph{et al.} 2012.
-#' @param RcW relative curve for pathogen optimum. From Table 1 Savary
-#'  \emph{et al.} 2012.
+#' @param RcA modifier for Rc for crop age. From Table 1 Savary \emph{et al.}
+#'  2012.
+#' @param RcT modifier for Rc for temperature. From Table 1 Savary \emph{et al.}
+#'  2012.
+#' @param RcW modifier for Rc for wetness. From Table 1 Savary \emph{et al.}
+#'  2012.
 #' @param RcOpt potential basic infection rate corrected for removals. From
 #'  Table 1 Savary \emph{et al.} 2012.
 #' @param i duration of infectious period. From Table 1 Savary
