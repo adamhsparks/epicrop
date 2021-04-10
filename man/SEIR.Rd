@@ -59,13 +59,16 @@ wet or not. Savary \emph{et al.} 2012 used 5mm. From Table 1 Savary
 \item{I0}{initial number of infective sites. From Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{RcA}{modifier for Rc for crop age. From Table 1 Savary \emph{et al.}
+\item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
+removals) for crop age. From Table 1 Savary \emph{et al.}
 2012.}
 
-\item{RcT}{modifier for Rc for temperature. From Table 1 Savary \emph{et al.}
+\item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
+removals) for temperature. From Table 1 Savary \emph{et al.}
 2012.}
 
-\item{RcW}{modifier for Rc for wetness. From Table 1 Savary \emph{et al.}
+\item{RcW}{modifier for \emph{Rc} (the basic infection rate corrected for
+removals) for wetness. From Table 1 Savary \emph{et al.}
 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals. From
@@ -162,13 +165,13 @@ emergence <- "2000-07-15"
 }
 \references{
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-J. Modeling and mapping potential epidemics of rice diseases globally. Crop
-Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
+Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.
 
 Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. Modelling and
 Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
-Septoria Tritici Blotch Using EPIWHEAT. European Journal of Plant Pathology
+Septoria Tritici Blotch Using EPIWHEAT. \emph{European Journal of Plant Pathology}
 142, no. 4 (August 1, 2015): 771–90. DOI:
 \url{https://doi.org/10.1007/s10658-015-0650-7}.
 }
