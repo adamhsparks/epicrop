@@ -36,52 +36,52 @@ the following field names.
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
-format. From Table 1 Savary \emph{et al.} 2012.}
+format. Derived from Table 1 Savary \emph{et al.} 2012.}
 
 \item{onset}{expected number of days until the onset of disease after
-emergence date. From Table 1 Savary \emph{et al.} 2012.}
+emergence date. Derived from Table 1 Savary \emph{et al.} 2012.}
 
-\item{duration}{simulation duration (growing season length). From Table 1
-Savary \emph{et al.} 2012.}
+\item{duration}{simulation duration (growing season length). Derived from
+Table 1 Savary \emph{et al.} 2012.}
 
 \item{rhlim}{relative humidity value threshold to decide whether leaves are
 wet or not. Savary \emph{et al.} 2012 used 90\%. From Table 1 Savary
 \emph{et al.} 2012.}
 
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not. Savary \emph{et al.} 2012 used 5mm. From Table 1 Savary
+wet or not. Savary \emph{et al.} 2012 used 5mm. Derived from Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{H0}{initial number of plant's healthy sites. From Table 1 Savary
-\emph{et al.} 2012.}
+\item{H0}{initial number of plant's healthy sites. Derived from Table 1
+Savary \emph{et al.} 2012.}
 
-\item{I0}{initial number of infective sites. From Table 1 Savary
+\item{I0}{initial number of infective sites. Derived from Table 1 Savary
 \emph{et al.} 2012.}
 
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for crop age. From Table 1 Savary \emph{et al.}
-2012.}
+removals) for crop age. Derived from Table 1 Savary \emph{et al.} 2012.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for temperature. From Table 1 Savary \emph{et al.}
+removals) for temperature. Derived from Table 1 Savary \emph{et al.} 2012.}
+
+\item{RcOpt}{potential basic infection rate corrected for removals. Derived
+from Table 1 Savary \emph{et al.} 2012.}
+
+\item{p}{duration of latent period. Derived from  Table 1 Savary \emph{et al.}
 2012.}
 
-\item{RcOpt}{potential basic infection rate corrected for removals. From
-Table 1 Savary \emph{et al.} 2012.}
+\item{i}{duration of infectious period. Derived from Table 1 Savary \emph{et al.}
+2012.}
 
-\item{p}{duration of latent period. From Table 1 Savary \emph{et al.} 2012.}
+\item{Sx}{maximum number of sites. Derived from Table 1 Savary \emph{et al.} 2012.}
 
-\item{i}{duration of infectious period. From Table 1 Savary
-\emph{et al.} 2012.}
-
-\item{Sx}{maximum number of sites. From Table 1 Savary \emph{et al.} 2012.}
-
-\item{a}{aggregation coefficient. From Table 1 Savary \emph{et al.} 2012.}
+\item{a}{aggregation coefficient. Derived from Table 1 Savary \emph{et al.} 2012.}
 
 \item{RRS}{relative rate of physiological senescence. From Table 1 Savary
 \emph{et al.} 2012.}
 
-\item{RRG}{relative rate of growth. From Table 1 Savary \emph{et al.} 2012.}
+\item{RRG}{relative rate of growth. Derived from Table 1 Savary \emph{et al.}
+2012.}
 }
 \value{
 A \code{\link[data.table]{data.table}} containing the following
@@ -160,12 +160,6 @@ Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
 Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.
-
-Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. Modelling and
-Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
-Septoria Tritici Blotch Using EPIWHEAT. \emph{European Journal of Plant Pathology}
-142, no. 4 (August 1, 2015): 771–90. DOI:
-\url{https://doi.org/10.1007/s10658-015-0650-7}.
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,

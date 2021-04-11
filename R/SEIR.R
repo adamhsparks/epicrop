@@ -1,5 +1,4 @@
 
-
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
 #' This function is originally used by specific disease models in EPIRICE to
@@ -16,48 +15,42 @@
 #'   **RAIN**:\tab Mean daily rainfall (mm).\cr
 #'   }
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
-#' format. From Table 1 Savary *et al.* 2012.
+#'  format. Derived from Table 1 Savary *et al.* 2012.
 #' @param onset expected number of days until the onset of disease after
-#' emergence date. From Table 1 Savary *et al.* 2012.
-#' @param duration simulation duration (growing season length). From Table 1
-#'  Savary *et al.* 2012.
+#'  emergence date. Derived from Table 1 Savary *et al.* 2012.
+#' @param duration simulation duration (growing season length). Derived from
+#'  Table 1 Savary *et al.* 2012.
 #' @param rhlim relative humidity value threshold to decide whether leaves are
 #'  wet or not. Savary *et al.* 2012 used 90%. From Table 1 Savary
 #'  *et al.* 2012.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
-#'  wet or not. Savary *et al.* 2012 used 5mm. From Table 1 Savary
+#'  wet or not. Savary *et al.* 2012 used 5mm. Derived from Table 1 Savary
 #'  *et al.* 2012.
-#' @param H0 initial number of plant's healthy sites. From Table 1 Savary
-#'  *et al.* 2012.
-#' @param I0 initial number of infective sites. From Table 1 Savary
+#' @param H0 initial number of plant's healthy sites. Derived from Table 1
+#'  Savary *et al.* 2012.
+#' @param I0 initial number of infective sites. Derived from Table 1 Savary
 #'  *et al.* 2012.
 #' @param RcA modifier for *Rc* (the basic infection rate corrected for
-#'  removals) for crop age. From Table 1 Savary *et al.*
-#'  2012.
+#'  removals) for crop age. Derived from Table 1 Savary *et al.* 2012.
 #' @param RcT modifier for *Rc* (the basic infection rate corrected for
-#'  removals) for temperature. From Table 1 Savary *et al.*
+#'  removals) for temperature. Derived from Table 1 Savary *et al.* 2012.
+#' @param RcOpt potential basic infection rate corrected for removals. Derived
+#'  from Table 1 Savary *et al.* 2012.
+#' @param i duration of infectious period. Derived from Table 1 Savary *et al.*
 #'  2012.
-#' @param RcOpt potential basic infection rate corrected for removals. From
-#'  Table 1 Savary *et al.* 2012.
-#' @param i duration of infectious period. From Table 1 Savary
-#'  *et al.* 2012.
-#' @param p duration of latent period. From Table 1 Savary *et al.* 2012.
-#' @param Sx maximum number of sites. From Table 1 Savary *et al.* 2012.
-#' @param a aggregation coefficient. From Table 1 Savary *et al.* 2012.
+#' @param p duration of latent period. Derived from  Table 1 Savary *et al.*
+#'  2012.
+#' @param Sx maximum number of sites. Derived from Table 1 Savary *et al.* 2012.
+#' @param a aggregation coefficient. Derived from Table 1 Savary *et al.* 2012.
 #' @param RRS relative rate of physiological senescence. From Table 1 Savary
 #'  *et al.* 2012.
-#' @param RRG relative rate of growth. From Table 1 Savary *et al.* 2012.
+#' @param RRG relative rate of growth. Derived from Table 1 Savary *et al.*
+#'  2012.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. *Crop
 #' Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 #' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
-#'
-#' Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. Modelling and
-#' Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
-#' Septoria Tritici Blotch Using EPIWHEAT. *European Journal of Plant Pathology*
-#' 142, no. 4 (August 1, 2015): 771–90. DOI:
-#' <https://doi.org/10.1007/s10658-015-0650-7>.
 #'
 #' @examples
 #' \donttest{
