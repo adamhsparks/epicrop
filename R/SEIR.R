@@ -136,8 +136,13 @@ SEIR <-
            RRS,
            RRG) {
     # CRAN NOTE avoidance
-    infday <- DOY <- YYYYMMDD <- lat <- # nocov start
-      lon <- LAT <- LON <- NULL #nocov end
+    infday <- YYYYMMDD <- lat <- lon <- LAT <- LON <- NULL #nocov
+
+    if (a < 1) {
+      stop(call. = FALSE,
+           "`a` cannot be set to less than 1. Valid aggregation values, `a`,",
+           " are from 1 to > 1.")
+    }
 
     # set date formats
     emergence <- as.Date(emergence)
