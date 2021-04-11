@@ -48,9 +48,9 @@
 
 <meta property="og:title" content="Predict rice brown spot severity — predict_brown_spot" />
 <meta property="og:description" content="A dynamic mechanistic simulation of rice brown spot, causal agent
-Cochliobolus miyabeanus. The model is driven by daily weather data,
-which can easily be accessed using get_wth to download weather
-data from NASA POWER using nasapower." />
+Cochliobolus miyabeanus. The model is driven by daily weather data, which
+can easily be accessed usingget_wth() to download weather data from
+NASA POWER using nasapower." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -129,9 +129,9 @@ data from NASA POWER using nasapower." />
 
     <div class="ref-description">
     <p>A dynamic mechanistic simulation of rice brown spot, causal agent
-<em>Cochliobolus miyabeanus</em>. The model is driven by daily weather data,
-which can easily be accessed using <code><a href='get_wth.html'>get_wth</a></code> to download weather
-data from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
+<em>Cochliobolus miyabeanus</em>. The model is driven by daily weather data, which
+can easily be accessed using<code><a href='get_wth.html'>get_wth()</a></code> to download weather data from
+<acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_brown_spot</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -142,13 +142,14 @@ data from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https:
     <tr>
       <th>wth</th>
       <td><p>Weather data with a daily time-step, normally NASA POWER from
-<code><a href='get_wth.html'>get_wth</a></code>, but any <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> object that has
+<code><a href='get_wth.html'>get_wth()</a></code>, but any<a href='https://rdrr.io/r/base/data.frame.html'>base</a> object that has
 the following properly named columns in them will work.</p><table class='table'>
-<tr><td><strong>YYYYMMDD</strong>:</td><td>Date as Year Month Day (ISO8601).</td></tr>
-<tr><td><strong>DOY</strong>:</td><td>Consecutive day of year, commonly called "Julian date".</td></tr>
-<tr><td><strong>TEMP</strong>:</td><td>Mean daily temperature (°C).</td></tr>
-<tr><td><strong>RHUM</strong>:</td><td>Mean daily temperature (°C).</td></tr>
-<tr><td><strong>RAIN</strong>:</td><td>Mean daily rainfall (mm).</td></tr>
+<tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr>
+<tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr>
+<tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr>
+<tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr>
+<tr><td><em>RHUM</em></td><td>Mean daily temperature (°C)</td></tr>
+<tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr>
 </table>
 </td>
     </tr>
@@ -158,14 +159,14 @@ the following properly named columns in them will work.</p><table class='table'>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments, see <code><a href='SEIR.html'>SEIR</a></code></p></td>
+      <td><p>Additional arguments, see <code><a href='SEIR.html'>SEIR()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
-infection sites. See <code><a href='SEIR.html'>SEIR</a></code> for a full description of the
+    <p>A data.table of disease severity and
+infection sites. See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the
 column values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -185,17 +186,17 @@ Savary <em>et al.</em> 2012 has a typo. The optimal value should be 25 °C, not
 
     <p>Klomp, A.O., 1977. Early senescence of rice and <em>Dreschslera
 oryzae</em> in the Wageningen polder, Surinam. PhD thesis, 97p.</p>
-<p>Levy, Y. and Cohen, Y., 1980. Sporulation of <em>Helminthosporium turcicum</em>
-on sweet corn: Effects of temperature and dew period. Canadian Journal of
-Plant Pathology 2:65-69. DOI: <a href='https://doi.org/10.1080/07060668009501440'>https://doi.org/10.1080/07060668009501440</a>.</p>
+<p>Levy, Y. and Cohen, Y., 1980. Sporulation of <em>Helminthosporium turcicum</em> on
+sweet corn: Effects of temperature and dew period. Canadian Journal of Plant
+Pathology 2:65-69. DOI: <a href='https://doi.org/10.1080/07060668009501440'>https://doi.org/10.1080/07060668009501440</a>.</p>
 <p>Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
 paddy rice crops. PhD, Wageningen Agricultural University, 87 p.</p>
 <p>Padmanabhan, S.Y. and Ganguly, D. 1954. Relation between the age of rice
 plant and its susceptibility to <em>Helminthosporium</em> and blast disease.
 Proceedings of the Indian Academy of Sciences B 29:44-50.</p>
 <p>Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and humidity on
-disease development and sporulation of <em>Helminthosporium oryzae</em> on
-rice. Indian Phytopathology 30:258-259.</p>
+disease development and sporulation of <em>Helminthosporium oryzae</em> on rice.
+Indian Phytopathology 30:258-259.</p>
 <p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 and mapping potential epidemics of rice diseases globally. Crop Protection,
 Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
@@ -207,11 +208,11 @@ New Haven, 85 p.</p>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='SEIR.html'>SEIR</a></code>,</p></li>
-<li><p><code><a href='predict_bacterial_blight.html'>predict_bacterial_blight</a></code>,</p></li>
-<li><p><code><a href='predict_leaf_blast.html'>predict_leaf_blast</a></code>,</p></li>
-<li><p><code><a href='predict_sheath_blight.html'>predict_sheath_blight</a></code></p></li>
-<li><p><code><a href='predict_tungro.html'>predict_tungro</a></code></p></li>
+<li><p><code><a href='SEIR.html'>SEIR()</a></code>,</p></li>
+<li><p><code><a href='predict_bacterial_blight.html'>predict_bacterial_blight()</a></code>,</p></li>
+<li><p><code><a href='predict_leaf_blast.html'>predict_leaf_blast()</a></code>,</p></li>
+<li><p><code><a href='predict_sheath_blight.html'>predict_sheath_blight()</a></code>,</p></li>
+<li><p><code><a href='predict_tungro.html'>predict_tungro()</a></code></p></li>
 </ul>
 </div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>

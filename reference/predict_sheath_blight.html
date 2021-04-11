@@ -48,10 +48,9 @@
 
 <meta property="og:title" content="Predict rice sheath blight severity — predict_sheath_blight" />
 <meta property="og:description" content="A dynamic mechanistic simulation of sheath blight disease of rice, causal
-agent Rhizoctonia solani AG1-1A Kühn. The model is driven by daily
-weather data, which can easily be accessed using get_wth to
-download weather data from NASA POWER using
-nasapower." />
+agent Rhizoctonia solani AG1-1A Kühn. The model is driven by daily weather
+data, which can easily be accessed usingget_wth() to download weather data
+from NASA POWER using nasapower." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -130,10 +129,9 @@ nasapower." />
 
     <div class="ref-description">
     <p>A dynamic mechanistic simulation of sheath blight disease of rice, causal
-agent <em>Rhizoctonia solani</em> AG1-1A Kühn. The model is driven by daily
-weather data, which can easily be accessed using <code><a href='get_wth.html'>get_wth</a></code> to
-download weather data from <acronym>NASA</acronym> <acronym>POWER</acronym> using
-<a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
+agent <em>Rhizoctonia solani</em> AG1-1A Kühn. The model is driven by daily weather
+data, which can easily be accessed using<code><a href='get_wth.html'>get_wth()</a></code> to download weather data
+from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_sheath_blight</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -144,13 +142,14 @@ download weather data from <acronym>NASA</acronym> <acronym>POWER</acronym> usin
     <tr>
       <th>wth</th>
       <td><p>Weather data with a daily time-step, normally NASA POWER from
-<code><a href='get_wth.html'>get_wth</a></code>, but any <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> object that has
+<code><a href='get_wth.html'>get_wth()</a></code>, but any<a href='https://rdrr.io/r/base/data.frame.html'>base</a> object that has
 the following properly named columns in them will work.</p><table class='table'>
-<tr><td><strong>YYYYMMDD</strong>:</td><td>Date as Year Month Day (ISO8601).</td></tr>
-<tr><td><strong>DOY</strong>:</td><td>Consecutive day of year, commonly called "Julian date".</td></tr>
-<tr><td><strong>TEMP</strong>:</td><td>Mean daily temperature (°C).</td></tr>
-<tr><td><strong>RHUM</strong>:</td><td>Mean daily temperature (°C).</td></tr>
-<tr><td><strong>RAIN</strong>:</td><td>Mean daily rainfall (mm).</td></tr>
+<tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr>
+<tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr>
+<tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr>
+<tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr>
+<tr><td><em>RHUM</em></td><td>Mean daily temperature (°C)</td></tr>
+<tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr>
 </table>
 </td>
     </tr>
@@ -160,19 +159,19 @@ the following properly named columns in them will work.</p><table class='table'>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments, see <code><a href='SEIR.html'>SEIR</a></code></p></td>
+      <td><p>Additional arguments, see <code><a href='SEIR.html'>SEIR()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
-infection sites. See <code><a href='SEIR.html'>SEIR</a></code> for a full description of the
+    <p>A data.table of disease severity and
+infection sites. See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the
 column values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Default values for this disease model are derived from Table 2 (Savary
-<em>et al.</em> 2012).</p>
+    <p>Default values for this disease model are derived from Table 2 (Savary <em>et
+al.</em> 2012).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Adapted from <span class="pkg">cropsim</span> package version 0.2.0-5 by Adam H. Sparks,
@@ -210,17 +209,17 @@ Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 on sheath blight (ShB) development and yield loss. International Rice
 Research Newsletter 15:19-20.</p>
 <p>Tu, C.C., Chang, Y.C., Wang, C.W., 1979. Studies on the ecology of
-<em>Rhizoctonia solani</em>, the causal organism of rice sheath blight.
-National Science Council Monthly, ROC 7:1208-1219.</p>
+<em>Rhizoctonia solani</em>, the causal organism of rice sheath blight. National
+Science Council Monthly, ROC 7:1208-1219.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='SEIR.html'>SEIR</a></code>,</p></li>
-<li><p><code><a href='predict_bacterial_blight.html'>predict_bacterial_blight</a></code>,</p></li>
-<li><p><code><a href='predict_brown_spot.html'>predict_brown_spot</a></code>,</p></li>
-<li><p><code><a href='predict_leaf_blast.html'>predict_leaf_blast</a></code>,</p></li>
-<li><p><code><a href='predict_tungro.html'>predict_tungro</a></code></p></li>
+<li><p><code><a href='SEIR.html'>SEIR()</a></code>,</p></li>
+<li><p><code><a href='predict_bacterial_blight.html'>predict_bacterial_blight()</a></code>,</p></li>
+<li><p><code><a href='predict_brown_spot.html'>predict_brown_spot()</a></code>,</p></li>
+<li><p><code><a href='predict_leaf_blast.html'>predict_leaf_blast()</a></code>,</p></li>
+<li><p><code><a href='predict_tungro.html'>predict_tungro()</a></code></p></li>
 </ul>
 </div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>

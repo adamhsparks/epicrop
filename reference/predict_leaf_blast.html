@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict rice leaf severity — predict_leaf_blast • epicrop</title>
+<title>Predict rice leaf blast severity — predict_leaf_blast • epicrop</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,11 @@
 
 
 
-<meta property="og:title" content="Predict rice leaf severity — predict_leaf_blast" />
+<meta property="og:title" content="Predict rice leaf blast severity — predict_leaf_blast" />
 <meta property="og:description" content="A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-Magnaporthe oryzae. The model is driven by daily weather data,
-which can easily be accessed using get_wth to download weather
-data from NASA POWER using nasapower." />
+Magnaporthe oryzae. The model is driven by daily weather data, which can
+easily be accessed usingget_wth() to download weather data from
+NASA POWER using nasapower." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -122,16 +122,16 @@ data from NASA POWER using nasapower." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict rice leaf severity</h1>
+    <h1>Predict rice leaf blast severity</h1>
     <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/R/predict_leaf_blast.R'><code>R/predict_leaf_blast.R</code></a></small>
     <div class="hidden name"><code>predict_leaf_blast.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-<em>Magnaporthe oryzae</em>. The model is driven by daily weather data,
-which can easily be accessed using <code><a href='get_wth.html'>get_wth</a></code> to download weather
-data from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
+<em>Magnaporthe oryzae</em>. The model is driven by daily weather data, which can
+easily be accessed using<code><a href='get_wth.html'>get_wth()</a></code> to download weather data from
+<acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_leaf_blast</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -142,13 +142,14 @@ data from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https:
     <tr>
       <th>wth</th>
       <td><p>Weather data with a daily time-step, normally NASA POWER from
-<code><a href='get_wth.html'>get_wth</a></code>, but any <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> object that has
+<code><a href='get_wth.html'>get_wth()</a></code>, but any<a href='https://rdrr.io/r/base/data.frame.html'>base</a> object that has
 the following properly named columns in them will work.</p><table class='table'>
-<tr><td><strong>YYYYMMDD</strong>:</td><td>Date as Year Month Day (ISO8601).</td></tr>
-<tr><td><strong>DOY</strong>:</td><td>Consecutive day of year, commonly called "Julian date".</td></tr>
-<tr><td><strong>TEMP</strong>:</td><td>Mean daily temperature (°C).</td></tr>
-<tr><td><strong>RHUM</strong>:</td><td>Mean daily temperature (°C).</td></tr>
-<tr><td><strong>RAIN</strong>:</td><td>Mean daily rainfall (mm).</td></tr>
+<tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr>
+<tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr>
+<tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr>
+<tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr>
+<tr><td><em>RHUM</em></td><td>Mean daily temperature (°C)</td></tr>
+<tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr>
 </table>
 </td>
     </tr>
@@ -158,15 +159,14 @@ the following properly named columns in them will work.</p><table class='table'>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments, see <code><a href='SEIR.html'>SEIR</a></code></p></td>
+      <td><p>Additional arguments, see <code><a href='SEIR.html'>SEIR()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></code> of disease severity and
-infection sites. See <code><a href='SEIR.html'>SEIR</a></code> for a full description of the
-column values.</p>
+    <p>A data.table of disease severity and infection sites.
+See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the column values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Default values for this disease model are derived from Table 2 (Savary
@@ -204,17 +204,17 @@ Modeling and mapping potential epidemics of rice diseases globally. Crop
 Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 <a href='https://doi.org/10.1016/j.cropro.2011.11.009'>https://doi.org/10.1016/j.cropro.2011.11.009</a>.</p>
 <p>Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
-<em>Pyricularia oryzae</em> Cav. in upland rice varieties. PhD Thesis,
-University of the Philippines at Los Banos, 82 p.</p>
+<em>Pyricularia oryzae</em> Cav. in upland rice varieties. PhD Thesis, University of
+the Philippines at Los Banos, 82 p.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='SEIR.html'>SEIR</a></code>,</p></li>
-<li><p><code><a href='predict_bacterial_blight.html'>predict_bacterial_blight</a></code>,</p></li>
-<li><p><code><a href='predict_brown_spot.html'>predict_brown_spot</a></code>,</p></li>
-<li><p><code><a href='predict_sheath_blight.html'>predict_sheath_blight</a></code></p></li>
-<li><p><code><a href='predict_tungro.html'>predict_tungro</a></code></p></li>
+<li><p><code><a href='SEIR.html'>SEIR()</a></code>,</p></li>
+<li><p><code><a href='predict_bacterial_blight.html'>predict_bacterial_blight()</a></code>,</p></li>
+<li><p><code><a href='predict_brown_spot.html'>predict_brown_spot()</a></code>,</p></li>
+<li><p><code><a href='predict_sheath_blight.html'>predict_sheath_blight()</a></code>,</p></li>
+<li><p><code><a href='predict_tungro.html'>predict_tungro()</a></code></p></li>
 </ul>
 </div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
