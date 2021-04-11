@@ -36,10 +36,10 @@
 #'  removals) for temperature. Derived from Table 1 Savary *et al.* 2012.
 #' @param RcOpt potential basic infection rate corrected for removals. Derived
 #'  from Table 1 Savary *et al.* 2012.
-#' @param i duration of infectious period. Derived from Table 1 Savary *et al.*
-#'  2012.
-#' @param p duration of latent period. Derived from  Table 1 Savary *et al.*
-#'  2012.
+#' @param i duration of infectious period (day). Derived from Table 1 Savary
+#'  *et al.* 2012.
+#' @param p duration of latent period (day). Derived from  Table 1 Savary
+#'  *et al.* 2012.
 #' @param Sx maximum number of sites. Derived from Table 1 Savary *et al.* 2012.
 #' @param a aggregation coefficient. Derived from Table 1 Savary *et al.* 2012.
 #' @param RRS relative rate of physiological senescence. From Table 1 Savary

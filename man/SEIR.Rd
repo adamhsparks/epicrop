@@ -67,11 +67,11 @@ removals) for temperature. Derived from Table 1 Savary \emph{et al.} 2012.}
 \item{RcOpt}{potential basic infection rate corrected for removals. Derived
 from Table 1 Savary \emph{et al.} 2012.}
 
-\item{p}{duration of latent period. Derived from  Table 1 Savary \emph{et al.}
-2012.}
+\item{p}{duration of latent period (day). Derived from  Table 1 Savary
+\emph{et al.} 2012.}
 
-\item{i}{duration of infectious period. Derived from Table 1 Savary \emph{et al.}
-2012.}
+\item{i}{duration of infectious period (day). Derived from Table 1 Savary
+\emph{et al.} 2012.}
 
 \item{Sx}{maximum number of sites. Derived from Table 1 Savary \emph{et al.} 2012.}
 
