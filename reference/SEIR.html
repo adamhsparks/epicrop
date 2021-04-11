@@ -143,7 +143,6 @@ be used with other pathosystems as well.</p>
   I0 <span class='op'>=</span> <span class='fl'>1</span>,
   <span class='va'>RcA</span>,
   <span class='va'>RcT</span>,
-  <span class='va'>RcW</span>,
   <span class='va'>RcOpt</span>,
   <span class='va'>p</span>,
   <span class='va'>i</span>,
@@ -207,17 +206,14 @@ wet or not. Savary <em>et al.</em> 2012 used 5mm. From Table 1 Savary
     </tr>
     <tr>
       <th>RcA</th>
-      <td><p>modifier for Rc for crop age. From Table 1 Savary <em>et al.</em>
+      <td><p>modifier for <em>Rc</em> (the basic infection rate corrected for
+removals) for crop age. From Table 1 Savary <em>et al.</em>
 2012.</p></td>
     </tr>
     <tr>
       <th>RcT</th>
-      <td><p>modifier for Rc for temperature. From Table 1 Savary <em>et al.</em>
-2012.</p></td>
-    </tr>
-    <tr>
-      <th>RcW</th>
-      <td><p>modifier for Rc for wetness. From Table 1 Savary <em>et al.</em>
+      <td><p>modifier for <em>Rc</em> (the basic infection rate corrected for
+removals) for temperature. From Table 1 Savary <em>et al.</em>
 2012.</p></td>
     </tr>
     <tr>
@@ -291,12 +287,12 @@ functions:</p><ul>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-J. Modeling and mapping potential epidemics of rice diseases globally. Crop
-Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+J. Modeling and mapping potential epidemics of rice diseases globally. <em>Crop
+Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 <a href='http://dx.doi.org/10.1016/j.cropro.2011.11.009'>http://dx.doi.org/10.1016/j.cropro.2011.11.009</a>.</p>
 <p>Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. Modelling and
 Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
-Septoria Tritici Blotch Using EPIWHEAT. European Journal of Plant Pathology
+Septoria Tritici Blotch Using EPIWHEAT. <em>European Journal of Plant Pathology</em>
 142, no. 4 (August 1, 2015): 771–90. DOI:
 <a href='https://doi.org/10.1007/s10658-015-0650-7'>https://doi.org/10.1007/s10658-015-0650-7</a>.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
@@ -317,8 +313,6 @@ Adam H. Sparks, Aji Sukarta</p>
   <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>6</span> <span class='op'>*</span> <span class='fl'>20</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.35</span>, <span class='fl'>0.35</span>, <span class='fl'>0.35</span>, <span class='fl'>0.47</span>, <span class='fl'>0.59</span>, <span class='fl'>0.71</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>RcT</span> <span class='op'>&lt;-</span>
   <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>15</span> <span class='op'>+</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>5</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.06</span>, <span class='fl'>1.0</span>, <span class='fl'>0.85</span>, <span class='fl'>0.16</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>RcW</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>8</span> <span class='op'>*</span> <span class='fl'>3</span>,
-             <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.12</span>, <span class='fl'>0.20</span>, <span class='fl'>0.38</span>, <span class='fl'>0.46</span>, <span class='fl'>0.60</span>, <span class='fl'>0.73</span>, <span class='fl'>0.87</span>, <span class='fl'>1.0</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>emergence</span> <span class='op'>&lt;-</span> <span class='st'>"2000-07-15"</span>
 
 <span class='op'>(</span><span class='fu'>SEIR</span><span class='op'>(</span>
@@ -328,7 +322,6 @@ Adam H. Sparks, Aji Sukarta</p>
   duration <span class='op'>=</span> <span class='fl'>120</span>,
   RcA <span class='op'>=</span> <span class='va'>RcA</span>,
   RcT <span class='op'>=</span> <span class='va'>RcT</span>,
-  RcW <span class='op'>=</span> <span class='va'>RcW</span>,
   RcOpt <span class='op'>=</span> <span class='fl'>0.61</span>,
   p <span class='op'>=</span>  <span class='fl'>6</span>,
   i <span class='op'>=</span> <span class='fl'>19</span>,
