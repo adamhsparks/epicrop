@@ -8,35 +8,34 @@ predict_sheath_blight(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA POWER from
-\code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
-the following properly named columns in them will work.
-\tabular{rl}{
-\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
-\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
-\strong{TEMP}:\tab Mean daily temperature (°C).\cr
-\strong{RHUM}:\tab Mean daily temperature (°C).\cr
-\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
+\code{\link[=get_wth]{get_wth()}}, but any\link[=data.frame]{base} object that has
+the following properly named columns in them will work.\tabular{rl}{
+   \strong{Field Name} \tab \strong{Value} \cr
+   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
+   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
+   \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
 }}
 
 \item{emergence}{Expected date of crop emergence}
 
-\item{...}{Additional arguments, see \code{\link{SEIR}}}
+\item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table]{data.table}} of disease severity and
-infection sites. See \code{\link{SEIR}} for a full description of the
+A \link[=data.table]{data.table} of disease severity and
+infection sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the
 column values.
 }
 \description{
 A dynamic mechanistic simulation of sheath blight disease of rice, causal
-agent \emph{Rhizoctonia solani} AG1-1A Kühn. The model is driven by daily
-weather data, which can easily be accessed using \code{\link{get_wth}} to
-download weather data from \acronym{NASA} \acronym{POWER} using
-\CRANpkg{nasapower}.
+agent \emph{Rhizoctonia solani} AG1-1A Kühn. The model is driven by daily weather
+data, which can easily be accessed using\code{\link[=get_wth]{get_wth()}} to download weather data
+from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
-Default values for this disease model are derived from Table 2 (Savary
-\emph{et al.} 2012).
+Default values for this disease model are derived from Table 2 (Savary \emph{et
+al.} 2012).
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -92,16 +91,16 @@ on sheath blight (ShB) development and yield loss. International Rice
 Research Newsletter 15:19-20.
 
 Tu, C.C., Chang, Y.C., Wang, C.W., 1979. Studies on the ecology of
-\emph{Rhizoctonia solani}, the causal organism of rice sheath blight.
-National Science Council Monthly, ROC 7:1208-1219.
+\emph{Rhizoctonia solani}, the causal organism of rice sheath blight. National
+Science Council Monthly, ROC 7:1208-1219.
 }
 \seealso{
 \itemize{
-\item \code{\link{SEIR}},
-\item \code{\link{predict_bacterial_blight}},
-\item \code{\link{predict_brown_spot}},
-\item \code{\link{predict_leaf_blast}},
-\item \code{\link{predict_tungro}}
+\item \code{\link[=SEIR]{SEIR()}},
+\item \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}},
+\item \code{\link[=predict_brown_spot]{predict_brown_spot()}},
+\item \code{\link[=predict_leaf_blast]{predict_leaf_blast()}},
+\item \code{\link[=predict_tungro]{predict_tungro()}}
 }
 }
 \author{

@@ -2,13 +2,12 @@
 #' Predict rice bacterial blight severity
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
-#' causal agent \emph{Xanthomonas oryzae} pv. \emph{oryzae}.
-#' The model is driven by daily weather data, which can easily be accessed using
-#' \code{\link{get_wth}} to download weather data from \acronym{NASA}
-#' \acronym{POWER} using \CRANpkg{nasapower}.
+#' causal agent *Xanthomonas oryzae* pv. *oryzae*.  The model is driven by daily
+#' weather data, which can easily be accessed using [get_wth()] to download
+#' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
-#' \emph{et al.} 2012).
+#' *et al.* 2012).
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' University of Southern Queensland Centre for Crop Health.
@@ -17,21 +16,22 @@
 #' Aunario (IRRI).
 #'
 #' @param wth Weather data with a daily time-step, normally NASA POWER from
-#' \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
+#'[get_wth()], but any[base][data.frame()] object that has
 #' the following properly named columns in them will work.
-#'   \tabular{rl}{
-#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TEMP**:\tab Mean daily temperature (°C).\cr
-#'   **RHUM**:\tab Mean daily temperature (°C).\cr
-#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
-#'   }
+#'
+#'   **Field Name** | **Value**
+#'   --------------:|:----------
+#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
+#'   *DOY* | Consecutive day of year, commonly called "Julian date"
+#'   *TEMP* | Mean daily temperature (°C)
+#'   *RHUM* | Mean daily temperature (°C)
+#'   *RAIN* | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments, see \code{\link{SEIR}}
+#' @param ... Additional arguments, see [SEIR()]
 #'
-#' @return A \code{\link[data.table]{data.table}} of disease severity and
-#'  infection sites. See \code{\link{SEIR}} for a full description of the
+#' @return A [data.table][data.table()] of disease severity and
+#'  infection sites. See [SEIR()] for a full description of the
 #'  column values.
 #'
 #' @examples
@@ -63,7 +63,7 @@
 #' paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 #'
 #' Medalla, E. 1992. Characterization of resistance of IR cultivars to two races
-#' of \emph{Xanthomonas oryzae} pv. \emph{oryzae}. Unpublished M.S. Thesis,
+#' of *Xanthomonas oryzae* pv. *oryzae*. Unpublished M.S. Thesis,
 #' University of the Philippines at Los Baños, 81 p.
 #'
 #' Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
@@ -76,11 +76,11 @@
 #' <https://doi.org/10.1016/j.cropro.2011.11.009>.
 #'
 #' @seealso
-#' * \code{\link{SEIR}},
-#' * \code{\link{predict_brown_spot}},
-#' * \code{\link{predict_leaf_blast}},
-#' * \code{\link{predict_sheath_blight}}
-#' * \code{\link{predict_tungro}}
+#' * [SEIR()],
+#' * [predict_brown_spot()],
+#' * [predict_leaf_blast()],
+#' * [predict_sheath_blight()],
+#' * [predict_tungro()]
 #'
 #' @export
 predict_bacterial_blight <- function(wth, emergence, ...) {

@@ -26,13 +26,13 @@ SEIR(
 }
 \arguments{
 \item{wth}{a data frame of weather on a daily time-step containing data with
-the following field names.
-\tabular{rl}{
-\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
-\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
-\strong{TEMP}:\tab Mean daily temperature (°C).\cr
-\strong{RHUM}:\tab Mean daily temperature (°C).\cr
-\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
+the following field names.\tabular{rl}{
+   \strong{Field Name} \tab \strong{Value} \cr
+   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
+   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
+   \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
@@ -73,7 +73,9 @@ from Table 1 Savary \emph{et al.} 2012.}
 
 \item{Sx}{maximum number of sites. Described in Table 1 Savary \emph{et al.} 2012.}
 
-\item{a}{aggregation coefficient. Described in Table 1 Savary \emph{et al.} 2012.}
+\item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
+Described in Table 1 Savary \emph{et al.} 2012. See further details in \strong{\emph{a} -
+Aggregation} section.}
 
 \item{RRS}{relative rate of physiological senescence. From Table 1 Savary
 \emph{et al.} 2012.}
@@ -82,26 +84,24 @@ from Table 1 Savary \emph{et al.} 2012.}
 2012.}
 }
 \value{
-A \code{\link[data.table]{data.table}} containing the following
-columns
-\tabular{rl}{
-\strong{simday}:\tab Zero indexed day of simulation that was run.\cr
-\strong{dates}:\tab  Date of simulation.\cr
-\strong{sites}:\tab Total number of sites present on day "x".\cr
-\strong{latent}:\tab Number of latent sites present on day "x".\cr
-\strong{infectious}:\tab Number of infectious sites present on day "x".\cr
-\strong{removed}:\tab Number of removed sites present on day "x".\cr
-\strong{senesced}:\tab Number of senesced sites present on day "x".\cr
-\strong{rateinf}:\tab Rate of infection. \cr
-\strong{rtransfer}:\tab Rate of transfer from latent to infectious sites. \cr
-\strong{rgrowth}:\tab Rate of growth of healthy sites. \cr
-\strong{rsenesced}:\tab Rate of senescence of healthy sites. \cr
-\strong{rlex}:\tab Rate of lesion expansion. \cr
-\strong{diseased}:\tab Number of diseased (latent + infectious + removed)
-sites. \cr
-\strong{severity}:\tab Disease severity or incidence (for tungro).\cr
-\strong{lat}:\tab Latitude value as provided by \code{wth} object.\cr
-\strong{lon}:\tab Longitude value as provided by \code{wth} object.\cr
+A \link[=data.table]{data.table} containing the following columns:\tabular{rl}{
+   \strong{Field Name} \tab \strong{Value} \cr
+   \emph{simday} \tab Zero indexed day of simulation that was run \cr
+   \emph{dates} \tab Date of simulation \cr
+   \emph{sites} \tab Total number of sites present on day "x" \cr
+   \emph{latent} \tab Number of latent sites present on day "x" \cr
+   \emph{infectious} \tab Number of infectious sites present on day "x" \cr
+   \emph{removed} \tab Number of removed sites present on day "x" \cr
+   \emph{senesced} \tab Number of senesced sites present on day "x" \cr
+   \emph{rateinf} \tab Rate of infection \cr
+   \emph{rtransfer} \tab Rate of transfer from latent to infectious sites \cr
+   \emph{rgrowth} \tab Rate of growth of healthy sites \cr
+   \emph{rsenesced} \tab Rate of senescence of healthy sites \cr
+   \emph{rlex} \tab Rate of lesion expansion \cr
+   \emph{diseased} \tab Number of diseased (latent + infectious + removed) sites \cr
+   \emph{severity} \tab Disease severity or incidence (for tungro) \cr
+   \emph{lat} \tab Latitude value as provided by \code{wth} object \cr
+   \emph{lon} \tab Longitude value as provided by \code{wth} object \cr
 }
 }
 \description{
@@ -109,17 +109,15 @@ This function is originally used by specific disease models in EPIRICE to
 model disease severity of several rice diseases.  Given proper values it can
 be used with other pathosystems as well.
 }
-\details{
-\code{SEIR} is called by the following specific disease modelling
-functions:
-\itemize{
-\item \code{\link{predict_bacterial_blight}},
-\item \code{\link{predict_brown_spot}},
-\item \code{\link{predict_leaf_blast}},
-\item \code{\link{predict_sheath_blight}},
-\item \code{\link{predict_tungro}}
+\section{\emph{a} - Aggregation}{
+When \emph{a} is set to 1 the assumption is that that there is no disease
+aggregation with new infections occurring at random among the healthy sites.
+When \emph{a} is greater than 1 there is aggregation in the disease occurrence.
+The pathogen is unable to access the entire population of healthy sites,
+which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
+greater detail.
 }
-}
+
 \examples{
 \donttest{
 # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -158,6 +156,16 @@ Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
 Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.
+}
+\seealso{
+\code{SEIR()} is called by the following specific disease modelling functions:
+\itemize{
+\item \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}},
+\item \code{\link[=predict_brown_spot]{predict_brown_spot()}},
+\item \code{\link[=predict_leaf_blast]{predict_leaf_blast()}},
+\item \code{\link[=predict_sheath_blight]{predict_sheath_blight()}},
+\item \code{\link[=predict_tungro]{predict_tungro()}}
+}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,

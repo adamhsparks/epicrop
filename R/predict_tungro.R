@@ -2,13 +2,13 @@
 #' Predict rice tungro severity
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
-#' \emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Baciliform Virus}.
+#' *Rice Tungro Spherical Virus* and *Rice Tungro Baciliform Virus*.
 #' The model is driven by daily weather data, which can easily be accessed using
-#' \code{\link{get_wth}} to download weather data from \acronym{NASA}
+#'[get_wth()] to download weather data from \acronym{NASA}
 #' \acronym{POWER} using \CRANpkg{nasapower}.
 #'
-#' Default values for this disease model are derived from Table 2 (Savary
-#' \emph{et al.} 2012).
+#' Default values for this disease model are derived from Table 2 (Savary *et
+#' al.* 2012).
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' University of Southern Queensland Centre for Crop Health.
@@ -17,22 +17,22 @@
 #' Aunario (IRRI).
 #'
 #' @param wth Weather data with a daily time-step, normally NASA POWER from
-#' \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
-#' the following properly named columns in them will work.
-#'   \tabular{rl}{
-#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TEMP**:\tab Mean daily temperature (°C).\cr
-#'   **RHUM**:\tab Mean daily temperature (°C).\cr
-#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
-#'   }
+#' [get_wth()], but any[base][data.frame()] object that has the following
+#' properly named columns in them will work.
+#'
+#'   **Field Name** | **Value**
+#'   --------------:|:----------
+#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
+#'   *DOY* | Consecutive day of year, commonly called "Julian date"
+#'   *TEMP* | Mean daily temperature (°C)
+#'   *RHUM* | Mean daily temperature (°C)
+#'   *RAIN* | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments, see \code{\link{SEIR}}
+#' @param ... Additional arguments, see [SEIR()]
 #'
-#' @return A \code{\link[data.table]{data.table}} of disease severity and
-#'  infection sites. See \code{\link{SEIR}} for a full description of the
-#'  column values.
+#' @return A [data.table][data.table()] of disease severity and infection sites.
+#' See [SEIR()] for a full description of the column values.
 #'
 #' @examples
 #' \donttest{
@@ -48,7 +48,7 @@
 #' and Adam H. Sparks
 #'
 #' @references Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
-#' transmission of rice tungro virus by \emph{Nephotettix virescens}.
+#' transmission of rice tungro virus by *Nephotettix virescens*.
 #' Philippine Phytopathology 11:46-57.
 #'
 #' Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected with the
@@ -68,11 +68,11 @@
 #' <https://doi.org/10.1094/PD-77-0877>.
 #'
 #' @seealso
-#' * \code{\link{SEIR}},
-#' * \code{\link{predict_bacterial_blight}},
-#' * \code{\link{predict_brown_spot}},
-#' * \code{\link{predict_leaf_blast}}
-#' * \code{\link{predict_sheath_blight}}
+#' * [SEIR()],
+#' * [predict_bacterial_blight()],
+#' * [predict_brown_spot()],
+#' * [predict_leaf_blast()],
+#' * [predict_sheath_blight()]
 #'
 #' @export
 predict_tungro <- function(wth, emergence, ...) {

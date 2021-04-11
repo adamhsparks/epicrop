@@ -8,30 +8,30 @@ predict_brown_spot(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA POWER from
-\code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
-the following properly named columns in them will work.
-\tabular{rl}{
-\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
-\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
-\strong{TEMP}:\tab Mean daily temperature (°C).\cr
-\strong{RHUM}:\tab Mean daily temperature (°C).\cr
-\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
+\code{\link[=get_wth]{get_wth()}}, but any\link[=data.frame]{base} object that has
+the following properly named columns in them will work.\tabular{rl}{
+   \strong{Field Name} \tab \strong{Value} \cr
+   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
+   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
+   \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
 }}
 
 \item{emergence}{Expected date of crop emergence}
 
-\item{...}{Additional arguments, see \code{\link{SEIR}}}
+\item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table]{data.table}} of disease severity and
-infection sites. See \code{\link{SEIR}} for a full description of the
+A \link[=data.table]{data.table} of disease severity and
+infection sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the
 column values.
 }
 \description{
 A dynamic mechanistic simulation of rice brown spot, causal agent
-\emph{Cochliobolus miyabeanus}. The model is driven by daily weather data,
-which can easily be accessed using \code{\link{get_wth}} to download weather
-data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+\emph{Cochliobolus miyabeanus}. The model is driven by daily weather data, which
+can easily be accessed using\code{\link[=get_wth]{get_wth()}} to download weather data from
+\acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
 Default values for this disease model are derived from Table 2 (Savary
@@ -64,9 +64,9 @@ plot(x = bs$dates, y = bs$severity, type = "l")
 Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera
 oryzae} in the Wageningen polder, Surinam. PhD thesis, 97p.
 
-Levy, Y. and Cohen, Y., 1980. Sporulation of \emph{Helminthosporium turcicum}
-on sweet corn: Effects of temperature and dew period. Canadian Journal of
-Plant Pathology 2:65-69. DOI: \url{https://doi.org/10.1080/07060668009501440}.
+Levy, Y. and Cohen, Y., 1980. Sporulation of \emph{Helminthosporium turcicum} on
+sweet corn: Effects of temperature and dew period. Canadian Journal of Plant
+Pathology 2:65-69. DOI: \url{https://doi.org/10.1080/07060668009501440}.
 
 Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
 paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
@@ -76,8 +76,8 @@ plant and its susceptibility to \emph{Helminthosporium} and blast disease.
 Proceedings of the Indian Academy of Sciences B 29:44-50.
 
 Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and humidity on
-disease development and sporulation of \emph{Helminthosporium oryzae} on
-rice. Indian Phytopathology 30:258-259.
+disease development and sporulation of \emph{Helminthosporium oryzae} on rice.
+Indian Phytopathology 30:258-259.
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 and mapping potential epidemics of rice diseases globally. Crop Protection,
@@ -90,11 +90,11 @@ New Haven, 85 p.
 }
 \seealso{
 \itemize{
-\item \code{\link{SEIR}},
-\item \code{\link{predict_bacterial_blight}},
-\item \code{\link{predict_leaf_blast}},
-\item \code{\link{predict_sheath_blight}}
-\item \code{\link{predict_tungro}}
+\item \code{\link[=SEIR]{SEIR()}},
+\item \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}},
+\item \code{\link[=predict_leaf_blast]{predict_leaf_blast()}},
+\item \code{\link[=predict_sheath_blight]{predict_sheath_blight()}},
+\item \code{\link[=predict_tungro]{predict_tungro()}}
 }
 }
 \author{

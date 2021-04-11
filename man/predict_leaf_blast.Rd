@@ -2,36 +2,35 @@
 % Please edit documentation in R/predict_leaf_blast.R
 \name{predict_leaf_blast}
 \alias{predict_leaf_blast}
-\title{Predict rice leaf severity}
+\title{Predict rice leaf blast severity}
 \usage{
 predict_leaf_blast(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA POWER from
-\code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
-the following properly named columns in them will work.
-\tabular{rl}{
-\strong{YYYYMMDD}:\tab Date as Year Month Day (ISO8601).\cr
-\strong{DOY}:\tab  Consecutive day of year, commonly called "Julian date".\cr
-\strong{TEMP}:\tab Mean daily temperature (°C).\cr
-\strong{RHUM}:\tab Mean daily temperature (°C).\cr
-\strong{RAIN}:\tab Mean daily rainfall (mm).\cr
+\code{\link[=get_wth]{get_wth()}}, but any\link[=data.frame]{base} object that has
+the following properly named columns in them will work.\tabular{rl}{
+   \strong{Field Name} \tab \strong{Value} \cr
+   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
+   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
+   \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
 }}
 
 \item{emergence}{Expected date of crop emergence}
 
-\item{...}{Additional arguments, see \code{\link{SEIR}}}
+\item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table]{data.table}} of disease severity and
-infection sites. See \code{\link{SEIR}} for a full description of the
-column values.
+A \link[=data.table]{data.table} of disease severity and infection sites.
+See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-\emph{Magnaporthe oryzae}. The model is driven by daily weather data,
-which can easily be accessed using \code{\link{get_wth}} to download weather
-data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+\emph{Magnaporthe oryzae}. The model is driven by daily weather data, which can
+easily be accessed using\code{\link[=get_wth]{get_wth()}} to download weather data from
+\acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
 Default values for this disease model are derived from Table 2 (Savary
@@ -87,16 +86,16 @@ Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \url{https://doi.org/10.1016/j.cropro.2011.11.009}.
 
 Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
-\emph{Pyricularia oryzae} Cav. in upland rice varieties. PhD Thesis,
-University of the Philippines at Los Banos, 82 p.
+\emph{Pyricularia oryzae} Cav. in upland rice varieties. PhD Thesis, University of
+the Philippines at Los Banos, 82 p.
 }
 \seealso{
 \itemize{
-\item \code{\link{SEIR}},
-\item \code{\link{predict_bacterial_blight}},
-\item \code{\link{predict_brown_spot}},
-\item \code{\link{predict_sheath_blight}}
-\item \code{\link{predict_tungro}}
+\item \code{\link[=SEIR]{SEIR()}},
+\item \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}},
+\item \code{\link[=predict_brown_spot]{predict_brown_spot()}},
+\item \code{\link[=predict_sheath_blight]{predict_sheath_blight()}},
+\item \code{\link[=predict_tungro]{predict_tungro()}}
 }
 }
 \author{

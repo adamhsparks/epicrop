@@ -7,13 +7,15 @@
 #'
 #' @param wth a data frame of weather on a daily time-step containing data with
 #'  the following field names.
-#'   \tabular{rl}{
-#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TEMP**:\tab Mean daily temperature (°C).\cr
-#'   **RHUM**:\tab Mean daily temperature (°C).\cr
-#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
-#'   }
+#'
+#'   **Field Name** | **Value**
+#'   --------------:|:----------
+#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
+#'   *DOY* | Consecutive day of year, commonly called "Julian date"
+#'   *TEMP* | Mean daily temperature (°C)
+#'   *RHUM* | Mean daily temperature (°C)
+#'   *RAIN* | Mean daily rainfall (mm)
+#'
 #' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
 #'  format. Described in Table 1 Savary *et al.* 2012.
 #' @param onset expected number of days until the onset of disease after
@@ -39,7 +41,9 @@
 #' @param p duration of latent period (day). Described in  Table 1 Savary
 #'  *et al.* 2012.
 #' @param Sx maximum number of sites. Described in Table 1 Savary *et al.* 2012.
-#' @param a aggregation coefficient. Described in Table 1 Savary *et al.* 2012.
+#' @param a aggregation coefficient, values are from 1 to >1 (numeric).
+#'  Described in Table 1 Savary *et al.* 2012. See further details in ***a* -
+#'  Aggregation** section.
 #' @param RRS relative rate of physiological senescence. From Table 1 Savary
 #'  *et al.* 2012.
 #' @param RRG relative rate of growth. Described in Table 1 Savary *et al.*
@@ -82,38 +86,45 @@
 #'   RRG = 0.1
 #' ))
 #' }
-#' @details \code{SEIR} is called by the following specific disease modelling
-#'  functions:
-#' * \code{\link{predict_bacterial_blight}},
-#' * \code{\link{predict_brown_spot}},
-#' * \code{\link{predict_leaf_blast}},
-#' * \code{\link{predict_sheath_blight}},
-#' * \code{\link{predict_tungro}}
+#' @details # *a* - Aggregation
+#' When *a* is set to 1 the assumption is that that there is no disease
+#' aggregation with new infections occurring at random among the healthy sites.
+#' When *a* is greater than 1 there is aggregation in the disease occurrence.
+#' The pathogen is unable to access the entire population of healthy sites,
+#' which results in disease aggregation. Refer to Savary *et al.* (2012) for
+#' greater detail.
+#'
+#' @seealso
+#' `SEIR()` is called by the following specific disease modelling functions:
+#' * [predict_bacterial_blight()],
+#' * [predict_brown_spot()],
+#' * [predict_leaf_blast()],
+#' * [predict_sheath_blight()],
+#' * [predict_tungro()]
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' Adam H. Sparks, Aji Sukarta
 #'
-#' @return A \code{\link[data.table]{data.table}} containing the following
-#'  columns
-#'   \tabular{rl}{
-#'   **simday**:\tab Zero indexed day of simulation that was run.\cr
-#'   **dates**:\tab  Date of simulation.\cr
-#'   **sites**:\tab Total number of sites present on day "x".\cr
-#'   **latent**:\tab Number of latent sites present on day "x".\cr
-#'   **infectious**:\tab Number of infectious sites present on day "x".\cr
-#'   **removed**:\tab Number of removed sites present on day "x".\cr
-#'   **senesced**:\tab Number of senesced sites present on day "x".\cr
-#'   **rateinf**:\tab Rate of infection. \cr
-#'   **rtransfer**:\tab Rate of transfer from latent to infectious sites. \cr
-#'   **rgrowth**:\tab Rate of growth of healthy sites. \cr
-#'   **rsenesced**:\tab Rate of senescence of healthy sites. \cr
-#'   **rlex**:\tab Rate of lesion expansion. \cr
-#'   **diseased**:\tab Number of diseased (latent + infectious + removed)
-#'    sites. \cr
-#'   **severity**:\tab Disease severity or incidence (for tungro).\cr
-#'   **lat**:\tab Latitude value as provided by `wth` object.\cr
-#'   **lon**:\tab Longitude value as provided by `wth` object.\cr
-#'   }
+#' @return A [data.table][data.table()] containing the following columns:
+#'
+#'   **Field Name** | **Value**
+#'   --------------:|:----------
+#'   *simday*| Zero indexed day of simulation that was run
+#'   *dates*|  Date of simulation
+#'   *sites*| Total number of sites present on day "x"
+#'   *latent*| Number of latent sites present on day "x"
+#'   *infectious*| Number of infectious sites present on day "x"
+#'   *removed*| Number of removed sites present on day "x"
+#'   *senesced*| Number of senesced sites present on day "x"
+#'   *rateinf*| Rate of infection
+#'   *rtransfer*| Rate of transfer from latent to infectious sites
+#'   *rgrowth*| Rate of growth of healthy sites
+#'   *rsenesced*| Rate of senescence of healthy sites
+#'   *rlex*| Rate of lesion expansion
+#'   *diseased*| Number of diseased (latent + infectious + removed) sites
+#'   *severity*| Disease severity or incidence (for tungro)
+#'   *lat*| Latitude value as provided by `wth` object
+#'   *lon*| Longitude value as provided by `wth` object
 #'
 #' @export
 #'

@@ -1,13 +1,13 @@
 
-#' Predict rice leaf severity
+#' Predict rice leaf blast severity
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-#' \emph{Magnaporthe oryzae}. The model is driven by daily weather data,
-#' which can easily be accessed using \code{\link{get_wth}} to download weather
-#' data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+#' *Magnaporthe oryzae*. The model is driven by daily weather data, which can
+#' easily be accessed using[get_wth()] to download weather data from
+#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
-#' \emph{et al.} 2012).
+#' *et al.* 2012).
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' University of Southern Queensland Centre for Crop Health.
@@ -16,26 +16,26 @@
 #' Aunario (IRRI).
 #'
 #' @note The optimum temperature for leaf blast as presented in Table 2 of
-#' Savary \emph{et al.} 2012 has a typo. The optimal value should be 20 °C, not
+#' Savary *et al.* 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
 #' @param wth Weather data with a daily time-step, normally NASA POWER from
-#' \code{\link{get_wth}}, but any \code{\link[base]{data.frame}} object that has
+#'[get_wth()], but any[base][data.frame()] object that has
 #' the following properly named columns in them will work.
-#'   \tabular{rl}{
-#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TEMP**:\tab Mean daily temperature (°C).\cr
-#'   **RHUM**:\tab Mean daily temperature (°C).\cr
-#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
-#'   }
+#'
+#'   **Field Name** | **Value**
+#'   --------------:|:----------
+#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
+#'   *DOY* | Consecutive day of year, commonly called "Julian date"
+#'   *TEMP* | Mean daily temperature (°C)
+#'   *RHUM* | Mean daily temperature (°C)
+#'   *RAIN* | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments, see \code{\link{SEIR}}
+#' @param ... Additional arguments, see [SEIR()]
 #'
-#' @return A \code{\link[data.table]{data.table}} of disease severity and
-#'  infection sites. See \code{\link{SEIR}} for a full description of the
-#'  column values.
+#' @return A [data.table][data.table()] of disease severity and infection sites.
+#' See [SEIR()] for a full description of the column values.
 #'
 #' @examples
 #' \donttest{
@@ -50,7 +50,6 @@
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' and Adam H. Sparks
 #'
-
 #' @references El Refaei, M.I., 1977. Epidemiology of rice blast disease in the
 #' tropics with special reference to the leaf wetness in relation to disease
 #' development. PhD Thesis, Indian Agricultural Research Institute, New Delhi,
@@ -66,7 +65,7 @@
 #' <https://doi.org/10.1094/PD-71-1035>.
 #'
 #' Kato, H and Kozaka, T., 1974. Effect of temperature on lesion enlargement and
-#' sporulation of \emph{Pyricularia oryzae} in rice leaves. Phytopathology
+#' sporulation of *Pyricularia oryzae* in rice leaves. Phytopathology
 #' 64:828-830. DOI: <https://doi.org/10.1094/Phyto-64-828>.
 #'
 #' Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
@@ -78,15 +77,15 @@
 #' <https://doi.org/10.1016/j.cropro.2011.11.009>.
 #'
 #' Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
-#' \emph{Pyricularia oryzae} Cav. in upland rice varieties. PhD Thesis,
-#' University of the Philippines at Los Banos, 82 p.
+#' *Pyricularia oryzae* Cav. in upland rice varieties. PhD Thesis, University of
+#' the Philippines at Los Banos, 82 p.
 #'
 #' @seealso
-#' * \code{\link{SEIR}},
-#' * \code{\link{predict_bacterial_blight}},
-#' * \code{\link{predict_brown_spot}},
-#' * \code{\link{predict_sheath_blight}}
-#' * \code{\link{predict_tungro}}
+#' * [SEIR()],
+#' * [predict_bacterial_blight()],
+#' * [predict_brown_spot()],
+#' * [predict_sheath_blight()],
+#' * [predict_tungro()]
 #'
 #' @export
 predict_leaf_blast <- function(wth, emergence, ...) {
