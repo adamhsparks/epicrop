@@ -29,9 +29,10 @@ knitr::opts_chunk$set(eval = all(
 
 ## Introduction to epicrop
 
-`epicrop` provides an R package of the EPIRICE model as described in Savary *et al.* 2012. Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
+`epicrop` provides an R package of the EPIRICE model as described in Savary *et al.* 2012.
+Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
 The model uses daily weather data to estimate disease severity.
-A function, `get_wth()`, is provided to simplify downloading weather data from the [NASA POWER web API](https://power.larc.nasa.gov) that are suitable for use in `epicrop`.
+A function, `get_wth()`, is provided to simplify downloading weather data from the [NASA POWER API](https://power.larc.nasa.gov) that are suitable for use in _epicrop_.
 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
 If you are interested in modelling other pathosystems, please refer to Savary *et al.* 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
@@ -85,7 +86,7 @@ library(tidyr)
 
 ### Wet season sites
 
-The model records the number of sites for each bin daily, this can be graphed as follows.
+The model records the number of sites for each bin daily; this can be graphed as follows.
 
 ```{r wet_plot_sites}
 dat <- pivot_longer(
@@ -193,7 +194,7 @@ AUDPC(
 
 The AUDPC of the wet season is greater than that of the dry season.
 Checking the data and referring to the curves, the wet season severity reaches a peak value of `r round(max(bb_wet$severity), 2)`% and the dry season tops out at `r round(max(bb_dry$severity), 2)`%.
-So this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease severity.
+So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease severity.
 
 # References
 Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0. URL: <https://CRAN.R-project.org/package=epifitter>.
