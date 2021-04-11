@@ -123,9 +123,6 @@ predict_leaf_blast <- function(wth, emergence, ...) {
     )
   temp_coef_rc <-
     cbind(2:9 * 5, c(0, 0.5, 1, 0.6, 0.2, 0.05, 0.01, 0))
-  rh_coef_rc <- cbind(4 + (0:10) * 2,
-                      c(0, 0.02, 0.09, 0.19, 0.29, 0.43, 0.54, 0.63, 0.77,
-                        0.88, 1.0))
   return(
     SEIR(
       wth = wth,
@@ -134,7 +131,6 @@ predict_leaf_blast <- function(wth, emergence, ...) {
       duration = 120,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
-      RcW = rh_coef_rc,
       RcOpt = 1.14,
       p =  5,
       i = 20,

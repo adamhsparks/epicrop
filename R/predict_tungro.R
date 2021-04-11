@@ -81,7 +81,6 @@ predict_tungro <- function(wth, emergence, ...) {
   temp_coef_rc <- cbind(c(9, 10 + (0:9 * 3.1111), 40),
                         c(0, 0.13, 0.65, 0.75, 0.83, 0.89, 0.93, 0.97, 1.0,
                           0.96, 0.93, 0))
-  rh_coef_rc <- 1
   return(
     SEIR(
       wth = wth,
@@ -90,7 +89,6 @@ predict_tungro <- function(wth, emergence, ...) {
       duration = 120,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
-      RcW = rh_coef_rc,
       RcOpt = 0.18,
       p =  6,
       i = 120,

@@ -92,10 +92,6 @@ predict_bacterial_blight <- function(wth, emergence, ...) {
     cbind(16 + (0:8 * 3),
           c(0, 0.29, 0.44, 0.90, 0.90, 1.0, 0.88,
                             0.01, 0))
-  rh_coef_rc <-
-    cbind(c(2, 1:8 * 3),
-          c(0, 0.67, 0.81, 0.84, 0.87, 0.91, 0.94,
-                           0.97, 1.0))
   return(
     SEIR(
       wth = wth,
@@ -104,7 +100,6 @@ predict_bacterial_blight <- function(wth, emergence, ...) {
       duration = 120,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
-      RcW = rh_coef_rc,
       RcOpt = 0.87,
       p =  5,
       i = 30,

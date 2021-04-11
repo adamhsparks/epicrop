@@ -111,8 +111,6 @@ predict_sheath_blight <- function(wth, emergence, ...) {
             1.0,
             1.0
           ))
-  rh_coef_rc <-
-    cbind(c(8, 3:8 * 3), c(0, 0.24, 0.41, 0.68, 0.94, 0.97, 1.0))
   temp_coef_rc <-
     cbind(3:10 * 4, c(0, 0.42, 0.94, 0.94, 1.0, 0.85, 0.64, 0))
   return(
@@ -123,7 +121,6 @@ predict_sheath_blight <- function(wth, emergence, ...) {
       duration = 120,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
-      RcW = rh_coef_rc,
       RcOpt = 0.46,
       p =  3,
       i = 120,

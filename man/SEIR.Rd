@@ -15,7 +15,6 @@ SEIR(
   I0 = 1,
   RcA,
   RcT,
-  RcW,
   RcOpt,
   p,
   i,
@@ -65,10 +64,6 @@ removals) for crop age. From Table 1 Savary \emph{et al.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature. From Table 1 Savary \emph{et al.}
-2012.}
-
-\item{RcW}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for wetness. From Table 1 Savary \emph{et al.}
 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals. From
@@ -140,8 +135,6 @@ RcA <-
   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 RcT <-
   cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
-RcW <- cbind(0:8 * 3,
-             c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
 emergence <- "2000-07-15"
 
 (SEIR(
@@ -151,7 +144,6 @@ emergence <- "2000-07-15"
   duration = 120,
   RcA = RcA,
   RcT = RcT,
-  RcW = RcW,
   RcOpt = 0.61,
   p =  6,
   i = 19,

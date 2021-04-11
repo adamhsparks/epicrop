@@ -1,4 +1,5 @@
 
+
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
 #' This function is originally used by specific disease models in EPIRICE to
@@ -36,9 +37,6 @@
 #' @param RcT modifier for *Rc* (the basic infection rate corrected for
 #'  removals) for temperature. From Table 1 Savary *et al.*
 #'  2012.
-#' @param RcW modifier for *Rc* (the basic infection rate corrected for
-#'  removals) for wetness. From Table 1 Savary *et al.*
-#'  2012.
 #' @param RcOpt potential basic infection rate corrected for removals. From
 #'  Table 1 Savary *et al.* 2012.
 #' @param i duration of infectious period. From Table 1 Savary
@@ -74,8 +72,6 @@
 #'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 #' RcT <-
 #'   cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
-#' RcW <- cbind(0:8 * 3,
-#'              c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
 #' emergence <- "2000-07-15"
 #'
 #' (SEIR(
@@ -85,7 +81,6 @@
 #'   duration = 120,
 #'   RcA = RcA,
 #'   RcT = RcT,
-#'   RcW = RcW,
 #'   RcOpt = 0.61,
 #'   p =  6,
 #'   i = 19,
@@ -142,7 +137,6 @@ SEIR <-
            I0 = 1,
            RcA,
            RcT,
-           RcW,
            RcOpt,
            p,
            i,
@@ -170,10 +164,6 @@ SEIR <-
     # less than duration
     wth <-
       wth[YYYYMMDD %between% c(emergence - 1, emergence + duration)]
-
-    if (wetness == 1) {
-      W <- leaf_wet(wth, simple = TRUE)
-    }
 
     # outputvars
     cofr <-
@@ -222,13 +212,9 @@ SEIR <-
         break
       }
 
-      if (wetness == 0) {
-        if (wth$RHUM[cs_2] == rhlim |
-            wth$RAIN[cs_2] >= rainlim) {
-          RHCoef[cs_2] <- 1
-        }
-      } else {
-        RHCoef[day + 1] <- afgen(RcW, W[day + 1])
+      if (wth$RHUM[cs_2] == rhlim |
+          wth$RAIN[cs_2] >= rainlim) {
+        RHCoef[cs_2] <- 1
       }
 
       cs_6 <- day + 1
@@ -325,14 +311,14 @@ afgen <- function(xy, x) {
   } else if (x >= xy[d[1], 1]) {
     res <- xy[d[1], 2]
   } else {
-    a <- xy[xy[, 1] <= x, ]
-    b <- xy[xy[, 1] >= x, ]
+    a <- xy[xy[, 1] <= x,]
+    b <- xy[xy[, 1] >= x,]
     if (length(a) == 2) {
-      int <- rbind(a, b[1, ])
+      int <- rbind(a, b[1,])
     } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1], ], b)
+      int <- rbind(a[dim(a)[1],], b)
     } else {
-      int <- rbind(a[dim(a)[1], ], b[1, ])
+      int <- rbind(a[dim(a)[1],], b[1,])
     }
     if (x == int[1, 1]) {
       res <- int[1, 2]

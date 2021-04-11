@@ -90,8 +90,6 @@ predict_brown_spot <- function(wth, emergence, ...) {
     cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
   temp_coef_rc <-
     cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
-  rh_coef_rc <- cbind(0:8 * 3,
-                      c(0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0))
   return(
     SEIR(
       wth = wth,
@@ -100,7 +98,6 @@ predict_brown_spot <- function(wth, emergence, ...) {
       duration = 120,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
-      RcW = rh_coef_rc,
       RcOpt = 0.61,
       p =  6,
       i = 19,
