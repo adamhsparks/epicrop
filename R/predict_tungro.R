@@ -2,7 +2,7 @@
 #' Predict rice tungro severity
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
-#' *Rice Tungro Spherical Virus* and *Rice Tungro Baciliform Virus*.
+#' *Rice Tungro Spherical Virus* and *Rice Tungro Bacilliform Virus*.
 #' The model is driven by daily weather data, which can easily be accessed using
 #'[get_wth()] to download weather data from \acronym{NASA}
 #' \acronym{POWER} using \CRANpkg{nasapower}.

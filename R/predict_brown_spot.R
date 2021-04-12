@@ -51,7 +51,7 @@
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
-#' @references Klomp, A.O., 1977. Early senescence of rice and *Dreschslera
+#' @references Klomp, A.O., 1977. Early senescence of rice and *Drechslera
 #' oryzae* in the Wageningen polder, Surinam. PhD thesis, 97p.
 #'
 #' Levy, Y. and Cohen, Y., 1980. Sporulation of *Helminthosporium turcicum* on

@@ -28,7 +28,7 @@ See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of tungro disease of rice, causal agents
-\emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Baciliform Virus}.
+\emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Bacilliform Virus}.
 The model is driven by daily weather data, which can easily be accessed using
 \code{\link[=get_wth]{get_wth()}} to download weather data from \acronym{NASA}
 \acronym{POWER} using \CRANpkg{nasapower}.
