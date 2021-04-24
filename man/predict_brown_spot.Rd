@@ -61,7 +61,7 @@ plot(x = bs$dates, y = bs$severity, type = "l")
 
 }
 \references{
-Klomp, A.O., 1977. Early senescence of rice and \emph{Dreschslera
+Klomp, A.O., 1977. Early senescence of rice and \emph{Drechslera
 oryzae} in the Wageningen polder, Surinam. PhD thesis, 97p.
 
 Levy, Y. and Cohen, Y., 1980. Sporulation of \emph{Helminthosporium turcicum} on

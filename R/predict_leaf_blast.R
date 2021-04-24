@@ -78,7 +78,7 @@
 #'
 #' Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
 #' *Pyricularia oryzae* Cav. in upland rice varieties. PhD Thesis, University of
-#' the Philippines at Los Banos, 82 p.
+#' the Philippines at Los Baños, 82 p.
 #'
 #' @seealso
 #' * [SEIR()],
