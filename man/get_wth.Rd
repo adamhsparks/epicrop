@@ -37,7 +37,7 @@ Get weather data from NASA POWER API
 }
 \details{
 This function is just a wrapper for the \CRANpkg{nasapower}
-\code{\link[nasapower]{get_power}} function with predefined parameters
+\code{\link[nasapower:get_power]{nasapower::get_power()}} function with predefined parameters
 suitable for use in \pkg{epicrop}.
 }
 \examples{

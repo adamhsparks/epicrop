@@ -54,8 +54,7 @@
 #' Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 #' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
 #'
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
@@ -85,7 +84,7 @@
 #'   RRS = 0.01,
 #'   RRG = 0.1
 #' ))
-#' }
+#'
 #' @details # *a* - Aggregation
 #' When *a* is set to 1 the assumption is that that there is no disease
 #' aggregation with new infections occurring at random among the healthy sites.
@@ -105,7 +104,7 @@
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' Adam H. Sparks, Aji Sukarta
 #'
-#' @return A [data.table][data.table()] containing the following columns:
+#' @return A [data.table::data.table()] containing the following columns:
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------

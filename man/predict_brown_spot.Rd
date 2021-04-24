@@ -8,7 +8,7 @@ predict_brown_spot(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA POWER from
-\code{\link[=get_wth]{get_wth()}}, but any\link[=data.frame]{base} object that has
+\code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object that has
 the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
@@ -23,7 +23,7 @@ the following properly named columns in them will work.\tabular{rl}{
 \item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \link[=data.table]{data.table} of disease severity and
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease severity and
 infection sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the
 column values.
 }
@@ -49,7 +49,7 @@ Savary \emph{et al.} 2012 has a typo. The optimal value should be 25 °C, not
 20 °C as shown. The correct value, 25 °C, is used in this implementation.
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # get weather for IRRI Zeigler Experiment Station in wet season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
@@ -57,8 +57,7 @@ wth <- get_wth(
 )
 bs <- predict_brown_spot(wth, emergence = "2000-07-01")
 plot(x = bs$dates, y = bs$severity, type = "l")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Klomp, A.O., 1977. Early senescence of rice and \emph{Drechslera
