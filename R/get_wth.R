@@ -45,12 +45,10 @@
 #' @export get_wth
 
 get_wth <- function(lonlat, dates, duration) {
-
   if (!missing(duration)) {
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
-
   wth <- setDT(
     nasapower::get_power(
       lonlat = lonlat,
@@ -62,7 +60,6 @@ get_wth <- function(lonlat, dates, duration) {
       temporal_average = "DAILY"
     )
   )
-
   wth[, c("YEAR", "MM", "DD") := NULL][]
   setnames(
     wth,
@@ -89,11 +86,8 @@ get_wth <- function(lonlat, dates, duration) {
                 "RAIN",
                 "LAT",
                 "LON"))
-
   .check_na(.wth = wth)
-
   return(wth)
-
 }
 
 
@@ -106,6 +100,7 @@ get_wth <- function(lonlat, dates, duration) {
 #' @return NULL
 #' @example .check_na(.wth)
 #' @noRd
+
 .check_na <- function(.wth) {
   if (anyNA(.wth[, c("TEMP", "RHUM", "RAIN")])) {
     message(
