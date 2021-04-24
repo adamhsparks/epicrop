@@ -96,6 +96,15 @@ get_wth <- function(lonlat, dates, duration) {
 
 }
 
+
+#' Check POWER data for any missing values
+#' @param .wth A data.frame object from [nasapower::get_power()] with weather
+#'  data for checking
+#' Checks the data returned from the POWER dataset and informs the user if
+#' missing values are found. It does not do anything other than emitting am
+#' message about missing data.
+#' @return NULL
+#' @example .check_na(.wth)
 #' @noRd
 .check_na <- function(.wth) {
   if (anyNA(.wth[, c("TEMP", "RHUM", "RAIN")])) {
@@ -105,5 +114,6 @@ get_wth <- function(lonlat, dates, duration) {
       "You should inspect the weather data carefully and either fill missing\n",
       "or try again to download to see if that provides a complete set of data."
     )
+    return(NULL)
   }
 }
