@@ -77,7 +77,7 @@ University of the Philippines at Los Baños, 81 p.
 
 Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 resistance to bacterial blight disease of rice. Journal of Phytopathology
-119:312-318. DOI: <10.1111/j.1439-0434.1987.tb04402.x>.
+119:312-318. DOI: \url{https://doi.org/10.1111/j.1439-0434.1987.tb04402.x}.
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 and mapping potential epidemics of rice diseases globally. Crop Protection,
