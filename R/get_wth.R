@@ -10,7 +10,7 @@
 #'  match the `duration` parameter value passed along to any of the `predict`
 #'  functions.
 #'
-#' @return A [data.table][data.table()] of weather data, dates and
+#' @return A [data.table::data.table()] of weather data, dates and
 #'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
 #'  with the following columns:
 #'   \tabular{rl}{
