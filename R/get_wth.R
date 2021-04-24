@@ -5,29 +5,30 @@
 #'  entered as x, y coordinates.
 #' @param dates A character vector of start and end dates in that order.
 #' @param duration A numeric value indicating how many days a single
-#'  growing season being simulated is to be. If this is used, only the start
-#'  date will be used and the end date will be ignored if supplied. This must
-#'  match the `duration` parameter value passed along to any of the `predict`
-#'  functions.
+#'  growing season being simulated is to be.  If this is used, only the start
+#'  date will be used and the end date will be ignored if supplied.  This must
+#'  match the `duration` parameter value passed along to [SEIR()] or any of the
+#'  `predict` family of functions.
 #'
 #' @return A [data.table::data.table()] of weather data, dates and
 #'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
 #'  with the following columns:
-#'   \tabular{rl}{
-#'   **YYYYMMDD**:\tab Date as Year Month Day (ISO8601).\cr
-#'   **DOY**:\tab  Consecutive day of year, commonly called "Julian date".\cr
-#'   **TEMP**:\tab Mean daily temperature (°C).\cr
-#'   **RHUM**:\tab Mean daily temperature (°C).\cr
-#'   **RAIN**:\tab Mean daily rainfall (mm).\cr
-#'   **LAT**:\tab Latitude of area of interest.\cr
-#'   **LON**:\tab Longitude of area of interest.\cr
-#'   }
-#' @details This function is just a wrapper for the \CRANpkg{nasapower}
-#'  [nasapower::get_power()] function with predefined parameters
-#'  suitable for use in \pkg{epicrop}.
 #'
-#' @examples
-#' \donttest{
+#'   **Field Name** | **Value**
+#'   --------------:|:----------
+#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
+#'   *DOY*      | Consecutive day of year, commonly called "Julian date"
+#'   *TEMP*     | Mean daily temperature (°C)
+#'   *RHUM*     | Mean daily temperature (°C)
+#'   *RAIN*     | Mean daily rainfall (mm)
+#'   *LAT*      | Latitude of area of interest
+#'   *LON*      | Longitude of area of interest
+#'
+#' @details This function is just a wrapper for the [nasapower::get_power()]
+#'  function with predefined parameters suitable for use in \pkg{epicrop}.
+#'
+#' @examplesIf interactive()
+#'
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
 #' (wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
@@ -40,7 +41,7 @@
 #'   dates = "2000-06-30",
 #'   duration = 120
 #' ))
-#' }
+#'
 #' @author Adam H. Sparks
 #' @export get_wth
 
