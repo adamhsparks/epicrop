@@ -8,7 +8,7 @@ predict_bacterial_blight(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally NASA POWER from
-\code{\link[=get_wth]{get_wth()}}, but any\link[=data.frame]{base} object that has
+\code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object that has
 the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
@@ -23,7 +23,7 @@ the following properly named columns in them will work.\tabular{rl}{
 \item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \link[=data.table]{data.table} of disease severity and
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease severity and
 infection sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the
 column values.
 }
@@ -45,7 +45,7 @@ Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # get weather for IRRI Zeigler Experiment Station in wet season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
@@ -53,7 +53,7 @@ wth <- get_wth(
 )
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 plot(x = bb$dates, y = bb$severity, type = "l")
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Adhikari, T.B., 1991. Effects of rice genotype and environment on
@@ -77,7 +77,7 @@ University of the Philippines at Los Baños, 81 p.
 
 Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 resistance to bacterial blight disease of rice. Journal of Phytopathology
-119:312-318. DOI: <10.1111/j.1439-0434.1987.tb04402.x>.
+119:312-318. DOI: \url{https://doi.org/10.1111/j.1439-0434.1987.tb04402.x}.
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 and mapping potential epidemics of rice diseases globally. Crop Protection,

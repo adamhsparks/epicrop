@@ -16,7 +16,7 @@
 #' Aunario (IRRI).
 #'
 #' @param wth Weather data with a daily time-step, normally NASA POWER from
-#'[get_wth()], but any[base][data.frame()] object that has
+#'[get_wth()], but any[base::data.frame()] object that has
 #' the following properly named columns in them will work.
 #'
 #'   **Field Name** | **Value**
@@ -30,12 +30,11 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
 #'
-#' @return A [data.table][data.table()] of disease severity and
+#' @return A [data.table::data.table()] of disease severity and
 #'  infection sites. See [SEIR()] for a full description of the
 #'  column values.
 #'
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
@@ -43,7 +42,7 @@
 #' )
 #' bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 #' plot(x = bb$dates, y = bb$severity, type = "l")
-#' }
+#'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' and Adam H. Sparks
 #'
@@ -68,7 +67,7 @@
 #'
 #' Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 #' resistance to bacterial blight disease of rice. Journal of Phytopathology
-#' 119:312-318. DOI: <10.1111/j.1439-0434.1987.tb04402.x>.
+#' 119:312-318. DOI: <https://doi.org/10.1111/j.1439-0434.1987.tb04402.x>.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,

@@ -84,7 +84,7 @@ Aggregation} section.}
 2012.}
 }
 \value{
-A \link[=data.table]{data.table} containing the following columns:\tabular{rl}{
+A \code{\link[data.table:data.table]{data.table::data.table()}} containing the following columns:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{simday} \tab Zero indexed day of simulation that was run \cr
    \emph{dates} \tab Date of simulation \cr
@@ -119,7 +119,7 @@ greater detail.
 }
 
 \examples{
-\donttest{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # get weather for IRRI Zeigler Experiment Station in wet season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
@@ -149,7 +149,7 @@ emergence <- "2000-07-15"
   RRS = 0.01,
   RRG = 0.1
 ))
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,

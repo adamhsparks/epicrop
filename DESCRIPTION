@@ -42,7 +42,7 @@ Authors@R: c(
            comment = c("Suggested fixes for several typos in the documentation",
                      c(ORCID = "0000-0003-4398-409X"))))
 Maintainer: Adam Sparks <adamhsparks@gmail.com>
-Description: Generic simulation modelling of crop diseases using a Susceptibe-
+Description: Generic simulation modelling of crop diseases using a Susceptible-
     Exposed-Infectious-Removed ('SEIR') model. This type of model was first
     described in botanical epidemiology by Zadoks (1971)
     <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary
@@ -57,7 +57,7 @@ Description: Generic simulation modelling of crop diseases using a Susceptibe-
     function that is suitable for parameterising for use with other pathosystems
     as demonstrated in Savary et al. 2012 and 2015.
 License: GPL-3 + file LICENSE
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9001
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Encoding: UTF-8
@@ -76,9 +76,10 @@ Suggests:
     ggplot2,
     rmarkdown,
     testthat,
-    tidyr
+    tidyr,
+    spelling
 VignetteBuilder: knitr
-Language: en-AU
+Language: en-US
 X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease, model,
     seir, agricultural-modelling, agricultural-modeling, crop-protection,

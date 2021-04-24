@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Generic simulation modelling of crop diseases using a Susceptibe-
+Generic simulation modelling of crop diseases using a Susceptible-
     Exposed-Infectious-Removed ('SEIR') model. This type of model was first
     described in botanical epidemiology by Zadoks (1971)
     <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary

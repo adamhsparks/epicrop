@@ -20,7 +20,7 @@
 #' 20 °C as shown. The correct value, 25 °C, is used in this implementation.
 #'
 #' @param wth Weather data with a daily time-step, normally NASA POWER from
-#'[get_wth()], but any[base][data.frame()] object that has
+#'[get_wth()], but any[base::data.frame()] object that has
 #' the following properly named columns in them will work.
 #'
 #'   **Field Name** | **Value**
@@ -34,12 +34,11 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
 #'
-#' @return A [data.table][data.table()] of disease severity and
+#' @return A [data.table::data.table()] of disease severity and
 #'  infection sites. See [SEIR()] for a full description of the
 #'  column values.
 #'
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
@@ -47,11 +46,10 @@
 #' )
 #' bs <- predict_brown_spot(wth, emergence = "2000-07-01")
 #' plot(x = bs$dates, y = bs$severity, type = "l")
-#' }
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
-#' @references Klomp, A.O., 1977. Early senescence of rice and *Dreschslera
+#' @references Klomp, A.O., 1977. Early senescence of rice and *Drechslera
 #' oryzae* in the Wageningen polder, Surinam. PhD thesis, 97p.
 #'
 #' Levy, Y. and Cohen, Y., 1980. Sporulation of *Helminthosporium turcicum* on
