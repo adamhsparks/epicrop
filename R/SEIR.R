@@ -307,7 +307,7 @@ SEIR <-
   }
 
 # Original author of afgen() function is Robert J. Hijmans
-# Adapted from CRAN package meteor for epicrop package package by Adam H. Sparks
+# Adapted from R package cropsim for epicrop package package by Adam H. Sparks
 # License GPL3
 #' @noRd
 afgen <- function(xy, x) {
