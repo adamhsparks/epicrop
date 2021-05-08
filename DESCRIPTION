@@ -1,7 +1,7 @@
 Package: epicrop
 Type: Package
 Title: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: c(
     person(given = "Adam",
            family = "Sparks",
