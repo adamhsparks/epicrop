@@ -2,7 +2,7 @@ AUDPC
 Adhikari
 Alves
 BLIGHTAS
-Baciliform
+Bacilliform
 Baw
 Baños
 Brun
@@ -86,6 +86,10 @@ Tikhonova
 Tiongco
 Tritici
 Tungro
+VignetteDepends
+VignetteEncoding
+VignetteEngine
+VignetteIndexEntry
 Wageningen
 Waggoner
 Willocquet
@@ -107,6 +111,7 @@ https
 infective
 inoculum
 joss
+knitr
 lon
 miyabeanus
 modelled
@@ -120,6 +125,7 @@ pv
 rateinf
 rgrowth
 rlex
+rmarkdown
 rsenesced
 rtransfer
 ryegrass
@@ -128,6 +134,7 @@ simday
 solani
 spatio
 sporulation
+tidyr
 tritici
 tungro
 turcicum
