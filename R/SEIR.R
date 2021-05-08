@@ -186,8 +186,8 @@ SEIR <-
       cs_1 <- day + 1
       if (day == 0) {
         # start crop growth
-        sites[cs_1] <- H0
-        rsenesced[cs_1] <- RRS * sites[cs_1]
+        sites[[cs_1]] <- H0
+        rsenesced[[cs_1]] <- RRS * sites[cs_1]
       } else {
         if (day > i) {
           removed_today <- infectious[infday + 2]
@@ -195,67 +195,67 @@ SEIR <-
           removed_today <- 0
         }
 
-        sites[cs_1] <-
+        sites[[cs_1]] <-
           sites[day] + rgrowth[day] - infection[day] -
           rsenesced[day]
-        rsenesced[cs_1] <- removed_today + RRS * sites[cs_1]
-        senesced[cs_1] <- senesced[day] + rsenesced[day]
+        rsenesced[[cs_1]] <- removed_today + RRS * sites[cs_1]
+        senesced[[cs_1]] <- senesced[day] + rsenesced[day]
 
-        latency[cs_1] <- infection[day]
+        latency[[cs_1]] <- infection[day]
         latday <- day - p + 1
         latday <- max(0, latday)
-        now_latent[day + 1] <- sum(latency[latday:day + 1])
+        now_latent[[day + 1]] <- sum(latency[latday:day + 1])
 
-        infectious[day + 1] <- rtransfer[day]
+        infectious[[day + 1]] <- rtransfer[day]
         infday <- day - i + 1
         infday <- max(0, infday)
-        now_infectious[day + 1] <- sum(infectious[infday:day + 1])
+        now_infectious[[day + 1]] <- sum(infectious[infday:day + 1])
       }
 
       cs_2 <- day + 1
       if (sites[cs_2] < 0) {
-        sites[cs_2] <- 0
+        sites[[cs_2]] <- 0
         break
       }
 
       if (wth$RHUM[cs_2] == rhlim |
           wth$RAIN[cs_2] >= rainlim) {
-        RHCoef[cs_2] <- 1
+        RHCoef[[cs_2]] <- 1
       }
 
       cs_6 <- day + 1
       cs_3 <- cs_6
-      rc[cs_6] <- RcOpt * afgen(RcA, day) *
+      rc[[cs_6]] <- RcOpt * afgen(RcA, day) *
         afgen(RcT, wth$TEMP[day + 1]) * RHCoef[cs_3]
       cs_4 <- day + 1
-      diseased[cs_3] <- sum(infectious) +
+      diseased[[cs_3]] <- sum(infectious) +
         now_latent[cs_4] + removed[cs_4]
       cs_5 <- day + 1
-      removed[cs_4] <- sum(infectious) - now_infectious[cs_5]
+      removed[[cs_4]] <- sum(infectious) - now_infectious[cs_5]
 
-      cofr[cs_5] <- 1 - (diseased[cs_5] /
+      cofr[[cs_5]] <- 1 - (diseased[cs_5] /
                            (sites[cs_5] + diseased[cs_5]))
 
       if (day == onset) {
         # initialisation of the disease
-        infection[cs_5] <- I0
+        infection[[cs_5]] <- I0
       } else if (day > onset) {
-        infection[cs_5] <- now_infectious[cs_5] *
+        infection[[cs_5]] <- now_infectious[cs_5] *
           rc[cs_5] * (cofr[cs_5] ^ a)
       } else {
         infection[cs_5] <- 0
       }
 
       if (day >=  p) {
-        rtransfer[cs_5] <- latency[latday + 1]
+        rtransfer[[cs_5]] <- latency[latday + 1]
       } else {
-        rtransfer[cs_5] <- 0
+        rtransfer[[cs_5]] <- 0
       }
 
-      total_sites[cs_5] <- diseased[cs_5] + sites[cs_5]
+      total_sites[[cs_5]] <- diseased[cs_5] + sites[cs_5]
       rgrowth[cs_5] <- RRG * sites[cs_5] *
         (1 - (total_sites[cs_5] / Sx))
-      severity[cs_5] <- (diseased[cs_5] - removed[cs_5]) /
+      severity[[cs_5]] <- (diseased[cs_5] - removed[cs_5]) /
         (total_sites[cs_5] - removed[cs_5]) * 100
     } # end loop
 
