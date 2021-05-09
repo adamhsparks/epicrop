@@ -262,23 +262,23 @@ SEIR <-
 
     res <-
       data.table(
-        cbind(
-          0:duration,
-          sites,
-          now_latent,
-          now_infectious,
-          removed,
-          senesced,
-          infection,
-          rtransfer,
-          rgrowth,
-          rsenesced,
-          diseased,
-          severity
-        )
+        0:duration,
+        sites,
+        now_latent,
+        now_infectious,
+        removed,
+        senesced,
+        infection,
+        rtransfer,
+        rgrowth,
+        rsenesced,
+        diseased,
+        severity
       )
 
     res[, dates := dates[1:(day + 1)]]
+    res[, lat := rep_len(wth[, LAT], .N)]
+    res[, lon := rep_len(wth[, LON], .N)]
 
     setnames(
       res,
@@ -300,9 +300,6 @@ SEIR <-
     )
 
     setcolorder(res, c("simday", "dates"))
-
-    res[, lat := rep_len(wth[, LAT], .N)]
-    res[, lon := rep_len(wth[, LON], .N)]
 
     return(res[])
   }
