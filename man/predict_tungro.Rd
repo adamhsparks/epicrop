@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_tungro.R
 \name{predict_tungro}
 \alias{predict_tungro}
-\title{Predict rice tungro severity}
+\title{Predict rice tungro disease severity}
 \usage{
 predict_tungro(wth, emergence, ...)
 }
