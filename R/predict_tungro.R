@@ -1,5 +1,5 @@
 
-#' Predict rice tungro severity
+#' Predict rice tungro disease severity
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
 #' *Rice Tungro Spherical Virus* and *Rice Tungro Bacilliform Virus*.
@@ -11,7 +11,7 @@
 #' al.* 2012).
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
-#' University of Southern Queensland Centre for Crop Health.
+#' Department of Primary Industries and Regional Development, WA, AU.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).

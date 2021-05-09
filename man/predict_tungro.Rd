@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_tungro.R
 \name{predict_tungro}
 \alias{predict_tungro}
-\title{Predict rice tungro severity}
+\title{Predict rice tungro disease severity}
 \usage{
 predict_tungro(wth, emergence, ...)
 }
@@ -39,7 +39,7 @@ al.} 2012).
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
-University of Southern Queensland Centre for Crop Health.
+Department of Primary Industries and Regional Development, WA, AU.
 Original model development: Serge Savary & Rene Pangga (IRRI).
 Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).

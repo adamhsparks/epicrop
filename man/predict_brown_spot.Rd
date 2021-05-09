@@ -39,7 +39,7 @@ Default values for this disease model are derived from Table 2 (Savary
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
-University of Southern Queensland Centre for Crop Health.
+Department of Primary Industries and Regional Development, WA, AU.
 Original model development: Serge Savary & Rene Pangga (IRRI).
 Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
@@ -61,7 +61,7 @@ plot(x = bs$dates, y = bs$severity, type = "l")
 }
 \references{
 Klomp, A.O., 1977. Early senescence of rice and \emph{Drechslera
-oryzae} in the Wageningen polder, Surinam. PhD thesis, 97p.
+oryzae} in the Wageningen polder, Surinam. PhD Thesis, 97p.
 
 Levy, Y. and Cohen, Y., 1980. Sporulation of \emph{Helminthosporium turcicum} on
 sweet corn: Effects of temperature and dew period. Canadian Journal of Plant
