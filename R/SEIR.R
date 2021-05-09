@@ -224,8 +224,8 @@ SEIR <-
       }
 
       cs_3 <- day + 1
-      rc[[cs_3]] <- RcOpt * afgen(RcA, day) *
-        afgen(RcT, wth$TEMP[day + 1]) * RHCoef[cs_3]
+      rc[cs_3] <- RcOpt * select_mod_val(xy = RcA, x = day) *
+        select_mod_val(xy = RcT, x = wth$TEMP[day + 1]) * RHCoef[cs_3]
 
       cs_4 <- day + 1
       diseased[cs_3] <- sum(infectious) +
@@ -357,4 +357,3 @@ select_mod_val <- function(xy, x) {
   }
   return(res[[1]])
 }
-
