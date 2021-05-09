@@ -292,7 +292,9 @@ SEIR <-
         "rsenesced",
         "diseased",
         "severity",
-        "dates"
+        "dates",
+        "lat",
+        "lon"
       )
     )
 
