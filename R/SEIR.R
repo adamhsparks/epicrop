@@ -234,15 +234,13 @@ SEIR <-
       cs_5 <- day + 1
       removed[cs_4] <- sum(infectious) - now_infectious[cs_5]
 
-      cofr[cs_5] <- 1 - (diseased[cs_5] /
-                           (sites[cs_5] + diseased[cs_5]))
+      cofr[cs_5] <- 1 - (diseased[cs_5] / (sites[cs_5] + diseased[cs_5]))
 
       if (day == onset) {
         # initialisation of the disease
         infection[cs_5] <- I0
       } else if (day > onset) {
-        infection[cs_5] <- now_infectious[cs_5] *
-          rc[cs_5] * (cofr[cs_5] ^ a)
+        infection[cs_5] <- now_infectious[cs_5] * rc[cs_5] * (cofr[cs_5] ^ a)
       } else {
         infection[cs_5] <- 0
       }
@@ -254,8 +252,7 @@ SEIR <-
       }
 
       total_sites[cs_5] <- diseased[cs_5] + sites[cs_5]
-      rgrowth[cs_5] <- RRG * sites[cs_5] *
-        (1 - (total_sites[cs_5] / Sx))
+      rgrowth[cs_5] <- RRG * sites[cs_5] * (1 - (total_sites[cs_5] / Sx))
       severity[cs_5] <- (diseased[cs_5] - removed[cs_5]) /
         (total_sites[cs_5] - removed[cs_5]) * 100
     } # end loop
