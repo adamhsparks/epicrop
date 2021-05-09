@@ -223,9 +223,8 @@ SEIR <-
         RHCoef[[cs_2]] <- 1
       }
 
-      cs_6 <- day + 1
-      cs_3 <- cs_6
-      rc[[cs_6]] <- RcOpt * afgen(RcA, day) *
+      cs_3 <- day + 1
+      rc[[cs_3]] <- RcOpt * afgen(RcA, day) *
         afgen(RcT, wth$TEMP[day + 1]) * RHCoef[cs_3]
       cs_4 <- day + 1
       diseased[[cs_3]] <- sum(infectious) +
