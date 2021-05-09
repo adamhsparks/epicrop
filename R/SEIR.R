@@ -182,7 +182,7 @@ SEIR <-
       rep(0, times = duration + 1)
 
     for (day in 0:duration) {
-      # State calculations
+      # State calculations for() loop -----
       cs_1 <- day + 1
       if (day == 0) {
         # start crop growth
@@ -226,9 +226,11 @@ SEIR <-
       cs_3 <- day + 1
       rc[[cs_3]] <- RcOpt * afgen(RcA, day) *
         afgen(RcT, wth$TEMP[day + 1]) * RHCoef[cs_3]
+
       cs_4 <- day + 1
       diseased[cs_3] <- sum(infectious) +
         now_latent[cs_4] + removed[cs_4]
+
       cs_5 <- day + 1
       removed[cs_4] <- sum(infectious) - now_infectious[cs_5]
 
