@@ -303,30 +303,52 @@ SEIR <-
     return(res[])
   }
 
-# Original author of afgen() function is Robert J. Hijmans
-# Adapted from R package cropsim for epicrop package package by Adam H. Sparks
-# License GPL3
+#' Select a modifier value from a given curve
+#'
+#' Takes a matrix and numeric value for the ith day in the duration of a `for()`
+#'  loop and returns a value from the matrix corresponding to the value along
+#'  the corresponding correction curve, either `RcA` (removals corrected for
+#'  crop age) or `RcT` (removals corrected for temperature).
+#'
+#' @param xy a matrix of modifier values for the rate of removals corrected for
+#'  crop age, `RcA`, or temperature, `RcT` representing a fitted curve.
+#' @param x a numeric value indicating the ith day of the duration of the run
+#'  for crop age, `RcA`, or the temperature value, `RcT`, on the ith day.
+#'
+#' @note The original author of afgen() function is Robert J. Hijmans
+#'  This was adapted from the \R package \pkg{cropsim} for \pkg{epicrop}
+#'  by Adam H. Sparks under the GPL3 License.
+#'
+#' @examples
+#' day <- 1
+#' RcA <-
+#'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
+#' select_mod_val(xy = RcA, x = day)
+#'
+#' @return A numeric value corresponding to the ith day's value
+#'
 #' @noRd
-afgen <- function(xy, x) {
+select_mod_val <- function(xy, x) {
   d <- dim(xy)
   if (x <= xy[1, 1]) {
     res <- xy[1, 2]
   } else if (x >= xy[d[1], 1]) {
     res <- xy[d[1], 2]
   } else {
-    a <- xy[xy[, 1] <= x,]
-    b <- xy[xy[, 1] >= x,]
+    a <- xy[xy[, 1] <= x, ]
+    b <- xy[xy[, 1] >= x, ]
     if (length(a) == 2) {
-      int <- rbind(a, b[1,])
+      int <- rbind(a, b[1, ])
     } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1],], b)
+      int <- rbind(a[dim(a)[1], ], b)
     } else {
-      int <- rbind(a[dim(a)[1],], b[1,])
+      int <- rbind(a[dim(a)[1], ], b[1, ])
     }
     if (x == int[1, 1]) {
       res <- int[1, 2]
     } else if (x == int[2, 1]) {
       res <- int[2, 2]
+      # calculate point on curve if no previous match in xy matrix
     } else {
       res <- int[1, 2] + (x - int[1, 1]) *
         ((int[2, 2] - int[1, 2]) /
