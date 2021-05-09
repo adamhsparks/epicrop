@@ -57,7 +57,7 @@ plot(x = bb$dates, y = bb$severity, type = "l")
 }
 \references{
 Adhikari, T.B., 1991. Effects of rice genotype and environment on
-bacterial blight progression. PhD thesis, University of the Philippines at
+bacterial blight progression. PhD Thesis, University of the Philippines at
 Los Baños, 143 p.
 
 Baw A. and Mew, T.W., 1988. Scoring systems for evaluating rice varietal
@@ -72,8 +72,8 @@ Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
 paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 
 Medalla, E. 1992. Characterization of resistance of IR cultivars to two races
-of \emph{Xanthomonas oryzae} pv. \emph{oryzae}. Unpublished M.S. Thesis,
-University of the Philippines at Los Baños, 81 p.
+of \emph{Xanthomonas oryzae} pv. \emph{oryzae}. Unpublished M.S. Thesis, University
+of the Philippines at Los Baños, 81 p.
 
 Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 resistance to bacterial blight disease of rice. Journal of Phytopathology

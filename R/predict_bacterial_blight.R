@@ -47,7 +47,7 @@
 #' and Adam H. Sparks
 #'
 #' @references Adhikari, T.B., 1991. Effects of rice genotype and environment on
-#' bacterial blight progression. PhD thesis, University of the Philippines at
+#' bacterial blight progression. PhD Thesis, University of the Philippines at
 #' Los Baños, 143 p.
 #'
 #' Baw A. and Mew, T.W., 1988. Scoring systems for evaluating rice varietal
@@ -62,8 +62,8 @@
 #' paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 #'
 #' Medalla, E. 1992. Characterization of resistance of IR cultivars to two races
-#' of *Xanthomonas oryzae* pv. *oryzae*. Unpublished M.S. Thesis,
-#' University of the Philippines at Los Baños, 81 p.
+#' of *Xanthomonas oryzae* pv. *oryzae*. Unpublished M.S. Thesis, University
+#' of the Philippines at Los Baños, 81 p.
 #'
 #' Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 #' resistance to bacterial blight disease of rice. Journal of Phytopathology
