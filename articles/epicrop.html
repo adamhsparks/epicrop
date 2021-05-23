@@ -83,7 +83,7 @@
       <h1 data-toc-skip>epicrop</h1>
                         <h4 class="author">Adam H Sparks</h4>
             
-            <h4 class="date">2021-04-24</h4>
+            <h4 class="date">2021-05-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/adamhsparks/epicrop/blob/master/vignettes/epicrop.Rmd"><code>vignettes/epicrop.Rmd</code></a></small>
       <div class="hidden name"><code>epicrop.Rmd</code></div>
@@ -103,7 +103,7 @@
 <a href="#getting-started" class="anchor"></a>Getting started</h3>
 <p>Load the library.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/adamhsparks/epicrop/">epicrop</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="get-weather-data" class="section level3">
 <h3 class="hasAnchor">
@@ -146,27 +146,27 @@
 ##  Mean   : 60   Mean   :2000-08-29   Mean   :1627   Mean   : 51.79  
 ##  3rd Qu.: 90   3rd Qu.:2000-09-28   3rd Qu.:2379   3rd Qu.: 87.73  
 ##  Max.   :120   Max.   :2000-10-28   Max.   :2618   Max.   :217.59  
-##    infectious       removed         senesced       rateinf       rtransfer   
-##  Min.   :  0.0   Min.   :  0.0   Min.   :   0   Min.   : 0.0   Min.   : 0.0  
-##  1st Qu.:  1.0   1st Qu.:  0.0   1st Qu.: 116   1st Qu.: 0.0   1st Qu.: 0.0  
-##  Median : 19.8   Median :  1.0   Median : 655   Median : 0.0   Median : 0.0  
-##  Mean   :217.3   Mean   : 38.4   Mean   : 823   Mean   :10.8   Mean   :10.1  
-##  3rd Qu.:391.6   3rd Qu.: 21.5   3rd Qu.:1436   3rd Qu.:16.7   3rd Qu.:13.7  
-##  Max.   :932.3   Max.   :413.0   Max.   :2369   Max.   :62.6   Max.   :62.6  
-##     rgrowth        rsenesced        diseased         severity    
-##  Min.   : 9.69   Min.   : 1.00   Min.   :   0.0   Min.   : 0.00  
-##  1st Qu.:23.41   1st Qu.: 9.47   1st Qu.:   1.7   1st Qu.: 0.18  
-##  Median :32.66   Median :22.13   Median :  31.6   Median : 1.21  
-##  Mean   :40.45   Mean   :20.03   Mean   : 307.4   Mean   :10.26  
-##  3rd Qu.:57.08   3rd Qu.:26.15   3rd Qu.: 629.7   3rd Qu.:21.54  
-##  Max.   :79.70   Max.   :59.79   Max.   :1292.1   Max.   :40.17  
-##       lat            lon     
-##  Min.   :14.7   Min.   :121  
-##  1st Qu.:14.7   1st Qu.:121  
-##  Median :14.7   Median :121  
-##  Mean   :14.7   Mean   :121  
-##  3rd Qu.:14.7   3rd Qu.:121  
-##  Max.   :14.7   Max.   :121</code></pre>
+##    infectious       removed         senesced       rateinf    
+##  Min.   :  0.0   Min.   :  0.0   Min.   :   0   Min.   : 0.0  
+##  1st Qu.:  1.0   1st Qu.:  0.0   1st Qu.: 116   1st Qu.: 0.0  
+##  Median : 19.8   Median :  1.0   Median : 655   Median : 0.0  
+##  Mean   :217.3   Mean   : 38.4   Mean   : 823   Mean   :10.8  
+##  3rd Qu.:391.6   3rd Qu.: 21.5   3rd Qu.:1436   3rd Qu.:16.7  
+##  Max.   :932.3   Max.   :413.0   Max.   :2369   Max.   :62.6  
+##    rtransfer       rgrowth        rsenesced        diseased     
+##  Min.   : 0.0   Min.   : 9.69   Min.   : 1.00   Min.   :   0.0  
+##  1st Qu.: 0.0   1st Qu.:23.41   1st Qu.: 9.47   1st Qu.:   1.7  
+##  Median : 0.0   Median :32.66   Median :22.13   Median :  31.6  
+##  Mean   :10.1   Mean   :40.45   Mean   :20.03   Mean   : 307.4  
+##  3rd Qu.:13.7   3rd Qu.:57.08   3rd Qu.:26.15   3rd Qu.: 629.7  
+##  Max.   :62.6   Max.   :79.70   Max.   :59.79   Max.   :1292.1  
+##     severity          lat            lon     
+##  Min.   : 0.00   Min.   :14.7   Min.   :121  
+##  1st Qu.: 0.18   1st Qu.:14.7   1st Qu.:121  
+##  Median : 1.21   Median :14.7   Median :121  
+##  Mean   :10.26   Mean   :14.7   Mean   :121  
+##  3rd Qu.:21.54   3rd Qu.:14.7   3rd Qu.:121  
+##  Max.   :40.17   Max.   :14.7   Max.   :121</code></pre>
 </div>
 </div>
 <div id="plotting-using-ggplot2" class="section level2">
@@ -174,8 +174,8 @@
 <a href="#plotting-using-ggplot2" class="anchor"></a>Plotting using ggplot2</h2>
 <p>The data are in a wide format by default and need to be converted to long format for use in <em>ggplot2</em> if you wish to plot more than one variable at a time.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyr.tidyverse.org">"tidyr"</a></span><span class="op">)</span></code></pre></div>
 <div id="wet-season-sites" class="section level3">
 <h3 class="hasAnchor">
 <a href="#wet-season-sites" class="anchor"></a>Wet season sites</h3>
@@ -240,7 +240,7 @@
 <p>The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977). This is easily calculated from the output of any of the <code>predict_()</code> family of functions or a custom <code><a href="../reference/SEIR.html">SEIR()</a></code> run using the <em>epifitter</em> package (Alves and Del Ponte 2020).</p>
 <p>Load <em>epifitter</em> and simulate the disease severity in the dry season starting in January to compare with the initial <code>bb_wet</code> results.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlvesKS/epifitter">epifitter</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
 
 <span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></code></pre></div>
@@ -258,20 +258,20 @@
 ##  Mean   : 30.88   Mean   : 9.68   Mean   : 841   Mean   : 1.18  
 ##  3rd Qu.: 55.00   3rd Qu.: 9.62   3rd Qu.:1477   3rd Qu.: 0.00  
 ##  Max.   :112.89   Max.   :64.62   Max.   :2350   Max.   :21.39  
-##    rtransfer        rgrowth        rsenesced        diseased        severity   
-##  Min.   : 0.00   Min.   : 9.69   Min.   : 1.00   Min.   :  0.0   Min.   :0.00  
-##  1st Qu.: 0.00   1st Qu.:29.03   1st Qu.: 9.48   1st Qu.:  1.4   1st Qu.:0.19  
-##  Median : 0.00   Median :34.32   Median :25.25   Median : 14.4   Median :0.53  
-##  Mean   : 1.18   Mean   :42.41   Mean   :19.73   Mean   : 46.5   Mean   :1.35  
-##  3rd Qu.: 0.00   3rd Qu.:57.35   3rd Qu.:27.49   3rd Qu.: 84.8   3rd Qu.:2.64  
-##  Max.   :21.39   Max.   :79.65   Max.   :37.74   Max.   :142.8   Max.   :4.42  
-##       lat            lon     
-##  Min.   :14.7   Min.   :121  
-##  1st Qu.:14.7   1st Qu.:121  
-##  Median :14.7   Median :121  
-##  Mean   :14.7   Mean   :121  
-##  3rd Qu.:14.7   3rd Qu.:121  
-##  Max.   :14.7   Max.   :121</code></pre>
+##    rtransfer        rgrowth        rsenesced        diseased    
+##  Min.   : 0.00   Min.   : 9.69   Min.   : 1.00   Min.   :  0.0  
+##  1st Qu.: 0.00   1st Qu.:29.03   1st Qu.: 9.48   1st Qu.:  1.4  
+##  Median : 0.00   Median :34.32   Median :25.25   Median : 14.4  
+##  Mean   : 1.18   Mean   :42.41   Mean   :19.73   Mean   : 46.5  
+##  3rd Qu.: 0.00   3rd Qu.:57.35   3rd Qu.:27.49   3rd Qu.: 84.8  
+##  Max.   :21.39   Max.   :79.65   Max.   :37.74   Max.   :142.8  
+##     severity         lat            lon     
+##  Min.   :0.00   Min.   :14.7   Min.   :121  
+##  1st Qu.:0.19   1st Qu.:14.7   1st Qu.:121  
+##  Median :0.53   Median :14.7   Median :121  
+##  Mean   :1.35   Mean   :14.7   Mean   :121  
+##  3rd Qu.:2.64   3rd Qu.:14.7   3rd Qu.:121  
+##  Max.   :4.42   Max.   :14.7   Max.   :121</code></pre>
 <div id="dry-season-severity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dry-season-severity" class="anchor"></a>Dry season severity</h3>
