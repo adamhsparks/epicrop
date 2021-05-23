@@ -107,9 +107,9 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} containing the f
 }
 }
 \description{
-This function is originally used by specific disease models in EPIRICE to
-model disease severity of several rice diseases.  Given proper values it can
-be used with other pathosystems as well.
+This function is originally used by specific disease models in
+\sQuote{EPIRICE} to model disease severity of several rice diseases.  Given
+proper values it can be used with other pathosystems as well.
 }
 \section{\emph{a} - Aggregation}{
 When \emph{a} is set to 1 the assumption is that that there is no disease

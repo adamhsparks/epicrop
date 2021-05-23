@@ -19,7 +19,7 @@ vignette: >
 
 ## Introduction to epicrop
 
-_epicrop_ provides an R package of the EPIRICE model as described in Savary *et al.* 2012.
+_epicrop_ provides an R package of the 'EPIRICE' model as described in Savary *et al.* 2012.
 Default values derived from the literature suitable for modelling unmanaged disease severity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
 The model uses daily weather data to estimate disease severity.
 A function, `get_wth()`, is provided to simplify downloading weather data from the [NASA POWER API](https://power.larc.nasa.gov) that are suitable for use in _epicrop_.

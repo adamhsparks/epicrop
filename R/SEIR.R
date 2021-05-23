@@ -1,9 +1,9 @@
 
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
-#' This function is originally used by specific disease models in EPIRICE to
-#'  model disease severity of several rice diseases.  Given proper values it can
-#'  be used with other pathosystems as well.
+#' This function is originally used by specific disease models in
+#'  \sQuote{EPIRICE} to model disease severity of several rice diseases.  Given
+#'  proper values it can be used with other pathosystems as well.
 #'
 #' @param wth a data frame of weather on a daily time-step containing data with
 #'  the following field names.
@@ -16,9 +16,8 @@
 #'   *RHUM* | Mean daily temperature (°C)
 #'   *RAIN* | Mean daily rainfall (mm)
 #'
-#' @param emergence expected date of plant emergence (or transplanting for rice)
-#'  entered in `YYYY-MM-DD` format. Described in Table 1 of Savary *et al.*
-#'  2012.
+#' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
+#'  format. Described in Table 1 of Savary *et al.* 2012.
 #' @param onset expected number of days until the onset of disease after
 #'  emergence date. Described in Table 1 of Savary *et al.* 2012.
 #' @param duration simulation duration *i.e.*, growing season length (day).
@@ -27,7 +26,7 @@
 #'  wet or not (numeric). Savary *et al.* 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric). Savary *et al.* 2012 used 5mm.
-#' @param H0 initial number of plant's healthy sites. Described in Table 1 of
+#' @param H0 initial number of plant's healthy sites. Described in Table 1
 #'  Savary *et al.* 2012.
 #' @param I0 initial number of infective sites (numeric). Described in Table 1
 #'  of Savary *et al.* 2012.
@@ -36,7 +35,7 @@
 #' @param RcT modifier for *Rc* (the basic infection rate corrected for
 #'  removals) for temperature. Described in Table 1 of Savary *et al.* 2012.
 #' @param RcOpt potential basic infection rate corrected for removals. Derived
-#'  from Table 1 of Savary *et al.* 2012.
+#'  from Table 1 Savary *et al.* 2012.
 #' @param i duration of infectious period (day). Described in Table 1 of Savary
 #'  *et al.* 2012.
 #' @param p duration of latent period (day). Described in  Table 1 of Savary
