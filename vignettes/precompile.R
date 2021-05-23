@@ -22,12 +22,14 @@ writeLines(replace, fileConn)
 close(fileConn)
 
 # build vignettes
-library(devtools)
+library("devtools")
 build_vignettes()
 
 # move resource files (images) to /doc
 resources <-
-  list.files(here("vignettes/"), pattern = ".png$", full.names = TRUE)
+  list.files(here("vignettes/"),
+             pattern = ".png$",
+             full.names = TRUE)
 file.copy(from = resources,
           to = here("doc"),
           overwrite =  TRUE)
