@@ -35,8 +35,9 @@ the following field names.\tabular{rl}{
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
 }}
 
-\item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
-format. Described in Table 1 of Savary \emph{et al.} 2012.}
+\item{emergence}{expected date of plant emergence (or transplanting for rice)
+entered in \code{YYYY-MM-DD} format. Described in Table 1 of Savary \emph{et al.}
+2012.}
 
 \item{onset}{expected number of days until the onset of disease after
 emergence date. Described in Table 1 of Savary \emph{et al.} 2012.}

@@ -16,8 +16,9 @@
 #'   *RHUM* | Mean daily temperature (°C)
 #'   *RAIN* | Mean daily rainfall (mm)
 #'
-#' @param emergence expected date of plant emergence entered in `YYYY-MM-DD`
-#'  format. Described in Table 1 of Savary *et al.* 2012.
+#' @param emergence expected date of plant emergence (or transplanting for rice)
+#'  entered in `YYYY-MM-DD` format. Described in Table 1 of Savary *et al.*
+#'  2012.
 #' @param onset expected number of days until the onset of disease after
 #'  emergence date. Described in Table 1 of Savary *et al.* 2012.
 #' @param duration simulation duration *i.e.*, growing season length (day).
