@@ -1,6 +1,6 @@
 # vignettes that depend on Internet access need to be precompiled
-library(knitr)
-library(here)
+library("knitr")
+library("here")
 knit(input = "vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.Rmd")
 purl("vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.R")
 

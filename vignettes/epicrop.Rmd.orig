@@ -45,7 +45,7 @@ If you are interested in modelling other pathosystems, please refer to Savary *e
 Load the library.
 
 ```{r epicrop}
-library(epicrop)
+library("epicrop")
 ```
 
 ### Get weather data
@@ -83,8 +83,8 @@ summary(bb_wet)
 The data are in a wide format by default and need to be converted to long format for use in _ggplot2_ if you wish to plot more than one variable at a time.
 
 ```{r ggplot2}
-library(ggplot2)
-library(tidyr)
+library("ggplot2")
+library("tidyr")
 ```
 
 ### Wet season sites
@@ -148,7 +148,7 @@ This is easily calculated from the output of any of the `predict_()` family of f
 Load _epifitter_ and simulate the disease severity in the dry season starting in January to compare with the initial `bb_wet` results.
 
 ```{r epifitter}
-library(epifitter)
+library("epifitter")
 
 bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
 summary(bb_dry)
