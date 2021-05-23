@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wth.R
 \name{get_wth}
 \alias{get_wth}
-\title{Get weather data from NASA POWER API}
+\title{Get weather data from NASA POWER API for use in epicrop modelling}
 \usage{
 get_wth(lonlat, dates, duration)
 }
@@ -33,7 +33,7 @@ with the following columns:\tabular{rl}{
 }
 }
 \description{
-Get weather data from NASA POWER API
+Get weather data from NASA POWER API for use in epicrop modelling
 }
 \details{
 This function is just a wrapper for the \code{\link[nasapower:get_power]{nasapower::get_power()}}
