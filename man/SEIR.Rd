@@ -9,10 +9,10 @@ SEIR(
   emergence,
   onset,
   duration,
-  rhlim = 90,
-  rainlim = 5,
+  rhlim,
+  rainlim,
   H0,
-  I0 = 1,
+  I0,
   RcA,
   RcT,
   RcOpt,
@@ -36,51 +36,52 @@ the following field names.\tabular{rl}{
 }}
 
 \item{emergence}{expected date of plant emergence entered in \code{YYYY-MM-DD}
-format. Described in Table 1 Savary \emph{et al.} 2012.}
+format. Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{onset}{expected number of days until the onset of disease after
-emergence date. Described in Table 1 Savary \emph{et al.} 2012.}
+emergence date. Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{duration}{simulation duration \emph{i.e.}, growing season length (day).
-Described in Table 1 Savary \emph{et al.} 2012.}
+Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{rhlim}{relative humidity value threshold to decide whether leaves are
-wet or not, defaults to 90 (numeric). Savary \emph{et al.} 2012 used 90\%.}
+wet or not (numeric). Savary \emph{et al.} 2012 used 90\%.}
 
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not, defaults to 5 (numeric). Savary \emph{et al.} 2012 used 5mm.}
+wet or not (numeric). Savary \emph{et al.} 2012 used 5mm.}
 
 \item{H0}{initial number of plant's healthy sites. Described in Table 1
 Savary \emph{et al.} 2012.}
 
-\item{I0}{initial number of infective sites. Described in Table 1 Savary
-\emph{et al.} 2012.}
+\item{I0}{initial number of infective sites (numeric). Described in Table 1
+of Savary \emph{et al.} 2012.}
 
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for crop age. Described in Table 1 Savary \emph{et al.} 2012.}
+removals) for crop age. Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for temperature. Described in Table 1 Savary \emph{et al.} 2012.}
+removals) for temperature. Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals. Derived
 from Table 1 Savary \emph{et al.} 2012.}
 
-\item{p}{duration of latent period (day). Described in  Table 1 Savary
+\item{p}{duration of latent period (day). Described in  Table 1 of Savary
 \emph{et al.} 2012.}
 
-\item{i}{duration of infectious period (day). Described in Table 1 Savary
+\item{i}{duration of infectious period (day). Described in Table 1 of Savary
 \emph{et al.} 2012.}
 
-\item{Sx}{maximum number of sites. Described in Table 1 Savary \emph{et al.} 2012.}
+\item{Sx}{maximum number of sites. Described in Table 1 of Savary \emph{et al.}
+2012.}
 
 \item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
-Described in Table 1 Savary \emph{et al.} 2012. See further details in \strong{\emph{a} -
+Described in Table 1 of Savary \emph{et al.} 2012. See further details in \strong{\emph{a} -
 Aggregation} section.}
 
-\item{RRS}{relative rate of physiological senescence. From Table 1 Savary
+\item{RRS}{relative rate of physiological senescence. From Table 1 of Savary
 \emph{et al.} 2012.}
 
-\item{RRG}{relative rate of growth. Described in Table 1 Savary \emph{et al.}
+\item{RRG}{relative rate of growth. Described in Table 1 of Savary \emph{et al.}
 2012.}
 }
 \value{
