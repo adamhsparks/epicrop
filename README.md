@@ -9,10 +9,10 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
-A fork of [_cropsim_](https://r-forge.r-project.org/R/?group_id=335) designed to make using the EPIRICE model (Savary et al. 2012) for rice diseases easier to use.
+A fork of [_cropsim_](https://r-forge.r-project.org/R/?group_id=335) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use.
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [*nasapower*](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease severity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
-The original EPIRICE manuscript, Savary et al. (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and tungro, which are included in this package.
+The original EPIRICE manuscript, Savary *et al.* (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and tungro, which are included in this package.
 
 # Quick start
 

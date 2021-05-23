@@ -305,15 +305,15 @@ SEIR <-
 
 #' Select a modifier value from a given curve
 #'
-#' Takes a matrix and numeric value for the ith day in the duration of a `for()`
-#'  loop and returns a value from the matrix corresponding to the value along
-#'  the corresponding correction curve, either `RcA` (removals corrected for
-#'  crop age) or `RcT` (removals corrected for temperature).
+#' Takes a matrix and numeric value for the _i_th day in the duration of a
+#' `for()` loop and returns a value from the matrix corresponding to the value
+#' along the corresponding correction curve, either `RcA` (removals corrected
+#' for crop age) or `RcT` (removals corrected for temperature).
 #'
 #' @param xy a matrix of modifier values for the rate of removals corrected for
 #'  crop age, `RcA`, or temperature, `RcT` representing a fitted curve.
-#' @param x a numeric value indicating the ith day of the duration of the run
-#'  for crop age, `RcA`, or the temperature value, `RcT`, on the ith day.
+#' @param x a numeric value indicating the _i_th day of the duration of the run
+#'  for crop age, `RcA`, or the temperature value, `RcT`, on the _i_th day.
 #'
 #' @note The original author of afgen() function is Robert J. Hijmans
 #'  This was adapted from the \R package \pkg{cropsim} for \pkg{epicrop}
@@ -325,7 +325,7 @@ SEIR <-
 #'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 #' select_mod_val(xy = RcA, x = day)
 #'
-#' @return A numeric value corresponding to the ith day's value
+#' @return A numeric value corresponding to the _i_th day's value
 #'
 #' @noRd
 select_mod_val <- function(xy, x) {
