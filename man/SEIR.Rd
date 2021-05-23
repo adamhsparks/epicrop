@@ -50,7 +50,7 @@ wet or not (numeric). Savary \emph{et al.} 2012 used 90\%.}
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
 wet or not (numeric). Savary \emph{et al.} 2012 used 5mm.}
 
-\item{H0}{initial number of plant's healthy sites. Described in Table 1
+\item{H0}{initial number of plant's healthy sites. Described in Table 1 of
 Savary \emph{et al.} 2012.}
 
 \item{I0}{initial number of infective sites (numeric). Described in Table 1
@@ -63,7 +63,7 @@ removals) for crop age. Described in Table 1 of Savary \emph{et al.} 2012.}
 removals) for temperature. Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals. Derived
-from Table 1 Savary \emph{et al.} 2012.}
+from Table 1 of Savary \emph{et al.} 2012.}
 
 \item{p}{duration of latent period (day). Described in  Table 1 of Savary
 \emph{et al.} 2012.}
