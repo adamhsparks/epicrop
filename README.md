@@ -34,7 +34,7 @@ First you need to provide weather data for the model. *epicrop* provides the `ge
 longitude and latitude and dates or length of rice growing season as shown below.
 
 ``` r
-library(epicrop)
+library("epicrop")
 
 # Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI
 # Zeigler Experiment Station
@@ -100,7 +100,7 @@ bb
 Once you have the results you can visualise them.
 
 ``` r
-library(ggplot2)
+library("ggplot2")
 
 ggplot(data = bb,
        aes(x = dates,
