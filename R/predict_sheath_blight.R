@@ -15,8 +15,8 @@
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).
 #'
-#' @param wth Weather data with a daily time-step, normally NASA POWER from
-#'[get_wth()], but any[base::data.frame()] object that has
+#' @param wth Weather data with a daily time-step, normally \acronym{NASA}
+#' \acronym{POWER} from [get_wth()], but any[base::data.frame()] object that has
 #' the following properly named columns in them will work.
 #'
 #'   **Field Name** | **Value**

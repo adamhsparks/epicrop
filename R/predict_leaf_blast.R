@@ -19,8 +19,8 @@
 #' Savary _et al._ 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
-#' @param wth Weather data with a daily time-step, normally NASA POWER from
-#'[get_wth()], but any[base::data.frame()] object that has
+#' @param wth Weather data with a daily time-step, normally \acronym{NASA}
+#' \acronym{POWER} from [get_wth()], but any[base::data.frame()] object that has
 #' the following properly named columns in them will work.
 #'
 #'   **Field Name** | **Value**

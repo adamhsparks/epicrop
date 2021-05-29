@@ -7,8 +7,8 @@
 predict_brown_spot(wth, emergence, ...)
 }
 \arguments{
-\item{wth}{Weather data with a daily time-step, normally NASA POWER from
-\code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object that has
+\item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
+\acronym{POWER} from \code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object that has
 the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
