@@ -9,17 +9,17 @@
   "name": "epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
   "codeRepository": "https://github.com/adamhsparks/epicrop/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.0.9001",
+  "version": "0.0.0.9003",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.5 (2021-03-31)",
+  "runtimePlatform": "R version 4.1.0 (2021-05-18)",
   "author": [
     {
       "@type": "Person",
-      "givenName": "Adam",
+      "givenName": "Adam H.",
       "familyName": "Sparks",
       "email": "adamhsparks@gmail.com",
       "@id": "https://orcid.org/0000-0002-0061-8359"
@@ -89,7 +89,7 @@
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Adam",
+      "givenName": "Adam H.",
       "familyName": "Sparks",
       "email": "adamhsparks@gmail.com",
       "@id": "https://orcid.org/0000-0002-0061-8359"
@@ -214,7 +214,7 @@
     }
   ],
   "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
-  "fileSize": "1516.543KB",
+  "fileSize": "427.367KB",
   "contIntegration": "https://codecov.io/gh/adamhsparks/epicrop",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
   "citation": [
@@ -253,5 +253,6 @@
   ],
   "issueTracker": "https://github.com/adamhsparks/epicrop/issues",
   "developmentStatus": "https://www.repostatus.org/#active",
-  "applicationCategory": "Tools"
+  "applicationCategory": "Tools",
+  "releaseNotes": "https://github.com/adamhsparks/epicrop/blob/master/NEWS.md"
 }
