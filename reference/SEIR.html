@@ -47,9 +47,9 @@
 
 
 <meta property="og:title" content="Susceptible-Exposed-Infectious-Removed (SEIR) model framework — SEIR" />
-<meta property="og:description" content="This function is originally used by specific disease models in EPIRICE to
-model disease severity of several rice diseases.  Given proper values it can
-be used with other pathosystems as well." />
+<meta property="og:description" content="This function is originally used by specific disease models in
+&amp;#8216;EPIRICE&amp;#8217; to model disease severity of several rice diseases.  Given
+proper values it can be used with other pathosystems as well." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -130,9 +130,9 @@ be used with other pathosystems as well." />
     </div>
 
     <div class="ref-description">
-    <p>This function is originally used by specific disease models in EPIRICE to
-model disease severity of several rice diseases.  Given proper values it can
-be used with other pathosystems as well.</p>
+    <p>This function is originally used by specific disease models in
+&#8216;EPIRICE&#8217; to model disease severity of several rice diseases.  Given
+proper values it can be used with other pathosystems as well.</p>
     </div>
 
     <pre class="usage"><span class='fu'>SEIR</span><span class='op'>(</span>
@@ -140,10 +140,10 @@ be used with other pathosystems as well.</p>
   <span class='va'>emergence</span>,
   <span class='va'>onset</span>,
   <span class='va'>duration</span>,
-  rhlim <span class='op'>=</span> <span class='fl'>90</span>,
-  rainlim <span class='op'>=</span> <span class='fl'>5</span>,
+  <span class='va'>rhlim</span>,
+  <span class='va'>rainlim</span>,
   <span class='va'>H0</span>,
-  I0 <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>I0</span>,
   <span class='va'>RcA</span>,
   <span class='va'>RcT</span>,
   <span class='va'>RcOpt</span>,
@@ -173,82 +173,84 @@ the following field names.</p><table class='table'>
     </tr>
     <tr>
       <th>emergence</th>
-      <td><p>expected date of plant emergence entered in <code>YYYY-MM-DD</code>
-format. Described in Table 1 Savary <em>et al.</em> 2012.</p></td>
+      <td><p>expected date of plant emergence (or transplanting for rice)
+entered in <code>YYYY-MM-DD</code> format.  Described in Table 1 of Savary <em>et al.</em>
+2012.</p></td>
     </tr>
     <tr>
       <th>onset</th>
       <td><p>expected number of days until the onset of disease after
-emergence date. Described in Table 1 Savary <em>et al.</em> 2012.</p></td>
+emergence date.  Described in Table 1 of Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>duration</th>
       <td><p>simulation duration <em>i.e.</em>, growing season length (day).
-Described in Table 1 Savary <em>et al.</em> 2012.</p></td>
+Described in Table 1 of Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>rhlim</th>
       <td><p>relative humidity value threshold to decide whether leaves are
-wet or not, defaults to 90 (numeric). Savary <em>et al.</em> 2012 used 90%.</p></td>
+wet or not (numeric).  Savary <em>et al.</em> 2012 used 90%.</p></td>
     </tr>
     <tr>
       <th>rainlim</th>
       <td><p>rainfall amount (mm) threshold to decide whether leaves are
-wet or not, defaults to 5 (numeric). Savary <em>et al.</em> 2012 used 5mm.</p></td>
+wet or not (numeric).  Savary <em>et al.</em> 2012 used 5mm.</p></td>
     </tr>
     <tr>
       <th>H0</th>
-      <td><p>initial number of plant's healthy sites. Described in Table 1
+      <td><p>initial number of plant's healthy sites. Described in Table 1 of
 Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>I0</th>
-      <td><p>initial number of infective sites. Described in Table 1 Savary
-<em>et al.</em> 2012.</p></td>
+      <td><p>initial number of infective sites (numeric). Described in Table 1
+of Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RcA</th>
       <td><p>modifier for <em>Rc</em> (the basic infection rate corrected for
-removals) for crop age. Described in Table 1 Savary <em>et al.</em> 2012.</p></td>
+removals) for crop age. Described in Table 1 of Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RcT</th>
       <td><p>modifier for <em>Rc</em> (the basic infection rate corrected for
-removals) for temperature. Described in Table 1 Savary <em>et al.</em> 2012.</p></td>
+removals) for temperature. Described in Table 1 of Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RcOpt</th>
       <td><p>potential basic infection rate corrected for removals. Derived
-from Table 1 Savary <em>et al.</em> 2012.</p></td>
+from Table 1 of Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>p</th>
-      <td><p>duration of latent period (day). Described in  Table 1 Savary
+      <td><p>duration of latent period (day).  Described in  Table 1 of Savary
 <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>i</th>
-      <td><p>duration of infectious period (day). Described in Table 1 Savary
+      <td><p>duration of infectious period (day).  Described in Table 1 of Savary
 <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>Sx</th>
-      <td><p>maximum number of sites. Described in Table 1 Savary <em>et al.</em> 2012.</p></td>
+      <td><p>maximum number of sites.  Described in Table 1 of Savary <em>et al.</em>
+2012.</p></td>
     </tr>
     <tr>
       <th>a</th>
       <td><p>aggregation coefficient, values are from 1 to &gt;1 (numeric).
-Described in Table 1 Savary <em>et al.</em> 2012. See further details in <strong><em>a</em> -
+Described in Table 1 of Savary <em>et al.</em> 2012. See further details in <strong><em>a</em> -
 Aggregation</strong> section.</p></td>
     </tr>
     <tr>
       <th>RRS</th>
-      <td><p>relative rate of physiological senescence. From Table 1 Savary
-<em>et al.</em> 2012.</p></td>
+      <td><p>relative rate of physiological senescence.  Described in Table 1
+of Savary <em>et al.</em> 2012.</p></td>
     </tr>
     <tr>
       <th>RRG</th>
-      <td><p>relative rate of growth. Described in Table 1 Savary <em>et al.</em>
+      <td><p>relative rate of growth.  Described in Table 1 of Savary <em>et al.</em>
 2012.</p></td>
     </tr>
     </table>
