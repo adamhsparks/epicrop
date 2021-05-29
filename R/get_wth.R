@@ -16,13 +16,13 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
-#'   *DOY*      | Consecutive day of year, commonly called "Julian date"
-#'   *TEMP*     | Mean daily temperature (°C)
-#'   *RHUM*     | Mean daily temperature (°C)
-#'   *RAIN*     | Mean daily rainfall (mm)
-#'   *LAT*      | Latitude of area of interest
-#'   *LON*      | Longitude of area of interest
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_      | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_     | Mean daily temperature (°C)
+#'   _RHUM_     | Mean daily temperature (°C)
+#'   _RAIN_     | Mean daily rainfall (mm)
+#'   _LAT_      | Latitude of area of interest
+#'   _LON_      | Longitude of area of interest
 #'
 #' @details This function is just a wrapper for the [nasapower::get_power()]
 #'  function with predefined parameters suitable for use in \pkg{epicrop}.

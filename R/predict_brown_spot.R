@@ -2,12 +2,12 @@
 #' Predict rice brown spot severity
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
-#' *Cochliobolus miyabeanus*. The model is driven by daily weather data, which
+#' _Cochliobolus miyabeanus_. The model is driven by daily weather data, which
 #' can easily be accessed using[get_wth()] to download weather data from
 #' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
-#' *et al.* 2012).
+#' _et al._ 2012).
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -16,7 +16,7 @@
 #' Aunario (IRRI).
 #'
 #' @note The optimum temperature for brown spot as presented in Table 2 of
-#' Savary *et al.* 2012 has a typo. The optimal value should be 25 °C, not
+#' Savary _et al._ 2012 has a typo. The optimal value should be 25 °C, not
 #' 20 °C as shown. The correct value, 25 °C, is used in this implementation.
 #'
 #' @param wth Weather data with a daily time-step, normally NASA POWER from
@@ -25,11 +25,11 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
-#'   *DOY* | Consecutive day of year, commonly called "Julian date"
-#'   *TEMP* | Mean daily temperature (°C)
-#'   *RHUM* | Mean daily temperature (°C)
-#'   *RAIN* | Mean daily rainfall (mm)
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RAIN_ | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
@@ -49,10 +49,10 @@
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'
-#' @references Klomp, A.O., 1977. Early senescence of rice and *Drechslera
-#' oryzae* in the Wageningen polder, Surinam. PhD Thesis, 97p.
+#' @references Klomp, A.O., 1977. Early senescence of rice and _Drechslera
+#' oryzae_ in the Wageningen polder, Surinam. PhD Thesis, 97p.
 #'
-#' Levy, Y. and Cohen, Y., 1980. Sporulation of *Helminthosporium turcicum* on
+#' Levy, Y. and Cohen, Y., 1980. Sporulation of _Helminthosporium turcicum_ on
 #' sweet corn: Effects of temperature and dew period. Canadian Journal of Plant
 #' Pathology 2:65-69. DOI: <https://doi.org/10.1080/07060668009501440>.
 #'
@@ -60,11 +60,11 @@
 #' paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 #'
 #' Padmanabhan, S.Y. and Ganguly, D. 1954. Relation between the age of rice
-#' plant and its susceptibility to *Helminthosporium* and blast disease.
+#' plant and its susceptibility to _Helminthosporium_ and blast disease.
 #' Proceedings of the Indian Academy of Sciences B 29:44-50.
 #'
 #' Sarkar, A.K. and Sen Gupta, P.K., 1977. Effect of temperature and humidity on
-#' disease development and sporulation of *Helminthosporium oryzae* on rice.
+#' disease development and sporulation of _Helminthosporium oryzae_ on rice.
 #' Indian Phytopathology 30:258-259.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling

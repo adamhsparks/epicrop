@@ -2,7 +2,7 @@
 #' Predict rice tungro disease severity
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
-#' *Rice Tungro Spherical Virus* and *Rice Tungro Bacilliform Virus*.
+#' _Rice Tungro Spherical Virus_ and _Rice Tungro Bacilliform Virus_.
 #' The model is driven by daily weather data, which can easily be accessed using
 #'[get_wth()] to download weather data from \acronym{NASA}
 #' \acronym{POWER} using \CRANpkg{nasapower}.
@@ -22,11 +22,11 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
-#'   *DOY* | Consecutive day of year, commonly called "Julian date"
-#'   *TEMP* | Mean daily temperature (°C)
-#'   *RHUM* | Mean daily temperature (°C)
-#'   *RAIN* | Mean daily rainfall (mm)
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RAIN_ | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
@@ -48,7 +48,7 @@
 #' and Adam H. Sparks
 #'
 #' @references Ling, K.C., and Tiongco, E.R., 1976. Effect of temperature on the
-#' transmission of rice tungro virus by *Nephotettix virescens*.
+#' transmission of rice tungro virus by _Nephotettix virescens_.
 #' Philippine Phytopathology 11:46-57.
 #'
 #' Ling, K.C., Palomar, M.K., 1966. Studies on rice plants infected with the

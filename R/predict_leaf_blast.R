@@ -2,12 +2,12 @@
 #' Predict rice leaf blast severity
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-#' *Magnaporthe oryzae*. The model is driven by daily weather data, which can
+#' _Magnaporthe oryzae_. The model is driven by daily weather data, which can
 #' easily be accessed using[get_wth()] to download weather data from
 #' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
-#' *et al.* 2012).
+#' _et al._ 2012).
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -16,7 +16,7 @@
 #' Aunario (IRRI).
 #'
 #' @note The optimum temperature for leaf blast as presented in Table 2 of
-#' Savary *et al.* 2012 has a typo. The optimal value should be 20 °C, not
+#' Savary _et al._ 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
 #' @param wth Weather data with a daily time-step, normally NASA POWER from
@@ -25,11 +25,11 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
-#'   *DOY* | Consecutive day of year, commonly called "Julian date"
-#'   *TEMP* | Mean daily temperature (°C)
-#'   *RHUM* | Mean daily temperature (°C)
-#'   *RAIN* | Mean daily rainfall (mm)
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RAIN_ | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
@@ -65,7 +65,7 @@
 #' <https://doi.org/10.1094/PD-71-1035>.
 #'
 #' Kato, H and Kozaka, T., 1974. Effect of temperature on lesion enlargement and
-#' sporulation of *Pyricularia oryzae* in rice leaves. Phytopathology
+#' sporulation of _Pyricularia oryzae_ in rice leaves. Phytopathology
 #' 64:828-830. DOI: <https://doi.org/10.1094/Phyto-64-828>.
 #'
 #' Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
@@ -77,7 +77,7 @@
 #' <https://doi.org/10.1016/j.cropro.2011.11.009>.
 #'
 #' Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
-#' *Pyricularia oryzae* Cav. in upland rice varieties. PhD Thesis, University of
+#' _Pyricularia oryzae_ Cav. in upland rice varieties. PhD Thesis, University of
 #' the Philippines at Los Baños, 82 p.
 #'
 #' @seealso

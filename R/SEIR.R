@@ -10,45 +10,45 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
-#'   *DOY* | Consecutive day of year, commonly called "Julian date"
-#'   *TEMP* | Mean daily temperature (°C)
-#'   *RHUM* | Mean daily temperature (°C)
-#'   *RAIN* | Mean daily rainfall (mm)
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RAIN_ | Mean daily rainfall (mm)
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
-#'  entered in `YYYY-MM-DD` format. Described in Table 1 of Savary *et al.*
+#'  entered in `YYYY-MM-DD` format.  Described in Table 1 of Savary _et al._
 #'  2012.
 #' @param onset expected number of days until the onset of disease after
-#'  emergence date. Described in Table 1 of Savary *et al.* 2012.
+#'  emergence date.  Described in Table 1 of Savary _et al._ 2012.
 #' @param duration simulation duration *i.e.*, growing season length (day).
-#'  Described in Table 1 of Savary *et al.* 2012.
+#'  Described in Table 1 of Savary _et al._ 2012.
 #' @param rhlim relative humidity value threshold to decide whether leaves are
-#'  wet or not (numeric). Savary *et al.* 2012 used 90%.
+#'  wet or not (numeric).  Savary _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
-#'  wet or not (numeric). Savary *et al.* 2012 used 5mm.
+#'  wet or not (numeric).  Savary _et al._ 2012 used 5mm.
 #' @param H0 initial number of plant's healthy sites. Described in Table 1 of
-#'  Savary *et al.* 2012.
+#'  Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (numeric). Described in Table 1
-#'  of Savary *et al.* 2012.
-#' @param RcA modifier for *Rc* (the basic infection rate corrected for
-#'  removals) for crop age. Described in Table 1 of Savary *et al.* 2012.
-#' @param RcT modifier for *Rc* (the basic infection rate corrected for
-#'  removals) for temperature. Described in Table 1 of Savary *et al.* 2012.
+#'  of Savary _et al._ 2012.
+#' @param RcA modifier for _Rc_ (the basic infection rate corrected for
+#'  removals) for crop age. Described in Table 1 of Savary _et al._ 2012.
+#' @param RcT modifier for _Rc_ (the basic infection rate corrected for
+#'  removals) for temperature. Described in Table 1 of Savary _et al._ 2012.
 #' @param RcOpt potential basic infection rate corrected for removals. Derived
-#'  from Table 1 of Savary *et al.* 2012.
-#' @param i duration of infectious period (day). Described in Table 1 of Savary
-#'  *et al.* 2012.
-#' @param p duration of latent period (day). Described in  Table 1 of Savary
-#'  *et al.* 2012.
-#' @param Sx maximum number of sites. Described in Table 1 of Savary *et al.*
+#'  from Table 1 of Savary _et al._ 2012.
+#' @param i duration of infectious period (day).  Described in Table 1 of Savary
+#'  _et al._ 2012.
+#' @param p duration of latent period (day).  Described in  Table 1 of Savary
+#'  _et al._ 2012.
+#' @param Sx maximum number of sites.  Described in Table 1 of Savary _et al._
 #'  2012.
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric).
-#'  Described in Table 1 of Savary *et al.* 2012. See further details in ***a* -
+#'  Described in Table 1 of Savary _et al._ 2012. See further details in **_a_ -
 #'  Aggregation** section.
-#' @param RRS relative rate of physiological senescence. From Table 1 of Savary
-#'  *et al.* 2012.
-#' @param RRG relative rate of growth. Described in Table 1 of Savary *et al.*
+#' @param RRS relative rate of physiological senescence.  Described in Table 1
+#'  of Savary _et al._ 2012.
+#' @param RRG relative rate of growth.  Described in Table 1 of Savary _et al._
 #'  2012.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
@@ -87,12 +87,12 @@
 #'   RRG = 0.1
 #' ))
 #'
-#' @details # *a* - Aggregation
-#' When *a* is set to 1 the assumption is that that there is no disease
+#' @details # _a_ - Aggregation
+#' When _a_ is set to 1 the assumption is that that there is no disease
 #' aggregation with new infections occurring at random among the healthy sites.
-#' When *a* is greater than 1 there is aggregation in the disease occurrence,
+#' When _a_ is greater than 1 there is aggregation in the disease occurrence,
 #' the pathogen is unable to access the entire population of healthy sites,
-#' which results in disease aggregation. Refer to Savary *et al.* (2012) for
+#' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.
 #'
 #' @seealso
@@ -110,22 +110,22 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *simday*| Zero indexed day of simulation that was run
-#'   *dates*|  Date of simulation
-#'   *sites*| Total number of sites present on day "x"
-#'   *latent*| Number of latent sites present on day "x"
-#'   *infectious*| Number of infectious sites present on day "x"
-#'   *removed*| Number of removed sites present on day "x"
-#'   *senesced*| Number of senesced sites present on day "x"
-#'   *rateinf*| Rate of infection
-#'   *rtransfer*| Rate of transfer from latent to infectious sites
-#'   *rgrowth*| Rate of growth of healthy sites
-#'   *rsenesced*| Rate of senescence of healthy sites
-#'   *rlex*| Rate of lesion expansion
-#'   *diseased*| Number of diseased (latent + infectious + removed) sites
-#'   *severity*| Disease severity or incidence (for tungro)
-#'   *lat*| Latitude value as provided by `wth` object
-#'   *lon*| Longitude value as provided by `wth` object
+#'   _simday_| Zero indexed day of simulation that was run
+#'   _dates_|  Date of simulation
+#'   _sites_| Total number of sites present on day "x"
+#'   _latent_| Number of latent sites present on day "x"
+#'   _infectious_| Number of infectious sites present on day "x"
+#'   _removed_| Number of removed sites present on day "x"
+#'   _senesced_| Number of senesced sites present on day "x"
+#'   _rateinf_| Rate of infection
+#'   _rtransfer_| Rate of transfer from latent to infectious sites
+#'   _rgrowth_| Rate of growth of healthy sites
+#'   _rsenesced_| Rate of senescence of healthy sites
+#'   _rlex_| Rate of lesion expansion
+#'   _diseased_| Number of diseased (latent + infectious + removed) sites
+#'   _severity_| Disease severity or incidence (for tungro)
+#'   _lat_| Latitude value as provided by `wth` object
+#'   _lon_| Longitude value as provided by `wth` object
 #'
 #' @export
 #'

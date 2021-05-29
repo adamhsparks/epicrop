@@ -2,12 +2,12 @@
 #' Predict rice bacterial blight severity
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
-#' causal agent *Xanthomonas oryzae* pv. *oryzae*.  The model is driven by daily
+#' causal agent _Xanthomonas oryzae_ pv. _oryzae_.  The model is driven by daily
 #' weather data, which can easily be accessed using [get_wth()] to download
 #' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
-#' *et al.* 2012).
+#' _et al._ 2012).
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -21,11 +21,11 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
-#'   *DOY* | Consecutive day of year, commonly called "Julian date"
-#'   *TEMP* | Mean daily temperature (°C)
-#'   *RHUM* | Mean daily temperature (°C)
-#'   *RAIN* | Mean daily rainfall (mm)
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RAIN_ | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
@@ -62,7 +62,7 @@
 #' paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
 #'
 #' Medalla, E. 1992. Characterization of resistance of IR cultivars to two races
-#' of *Xanthomonas oryzae* pv. *oryzae*. Unpublished M.S. Thesis, University
+#' of _Xanthomonas oryzae_ pv. _oryzae_. Unpublished M.S. Thesis, University
 #' of the Philippines at Los Baños, 81 p.
 #'
 #' Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of

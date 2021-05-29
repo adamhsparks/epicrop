@@ -2,7 +2,7 @@
 #' Predict rice sheath blight severity
 #'
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal
-#' agent *Rhizoctonia solani* AG1-1A Kühn. The model is driven by daily weather
+#' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
 #' data, which can easily be accessed using[get_wth()] to download weather data
 #' from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
@@ -21,11 +21,11 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   *YYYYMMDD* | Date as Year Month Day (ISO8601)
-#'   *DOY* | Consecutive day of year, commonly called "Julian date"
-#'   *TEMP* | Mean daily temperature (°C)
-#'   *RHUM* | Mean daily temperature (°C)
-#'   *RAIN* | Mean daily rainfall (mm)
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RAIN_ | Mean daily rainfall (mm)
 #'
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
@@ -53,7 +53,7 @@
 #'
 #' Gross, M.K., Santini, J.B., Tikhonova, I. and Latin, R. 1998. The influence
 #' of temperature and leaf wetness duration on infection of perennial ryegrass
-#' by *Rhizoctonia solani*. Plant Disease 82:1012-1016. DOI:
+#' by _Rhizoctonia solani_. Plant Disease 82:1012-1016. DOI:
 #' <https://doi.org/10.1094/PDIS.1998.82.9.1012>
 #'
 #' Hashiba, T. and Ijiri, T., 1989. Estimation of yield loss and computerized
@@ -81,7 +81,7 @@
 #' Research Newsletter 15:19-20.
 #'
 #' Tu, C.C., Chang, Y.C., Wang, C.W., 1979. Studies on the ecology of
-#' *Rhizoctonia solani*, the causal organism of rice sheath blight. National
+#' _Rhizoctonia solani_, the causal organism of rice sheath blight. National
 #' Science Council Monthly, ROC 7:1208-1219.
 #'
 #' @seealso
