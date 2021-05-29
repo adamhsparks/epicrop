@@ -99,6 +99,7 @@ predict_bacterial_blight <- function(wth, emergence, ...) {
       duration = 120,
       rhlim = 90,
       rainlim = 5,
+      H0 = 100,
       I0 = 1,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
@@ -107,10 +108,8 @@ predict_bacterial_blight <- function(wth, emergence, ...) {
       i = 30,
       Sx = 3200,
       a = 4,
-      H0 = 100,
       RRS = 0.01,
-      RRG = 0.1,
-      ...
+      RRG = 0.1
     )
   )
 }

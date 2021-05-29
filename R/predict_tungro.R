@@ -89,6 +89,7 @@ predict_tungro <- function(wth, emergence, ...) {
       duration = 120,
       rhlim = 90,
       rainlim = 5,
+      H0 = 100,
       I0 = 1,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
@@ -97,10 +98,8 @@ predict_tungro <- function(wth, emergence, ...) {
       i = 120,
       Sx = 100,
       a = 1,
-      H0 = 100,
       RRS = 0.01,
-      RRG = 0.1,
-      ...
+      RRG = 0.1
     )
   )
 }

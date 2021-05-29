@@ -120,6 +120,7 @@ predict_sheath_blight <- function(wth, emergence, ...) {
       duration = 120,
       rhlim = 90,
       rainlim = 5,
+      H0 = 25,
       I0 = 1,
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
@@ -128,10 +129,8 @@ predict_sheath_blight <- function(wth, emergence, ...) {
       i = 120,
       Sx = 800,
       a = 2.8,
-      H0 = 25,
       RRS = 0.005,
-      RRG = 0.2,
-      ...
+      RRG = 0.2
     )
   )
 }
