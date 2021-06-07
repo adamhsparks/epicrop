@@ -27,14 +27,14 @@
 #'  wet or not (numeric).  Savary _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Savary _et al._ 2012 used 5mm.
-#' @param H0 initial number of plant's healthy sites. Described in Table 1 of
+#' @param H0 initial number of plant's healthy sites.  Described in Table 1 of
 #'  Savary _et al._ 2012.
-#' @param I0 initial number of infective sites (numeric). Described in Table 1
+#' @param I0 initial number of infective sites (numeric).  Described in Table 1
 #'  of Savary _et al._ 2012.
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for crop age. Described in Table 1 of Savary _et al._ 2012.
+#'  removals) for crop age.  Described in Table 1 of Savary _et al._ 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for temperature. Described in Table 1 of Savary _et al._ 2012.
+#'  removals) for temperature.  Described in Table 1 of Savary _et al._ 2012.
 #' @param RcOpt potential basic infection rate corrected for removals. Derived
 #'  from Table 1 of Savary _et al._ 2012.
 #' @param i duration of infectious period (day).  Described in Table 1 of Savary
@@ -88,9 +88,9 @@
 #' ))
 #'
 #' @details # _a_ - Aggregation
-#' When _a_ is set to 1 the assumption is that that there is no disease
+#' When _a_ is set to `1` the assumption is that that there is no disease
 #' aggregation with new infections occurring at random among the healthy sites.
-#' When _a_ is greater than 1 there is aggregation in the disease occurrence,
+#' When _a_ is greater than `1` there is aggregation in the disease occurrence,
 #' the pathogen is unable to access the entire population of healthy sites,
 #' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.

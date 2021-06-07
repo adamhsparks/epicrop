@@ -51,17 +51,17 @@ wet or not (numeric).  Savary \emph{et al.} 2012 used 90\%.}
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
 wet or not (numeric).  Savary \emph{et al.} 2012 used 5mm.}
 
-\item{H0}{initial number of plant's healthy sites. Described in Table 1 of
+\item{H0}{initial number of plant's healthy sites.  Described in Table 1 of
 Savary \emph{et al.} 2012.}
 
-\item{I0}{initial number of infective sites (numeric). Described in Table 1
+\item{I0}{initial number of infective sites (numeric).  Described in Table 1
 of Savary \emph{et al.} 2012.}
 
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for crop age. Described in Table 1 of Savary \emph{et al.} 2012.}
+removals) for crop age.  Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for temperature. Described in Table 1 of Savary \emph{et al.} 2012.}
+removals) for temperature.  Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals. Derived
 from Table 1 of Savary \emph{et al.} 2012.}
@@ -112,9 +112,9 @@ This function is originally used by specific disease models in
 proper values it can be used with other pathosystems as well.
 }
 \section{\emph{a} - Aggregation}{
-When \emph{a} is set to 1 the assumption is that that there is no disease
+When \emph{a} is set to \code{1} the assumption is that that there is no disease
 aggregation with new infections occurring at random among the healthy sites.
-When \emph{a} is greater than 1 there is aggregation in the disease occurrence,
+When \emph{a} is greater than \code{1} there is aggregation in the disease occurrence,
 the pathogen is unable to access the entire population of healthy sites,
 which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
 greater detail.
