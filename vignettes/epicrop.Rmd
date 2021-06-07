@@ -3,7 +3,7 @@
 ---
 title: "epicrop"
 author: "Adam H Sparks"
-date: "2021-05-23"
+date: "2021-06-07"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{epicrop}
@@ -87,32 +87,32 @@ summary(bb_wet)
 ```
 ##      simday        dates                sites          latent      
 ##  Min.   :  0   Min.   :2000-06-30   Min.   : 100   Min.   :  0.00  
-##  1st Qu.: 30   1st Qu.:2000-07-30   1st Qu.: 947   1st Qu.:  0.68  
-##  Median : 60   Median :2000-08-29   Median :1809   Median : 10.46  
-##  Mean   : 60   Mean   :2000-08-29   Mean   :1627   Mean   : 51.79  
-##  3rd Qu.: 90   3rd Qu.:2000-09-28   3rd Qu.:2379   3rd Qu.: 87.73  
-##  Max.   :120   Max.   :2000-10-28   Max.   :2618   Max.   :217.59  
-##    infectious       removed         senesced       rateinf    
-##  Min.   :  0.0   Min.   :  0.0   Min.   :   0   Min.   : 0.0  
-##  1st Qu.:  1.0   1st Qu.:  0.0   1st Qu.: 116   1st Qu.: 0.0  
-##  Median : 19.8   Median :  1.0   Median : 655   Median : 0.0  
-##  Mean   :217.3   Mean   : 38.4   Mean   : 823   Mean   :10.8  
-##  3rd Qu.:391.6   3rd Qu.: 21.5   3rd Qu.:1436   3rd Qu.:16.7  
-##  Max.   :932.3   Max.   :413.0   Max.   :2369   Max.   :62.6  
+##  1st Qu.: 30   1st Qu.:2000-07-30   1st Qu.: 946   1st Qu.:  0.73  
+##  Median : 60   Median :2000-08-29   Median :1690   Median : 14.78  
+##  Mean   : 60   Mean   :2000-08-29   Mean   :1553   Mean   : 56.62  
+##  3rd Qu.: 90   3rd Qu.:2000-09-28   3rd Qu.:2287   3rd Qu.:105.71  
+##  Max.   :120   Max.   :2000-10-28   Max.   :2581   Max.   :236.13  
+##    infectious     removed         senesced       rateinf    
+##  Min.   :  0   Min.   :  0.0   Min.   :   0   Min.   : 0.0  
+##  1st Qu.:  1   1st Qu.:  0.0   1st Qu.: 116   1st Qu.: 0.0  
+##  Median : 28   Median :  1.0   Median : 654   Median : 1.0  
+##  Mean   :256   Mean   : 55.4   Mean   : 822   Mean   :11.6  
+##  3rd Qu.:553   3rd Qu.: 30.4   3rd Qu.:1415   3rd Qu.:18.8  
+##  Max.   :922   Max.   :583.9   Max.   :2452   Max.   :55.9  
 ##    rtransfer       rgrowth        rsenesced        diseased     
 ##  Min.   : 0.0   Min.   : 9.69   Min.   : 1.00   Min.   :   0.0  
-##  1st Qu.: 0.0   1st Qu.:23.41   1st Qu.: 9.47   1st Qu.:   1.7  
-##  Median : 0.0   Median :32.66   Median :22.13   Median :  31.6  
-##  Mean   :10.1   Mean   :40.45   Mean   :20.03   Mean   : 307.4  
-##  3rd Qu.:13.7   3rd Qu.:57.08   3rd Qu.:26.15   3rd Qu.: 629.7  
-##  Max.   :62.6   Max.   :79.70   Max.   :59.79   Max.   :1292.1  
+##  1st Qu.: 0.0   1st Qu.:22.88   1st Qu.: 9.46   1st Qu.:   2.4  
+##  Median : 0.0   Median :32.12   Median :22.70   Median :  44.9  
+##  Mean   :11.2   Mean   :40.08   Mean   :20.75   Mean   : 368.0  
+##  3rd Qu.:18.8   3rd Qu.:56.96   3rd Qu.:25.94   3rd Qu.: 817.6  
+##  Max.   :55.9   Max.   :79.60   Max.   :60.74   Max.   :1391.8  
 ##     severity          lat            lon     
 ##  Min.   : 0.00   Min.   :14.7   Min.   :121  
-##  1st Qu.: 0.18   1st Qu.:14.7   1st Qu.:121  
-##  Median : 1.21   Median :14.7   Median :121  
-##  Mean   :10.26   Mean   :14.7   Mean   :121  
-##  3rd Qu.:21.54   3rd Qu.:14.7   3rd Qu.:121  
-##  Max.   :40.17   Max.   :14.7   Max.   :121
+##  1st Qu.: 0.23   1st Qu.:14.7   1st Qu.:121  
+##  Median : 1.73   Median :14.7   Median :121  
+##  Mean   :12.33   Mean   :14.7   Mean   :121  
+##  3rd Qu.:28.04   3rd Qu.:14.7   3rd Qu.:121  
+##  Max.   :43.91   Max.   :14.7   Max.   :121
 ```
 
 ## Plotting using ggplot2
@@ -149,16 +149,13 @@ ggplot(data = dat,
        x = "Date") +
   geom_line(aes(group = site, colour = site)) +
   geom_point(aes(colour = site)) +
-  labs(title = "Site states over time for bacterial blight",
-       subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
-       Station shown",
-       caption = "Weather data acknowledgement: These data were obtained from
+  labs(caption = "Weather data acknowledgement: These data were obtained from
        the NASA Langley Research Center POWER Project funded through the NASA
        Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
 
-![plot of chunk wet_plot_sites](wet_plot_sites-1.png)
+![Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.](wet_plot_sites-1.png)
 
 ### Wet season severity
 
@@ -173,16 +170,13 @@ ggplot(data = bb_wet,
        x = "Date") +
   geom_line() +
   geom_point() +
-  labs(title = "Bacterial blight disease progress over time",
-       subtitle = "Results for wet season year 2000 at IRRI Zeigler Experiment
-       Station shown",
-       caption = "Weather data acknowledgement: These data were obtained from
+  labs(caption = "Weather data acknowledgement: These data were obtained from
        the NASA Langley Research Center POWER Project nfunded through the NASA
        Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
 
-![plot of chunk wet_plot_severity](wet_plot_severity-1.png)
+![Wet season disease severity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown](wet_plot_severity-1.png)
 
 ## Comparing epidemics
 
@@ -203,31 +197,31 @@ summary(bb_dry)
 ##      simday        dates                sites          latent     
 ##  Min.   :  0   Min.   :2000-01-04   Min.   : 100   Min.   : 0.00  
 ##  1st Qu.: 30   1st Qu.:2000-02-03   1st Qu.: 948   1st Qu.: 0.00  
-##  Median : 60   Median :2000-03-04   Median :2525   Median : 1.22  
-##  Mean   : 60   Mean   :2000-03-04   Mean   :1911   Mean   : 5.90  
-##  3rd Qu.: 90   3rd Qu.:2000-04-03   3rd Qu.:2719   3rd Qu.: 7.49  
-##  Max.   :120   Max.   :2000-05-03   Max.   :2778   Max.   :58.00  
-##    infectious        removed         senesced       rateinf     
-##  Min.   :  0.00   Min.   : 0.00   Min.   :   0   Min.   : 0.00  
-##  1st Qu.:  1.00   1st Qu.: 0.00   1st Qu.: 116   1st Qu.: 0.00  
-##  Median :  8.62   Median : 1.00   Median : 656   Median : 0.00  
-##  Mean   : 30.88   Mean   : 9.68   Mean   : 841   Mean   : 1.18  
-##  3rd Qu.: 55.00   3rd Qu.: 9.62   3rd Qu.:1477   3rd Qu.: 0.00  
-##  Max.   :112.89   Max.   :64.62   Max.   :2350   Max.   :21.39  
-##    rtransfer        rgrowth        rsenesced        diseased    
-##  Min.   : 0.00   Min.   : 9.69   Min.   : 1.00   Min.   :  0.0  
-##  1st Qu.: 0.00   1st Qu.:29.03   1st Qu.: 9.48   1st Qu.:  1.4  
-##  Median : 0.00   Median :34.32   Median :25.25   Median : 14.4  
-##  Mean   : 1.18   Mean   :42.41   Mean   :19.73   Mean   : 46.5  
-##  3rd Qu.: 0.00   3rd Qu.:57.35   3rd Qu.:27.49   3rd Qu.: 84.8  
-##  Max.   :21.39   Max.   :79.65   Max.   :37.74   Max.   :142.8  
-##     severity         lat            lon     
-##  Min.   :0.00   Min.   :14.7   Min.   :121  
-##  1st Qu.:0.19   1st Qu.:14.7   1st Qu.:121  
-##  Median :0.53   Median :14.7   Median :121  
-##  Mean   :1.35   Mean   :14.7   Mean   :121  
-##  3rd Qu.:2.64   3rd Qu.:14.7   3rd Qu.:121  
-##  Max.   :4.42   Max.   :14.7   Max.   :121
+##  Median : 60   Median :2000-03-04   Median :2519   Median : 1.39  
+##  Mean   : 60   Mean   :2000-03-04   Mean   :1887   Mean   : 8.76  
+##  3rd Qu.: 90   3rd Qu.:2000-04-03   3rd Qu.:2648   3rd Qu.:11.43  
+##  Max.   :120   Max.   :2000-05-03   Max.   :2754   Max.   :83.09  
+##    infectious       removed        senesced       rateinf      
+##  Min.   :  0.0   Min.   : 0.0   Min.   :   0   Min.   : 0.000  
+##  1st Qu.:  1.0   1st Qu.: 0.0   1st Qu.: 116   1st Qu.: 0.000  
+##  Median : 12.1   Median : 1.0   Median : 655   Median : 0.000  
+##  Mean   : 46.1   Mean   :13.6   Mean   : 840   Mean   : 1.752  
+##  3rd Qu.: 86.3   3rd Qu.:13.1   3rd Qu.:1473   3rd Qu.: 0.402  
+##  Max.   :170.8   Max.   :99.3   Max.   :2356   Max.   :30.917  
+##    rtransfer         rgrowth        rsenesced        diseased    
+##  Min.   : 0.000   Min.   : 9.69   Min.   : 1.00   Min.   :  0.0  
+##  1st Qu.: 0.000   1st Qu.:28.84   1st Qu.: 9.48   1st Qu.:  1.4  
+##  Median : 0.000   Median :34.32   Median :25.19   Median : 19.8  
+##  Mean   : 1.752   Mean   :42.32   Mean   :19.80   Mean   : 68.5  
+##  3rd Qu.: 0.402   3rd Qu.:57.31   3rd Qu.:27.27   3rd Qu.:128.9  
+##  Max.   :30.917   Max.   :79.53   Max.   :40.27   Max.   :212.0  
+##     severity          lat            lon     
+##  Min.   :0.000   Min.   :14.7   Min.   :121  
+##  1st Qu.:0.190   1st Qu.:14.7   1st Qu.:121  
+##  Median :0.739   Median :14.7   Median :121  
+##  Mean   :2.004   Mean   :14.7   Mean   :121  
+##  3rd Qu.:4.080   3rd Qu.:14.7   3rd Qu.:121  
+##  Max.   :6.656   Max.   :14.7   Max.   :121
 ```
 
 ### Dry season severity
@@ -243,16 +237,13 @@ ggplot(data = bb_dry,
        x = "Date") +
   geom_line() +
   geom_point() +
-  labs(title = "Bacterial blight disease progress over time",
-       subtitle = "Results for dry season year 2000 at IRRI Zeigler Experiment
-       Station shown",
-       caption = "Weather data acknowledgement: These data were obtained from
+  labs(caption = "Weather data acknowledgement: These data were obtained from
        the NASA Langley Research Center POWER Project funded through the NASA
        Earth Science Directorate Applied Science Program.") +
   theme_light()
 ```
 
-![plot of chunk dry_plot_severity](dry_plot_severity-1.png)
+![Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown](dry_plot_severity-1.png)
 
 Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons and compare.
 
@@ -268,7 +259,7 @@ AUDPC(
 ```
 
 ```
-## [1] 0.01346
+## [1] 0.02004
 ```
 
 ```r
@@ -282,11 +273,11 @@ AUDPC(
 ```
 
 ```
-## [1] 0.1017
+## [1] 0.1225
 ```
 
 The AUDPC of the wet season is greater than that of the dry season.
-Checking the data and referring to the curves, the wet season severity reaches a peak value of 40.17% and the dry season tops out at 4.42%.
+Checking the data and referring to the curves, the wet season severity reaches a peak value of 43.91% and the dry season tops out at 6.66%.
 So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease severity.
 
 # References
