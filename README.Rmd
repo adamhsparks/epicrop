@@ -86,7 +86,7 @@ ggplot(data = bb,
   labs(y = "Severity",
        x = "Date") +
   geom_line() +
-  geom_point()
+  geom_point() +
   theme_classic()
 ```
 
