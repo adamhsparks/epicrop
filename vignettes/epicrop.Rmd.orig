@@ -91,7 +91,7 @@ library("tidyr")
 
 The model records the number of sites for each bin daily; this can be graphed as follows.
 
-```{r wet_plot_sites, fig.cap="Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown."}
+```{r wet_plot_sites, fig.cap="Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program."}
 dat <- pivot_longer(
   bb_wet,
   cols = c("diseased", "removed", "latent", "infectious"),
@@ -113,14 +113,14 @@ ggplot(data = dat,
   labs(caption = "Weather data acknowledgement: These data were obtained from
        the NASA Langley Research Center POWER Project funded through the NASA
        Earth Science Directorate Applied Science Program.") +
-  theme_light()
+  theme_classic()
 ```
 
 ### Wet season severity
 
 Plotting severity over time does not require any data manipulation.
 
-```{r wet_plot_severity, fig.cap="Wet season disease severity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown"}
+```{r wet_plot_severity, fig.cap="Wet season disease severity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.  Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program."}
 ggplot(data = bb_wet,
        aes(x = dates,
            y = severity)) +
@@ -128,10 +128,7 @@ ggplot(data = bb_wet,
        x = "Date") +
   geom_line() +
   geom_point() +
-  labs(caption = "Weather data acknowledgement: These data were obtained from
-       the NASA Langley Research Center POWER Project nfunded through the NASA
-       Earth Science Directorate Applied Science Program.") +
-  theme_light()
+  theme_classic()
 ```
 
 ## Comparing epidemics
@@ -152,7 +149,7 @@ summary(bb_dry)
 
 Check the disease progress curve for the dry season.
 
-```{r dry_plot_severity, fig.cap="Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown"}
+```{r dry_plot_severity, fig.cap="Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program."}
 ggplot(data = bb_dry,
        aes(x = dates,
            y = severity)) +
@@ -160,10 +157,7 @@ ggplot(data = bb_dry,
        x = "Date") +
   geom_line() +
   geom_point() +
-  labs(caption = "Weather data acknowledgement: These data were obtained from
-       the NASA Langley Research Center POWER Project funded through the NASA
-       Earth Science Directorate Applied Science Program.") +
-  theme_light()
+  theme_classic()
 ```
 
 Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons and compare.
