@@ -45,28 +45,26 @@ remotes::install_github("adamhsparks/epicrop"
 
 ## Get weather data
 
-First you need to provide weather data for the model. _epicrop_ provides the `get_wth()` function to do this. Using it you can fetch weather data for any place in the world from 1983 to near present by providing the
-longitude and latitude and dates or length of rice growing season as shown below.
+First you need to provide weather data for the model. _epicrop_ provides the `get_wth()` function to do this.
+Using it you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.
 
 ```{r weather}
 library("epicrop")
 
 # Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI
 # Zeigler Experiment Station
- wth <- get_wth(
-   lonlat = c(121.25562, 14.6774),
-   dates = "2000-07-01",
-   duration = 120
- )
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = "2000-07-01",
+  duration = 120
+)
 
 wth
 ```
 
 ## Modelling bacterial blight disease severity
 
-Once you have the weather data, run the model for any of the five rice
-diseases by providing the emergence or crop establishment date for
-transplanted rice.
+Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.
 
 ```{r example}
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
@@ -75,7 +73,7 @@ bb
 ```
 
 
-Once you have the results you can visualise them.
+Lastly you can visualise the result of the model run.
 
 ```{r plot, fig.cap="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.",}
 library("ggplot2")

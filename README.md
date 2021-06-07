@@ -50,19 +50,18 @@ remotes::install_github("adamhsparks/epicrop"
 First you need to provide weather data for the model. *epicrop* provides
 the `get_wth()` function to do this. Using it you can fetch weather data
 for any place in the world from 1983 to near present by providing the
-longitude and latitude and dates or length of rice growing season as
-shown below.
+and latitude and dates or length of rice growing season as shown below.
 
 ``` r
 library("epicrop")
 
 # Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI
 # Zeigler Experiment Station
- wth <- get_wth(
-   lonlat = c(121.25562, 14.6774),
-   dates = "2000-07-01",
-   duration = 120
- )
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = "2000-07-01",
+  duration = 120
+)
 
 wth
 #>        YYYYMMDD DOY  TEMP  RHUM  RAIN   LAT   LON
@@ -115,7 +114,7 @@ bb
 #> 121:      0.00  24.410    57.906     1383    43.04 14.68 121.3
 ```
 
-Once you have the results you can visualise them.
+Lastly you can visualise the result of the model run.
 
 ``` r
 library("ggplot2")
