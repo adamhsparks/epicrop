@@ -2,13 +2,17 @@
 
 ## Bug fixes
 
-* Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (`==`) not equal to or greater than (`>=`) the set parameter for rhlim (default is 90%).
+* Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (`==`) not equal to or greater than (`>=`) the set parameter for `rhlim` (default is 90%).
 
 * Example for `SEIR()` in ROxygen section now works properly when executed by the user.
 
 ## Major changes
 
 * Any default parameter values are moved from `SEIR()` to the `predict_()` functions themselves, so any calls directly to `SEIR()` must specify all parameters.
+
+* Deleted `inst/alt_versions/tungrov2.R` file.
+
+* Deleted `inst/workflows/spatsim.R` file. 
 
 ## Minor changes
 
