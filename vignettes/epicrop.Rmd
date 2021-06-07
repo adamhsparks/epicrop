@@ -149,9 +149,6 @@ ggplot(data = dat,
        x = "Date") +
   geom_line(aes(group = site, colour = site)) +
   geom_point(aes(colour = site)) +
-  labs(caption = "Weather data acknowledgement: These data were obtained from
-       the NASA Langley Research Center POWER Project funded through the NASA
-       Earth Science Directorate Applied Science Program.") +
   theme_classic()
 ```
 
