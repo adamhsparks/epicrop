@@ -168,13 +168,19 @@ SEIR <-
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) |
         (max(dates) > max(wth[, YYYYMMDD]))) {
-      stop("Incomplete weather data or dates do not align")
+      stop(call. = FALSE,
+           "Incomplete weather data or dates do not align")
     }
 
     # subset weather data where date is greater than emergence minus one and
     # less than duration
     wth <-
       wth[YYYYMMDD %between% c(emergence - 1, emergence + duration)]
+
+    # create vectors for referencing
+    wth_rain <- wth$RAIN
+    wth_rhum <- wth$RHUM
+    wth_temp <- wth$TEMP
 
     # outputvars
     cofr <-
@@ -183,7 +189,7 @@ SEIR <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <-
-      now_latent <- sites <- total_sites <- rrlex <-
+      now_latent <- sites <- total_sites <-
       rep(0, times = duration + 1)
 
     for (d in 0:duration) {
@@ -205,8 +211,7 @@ SEIR <-
           removed_today <- 0
         }
 
-        sites[d1] <-
-          sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
+        sites[d1] <- sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
         rsenesced[d1] <- removed_today + RRS * sites[d1]
         senesced[d1] <- senesced[d] + rsenesced[d]
 
@@ -226,13 +231,12 @@ SEIR <-
         break
       }
 
-      if (wth$RHUM[d1] == rhlim |
-          wth$RAIN[d1] >= rainlim) {
+      if (wth_rhum[d1] == rhlim | wth_rain[d1] >= rainlim) {
         RHCoef[d1] <- 1
       }
 
       rc[d1] <- RcOpt * select_mod_val(xy = RcA, x = d) *
-        select_mod_val(xy = RcT, x = wth$TEMP[d1]) * RHCoef[d1]
+        select_mod_val(xy = RcT, x = wth_temp[d1]) * RHCoef[d1]
 
       diseased[d1] <- sum(infectious) +
         now_latent[d1] + removed[d1]
