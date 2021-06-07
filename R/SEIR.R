@@ -88,9 +88,9 @@
 #' ))
 #'
 #' @details # _a_ - Aggregation
-#' When _a_ is set to 1 the assumption is that that there is no disease
+#' When _a_ is set to `1` the assumption is that that there is no disease
 #' aggregation with new infections occurring at random among the healthy sites.
-#' When _a_ is greater than 1 there is aggregation in the disease occurrence,
+#' When _a_ is greater than `1` there is aggregation in the disease occurrence,
 #' the pathogen is unable to access the entire population of healthy sites,
 #' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.
