@@ -192,14 +192,18 @@ SEIR <-
         rsenesced[cs_1] <- RRS * sites[cs_1]
       } else {
         if (day > i) {
+          # as this never happens when `day > inftrans` so `infday` is assigned
+          # a non-NULL value on line 217, when the loop comes back around it's
+          # then present, so until `day > i`, `removed_today` will always be
+          # equal to "0" since the disease has not had time to completely
+          # transit the infectious period as specified by parameter `i` - AHS
           removed_today <- infectious[infday + 2]
         } else {
           removed_today <- 0
         }
 
         sites[cs_1] <-
-          sites[day] + rgrowth[day] - infection[day] -
-          rsenesced[day]
+          sites[day] + rgrowth[day] - infection[day] - rsenesced[day]
         rsenesced[cs_1] <- removed_today + RRS * sites[cs_1]
         senesced[cs_1] <- senesced[day] + rsenesced[day]
 
@@ -311,15 +315,21 @@ SEIR <-
 #' `for()` loop and returns a value from the matrix corresponding to the value
 #' along the corresponding correction curve, either `RcA` (removals corrected
 #' for crop age) or `RcT` (removals corrected for temperature).
-#'
 #' @param xy a matrix of modifier values for the rate of removals corrected for
 #'  crop age, `RcA`, or temperature, `RcT` representing a fitted curve.
 #' @param x a numeric value indicating the _i_th day of the duration of the run
 #'  for crop age, `RcA`, or the temperature value, `RcT`, on the _i_th day.
-#'
-#' @note The original author of afgen() function is Robert J. Hijmans
-#'  This was adapted from the \R package \pkg{cropsim} for \pkg{epicrop}
-#'  by Adam H. Sparks under the GPL3 License.
+#' @details If you check CRAN, you'll find \CRANpkg{ZeBook}, in that package's
+#'  version of this function the authors use a different methodology for
+#'  determining the modifier value.  While the code is more simple and easy-to-
+#'  read, it sacrifices speed for this clarity.  Using \CRANpkg{microbenchmark}
+#'  illustrates how much quicker this function is as it is written here.  Since
+#'  this package is intended to be somewhat quicker to run, I've elected to keep
+#'  this function in this state.
+#' @note The original author of afgen() is Robert J. Hijmans.  This version was
+#'  adapted from the \R package \pkg{cropsim} for \pkg{epicrop} by Adam H.
+#'  Sparks under the GPL3 License.
+#' @author Robert J. Hijmans (original) Adam H. Sparks (adopter)
 #'
 #' @examples
 #' day <- 1
@@ -350,12 +360,11 @@ select_mod_val <- function(xy, x) {
       res <- int[1, 2]
     } else if (x == int[2, 1]) {
       res <- int[2, 2]
-      # calculate point on curve if no previous match in xy matrix
+      # calculate point on curve if no previous match in 'xy' matrix
     } else {
       res <- int[1, 2] + (x - int[1, 1]) *
-        ((int[2, 2] - int[1, 2]) /
-           (int[2, 1] - int[1, 1]))
+        ((int[2, 2] - int[1, 2]) / (int[2, 1] - int[1, 1]))
     }
   }
-  return(res[[1]])
+  return(res)
 }
