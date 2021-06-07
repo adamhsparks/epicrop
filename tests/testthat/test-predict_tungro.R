@@ -36,7 +36,7 @@ test_that("Values are as expected", {
 
   # check infectious sites
   expect_equal(t[[1, 5]], 0)
-  expect_equal(t[[121, 5]], 8.15, tolerance = 0.01)
+  expect_equal(t[[121, 5]], 8.71, tolerance = 0.01)
 
   # check removed sites
   expect_equal(t[[1, 6]], 0)
@@ -44,7 +44,7 @@ test_that("Values are as expected", {
 
   # check senesced sites
   expect_equal(t[[1, 7]], 0)
-  expect_equal(t[[121, 7]], 104.2, tolerance = 0.01)
+  expect_equal(t[[121, 7]], 103.9, tolerance = 0.01)
 
   # check rateinf
   expect_equal(t[[1, 8]], 0)
@@ -56,19 +56,19 @@ test_that("Values are as expected", {
 
   # check rgrowth
   expect_equal(t[[1, 10]], 0, tolerance = 0.01)
-  expect_equal(t[[121, 10]], 0.8185, tolerance = 0.0001)
+  expect_equal(t[[121, 10]], 0.8129, tolerance = 0.0001)
 
   # check rsenesced
   expect_equal(t[[1, 11]], 1)
-  expect_equal(t[[121, 11]], 0.8185, tolerance = 0.0001)
+  expect_equal(t[[121, 11]], 0.8129, tolerance = 0.0001)
 
   # check diseased
   expect_equal(t[[1, 12]], 0)
-  expect_equal(t[[121, 12]], 8.15, tolerance = 0.01)
+  expect_equal(t[[121, 12]], 8.71, tolerance = 0.01)
 
   # check severity values
   expect_equal(t[[1, 13]], 0)
-  expect_equal(t[[121, 13]], 9.055, tolerance = 0.01)
+  expect_equal(t[[121, 13]], 9.678, tolerance = 0.01)
 
   # check lat/lon values
   expect_equal(t[[1, 14]], 14.68, tolerance = 0.01)
