@@ -44,8 +44,8 @@
 #' @param Sx maximum number of sites.  Described in Table 1 of Savary _et al._
 #'  2012.
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric).
-#'  Described in Table 1 of Savary _et al._ 2012. See further details in **_a_ -
-#'  Aggregation** section.
+#'  Described in Table 1 of Savary _et al._ 2012.  See further details in
+#'  **_a_ - Aggregation** section.
 #' @param RRS relative rate of physiological senescence.  Described in Table 1
 #'  of Savary _et al._ 2012.
 #' @param RRG relative rate of growth.  Described in Table 1 of Savary _et al._
