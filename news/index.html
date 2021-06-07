@@ -132,7 +132,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li><p>Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (<code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>) not equal to or greater than (<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>) the set parameter for rhlim (default is 90%).</p></li>
+<li><p>Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (<code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>) not equal to or greater than (<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>) the set parameter for <code>rhlim</code> (default is 90%).</p></li>
 <li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in ROxygen section now works properly when executed by the user.</p></li>
 </ul>
 </div>
@@ -140,7 +140,9 @@
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
 <ul>
-<li>Any default parameter values are moved from <code><a href="../reference/SEIR.html">SEIR()</a></code> to the <code>predict_()</code> functions themselves, so any calls directly to <code><a href="../reference/SEIR.html">SEIR()</a></code> must specify all parameters.</li>
+<li><p>Any default parameter values are moved from <code><a href="../reference/SEIR.html">SEIR()</a></code> to the <code>predict_()</code> functions themselves, so any calls directly to <code><a href="../reference/SEIR.html">SEIR()</a></code> must specify all parameters.</p></li>
+<li><p>Deleted <code>inst/alt_versions/tungrov2.R</code> file.</p></li>
+<li><p>Deleted <code>inst/workflows/spatsim.R</code> file.</p></li>
 </ul>
 </div>
 <div id="minor-changes" class="section level2">
