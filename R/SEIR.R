@@ -186,18 +186,18 @@ SEIR <-
       now_latent <- sites <- total_sites <- rrlex <-
       rep(0, times = duration + 1)
 
-    for (day in 0:duration) {
+    for (d in 0:duration) {
       # State calculations for() loop -----
-      cs_1 <- day + 1
-      if (day == 0) {
+      d1 <- d + 1
+      if (d == 0) {
         # start crop growth
-        sites[cs_1] <- H0
-        rsenesced[cs_1] <- RRS * sites[cs_1]
+        sites[d1] <- H0
+        rsenesced[d1] <- RRS * sites[d1]
       } else {
-        if (day > i) {
-          # as this never happens when `day > inftrans` so `infday` is assigned
+        if (d > i) {
+          # as this never happens when `d > inftrans` so `infday` is assigned
           # a non-NULL value on line 217, when the loop comes back around it's
-          # then present, so until `day > i`, `removed_today` will always be
+          # then present, so until `d > i`, `removed_today` will always be
           # equal to "0" since the disease has not had time to completely
           # transit the infectious period as specified by parameter `i` - AHS
           removed_today <- infectious[infday + 2]
@@ -205,65 +205,61 @@ SEIR <-
           removed_today <- 0
         }
 
-        sites[cs_1] <-
-          sites[day] + rgrowth[day] - infection[day] - rsenesced[day]
-        rsenesced[cs_1] <- removed_today + RRS * sites[cs_1]
-        senesced[cs_1] <- senesced[day] + rsenesced[day]
+        sites[d1] <-
+          sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
+        rsenesced[d1] <- removed_today + RRS * sites[d1]
+        senesced[d1] <- senesced[d] + rsenesced[d]
 
-        latency[cs_1] <- infection[day]
-        latday <- day - p + 1
+        latency[d1] <- infection[d]
+        latday <- d - p + 1
         latday <- max(0, latday)
-        now_latent[day + 1] <- sum(latency[latday:day + 1])
+        now_latent[d1] <- sum(latency[latday:d + 1])
 
-        infectious[day + 1] <- rtransfer[day]
-        infday <- day - i + 1
+        infectious[d1] <- rtransfer[d]
+        infday <- d - i + 1
         infday <- max(0, infday)
-        now_infectious[day + 1] <- sum(infectious[infday:day + 1])
+        now_infectious[d1] <- sum(infectious[infday:d + 1])
       }
 
-      cs_2 <- day + 1
-      if (sites[cs_2] < 0) {
-        sites[cs_2] <- 0
+      if (sites[d1] < 0) {
+        sites[d1] <- 0
         break
       }
 
-      if (wth$RHUM[cs_2] == rhlim |
-          wth$RAIN[cs_2] >= rainlim) {
-        RHCoef[cs_2] <- 1
+      if (wth$RHUM[d1] == rhlim |
+          wth$RAIN[d1] >= rainlim) {
+        RHCoef[d1] <- 1
       }
 
-      cs_3 <- day + 1
-      rc[cs_3] <- RcOpt * select_mod_val(xy = RcA, x = day) *
-        select_mod_val(xy = RcT, x = wth$TEMP[day + 1]) * RHCoef[cs_3]
+      rc[d1] <- RcOpt * select_mod_val(xy = RcA, x = d) *
+        select_mod_val(xy = RcT, x = wth$TEMP[d1]) * RHCoef[d1]
 
-      cs_4 <- day + 1
-      diseased[cs_3] <- sum(infectious) +
-        now_latent[cs_4] + removed[cs_4]
+      diseased[d1] <- sum(infectious) +
+        now_latent[d1] + removed[d1]
 
-      cs_5 <- day + 1
-      removed[cs_4] <- sum(infectious) - now_infectious[cs_5]
+      removed[d1] <- sum(infectious) - now_infectious[d1]
 
-      cofr[cs_5] <- 1 - (diseased[cs_5] / (sites[cs_5] + diseased[cs_5]))
+      cofr[d1] <- 1 - (diseased[d1] / (sites[d1] + diseased[d1]))
 
-      if (day == onset) {
+      if (d == onset) {
         # initialisation of the disease
-        infection[cs_5] <- I0
-      } else if (day > onset) {
-        infection[cs_5] <- now_infectious[cs_5] * rc[cs_5] * (cofr[cs_5] ^ a)
+        infection[d1] <- I0
+      } else if (d > onset) {
+        infection[d1] <- now_infectious[d1] * rc[d1] * (cofr[d1] ^ a)
       } else {
-        infection[cs_5] <- 0
+        infection[d1] <- 0
       }
 
-      if (day >=  p) {
-        rtransfer[cs_5] <- latency[latday + 1]
+      if (d >=  p) {
+        rtransfer[d1] <- latency[latday + 1]
       } else {
-        rtransfer[cs_5] <- 0
+        rtransfer[d1] <- 0
       }
 
-      total_sites[cs_5] <- diseased[cs_5] + sites[cs_5]
-      rgrowth[cs_5] <- RRG * sites[cs_5] * (1 - (total_sites[cs_5] / Sx))
-      severity[cs_5] <- (diseased[cs_5] - removed[cs_5]) /
-        (total_sites[cs_5] - removed[cs_5]) * 100
+      total_sites[d1] <- diseased[d1] + sites[d1]
+      rgrowth[d1] <- RRG * sites[d1] * (1 - (total_sites[d1] / Sx))
+      severity[d1] <- (diseased[d1] - removed[d1]) /
+        (total_sites[d1] - removed[d1]) * 100
     } # end loop
 
     res <-
@@ -282,7 +278,7 @@ SEIR <-
         severity
       )
 
-    res[, dates := dates[1:(day + 1)]]
+    res[, dates := dates[1:d1]]
     res[, lat := rep_len(wth[, LAT], .N)]
     res[, lon := rep_len(wth[, LON], .N)]
 
@@ -329,8 +325,8 @@ SEIR <-
 #'  illustrates how much quicker this function is as it is written here.  Since
 #'  this package is intended to be somewhat quicker to run, I've elected to keep
 #'  this function in this state.
-#' @note The original author of afgen() is Robert J. Hijmans.  This version was
-#'  adapted from the \R package \pkg{cropsim} for \pkg{epicrop} by Adam H.
+#' @note The original author of [afgen()] is Robert J. Hijmans.  This version
+#'  was adapted from the \R package \pkg{cropsim} for \pkg{epicrop} by Adam H.
 #'  Sparks under the GPL3 License.
 #' @author Robert J. Hijmans (original) Adam H. Sparks (adopter)
 #'
