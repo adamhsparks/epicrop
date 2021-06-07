@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -125,6 +125,44 @@
       <small>Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="epicrop-0009004" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9004">
+<a href="#epicrop-0009004" class="anchor"></a>epicrop 0.0.0.9004</h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li><p>Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (<code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>) not equal to or greater than (<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>) the set parameter for rhlim (default is 90%).</p></li>
+<li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in ROxygen section now works properly when executed by the user.</p></li>
+</ul>
+</div>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li>Any default parameter values are moved from <code><a href="../reference/SEIR.html">SEIR()</a></code> to the <code>predict_()</code> functions themselves, so any calls directly to <code><a href="../reference/SEIR.html">SEIR()</a></code> must specify all parameters.</li>
+</ul>
+</div>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li><p>Edit documentation for better clarity</p></li>
+<li><p>Better commenting in code for self and others’ reference</p></li>
+<li>
+<p><code><a href="../reference/SEIR.html">SEIR()</a></code> is simplified and further optimised</p>
+<ul>
+<li>In some cases in the <code>for()</code> loop, the value of <code>day + 1</code> was repeatedly calculated and assigned to a new object. This has been corrected with a single object, <code>d1</code> being created at the beginning of each loop instance.</li>
+<li>In some cases where RH, TEMP or RAIN are repeatedly checked against, vectors of these three values are created outside the loop to save time when checking or extracting values.</li>
+<li>Redundant code and other unused objects are cleaned up and removed.</li>
+</ul>
+</li>
+<li><p>Standardise library loading calls to use standard evaluation in documentation.</p></li>
+<li><p>Standardise italics to use "_" rather than "*".</p></li>
+<li><p>Use <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">ggplot2::theme_classic()</a></code> for example figures in README and epicrop vignette.</p></li>
+</ul>
+</div>
+</div>
     <div id="epicrop-0009003" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9003">
 <a href="#epicrop-0009003" class="anchor"></a>epicrop 0.0.0.9003</h1>
