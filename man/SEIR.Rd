@@ -76,8 +76,8 @@ from Table 1 of Savary \emph{et al.} 2012.}
 2012.}
 
 \item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
-Described in Table 1 of Savary \emph{et al.} 2012. See further details in \strong{\emph{a} -
-Aggregation} section.}
+Described in Table 1 of Savary \emph{et al.} 2012.  See further details in
+\strong{\emph{a} - Aggregation} section.}
 
 \item{RRS}{relative rate of physiological senescence.  Described in Table 1
 of Savary \emph{et al.} 2012.}
