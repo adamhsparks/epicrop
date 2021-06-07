@@ -166,7 +166,7 @@ SEIR <-
     dates <- seq(emergence - 1, emergence + duration, 1)
 
     # check that the dates roughly align
-    if (!(emergence >= wth[1, YYYYMMDD]) |
+    if (!(emergence >= wth[1, YYYYMMDD]) ||
         (max(dates) > max(wth[, YYYYMMDD]))) {
       stop(call. = FALSE,
            "Incomplete weather data or dates do not align")
@@ -231,7 +231,7 @@ SEIR <-
         break
       }
 
-      if (wth_rhum[d1] >= rhlim | wth_rain[d1] >= rainlim) {
+      if (wth_rhum[d1] >= rhlim || wth_rain[d1] >= rainlim) {
         RHCoef[d1] <- 1
       }
 
