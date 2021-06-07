@@ -6,7 +6,7 @@
 
 * Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (`==`) not equal to or greater than (`>=`) the set parameter for `rhlim` (default is 90%).
 
-* Example for `SEIR()` in ROxygen section now works properly when executed by the user.
+* Example for `SEIR()` in roxygen section now works properly when executed by the user.
 
 ## Major changes
 
