@@ -1,5 +1,9 @@
 # epicrop 0.0.0.9005
 
+## Minor changes
+
+* Only import _data.table_ functions as necessary, don't import whole package.
+
 # epicrop 0.0.0.9004
 
 ## Bug fixes
