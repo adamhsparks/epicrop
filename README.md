@@ -114,7 +114,7 @@ bb
 #> 121:      0.00  24.410    57.906     1383    43.04 14.68 121.3
 ```
 
-Lastly you can visualise the result of the model run.
+Lastly, you can visualise the result of the model run.
 
 ``` r
 library("ggplot2")
