@@ -44,6 +44,9 @@
 #'
 #' @author Adam H. Sparks
 #' @export get_wth
+#' @importFrom data.table setDT
+#' @importFrom data.table setnames
+#' @importFrom data.table setcolorder
 
 get_wth <- function(lonlat, dates, duration) {
   if (!missing(duration)) {

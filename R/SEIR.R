@@ -130,8 +130,14 @@
 #'   _lat_| Latitude value as provided by `wth` object
 #'   _lon_| Longitude value as provided by `wth` object
 #'
+#' @importFrom data.table setnames
+#' @importFrom data.table setcolorder
+#' @importFrom data.table `:=`
+#' @importFrom data.table data.table
+#' @importFrom data.table `.N`
+#' @importFrom data.table `%between%`
 #' @export
-#'
+
 SEIR <-
   function(wth,
            emergence,
