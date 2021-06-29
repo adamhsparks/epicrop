@@ -4,6 +4,13 @@
 
 * Only import _data.table_ functions as necessary, don't import whole package.
 
+## Bug fixes
+
+* Convert `wth` (weather input object) to a data.table type object internally if it is not already one.
+Prior, if the object was not a data.table, `SEIR()` would fail with a message that the dates did not align.
+This should fix that issue and any data.frame type object including a tibble can be provided now.
+Thanks to Jean Fabrice Adanve for helping me find this bug.
+
 # epicrop 0.0.0.9004
 
 ## Bug fixes
