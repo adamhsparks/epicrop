@@ -130,8 +130,14 @@
 #'   _lat_| Latitude value as provided by `wth` object
 #'   _lon_| Longitude value as provided by `wth` object
 #'
+#' @importFrom data.table setnames
+#' @importFrom data.table setcolorder
+#' @importFrom data.table `:=`
+#' @importFrom data.table data.table
+#' @importFrom data.table `.N`
+#' @importFrom data.table `%between%`
 #' @export
-#'
+
 SEIR <-
   function(wth,
            emergence,
@@ -153,6 +159,12 @@ SEIR <-
     # CRAN NOTE avoidance
     infday <- YYYYMMDD <- lat <- lon <- LAT <- LON <- NULL #nocov
 
+    # set wth input as a data.table object if it's not already one
+    if (!inherits(wth, "data.table")) {
+      wth <- data.table::as.data.table(wth)
+    }
+
+    # check aggregation values
     if (a < 1) {
       stop(call. = FALSE,
            "`a` cannot be set to less than 1. Valid aggregation values, `a`,",

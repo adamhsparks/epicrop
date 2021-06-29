@@ -1,10 +1,23 @@
+# epicrop 0.0.0.9005
+
+## Minor changes
+
+* Only import _data.table_ functions as necessary, don't import whole package.
+
+## Bug fixes
+
+* Convert `wth` (weather input object) to a data.table type object internally if it is not already one.
+Prior, if the object was not a data.table, `SEIR()` would fail with a message that the dates did not align.
+This should fix that issue and any data.frame type object including a tibble can be provided now.
+Thanks to Jean Fabrice Adanve for helping me find this bug.
+
 # epicrop 0.0.0.9004
 
 ## Bug fixes
 
 * Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (`==`) not equal to or greater than (`>=`) the set parameter for `rhlim` (default is 90%).
 
-* Example for `SEIR()` in ROxygen section now works properly when executed by the user.
+* Example for `SEIR()` in roxygen section now works properly when executed by the user.
 
 ## Major changes
 
