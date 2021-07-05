@@ -167,9 +167,11 @@ SEIR <-
 
     # check aggregation values
     if (a < 1) {
-      stop(call. = FALSE,
-           "`a` cannot be set to less than 1. Valid aggregation values, `a`,",
-           " are from 1 to > 1.")
+      stop(
+        call. = FALSE,
+        "`a` cannot be set to less than 1. Valid aggregation values, `a`,",
+        " are from 1 to > 1."
+      )
     }
 
     # set date formats
@@ -224,7 +226,8 @@ SEIR <-
           removed_today <- 0
         }
 
-        sites[d1] <- sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
+        sites[d1] <-
+          sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
         rsenesced[d1] <- removed_today + RRS * sites[d1]
         senesced[d1] <- senesced[d] + rsenesced[d]
 
@@ -325,7 +328,7 @@ SEIR <-
 
     return(out[])
   }
-  }
+}
 
 #' Select a modifier value from a given curve
 #'
@@ -365,14 +368,14 @@ select_mod_val <- function(xy, x) {
   } else if (x >= xy[d[1], 1]) {
     res <- xy[d[1], 2]
   } else {
-    a <- xy[xy[, 1] <= x, ]
-    b <- xy[xy[, 1] >= x, ]
+    a <- xy[xy[, 1] <= x,]
+    b <- xy[xy[, 1] >= x,]
     if (length(a) == 2) {
-      int <- rbind(a, b[1, ])
+      int <- rbind(a, b[1,])
     } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1], ], b)
+      int <- rbind(a[dim(a)[1],], b)
     } else {
-      int <- rbind(a[dim(a)[1], ], b[1, ])
+      int <- rbind(a[dim(a)[1],], b[1,])
     }
     if (x == int[1, 1]) {
       res <- int[1, 2]
