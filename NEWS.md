@@ -6,6 +6,8 @@
 
 * Minor improvements to documentation.
 
+* Polish NEWS.md.
+
 # epicrop 0.0.0.9005
 
 ## Minor changes
