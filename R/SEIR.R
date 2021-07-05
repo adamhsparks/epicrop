@@ -277,28 +277,30 @@ SEIR <-
         (total_sites[d1] - removed[d1]) * 100
     } # end loop
 
-    res <-
-      data.table(
-        0:duration,
-        sites,
-        now_latent,
-        now_infectious,
-        removed,
-        senesced,
-        infection,
-        rtransfer,
-        rgrowth,
-        rsenesced,
-        diseased,
-        severity
+    out <-
+      setDT(
+        list(
+          0:duration,
+          sites,
+          now_latent,
+          now_infectious,
+          removed,
+          senesced,
+          infection,
+          rtransfer,
+          rgrowth,
+          rsenesced,
+          diseased,
+          severity,
+          dates[1:d1]
+        )
       )
 
-    res[, dates := dates[1:d1]]
-    res[, lat := rep_len(wth[, LAT], .N)]
-    res[, lon := rep_len(wth[, LON], .N)]
+    out[, lat := rep_len(wth[, LAT], .N)]
+    out[, lon := rep_len(wth[, LON], .N)]
 
     setnames(
-      res,
+      out,
       c(
         "simday",
         "sites",
@@ -318,9 +320,10 @@ SEIR <-
       )
     )
 
-    setcolorder(res, c("simday", "dates"))
+    setcolorder(out, c("simday", "dates"))
 
-    return(res[])
+    return(out[])
+  }
   }
 
 #' Select a modifier value from a given curve
