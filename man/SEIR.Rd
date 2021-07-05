@@ -25,7 +25,7 @@ SEIR(
 )
 }
 \arguments{
-\item{wth}{a data frame of weather on a daily time-step containing data with
+\item{wth}{a \code{data.frame} of weather on a daily time-step containing data with
 the following field names.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
