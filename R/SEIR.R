@@ -285,6 +285,7 @@ SEIR <-
       setDT(
         list(
           0:duration,
+          dates[1:d1],
           sites,
           now_latent,
           now_infectious,
@@ -295,11 +296,9 @@ SEIR <-
           rgrowth,
           rsenesced,
           diseased,
-          severity,
-          dates[1:d1]
+          severity
         )
       )
-
     out[, lat := rep_len(wth[, LAT], .N)]
     out[, lon := rep_len(wth[, LON], .N)]
 
@@ -307,6 +306,7 @@ SEIR <-
       out,
       c(
         "simday",
+        "dates",
         "sites",
         "latent",
         "infectious",
@@ -318,17 +318,13 @@ SEIR <-
         "rsenesced",
         "diseased",
         "severity",
-        "dates",
         "lat",
         "lon"
       )
     )
 
-    setcolorder(out, c("simday", "dates"))
-
     return(out[])
   }
-}
 
 #' Select a modifier value from a given curve
 #'
