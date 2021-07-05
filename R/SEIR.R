@@ -5,7 +5,7 @@
 #'  \sQuote{EPIRICE} to model disease severity of several rice diseases.  Given
 #'  proper values it can be used with other pathosystems as well.
 #'
-#' @param wth a data frame of weather on a daily time-step containing data with
+#' @param wth a `data.frame` of weather on a daily time-step containing data with
 #'  the following field names.
 #'
 #'   **Field Name** | **Value**
@@ -159,16 +159,19 @@ SEIR <-
     # CRAN NOTE avoidance
     infday <- YYYYMMDD <- lat <- lon <- LAT <- LON <- NULL #nocov
 
-    # set wth input as a data.table object if it's not already one
+    # set wth input as a data.table object if it's not already one, else this
+    # function will fail on line 182
     if (!inherits(wth, "data.table")) {
       wth <- data.table::as.data.table(wth)
     }
 
     # check aggregation values
     if (a < 1) {
-      stop(call. = FALSE,
-           "`a` cannot be set to less than 1. Valid aggregation values, `a`,",
-           " are from 1 to > 1.")
+      stop(
+        call. = FALSE,
+        "`a` cannot be set to less than 1. Valid aggregation values, `a`,",
+        " are from 1 to > 1."
+      )
     }
 
     # set date formats
@@ -223,7 +226,8 @@ SEIR <-
           removed_today <- 0
         }
 
-        sites[d1] <- sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
+        sites[d1] <-
+          sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
         rsenesced[d1] <- removed_today + RRS * sites[d1]
         senesced[d1] <- senesced[d] + rsenesced[d]
 
@@ -277,30 +281,32 @@ SEIR <-
         (total_sites[d1] - removed[d1]) * 100
     } # end loop
 
-    res <-
-      data.table(
-        0:duration,
-        sites,
-        now_latent,
-        now_infectious,
-        removed,
-        senesced,
-        infection,
-        rtransfer,
-        rgrowth,
-        rsenesced,
-        diseased,
-        severity
+    out <-
+      setDT(
+        list(
+          0:duration,
+          dates[1:d1],
+          sites,
+          now_latent,
+          now_infectious,
+          removed,
+          senesced,
+          infection,
+          rtransfer,
+          rgrowth,
+          rsenesced,
+          diseased,
+          severity
+        )
       )
-
-    res[, dates := dates[1:d1]]
-    res[, lat := rep_len(wth[, LAT], .N)]
-    res[, lon := rep_len(wth[, LON], .N)]
+    out[, lat := rep_len(wth[, LAT], .N)]
+    out[, lon := rep_len(wth[, LON], .N)]
 
     setnames(
-      res,
+      out,
       c(
         "simday",
+        "dates",
         "sites",
         "latent",
         "infectious",
@@ -312,15 +318,12 @@ SEIR <-
         "rsenesced",
         "diseased",
         "severity",
-        "dates",
         "lat",
         "lon"
       )
     )
 
-    setcolorder(res, c("simday", "dates"))
-
-    return(res[])
+    return(out[])
   }
 
 #' Select a modifier value from a given curve
@@ -344,41 +347,39 @@ SEIR <-
 #'  was adapted from the \R package \pkg{cropsim} for \pkg{epicrop} by Adam H.
 #'  Sparks under the GPL3 License.
 #' @author Robert J. Hijmans (original) Adam H. Sparks (adopter)
-#'
+#' @keywords internal
 #' @examples
 #' day <- 1
 #' RcA <-
 #'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 #' select_mod_val(xy = RcA, x = day)
-#'
 #' @return A numeric value corresponding to the _i_th day's value
-#'
 #' @noRd
 select_mod_val <- function(xy, x) {
   d <- dim(xy)
   if (x <= xy[1, 1]) {
-    res <- xy[1, 2]
+    mod_val <- xy[1, 2]
   } else if (x >= xy[d[1], 1]) {
-    res <- xy[d[1], 2]
+    mod_val <- xy[d[1], 2]
   } else {
-    a <- xy[xy[, 1] <= x, ]
-    b <- xy[xy[, 1] >= x, ]
+    a <- xy[xy[, 1] <= x,]
+    b <- xy[xy[, 1] >= x,]
     if (length(a) == 2) {
-      int <- rbind(a, b[1, ])
+      int <- rbind(a, b[1,])
     } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1], ], b)
+      int <- rbind(a[dim(a)[1],], b)
     } else {
-      int <- rbind(a[dim(a)[1], ], b[1, ])
+      int <- rbind(a[dim(a)[1],], b[1,])
     }
     if (x == int[1, 1]) {
-      res <- int[1, 2]
+      mod_val <- int[1, 2]
     } else if (x == int[2, 1]) {
-      res <- int[2, 2]
+      mod_val <- int[2, 2]
       # calculate point on curve if no previous match in 'xy' matrix
     } else {
-      res <- int[1, 2] + (x - int[1, 1]) *
+      mod_val <- int[1, 2] + (x - int[1, 1]) *
         ((int[2, 2] - int[1, 2]) / (int[2, 1] - int[1, 1]))
     }
   }
-  return(res)
+  return(mod_val)
 }
