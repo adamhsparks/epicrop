@@ -347,22 +347,20 @@ SEIR <-
 #'  was adapted from the \R package \pkg{cropsim} for \pkg{epicrop} by Adam H.
 #'  Sparks under the GPL3 License.
 #' @author Robert J. Hijmans (original) Adam H. Sparks (adopter)
-#'
+#' @keywords internal
 #' @examples
 #' day <- 1
 #' RcA <-
 #'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 #' select_mod_val(xy = RcA, x = day)
-#'
 #' @return A numeric value corresponding to the _i_th day's value
-#'
 #' @noRd
 select_mod_val <- function(xy, x) {
   d <- dim(xy)
   if (x <= xy[1, 1]) {
-    res <- xy[1, 2]
+    mod_val <- xy[1, 2]
   } else if (x >= xy[d[1], 1]) {
-    res <- xy[d[1], 2]
+    mod_val <- xy[d[1], 2]
   } else {
     a <- xy[xy[, 1] <= x,]
     b <- xy[xy[, 1] >= x,]
@@ -374,14 +372,14 @@ select_mod_val <- function(xy, x) {
       int <- rbind(a[dim(a)[1],], b[1,])
     }
     if (x == int[1, 1]) {
-      res <- int[1, 2]
+      mod_val <- int[1, 2]
     } else if (x == int[2, 1]) {
-      res <- int[2, 2]
+      mod_val <- int[2, 2]
       # calculate point on curve if no previous match in 'xy' matrix
     } else {
-      res <- int[1, 2] + (x - int[1, 1]) *
+      mod_val <- int[1, 2] + (x - int[1, 1]) *
         ((int[2, 2] - int[1, 2]) / (int[2, 1] - int[1, 1]))
     }
   }
-  return(res)
+  return(mod_val)
 }
