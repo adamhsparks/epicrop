@@ -1,5 +1,11 @@
 # epicrop 0.0.0.9006
 
+## Minor changes
+
+* Optimise `SEIR()` internal functionality.
+
+* Minor improvements to documentation.
+
 # epicrop 0.0.0.9005
 
 ## Minor changes
