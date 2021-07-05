@@ -159,7 +159,8 @@ SEIR <-
     # CRAN NOTE avoidance
     infday <- YYYYMMDD <- lat <- lon <- LAT <- LON <- NULL #nocov
 
-    # set wth input as a data.table object if it's not already one
+    # set wth input as a data.table object if it's not already one, else this
+    # function will fail on line 182
     if (!inherits(wth, "data.table")) {
       wth <- data.table::as.data.table(wth)
     }
