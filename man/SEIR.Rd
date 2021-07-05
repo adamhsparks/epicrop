@@ -25,8 +25,8 @@ SEIR(
 )
 }
 \arguments{
-\item{wth}{a \code{data.frame} of weather on a daily time-step containing data with
-the following field names.\tabular{rl}{
+\item{wth}{a \code{data.frame} of weather on a daily time-step containing data
+with the following field names.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr

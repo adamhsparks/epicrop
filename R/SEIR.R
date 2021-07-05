@@ -5,8 +5,8 @@
 #'  \sQuote{EPIRICE} to model disease severity of several rice diseases.  Given
 #'  proper values it can be used with other pathosystems as well.
 #'
-#' @param wth a `data.frame` of weather on a daily time-step containing data with
-#'  the following field names.
+#' @param wth a `data.frame` of weather on a daily time-step containing data
+#' with the following field names.
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
