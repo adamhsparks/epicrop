@@ -16,6 +16,8 @@ the following properly named columns in them will work.\tabular{rl}{
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
    \emph{RHUM} \tab Mean daily temperature (°C) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
+   \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
+   \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
 }}
 
 \item{emergence}{Expected date of crop emergence}
@@ -42,6 +44,10 @@ Department of Primary Industries and Regional Development, WA, AU.
 Original model development: Serge Savary & Rene Pangga (IRRI).
 Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 Aunario (IRRI).
+
+If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 
 The optimum temperature for leaf blast as presented in Table 2 of
 Savary \emph{et al.} 2012 has a typo. The optimal value should be 20 °C, not

@@ -15,24 +15,16 @@
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).
 #'
+#' @note
+#' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
+#' in the output for mapping purposes. Both values must be present. These
+#' columns are provided by default when using [get_wth()].
+#'
 #' @note The optimum temperature for leaf blast as presented in Table 2 of
 #' Savary _et al._ 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
-#' @param wth Weather data with a daily time-step, normally \acronym{NASA}
-#' \acronym{POWER} from [get_wth()], but any[base::data.frame()] object that has
-#' the following properly named columns in them will work.
-#'
-#'   **Field Name** | **Value**
-#'   --------------:|:----------
-#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
-#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
-#'   _TEMP_ | Mean daily temperature (°C)
-#'   _RHUM_ | Mean daily temperature (°C)
-#'   _RAIN_ | Mean daily rainfall (mm)
-#'
-#' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments, see [SEIR()]
+#' @inherit predict_bacterial_blight
 #'
 #' @return A [data.table::data.table()] of disease severity and infection sites.
 #' See [SEIR()] for a full description of the column values.

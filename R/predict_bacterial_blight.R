@@ -15,6 +15,11 @@
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).
 #'
+#' @note
+#' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
+#' in the output for mapping purposes. Both values must be present. These
+#' columns are provided by default when using [get_wth()].
+#'
 #' @param wth Weather data with a daily time-step, normally \acronym{NASA}
 #' \acronym{POWER} from [get_wth()], but any[base::data.frame()] object that has
 #' the following properly named columns in them will work.
@@ -26,6 +31,8 @@
 #'   _TEMP_ | Mean daily temperature (°C)
 #'   _RHUM_ | Mean daily temperature (°C)
 #'   _RAIN_ | Mean daily rainfall (mm)
+#'   _LAT_ | **Optional** latitude of weather observation. See LAT/LON Note.
+#'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
 #'
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
