@@ -83,7 +83,7 @@ from NASA POWER using nasapower." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -153,6 +153,8 @@ the following properly named columns in them will work.</p><table class='table'>
 <tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr>
 <tr><td><em>RHUM</em></td><td>Mean daily temperature (°C)</td></tr>
 <tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr>
+<tr><td><em>LAT</em></td><td><strong>Optional</strong> latitude of weather observation. See LAT/LON Note.</td></tr>
+<tr><td><em>LON</em></td><td><strong>Optional</strong> longitude of weather observation. See LAT/LON Note.</td></tr>
 </table>
 </td>
     </tr>
@@ -182,6 +184,9 @@ Department of Primary Industries and Regional Development, WA, AU.
 Original model development: Serge Savary &amp; Rene Pangga (IRRI).
 Original <span style="R">R</span> implementation by Robert J. Hijmans, Rene Pangga, &amp; Jorrel
 Aunario (IRRI).</p>
+<p>If the <code>wth</code> object provides <em>LAT</em> and <em>LON</em> columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using <code><a href='get_wth.html'>get_wth()</a></code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Castilla, N.P., Leano, R.M., Elazegui, F.A., Teng, P.S., Savary,
