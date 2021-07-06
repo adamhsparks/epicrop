@@ -1,4 +1,5 @@
 
+
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
 #' This function is originally used by specific disease models in
@@ -15,6 +16,8 @@
 #'   _TEMP_ | Mean daily temperature (°C)
 #'   _RHUM_ | Mean daily temperature (°C)
 #'   _RAIN_ | Mean daily rainfall (mm)
+#'   _LAT_ | **Optional** latitude of weather observation. See LAT/LON Note.
+#'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format.  Described in Table 1 of Savary _et al._
@@ -98,6 +101,11 @@
 #' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.
 #'
+#' @note
+#' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
+#' in the output for mapping purposes. Both values must be present. These
+#' columns are provided by default when using [get_wth()].
+#'
 #' @seealso
 #' `SEIR()` is called by the following specific disease modelling functions:
 #' * [predict_bacterial_blight()],
@@ -164,6 +172,8 @@ SEIR <-
     if (!inherits(wth, "data.table")) {
       wth <- data.table::as.data.table(wth)
     }
+
+    #
 
     # check aggregation values
     if (a < 1) {
@@ -299,8 +309,6 @@ SEIR <-
           severity
         )
       )
-    out[, lat := rep_len(wth[, LAT], .N)]
-    out[, lon := rep_len(wth[, LON], .N)]
 
     setnames(
       out,
@@ -317,11 +325,16 @@ SEIR <-
         "rgrowth",
         "rsenesced",
         "diseased",
-        "severity",
-        "lat",
-        "lon"
+        "severity"
       )
     )
+
+    # Only add Lat and Lon values if they exist in WTH
+    if ("LAT" && "LON" %in% names(wth))
+    {
+      out[, lat := rep_len(wth[, LAT], .N)]
+      out[, lon := rep_len(wth[, LON], .N)]
+    }
 
     return(out[])
   }
@@ -362,14 +375,14 @@ select_mod_val <- function(xy, x) {
   } else if (x >= xy[d[1], 1]) {
     mod_val <- xy[d[1], 2]
   } else {
-    a <- xy[xy[, 1] <= x,]
-    b <- xy[xy[, 1] >= x,]
+    a <- xy[xy[, 1] <= x, ]
+    b <- xy[xy[, 1] >= x, ]
     if (length(a) == 2) {
-      int <- rbind(a, b[1,])
+      int <- rbind(a, b[1, ])
     } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1],], b)
+      int <- rbind(a[dim(a)[1], ], b)
     } else {
-      int <- rbind(a[dim(a)[1],], b[1,])
+      int <- rbind(a[dim(a)[1], ], b[1, ])
     }
     if (x == int[1, 1]) {
       mod_val <- int[1, 2]

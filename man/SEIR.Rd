@@ -33,6 +33,8 @@ with the following field names.\tabular{rl}{
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
    \emph{RHUM} \tab Mean daily temperature (°C) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
+   \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
+   \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
 }}
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
@@ -110,6 +112,11 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} containing the f
 This function is originally used by specific disease models in
 \sQuote{EPIRICE} to model disease severity of several rice diseases.  Given
 proper values it can be used with other pathosystems as well.
+}
+\note{
+If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 \section{\emph{a} - Aggregation}{
 When \emph{a} is set to \code{1} the assumption is that that there is no disease
