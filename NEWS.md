@@ -10,7 +10,7 @@
 
 * Add DOI to CITATION and DESCRIPTION files.
 
-* Lifecycle and DOI badges were added to README files.
+* Add Lifecycle and DOI badges to README files.
 
 # epicrop 0.0.0.9006
 
