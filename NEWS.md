@@ -1,3 +1,17 @@
+# epicrop 0.0.0.9007
+
+## Minor changes
+
+* Only include Lat/Lon values if the `wth` object provides them.
+
+* Better documentation about the Lat/Lon values in the output of `SEIR()`
+
+* Parameters for `predict_bacterial_blight()` are used as basis for all of the other `predict_*()` family of functions.
+
+* Add DOI to CITATION and DESCRIPTION files.
+
+* Lifecycle and DOI badges were added to README files.
+
 # epicrop 0.0.0.9006
 
 ## Minor changes
