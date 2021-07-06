@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -125,12 +125,25 @@
       <small>Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="epicrop-0009005" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0.9005">
-<a href="#epicrop-0009005" class="anchor"></a>epicrop 0.0.0.9005</h1>
+    <div id="epicrop-0009006" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9006">
+<a href="#epicrop-0009006" class="anchor"></a>epicrop 0.0.0.9006</h1>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li><p>Optimise <code><a href="../reference/SEIR.html">SEIR()</a></code> internal functionality.</p></li>
+<li><p>Minor improvements to documentation.</p></li>
+<li><p>Polish NEWS.md.</p></li>
+</ul>
+</div>
+</div>
+    <div id="epicrop-0009005" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9005">
+<a href="#epicrop-0009005" class="anchor"></a>epicrop 0.0.0.9005</h1>
+<div id="minor-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
 <ul>
 <li>Only import <em>data.table</em> functions as necessary, don’t import whole package.</li>
 </ul>
@@ -139,7 +152,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Convert <code>wth</code> (weather input object) to a data.table type object internally if it is not already one. Prior, if the object was not a data.table, <code><a href="../reference/SEIR.html">SEIR()</a></code> would fail with a message that the dates did not align. This should fix that issue and any data.frame type object including a tibble can be provided now. Thanks to Jean Fabrice Adanve for helping me find this bug.</li>
+<li>Convert <code>wth</code> (weather input object) to a <code>data.table</code> type object internally if it is not already one. Prior, if the object was not a <code>data.table</code>, <code><a href="../reference/SEIR.html">SEIR()</a></code> would fail with a message that the dates did not align. This should fix that issue and any <code>data.frame</code> type object including a <code>tibble</code> can be provided now. Thanks to Jean Fabrice Adanve for helping me find this bug.</li>
 </ul>
 </div>
 </div>
@@ -150,8 +163,8 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li><p>Fixes bug where the relative humidity checks in SEIR() only checked if the daily RH value was equal to (<code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>) not equal to or greater than (<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>) the set parameter for <code>rhlim</code> (default is 90%).</p></li>
-<li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in roxygen section now works properly when executed by the user.</p></li>
+<li><p>Fixes bug where the relative humidity checks in <code><a href="../reference/SEIR.html">SEIR()</a></code> only checked if the daily RH value was equal to (<code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>) not equal to or greater than (<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>) the set parameter for <code>rhlim</code> (default is 90%).</p></li>
+<li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in <em>roxygen</em> section now works properly when executed by the user.</p></li>
 </ul>
 </div>
 <div id="major-changes" class="section level2">
@@ -163,9 +176,9 @@
 <li><p>Deleted <code>inst/workflows/spatsim.R</code> file.</p></li>
 </ul>
 </div>
-<div id="minor-changes-1" class="section level2">
+<div id="minor-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes-1" class="anchor"></a>Minor changes</h2>
+<a href="#minor-changes-2" class="anchor"></a>Minor changes</h2>
 <ul>
 <li><p>Edit documentation for better clarity</p></li>
 <li><p>Better commenting in code for self and others’ reference</p></li>
@@ -179,7 +192,7 @@
 </li>
 <li><p>Standardise library loading calls to use standard evaluation in documentation.</p></li>
 <li><p>Standardise italics to use "_" rather than "*".</p></li>
-<li><p>Use <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">ggplot2::theme_classic()</a></code> for example figures in README and epicrop vignette.</p></li>
+<li><p>Use <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">ggplot2::theme_classic()</a></code> for example figures in README and <em>epicrop</em> vignette.</p></li>
 </ul>
 </div>
 </div>
