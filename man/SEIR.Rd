@@ -103,7 +103,7 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} containing the f
    \emph{rsenesced} \tab Rate of senescence of healthy sites \cr
    \emph{rlex} \tab Rate of lesion expansion \cr
    \emph{diseased} \tab Number of diseased (latent + infectious + removed) sites \cr
-   \emph{intensity} \tab Disease intensity or incidence (for tungro) as proportion \cr
+   \emph{intensity} \tab Disease intensity as proportion of sites \cr
    \emph{lat} \tab Latitude value as provided by \code{wth} object \cr
    \emph{lon} \tab Longitude value as provided by \code{wth} object \cr
 }

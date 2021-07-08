@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_sheath_blight.R
 \name{predict_sheath_blight}
 \alias{predict_sheath_blight}
-\title{Predict rice sheath blight severity}
+\title{Predict rice sheath blight intensity}
 \usage{
 predict_sheath_blight(wth, emergence, ...)
 }
@@ -25,9 +25,8 @@ the following properly named columns in them will work.\tabular{rl}{
 \item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} of disease severity and
-infection sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the
-column values.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of sheath blight disease of rice, causal
@@ -58,7 +57,7 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 sb <- predict_sheath_blight(wth, emergence = "2000-07-01")
-plot(x = sb$dates, y = sb$severity, type = "l")
+plot(x = sb$dates, y = sb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{

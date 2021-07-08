@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_leaf_blast.R
 \name{predict_leaf_blast}
 \alias{predict_leaf_blast}
-\title{Predict rice leaf blast severity}
+\title{Predict rice leaf blast intensity}
 \usage{
 predict_leaf_blast(wth, emergence, ...)
 }
@@ -25,8 +25,8 @@ the following properly named columns in them will work.\tabular{rl}{
 \item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} of disease severity and infection sites.
-See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
@@ -62,7 +62,7 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 lb <- predict_leaf_blast(wth, emergence = "2000-07-01")
-plot(x = lb$dates, y = lb$severity, type = "l")
+plot(x = lb$dates, y = lb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{

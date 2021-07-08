@@ -1,5 +1,5 @@
 
-#' Predict rice brown spot severity
+#' Predict rice brown spot intensity
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
 #' _Cochliobolus miyabeanus_. The model is driven by daily weather data, which
@@ -26,9 +26,8 @@
 #'
 #' @inherit predict_bacterial_blight
 #'
-#' @return A [data.table::data.table()] of disease severity and
-#'  infection sites. See [SEIR()] for a full description of the
-#'  column values.
+#' @return A [data.table::data.table()] of disease intensity and infection
+#' sites. See [SEIR()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -37,7 +36,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' bs <- predict_brown_spot(wth, emergence = "2000-07-01")
-#' plot(x = bs$dates, y = bs$severity, type = "l")
+#' plot(x = bs$dates, y = bs$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #'

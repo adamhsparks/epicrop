@@ -1,5 +1,5 @@
 
-#' Predict rice tungro disease severity
+#' Predict rice tungro disease intensity
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
 #' _Rice Tungro Spherical Virus_ and _Rice Tungro Bacilliform Virus_.
@@ -23,8 +23,8 @@
 #'
 #' @inherit predict_bacterial_blight
 #'
-#' @return A [data.table::data.table()] of disease severity and infection sites.
-#' See [SEIR()] for a full description of the column values.
+#' @return A [data.table::data.table()] of disease intensity and infection
+#' sites.  See [SEIR()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -34,7 +34,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' tg <- predict_tungro(wth, emergence = "2000-07-01")
-#' plot(x = tg$dates, y = tg$severity, type = "l")
+#' plot(x = tg$dates, y = tg$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #' and Adam H. Sparks

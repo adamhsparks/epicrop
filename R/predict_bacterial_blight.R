@@ -1,5 +1,5 @@
 
-#' Predict rice bacterial blight severity
+#' Predict rice bacterial blight intensity
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent _Xanthomonas oryzae_ pv. _oryzae_.  The model is driven by daily
@@ -37,9 +37,8 @@
 #' @param emergence Expected date of crop emergence
 #' @param ... Additional arguments, see [SEIR()]
 #'
-#' @return A [data.table::data.table()] of disease severity and
-#'  infection sites. See [SEIR()] for a full description of the
-#'  column values.
+#' @return A [data.table::data.table()] of disease intensity and infection
+#' sites. See [SEIR()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -48,7 +47,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
-#' plot(x = bb$dates, y = bb$severity, type = "l")
+#' plot(x = bb$dates, y = bb$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' and Adam H. Sparks

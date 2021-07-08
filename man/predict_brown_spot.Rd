@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_brown_spot.R
 \name{predict_brown_spot}
 \alias{predict_brown_spot}
-\title{Predict rice brown spot severity}
+\title{Predict rice brown spot intensity}
 \usage{
 predict_brown_spot(wth, emergence, ...)
 }
@@ -25,9 +25,8 @@ the following properly named columns in them will work.\tabular{rl}{
 \item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} of disease severity and
-infection sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the
-column values.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of rice brown spot, causal agent
@@ -62,7 +61,7 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 bs <- predict_brown_spot(wth, emergence = "2000-07-01")
-plot(x = bs$dates, y = bs$severity, type = "l")
+plot(x = bs$dates, y = bs$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{

@@ -133,7 +133,7 @@
 #'   _rsenesced_| Rate of senescence of healthy sites
 #'   _rlex_| Rate of lesion expansion
 #'   _diseased_| Number of diseased (latent + infectious + removed) sites
-#'   _intensity_| Disease intensity or incidence (for tungro) as proportion
+#'   _intensity_| Disease intensity as proportion of sites
 #'   _lat_| Latitude value as provided by `wth` object
 #'   _lon_| Longitude value as provided by `wth` object
 #'

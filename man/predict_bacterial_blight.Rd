@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_bacterial_blight.R
 \name{predict_bacterial_blight}
 \alias{predict_bacterial_blight}
-\title{Predict rice bacterial blight severity}
+\title{Predict rice bacterial blight intensity}
 \usage{
 predict_bacterial_blight(wth, emergence, ...)
 }
@@ -25,9 +25,8 @@ the following properly named columns in them will work.\tabular{rl}{
 \item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} of disease severity and
-infection sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the
-column values.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of bacterial blight disease of rice,
@@ -58,7 +57,7 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
-plot(x = bb$dates, y = bb$severity, type = "l")
+plot(x = bb$dates, y = bb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{

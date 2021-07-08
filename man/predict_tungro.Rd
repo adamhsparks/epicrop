@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_tungro.R
 \name{predict_tungro}
 \alias{predict_tungro}
-\title{Predict rice tungro disease severity}
+\title{Predict rice tungro disease intensity}
 \usage{
 predict_tungro(wth, emergence, ...)
 }
@@ -25,8 +25,8 @@ the following properly named columns in them will work.\tabular{rl}{
 \item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} of disease severity and infection sites.
-See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites.  See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of tungro disease of rice, causal agents
@@ -59,7 +59,7 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 tg <- predict_tungro(wth, emergence = "2000-07-01")
-plot(x = tg$dates, y = tg$severity, type = "l")
+plot(x = tg$dates, y = tg$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{

@@ -1,5 +1,5 @@
 
-#' Predict rice leaf blast severity
+#' Predict rice leaf blast intensity
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 #' _Magnaporthe oryzae_. The model is driven by daily weather data, which can
@@ -26,8 +26,8 @@
 #'
 #' @inherit predict_bacterial_blight
 #'
-#' @return A [data.table::data.table()] of disease severity and infection sites.
-#' See [SEIR()] for a full description of the column values.
+#' @return A [data.table::data.table()] of disease intensity and infection
+#' sites. See [SEIR()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -37,7 +37,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' lb <- predict_leaf_blast(wth, emergence = "2000-07-01")
-#' plot(x = lb$dates, y = lb$severity, type = "l")
+#' plot(x = lb$dates, y = lb$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' and Adam H. Sparks
