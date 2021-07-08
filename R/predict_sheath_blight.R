@@ -1,5 +1,5 @@
 
-#' Predict rice sheath blight severity
+#' Predict rice sheath blight intensity
 #'
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal
 #' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
@@ -22,9 +22,8 @@
 #'
 #' @inherit predict_bacterial_blight
 #'
-#' @return A [data.table::data.table()] of disease severity and
-#'  infection sites. See [SEIR()] for a full description of the
-#'  column values.
+#' @return A [data.table::data.table()] of disease intensity and infection
+#' sites. See [SEIR()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -33,7 +32,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' sb <- predict_sheath_blight(wth, emergence = "2000-07-01")
-#' plot(x = sb$dates, y = sb$severity, type = "l")
+#' plot(x = sb$dates, y = sb$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 #' and Adam H. Sparks

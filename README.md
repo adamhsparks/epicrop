@@ -22,7 +22,7 @@ designed to make using the EPIRICE model (Savary *et al.* 2012) for rice
 diseases easier to use. This version provides easy to use functions to
 fetch weather data from NASA POWER, via the
 [*nasapower*](https://cran.r-project.org/package=nasapower) package
-(Sparks 2018, Sparks 2020) and predict disease severity of five rice
+(Sparks 2018, Sparks 2020) and predict disease intensity of five rice
 diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details
@@ -81,7 +81,7 @@ wth
 #> 121: 2000-10-29 303 24.78 94.41 29.22 14.67741 121.2556
 ```
 
-## Modelling bacterial blight disease severity
+## Modelling bacterial blight disease intensity
 
 Once you have the weather data, run the model for any of the five rice
 diseases by providing the emergence or crop establishment date for
@@ -103,18 +103,18 @@ bb
 #> 119:    118 2000-10-26 1211.3863 33.71538   876.5820 446.3983 2320.710228
 #> 120:    119 2000-10-27 1165.6534 47.64802   832.9739 490.0064 2376.432231
 #> 121:    120 2000-10-28 1120.0107 59.57869   786.7413 536.2390 2434.321334
-#>       rateinf rtransfer  rgrowth rsenesced diseased severity      lat      lon
-#>   1:  0.00000   0.00000  9.68750  1.000000    0.000  0.00000 14.67741 121.2556
-#>   2:  0.00000   0.00000 10.49959  1.086875    0.000  0.00000 14.67741 121.2556
-#>   3:  0.00000   0.00000 11.37416  1.181002    0.000  0.00000 14.67741 121.2556
-#>   4:  0.00000   0.00000 12.31499  1.282934    0.000  0.00000 14.67741 121.2556
-#>   5:  0.00000   0.00000 13.32593  1.393254    0.000  0.00000 14.67741 121.2556
-#>  ---                                                                          
-#> 117: 17.98063  22.36328 23.25415 56.958808 1322.980 42.34833 14.67741 121.2556
-#> 118: 15.73475  22.00438 23.65885 53.048550 1340.961 42.66584 14.67741 121.2556
-#> 119: 13.93264   0.00000 23.92178 55.722003 1356.696 42.90448 14.67741 121.2556
-#> 120: 11.93067   0.00000 24.17705 57.889104 1370.628 43.03536 14.67741 121.2556
-#> 121:  9.75283   0.00000 24.41029 57.905971 1382.559 43.04057 14.67741 121.2556
+#>       rateinf rtransfer  rgrowth rsenesced diseased intensity      lat      lon
+#>   1:  0.00000   0.00000  9.68750  1.000000    0.000   0.00000 14.67741 121.2556
+#>   2:  0.00000   0.00000 10.49959  1.086875    0.000   0.00000 14.67741 121.2556
+#>   3:  0.00000   0.00000 11.37416  1.181002    0.000   0.00000 14.67741 121.2556
+#>   4:  0.00000   0.00000 12.31499  1.282934    0.000   0.00000 14.67741 121.2556
+#>   5:  0.00000   0.00000 13.32593  1.393254    0.000   0.00000 14.67741 121.2556
+#>  ---                                                                           
+#> 117: 17.98063  22.36328 23.25415 56.958808 1322.980  42.34833 14.67741 121.2556
+#> 118: 15.73475  22.00438 23.65885 53.048550 1340.961  42.66584 14.67741 121.2556
+#> 119: 13.93264   0.00000 23.92178 55.722003 1356.696  42.90448 14.67741 121.2556
+#> 120: 11.93067   0.00000 24.17705 57.889104 1370.628  43.03536 14.67741 121.2556
+#> 121:  9.75283   0.00000 24.41029 57.905971 1382.559  43.04057 14.67741 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -124,8 +124,8 @@ library("ggplot2")
 
 ggplot(data = bb,
        aes(x = dates,
-           y = severity)) +
-  labs(y = "Severity",
+           y = intensity)) +
+  labs(y = "Intensity",
        x = "Date") +
   geom_line() +
   geom_point() +

@@ -2,7 +2,7 @@
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
 #' This function is originally used by specific disease models in
-#'  \sQuote{EPIRICE} to model disease severity of several rice diseases.  Given
+#'  \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
 #'  proper values it can be used with other pathosystems as well.
 #'
 #' @param wth a `data.frame` of weather on a daily time-step containing data
@@ -65,7 +65,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #'
-#' # provide suitable values for brown spot severity
+#' # provide suitable values for brown spot intensity
 #' RcA <-
 #'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 #' RcT <-
@@ -133,7 +133,7 @@
 #'   _rsenesced_| Rate of senescence of healthy sites
 #'   _rlex_| Rate of lesion expansion
 #'   _diseased_| Number of diseased (latent + infectious + removed) sites
-#'   _severity_| Disease severity or incidence (for tungro)
+#'   _intensity_| Disease intensity as proportion of sites
 #'   _lat_| Latitude value as provided by `wth` object
 #'   _lon_| Longitude value as provided by `wth` object
 #'
@@ -209,7 +209,7 @@ SEIR <-
     # outputvars
     cofr <-
       rc <-
-      RHCoef <- latency <- infectious <- severity <- rsenesced <-
+      RHCoef <- latency <- infectious <- intensity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <-
@@ -286,7 +286,7 @@ SEIR <-
 
       total_sites[d1] <- diseased[d1] + sites[d1]
       rgrowth[d1] <- RRG * sites[d1] * (1 - (total_sites[d1] / Sx))
-      severity[d1] <- (diseased[d1] - removed[d1]) /
+      intensity[d1] <- (diseased[d1] - removed[d1]) /
         (total_sites[d1] - removed[d1]) * 100
     } # end loop
 
@@ -305,7 +305,7 @@ SEIR <-
           rgrowth,
           rsenesced,
           diseased,
-          severity
+          intensity
         )
       )
 
@@ -324,7 +324,7 @@ SEIR <-
         "rgrowth",
         "rsenesced",
         "diseased",
-        "severity"
+        "intensity"
       )
     )
 

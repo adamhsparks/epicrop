@@ -18,7 +18,7 @@ test_that("Values are as expected", {
       "rgrowth",
       "rsenesced",
       "diseased",
-      "severity",
+      "intensity",
       "lat",
       "lon"
     )
@@ -66,7 +66,7 @@ test_that("Values are as expected", {
   expect_equal(lb[[1, 12]], 0)
   expect_equal(lb[[121, 12]], 46.26, tolerance = 0.01)
 
-  # check severity values
+  # check intensity values
   expect_equal(lb[[1, 13]], 0)
   expect_equal(lb[[121, 13]], 0.0006381, tolerance = 0.0000001)
 
