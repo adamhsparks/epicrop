@@ -1,5 +1,7 @@
 # epicrop 0.0.0.9008
 
+* The `severity` `SEIR()` output column has been renamed as `intensity` to follow the nomenclature of Savary _et al._ 2012.
+
 # epicrop 0.0.0.9007
 
 ## Minor changes
