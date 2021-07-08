@@ -103,14 +103,14 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} containing the f
    \emph{rsenesced} \tab Rate of senescence of healthy sites \cr
    \emph{rlex} \tab Rate of lesion expansion \cr
    \emph{diseased} \tab Number of diseased (latent + infectious + removed) sites \cr
-   \emph{severity} \tab Disease severity or incidence (for tungro) \cr
+   \emph{intensity} \tab Disease intensity or incidence (for tungro) as proportion \cr
    \emph{lat} \tab Latitude value as provided by \code{wth} object \cr
    \emph{lon} \tab Longitude value as provided by \code{wth} object \cr
 }
 }
 \description{
 This function is originally used by specific disease models in
-\sQuote{EPIRICE} to model disease severity of several rice diseases.  Given
+\sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
 proper values it can be used with other pathosystems as well.
 }
 \note{
@@ -135,7 +135,7 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 
-# provide suitable values for brown spot severity
+# provide suitable values for brown spot intensity
 RcA <-
   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 RcT <-
