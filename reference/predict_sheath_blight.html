@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict rice sheath blight severity — predict_sheath_blight • epicrop</title>
+<title>Predict rice sheath blight intensity — predict_sheath_blight • epicrop</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Predict rice sheath blight severity — predict_sheath_blight" />
+<meta property="og:title" content="Predict rice sheath blight intensity — predict_sheath_blight" />
 <meta property="og:description" content="A dynamic mechanistic simulation of sheath blight disease of rice, causal
 agent Rhizoctonia solani AG1-1A Kühn. The model is driven by daily weather
 data, which can easily be accessed usingget_wth() to download weather data
@@ -83,7 +83,7 @@ from NASA POWER using nasapower." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
       </span>
     </div>
 
@@ -125,7 +125,7 @@ from NASA POWER using nasapower." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict rice sheath blight severity</h1>
+    <h1>Predict rice sheath blight intensity</h1>
     <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/R/predict_sheath_blight.R'><code>R/predict_sheath_blight.R</code></a></small>
     <div class="hidden name"><code>predict_sheath_blight.Rd</code></div>
     </div>
@@ -170,9 +170,8 @@ the following properly named columns in them will work.</p><table class='table'>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> of disease severity and
-infection sites. See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the
-column values.</p>
+    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> of disease intensity and infection
+sites. See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the column values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Default values for this disease model are derived from Table 2 (Savary <em>et
@@ -243,7 +242,7 @@ and Adam H. Sparks</p>
   dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-06-30"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>sb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_sheath_blight</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>severity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

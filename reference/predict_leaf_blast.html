@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict rice leaf blast severity — predict_leaf_blast • epicrop</title>
+<title>Predict rice leaf blast intensity — predict_leaf_blast • epicrop</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Predict rice leaf blast severity — predict_leaf_blast" />
+<meta property="og:title" content="Predict rice leaf blast intensity — predict_leaf_blast" />
 <meta property="og:description" content="A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 Magnaporthe oryzae. The model is driven by daily weather data, which can
 easily be accessed usingget_wth() to download weather data from
@@ -83,7 +83,7 @@ NASA POWER using nasapower." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
       </span>
     </div>
 
@@ -125,7 +125,7 @@ NASA POWER using nasapower." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict rice leaf blast severity</h1>
+    <h1>Predict rice leaf blast intensity</h1>
     <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/R/predict_leaf_blast.R'><code>R/predict_leaf_blast.R</code></a></small>
     <div class="hidden name"><code>predict_leaf_blast.Rd</code></div>
     </div>
@@ -170,8 +170,8 @@ the following properly named columns in them will work.</p><table class='table'>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> of disease severity and infection sites.
-See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the column values.</p>
+    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> of disease intensity and infection
+sites. See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the column values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Default values for this disease model are derived from Table 2 (Savary
@@ -199,13 +199,13 @@ development. PhD Thesis, Indian Agricultural Research Institute, New Delhi,
 disease. IV. Relation of the environment to the development of blast disease
 and physiologic specialization in the rice blast fungus. Materials for Rural
 Improvement, Department of Agriculture and Forestry, Japan No. 105, 145p.</p>
-<p>Hwang B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant resistance
+<p>Hwang, B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant resistance
 on blast severity and yield of rice. Plant Disease 71:1035-1038. DOI:
 <a href='https://doi.org/10.1094/PD-71-1035'>https://doi.org/10.1094/PD-71-1035</a>.</p>
-<p>Kato, H and Kozaka, T., 1974. Effect of temperature on lesion enlargement and
+<p>Kato, H. and Kozaka, T., 1974. Effect of temperature on lesion enlargement and
 sporulation of <em>Pyricularia oryzae</em> in rice leaves. Phytopathology
 64:828-830. DOI: <a href='https://doi.org/10.1094/Phyto-64-828'>https://doi.org/10.1094/Phyto-64-828</a>.</p>
-<p>Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
+<p>Wei-Hong, L. 1996. Simulation and measurement of leaf wetness formation in
 paddy rice crops. PhD Thesis, Wageningen Agricultural University, 87 p.</p>
 <p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
 Modeling and mapping potential epidemics of rice diseases globally. Crop
@@ -239,7 +239,7 @@ and Adam H. Sparks</p>
   dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-06-30"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>lb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_leaf_blast</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>severity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
