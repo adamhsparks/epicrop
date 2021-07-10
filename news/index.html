@@ -128,11 +128,19 @@
     <div id="epicrop-0009008" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9008">
 <a href="#epicrop-0009008" class="anchor"></a>epicrop 0.0.0.9008</h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li><p>The <code>severity</code> output column from <code><a href="../reference/SEIR.html">SEIR()</a></code> has been renamed as <code>intensity</code> to follow the nomenclature of Savary <em>et al.</em> 2012. This column represents the proportion of actively diseased sites on day “x” expressed as, <span class="math inline">$\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100$</span>.</p></li>
+<li><p>Add a new column to <code><a href="../reference/SEIR.html">SEIR()</a></code> output, <code>severity</code>, not to be confused with the previous column called <code>severity</code> (now called <code>intensity</code>), which represents the cumulative proportion of diseased sites on day “x” expressed as, <span class="math inline">$\frac{diseased\ sites}{total\ sites}\times100$</span>$.</p></li>
+</ul>
+</div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
-<li>The <code>severity</code> <code><a href="../reference/SEIR.html">SEIR()</a></code> output column has been renamed as <code>intensity</code> to follow the nomenclature of Savary <em>et al.</em> 2012.</li>
+<li>More improvements to function documentation, include <code>#' <a href='https://github.com/family'>@family</a> predict functions</code> in each of the <code>predict</code> functions rather than only using <code>'# <a href='https://github.com/seealso'>@seealso</a></code>.</li>
 </ul>
 </div>
 </div>
@@ -193,9 +201,9 @@
 <li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in <em>roxygen</em> section now works properly when executed by the user.</p></li>
 </ul>
 </div>
-<div id="major-changes" class="section level2">
+<div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>Any default parameter values are moved from <code><a href="../reference/SEIR.html">SEIR()</a></code> to the <code>predict_()</code> functions themselves, so any calls directly to <code><a href="../reference/SEIR.html">SEIR()</a></code> must specify all parameters.</p></li>
 <li><p>Deleted <code>inst/alt_versions/tungrov2.R</code> file.</p></li>

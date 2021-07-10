@@ -259,26 +259,30 @@ of Savary <em>et al.</em> 2012.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> containing the following columns:</p><table class='table'>
-<tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr>
-<tr><td><em>simday</em></td><td>Zero indexed day of simulation that was run</td></tr>
-<tr><td><em>dates</em></td><td>Date of simulation</td></tr>
-<tr><td><em>sites</em></td><td>Total number of sites present on day "x"</td></tr>
-<tr><td><em>latent</em></td><td>Number of latent sites present on day "x"</td></tr>
-<tr><td><em>infectious</em></td><td>Number of infectious sites present on day "x"</td></tr>
-<tr><td><em>removed</em></td><td>Number of removed sites present on day "x"</td></tr>
-<tr><td><em>senesced</em></td><td>Number of senesced sites present on day "x"</td></tr>
-<tr><td><em>rateinf</em></td><td>Rate of infection</td></tr>
-<tr><td><em>rtransfer</em></td><td>Rate of transfer from latent to infectious sites</td></tr>
-<tr><td><em>rgrowth</em></td><td>Rate of growth of healthy sites</td></tr>
-<tr><td><em>rsenesced</em></td><td>Rate of senescence of healthy sites</td></tr>
-<tr><td><em>rlex</em></td><td>Rate of lesion expansion</td></tr>
-<tr><td><em>diseased</em></td><td>Number of diseased (latent + infectious + removed) sites</td></tr>
-<tr><td><em>intensity</em></td><td>Disease intensity as proportion of sites</td></tr>
-<tr><td><em>lat</em></td><td>Latitude value as provided by <code>wth</code> object</td></tr>
-<tr><td><em>lon</em></td><td>Longitude value as provided by <code>wth</code> object</td></tr>
-</table>
+    <p>A <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> containing the following columns:</p>
+<dl>
+<dt>simday</dt><dd><p>Zero indexed day of simulation that was run</p></dd>
+<dt>dates</dt><dd><p>Date of simulation</p></dd>
+<dt>sites</dt><dd><p>Total number of sites present on day "x"</p></dd>
+<dt>latent</dt><dd><p>Number of latent sites present on day "x"</p></dd>
+<dt>infectious</dt><dd><p>Number of infectious sites present on day "x"</p></dd>
+<dt>removed</dt><dd><p>Number of removed sites present on day "x"</p></dd>
+<dt>senesced</dt><dd><p>Number of senesced sites present on day "x"</p></dd>
+<dt>ratinf</dt><dd><p>Rate of infection</p></dd>
+<dt>rtransfer</dt><dd><p>Rate of transfer from latent to infectious sites</p></dd>
+<dt>rgrowth</dt><dd><p>Rate of growth of healthy sites</p></dd>
+<dt>rsenesced</dt><dd><p>Rate of senescence of healthy sites</p></dd>
+<dt>rlex</dt><dd><p>Rate of lesion expansion</p></dd>
+<dt>diseased</dt><dd><p>Number of diseased (latent + infectious + removed) sites on
+day "x"</p></dd>
+<dt>severity</dt><dd><p>Cumulative diseased (latent + infectious + removed) sites
+as percent of whole sites over the growing season on day "x"</p></dd>
+<dt>intensity</dt><dd><p>Number of diseased (latent + infectious + removed) sites
+as percent of active sites not including removed on day "x"</p></dd>
+<dt>lat</dt><dd><p>Latitude value if provided by <code>wth</code> object</p></dd>
+<dt>lon</dt><dd><p>Longitude value if provided by <code>wth</code> object</p></dd>
 
+</dl>
 
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
