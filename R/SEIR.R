@@ -213,7 +213,7 @@ SEIR <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <-
-      now_latent <- sites <- total_sites <-
+      now_latent <- sites <- severity <- total_sites <-
       rep(0, times = duration + 1)
 
     for (d in 0:duration) {
@@ -286,8 +286,9 @@ SEIR <-
 
       total_sites[d1] <- diseased[d1] + sites[d1]
       rgrowth[d1] <- RRG * sites[d1] * (1 - (total_sites[d1] / Sx))
-      intensity[d1] <- (diseased[d1] - removed[d1]) /
-        (total_sites[d1] - removed[d1]) * 100
+      intensity[d1] <- ((diseased[d1] - removed[d1]) /
+                          (total_sites[d1] - removed[d1])) * 100
+      severity[d1] <- (diseased[d1] / total_sites[d1]) * 100
     } # end loop
 
     out <-
@@ -305,6 +306,7 @@ SEIR <-
           rgrowth,
           rsenesced,
           diseased,
+          severity,
           intensity
         )
       )
@@ -324,6 +326,7 @@ SEIR <-
         "rgrowth",
         "rsenesced",
         "diseased",
+        "severity",
         "intensity"
       )
     )
