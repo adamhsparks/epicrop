@@ -90,15 +90,16 @@ Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \url{https://doi.org/10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
-\itemize{
-\item \code{\link[=SEIR]{SEIR()}},
-\item \code{\link[=predict_brown_spot]{predict_brown_spot()}},
-\item \code{\link[=predict_leaf_blast]{predict_leaf_blast()}},
-\item \code{\link[=predict_sheath_blight]{predict_sheath_blight()}},
-\item \code{\link[=predict_tungro]{predict_tungro()}}
-}
+\code{\link[=SEIR]{SEIR()}}
+
+Other predict functions: 
+\code{\link{predict_brown_spot}()},
+\code{\link{predict_leaf_blast}()},
+\code{\link{predict_sheath_blight}()},
+\code{\link{predict_tungro}()}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 and Adam H. Sparks
 }
+\concept{predict functions}

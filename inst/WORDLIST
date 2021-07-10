@@ -111,6 +111,7 @@ cropsim
 doi
 epifitter
 et
+frac
 geolocation
 ggplot
 https
@@ -118,7 +119,6 @@ infective
 inoculum
 joss
 knitr
-lon
 md
 miyabeanus
 modelled
@@ -130,16 +130,10 @@ parameterising
 pathosystems
 polder
 pv
-rateinf
-rgrowth
-rlex
 rmarkdown
 roxygen
-rsenesced
-rtransfer
 ryegrass
 senesced
-simday
 solani
 spatio
 sporulation
