@@ -59,12 +59,10 @@
 #' its implication in disease management. Plant Disease 77:877-882. DOI
 #' <https://doi.org/10.1094/PD-77-0877>.
 #'
+#' @family predict functions
+#'
 #' @seealso
-#' * [SEIR()],
-#' * [predict_bacterial_blight()],
-#' * [predict_brown_spot()],
-#' * [predict_leaf_blast()],
-#' * [predict_sheath_blight()]
+#' [SEIR()]
 #'
 #' @export
 predict_tungro <- function(wth, emergence, ...) {

@@ -67,12 +67,10 @@
 #' Southern Corn Leaf Blight. Bulletin of the Connecticut Experiment Station,
 #' New Haven, 85 p.
 #'
+#' @family predict functions
+#'
 #' @seealso
-#' * [SEIR()],
-#' * [predict_bacterial_blight()],
-#' * [predict_leaf_blast()],
-#' * [predict_sheath_blight()],
-#' * [predict_tungro()]
+#' [SEIR()]
 #'
 #' @export
 predict_brown_spot <- function(wth, emergence, ...) {

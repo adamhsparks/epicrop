@@ -72,12 +72,10 @@
 #' _Pyricularia oryzae_ Cav. in upland rice varieties. PhD Thesis, University of
 #' the Philippines at Los Baños, 82 p.
 #'
+#' @family predict functions
+#'
 #' @seealso
-#' * [SEIR()],
-#' * [predict_bacterial_blight()],
-#' * [predict_brown_spot()],
-#' * [predict_sheath_blight()],
-#' * [predict_tungro()]
+#' [SEIR()]
 #'
 #' @export
 predict_leaf_blast <- function(wth, emergence, ...) {

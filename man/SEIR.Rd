@@ -88,24 +88,29 @@ of Savary \emph{et al.} 2012.}
 2012.}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} containing the following columns:\tabular{rl}{
-   \strong{Field Name} \tab \strong{Value} \cr
-   \emph{simday} \tab Zero indexed day of simulation that was run \cr
-   \emph{dates} \tab Date of simulation \cr
-   \emph{sites} \tab Total number of sites present on day "x" \cr
-   \emph{latent} \tab Number of latent sites present on day "x" \cr
-   \emph{infectious} \tab Number of infectious sites present on day "x" \cr
-   \emph{removed} \tab Number of removed sites present on day "x" \cr
-   \emph{senesced} \tab Number of senesced sites present on day "x" \cr
-   \emph{rateinf} \tab Rate of infection \cr
-   \emph{rtransfer} \tab Rate of transfer from latent to infectious sites \cr
-   \emph{rgrowth} \tab Rate of growth of healthy sites \cr
-   \emph{rsenesced} \tab Rate of senescence of healthy sites \cr
-   \emph{rlex} \tab Rate of lesion expansion \cr
-   \emph{diseased} \tab Number of diseased (latent + infectious + removed) sites \cr
-   \emph{intensity} \tab Disease intensity as proportion of sites \cr
-   \emph{lat} \tab Latitude value as provided by \code{wth} object \cr
-   \emph{lon} \tab Longitude value as provided by \code{wth} object \cr
+A \code{\link[data.table:data.table]{data.table::data.table()}} containing the following columns:
+
+\describe{
+\item{simday}{Zero indexed day of simulation that was run}
+\item{dates}{Date of simulation}
+\item{sites}{Total number of sites present on day "x"}
+\item{latent}{Number of latent sites present on day "x"}
+\item{infectious}{Number of infectious sites present on day "x"}
+\item{removed}{Number of removed sites present on day "x"}
+\item{senesced}{Number of senesced sites present on day "x"}
+\item{ratinf}{Rate of infection}
+\item{rtransfer}{Rate of transfer from latent to infectious sites}
+\item{rgrowth}{Rate of growth of healthy sites}
+\item{rsenesced}{Rate of senescence of healthy sites}
+\item{rlex}{Rate of lesion expansion}
+\item{diseased}{Number of diseased (latent + infectious + removed) sites on
+day "x"}
+\item{severity}{Cumulative diseased (latent + infectious + removed) sites
+as percent of whole sites over the growing season on day "x"}
+\item{intensity}{Number of diseased (latent + infectious + removed) sites
+as percent of active sites not including removed on day "x"}
+\item{lat}{Latitude value if provided by \code{wth} object}
+\item{lon}{Longitude value if provided by \code{wth} object}
 }
 }
 \description{

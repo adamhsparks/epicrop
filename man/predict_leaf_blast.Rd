@@ -97,15 +97,16 @@ Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
 the Philippines at Los Baños, 82 p.
 }
 \seealso{
-\itemize{
-\item \code{\link[=SEIR]{SEIR()}},
-\item \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}},
-\item \code{\link[=predict_brown_spot]{predict_brown_spot()}},
-\item \code{\link[=predict_sheath_blight]{predict_sheath_blight()}},
-\item \code{\link[=predict_tungro]{predict_tungro()}}
-}
+\code{\link[=SEIR]{SEIR()}}
+
+Other predict functions: 
+\code{\link{predict_bacterial_blight}()},
+\code{\link{predict_brown_spot}()},
+\code{\link{predict_sheath_blight}()},
+\code{\link{predict_tungro}()}
 }
 \author{
 Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
 and Adam H. Sparks
 }
+\concept{predict functions}

@@ -75,12 +75,10 @@
 #' _Rhizoctonia solani_, the causal organism of rice sheath blight. National
 #' Science Council Monthly, ROC 7:1208-1219.
 #'
+#' @family predict functions
+#'
 #' @seealso
-#' * [SEIR()],
-#' * [predict_bacterial_blight()],
-#' * [predict_brown_spot()],
-#' * [predict_leaf_blast()],
-#' * [predict_tungro()]
+#' [SEIR()]
 #'
 #' @export
 predict_sheath_blight <- function(wth, emergence, ...) {
