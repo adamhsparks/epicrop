@@ -118,24 +118,28 @@
 #'
 #' @return A [data.table::data.table()] containing the following columns:
 #'
-#'   **Field Name** | **Value**
-#'   --------------:|:----------
-#'   _simday_| Zero indexed day of simulation that was run
-#'   _dates_|  Date of simulation
-#'   _sites_| Total number of sites present on day "x"
-#'   _latent_| Number of latent sites present on day "x"
-#'   _infectious_| Number of infectious sites present on day "x"
-#'   _removed_| Number of removed sites present on day "x"
-#'   _senesced_| Number of senesced sites present on day "x"
-#'   _rateinf_| Rate of infection
-#'   _rtransfer_| Rate of transfer from latent to infectious sites
-#'   _rgrowth_| Rate of growth of healthy sites
-#'   _rsenesced_| Rate of senescence of healthy sites
-#'   _rlex_| Rate of lesion expansion
-#'   _diseased_| Number of diseased (latent + infectious + removed) sites
-#'   _intensity_| Disease intensity as proportion of sites
-#'   _lat_| Latitude value as provided by `wth` object
-#'   _lon_| Longitude value as provided by `wth` object
+#' \describe{
+#'   \item{simday}{Zero indexed day of simulation that was run}
+#'   \item{dates}{Date of simulation}
+#'   \item{sites}{Total number of sites present on day "x"}
+#'   \item{latent}{Number of latent sites present on day "x"}
+#'   \item{infectious}{Number of infectious sites present on day "x"}
+#'   \item{removed}{Number of removed sites present on day "x"}
+#'   \item{senesced}{Number of senesced sites present on day "x"}
+#'   \item{ratinf}{Rate of infection}
+#'   \item{rtransfer}{Rate of transfer from latent to infectious sites}
+#'   \item{rgrowth}{Rate of growth of healthy sites}
+#'   \item{rsenesced}{Rate of senescence of healthy sites}
+#'   \item{rlex}{Rate of lesion expansion}
+#'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on
+#'    day "x"}
+#'   \item{severity}{Cumulative diseased (latent + infectious + removed) sites
+#'   as percent of whole sites over the growing season on day "x"}
+#'   \item{intensity}{Number of diseased (latent + infectious + removed) sites
+#'    as percent of active sites not including removed on day "x"}
+#'   \item{lat}{Latitude value if provided by `wth` object}
+#'   \item{lon}{Longitude value if provided by `wth` object}
+#' }
 #'
 #' @importFrom data.table setnames
 #' @importFrom data.table setcolorder
@@ -171,8 +175,6 @@ SEIR <-
     if (!inherits(wth, "data.table")) {
       wth <- data.table::as.data.table(wth)
     }
-
-    #
 
     # check aggregation values
     if (a < 1) {
