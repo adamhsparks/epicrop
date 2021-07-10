@@ -18,6 +18,7 @@ test_that("Values are as expected", {
       "rgrowth",
       "rsenesced",
       "diseased",
+      "severity",
       "intensity",
       "lat",
       "lon"
@@ -28,15 +29,15 @@ test_that("Values are as expected", {
 
   # check total sites
   expect_equal(sb[[1, 3]], 25.00)
-  expect_equal(sb[[121, 3]], 166, tolerance = 0.1)
+  expect_equal(sb[[121, 3]], 165.97, tolerance = 0.001)
 
   # check latent sites
   expect_equal(sb[[1, 4]], 0)
-  expect_equal(sb[[121, 4]], 11.95, tolerance = 0.01)
+  expect_equal(sb[[121, 4]], 11.94, tolerance = 0.001)
 
   # check infectious sites
   expect_equal(sb[[1, 5]], 0)
-  expect_equal(sb[[121, 5]], 602.01, tolerance = 0.1)
+  expect_equal(sb[[121, 5]], 602.08, tolerance = 0.001)
 
   # check removed sites
   expect_equal(sb[[1, 6]], 0)
@@ -44,33 +45,33 @@ test_that("Values are as expected", {
 
   # check senesced sites
   expect_equal(sb[[1, 7]], 0)
-  expect_equal(sb[[121, 7]], 281.7, tolerance = 0.1)
+  expect_equal(sb[[121, 7]], 281.73, tolerance = 0.001)
 
   # check rateinf
   expect_equal(sb[[1, 8]], 0)
-  expect_equal(sb[[121, 8]], 3.486, tolerance = 0.01)
+  expect_equal(sb[[121, 8]], 3.486, tolerance = 0.0001)
 
   # check rtransfer
   expect_equal(sb[[1, 9]], 0)
-  expect_equal(sb[[121, 9]], 4.256, tolerance = 0.001)
+  expect_equal(sb[[121, 9]], 4.255, tolerance = 0.001)
 
   # check rgrowth
   expect_equal(sb[[1, 10]], 4.8438, tolerance = 0.01)
-  expect_equal(sb[[121, 10]], 0.8299, tolerance = 0.0001)
+  expect_equal(sb[[121, 10]], 0.829, tolerance = 0.001)
 
   # check rsenesced
   expect_equal(sb[[1, 11]], 0.1250)
-  expect_equal(sb[[121, 11]], 0.8299, tolerance = 0.0001)
+  expect_equal(sb[[121, 11]], 0.8298, tolerance = 0.0001)
 
   # check diseased
   expect_equal(sb[[1, 12]], 0)
-  expect_equal(sb[[121, 12]], 614, tolerance = 0.1)
+  expect_equal(sb[[121, 12]], 614.028, tolerance = 0.0001)
 
   # check intensity values
-  expect_equal(sb[[1, 13]], 0)
-  expect_equal(sb[[121, 13]], 78.72, tolerance = 0.01)
+  expect_equal(sb[[1, 14]], 0)
+  expect_equal(sb[[121, 14]], 78.72, tolerance = 0.001)
 
   # check lat/lon values
-  expect_equal(sb[[1, 14]], 14.68, tolerance = 0.01)
-  expect_equal(sb[[1, 15]], 121.3, tolerance = 0.1)
+  expect_equal(sb[[1, 15]], 14.68, tolerance = 0.01)
+  expect_equal(sb[[1, 16]], 121.3, tolerance = 0.1)
 })
