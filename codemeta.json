@@ -9,7 +9,7 @@
   "name": "epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
   "codeRepository": "https://github.com/adamhsparks/epicrop/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.0.9008",
+  "version": "0.0.0.9009",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
