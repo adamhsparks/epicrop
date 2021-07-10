@@ -1,8 +1,15 @@
 # epicrop 0.0.0.9008
 
+## Major changes
+
+* The `severity` output column from `SEIR()` has been renamed as `intensity` to follow the nomenclature of Savary _et al._ 2012.
+This column represents the proportion of actively diseased sites on day "x" expressed as, $\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100$.
+
+* Add a new column to `SEIR()` output, `severity`, not to be confused with the previous column called `severity` (now called `intensity`), which represents the cumulative proportion of diseased sites on day "x" expressed as, $\frac{diseased\ sites}{total\ sites}\times100$$.
+
 ## Minor changes
 
-* The `severity` `SEIR()` output column has been renamed as `intensity` to follow the nomenclature of Savary _et al._ 2012.
+* More improvements to function documentation, include `#' @family predict functions` in each of the `predict` functions rather than only using `'# @seealso`.
 
 # epicrop 0.0.0.9007
 
