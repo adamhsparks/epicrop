@@ -72,13 +72,16 @@ Imports:
     data.table,
     nasapower
 Suggests:
+    dplyr,
     epifitter,
-    knitr,
+    furrr,
     ggplot2,
+    knitr,
+    purrr,
     rmarkdown,
+    spelling,
     testthat,
-    tidyr,
-    spelling
+    tidyr
 VignetteBuilder: knitr
 Language: en-US
 X-schema.org-applicationCategory: Tools
