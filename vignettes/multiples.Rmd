@@ -1,0 +1,87 @@
+---
+title: "Modelling Multiple Seasons, Establishment Dates or Locations"
+author: "Adam H. Sparks"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Modelling Multiple Seasons, Establishment Dates or Locations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{ggplot2}
+  %\VignetteDepends{tidyr}
+  %\VignetteDepends{lubridate}
+  %\VignetteDepends{epifitter}
+  %\VignetteDepends{dplyr}
+  %\VignetteDepends{purrr}
+  %\VignetteDepends{furrr}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+You may wish to compare the effects of different establishment dates, different seasons or different locations on disease levels.
+This vignette details how you can automate several runs of _epicrcop_ in R and visualise them.
+Examples are given that show how to run the process sequentially and in parallel, decreasing the runtime necessary.
+
+## Multiple seasons
+
+### Fetching NASA POWER data for multiple seasons
+
+Start by creating a list of the dates representing the seasons that you want to simulate.
+In this case, since we specify the duration of the season, there is no need to explicitly state the end-date, that will automatically be determined by `get_wth()` with the `duration` argument that we pass along in the `purrr::map()`.
+You can use as many start dates, representing as many seasons as you desire, but for the purposes of speed in this vignette, only two will be used.
+
+```{r seasons-list}
+years <- 2000:2001
+seasons <- paste0(years, "-06-30")
+```
+
+Next use `get_wth()` to fetch the weather data from the [POWER API](https://power.larc.nasa.gov).
+In this example we will use the IRRI Zeigler Experiment Station coordinates as shown in the example for `get_wth()`.
+With the vector of establishment dates, `seasons`, use `purrr::map()` to fetch all of the seasons with one function.
+You could also use R's base `lapply()` here as well if you prefer.
+
+```{r get-seasons}
+library("epicrop")
+
+seasons_wth <-
+  map(
+    .x = seasons,
+    .f = get_wth,
+    lonlat = c(121.25562, 14.6774),
+    duration = 120
+  )
+```
+
+### Running _epicrop_ for multiple seasons
+
+Now that we have a list of weather data for two seasons we will use `purrr::map_df()` now to run `predict_bacterial_blight()` for two seasons and create a single data frame of the two seasons.
+Using `purrr::map()` as above would return a list of two data frames, if you wish.
+This behaviour would be the same as if you used R's base `lapply()` here as well.
+
+Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, _e.g._, for multiple seasons in one year, use `lubridate::ymd()`.
+
+```{r run-predict}
+library("purrr")
+library("dplyr")
+
+bb <- map_df(
+  .x = seasons_wth,
+  .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
+                                  wth = .x)
+) %>%
+  mutate(season = case_when(year(dates) == 2000 ~ 2000,
+                            year(dates) == 2001 ~ 2001,))
+```
+
+
+
+
+
+## Multiple establishment dates
+
+## Multiple locations
