@@ -212,13 +212,13 @@ SEIR <-
       RHCoef <- latency <- infectious <- intensity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
-      now_infectious <-
-      now_latent <- sites <- severity <- total_sites <-
+      now_infectious <- now_latent <- sites <- total_sites <-
       rep(0, times = duration + 1)
 
     for (d in 0:duration) {
       # State calculations for() loop -----
-      d1 <- d + 1
+      d1 <- sum(d, 1)
+
       if (d == 0) {
         # start crop growth
         sites[d1] <- H0
@@ -226,27 +226,27 @@ SEIR <-
       } else {
         if (d > i) {
           # as this never happens when `d > inftrans` so `infday` is assigned
-          # a non-NULL value on line 217, when the loop comes back around it's
-          # then present, so until `d > i`, `removed_today` will always be
-          # equal to "0" since the disease has not had time to completely
-          # transit the infectious period as specified by parameter `i` - AHS
+          # a non-NULL value, when the loop comes back around it's then present,
+          # so until `d > i`, `removed_today` will always be equal to "0" since
+          # the disease has not had time to completely transit the infectious
+          # period as specified by parameter `i` - AHS
           removed_today <- infectious[infday + 2]
         } else {
           removed_today <- 0
         }
 
         sites[d1] <-
-          sites[d] + rgrowth[d] - infection[d] - rsenesced[d]
-        rsenesced[d1] <- removed_today + RRS * sites[d1]
-        senesced[d1] <- senesced[d] + rsenesced[d]
+          sum(sites[d], rgrowth[d], -infection[d], -rsenesced[d])
+        rsenesced[d1] <- sum(removed_today, RRS * sites[d1])
+        senesced[d1] <- sum(senesced[d], rsenesced[d])
 
         latency[d1] <- infection[d]
-        latday <- d - p + 1
+        latday <- sum(d, -p, 1)
         latday <- max(0, latday)
         now_latent[d1] <- sum(latency[latday:d + 1])
 
         infectious[d1] <- rtransfer[d]
-        infday <- d - i + 1
+        infday <- sum(d, -i, 1)
         infday <- max(0, infday)
         now_infectious[d1] <- sum(infectious[infday:d + 1])
       }
@@ -263,11 +263,11 @@ SEIR <-
       rc[d1] <- RcOpt * select_mod_val(xy = RcA, x = d) *
         select_mod_val(xy = RcT, x = wth_temp[d1]) * RHCoef[d1]
 
-      diseased[d1] <- sum(infectious) + now_latent[d1] + removed[d1]
+      diseased[d1] <- sum(sum(infectious), now_latent[d1], removed[d1])
 
-      removed[d1] <- sum(infectious) - now_infectious[d1]
+      removed[d1] <- sum(sum(infectious), -now_infectious[d1])
 
-      cofr[d1] <- 1 - (diseased[d1] / (sites[d1] + diseased[d1]))
+      cofr[d1] <- 1 - diseased[d1] / sum(sites[d1], diseased[d1])
 
       if (d == onset) {
         # initialisation of the disease
@@ -278,17 +278,17 @@ SEIR <-
         infection[d1] <- 0
       }
 
-      if (d >=  p) {
+      if (d >= p) {
         rtransfer[d1] <- latency[latday + 1]
       } else {
         rtransfer[d1] <- 0
       }
 
-      total_sites[d1] <- diseased[d1] + sites[d1]
-      rgrowth[d1] <- RRG * sites[d1] * (1 - (total_sites[d1] / Sx))
-      intensity[d1] <- ((diseased[d1] - removed[d1]) /
-                          (total_sites[d1] - removed[d1])) * 100
-      severity[d1] <- (diseased[d1] / total_sites[d1]) * 100
+      total_sites[d1] <- sum(diseased[d1], sites[d1])
+
+      rgrowth[d1] <- RRG * sites[d1] * sum(1, -(total_sites[d1] / Sx))
+      intensity[d1] <- sum(diseased[d1], -removed[d1]) /
+                          sum(total_sites[d1], -removed[d1])
     } # end loop
 
     out <-
