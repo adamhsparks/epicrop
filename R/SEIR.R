@@ -133,10 +133,8 @@
 #'   \item{rlex}{Rate of lesion expansion}
 #'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on
 #'    day "x"}
-#'   \item{severity}{Cumulative diseased (latent + infectious + removed) sites
-#'   as percent of whole sites over the growing season on day "x"}
-#'   \item{intensity}{Number of diseased (latent + infectious + removed) sites
-#'    as percent of active sites not including removed on day "x"}
+#'   \item{intensity}{Proportion of diseased (latent + infectious + removed)
+#'    sites per total sites not including removed sites on day "x"}
 #'   \item{lat}{Latitude value if provided by `wth` object}
 #'   \item{lon}{Longitude value if provided by `wth` object}
 #' }
@@ -308,7 +306,6 @@ SEIR <-
           rgrowth,
           rsenesced,
           diseased,
-          severity,
           intensity
         )
       )
@@ -328,7 +325,6 @@ SEIR <-
         "rgrowth",
         "rsenesced",
         "diseased",
-        "severity",
         "intensity"
       )
     )
