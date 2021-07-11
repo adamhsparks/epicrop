@@ -73,7 +73,7 @@ test_that("Values are as expected", {
 
   # check intensity values
   expect_equal(bs[[1, 14]], 0)
-  expect_equal(bs[[121, 14]], 5.96, tolerance = 0.001)
+  expect_equal(bs[[121, 14]], .596, tolerance = 0.001)
 
   # check lat/lon values
   expect_equal(bs[[1, 15]], 14.67, tolerance = 0.001)

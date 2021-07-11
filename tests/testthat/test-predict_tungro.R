@@ -73,7 +73,7 @@ test_that("Values are as expected", {
 
   # check intensity values
   expect_equal(t[[1, 14]], 0)
-  expect_equal(t[[121, 14]], 9.678, tolerance = 0.0001)
+  expect_equal(t[[121, 14]], 0.9678, tolerance = 0.0001)
 
   # check lat/lon values
   expect_equal(t[[1, 15]], 14.68, tolerance = 0.01)
