@@ -298,6 +298,9 @@ SEIR <-
         list(
           0:duration,
           dates[1:d1],
+          wth_rain,
+          wth_rhum,
+          wth_temp,
           sites,
           now_latent,
           now_infectious,
@@ -317,6 +320,9 @@ SEIR <-
       c(
         "simday",
         "dates",
+        "rain",
+        "rhum",
+        "temp",
         "sites",
         "latent",
         "infectious",
