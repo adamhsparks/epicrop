@@ -6,6 +6,9 @@
 #' weather data, which can easily be accessed using [get_wth()] to download
 #' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
+#' @details
+#' The model represents site size as 1 rice plant's leaf.
+#'
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'

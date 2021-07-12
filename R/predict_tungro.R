@@ -1,11 +1,14 @@
 
-#' Predict rice tungro disease intensity
+#' Predict rice tungro disease incidence
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
 #' _Rice Tungro Spherical Virus_ and _Rice Tungro Bacilliform Virus_.
 #' The model is driven by daily weather data, which can easily be accessed using
 #'[get_wth()] to download weather data from \acronym{NASA}
 #' \acronym{POWER} using \CRANpkg{nasapower}.
+#'
+#' @details
+#' The model represents site size as 1 rice plant.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary *et
 #' al.* 2012).

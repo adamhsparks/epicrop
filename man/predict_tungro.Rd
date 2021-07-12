@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_tungro.R
 \name{predict_tungro}
 \alias{predict_tungro}
-\title{Predict rice tungro disease intensity}
+\title{Predict rice tungro disease incidence}
 \usage{
 predict_tungro(wth, emergence, ...)
 }
@@ -36,6 +36,8 @@ The model is driven by daily weather data, which can easily be accessed using
 \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
+The model represents site size as 1 rice plant.
+
 Default values for this disease model are derived from Table 2 (Savary \emph{et
 al.} 2012).
 }

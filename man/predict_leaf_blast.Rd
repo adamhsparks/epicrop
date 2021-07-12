@@ -35,6 +35,9 @@ easily be accessed using\code{\link[=get_wth]{get_wth()}} to download weather da
 \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
+The model represents site size as 45
+\ifelse{html}{\out{mm<sup>2</sup>}}{\eqn{mm^2}} of a rice plant's leaf.
+
 Default values for this disease model are derived from Table 2 (Savary
 \emph{et al.} 2012).
 }

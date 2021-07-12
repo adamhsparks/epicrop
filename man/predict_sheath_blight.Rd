@@ -35,6 +35,8 @@ data, which can easily be accessed using\code{\link[=get_wth]{get_wth()}} to dow
 from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
+The model represents site size as 1 rice plant's tiller.
+
 Default values for this disease model are derived from Table 2 (Savary \emph{et
 al.} 2012).
 }

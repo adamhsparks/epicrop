@@ -105,14 +105,8 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} containing the f
 \item{rlex}{Rate of lesion expansion}
 \item{diseased}{Number of diseased (latent + infectious + removed) sites on
 day "x"}
-\item{cumulative_sites}{Cumulative total sites on day "x", inclusive of all
-healthy, latent, infectious and removed}
-\item{cumulative_diseased}{Cumulative total diseased sites (latent +
-infectious + removed) on day "x"}
-\item{severity}{Proportion of diseased (latent + infectious + removed)
-sites of whole sites over the growing season on day "x"}
 \item{intensity}{Proportion of diseased (latent + infectious + removed)
-sites per active sites not including removed on day "x"}
+sites per total sites not including removed sites on day "x"}
 \item{lat}{Latitude value if provided by \code{wth} object}
 \item{lon}{Longitude value if provided by \code{wth} object}
 }

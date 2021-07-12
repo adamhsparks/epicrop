@@ -6,6 +6,10 @@
 #' easily be accessed using[get_wth()] to download weather data from
 #' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
+#' @details
+#' The model represents site size as 45
+#'  \ifelse{html}{\out{mm<sup>2</sup>}}{\eqn{mm^2}} of a rice plant's leaf.
+#'
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'
@@ -15,12 +19,11 @@
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
 #' Aunario (IRRI).
 #'
-#' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
 #' columns are provided by default when using [get_wth()].
 #'
-#' @note The optimum temperature for leaf blast as presented in Table 2 of
+#' The optimum temperature for leaf blast as presented in Table 2 of
 #' Savary _et al._ 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
