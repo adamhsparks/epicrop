@@ -12,46 +12,48 @@ month_day <- c("-01-01", "-01-14", "-01-31")
 emergence_dates <-
   cross2(years, month_day) %>%
   map_chr(paste0, collapse = "") %>%
-  sort()
+  sort() %>%
+  as_date()
 
 # create a vector of dates for weather data.
+# Only take the earliest establishment date, then extend the duration out past
+# 120 days from final establishment date.
+# Here just taking 180 days, 6 months, works well.
 wth_start_dates <- paste0(years, month_day[1])
 
 seasons_wth <-
-  future_map(
+  future_map_dfr(
     .x = wth_start_dates,
     .f = get_wth,
     lonlat = c(-46.0490, -19.3108),
-    duration = 180, # grab extra days
+    duration = 180,
     .options = furrr_options(seed = NULL)
-  )
+  ) %>%
+  mutate(YYYYMMDD = as_date(YYYYMMDD))
 
-future_map_dfr(.x = emergence_dates,
-               ~ map2_dfr(.x,
-                          .y = seasons_wth,
-                          .f = ~ predict_leaf_blast(emergence = .x,
-                                                    wth = .y)),
-               .options = furrr_options(seed = NULL))
+# Once we have all the weather, create a list of weather data.frames for each
+# establishment date
+# Create time intervals to subset the weather data, creating a list new
+# data.frames for each establishment date.
 
-lb <- future_map2_dfr(
-  .x = seasons_wth,
+wth <-
+  future_map(.x = emergence_dates,
+             .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
+                             YYYYMMDD <= .x + 120))
+
+names(wth) <- emergence_dates
+
+lb <- future_map2(
+  .x = wth,
   .y = emergence_dates,
   .f = ~ predict_leaf_blast(emergence = .y,
                             wth = .x),
   .options = furrr_options(seed = NULL)
-) %>%
-  mutate(
-    season = case_when(
-      year(dates) == 2017 ~ 2017,
-      year(dates) == 2018 ~ 2018,
-      year(dates) == 2019 ~ 2019,
-      year(dates) == 2020 ~ 2020,
-      year(dates) == 2021 ~ 2021
-    )
-  )
+)
 
-ggplot(lb, aes(x = simday, y = diseased, group = 1)) +
+lb %>%
+  bind_rows(.id = "emergence") %>%
+  ggplot(aes(x = simday, y = diseased, group = 1)) +
   geom_line() +
-  geom_line(aes(y = rhum * 10)) +
   ylab("Number of sites") +
-  facet_wrap(. ~ season)
+  facet_wrap(. ~ emergence, ncol = 3)
