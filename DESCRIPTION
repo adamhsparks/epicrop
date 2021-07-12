@@ -24,7 +24,7 @@ Authors@R: c(
            family = "Pangga",
            role = c("aut", "trl"),
            email = "ibpangga@yahoo.com",
-           comment = "Model development and original R implementation"),
+           comment = "Model conception and development in Stella"),
     person(given = "Jorrel",
            family = "Aunario",
            role = c("aut", "trl"),
