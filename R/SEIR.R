@@ -187,7 +187,7 @@ SEIR <-
     emergence <- as.Date(emergence)
 
     # create vector of dates
-    dates <- seq(emergence - 1, emergence + duration, 1)
+    dates <- seq(emergence, emergence + duration, 1)
 
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) ||
@@ -198,8 +198,10 @@ SEIR <-
 
     # subset weather data where date is greater than emergence minus one and
     # less than duration
-    wth <-
-      wth[YYYYMMDD %between% c(emergence - 1, emergence + duration)]
+    if (nrow(wth) > duration) {
+      wth <-
+        wth[YYYYMMDD %between% c(emergence, emergence + duration)]
+    }
 
     # create vectors for referencing
     wth_rain <- wth$RAIN
