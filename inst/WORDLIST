@@ -104,6 +104,8 @@ Yamada
 Zadoks
 Zeigler
 al
+behaviour
+benchmarking
 codecov
 conceptor
 cropro
@@ -112,6 +114,7 @@ doi
 epifitter
 et
 frac
+furrr
 geolocation
 ggplot
 https
@@ -120,6 +123,7 @@ inoculum
 joss
 knitr
 md
+microbenchmark
 miyabeanus
 modelled
 modelling
@@ -129,6 +133,7 @@ oryzae
 parameterising
 pathosystems
 polder
+purrr
 pv
 rmarkdown
 roxygen
@@ -143,4 +148,5 @@ tungro
 turcicum
 unmanaged
 virescens
+visualisation
 visualise
