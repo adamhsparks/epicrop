@@ -18,60 +18,48 @@ test_that("Values are as expected", {
       "rgrowth",
       "rsenesced",
       "diseased",
-      "severity",
       "intensity",
       "lat",
       "lon"
     )
   )
+
   expect_is(sb, c("data.table", "data.frame"))
   expect_equal(nrow(sb), 121)
 
-  # check total sites
-  expect_equal(sb[[1, 3]], 25.00)
-  expect_equal(sb[[121, 3]], 165.97, tolerance = 0.001)
+  expect_equal(sb[[1, "sites"]], 25)
+  expect_equal(sb[[121, "sites"]], 165.1, tolerance = 0.1)
 
-  # check latent sites
-  expect_equal(sb[[1, 4]], 0)
-  expect_equal(sb[[121, 4]], 11.94, tolerance = 0.001)
+  expect_equal(sb[[1, "latent"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "latent"]], 11.6, tolerance = 0.1)
 
-  # check infectious sites
-  expect_equal(sb[[1, 5]], 0)
-  expect_equal(sb[[121, 5]], 602.08, tolerance = 0.001)
+  expect_equal(sb[[1, "infectious"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "infectious"]], 603.1, tolerance = 0.1)
 
-  # check removed sites
-  expect_equal(sb[[1, 6]], 0)
-  expect_equal(sb[[121, 6]], 0, tolerance = 0.1)
+  expect_equal(sb[[1, "removed"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "removed"]], 0, tolerance = 0.1)
 
-  # check senesced sites
-  expect_equal(sb[[1, 7]], 0)
-  expect_equal(sb[[121, 7]], 281.73, tolerance = 0.001)
+  expect_equal(sb[[1, "senesced"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "senesced"]], 281.8, tolerance = 0.1)
 
-  # check rateinf
-  expect_equal(sb[[1, 8]], 0)
-  expect_equal(sb[[121, 8]], 3.486, tolerance = 0.0001)
+  expect_equal(sb[[1, "rateinf"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "rateinf"]], 3.4, tolerance = 0.1)
 
-  # check rtransfer
-  expect_equal(sb[[1, 9]], 0)
-  expect_equal(sb[[121, 9]], 4.255, tolerance = 0.001)
+  expect_equal(sb[[1, "rtransfer"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "rtransfer"]], 4.1, tolerance = 0.1)
 
-  # check rgrowth
-  expect_equal(sb[[1, 10]], 4.8438, tolerance = 0.01)
-  expect_equal(sb[[121, 10]], 0.829, tolerance = 0.001)
+  expect_equal(sb[[1, "rgrowth"]], 4.8, tolerance = 0.1)
+  expect_equal(sb[[121, "rgrowth"]], 0.8, tolerance = 0.1)
 
-  # check rsenesced
-  expect_equal(sb[[1, 11]], 0.1250)
-  expect_equal(sb[[121, 11]], 0.8298, tolerance = 0.0001)
+  expect_equal(sb[[1, "rsenesced"]], 0.1, tolerance = 0.1)
+  expect_equal(sb[[121, "rsenesced"]], 0.8, tolerance = 0.1)
 
-  # check diseased
-  expect_equal(sb[[1, 12]], 0)
-  expect_equal(sb[[121, 12]], 614.028, tolerance = 0.0001)
+  expect_equal(sb[[1, "diseased"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "diseased"]], 614.8, tolerance = 0.1)
 
-  # check intensity values
-  expect_equal(sb[[1, 14]], 0)
-  expect_equal(sb[[121, 14]], 78.72, tolerance = 0.001)
+  expect_equal(sb[[1, "intensity"]], 0, tolerance = 0.1)
+  expect_equal(sb[[121, "intensity"]], 0.7, tolerance = 0.1)
 
-  # check lat/lon values
-  expect_equal(sb[[1, 15]], 14.68, tolerance = 0.01)
-  expect_equal(sb[[1, 16]], 121.3, tolerance = 0.1)
+  expect_equal(sb[[1, "lat"]], 14.67741, tolerance = 0.00001)
+  expect_equal(sb[[1, "lon"]], 121.2556, tolerance = 0.0001)
 })
