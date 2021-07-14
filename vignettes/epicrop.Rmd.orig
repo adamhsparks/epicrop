@@ -165,7 +165,7 @@ AUDPC(
   time = bb_dry$simday,
   y = bb_dry$intensity,
   y_proportion = FALSE,
-  type = "relative"
+  type = "absolute"
 )
 
 # Wet season
@@ -173,7 +173,7 @@ AUDPC(
   time = bb_wet$simday,
   y = bb_wet$intensity,
   y_proportion = FALSE,
-  type = "relative"
+  type = "absolute"
 )
 ```
 

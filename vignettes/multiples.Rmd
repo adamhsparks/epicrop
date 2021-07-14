@@ -14,6 +14,8 @@ vignette: >
   %\VignetteDepends{dplyr}
   %\VignetteDepends{purrr}
   %\VignetteDepends{furrr}
+  %\VignetteDepends{janitor}
+  %\VignetteDepends{microbenchmark}
 ---
 
 ```{r setup, include = FALSE}
@@ -21,10 +23,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+ggplot2::theme_set(ggplot2::theme_minimal())
 ```
 
 You may wish to compare the effects of different establishment dates, different seasons or different locations on disease levels.
-This vignette details how you can automate several runs of _epicrcop_ in R and visualise them.
+This vignette details how you can automate several runs of _epicrop_ in R and visualise them.
 Examples are given that show how to run the process sequentially and in parallel, decreasing the runtime necessary.
 
 ## Multiple seasons
@@ -47,17 +50,18 @@ You could also use R's base `lapply()` here as well if you prefer.
 
 ```{r get-seasons}
 library("epicrop")
+library("purrr")
 
 seasons_wth <-
   map(
     .x = seasons,
     .f = get_wth,
-    lonlat = c(121.25562, 14.6774),
+    lonlat = c(121.255669, 14.16742),
     duration = 120
   )
 ```
 
-### Running _epicrop_ for multiple seasons
+### Multiple seasons
 
 Now that we have a list of weather data for two seasons we will use `purrr::map_df()` now to run `predict_bacterial_blight()` for two seasons and create a single data frame of the two seasons.
 Using `purrr::map()` as above would return a list of two data frames, if you wish.
@@ -66,22 +70,263 @@ This behaviour would be the same as if you used R's base `lapply()` here as well
 Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, _e.g._, for multiple seasons in one year, use `lubridate::ymd()`.
 
 ```{r run-predict}
-library("purrr")
 library("dplyr")
+library("lubridate")
+library("epifitter")
+library("kableExtra")
 
-bb <- map_df(
+map_df(
   .x = seasons_wth,
   .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
                                   wth = .x)
 ) %>%
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
-                            year(dates) == 2001 ~ 2001,))
+                            year(dates) == 2001 ~ 2001)) %>% 
+  group_by(season) %>%
+  summarise(AUDPC(
+    time = simday,
+    y = intensity,
+    y_proportion = FALSE,
+    type = "absolute"
+  )) %>%
+  rename(AUDPC = 2) %>% 
+  kable()
 ```
 
+### Multiple seasons using parallel processing
 
+Using _furrr_, we can do the same thing in parallel to reduce the runtime, especially if you have several seasons.
 
+**Note on the use of parallel processing**
+> Use parallel processing with caution.
+_epicrop_ is highly optimised for speed (as much as pure R can be).
+For small runs, _e.g._ one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing.
+Best guess is that unless you have > 40 or 50 seasons or locations or some combinations thereof to run the processes in parallel will not be any benefit.
 
+In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially.
+An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code is provided below.
+
+```{r parallel-seasons}
+library("epicrop")
+library("furrr")
+library("dplyr")
+library("lubridate")
+library("epifitter")
+library("kableExtra")
+
+# use 2 cores, this will assign one to each year, if you have more years and
+# more cores, e.g., an HPC, explore using more resources
+plan(multisession, workers = 2)
+
+years <- 2000:2001
+seasons <- paste0(years, "-06-30")
+seasons_wth <-
+  future_map(
+    .x = seasons,
+    .f = get_wth,
+    lonlat = c(121.255669, 14.16742),
+    duration = 120,
+    .options = furrr_options(seed = NULL)
+  )
+
+# run predict_bacterial_blight() over the data frames of weather
+future_map_dfr(
+  .x = seasons_wth,
+  .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
+                                  wth = .x),
+  .options = furrr_options(seed = NULL)
+) %>%
+  mutate(season = case_when(year(dates) == 2000 ~ 2000,
+                            year(dates) == 2001 ~ 2001)) %>% 
+  group_by(season) %>%
+  summarise(AUDPC(
+    time = simday,
+    y = intensity,
+    y_proportion = FALSE,
+    type = "absolute"
+  )) %>%
+  rename(AUDPC = 2) %>% 
+  kable()
+```
 
 ## Multiple establishment dates
 
+To simulate multiple establishment dates and across multiple years at the same time we can use `purrr::cross2()` to create a vector of all year and month-day combinations that we wish to simulate.
+
+Simplifying the weather data, we will only use the first date of each year and fetch weather data using the `duration` option, specifying 180 days.
+This gives six months of data and extends to the end and a bit beyond the last growing season of the final establishment date, "01-31".
+`predict_bacterial_blight()` will take the full six months of weather data and subset for the respective growing seasons, selecting only the necessary weather data.
+
+Using `purrr::map2` allows for using two variables, one for weather data, `wth`, and one for the emergence/establishment dates, `emergence_dates`.
+This returns a list of data, but using `dplyr::bind_rows(.id = "emergence")` creates a data frame with a column of emergence/establishment dates that can be used for grouping the data for further analysis or visualisation.
+
+```{r multiple-establishment}
+library("epicrop")
+library("purrr")
+library("dplyr")
+library("lubridate")
+library("epifitter")
+library("kableExtra")
+
+years <- 2001:2020
+month_day <- c("-06-01", "-06-14", "-06-30")
+emergence_dates <-
+  cross2(years, month_day) %>%
+  map_chr(paste0, collapse = "") %>%
+  sort() %>%
+  as_date()
+
+# create a vector of dates for weather data.
+# Only take the earliest establishment date, then extend the duration out past
+# 120 days from final establishment date.
+# Here just taking 180 days, 6 months, works well.
+wth_start_dates <- paste0(years, month_day[1])
+
+seasons_wth <- map_dfr(
+  .x = wth_start_dates,
+  .f = get_wth,
+    lonlat = c(121.255669, 14.16742),
+  duration = 180
+) %>%
+  mutate(YYYYMMDD = as_date(YYYYMMDD))
+
+# Once we have all the weather, create a list of weather data.frames for each
+# establishment date
+# Create time intervals to subset the weather data, creating a list new
+# data.frames for each establishment date.
+
+wth <-
+  map(.x = emergence_dates,
+      .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
+                      YYYYMMDD <= .x + 120))
+
+names(wth) <- emergence_dates
+
+map2(
+  .x = wth,
+  .y = emergence_dates,
+  .f = ~ predict_bacterial_blight(emergence = .y,
+                                  wth = .x)
+) %>%
+  bind_rows(.id = "emergence") %>% 
+  group_by(emergence) %>%
+  summarise(AUDPC(
+    time = simday,
+    y = intensity,
+    y_proportion = FALSE,
+    type = "absolute"
+  )) %>%
+  rename(AUDPC = 2) %>% 
+  kable()
+```
+
+### Multiple establishment dates using parallel processing
+
+To run the previous example in parallel, substitute _furrr_ equivalent functions for the _purrr_ functions used above.
+These are easily identified by the `future_` prefix on each of the functions where they are used.
+
+```{r parallel-establishment}
+library("furrr")
+library("purrr")
+library("dplyr")
+library("ggplot2")
+library("lubridate")
+library("epicrop")
+library("epifitter")
+library("kableExtra")
+
+plan(multisession, workers = 4)
+
+years <- 2001:2021
+month_day <- c("-06-01", "-06-14", "-06-30")
+emergence_dates <-
+  cross2(years, month_day) %>%
+  map_chr(paste0, collapse = "") %>%
+  sort() %>%
+  as_date()
+
+# create a vector of dates for weather data.
+# Only take the earliest establishment date, then extend the duration out past
+# 120 days from final establishment date.
+# Here just taking 180 days, 6 months, works well.
+wth_start_dates <- paste0(years, month_day[1])
+
+seasons_wth <-
+  future_map_dfr(
+    .x = wth_start_dates,
+    .f = get_wth,
+    lonlat = c(121.255669, 14.16742),
+    duration = 180,
+    .options = furrr_options(seed = NULL)
+  ) %>%
+  mutate(YYYYMMDD = as_date(YYYYMMDD))
+
+# Once we have all the weather, create a list of weather data.frames for each
+# establishment date
+# Create time intervals to subset the weather data, creating a list new
+# data.frames for each establishment date.
+
+wth <-
+  future_map(.x = emergence_dates,
+             .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
+                             YYYYMMDD <= .x + 120))
+
+names(wth) <- emergence_dates
+
+future_map2(
+  .x = wth,
+  .y = emergence_dates,
+  .f = ~ predict_bacterial_blight(emergence = .y,
+                            wth = .x),
+  .options = furrr_options(seed = NULL)
+) %>%
+  bind_rows(.id = "emergence") %>%
+  group_by(emergence) %>%
+  summarise(AUDPC(
+    time = simday,
+    y = intensity,
+    y_proportion = FALSE,
+    type = "absolute"
+  )) %>%
+  rename(AUDPC = 2) %>% 
+  kable()
+```
+
+## Comparing sequential versus parallel methods
+
+It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the _microbenchmark_ package.
+Using the second examples of multiple establishment dates with the data from those examples.
+
+```{r benchmark, message=FALSE, warning=FALSE}
+library("microbenchmark")
+plan(multisession, workers = 2)
+
+mbm <- microbenchmark(
+  sequential = map2(
+    .x = wth,
+    .y = emergence_dates,
+    .f = ~ predict_bacterial_blight(emergence = .y,
+                                    wth = .x)
+  ) %>%
+    bind_rows(.id = "emergence"),
+  parallel = future_map2(
+    .x = wth,
+    .y = emergence_dates,
+    .f = ~ predict_bacterial_blight(emergence = .y,
+                              wth = .x),
+    .options = furrr_options(seed = NULL)
+  ) %>% 
+    bind_rows(.id = "emergence"),
+  unit = "relative"
+)
+
+mbm
+
+autoplot(mbm)
+```
+
+
 ## Multiple locations
+
+
+

@@ -77,6 +77,7 @@ Suggests:
     furrr,
     ggplot2,
     knitr,
+    kableExtra,
     purrr,
     rmarkdown,
     spelling,
