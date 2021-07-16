@@ -73,7 +73,7 @@ Add a column to specify the season, in this case we only have wet seasons for tw
 library("dplyr")
 library("lubridate")
 library("epifitter")
-library("kableExtra")
+library("ggplot2")
 
 map_df(
   .x = seasons_wth,
@@ -81,7 +81,7 @@ map_df(
                                   wth = .x)
 ) %>%
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
-                            year(dates) == 2001 ~ 2001)) %>% 
+                            year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
   summarise(AUDPC(
     time = simday,
@@ -89,8 +89,18 @@ map_df(
     y_proportion = FALSE,
     type = "absolute"
   )) %>%
-  rename(AUDPC = 2) %>% 
-  kable()
+  rename(AUDPC = 2) %>%
+  ggplot(aes(
+    x = as.factor(season),
+    y = AUDPC,
+    fill = AUDPC,
+    colour = AUDPC
+  )) +
+  geom_col() +
+  scale_fill_viridis_c(option = "E") +
+  scale_colour_viridis_c(option = "E") +
+  xlab("Season") +
+  coord_flip()
 ```
 
 ### Multiple seasons using parallel processing
@@ -112,7 +122,7 @@ library("furrr")
 library("dplyr")
 library("lubridate")
 library("epifitter")
-library("kableExtra")
+library("ggplot2")
 
 # use 2 cores, this will assign one to each year, if you have more years and
 # more cores, e.g., an HPC, explore using more resources
@@ -137,7 +147,7 @@ future_map_dfr(
   .options = furrr_options(seed = NULL)
 ) %>%
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
-                            year(dates) == 2001 ~ 2001)) %>% 
+                            year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
   summarise(AUDPC(
     time = simday,
@@ -145,8 +155,18 @@ future_map_dfr(
     y_proportion = FALSE,
     type = "absolute"
   )) %>%
-  rename(AUDPC = 2) %>% 
-  kable()
+  rename(AUDPC = 2) %>%
+  ggplot(aes(
+    x = as.factor(season),
+    y = AUDPC,
+    fill = AUDPC,
+    colour = AUDPC
+  )) +
+  geom_col() +
+  scale_fill_viridis_c(option = "E") +
+  scale_colour_viridis_c(option = "E") +
+  xlab("Season") +
+  coord_flip()
 ```
 
 ## Multiple establishment dates
@@ -166,7 +186,7 @@ library("purrr")
 library("dplyr")
 library("lubridate")
 library("epifitter")
-library("kableExtra")
+library("ggplot2")
 
 years <- 2001:2020
 month_day <- c("-06-01", "-06-14", "-06-30")
@@ -217,7 +237,12 @@ map2(
     type = "absolute"
   )) %>%
   rename(AUDPC = 2) %>% 
-  kable()
+  ggplot(aes(x = as.factor(emergence), y = AUDPC, fill = AUDPC, colour = AUDPC)) +
+  geom_col() +
+  scale_fill_viridis_c(option = "E") +
+  scale_colour_viridis_c(option = "E") +
+  xlab("Emergence Date (YYYY-MM-DD)") +
+  coord_flip()
 ```
 
 ### Multiple establishment dates using parallel processing
@@ -235,7 +260,7 @@ library("epicrop")
 library("epifitter")
 library("kableExtra")
 
-plan(multisession, workers = 4)
+plan(multisession, workers = 2)
 
 years <- 2001:2020
 month_day <- c("-06-01", "-06-14", "-06-30")
@@ -289,7 +314,12 @@ future_map2(
     type = "absolute"
   )) %>%
   rename(AUDPC = 2) %>% 
-  kable()
+  ggplot(aes(x = as.factor(emergence), y = AUDPC, fill = AUDPC, colour = AUDPC)) +
+  geom_col() +
+  scale_fill_viridis_c(option = "E") +
+  scale_colour_viridis_c(option = "E") +
+  xlab("Emergence Date (YYYY-MM-DD)") +
+  coord_flip()
 ```
 
 ## Comparing sequential versus parallel methods
@@ -299,7 +329,7 @@ Using the second examples of multiple establishment dates with the data from tho
 
 ```{r benchmark, message=FALSE, warning=FALSE}
 library("microbenchmark")
-plan(multisession, workers = 2)
+plan(multisession, workers = 4)
 
 mbm <- microbenchmark(
   sequential = map2(
