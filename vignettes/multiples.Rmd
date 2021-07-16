@@ -228,7 +228,7 @@ map2(
   .f = ~ predict_bacterial_blight(emergence = .y,
                                   wth = .x)
 ) %>%
-  bind_rows(.id = "emergence") %>% 
+  bind_rows(.id = "emergence") %>%
   group_by(emergence) %>%
   summarise(AUDPC(
     time = simday,
@@ -236,8 +236,13 @@ map2(
     y_proportion = FALSE,
     type = "absolute"
   )) %>%
-  rename(AUDPC = 2) %>% 
-  ggplot(aes(x = as.factor(emergence), y = AUDPC, fill = AUDPC, colour = AUDPC)) +
+  rename(AUDPC = 2) %>%
+  ggplot(aes(
+    x = as.factor(emergence),
+    y = AUDPC,
+    fill = AUDPC,
+    colour = AUDPC
+  )) +
   geom_col() +
   scale_fill_viridis_c(option = "E") +
   scale_colour_viridis_c(option = "E") +
@@ -302,7 +307,7 @@ future_map2(
   .x = wth,
   .y = emergence_dates,
   .f = ~ predict_bacterial_blight(emergence = .y,
-                            wth = .x),
+                                  wth = .x),
   .options = furrr_options(seed = NULL)
 ) %>%
   bind_rows(.id = "emergence") %>%
@@ -313,8 +318,13 @@ future_map2(
     y_proportion = FALSE,
     type = "absolute"
   )) %>%
-  rename(AUDPC = 2) %>% 
-  ggplot(aes(x = as.factor(emergence), y = AUDPC, fill = AUDPC, colour = AUDPC)) +
+  rename(AUDPC = 2) %>%
+  ggplot(aes(
+    x = as.factor(emergence),
+    y = AUDPC,
+    fill = AUDPC,
+    colour = AUDPC
+  )) +
   geom_col() +
   scale_fill_viridis_c(option = "E") +
   scale_colour_viridis_c(option = "E") +
