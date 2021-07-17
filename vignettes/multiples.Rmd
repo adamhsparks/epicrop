@@ -14,7 +14,6 @@ vignette: >
   %\VignetteDepends{dplyr}
   %\VignetteDepends{purrr}
   %\VignetteDepends{furrr}
-  %\VignetteDepends{janitor}
   %\VignetteDepends{microbenchmark}
 ---
 
@@ -23,7 +22,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-ggplot2::theme_set(ggplot2::theme_minimal())
 ```
 
 You may wish to compare the effects of different establishment dates, different seasons or different locations on disease levels.
@@ -91,16 +89,17 @@ map_df(
   )) %>%
   rename(AUDPC = 2) %>%
   ggplot(aes(
-    x = as.factor(season),
-    y = AUDPC,
+    y = as.factor(season),
+    x = AUDPC,
     fill = AUDPC,
     colour = AUDPC
   )) +
-  geom_col() +
+  geom_col(width = 0.5,
+           orientation = "y") +
   scale_fill_viridis_c(option = "E") +
   scale_colour_viridis_c(option = "E") +
-  xlab("Season") +
-  coord_flip()
+  ylab("Season") +
+  theme_classic()
 ```
 
 ### Multiple seasons using parallel processing
@@ -157,16 +156,17 @@ future_map_dfr(
   )) %>%
   rename(AUDPC = 2) %>%
   ggplot(aes(
-    x = as.factor(season),
-    y = AUDPC,
+    y = as.factor(season),
+    x = AUDPC,
     fill = AUDPC,
     colour = AUDPC
   )) +
-  geom_col() +
+  geom_col(width = 0.5,
+           orientation = "y") +
   scale_fill_viridis_c(option = "E") +
   scale_colour_viridis_c(option = "E") +
-  xlab("Season") +
-  coord_flip()
+  ylab("Season") +
+  theme_classic()
 ```
 
 ## Multiple establishment dates
@@ -181,14 +181,7 @@ Using `purrr::map2` allows for using two variables, one for weather data, `wth`,
 This returns a list of data, but using `dplyr::bind_rows(.id = "emergence")` creates a data frame with a column of emergence/establishment dates that can be used for grouping the data for further analysis or visualisation.
 
 ```{r multiple-establishment}
-library("epicrop")
-library("purrr")
-library("dplyr")
-library("lubridate")
-library("epifitter")
-library("ggplot2")
-
-years <- 2001:2020
+years <- 2001:2010
 month_day <- c("-06-01", "-06-14", "-06-30")
 emergence_dates <-
   cross2(years, month_day) %>%
@@ -205,7 +198,7 @@ wth_start_dates <- paste0(years, month_day[1])
 seasons_wth <- map_dfr(
   .x = wth_start_dates,
   .f = get_wth,
-    lonlat = c(121.255669, 14.16742),
+  lonlat = c(121.255669, 14.16742),
   duration = 180
 ) %>%
   mutate(YYYYMMDD = as_date(YYYYMMDD))
@@ -218,9 +211,8 @@ seasons_wth <- map_dfr(
 wth <-
   map(.x = emergence_dates,
       .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
-                      YYYYMMDD <= .x + 120))
-
-names(wth) <- emergence_dates
+                      YYYYMMDD <= .x + 120)) %>% 
+  setNames(emergence_dates)
 
 map2(
   .x = wth,
@@ -240,14 +232,25 @@ map2(
   ggplot(aes(
     x = as.factor(emergence),
     y = AUDPC,
-    fill = AUDPC,
     colour = AUDPC
   )) +
-  geom_col() +
-  scale_fill_viridis_c(option = "E") +
+  geom_segment(aes(
+    x = as.factor(emergence),
+    xend = as.factor(emergence),
+    y = 0,
+    yend = AUDPC
+  )) +
+  geom_point(aes(size = AUDPC)) +
   scale_colour_viridis_c(option = "E") +
-  xlab("Emergence Date (YYYY-MM-DD)") +
-  coord_flip()
+  scale_size(name = NULL) +
+  xlab("Emergence Date") +
+  ylab(NULL) +
+  guides(color = guide_colorbar(barwidth = unit(0.5, "lines"),
+                                order = 1),
+         size = guide_legend(reverse = TRUE,
+                             order = 2)) +
+  coord_flip() +
+  theme_classic()
 ```
 
 ### Multiple establishment dates using parallel processing
@@ -267,7 +270,7 @@ library("kableExtra")
 
 plan(multisession, workers = 2)
 
-years <- 2001:2020
+years <- 2001:2010
 month_day <- c("-06-01", "-06-14", "-06-30")
 emergence_dates <-
   cross2(years, month_day) %>%
@@ -299,9 +302,8 @@ seasons_wth <-
 wth <-
   future_map(.x = emergence_dates,
              .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
-                             YYYYMMDD <= .x + 120))
-
-names(wth) <- emergence_dates
+                             YYYYMMDD <= .x + 120)) %>% 
+  setNames(emergence_dates)
 
 future_map2(
   .x = wth,
@@ -322,14 +324,25 @@ future_map2(
   ggplot(aes(
     x = as.factor(emergence),
     y = AUDPC,
-    fill = AUDPC,
     colour = AUDPC
   )) +
-  geom_col() +
-  scale_fill_viridis_c(option = "E") +
+  geom_segment(aes(
+    x = as.factor(emergence),
+    xend = as.factor(emergence),
+    y = 0,
+    yend = AUDPC
+  )) +
+  geom_point(aes(size = AUDPC)) +
   scale_colour_viridis_c(option = "E") +
-  xlab("Emergence Date (YYYY-MM-DD)") +
-  coord_flip()
+  scale_size(name = NULL) +
+  xlab("Emergence Date") +
+  ylab(NULL) +
+  guides(color = guide_colorbar(barwidth = unit(0.5, "lines"),
+                                order = 1),
+         size = guide_legend(reverse = TRUE,
+                             order = 2)) +
+  coord_flip() +
+  theme_classic()
 ```
 
 ## Comparing sequential versus parallel methods
