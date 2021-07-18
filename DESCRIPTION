@@ -35,7 +35,7 @@ Authors@R: c(
            role = "ctb",
            email = "aji.ixb@gmail.com",
            comment = "Helped fix bug related to SEIR model and establishment
-           date."),
+           date"),
     person(given = "Emerson",
            family = "Del Ponte",
            role = "ctb",
