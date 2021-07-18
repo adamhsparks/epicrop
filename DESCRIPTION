@@ -80,6 +80,7 @@ Suggests:
     kableExtra,
     lubridate,
     microbenchmark,
+    pander,
     purrr,
     rmarkdown,
     spelling,
