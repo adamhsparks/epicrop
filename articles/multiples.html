@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       </header><script src="multiples_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Modelling Multiple Seasons, Establishment Dates or Locations</h1>
+      <h1 data-toc-skip>Modelling Multiple Simulations</h1>
                         <h4 class="author">Adam H. Sparks</h4>
             
             <h4 class="date">2021-07-18</h4>
@@ -136,7 +136,20 @@
 <p>Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, <em>e.g.</em>, for multiple seasons in one year, use <code><a href="http://lubridate.tidyverse.org/reference/ymd.html">lubridate::ymd()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'dplyr'</span>
+<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     filter, lag</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org">"lubridate"</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'lubridate'</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     date, intersect, setdiff, union</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rapporter.github.io/pander/">"pander"</a></span><span class="op">)</span>
 
@@ -204,6 +217,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/DavisVaughan/furrr">"furrr"</a></span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: future</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org">"lubridate"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
@@ -312,7 +326,7 @@
 <span class="va">wth</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>.x <span class="op">=</span> <span class="va">emergence_dates</span>,
       .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">seasons_wth</span>, <span class="va">YYYYMMDD</span> <span class="op">&gt;=</span> <span class="va">.x</span> <span class="op">&amp;</span>
-                      <span class="va">YYYYMMDD</span> <span class="op">&lt;=</span> <span class="va">.x</span> <span class="op">+</span> <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+                      <span class="va">YYYYMMDD</span> <span class="op">&lt;=</span> <span class="va">.x</span> <span class="op">+</span> <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">emergence_dates</span><span class="op">)</span>
 
 <span class="va">multi_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span>
@@ -539,7 +553,7 @@
 <span class="va">wth</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map.html">future_map</a></span><span class="op">(</span>.x <span class="op">=</span> <span class="va">emergence_dates</span>,
              .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">seasons_wth</span>, <span class="va">YYYYMMDD</span> <span class="op">&gt;=</span> <span class="va">.x</span> <span class="op">&amp;</span>
-                             <span class="va">YYYYMMDD</span> <span class="op">&lt;=</span> <span class="va">.x</span> <span class="op">+</span> <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+                             <span class="va">YYYYMMDD</span> <span class="op">&lt;=</span> <span class="va">.x</span> <span class="op">+</span> <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">emergence_dates</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map2.html">future_map2</a></span><span class="op">(</span>
@@ -563,7 +577,7 @@
     xend <span class="op">=</span> <span class="fl">0</span>,
     y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">emergence</span><span class="op">)</span>,
     yend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">emergence</span><span class="op">)</span>
-  <span class="op">)</span><span class="op">)</span> <span class="op">+</span>  
+  <span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -633,7 +647,7 @@
     xend <span class="op">=</span> <span class="fl">0</span>,
     y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span>,
     yend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span>
-  <span class="op">)</span><span class="op">)</span> <span class="op">+</span>  
+  <span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -669,16 +683,16 @@
     .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.y</span>,
                               wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>,
     .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span>,
   unit <span class="op">=</span> <span class="st">"relative"</span>
 <span class="op">)</span>
 
 <span class="va">mbm</span>
 <span class="co">#&gt; Unit: relative</span>
-<span class="co">#&gt;        expr      min       lq     mean  median       uq       max neval</span>
-<span class="co">#&gt;  sequential 2.075229 1.887847 1.423239 1.75534 1.647373 0.4245779   100</span>
-<span class="co">#&gt;    parallel 1.000000 1.000000 1.000000 1.00000 1.000000 1.0000000   100</span>
+<span class="co">#&gt;        expr      min      lq     mean   median       uq       max neval</span>
+<span class="co">#&gt;  sequential 1.654413 1.61616 1.527851 1.555832 1.520957 0.7840232   100</span>
+<span class="co">#&gt;    parallel 1.000000 1.00000 1.000000 1.000000 1.000000 1.0000000   100</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
