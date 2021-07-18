@@ -1,9 +1,14 @@
 # vignettes that depend on Internet access need to be precompiled
 library("knitr")
 library("here")
-knit(input = "vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.Rmd")
-purl("vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.R")
 
+# epicrop vignette
+knit(input = "vignettes/epicrop.Rmd.orig",
+     output = "vignettes/epicrop.Rmd")
+purl("vignettes/epicrop.Rmd.orig",
+     output = "vignettes/epicrop.R")
+
+# multiples vignette
 knit(input = "vignettes/multiples.Rmd.orig",
      output = "vignettes/multiples.Rmd")
 purl("vignettes/multiples.Rmd.orig",
@@ -11,27 +16,32 @@ purl("vignettes/multiples.Rmd.orig",
 
 # move image files
 figs <-
-  list.files(here("figure/"), pattern = ".png$", full.names = TRUE)
+  list.files(here("figure/"),
+             pattern = ".png$",
+             full.names = TRUE)
 file.copy(from = figs,
-          to   = paste0(here("vignettes/"), basename(figs)),
+          to   = paste0(here("vignettes/"),
+                        basename(figs)),
           overwrite = TRUE)
 file.remove(figs)
 file.remove(here("figure"))
 
 # remove file path such that vignettes will build with figures
-replace <- readLines("vignettes/epicrop.Rmd")
-replace <- gsub("\\(figure/", "\\(", replace)
+## epicrop vignette
+epicrop_replace <- readLines("vignettes/epicrop.Rmd")
+epicrop_replace <- gsub("\\(figure/", "\\(", epicrop_replace)
 
-fileConn <- file("vignettes/epicrop.Rmd")
-writeLines(replace, fileConn)
-close(fileConn)
+epicrop_file_con <- file("vignettes/epicrop.Rmd")
+writeLines(epicrop_replace, epicrop_file_con)
+close(epicrop_file_con)
 
-replace <- readLines("vignettes/multiples.Rmd")
-replace <- gsub("\\(figure/", "\\(", replace)
+## multiples vignette
+multiples_replace <- readLines("vignettes/multiples.Rmd")
+multiples_replace <- gsub("\\(figure/", "\\(", multiples_replace)
 
-fileConn <- file("vignettes/multiples.Rmd")
-writeLines(replace, fileConn)
-close(fileConn)
+multiples_file_con <- file("vignettes/multiples.Rmd")
+writeLines(multiples_replace, multiples_file_con)
+close(multiples_file_con)
 
 # build vignettes
 library("devtools")
