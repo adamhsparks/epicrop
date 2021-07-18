@@ -1,4 +1,17 @@
+# epicrop 0.0.0.9010
+
+## Major changes
+
+* **BREAKING CHANGE** `intensity` column, in `SEIR()` is now a proportion, _i.e._ values range between 0 - 1.
+If you wish to have the same values as previously reported, `df$intensity*100` will give you these values.
+
+* **BREAKING CHANGE** Removes column, `severity`, in `SEIR()` output.
+
+* Adds a new vignette illustrating how to run multiple simulations and use parallel processing to reduce run time for these simulations.
+
 # epicrop 0.0.0.9009
+
+## Major changes
 
 * **BREAKING CHANGE** Add a new column to `SEIR()` output, `severity`, not to be confused with the previous column called `severity` (now called `intensity`), which represents the cumulative proportion of diseased sites on day "x" expressed as, $\frac{diseased\ sites}{total\ sites}\times100$.
 
