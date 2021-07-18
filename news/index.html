@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010-1</span>
       </span>
     </div>
 
@@ -96,6 +96,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/multiples.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -125,13 +137,30 @@
       <small>Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="epicrop-0009010" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9010">
+<a href="#epicrop-0009010" class="anchor"></a>epicrop 0.0.0.9010</h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li><p><strong>BREAKING CHANGE</strong> <code>intensity</code> column, in <code><a href="../reference/SEIR.html">SEIR()</a></code> is now a proportion, <em>i.e.</em> values range between 0 - 1. If you wish to have the same values as previously reported, <code>df$intensity*100</code> will give you these values.</p></li>
+<li><p><strong>BREAKING CHANGE</strong> Removes column, <code>severity</code>, in <code><a href="../reference/SEIR.html">SEIR()</a></code> output.</p></li>
+<li><p>Adds a new vignette illustrating how to run multiple simulations and use parallel processing to reduce run time for these simulations.</p></li>
+</ul>
+</div>
+</div>
     <div id="epicrop-0009009" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9009">
 <a href="#epicrop-0009009" class="anchor"></a>epicrop 0.0.0.9009</h1>
+<div id="major-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <strong>BREAKING CHANGE</strong> Add a new column to <code><a href="../reference/SEIR.html">SEIR()</a></code> output, <code>severity</code>, not to be confused with the previous column called <code>severity</code> (now called <code>intensity</code>), which represents the cumulative proportion of diseased sites on day “x” expressed as, <span class="math inline">$\frac{diseased\ sites}{total\ sites}\times100$</span>.</li>
 </ul>
+</div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
@@ -143,9 +172,9 @@
     <div id="epicrop-0009008" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9008">
 <a href="#epicrop-0009008" class="anchor"></a>epicrop 0.0.0.9008</h1>
-<div id="major-changes" class="section level2">
+<div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li><ul>
 <li>
@@ -211,9 +240,9 @@
 <li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in <em>roxygen</em> section now works properly when executed by the user.</p></li>
 </ul>
 </div>
-<div id="major-changes-1" class="section level2">
+<div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>Any default parameter values are moved from <code><a href="../reference/SEIR.html">SEIR()</a></code> to the <code>predict_()</code> functions themselves, so any calls directly to <code><a href="../reference/SEIR.html">SEIR()</a></code> must specify all parameters.</p></li>
 <li><p>Deleted <code>inst/alt_versions/tungrov2.R</code> file.</p></li>

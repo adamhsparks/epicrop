@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Predict rice tungro disease intensity — predict_tungro • epicrop</title>
+<title>Predict rice tungro disease incidence — predict_tungro • epicrop</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Predict rice tungro disease intensity — predict_tungro" />
+<meta property="og:title" content="Predict rice tungro disease incidence — predict_tungro" />
 <meta property="og:description" content="A dynamic mechanistic simulation of tungro disease of rice, causal agents
 Rice Tungro Spherical Virus and Rice Tungro Bacilliform Virus.
 The model is driven by daily weather data, which can easily be accessed using
@@ -84,7 +84,7 @@ POWER using nasapower." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010-1</span>
       </span>
     </div>
 
@@ -101,6 +101,18 @@ POWER using nasapower." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/multiples.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -126,7 +138,7 @@ POWER using nasapower." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Predict rice tungro disease intensity</h1>
+    <h1>Predict rice tungro disease incidence</h1>
     <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/R/predict_tungro.R'><code>R/predict_tungro.R</code></a></small>
     <div class="hidden name"><code>predict_tungro.Rd</code></div>
     </div>
@@ -176,7 +188,8 @@ the following properly named columns in them will work.</p><table class='table'>
 sites.  See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of the column values.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Default values for this disease model are derived from Table 2 (Savary <em>et
+    <p>The model represents site size as 1 rice plant.</p>
+<p>Default values for this disease model are derived from Table 2 (Savary <em>et
 al.</em> 2012).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

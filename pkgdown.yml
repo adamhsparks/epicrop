@@ -3,5 +3,6 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   epicrop: epicrop.html
-last_built: 2021-07-17T04:34Z
+  multiples: multiples.html
+last_built: 2021-07-18T07:14Z
 

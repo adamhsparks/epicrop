@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010-1</span>
       </span>
     </div>
 
@@ -55,6 +55,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/multiples.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -83,7 +95,7 @@
       <h1 data-toc-skip>epicrop</h1>
                         <h4 class="author">Adam H Sparks</h4>
             
-            <h4 class="date">2021-07-10</h4>
+            <h4 class="date">2021-07-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/adamhsparks/epicrop/blob/master/vignettes/epicrop.Rmd"><code>vignettes/epicrop.Rmd</code></a></small>
       <div class="hidden name"><code>epicrop.Rmd</code></div>
@@ -140,34 +152,34 @@
 <span class="va">bb_wet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb_wet</span><span class="op">)</span></code></pre></div>
-<pre><code>##      simday        dates                sites            latent       
-##  Min.   :  0   Min.   :2000-06-30   Min.   : 100.0   Min.   :  0.000  
-##  1st Qu.: 30   1st Qu.:2000-07-30   1st Qu.: 946.3   1st Qu.:  0.732  
-##  Median : 60   Median :2000-08-29   Median :1689.5   Median : 14.778  
-##  Mean   : 60   Mean   :2000-08-29   Mean   :1552.6   Mean   : 56.623  
-##  3rd Qu.: 90   3rd Qu.:2000-09-28   3rd Qu.:2287.0   3rd Qu.:105.712  
-##  Max.   :120   Max.   :2000-10-28   Max.   :2581.1   Max.   :236.125  
-##    infectious        removed          senesced         rateinf     
-##  Min.   :  0.00   Min.   :  0.00   Min.   :   0.0   Min.   : 0.00  
-##  1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 115.6   1st Qu.: 0.00  
-##  Median : 28.04   Median :  1.00   Median : 653.9   Median : 1.00  
-##  Mean   :255.97   Mean   : 55.43   Mean   : 822.4   Mean   :11.58  
-##  3rd Qu.:553.44   3rd Qu.: 30.45   3rd Qu.:1415.2   3rd Qu.:18.78  
-##  Max.   :921.59   Max.   :583.89   Max.   :2451.7   Max.   :55.92  
+<pre><code>##      simday        dates                sites            latent        
+##  Min.   :  0   Min.   :2000-07-01   Min.   : 100.0   Min.   :  0.0000  
+##  1st Qu.: 30   1st Qu.:2000-07-31   1st Qu.: 947.1   1st Qu.:  0.6884  
+##  Median : 60   Median :2000-08-30   Median :1727.2   Median : 17.2974  
+##  Mean   : 60   Mean   :2000-08-30   Mean   :1577.9   Mean   : 55.9820  
+##  3rd Qu.: 90   3rd Qu.:2000-09-29   3rd Qu.:2313.4   3rd Qu.:106.3171  
+##  Max.   :120   Max.   :2000-10-29   Max.   :2598.2   Max.   :229.2413  
+##    infectious       removed          senesced         rateinf      
+##  Min.   :  0.0   Min.   :  0.00   Min.   :   0.0   Min.   : 0.000  
+##  1st Qu.:  1.0   1st Qu.:  0.00   1st Qu.: 115.6   1st Qu.: 0.000  
+##  Median : 21.5   Median :  1.00   Median : 654.8   Median : 0.902  
+##  Mean   :243.9   Mean   : 48.33   Mean   : 822.2   Mean   :11.507  
+##  3rd Qu.:513.7   3rd Qu.: 22.50   3rd Qu.:1418.7   3rd Qu.:19.531  
+##  Max.   :931.1   Max.   :536.24   Max.   :2434.3   Max.   :60.511  
 ##    rtransfer        rgrowth         rsenesced         diseased       
 ##  Min.   : 0.00   Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  
-##  1st Qu.: 0.00   1st Qu.:22.883   1st Qu.: 9.463   1st Qu.:   2.411  
-##  Median : 0.00   Median :32.120   Median :22.703   Median :  44.933  
-##  Mean   :11.20   Mean   :40.081   Mean   :20.753   Mean   : 368.017  
-##  3rd Qu.:18.78   3rd Qu.:56.958   3rd Qu.:25.936   3rd Qu.: 817.561  
-##  Max.   :55.92   Max.   :79.595   Max.   :60.740   Max.   :1391.817  
-##     severity         intensity            lat             lon       
-##  Min.   : 0.0000   Min.   : 0.0000   Min.   :14.68   Min.   :121.3  
-##  1st Qu.: 0.2265   1st Qu.: 0.2265   1st Qu.:14.68   1st Qu.:121.3  
-##  Median : 1.7708   Median : 1.7321   Median :14.68   Median :121.3  
-##  Mean   :13.5806   Mean   :12.3257   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:28.8129   3rd Qu.:28.0406   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :56.2690   Max.   :43.9150   Max.   :14.68   Max.   :121.3</code></pre>
+##  1st Qu.: 0.00   1st Qu.:23.101   1st Qu.: 9.471   1st Qu.:   1.688  
+##  Median : 0.00   Median :32.297   Median :22.748   Median :  39.794  
+##  Mean   :10.93   Mean   :40.176   Mean   :20.597   Mean   : 348.235  
+##  3rd Qu.:19.53   3rd Qu.:57.088   3rd Qu.:26.194   3rd Qu.: 719.248  
+##  Max.   :60.51   Max.   :79.697   Max.   :57.906   Max.   :1382.559  
+##    intensity            lat             lon       
+##  Min.   :0.00000   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.00189   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.01529   Median :14.68   Median :121.3  
+##  Mean   :0.11681   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.24740   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.43368   Max.   :14.68   Max.   :121.3</code></pre>
 </div>
 </div>
 <div id="plotting-using-ggplot2" class="section level2">
@@ -177,16 +189,11 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyr.tidyverse.org">"tidyr"</a></span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: 'tidyr'</code></pre>
-<pre><code>## The following object is masked from 'package:testthat':
-## 
-##     matches</code></pre>
 <div id="wet-season-sites" class="section level3">
 <h3 class="hasAnchor">
 <a href="#wet-season-sites" class="anchor"></a>Wet season sites</h3>
 <p>The model records the number of sites for each bin daily; this can be graphed as follows.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
   <span class="va">bb_wet</span>,
   cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,
@@ -214,7 +221,7 @@
 <h3 class="hasAnchor">
 <a href="#wet-season-intensity" class="anchor"></a>Wet season intensity</h3>
 <p>Plotting intensity over time does not require any data manipulation.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_wet</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
            y <span class="op">=</span> <span class="va">intensity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -233,44 +240,44 @@
 <a href="#comparing-epidemics" class="anchor"></a>Comparing epidemics</h2>
 <p>The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977). This is easily calculated from the output of any of the <code>predict_()</code> family of functions or a custom <code><a href="../reference/SEIR.html">SEIR()</a></code> run using the <em>epifitter</em> package (Alves and Del Ponte 2020).</p>
 <p>Load <em>epifitter</em> and simulate the disease intensity in the dry season starting in January to compare with the initial <code>bb_wet</code> results.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
 
 <span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></code></pre></div>
-<pre><code>##      simday        dates                sites            latent      
-##  Min.   :  0   Min.   :2000-01-04   Min.   : 100.0   Min.   : 0.000  
-##  1st Qu.: 30   1st Qu.:2000-02-03   1st Qu.: 947.5   1st Qu.: 0.000  
-##  Median : 60   Median :2000-03-04   Median :2519.2   Median : 1.391  
-##  Mean   : 60   Mean   :2000-03-04   Mean   :1886.6   Mean   : 8.759  
-##  3rd Qu.: 90   3rd Qu.:2000-04-03   3rd Qu.:2647.7   3rd Qu.:11.435  
-##  Max.   :120   Max.   :2000-05-03   Max.   :2753.8   Max.   :83.088  
-##    infectious        removed         senesced         rateinf       
-##  Min.   :  0.00   Min.   : 0.00   Min.   :   0.0   Min.   : 0.0000  
-##  1st Qu.:  1.00   1st Qu.: 0.00   1st Qu.: 115.6   1st Qu.: 0.0000  
-##  Median : 12.05   Median : 1.00   Median : 655.2   Median : 0.0000  
-##  Mean   : 46.07   Mean   :13.62   Mean   : 839.7   Mean   : 1.7517  
-##  3rd Qu.: 86.26   3rd Qu.:13.05   3rd Qu.:1473.3   3rd Qu.: 0.4024  
-##  Max.   :170.82   Max.   :99.31   Max.   :2355.9   Max.   :30.9168  
-##    rtransfer          rgrowth         rsenesced         diseased      
-##  Min.   : 0.0000   Min.   : 9.688   Min.   : 1.000   Min.   :  0.000  
-##  1st Qu.: 0.0000   1st Qu.:28.843   1st Qu.: 9.475   1st Qu.:  1.402  
-##  Median : 0.0000   Median :34.324   Median :25.192   Median : 19.762  
-##  Mean   : 1.7517   Mean   :42.321   Mean   :19.797   Mean   : 68.446  
-##  3rd Qu.: 0.4024   3rd Qu.:57.313   3rd Qu.:27.274   3rd Qu.:128.874  
-##  Max.   :30.9168   Max.   :79.534   Max.   :40.265   Max.   :211.961  
-##     severity        intensity           lat             lon       
-##  Min.   :0.0000   Min.   :0.0000   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:0.1904   1st Qu.:0.1904   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :0.7784   Median :0.7393   Median :14.68   Median :121.3  
-##  Mean   :2.4597   Mean   :2.0041   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:4.5192   3rd Qu.:4.0802   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :7.4870   Max.   :6.6557   Max.   :14.68   Max.   :121.3</code></pre>
+<pre><code>##      simday        dates                sites          latent      
+##  Min.   :  0   Min.   :2000-01-05   Min.   : 100   Min.   : 0.000  
+##  1st Qu.: 30   1st Qu.:2000-02-04   1st Qu.: 947   1st Qu.: 0.000  
+##  Median : 60   Median :2000-03-05   Median :2514   Median : 1.474  
+##  Mean   : 60   Mean   :2000-03-05   Mean   :1881   Mean   : 9.139  
+##  3rd Qu.: 90   3rd Qu.:2000-04-04   3rd Qu.:2636   3rd Qu.:12.015  
+##  Max.   :120   Max.   :2000-05-04   Max.   :2744   Max.   :86.097  
+##    infectious        removed          senesced         rateinf       
+##  Min.   :  0.00   Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000  
+##  1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 115.6   1st Qu.: 0.0000  
+##  Median : 13.69   Median :  1.00   Median : 654.8   Median : 0.0000  
+##  Mean   : 48.97   Mean   : 15.26   Mean   : 839.7   Mean   : 1.8278  
+##  3rd Qu.:103.07   3rd Qu.: 13.69   3rd Qu.:1471.2   3rd Qu.: 0.4067  
+##  Max.   :177.94   Max.   :118.09   Max.   :2367.7   Max.   :32.1017  
+##    rtransfer          rgrowth         rsenesced        diseased      
+##  Min.   : 0.0000   Min.   : 9.688   Min.   : 1.00   Min.   :  0.000  
+##  1st Qu.: 0.0000   1st Qu.:28.894   1st Qu.: 9.47   1st Qu.:  1.925  
+##  Median : 0.0000   Median :34.324   Median :25.14   Median : 24.663  
+##  Mean   : 1.8278   Mean   :42.323   Mean   :19.92   Mean   : 73.361  
+##  3rd Qu.: 0.4067   3rd Qu.:57.323   3rd Qu.:27.19   3rd Qu.:135.069  
+##  Max.   :32.1017   Max.   :79.519   Max.   :42.99   Max.   :221.166  
+##    intensity             lat             lon       
+##  Min.   :0.000000   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.002029   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.009228   Median :14.68   Median :121.3  
+##  Mean   :0.021309   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.042811   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.069453   Max.   :14.68   Max.   :121.3</code></pre>
 <div id="dry-season-intensity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dry-season-intensity" class="anchor"></a>Dry season intensity</h3>
 <p>Check the disease progress curve for the dry season.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_dry</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
            y <span class="op">=</span> <span class="va">intensity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -283,25 +290,25 @@
 <img src="dry_plot_intensity-1.png" alt=""><p class="caption">Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
 </div>
 <p>Calculate the AUDPC using the <code><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC()</a></code> from <em>epifitter</em> for both seasons and compare.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Dry season</span>
 <span class="fu"><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC</a></span><span class="op">(</span>
   time <span class="op">=</span> <span class="va">bb_dry</span><span class="op">$</span><span class="va">simday</span>,
   y <span class="op">=</span> <span class="va">bb_dry</span><span class="op">$</span><span class="va">intensity</span>,
   y_proportion <span class="op">=</span> <span class="cn">FALSE</span>,
-  type <span class="op">=</span> <span class="st">"relative"</span>
+  type <span class="op">=</span> <span class="st">"absolute"</span>
 <span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.02003607</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<pre><code>## [1] 2.559278</code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Wet season</span>
 <span class="fu"><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC</a></span><span class="op">(</span>
   time <span class="op">=</span> <span class="va">bb_wet</span><span class="op">$</span><span class="va">simday</span>,
   y <span class="op">=</span> <span class="va">bb_wet</span><span class="op">$</span><span class="va">intensity</span>,
   y_proportion <span class="op">=</span> <span class="cn">FALSE</span>,
-  type <span class="op">=</span> <span class="st">"relative"</span>
+  type <span class="op">=</span> <span class="st">"absolute"</span>
 <span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.1225029</code></pre>
-<p>The AUDPC of the wet season is greater than that of the dry season. Checking the data and referring to the curves, the wet season intensity reaches a peak value of 43.91% and the dry season tops out at 6.66%. So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.</p>
+<pre><code>## [1] 13.91882</code></pre>
+<p>The AUDPC of the wet season is greater than that of the dry season. Checking the data and referring to the curves, the wet season intensity reaches a peak value of 0.43% and the dry season tops out at 0.07%. So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.</p>
 </div>
 </div>
 <div id="references" class="section level1">
