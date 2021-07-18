@@ -1,5 +1,9 @@
 # epicrop 0.0.0.9011
 
+## Minor changes
+
+* Fix title in vignette entry.
+
 # epicrop 0.0.0.9010-1
 
 ## Minor changes
