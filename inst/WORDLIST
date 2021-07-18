@@ -116,6 +116,7 @@ conceptor
 cropro
 cropsim
 doi
+dplyr
 epifitter
 et
 frac
@@ -127,6 +128,8 @@ infective
 inoculum
 joss
 knitr
+loc
+lubridate
 maximise
 md
 microbenchmark
@@ -147,7 +150,6 @@ rmarkdown
 roxygen
 ryegrass
 senesced
-simlulate
 solani
 spatio
 sporulation
