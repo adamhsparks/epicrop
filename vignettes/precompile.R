@@ -4,10 +4,10 @@ library("here")
 knit(input = "vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.Rmd")
 purl("vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.R")
 
-knit(input = "vignettes/example_multiple_runs.Rmd.orig",
-     output = "vignettes/example_multiple_runs.Rmd")
-purl("vignettes/example_multiple_runs.Rmd.orig",
-     output = "vignettes/example_multiple_runs.R")
+knit(input = "vignettes/multiples.Rmd.orig",
+     output = "vignettes/multiples.Rmd")
+purl("vignettes/multiples.Rmd.orig",
+     output = "vignettes/multiples.R")
 
 # move image files
 figs <-
@@ -26,10 +26,10 @@ fileConn <- file("vignettes/epicrop.Rmd")
 writeLines(replace, fileConn)
 close(fileConn)
 
-replace <- readLines("vignettes/example_multiple_runs.Rmd")
+replace <- readLines("vignettes/multiples.Rmd")
 replace <- gsub("\\(figure/", "\\(", replace)
 
-fileConn <- file("vignettes/example_multiple_runs.Rmd")
+fileConn <- file("vignettes/multiples.Rmd")
 writeLines(replace, fileConn)
 close(fileConn)
 
