@@ -1,3 +1,9 @@
+# epicrop 0.0.0.9010-1
+
+## Minor changes
+
+* Fixes issue in vignettes with duplicate titles and plot theming.
+
 # epicrop 0.0.0.9010
 
 ## Major changes
