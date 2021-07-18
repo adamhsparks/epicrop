@@ -1,7 +1,7 @@
 ---
 title: "Modelling Multiple Seasons, Establishment Dates or Locations"
 author: "Adam H. Sparks"
-date: "2021-07-18"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Modelling Multiple Seasons, Establishment Dates or Locations}
@@ -18,7 +18,36 @@ vignette: >
   %\VignetteDepends{microbenchmark}
 ---
 
+```{r setup, include = FALSE}
+suggested_packages <-
+  c(
+    "ggplot2",
+    "epifitter",
+    "tidyr",
+    "lubridate",
+    "dplyr",
+    "purrr",
+    "furrr",
+    "microbenchmark",
+    "pander"
+  )
 
+knitr::opts_chunk$set(eval = all(
+  vapply(
+    suggested_packages,
+    requireNamespace,
+    quietly = TRUE,
+    FUN.VALUE = FALSE
+  )
+))
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 7
+)
+```
 
 You may wish to compare the effects of different establishment dates, different seasons or different locations on disease levels.
 This vignette details how you can automate several runs of _epicrop_ in R and visualise them.
@@ -32,8 +61,7 @@ Start by creating a list of the dates representing the seasons that you want to 
 In this case, since we specify the duration of the season, there is no need to explicitly state the end-date, that will automatically be determined by `get_wth()` with the `duration` argument that we pass along in the `purrr::map()`.
 You can use as many start dates, representing as many seasons as you desire, but for the purposes of speed in this vignette, only two will be used.
 
-
-```r
+```{r seasons-list}
 years <- 2000:2001
 seasons <- paste0(years, "-06-30")
 ```
@@ -43,8 +71,7 @@ In this example we will use the IRRI Zeigler Experiment Station coordinates as s
 With the vector of establishment dates, `seasons`, use `purrr::map()` to fetch all of the seasons with one function.
 You could also use R's base `lapply()` here as well if you prefer.
 
-
-```r
+```{r get-seasons}
 library("epicrop")
 library("purrr")
 
@@ -65,23 +92,9 @@ This behaviour would be the same as if you used R's base `lapply()` here as well
 
 Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, _e.g._, for multiple seasons in one year, use `lubridate::ymd()`.
 
-
-```r
+```{r run-predict}
 library("dplyr")
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library("lubridate")
-#> 
-#> Attaching package: 'lubridate'
-#> The following objects are masked from 'package:base':
-#> 
-#>     date, intersect, setdiff, union
 library("epifitter")
 library("pander")
 
@@ -104,21 +117,11 @@ seasons <- map_df(
 pander(seasons)
 ```
 
-
-----------------
- season   AUDPC 
--------- -------
-  2000    12.83 
-
-  2001    7.476 
-----------------
-
 ### Visualising differences in AUDPC between seasons
 
 A simple bar chart created using _ggplot2_ is an effective way to visualise the difference between the two seasons.
 
-
-```r
+```{r graph_seasons}
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
@@ -128,8 +131,6 @@ ggplot(seasons,
   ylab("Season") +
   theme_classic()
 ```
-
-![plot of chunk graph_seasons](graph_seasons-1.png)
 
 ### Simulating multiple seasons with _furrr_ using parallel processing
 
@@ -144,11 +145,9 @@ Best guess is that unless you have > 40 or 50 seasons or locations or some combi
 In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially.
 An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code is provided below.
 
-
-```r
+```{r parallel-seasons}
 library("epicrop")
 library("furrr")
-#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("epifitter")
@@ -189,15 +188,6 @@ future_map_dfr(
   pander()
 ```
 
-
-----------------
- season   AUDPC 
--------- -------
-  2000    12.83 
-
-  2001    7.476 
-----------------
-
 We can see here that the AUDPC values match using both processing methods.
 
 ## Multiple establishment dates
@@ -213,8 +203,7 @@ This gives six months of data and extends to the end and a bit beyond the last g
 Using `purrr::map2` allows for using two variables, one for weather data, `wth`, and one for the emergence/establishment dates, `emergence_dates`.
 This returns a list of data, but using `dplyr::bind_rows(.id = "emergence")` creates a data frame with a column of emergence/establishment dates that can be used for grouping the data for further analysis or visualisation.
 
-
-```r
+```{r multiple-establishment}
 library("epicrop")
 library("purrr")
 library("dplyr")
@@ -273,71 +262,6 @@ multi_dates <- map2(
 pander(multi_dates)
 ```
 
-
---------------------
- emergence    AUDPC 
------------- -------
- 2001-06-01   15.28 
-
- 2001-06-14   9.696 
-
- 2001-06-30   7.476 
-
- 2002-06-01   15.88 
-
- 2002-06-14   14.36 
-
- 2002-06-30   14.68 
-
- 2003-06-01   12.64 
-
- 2003-06-14   12.58 
-
- 2003-06-30   17.21 
-
- 2004-06-01   12.16 
-
- 2004-06-14    15   
-
- 2004-06-30   11.69 
-
- 2005-06-01   16.35 
-
- 2005-06-14   15.37 
-
- 2005-06-30   16.21 
-
- 2006-06-01   16.59 
-
- 2006-06-14   16.18 
-
- 2006-06-30   15.11 
-
- 2007-06-01   10.26 
-
- 2007-06-14   8.941 
-
- 2007-06-30   14.23 
-
- 2008-06-01   11.18 
-
- 2008-06-14   11.02 
-
- 2008-06-30   12.95 
-
- 2009-06-01   9.119 
-
- 2009-06-14   14.74 
-
- 2009-06-30   12.37 
-
- 2010-06-01   16.62 
-
- 2010-06-14   18.07 
-
- 2010-06-30   18.04 
---------------------
-
 That's a bit long and there's lots of values to digest here.
 
 ### Visualising multiple establishment dates using a stem plot
@@ -347,8 +271,7 @@ Using `ggplot2::geom_segment()` and `ggplot2::geom_point()` we can maximise the 
 
 Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are necessary since we're using `ggplot2::geom_segment()`.
 
-
-```r
+```{r stem-plot}
 library("ggplot2")
 ggplot(data = multi_dates,
        aes(
@@ -367,8 +290,6 @@ ggplot(data = multi_dates,
                        theme_classic()
 ```
 
-![plot of chunk stem-plot](stem-plot-1.png)
-
 ### Using _furrr_ to run multiple establishment dates in parallel
 
 To run the previous example in parallel, substitute _furrr_ equivalent functions for the _purrr_ functions used above.
@@ -376,8 +297,7 @@ These are easily identified by the `future_` prefix on each of the functions whe
 
 In this example rather than printing the whole table, the data are piped directly into the `ggplot2::ggplot()` function for creating a figure that again, is the same as the previous example, but run in parallel using _furrr_.
 
-
-```r
+```{r parallel-establishment}
 library("furrr")
 library("purrr")
 library("dplyr")
@@ -453,8 +373,6 @@ future_map2(
   theme_classic()
 ```
 
-![plot of chunk parallel-establishment](parallel-establishment-1.png)
-
 ## Multiple locations
 
 ### Using _purrr_ to simulate multiple locations
@@ -462,8 +380,7 @@ future_map2(
 Multiple locations will look much like the previous example for multiple seasons (years) but a vector of latitude and longitude values are provided to `get_wth()`.
 In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam, Prachin Buri, Thailand, Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.
 
-
-```r
+```{r locations-list}
 locations <- list(
   mekong_river = c(105.5943, 10.0634),
   red_river = c(105.9700, 20.9034),
@@ -477,8 +394,7 @@ Next use `get_wth()` to fetch the weather data from the [POWER API](https://powe
 With the list of locations, `locations`, use `purrr::map()` to fetch all of the locations with one function.
 You could also use R's base `lapply()` here as well if you prefer.
 
-
-```r
+```{r get-locations}
 library("epicrop")
 library("purrr")
 
@@ -496,8 +412,7 @@ locations_wth <-
 This behaviour would be the same as if you used R's base `lapply()` here as well.
 The process for using _furrr_ won't be shown here, but to implement several locations or year locations and planting date simulations in parallel would be as shown above.
 
-
-```r
+```{r run-multi-loc}
 library("dplyr")
 library("lubridate")
 library("epifitter")
@@ -531,8 +446,6 @@ map(
   theme_classic()
 ```
 
-![plot of chunk run-multi-loc](run-multi-loc-1.png)
-
 ## Comparing sequential versus parallel methods
 
 It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the _microbenchmark_ package.
@@ -540,8 +453,7 @@ Here an example of how to use benchmarking is shown using the second set of exam
 
 Greater gains in efficiency will be realised with more dates, locations, etc. when running in parallel than sequentially.
 
-
-```r
+```{r benchmark, message=FALSE, warning=FALSE}
 library("microbenchmark")
 
 plan(multisession, workers = 4)
@@ -566,12 +478,6 @@ mbm <- microbenchmark(
 )
 
 mbm
-#> Unit: relative
-#>        expr      min       lq     mean   median       uq       max neval
-#>  sequential 1.624557 1.558012 1.503509 1.522304 1.505909 0.7801429   100
-#>    parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.0000000   100
 
 autoplot(mbm)
 ```
-
-![plot of chunk benchmark](benchmark-1.png)
