@@ -245,12 +245,12 @@ AUDPC(
   time = bb_dry$simday,
   y = bb_dry$intensity,
   y_proportion = FALSE,
-  type = "relative"
+  type = "absolute"
 )
 ```
 
 ```
-## [1] 0.02003607
+## [1] 2.559278
 ```
 
 ```r
@@ -259,16 +259,16 @@ AUDPC(
   time = bb_wet$simday,
   y = bb_wet$intensity,
   y_proportion = FALSE,
-  type = "relative"
+  type = "absolute"
 )
 ```
 
 ```
-## [1] 0.1225029
+## [1] 13.91882
 ```
 
 The AUDPC of the wet season is greater than that of the dry season.
-Checking the data and referring to the curves, the wet season intensity reaches a peak value of 43.91% and the dry season tops out at 6.66%.
+Checking the data and referring to the curves, the wet season intensity reaches a peak value of 0.43% and the dry season tops out at 0.07%.
 So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.
 
 # References
