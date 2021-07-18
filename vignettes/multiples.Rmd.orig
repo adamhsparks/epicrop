@@ -123,7 +123,7 @@ pander(seasons)
 
 A simple bar chart created using _ggplot2_ is an effective way to visualise the difference between the two seasons.
 
-```{r graph_seasons}
+```{r graph_seasons, fig.cap="Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."}
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
@@ -273,7 +273,7 @@ Using `ggplot2::geom_segment()` and `ggplot2::geom_point()` we can maximise the 
 
 Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are necessary since we're using `ggplot2::geom_segment()`.
 
-```{r stem-plot}
+```{r stem-plot, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines."}
 library("ggplot2")
 ggplot(data = multi_dates,
        aes(
@@ -299,7 +299,7 @@ These are easily identified by the `future_` prefix on each of the functions whe
 
 In this example rather than printing the whole table, the data are piped directly into the `ggplot2::ggplot()` function for creating a figure that again, is the same as the previous example, but run in parallel using _furrr_.
 
-```{r parallel-establishment}
+```{r parallel-establishment, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines."}
 library("furrr")
 library("purrr")
 library("dplyr")
@@ -380,7 +380,7 @@ future_map2(
 ### Using _purrr_ to simulate multiple locations
 
 Multiple locations will look much like the previous example for multiple seasons (years) but a vector of latitude and longitude values are provided to `get_wth()`.
-In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam, Prachin Buri, Thailand, Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.
+In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.
 
 ```{r locations-list}
 locations <- list(
@@ -414,7 +414,7 @@ locations_wth <-
 This behaviour would be the same as if you used R's base `lapply()` here as well.
 The process for using _furrr_ won't be shown here, but to implement several locations or year locations and planting date simulations in parallel would be as shown above.
 
-```{r run-multi-loc}
+```{r run-multi-loc, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines."}
 library("dplyr")
 library("lubridate")
 library("epifitter")
@@ -455,7 +455,7 @@ Here an example of how to use benchmarking is shown using the second set of exam
 
 Greater gains in efficiency will be realised with more dates, locations, etc. when running in parallel than sequentially.
 
-```{r benchmark, message=FALSE, warning=FALSE}
+```{r benchmark, message=FALSE, warning=FALSE, fig.cap="Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines"}
 library("microbenchmark")
 
 plan(multisession, workers = 4)

@@ -118,7 +118,7 @@ ggplot(seasons,
   theme_classic()
 ```
 
-![plot of chunk graph_seasons](graph_seasons-1.png)
+![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
 ### Simulating multiple seasons with _furrr_ using parallel processing
 
@@ -355,7 +355,7 @@ ggplot(data = multi_dates,
                        theme_classic()
 ```
 
-![plot of chunk stem-plot](stem-plot-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.](stem-plot-1.png)
 
 ### Using _furrr_ to run multiple establishment dates in parallel
 
@@ -441,14 +441,14 @@ future_map2(
   theme_classic()
 ```
 
-![plot of chunk parallel-establishment](parallel-establishment-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.](parallel-establishment-1.png)
 
 ## Multiple locations
 
 ### Using _purrr_ to simulate multiple locations
 
 Multiple locations will look much like the previous example for multiple seasons (years) but a vector of latitude and longitude values are provided to `get_wth()`.
-In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam, Prachin Buri, Thailand, Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.
+In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.
 
 
 ```r
@@ -519,7 +519,7 @@ map(
   theme_classic()
 ```
 
-![plot of chunk run-multi-loc](run-multi-loc-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
 
 ## Comparing sequential versus parallel methods
 
@@ -555,12 +555,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr      min       lq     mean   median       uq      max neval
-#>  sequential 1.654268 1.622509 1.518283 1.517222 1.514156 0.896426   100
-#>    parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000   100
+#>        expr      min       lq    mean   median       uq       max neval
+#>  sequential 1.616873 1.652476 1.52457 1.551969 1.517406 0.7194818   100
+#>    parallel 1.000000 1.000000 1.00000 1.000000 1.000000 1.0000000   100
 
 autoplot(mbm) +
   theme_classic()
 ```
 
-![plot of chunk benchmark](benchmark-1.png)
+![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
