@@ -555,11 +555,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr      min       lq     mean   median       uq      max neval
-#>  sequential 1.995666 2.024972 1.835163 1.914641 1.870894 0.974676   100
-#>    parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000   100
+#>        expr      min       lq     mean  median       uq       max neval
+#>  sequential 2.075229 1.887847 1.423239 1.75534 1.647373 0.4245779   100
+#>    parallel 1.000000 1.000000 1.000000 1.00000 1.000000 1.0000000   100
 
-autoplot(mbm)
+autoplot(mbm) +
+  theme_classic()
 ```
 
 ![plot of chunk benchmark](benchmark-1.png)
