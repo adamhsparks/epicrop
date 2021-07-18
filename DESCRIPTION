@@ -77,7 +77,6 @@ Suggests:
     furrr,
     ggplot2,
     knitr,
-    kableExtra,
     lubridate,
     microbenchmark,
     pander,
