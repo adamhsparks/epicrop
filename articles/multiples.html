@@ -676,11 +676,12 @@
 
 <span class="va">mbm</span>
 <span class="co">#&gt; Unit: relative</span>
-<span class="co">#&gt;        expr      min       lq     mean   median       uq      max neval</span>
-<span class="co">#&gt;  sequential 1.995666 2.024972 1.835163 1.914641 1.870894 0.974676   100</span>
-<span class="co">#&gt;    parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000   100</span>
+<span class="co">#&gt;        expr      min       lq     mean  median       uq       max neval</span>
+<span class="co">#&gt;  sequential 2.075229 1.887847 1.423239 1.75534 1.647373 0.4245779   100</span>
+<span class="co">#&gt;    parallel 1.000000 1.000000 1.000000 1.00000 1.000000 1.0000000   100</span>
 
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="benchmark-1.png" alt=""><p class="caption">plot of chunk benchmark</p>
 </div>
