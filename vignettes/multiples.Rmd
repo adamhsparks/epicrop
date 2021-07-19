@@ -3,7 +3,7 @@
 ---
 title: "Modelling Multiple Simulations"
 author: "Adam H Sparks"
-date: "2021-07-18"
+date: "2021-07-19"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Modelling Multiple Simulations}
@@ -70,7 +70,20 @@ Add a column to specify the season, in this case we only have wet seasons for tw
 
 ```r
 library("dplyr")
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 library("lubridate")
+#> 
+#> Attaching package: 'lubridate'
+#> The following objects are masked from 'package:base':
+#> 
+#>     date, intersect, setdiff, union
 library("epifitter")
 library("pander")
 
@@ -137,6 +150,7 @@ An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code 
 ```r
 library("epicrop")
 library("furrr")
+#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("epifitter")
@@ -555,9 +569,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr      min       lq    mean   median       uq       max neval
-#>  sequential 1.616873 1.652476 1.52457 1.551969 1.517406 0.7194818   100
-#>    parallel 1.000000 1.000000 1.00000 1.000000 1.000000 1.0000000   100
+#>        expr      min      lq     mean   median       uq       max neval
+#>  sequential 1.676099 1.66878 1.536508 1.573283 1.529454 0.6544454   100
+#>    parallel 1.000000 1.00000 1.000000 1.000000 1.000000 1.0000000   100
 
 autoplot(mbm) +
   theme_classic()
