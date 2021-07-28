@@ -42,7 +42,7 @@ entered in \code{YYYY-MM-DD} format.  Described in Table 1 of Savary \emph{et al
 2012.}
 
 \item{onset}{expected number of days until the onset of disease after
-emergence date.  Described in Table 1 of Savary \emph{et al.} 2012.}
+emergence date (day).  Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{duration}{simulation duration \emph{i.e.}, growing season length (day).
 Described in Table 1 of Savary \emph{et al.} 2012.}
@@ -53,8 +53,8 @@ wet or not (numeric).  Savary \emph{et al.} 2012 used 90\%.}
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
 wet or not (numeric).  Savary \emph{et al.} 2012 used 5mm.}
 
-\item{H0}{initial number of plant's healthy sites.  Described in Table 1 of
-Savary \emph{et al.} 2012.}
+\item{H0}{initial number of plant's healthy sites (numeric).  Described in
+Table 1 of Savary \emph{et al.} 2012.}
 
 \item{I0}{initial number of infective sites (numeric).  Described in Table 1
 of Savary \emph{et al.} 2012.}

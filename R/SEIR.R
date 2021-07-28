@@ -22,15 +22,15 @@
 #'  entered in `YYYY-MM-DD` format.  Described in Table 1 of Savary _et al._
 #'  2012.
 #' @param onset expected number of days until the onset of disease after
-#'  emergence date.  Described in Table 1 of Savary _et al._ 2012.
+#'  emergence date (day).  Described in Table 1 of Savary _et al._ 2012.
 #' @param duration simulation duration *i.e.*, growing season length (day).
 #'  Described in Table 1 of Savary _et al._ 2012.
 #' @param rhlim relative humidity value threshold to decide whether leaves are
 #'  wet or not (numeric).  Savary _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Savary _et al._ 2012 used 5mm.
-#' @param H0 initial number of plant's healthy sites.  Described in Table 1 of
-#'  Savary _et al._ 2012.
+#' @param H0 initial number of plant's healthy sites (numeric).  Described in
+#'  Table 1 of Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (numeric).  Described in Table 1
 #'  of Savary _et al._ 2012.
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
