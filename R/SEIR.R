@@ -19,39 +19,42 @@
 #'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
-#'  entered in `YYYY-MM-DD` format.  Described in Table 1 of Savary _et al._
-#'  2012.
+#'  entered in `YYYY-MM-DD` format (character).  Described in Table 1 of Savary
+#'  _et al._ 2012.
 #' @param onset expected number of days until the onset of disease after
-#'  emergence date (day).  Described in Table 1 of Savary _et al._ 2012.
-#' @param duration simulation duration *i.e.*, growing season length (day).
-#'  Described in Table 1 of Savary _et al._ 2012.
+#'  emergence date (day, integer).  Described in Table 1 of Savary _et al._
+#'  2012.
+#' @param duration simulation duration *i.e.*, growing season length (day,
+#'  integer).  Described in Table 1 of Savary _et al._ 2012.
 #' @param rhlim relative humidity value threshold to decide whether leaves are
 #'  wet or not (numeric).  Savary _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Savary _et al._ 2012 used 5mm.
-#' @param H0 initial number of plant's healthy sites (numeric).  Described in
+#' @param H0 initial number of plant's healthy sites (integer).  Described in
 #'  Table 1 of Savary _et al._ 2012.
-#' @param I0 initial number of infective sites (numeric).  Described in Table 1
+#' @param I0 initial number of infective sites (integer).  Described in Table 1
 #'  of Savary _et al._ 2012.
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for crop age.  Described in Table 1 of Savary _et al._ 2012.
+#'  removals) for crop age (numeric vector).  Described in Table 1 of Savary
+#'  _et al._ 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for temperature.  Described in Table 1 of Savary _et al._ 2012.
-#' @param RcOpt potential basic infection rate corrected for removals. Derived
-#'  from Table 1 of Savary _et al._ 2012.
-#' @param i duration of infectious period (day).  Described in Table 1 of Savary
+#'  removals) for temperature (numeric vector).  Described in Table 1 of Savary
 #'  _et al._ 2012.
-#' @param p duration of latent period (day).  Described in  Table 1 of Savary
+#' @param RcOpt potential basic infection rate corrected for removals (numeric).
+#'  Derived from Table 1 of Savary _et al._ 2012.
+#' @param i duration of infectious period (day, integer).  Described in Table 1
+#'  of Savary _et al._ 2012.
+#' @param p duration of latent period (day, integer).  Described in  Table 1 of
+#'  Savary _et al._ 2012.
+#' @param Sx maximum number of sites (integer).  Described in Table 1 of Savary
 #'  _et al._ 2012.
-#' @param Sx maximum number of sites.  Described in Table 1 of Savary _et al._
-#'  2012.
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012.  See further details in
 #'  **_a_ - Aggregation** section.
-#' @param RRS relative rate of physiological senescence.  Described in Table 1
-#'  of Savary _et al._ 2012.
-#' @param RRG relative rate of growth.  Described in Table 1 of Savary _et al._
-#'  2012.
+#' @param RRS relative rate of physiological senescence (numeric).  Described in
+#'  Table 1 of Savary _et al._ 2012.
+#' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
+#'  _et al._ 2012.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
