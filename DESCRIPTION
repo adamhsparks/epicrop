@@ -42,7 +42,6 @@ Authors@R: c(
            email = "delponte@ufv.br",
            comment = c("Suggested fixes for several typos in the documentation",
                      c(ORCID = "0000-0003-4398-409X"))))
-Maintainer: Adam Sparks <adamhsparks@gmail.com>
 Description: Generic simulation modelling of crop diseases using a Susceptible-
     Exposed-Infectious-Removed ('SEIR') model. This type of model was first
     described in botanical epidemiology by Zadoks (1971)
