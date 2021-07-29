@@ -93,7 +93,7 @@ This behaviour would be the same as if you used R's base `lapply()` here as well
 
 Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, _e.g._, for multiple seasons in one year, use `lubridate::ymd()`.
 
-```{r run-predict}
+```{r run-predict, message=FALSE}
 library("dplyr")
 library("lubridate")
 library("epifitter")
