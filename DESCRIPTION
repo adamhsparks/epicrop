@@ -60,7 +60,6 @@ Description: Generic simulation modelling of crop diseases using a Susceptible-
 License: GPL-3 + file LICENSE
 RoxygenNote: 7.1.1.9001
 Roxygen: list(markdown = TRUE)
-LazyData: true
 Encoding: UTF-8
 NeedsCompilation: no
 ByteCompile: TRUE
