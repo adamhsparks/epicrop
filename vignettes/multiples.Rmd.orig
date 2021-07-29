@@ -138,8 +138,9 @@ ggplot(seasons,
 
 Using _furrr_, we can do the same thing in parallel to reduce the runtime, especially if you have several seasons.
 
-**Note on the use of parallel processing**
-> Use parallel processing with caution.
+#### A note on the use of parallel processing
+
+Use parallel processing with caution.
 _epicrop_ is highly optimised for speed (as much as pure R can be).
 For small runs, _e.g._ one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing.
 Best guess is that unless you have > 40 or 50 seasons or locations or some combinations thereof to run the processes in parallel will not be any benefit.
