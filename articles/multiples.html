@@ -95,7 +95,6 @@
       <h1 data-toc-skip>Modelling Multiple Simulations</h1>
                         <h4 class="author">Adam H Sparks</h4>
             
-            <h4 class="date">2021-07-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/adamhsparks/epicrop/blob/master/vignettes/multiples.Rmd"><code>vignettes/multiples.Rmd</code></a></small>
       <div class="hidden name"><code>multiples.Rmd</code></div>
@@ -136,20 +135,7 @@
 <p>Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, <em>e.g.</em>, for multiple seasons in one year, use <code><a href="http://lubridate.tidyverse.org/reference/ymd.html">lubridate::ymd()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org">"lubridate"</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'lubridate'</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     date, intersect, setdiff, union</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rapporter.github.io/pander/">"pander"</a></span><span class="op">)</span>
 
@@ -212,12 +198,14 @@
 <h3 class="hasAnchor">
 <a href="#simulating-multiple-seasons-with-furrr-using-parallel-processing" class="anchor"></a>Simulating multiple seasons with <em>furrr</em> using parallel processing</h3>
 <p>Using <em>furrr</em>, we can do the same thing in parallel to reduce the runtime, especially if you have several seasons.</p>
-<p><strong>Note on the use of parallel processing</strong> &gt; Use parallel processing with caution. <em>epicrop</em> is highly optimised for speed (as much as pure R can be). For small runs, <em>e.g.</em> one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing. Best guess is that unless you have &gt; 40 or 50 seasons or locations or some combinations thereof to run the processes in parallel will not be any benefit.</p>
+<div id="a-note-on-the-use-of-parallel-processing" class="section level4">
+<h4 class="hasAnchor">
+<a href="#a-note-on-the-use-of-parallel-processing" class="anchor"></a>A note on the use of parallel processing</h4>
+<p>Use parallel processing with caution. <em>epicrop</em> is highly optimised for speed (as much as pure R can be). For small runs, <em>e.g.</em> one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing. Best guess is that unless you have &gt; 40 or 50 seasons or locations or some combinations thereof to run the processes in parallel will not be any benefit.</p>
 <p>In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially. An example of <a href="Comparing-sequential-versus-parallel-methods">benchmarking</a> code is provided below.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/DavisVaughan/furrr">"furrr"</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: future</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org">"lubridate"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
@@ -277,6 +265,7 @@
 </tbody>
 </table>
 <p>We can see here that the AUDPC values match using both processing methods.</p>
+</div>
 </div>
 </div>
 <div id="multiple-establishment-dates" class="section level2">
@@ -690,9 +679,9 @@
 
 <span class="va">mbm</span>
 <span class="co">#&gt; Unit: relative</span>
-<span class="co">#&gt;        expr      min      lq     mean   median       uq       max neval</span>
-<span class="co">#&gt;  sequential 1.676099 1.66878 1.536508 1.573283 1.529454 0.6544454   100</span>
-<span class="co">#&gt;    parallel 1.000000 1.00000 1.000000 1.000000 1.000000 1.0000000   100</span>
+<span class="co">#&gt;        expr      min       lq     mean   median       uq       max neval</span>
+<span class="co">#&gt;  sequential 1.617179 1.731803 1.547153 1.576557 1.541811 0.6485217   100</span>
+<span class="co">#&gt;    parallel 1.000000 1.000000 1.000000 1.000000 1.000000 1.0000000   100</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
