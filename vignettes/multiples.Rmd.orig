@@ -3,7 +3,6 @@
 ---
 title: "Modelling Multiple Simulations"
 author: "Adam H Sparks"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Modelling Multiple Simulations}
