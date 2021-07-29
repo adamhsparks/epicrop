@@ -4,6 +4,16 @@
 
 * Fix title in vignette entry.
 
+* Remove `lazyData` field from DESCRIPTION.
+
+* Remove redundant `maintainer` field from DESCRIPTION.
+
+* Remove dates (date when knit) from vignettes.
+
+* Fix/clean up note on parallel processing in "Multiples" vignette.
+
+* Better, more consistent documentation.
+
 # epicrop 0.0.0.9010-1
 
 ## Minor changes
