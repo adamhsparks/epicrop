@@ -253,7 +253,7 @@ SEIR <-
         infectious[d1] <- rtransfer[d]
         infday <- sum(d, -i, 1)
         infday <- max(0, infday)
-        now_infectious[d1] <- sum(infectious[infday:d + 1])
+        now_infectious[d1] <- sum(infectious[infday:d + 1]) # why is this different than using `d1` here? h
       }
 
       if (sites[d1] < 0) {
