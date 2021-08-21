@@ -68,7 +68,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     data.table,
-    nasapower
+    nasapower (>= 4.0)
 Suggests:
     dplyr,
     epifitter,
