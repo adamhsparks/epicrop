@@ -60,8 +60,8 @@ get_wth <- function(lonlat, dates, duration) {
       community = "AG",
       pars = c("T2M",
                "RH2M",
-               "PRECTOT"),
-      temporal_average = "DAILY"
+               "PRECTOTCORR"),
+      temporal_api = "DAILY"
     )
   )
   wth[, c("YEAR", "MM", "DD") := NULL][]
@@ -70,7 +70,7 @@ get_wth <- function(lonlat, dates, duration) {
     old = c("DOY",
             "YYYYMMDD",
             "T2M",
-            "PRECTOT",
+            "PRECTOTCORR",
             "RH2M",
             "LAT",
             "LON"),

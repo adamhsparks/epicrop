@@ -14,6 +14,8 @@
 
 * Better, more consistent documentation.
 
+* Update `get_wth()` to work with the new (unreleased) version of _nasapower_ that works with the new version of the POWER API.
+
 # epicrop 0.0.0.9010-1
 
 ## Minor changes
