@@ -44,7 +44,8 @@ as long as it fits the model’s requirements.
 ``` r
 if (!require("remotes"))
   install.packages("remotes")
-remotes::install_github("adamhsparks/epicrop"
+remotes::install_github("adamhsparks/epicrop",
+build_vignettes = TRUE
 )
 ```
 

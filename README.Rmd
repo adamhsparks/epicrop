@@ -41,7 +41,8 @@ _epicrop_ is not yet on CRAN. You can install it this way.
 ``` r
 if (!require("remotes"))
   install.packages("remotes")
-remotes::install_github("adamhsparks/epicrop"
+remotes::install_github("adamhsparks/epicrop",
+build_vignettes = TRUE
 )
 ```
 
