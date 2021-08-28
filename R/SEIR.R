@@ -262,11 +262,11 @@ SEIR <-
       }
 
       if (wth_rhum[d1] >= rhlim || wth_rain[d1] >= rainlim) {
-        RHCoef[d1] <- 1
+        RcW[d1] <- 1
       }
 
       rc[d1] <- RcOpt * select_mod_val(xy = RcA, x = d) *
-        select_mod_val(xy = RcT, x = wth_temp[d1]) * RHCoef[d1]
+        select_mod_val(xy = RcT, x = wth_temp[d1]) * RcW[d1]
 
       diseased[d1] <- sum(sum(infectious), now_latent[d1], removed[d1])
 
