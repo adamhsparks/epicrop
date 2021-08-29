@@ -49,12 +49,10 @@
 #' `chirps`: \acronym{CHIRPS} is quasi-global (50°S – 50°N) high-resolution
 #' (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery
 #' and in-situ station data to create gridded rainfall time series for trend
-#' analysis and seasonal drought monitoring.
-#'
-#' \acronym{CHIRTS} is a quasi-global (60°S – 70°N), high-resolution
-#' data set of daily maximum and minimum temperatures.  For more details on
-#' \acronym{CHIRPS} and \acronym{CHIRTS} data please visit the official homepage
-#' \url{https://chc.ucsb.edu/data}.
+#' analysis and seasonal drought monitoring. \acronym{CHIRTS} is a quasi-global
+#' (60°S – 70°N), high-resolution data set of daily maximum and minimum
+#' temperatures.  For more details on \acronym{CHIRPS} and \acronym{CHIRTS} data
+#' please visit the official homepage \url{https://chc.ucsb.edu/data}.
 #'
 #' By using `chirps`, the function will return the precipitation, temperature
 #' and relative humidity from the \acronym{CHIRPS} and \acronym{CHIRTS}
