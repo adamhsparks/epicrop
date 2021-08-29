@@ -214,7 +214,7 @@ SEIR <-
     # outputvars
     cofr <-
       rc <-
-      RHCoef <- latency <- infectious <- intensity <- rsenesced <-
+      RcW <- latency <- infectious <- intensity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <- now_latent <- sites <- total_sites <-
