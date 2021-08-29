@@ -67,6 +67,7 @@ BugReports: https://github.com/adamhsparks/epicrop/issues
 Depends:
     R (>= 3.5.0)
 Imports:
+    chirps,
     data.table,
     nasapower (>= 4.0)
 Suggests:
@@ -83,6 +84,8 @@ Suggests:
     spelling,
     testthat,
     tidyr
+Remotes:
+    github::ropensci/chirps
 VignetteBuilder: knitr
 Language: en-US
 X-schema.org-applicationCategory: Tools
