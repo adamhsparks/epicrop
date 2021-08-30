@@ -35,9 +35,10 @@ and tungro, which are included in this package.
 
 You can easily simulate any of the five diseases for rice grown anywhere
 in the world for years from 1983 to near current using `get_wth()` to
-fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
-Alternatively, you can supply your own weather data for any time period
-as long as it fits the model’s requirements.
+fetch data from the [NASA POWER web API](https://power.larc.nasa.gov) or
+[CHIRPS and CHIRTS web APIs](https://chc.ucsb.edu/data). Alternatively,
+you can supply your own weather data for any time period as long as it
+fits the model’s requirements.
 
 *epicrop* is not yet on CRAN. You can install it this way.
 
@@ -45,7 +46,7 @@ as long as it fits the model’s requirements.
 if (!require("remotes"))
   install.packages("remotes")
 remotes::install_github("adamhsparks/epicrop",
-build_vignettes = TRUE
+                        build_vignettes = TRUE
 )
 ```
 
