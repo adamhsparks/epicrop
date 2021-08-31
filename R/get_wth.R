@@ -121,24 +121,14 @@ get_wth <- function(lonlat,
     wth[, c("YEAR", "MM", "DD") := NULL][]
     setnames(
       wth,
-      old = c(
-        "DOY",
-        "YYYYMMDD",
-        "T2M",
-        "PRECTOTCORR",
-        "RH2M",
-        "LAT",
-        "LON"
-      ),
-      new = c("DOY",
-              "YYYYMMDD",
-              "TEMP",
+      old = c("T2M",
+              "PRECTOTCORR",
+              "RH2M"),
+      new = c("TEMP",
               "RAIN",
-              "RHUM",
-              "LAT",
-              "LON")
+              "RHUM")
     )
-    setcolorder(power,
+    setcolorder(wth,
                 c("YYYYMMDD",
                   "DOY",
                   "TEMP",
