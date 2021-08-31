@@ -75,16 +75,16 @@ are likely to be minimal and have little effect on the \pkg{epicrop} models.
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
-# get weather for IRRI Zeigler Experiment Station in wet season 2000 from
-# the default NASA POWER data.
+# get weather for IRRI Zeigler Experiment Station in wet season 2000 from the
+# default NASA POWER data.
 power <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-06-30", "2000-12-31")
 )
 
-# get 120 days of weather for IRRI Zeigler Experiment Station in wet
-# season 2000 by specifying the duration but not the end-date and specifying
-# the POWER data.
+# get 120 days of weather for IRRI Zeigler Experiment Station in wet season
+# 2000 by specifying the duration but not the end-date and specifying to use
+# POWER data.
 power <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = "2000-06-30",
