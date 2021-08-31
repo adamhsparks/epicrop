@@ -1,6 +1,4 @@
 
-
-
 #' Get weather data from NASA POWER API for use in epicrop modelling
 #'
 #' This function is a wrapper for the [nasapower::get_power()] or
@@ -65,16 +63,16 @@
 #'
 #' @examplesIf interactive()
 #'
-#' # get weather for IRRI Zeigler Experiment Station in wet season 2000 from
-#' # the default NASA POWER data.
+#' # get weather for IRRI Zeigler Experiment Station in wet season 2000 from the
+#' # default NASA POWER data.
 #' power <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #'
-#' # get 120 days of weather for IRRI Zeigler Experiment Station in wet
-#' # season 2000 by specifying the duration but not the end-date and specifying
-#' # the POWER data.
+#' # get 120 days of weather for IRRI Zeigler Experiment Station in wet season
+#' # 2000 by specifying the duration but not the end-date and specifying to use
+#' # POWER data.
 #' power <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = "2000-06-30",
@@ -144,7 +142,9 @@ get_wth <- function(lonlat,
     lonlat <- data.frame(as.list(lonlat))
     chirps <-
       setDT(
-        suppressMessages(chirps::get_chirps(object = lonlat, dates = dates))
+        suppressMessages(chirps::get_chirps(object = lonlat,
+                                            dates = dates,
+                                            server = "ClimateSERV"))
         )
     chirps[, id := .I]
 
@@ -168,7 +168,7 @@ get_wth <- function(lonlat,
     chirts[, id := .I]
 
     wth <- merge(chirps, chirts, by = c("id", "lon", "lat", "date"))
-    wth$DOY <- format(wth$YYYYMMDD, "%j")
+    wth$DOY <- format(wth$date, "%j")
     setnames(
       wth,
       old = c("lon",
