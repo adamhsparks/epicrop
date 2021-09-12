@@ -1,3 +1,19 @@
+# epicrop 0.0.0.9012
+
+## Major changes
+
+* Fixes bug in `SEIR()` where Rc value was calculated incorrectly that was introduced with commit https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287. See Lines 124:126 that were changed to Lines 118:120 where
+```r 
+Rc[day+1] <- baseRc * AFGen(ageRc, day) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
+```
+should have been
+```r
+Rc[day+1] <- baseRc * AFGen(ageRc, day + 1) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
+```
+to calculate the basic infection rate, `Rc`, for `day + 1`.
+
+* Implements a new function to calculate the correction values for crop age, `RcA`, and temperature, `RcT`, using `approx()` in a custom function that is faster than the `select_mod_value()` function.
+
 # epicrop 0.0.0.9011
 
 ## Minor changes
