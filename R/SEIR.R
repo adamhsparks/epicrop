@@ -343,60 +343,27 @@ SEIR <-
     return(out[])
   }
 
-#' Select a modifier value from a given curve
+#' Use approx() to return a modifier value from an RcA or RcT curve
 #'
-#' Takes a matrix and numeric value for the _i_th day in the duration of a
-#' `for()` loop and returns a value from the matrix corresponding to the value
-#' along the corresponding correction curve, either `RcA` (removals corrected
-#' for crop age) or `RcT` (removals corrected for temperature).
-#' @param xy a matrix of modifier values for the rate of removals corrected for
-#'  crop age, `RcA`, or temperature, `RcT` representing a fitted curve.
-#' @param x a numeric value indicating the _i_th day of the duration of the run
-#'  for crop age, `RcA`, or the temperature value, `RcT`, on the _i_th day.
-#' @details If you check CRAN, you'll find \CRANpkg{ZeBook}, in that package's
-#'  version of this function the authors use a different methodology for
-#'  determining the modifier value.  While the code is more simple and easy-to-
-#'  read, it sacrifices speed for this clarity.  Using \CRANpkg{microbenchmark}
-#'  illustrates how much quicker this function is as it is written here.  Since
-#'  this package is intended to be somewhat quicker to run, I've elected to keep
-#'  this function in this state.
-#' @note The original author of [afgen()] is Robert J. Hijmans.  This version
-#'  was adapted from the \R package \pkg{cropsim} for \pkg{epicrop} by Adam H.
-#'  Sparks under the GPL3 License.
-#' @author Robert J. Hijmans (original) Adam H. Sparks (adopter)
+#' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
+#'  or age, `RcA`.
+#' @param .out a value for `x`, either a temperature or age modifier value.
+#'
+#' @return A numeric value for modifying a growth curve in SEIR()
+#'
+#' @note This is a faster (and more simple) function that does what the original
+#'  `afgen()` from \pkg{cropsim} does.
+#'
 #' @keywords internal
-#' @examples
-#' day <- 1
-#' RcA <-
-#'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
-#' select_mod_val(xy = RcA, x = day)
-#' @return A numeric value corresponding to the _i_th day's value
+#'
 #' @noRd
-select_mod_val <- function(xy, x) {
-  d <- dim(xy)
-  if (x <= xy[1, 1]) {
-    mod_val <- xy[1, 2]
-  } else if (x >= xy[d[1], 1]) {
-    mod_val <- xy[d[1], 2]
-  } else {
-    a <- xy[xy[, 1] <= x, ]
-    b <- xy[xy[, 1] >= x, ]
-    if (length(a) == 2) {
-      int <- rbind(a, b[1, ])
-    } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1], ], b)
-    } else {
-      int <- rbind(a[dim(a)[1], ], b[1, ])
-    }
-    if (x == int[1, 1]) {
-      mod_val <- int[1, 2]
-    } else if (x == int[2, 1]) {
-      mod_val <- int[2, 2]
-      # calculate point on curve if no previous match in 'xy' matrix
-    } else {
-      mod_val <- int[1, 2] + (x - int[1, 1]) *
-        ((int[2, 2] - int[1, 2]) / (int[2, 1] - int[1, 1]))
-    }
-  }
-  return(mod_val)
-}
+
+.fn_Rc <- function(.Rc, .xout)
+  approx(
+    x = .Rc[, 1],
+    y = .Rc[, 2],
+    method = "linear",
+    xout = .xout,
+    yleft = 0,
+    yright = 0
+  )$y
