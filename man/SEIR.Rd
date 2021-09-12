@@ -186,6 +186,5 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 }
 }
 \author{
-Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
-Adam H. Sparks, Aji Sukarta
+Adam H. Sparks
 }
