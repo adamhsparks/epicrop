@@ -116,8 +116,7 @@
 #' * [predict_sheath_blight()],
 #' * [predict_tungro()]
 #'
-#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
-#' Adam H. Sparks, Aji Sukarta
+#' @author Adam H. Sparks
 #'
 #' @return A [data.table::data.table()] containing the following columns:
 #'
