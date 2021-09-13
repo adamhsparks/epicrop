@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wth.R
 \name{get_wth}
 \alias{get_wth}
-\title{Get weather data from NASA POWER API for use in epicrop modelling}
+\title{Get weather data for use in epicrop modelling}
 \usage{
 get_wth(lonlat, dates, duration, source = "nasapower")
 }
