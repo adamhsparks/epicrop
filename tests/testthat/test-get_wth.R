@@ -37,7 +37,7 @@ test_that("Any NA values in the POWER data will emit a message", {
   skip_on_cran()
   expect_message(.check_na(
     .wth = data.frame(
-      "YYYYMMDD" = 2015 - 01 - 15,
+      "YYYYMMDD" = as.Date("2015-01-15"),
       "DOY" = 15,
       "TEMP" = 26.05,
       "RHUM" = 56.6,
