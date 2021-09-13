@@ -1,5 +1,5 @@
 
-#' Get weather data from NASA POWER API for use in epicrop modelling
+#' Get weather data for use in epicrop modelling
 #'
 #' This function is a wrapper for the [nasapower::get_power()] or
 #'  [chirps::get_chirps()]/[chirps::get_chirts()] functions with predefined
