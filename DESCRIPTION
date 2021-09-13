@@ -80,6 +80,7 @@ Suggests:
     microbenchmark,
     pander,
     purrr,
+    vcr (>= 0.6.0),
     rmarkdown,
     spelling,
     testthat,
