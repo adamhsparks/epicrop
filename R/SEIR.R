@@ -359,7 +359,7 @@ SEIR <-
 #' @noRd
 
 .fn_Rc <- function(.Rc, .xout)
-  approx(
+  stats::approx(
     x = .Rc[, 1],
     y = .Rc[, 2],
     method = "linear",
