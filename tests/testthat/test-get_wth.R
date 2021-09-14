@@ -44,7 +44,7 @@
       duration = 2,
       source = "nasapower"
     )
-    expect_equal(nrow(wth_season), 91)
+    expect_equal(nrow(wth_season), 3)
   })
 
 test_that("Any NA values in the POWER data will emit a message", {
