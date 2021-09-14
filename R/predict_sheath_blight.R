@@ -94,7 +94,7 @@ predict_sheath_blight <- function(wth, emergence, ...) {
             0.84,
             0.84,
             0.84,
-            0.83,
+            0.84,
             0.88,
             0.88,
             1.0,
