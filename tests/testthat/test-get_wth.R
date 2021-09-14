@@ -1,11 +1,10 @@
 
 # weather handling and checking ------------------------------------------------
-vcr::use_cassette("fetch_power_weather", {
   test_that("Weather data is as expected after fetching from POWER API", {
     skip_on_cran()
     wth <- get_wth(
       lonlat = c(151.81, -27.48),
-      dates = c("2015-01-15", "2015-05-15"),
+      dates = c("2015-01-15", "2015-01-16"),
       source = "nasapower"
     )
     expect_named(wth,
@@ -18,20 +17,35 @@ vcr::use_cassette("fetch_power_weather", {
                    "LON"))
     expect_is(wth, c("data.table", "data.frame"))
   })
-})
 
-vcr::use_cassette("season_override", {
+  test_that("Weather data is as expected after fetching from POWER API", {
+    skip_on_cran()
+    wth <- get_wth(
+      lonlat = c(151.81, -27.48),
+      dates = c("2015-01-15", "2015-01-16"),
+      source = "chirps"
+    )
+    expect_named(wth,
+                 c("YYYYMMDD",
+                   "DOY",
+                   "TEMP",
+                   "RHUM",
+                   "RAIN",
+                   "LAT",
+                   "LON"))
+    expect_is(wth, c("data.table", "data.frame"))
+  })
+
   test_that("Supplying the season overrides an end-date value", {
     skip_on_cran()
     wth_season <- get_wth(
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-05-15"),
-      duration = 90,
+      duration = 2,
       source = "nasapower"
     )
     expect_equal(nrow(wth_season), 91)
   })
-})
 
 test_that("Any NA values in the POWER data will emit a message", {
   skip_on_cran()
