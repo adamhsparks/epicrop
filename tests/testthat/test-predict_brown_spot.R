@@ -25,40 +25,40 @@ test_that("Values are as expected", {
   )
 
   expect_is(bs, c("data.table", "data.frame"))
-  expect_equal(nrow(bs), 121)
+  expect_equal(nrow(bs), 120)
 
   expect_equal(bs[[1, "sites"]], 600)
-  expect_equal(bs[[121, "sites"]], 84949.3, tolerance = 0.1)
+  expect_equal(bs[[120, "sites"]], 84949.3, tolerance = 0.1)
 
   expect_equal(bs[[1, "latent"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "latent"]], 2963.0, tolerance = 0.1)
+  expect_equal(bs[[120, "latent"]], 2963.0, tolerance = 0.1)
 
   expect_equal(bs[[1, "infectious"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "infectious"]], 1632.1, tolerance = 0.1)
+  expect_equal(bs[[120, "infectious"]], 1632.1, tolerance = 0.1)
 
   expect_equal(bs[[1, "removed"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "removed"]], 128.4, tolerance = 0.1)
+  expect_equal(bs[[120, "removed"]], 128.4, tolerance = 0.1)
 
   expect_equal(bs[[1, "senesced"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "senesced"]], 55963.4, tolerance = 0.1)
+  expect_equal(bs[[120, "senesced"]], 55963.4, tolerance = 0.1)
 
   expect_equal(bs[[1, "rateinf"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "rateinf"]], 904.1, tolerance = 0.1)
+  expect_equal(bs[[120, "rateinf"]], 904.1, tolerance = 0.1)
 
   expect_equal(bs[[1, "rtransfer"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "rtransfer"]], 0, tolerance = 0.1)
+  expect_equal(bs[[120, "rtransfer"]], 0, tolerance = 0.1)
 
   expect_equal(bs[[1, "rgrowth"]], 59.6, tolerance = 0.1)
-  expect_equal(bs[[121, "rgrowth"]], 877.2, tolerance = 0.1)
+  expect_equal(bs[[120, "rgrowth"]], 877.2, tolerance = 0.1)
 
   expect_equal(bs[[1, "rsenesced"]], 6, tolerance = 0.1)
-  expect_equal(bs[[121, "rsenesced"]], 887.3, tolerance = 0.1)
+  expect_equal(bs[[120, "rsenesced"]], 887.3, tolerance = 0.1)
 
   expect_equal(bs[[1, "diseased"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "diseased"]], 4723.6, tolerance = 0.1)
+  expect_equal(bs[[120, "diseased"]], 4723.6, tolerance = 0.1)
 
   expect_equal(bs[[1, "intensity"]], 0, tolerance = 0.1)
-  expect_equal(bs[[121, "intensity"]], 0, tolerance = 0.1)
+  expect_equal(bs[[120, "intensity"]], 0, tolerance = 0.1)
 
   expect_equal(bs[[1, "lat"]], 14.67741, tolerance = 0.00001)
   expect_equal(bs[[1, "lon"]], 121.2556, tolerance = 0.0001)
