@@ -105,6 +105,9 @@ get_wth <- function(lonlat,
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
+
+  id <- TEMP <- NULL
+
   if (source == "nasapower") {
     wth <- setDT(
       nasapower::get_power(
