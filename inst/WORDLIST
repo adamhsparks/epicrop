@@ -8,6 +8,7 @@ Baw
 Baños
 Brun
 Buri
+CHIRTS
 Cabunagan
 Calabarzon
 Castilla
@@ -98,6 +99,7 @@ Tikhonova
 Tiongco
 Tritici
 Tungro
+UC
 VignetteDepends
 VignetteEncoding
 VignetteEngine
@@ -126,6 +128,7 @@ frac
 furrr
 geolocation
 ggplot
+gridded
 https
 infective
 inoculum
@@ -152,6 +155,7 @@ rmarkdown
 roxygen
 ryegrass
 senesced
+situ
 solani
 spatio
 sporulation
