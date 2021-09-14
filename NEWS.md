@@ -14,6 +14,10 @@ to calculate the basic infection rate, `Rc`, for `day + 1`.
 
 * Implements a new function to calculate the correction values for crop age, `RcA`, and temperature, `RcT`, using `approx()` in a custom function that is faster than the `select_mod_value()` function.
 
+* Fixes typos in `RcA` values for `predict_bacterial_blight()` and `predict_sheath_blight()`.
+In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit 8b2c36b61d4f949385dcac4c03ff435b8400e335.
+In `predict_sheath_blight()` the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: 69b89ce24dd41c16d4627225c028355f76a64b80.
+
 # epicrop 0.0.0.9011
 
 ## Minor changes
