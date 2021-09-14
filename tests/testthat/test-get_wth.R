@@ -18,7 +18,7 @@
     expect_is(wth, c("data.table", "data.frame"))
   })
 
-  test_that("Weather data is as expected after fetching from POWER API", {
+  test_that("Weather data is as expected after fetching from CHIRPS API", {
     skip_on_cran()
     wth <- get_wth(
       lonlat = c(151.81, -27.48),
