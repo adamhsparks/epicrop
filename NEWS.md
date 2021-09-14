@@ -19,8 +19,8 @@ Rc[day+1] <- baseRc * AFGen(ageRc, day + 1) * AFGen(tmpRc, wthsub$tavg[day+1]) *
 to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://github.com/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
 
 * Fixes typos in `RcA` values for `predict_bacterial_blight()` and `predict_sheath_blight()`.
-In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit [8b2c36b61d4f949385dcac4c03ff435b8400e335](https://github.com/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335).
-In `predict_sheath_blight()` the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: [69b89ce24dd41c16d4627225c028355f76a64b80](https://github.com/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80).
+  * In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit [8b2c36b61d4f949385dcac4c03ff435b8400e335](https://github.com/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335).
+  * In `predict_sheath_blight()` the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: [69b89ce24dd41c16d4627225c028355f76a64b80](https://github.com/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80).
 
 # epicrop 0.0.0.9011
 
