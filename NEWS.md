@@ -14,7 +14,7 @@ Rc[day+1] <- baseRc * AFGen(ageRc, day) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHC
 ```
 should have been
 ```r
-Rc[day+1] <- baseRc * AFGen(ageRc, day + 1) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
+Rc[day+1] <- baseRc * AFGen(ageRc, day+1) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
 ```
 to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://github.com/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
 
