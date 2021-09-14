@@ -71,7 +71,8 @@ Depends:
 Imports:
     chirps,
     data.table,
-    nasapower (>= 4.0)
+    nasapower (>= 4.0),
+    stats
 Suggests:
     dplyr,
     epifitter,
