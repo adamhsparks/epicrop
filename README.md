@@ -18,18 +18,21 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 A fork of [*cropsim*](https://r-forge.r-project.org/R/?group_id=335)
-designed to make using the EPIRICE model (Savary *et al.* 2012) for rice
-diseases easier to use. This version provides easy to use functions to
-fetch weather data from NASA POWER, via the
+(Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary
+*et al.* 2012) for rice diseases easier to use. This version provides
+easy to use functions to fetch weather data from NASA POWER, via the
 [*nasapower*](https://cran.r-project.org/package=nasapower) package
-(Sparks 2018, Sparks 2020) and predict disease intensity of five rice
-diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+(Sparks 2018, Sparks 2020) or
+[*chirps*](https://docs.ropensci.org/chirps/) package (), which provides
+weather data from the Client for the Climate Hazards Center ‘CHIRPS’ and
+‘CHIRTS’ and predict disease intensity of five rice diseases using a
+generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details
 the model and results of its use to model global epidemics of rice
 diseases, was published in *Crop Protection* detailing global unmanaged
 disease risk of bacterial blight, brown spot, leaf blast, sheath blight
-and tungro, which are included in this package.
+and rice tungro, which are included in this package.
 
 # Quick start
 
@@ -69,17 +72,17 @@ wth <- get_wth(
 
 wth
 #>        YYYYMMDD DOY  TEMP  RHUM  RAIN     LAT      LON
-#>   1: 2000-07-01 183 25.30 92.19 21.09 14.6774 121.2556
-#>   2: 2000-07-02 184 26.13 86.00 15.82 14.6774 121.2556
-#>   3: 2000-07-03 185 25.51 94.19 31.64 14.6774 121.2556
-#>   4: 2000-07-04 186 25.81 92.44 10.55 14.6774 121.2556
-#>   5: 2000-07-05 187 25.97 92.31 31.64 14.6774 121.2556
+#>   1: 2000-07-01 183 25.30 92.19 23.12 14.6774 121.2556
+#>   2: 2000-07-02 184 26.13 86.00 17.34 14.6774 121.2556
+#>   3: 2000-07-03 185 25.51 94.19 29.08 14.6774 121.2556
+#>   4: 2000-07-04 186 25.81 92.44 13.00 14.6774 121.2556
+#>   5: 2000-07-05 187 25.97 92.31 32.20 14.6774 121.2556
 #>  ---                                                  
-#> 117: 2000-10-25 299 25.82 89.75 10.55 14.6774 121.2556
-#> 118: 2000-10-26 300 25.44 94.94 10.55 14.6774 121.2556
-#> 119: 2000-10-27 301 25.74 91.44 10.55 14.6774 121.2556
-#> 120: 2000-10-28 302 25.44 91.88 73.83 14.6774 121.2556
-#> 121: 2000-10-29 303 24.97 94.12 31.64 14.6774 121.2556
+#> 117: 2000-10-25 299 25.82 89.75 12.04 14.6774 121.2556
+#> 118: 2000-10-26 300 25.44 94.94 13.03 14.6774 121.2556
+#> 119: 2000-10-27 301 25.74 91.44 11.54 14.6774 121.2556
+#> 120: 2000-10-28 302 25.44 91.88 74.20 14.6774 121.2556
+#> 121: 2000-10-29 303 24.97 94.12 29.11 14.6774 121.2556
 ```
 
 ## Modelling bacterial blight disease intensity
@@ -92,30 +95,30 @@ transplanted rice.
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 
 bb
-#>      simday      dates    sites   latent infectious  removed    senesced
-#>   1:      0 2000-07-01 100.0000  0.00000     0.0000   0.0000    0.000000
-#>   2:      1 2000-07-02 108.6875  0.00000     0.0000   0.0000    1.000000
-#>   3:      2 2000-07-03 118.1002  0.00000     0.0000   0.0000    2.086875
-#>   4:      3 2000-07-04 128.2934  0.00000     0.0000   0.0000    3.267877
-#>   5:      4 2000-07-05 139.3254  0.00000     0.0000   0.0000    4.550811
-#>  ---                                                                    
-#> 117:    116 2000-10-25 875.8491 30.45186   832.4015 650.1907 2348.383357
-#> 118:    117 2000-10-26 837.8242 25.59042   795.4533 696.8289 2403.780012
-#> 119:    118 2000-10-27 800.6865 21.17410   757.1764 743.6080 2458.937342
-#> 120:    119 2000-10-28 764.5504 24.60700   710.5275 790.2569 2513.593193
-#> 121:    120 2000-10-29 729.5491 20.84640   670.8576 836.5217 2567.503481
-#>       rateinf rtransfer  rgrowth rsenesced diseased intensity     lat      lon
-#>   1: 0.000000  0.000000  9.68750  1.000000    0.000 0.0000000 14.6774 121.2556
-#>   2: 0.000000  0.000000 10.49959  1.086875    0.000 0.0000000 14.6774 121.2556
-#>   3: 0.000000  0.000000 11.37416  1.181002    0.000 0.0000000 14.6774 121.2556
-#>   4: 0.000000  0.000000 12.31499  1.282934    0.000 0.0000000 14.6774 121.2556
-#>   5: 0.000000  0.000000 13.32593  1.393254    0.000 0.0000000 14.6774 121.2556
-#>  ---                                                                          
-#> 117: 4.828461  9.689900 22.20022 55.396656 1513.044 0.4962628 14.6774 121.2556
-#> 118: 4.085963  8.502277 22.10555 55.157330 1517.873 0.4949422 14.6774 121.2556
-#> 119: 3.432902  0.000000 21.95270 54.655851 1521.959 0.4929274 14.6774 121.2556
-#> 120: 2.834348  6.594946 21.74329 53.910288 1525.391 0.4901926 14.6774 121.2556
-#> 121: 2.335856  5.664732 21.48123 52.794037 1528.226 0.4866860 14.6774 121.2556
+#>      simday      dates     sites   latent infectious  removed    senesced
+#>   1:      1 2000-07-01  100.0000  0.00000     0.0000   0.0000    0.000000
+#>   2:      2 2000-07-02  108.6875  0.00000     0.0000   0.0000    1.000000
+#>   3:      3 2000-07-03  118.1002  0.00000     0.0000   0.0000    2.086875
+#>   4:      4 2000-07-04  128.2934  0.00000     0.0000   0.0000    3.267877
+#>   5:      5 2000-07-05  139.3254  0.00000     0.0000   0.0000    4.550811
+#>  ---                                                                     
+#> 116:    116 2000-10-24 1189.7392 53.98388   880.6517 440.0734 2221.835013
+#> 117:    117 2000-10-25 1153.1921 35.83058   850.5259 488.3525 2282.011556
+#> 118:    118 2000-10-26 1109.5230 29.63849   824.0101 532.8853 2338.076260
+#> 119:    119 2000-10-27 1071.6977 22.15270   801.0138 573.6951 2389.981335
+#> 120:    120 2000-10-28 1033.1810 31.28753   757.8526 616.8564 2443.859534
+#>        rateinf rtransfer  rgrowth rsenesced diseased intensity     lat      lon
+#>   1:  0.000000   0.00000  9.68750  1.000000    0.000 0.0000000 14.6774 121.2556
+#>   2:  0.000000   0.00000 10.49959  1.086875    0.000 0.0000000 14.6774 121.2556
+#>   3:  0.000000   0.00000 11.37416  1.181002    0.000 0.0000000 14.6774 121.2556
+#>   4:  0.000000   0.00000 12.31499  1.282934    0.000 0.0000000 14.6774 121.2556
+#>   5:  0.000000   0.00000 13.32593  1.393254    0.000 0.0000000 14.6774 121.2556
+#>  ---                                                                           
+#> 116:  0.000000  18.15330 23.62940 60.176543 1374.709 0.4399580 14.6774 121.2556
+#> 117: 11.824954  18.01704 24.22060 56.064704 1374.709 0.4345846 14.6774 121.2556
+#> 118: 10.327744  17.81354 24.40753 51.905074 1386.534 0.4348314 14.6774 121.2556
+#> 119:  9.134832   0.00000 24.49635 53.878200 1396.862 0.4344198 14.6774 121.2556
+#> 120:  7.831815   0.00000 24.56460 55.340858 1405.996 0.4330412 14.6774 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -141,11 +144,31 @@ Please note that this project is released with a [Contributor Code of
 Conduct](CONDUCT.md). By participating in this project you agree to
 abide by its terms.
 
+-   Please [report any issues or
+    bugs](https://github.com/adamhsparks/epicrop/issues).
+
+-   License: MIT
+
+-   To cite *epicrop*, please use the output from
+    `citation(package = "epicrop")`.
+
+## Code of Conduct
+
+-   Please note that the *epicrop* project is released with a
+    [Contributor Code of
+    Conduct](https://github.com/ropensci/nasapower/blob/master/CONDUCT.md).
+    By participating in the *epicrop* project you agree to abide by its
+    terms.
+
 # References
 
+Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009)
+Simulation modeling of crops and their diseases. R package version
+0.2-6.
+
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and
-Jorrel Aunario. Modeling and mapping potential epidemics of rice
-diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN
+Jorrel Aunario.(2012). Modeling and mapping potential epidemics of rice
+diseases globally. *Crop Protection*, Volume 34, Pages 6-17, ISSN
 0261-2194 DOI:
 [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
@@ -156,15 +179,19 @@ EPIWHEAT. *European Journal of Plant Pathology* 142, no. 4 (August 1,
 2015): 771–90. DOI:
 [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
-Jan C. Zadoks. Systems Analysis and the Dynamics of Epidemics.
-Laboratory of Phytopathology, Agricultural University, Wageningen, The
-Netherlands; *Phytopathology* 61:600. DOI:
-[10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten
+and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS
+Precipitation Data in R. Journal of Open Source Software, 5(51), 2419,
+DOI: [10.21105/joss.02419](https://doi.org/10.21105/joss.02419)
 
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface
 Solar Energy and Climatology Data Client for R. Journal of Open Source
-Software, 3(30), 1035,
+Software, 3(30), 1035, DOI:
 [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
 Adam Sparks (2020). *nasapower: NASA-POWER Data from R*. R package
 version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
+
+Jan C. Zadoks. (1971) Systems Analysis and the Dynamics of Epidemics.
+*Phytopathology* 61:600. DOI:
+[10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).

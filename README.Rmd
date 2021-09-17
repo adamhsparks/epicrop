@@ -26,10 +26,10 @@ knitr::opts_chunk$set(
 [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738)
 <!-- badges: end -->
 
-A fork of [_cropsim_](https://r-forge.r-project.org/R/?group_id=335) designed to make using the EPIRICE model (Savary _et al._ 2012) for rice diseases easier to use.
-This version provides easy to use functions to fetch weather data from NASA POWER, via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+A fork of [_cropsim_](https://r-forge.r-project.org/R/?group_id=335) (Hijmans _et al._ 2009) designed to make using the EPIRICE model (Savary _et al._ 2012) for rice diseases easier to use.
+This version provides easy to use functions to fetch weather data from NASA POWER, via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) or [_chirps_](https://docs.ropensci.org/chirps/) package (), which provides weather data from the Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS' and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
-The original EPIRICE manuscript, Savary _et al._ (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in _Crop Protection_ detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and tungro, which are included in this package.
+The original EPIRICE manuscript, Savary _et al._ (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in _Crop Protection_ detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
 
 # Quick start
 
@@ -75,7 +75,6 @@ bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 bb
 ```
 
-
 Lastly, you can visualise the result of the model run.
 
 ```{r plot, fig.cap="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.",}
@@ -96,14 +95,30 @@ ggplot(data = bb,
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).
 By participating in this project you agree to abide by its terms.
 
+  - Please [report any issues or
+    bugs](https://github.com/adamhsparks/epicrop/issues).
+
+  - License: MIT
+
+  - To cite _epicrop_, please use the output from `citation(package = "epicrop")`.
+  
+## Code of Conduct
+
+  - Please note that the _epicrop_ project is released with a [Contributor Code of Conduct](https://github.com/ropensci/nasapower/blob/master/CONDUCT.md).
+    By participating in the _epicrop_ project you agree to abide by its terms.
+
 # References
 
-Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. _Crop Protection_, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
+Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009) Simulation modeling of crops and their diseases. R package version 0.2-6.
+
+Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.(2012). Modeling and mapping potential epidemics of rice diseases globally. _Crop Protection_, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
 Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. _European Journal of Plant Pathology_ 142, no. 4 (August 1, 2015): 771–90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
-Jan C. Zadoks. Systems Analysis and the Dynamics of Epidemics. Laboratory of Phytopathology, Agricultural University, Wageningen, The Netherlands; _Phytopathology_ 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS Precipitation Data in R. Journal of Open Source Software, 5(51), 2419, DOI: [10.21105/joss.02419](https://doi.org/10.21105/joss.02419)
 
-Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. Journal of Open Source Software, 3(30), 1035, [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
+Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
 Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
+
+Jan C. Zadoks. (1971) Systems Analysis and the Dynamics of Epidemics. _Phytopathology_ 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
