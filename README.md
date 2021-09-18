@@ -23,10 +23,11 @@ A fork of [*cropsim*](https://r-forge.r-project.org/R/?group_id=335)
 easy to use functions to fetch weather data from NASA POWER, via the
 [*nasapower*](https://cran.r-project.org/package=nasapower) package
 (Sparks 2018, Sparks 2020) or
-[*chirps*](https://docs.ropensci.org/chirps/) package (), which provides
-weather data from the Client for the Climate Hazards Center ‘CHIRPS’ and
-‘CHIRTS’ and predict disease intensity of five rice diseases using a
-generic SEIR model (Zadoks 1971) function, `SEIR()`.
+[*chirps*](https://docs.ropensci.org/chirps/) package (de Sousa \_et
+al. 2020), which provides weather data from the Client for the Climate
+Hazards Center ‘CHIRPS’ and ‘CHIRTS’ and predict disease intensity of
+five rice diseases using a generic SEIR model (Zadoks 1971) function,
+`SEIR()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details
 the model and results of its use to model global epidemics of rice
