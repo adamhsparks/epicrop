@@ -656,53 +656,52 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_y_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="va">rev</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Location"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="run-multi-loc-1.png" alt="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines."><!----
-## Comparing sequential versus parallel methods
+<div class="figure">
+<img src="run-multi-loc-1.png" alt=""><p class="caption">Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.</p>
+</div>
+</div>
+</div>
+<div id="benchmarking-to-sequential-versus-parallel-methods" class="section level2">
+<h2 class="hasAnchor">
+<a href="#benchmarking-to-sequential-versus-parallel-methods" class="anchor"></a>Benchmarking to sequential versus parallel methods</h2>
+<p>It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the <em>microbenchmark</em> package. Here an example of how to use benchmarking is shown using the second set of examples showing how to simulate multiple establishment dates with the already created objects from those examples.</p>
+<p>Greater gains in efficiency will be realised with more dates, locations, etc. when running in parallel than sequentially.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/joshuaulrich/microbenchmark/">"microbenchmark"</a></span><span class="op">)</span>
 
-It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the _microbenchmark_ package.
-Here an example of how to use benchmarking is shown using the second set of examples showing how to simulate multiple establishment dates with the already created objects from those examples.
+<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 
-Greater gains in efficiency will be realised with more dates, locations, etc. when running in parallel than sequentially.
+<span class="va">mbm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+  sequential <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span>
+    .x <span class="op">=</span> <span class="va">wth</span>,
+    .y <span class="op">=</span> <span class="va">emergence_dates</span>,
+    .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.y</span>,
+                                    wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span>,
+  parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map2.html">future_map2</a></span><span class="op">(</span>
+    .x <span class="op">=</span> <span class="va">wth</span>,
+    .y <span class="op">=</span> <span class="va">emergence_dates</span>,
+    .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.y</span>,
+                              wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>,
+    .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span>,
+  unit <span class="op">=</span> <span class="st">"relative"</span>
+<span class="op">)</span>
 
-
-```r
-library("microbenchmark")
-
-plan(multisession, workers = 4)
-
-mbm <- microbenchmark(
-  sequential = map2(
-    .x = wth,
-    .y = emergence_dates,
-    .f = ~ predict_bacterial_blight(emergence = .y,
-                                    wth = .x)
-  ) %>%
-    bind_rows(.id = "emergence"),
-  parallel = future_map2(
-    .x = wth,
-    .y = emergence_dates,
-    .f = ~ predict_bacterial_blight(emergence = .y,
-                              wth = .x),
-    .options = furrr_options(seed = NULL)
-  ) %>%
-    bind_rows(.id = "emergence"),
-  unit = "relative"
-)
-
-mbm
-#> Unit: relative
-#>        expr      min       lq      mean   median        uq
-#>  sequential 1.375098 1.300577 0.7949387 1.337227 0.4039254
-#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
-#>        max neval cld
-#>  0.5160392   100  a 
-#>  1.0000000   100   b
-autoplot(mbm) +
-  theme_classic()
-```
-
-![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
-----></p>
+<span class="va">mbm</span>
+<span class="co">#&gt; Unit: relative</span>
+<span class="co">#&gt;        expr      min       lq      mean   median       uq       max</span>
+<span class="co">#&gt;  sequential 1.349626 1.289372 0.8408426 1.336278 1.057371 0.6632588</span>
+<span class="co">#&gt;    parallel 1.000000 1.000000 1.0000000 1.000000 1.000000 1.0000000</span>
+<span class="co">#&gt;  neval cld</span>
+<span class="co">#&gt;    100  a </span>
+<span class="co">#&gt;    100   b</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<img src="benchmark-1.png" alt=""><p class="caption">Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines</p>
 </div>
 </div>
   </div>
