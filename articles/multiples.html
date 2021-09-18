@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       </header><script src="multiples_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Modelling Multiple Simulations</h1>
+      <h1 data-toc-skip>Multiple Simulations</h1>
                         <h4 class="author">Adam H. Sparks</h4>
             
       
@@ -692,11 +692,11 @@ mbm <- microbenchmark(
 mbm
 #> Unit: relative
 #>        expr      min       lq      mean   median        uq
-#>  sequential 1.325605 1.264652 0.7484613 1.288274 0.4052184
+#>  sequential 1.375098 1.300577 0.7949387 1.337227 0.4039254
 #>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
-#>        max neval
-#>  0.9744758   100
-#>  1.0000000   100
+#>        max neval cld
+#>  0.5160392   100  a 
+#>  1.0000000   100   b
 autoplot(mbm) +
   theme_classic()
 ```
