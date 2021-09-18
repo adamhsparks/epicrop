@@ -25,6 +25,8 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5
 
 * Implements new functionality for `get_wth()` to optionally get data from the CHIRPS/CHIRTS APIs in addition to the default NASA POWER API.
 
+* Uses one-indexed `for()` loop, in place of the zero-indexed `for()` loop found in _cropsim_.
+
 # epicrop 0.0.0.9011
 
 ## Minor changes
