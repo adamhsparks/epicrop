@@ -15,7 +15,7 @@
                    "RAIN",
                    "LAT",
                    "LON"))
-    expect_is(wth, c("data.table", "data.frame"))
+    expect_s3_class(wth, c("data.table", "data.frame"))
   })
 
   test_that("Weather data is as expected after fetching from CHIRPS API", {
@@ -33,7 +33,7 @@
                    "RAIN",
                    "LAT",
                    "LON"))
-    expect_is(wth, c("data.table", "data.frame"))
+    expect_s3_class(wth, c("data.table", "data.frame"))
   })
 
   test_that("Supplying the season overrides an end-date value", {
