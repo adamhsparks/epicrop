@@ -19,20 +19,21 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model">
 <meta property="og:description" content="Generic simulation modelling of crop diseases using a Susceptible-
-    Exposed-Infectious-Removed (SEIR) model. This type of model was first
+    Exposed-Infectious-Removed (SEIR) model.  This type of model was first
     described in botanical epidemiology by Zadoks (1971)
     &lt;doi:10.1094/Phyto-61-600&gt; and implemented in the EPIRICE model by Savary
     et al. (2012) &lt;doi:10.1016/j.cropro.2011.11.009&gt; detailing the models
     development, use and results from modeling global unmanaged
     epidemics of rice diseases for five major rice diseases, bacterial blight,
-    brown spot, leaf blast, sheath blight and tungro. A second model, EPIWHEAT
-    was published by Savary et al. (2015) &lt;doi:10.1007/s10658-015-0650-7&gt; that
-    added a lesion expansion parameter and modelled potential disease epidemics
-    of leaf (brown) rust and Septoria tritici blotch. Specific functions are
-    provided to simulate all of these diseases with a generic SEIR' model
-    function that is suitable for parameterising for use with other pathosystems
-    as demonstrated in Savary et al. 2012 and 2015.">
-<meta property="og:image" content="/logo.png">
+    brown spot, leaf blast, sheath blight and tungro.  A second model,
+    EPIWHEAT was published by Savary et al. (2015)
+    &lt;doi:10.1007/s10658-015-0650-7&gt; that added a lesion expansion parameter and
+    modelled potential disease epidemics of leaf (brown) rust and Septoria
+    tritici blotch.  Specific functions are provided to simulate all of these
+    diseases with a generic SEIR' model function that is suitable for
+    parameterising for use with other pathosystems as demonstrated in Savary et
+    al. 2012 and 2015.">
+<meta property="og:image" content="http://adamhsparks.github.io/epicrop/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -51,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -111,18 +112,19 @@
 <p><img align="right" src="reference/figures/logo.png"></p>
 <!-- badges: start -->
 <p><a href="https://github.com/adamhsparks/epicrop/actions"><img src="https://github.com/adamhsparks/epicrop/workflows/tic/badge.svg?branch=main" alt="tic"></a> <a href="https://codecov.io/gh/adamhsparks/epicrop"><img src="https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP" alt="codecov"></a> <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://zenodo.org/badge/latestdoi/58613738"><img src="https://zenodo.org/badge/58613738.svg" alt="DOI"></a> <!-- badges: end --></p>
-<p>A fork of <a href="https://r-forge.r-project.org/R/?group_id=335"><em>cropsim</em></a> designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower"><em>nasapower</em></a> package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, <code><a href="reference/SEIR.html">SEIR()</a></code>.</p>
-<p>The original EPIRICE manuscript, Savary <em>et al.</em> (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in <em>Crop Protection</em> detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and tungro, which are included in this package.</p>
+<p>A fork of <a href="https://r-forge.r-project.org/R/?group_id=335"><em>cropsim</em></a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower"><em>nasapower</em></a> package (Sparks 2018, Sparks 2020) or <a href="https://docs.ropensci.org/chirps/"><em>chirps</em></a> package (de Sousa _et al. 2020), which provides weather data from the Client for the Climate Hazards Center ‘CHIRPS’ and ‘CHIRTS’ and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, <code><a href="reference/SEIR.html">SEIR()</a></code>.</p>
+<p>The original EPIRICE manuscript, Savary <em>et al.</em> (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in <em>Crop Protection</em> detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.</p>
 </div>
 <div id="quick-start" class="section level1">
 <h1 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h1>
-<p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov">NASA POWER web API</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
+<p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov">NASA POWER web API</a> or <a href="https://chc.ucsb.edu/data">CHIRPS and CHIRTS web APIs</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
 <p><em>epicrop</em> is not yet on CRAN. You can install it this way.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"adamhsparks/epicrop"</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"adamhsparks/epicrop"</span>,
+                        build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
 <div id="get-weather-data" class="section level2">
 <h2 class="hasAnchor">
@@ -140,18 +142,18 @@
 <span class="op">)</span>
 
 <span class="va">wth</span>
-<span class="co">#&gt;        YYYYMMDD DOY  TEMP  RHUM  RAIN      LAT      LON</span>
-<span class="co">#&gt;   1: 2000-07-01 183 25.34 91.07 24.87 14.67741 121.2556</span>
-<span class="co">#&gt;   2: 2000-07-02 184 25.99 85.71 17.63 14.67741 121.2556</span>
-<span class="co">#&gt;   3: 2000-07-03 185 25.35 94.01 33.52 14.67741 121.2556</span>
-<span class="co">#&gt;   4: 2000-07-04 186 25.58 93.28 16.21 14.67741 121.2556</span>
-<span class="co">#&gt;   5: 2000-07-05 187 25.79 92.62 36.28 14.67741 121.2556</span>
-<span class="co">#&gt;  ---                                                   </span>
-<span class="co">#&gt; 117: 2000-10-25 299 25.56 89.57 11.04 14.67741 121.2556</span>
-<span class="co">#&gt; 118: 2000-10-26 300 25.31 94.35 10.51 14.67741 121.2556</span>
-<span class="co">#&gt; 119: 2000-10-27 301 25.58 90.85  9.13 14.67741 121.2556</span>
-<span class="co">#&gt; 120: 2000-10-28 302 25.25 92.52 77.16 14.67741 121.2556</span>
-<span class="co">#&gt; 121: 2000-10-29 303 24.78 94.41 29.22 14.67741 121.2556</span></code></pre></div>
+<span class="co">#&gt;        YYYYMMDD DOY  TEMP  RHUM  RAIN     LAT      LON</span>
+<span class="co">#&gt;   1: 2000-07-01 183 25.30 92.19 23.12 14.6774 121.2556</span>
+<span class="co">#&gt;   2: 2000-07-02 184 26.13 86.00 17.34 14.6774 121.2556</span>
+<span class="co">#&gt;   3: 2000-07-03 185 25.51 94.19 29.08 14.6774 121.2556</span>
+<span class="co">#&gt;   4: 2000-07-04 186 25.81 92.44 13.00 14.6774 121.2556</span>
+<span class="co">#&gt;   5: 2000-07-05 187 25.97 92.31 32.20 14.6774 121.2556</span>
+<span class="co">#&gt;  ---                                                  </span>
+<span class="co">#&gt; 117: 2000-10-25 299 25.82 89.75 12.04 14.6774 121.2556</span>
+<span class="co">#&gt; 118: 2000-10-26 300 25.44 94.94 13.03 14.6774 121.2556</span>
+<span class="co">#&gt; 119: 2000-10-27 301 25.74 91.44 11.54 14.6774 121.2556</span>
+<span class="co">#&gt; 120: 2000-10-28 302 25.44 91.88 74.20 14.6774 121.2556</span>
+<span class="co">#&gt; 121: 2000-10-29 303 24.97 94.12 29.11 14.6774 121.2556</span></code></pre></div>
 </div>
 <div id="modelling-bacterial-blight-disease-intensity" class="section level2">
 <h2 class="hasAnchor">
@@ -162,29 +164,29 @@
 
 <span class="va">bb</span>
 <span class="co">#&gt;      simday      dates     sites   latent infectious  removed    senesced</span>
-<span class="co">#&gt;   1:      0 2000-07-01  100.0000  0.00000     0.0000   0.0000    0.000000</span>
-<span class="co">#&gt;   2:      1 2000-07-02  108.6875  0.00000     0.0000   0.0000    1.000000</span>
-<span class="co">#&gt;   3:      2 2000-07-03  118.1002  0.00000     0.0000   0.0000    2.086875</span>
-<span class="co">#&gt;   4:      3 2000-07-04  128.2934  0.00000     0.0000   0.0000    3.267877</span>
-<span class="co">#&gt;   5:      4 2000-07-05  139.3254  0.00000     0.0000   0.0000    4.550811</span>
+<span class="co">#&gt;   1:      1 2000-07-01  100.0000  0.00000     0.0000   0.0000    0.000000</span>
+<span class="co">#&gt;   2:      2 2000-07-02  108.6875  0.00000     0.0000   0.0000    1.000000</span>
+<span class="co">#&gt;   3:      3 2000-07-03  118.1002  0.00000     0.0000   0.0000    2.086875</span>
+<span class="co">#&gt;   4:      4 2000-07-04  128.2934  0.00000     0.0000   0.0000    3.267877</span>
+<span class="co">#&gt;   5:      5 2000-07-05  139.3254  0.00000     0.0000   0.0000    4.550811</span>
 <span class="co">#&gt;  ---                                                                     </span>
-<span class="co">#&gt; 117:    116 2000-10-25 1308.1960 44.36766   916.5746 362.0380 2210.702871</span>
-<span class="co">#&gt; 118:    117 2000-10-26 1256.5107 39.98501   895.0610 405.9148 2267.661678</span>
-<span class="co">#&gt; 119:    118 2000-10-27 1211.3863 33.71538   876.5820 446.3983 2320.710228</span>
-<span class="co">#&gt; 120:    119 2000-10-28 1165.6534 47.64802   832.9739 490.0064 2376.432231</span>
-<span class="co">#&gt; 121:    120 2000-10-29 1120.0107 59.57869   786.7413 536.2390 2434.321334</span>
-<span class="co">#&gt;       rateinf rtransfer  rgrowth rsenesced diseased intensity      lat      lon</span>
-<span class="co">#&gt;   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 14.67741 121.2556</span>
-<span class="co">#&gt;   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 14.67741 121.2556</span>
-<span class="co">#&gt;   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 14.67741 121.2556</span>
-<span class="co">#&gt;   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 14.67741 121.2556</span>
-<span class="co">#&gt;   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 14.67741 121.2556</span>
+<span class="co">#&gt; 116:    116 2000-10-24 1189.7392 53.98388   880.6517 440.0734 2221.835013</span>
+<span class="co">#&gt; 117:    117 2000-10-25 1153.1921 35.83058   850.5259 488.3525 2282.011556</span>
+<span class="co">#&gt; 118:    118 2000-10-26 1109.5230 29.63849   824.0101 532.8853 2338.076260</span>
+<span class="co">#&gt; 119:    119 2000-10-27 1071.6977 22.15270   801.0138 573.6951 2389.981335</span>
+<span class="co">#&gt; 120:    120 2000-10-28 1033.1810 31.28753   757.8526 616.8564 2443.859534</span>
+<span class="co">#&gt;        rateinf rtransfer  rgrowth rsenesced diseased intensity     lat      lon</span>
+<span class="co">#&gt;   1:  0.000000   0.00000  9.68750  1.000000    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   2:  0.000000   0.00000 10.49959  1.086875    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   3:  0.000000   0.00000 11.37416  1.181002    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   4:  0.000000   0.00000 12.31499  1.282934    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   5:  0.000000   0.00000 13.32593  1.393254    0.000 0.0000000 14.6774 121.2556</span>
 <span class="co">#&gt;  ---                                                                           </span>
-<span class="co">#&gt; 117: 17.98063  22.36328 23.25415 56.958808 1322.980 0.4234833 14.67741 121.2556</span>
-<span class="co">#&gt; 118: 15.73475  22.00438 23.65885 53.048550 1340.961 0.4266584 14.67741 121.2556</span>
-<span class="co">#&gt; 119: 13.93264   0.00000 23.92178 55.722003 1356.696 0.4290448 14.67741 121.2556</span>
-<span class="co">#&gt; 120: 11.93067   0.00000 24.17705 57.889104 1370.628 0.4303536 14.67741 121.2556</span>
-<span class="co">#&gt; 121:  9.75283   0.00000 24.41029 57.905971 1382.559 0.4304057 14.67741 121.2556</span></code></pre></div>
+<span class="co">#&gt; 116:  0.000000  18.15330 23.62940 60.176543 1374.709 0.4399580 14.6774 121.2556</span>
+<span class="co">#&gt; 117: 11.824954  18.01704 24.22060 56.064704 1374.709 0.4345846 14.6774 121.2556</span>
+<span class="co">#&gt; 118: 10.327744  17.81354 24.40753 51.905074 1386.534 0.4348314 14.6774 121.2556</span>
+<span class="co">#&gt; 119:  9.134832   0.00000 24.49635 53.878200 1396.862 0.4344198 14.6774 121.2556</span>
+<span class="co">#&gt; 120:  7.831815   0.00000 24.56460 55.340858 1405.996 0.4330412 14.6774 121.2556</span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
@@ -197,26 +199,33 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%"><p class="caption">
-Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.
-</p>
-</div>
+<p><img src="reference/figures/README-plot-1.png" title="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%"></p>
 </div>
 </div>
 <div id="meta" class="section level1">
 <h1 class="hasAnchor">
 <a href="#meta" class="anchor"></a>Meta</h1>
-<p>Please note that this project is released with a <a href="CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+<ul>
+<li><p>Please <a href="https://github.com/adamhsparks/epicrop/issues">report any issues or bugs</a>.</p></li>
+<li><p>License: MIT</p></li>
+<li><p>To cite <em>epicrop</em>, please use the output from <code><a href="https://rdrr.io/r/utils/citation.html">citation(package = "epicrop")</a></code>.</p></li>
+</ul>
+<div id="code-of-conduct" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<p>Please note that the epicrop project is released with a <a href="http://adamhsparks.github.io/epicrop/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
-<p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009">10.1016/j.cropro.2011.11.009</a>.</p>
+<p>Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009) Simulation modeling of crops and their diseases. R package version 0.2-6.</p>
+<p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.(2012). Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009">10.1016/j.cropro.2011.11.009</a>.</p>
 <p>Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. <em>European Journal of Plant Pathology</em> 142, no. 4 (August 1, 2015): 771–90. DOI: <a href="https://doi.org/10.1007/s10658-015-0650-7">10.1007/s10658-015-0650-7</a>.</p>
-<p>Jan C. Zadoks. Systems Analysis and the Dynamics of Epidemics. Laboratory of Phytopathology, Agricultural University, Wageningen, The Netherlands; <em>Phytopathology</em> 61:600. DOI: <a href="https://doi.org/10.1094/Phyto-61-600">10.1094/Phyto-61-600</a>.</p>
-<p>Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. Journal of Open Source Software, 3(30), 1035, <a href="https://doi.org/10.21105/joss.01035">10.21105/joss.01035</a>.</p>
+<p>Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS Precipitation Data in R. Journal of Open Source Software, 5(51), 2419, DOI: <a href="https://doi.org/10.21105/joss.02419">10.21105/joss.02419</a></p>
+<p>Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. Journal of Open Source Software, 3(30), 1035, DOI: <a href="https://doi.org/10.21105/joss.01035">10.21105/joss.01035</a>.</p>
 <p>Adam Sparks (2020). <em>nasapower: NASA-POWER Data from R</em>. R package version 3.0.1, URL: <a href="https://CRAN.R-project.org/package=nasapower" class="uri">https://CRAN.R-project.org/package=nasapower</a>.</p>
+<p>Jan C. Zadoks. (1971) Systems Analysis and the Dynamics of Epidemics. <em>Phytopathology</em> 61:600. DOI: <a href="https://doi.org/10.1094/Phyto-61-600">10.1094/Phyto-61-600</a>.</p>
 </div>
 
   </div>
@@ -260,7 +269,8 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 </li>
 <li>Serge Savary <br><small class="roles"> Author, conceptor </small>  <br><small>(Model conception and development in Stella)</small>
 </li>
-<li>Ireno Pangga <br><small class="roles"> Author, translator </small>  <br><small>(Model conception and development in Stella)</small>
+<li>Ireno Pangga <br><small class="roles"> Author, translator </small>  <br><small>(Model conception, development in Stella and original R
+           implementation)</small>
 </li>
 <li>Jorrel Aunario <br><small class="roles"> Author, translator </small>  <br><small>(Original R implementation)</small>
 </li>

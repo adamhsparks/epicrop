@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Changelog" />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://adamhsparks.github.io/epicrop/logo.png" />
 
 
 
@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -137,6 +137,41 @@
       <small>Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="epicrop-0009012" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9012">
+<a href="#epicrop-0009012" class="anchor"></a>epicrop 0.0.0.9012</h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixes bug in <code><a href="../reference/SEIR.html">SEIR()</a></code> where Rc value was calculated incorrectly that was introduced with commit <a href="https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287" class="uri">https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287</a>. See Lines 124:126 that were changed to Lines 118:120 where</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">Rc</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">baseRc</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">ageRc</span>, <span class="va">day</span><span class="op">)</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">tmpRc</span>, <span class="va">wthsub</span><span class="op">$</span><span class="va">tavg</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">RHCoef</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
+<p>should have been</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">Rc</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">baseRc</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">ageRc</span>, <span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">tmpRc</span>, <span class="va">wthsub</span><span class="op">$</span><span class="va">tavg</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">RHCoef</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
+<p>to calculate the basic infection rate, <code>Rc</code>, for <code>day + 1</code>. Commit: <a href="https://github.com/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47">248df5512b5897e950dd58a0a8b3fd57922add47</a>.</p>
+<ul>
+<li>Fixes typos in <code>RcA</code> values for <code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> and <code><a href="../reference/predict_sheath_blight.html">predict_sheath_blight()</a></code>.
+<ul>
+<li>In <code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit <a href="https://github.com/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335">8b2c36b61d4f949385dcac4c03ff435b8400e335</a>.</li>
+<li>In <code><a href="../reference/predict_sheath_blight.html">predict_sheath_blight()</a></code> the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: <a href="https://github.com/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80">69b89ce24dd41c16d4627225c028355f76a64b80</a>.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li><p>Implements a new function to calculate the correction values for crop age, <code>RcA</code>, and temperature, <code>RcT</code>, using <code><a href="https://rdrr.io/r/stats/approxfun.html">approx()</a></code> in a custom function that is faster than the <code>select_mod_value()</code> function.</p></li>
+<li><p>Implements new functionality for <code><a href="../reference/get_wth.html">get_wth()</a></code> to optionally get data from the CHIRPS/CHIRTS APIs in addition to the default NASA POWER API.</p></li>
+</ul>
+</div>
+</div>
     <div id="epicrop-0009011" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9011">
 <a href="#epicrop-0009011" class="anchor"></a>epicrop 0.0.0.9011</h1>
@@ -150,6 +185,7 @@
 <li><p>Remove dates (date when knit) from vignettes.</p></li>
 <li><p>Fix/clean up note on parallel processing in “Multiples” vignette.</p></li>
 <li><p>Better, more consistent documentation.</p></li>
+<li><p>Update <code><a href="../reference/get_wth.html">get_wth()</a></code> to work with the new (unreleased) version of <em>nasapower</em> that works with the new version of the POWER API.</p></li>
 </ul>
 </div>
 </div>
@@ -167,9 +203,9 @@
     <div id="epicrop-0009010" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9010">
 <a href="#epicrop-0009010" class="anchor"></a>epicrop 0.0.0.9010</h1>
-<div id="major-changes" class="section level2">
+<div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p><strong>BREAKING CHANGE</strong> <code>intensity</code> column, in <code><a href="../reference/SEIR.html">SEIR()</a></code> is now a proportion, <em>i.e.</em> values range between 0 - 1. If you wish to have the same values as previously reported, <code>df$intensity*100</code> will give you these values.</p></li>
 <li><p><strong>BREAKING CHANGE</strong> Removes column, <code>severity</code>, in <code><a href="../reference/SEIR.html">SEIR()</a></code> output.</p></li>
@@ -180,9 +216,9 @@
     <div id="epicrop-0009009" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9009">
 <a href="#epicrop-0009009" class="anchor"></a>epicrop 0.0.0.9009</h1>
-<div id="major-changes-1" class="section level2">
+<div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <strong>BREAKING CHANGE</strong> Add a new column to <code><a href="../reference/SEIR.html">SEIR()</a></code> output, <code>severity</code>, not to be confused with the previous column called <code>severity</code> (now called <code>intensity</code>), which represents the cumulative proportion of diseased sites on day “x” expressed as, <span class="math inline">$\frac{diseased\ sites}{total\ sites}\times100$</span>.</li>
@@ -199,9 +235,9 @@
     <div id="epicrop-0009008" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9008">
 <a href="#epicrop-0009008" class="anchor"></a>epicrop 0.0.0.9008</h1>
-<div id="major-changes-2" class="section level2">
+<div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li><ul>
 <li>
@@ -248,9 +284,9 @@
 <li>Only import <em>data.table</em> functions as necessary, don’t import whole package.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Convert <code>wth</code> (weather input object) to a <code>data.table</code> type object internally if it is not already one. Prior, if the object was not a <code>data.table</code>, <code><a href="../reference/SEIR.html">SEIR()</a></code> would fail with a message that the dates did not align. This should fix that issue and any <code>data.frame</code> type object including a <code>tibble</code> can be provided now. Thanks to Jean Fabrice Adanve for helping me find this bug.</li>
 </ul>
@@ -259,17 +295,17 @@
     <div id="epicrop-0009004" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9004">
 <a href="#epicrop-0009004" class="anchor"></a>epicrop 0.0.0.9004</h1>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li><p>Fixes bug where the relative humidity checks in <code><a href="../reference/SEIR.html">SEIR()</a></code> only checked if the daily RH value was equal to (<code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>) not equal to or greater than (<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>) the set parameter for <code>rhlim</code> (default is 90%).</p></li>
 <li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in <em>roxygen</em> section now works properly when executed by the user.</p></li>
 </ul>
 </div>
-<div id="major-changes-3" class="section level2">
+<div id="major-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-4" class="anchor"></a>Major changes</h2>
 <ul>
 <li><p>Any default parameter values are moved from <code><a href="../reference/SEIR.html">SEIR()</a></code> to the <code>predict_()</code> functions themselves, so any calls directly to <code><a href="../reference/SEIR.html">SEIR()</a></code> must specify all parameters.</p></li>
 <li><p>Deleted <code>inst/alt_versions/tungrov2.R</code> file.</p></li>

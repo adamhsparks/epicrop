@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//index.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/SEIR.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/epicrop-package.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/get_wth.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/predict_bacterial_blight.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/predict_brown_spot.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/predict_leaf_blast.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/predict_sheath_blight.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//reference/predict_tungro.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//articles/epicrop.html</loc>
+  </url>
+  <url>
+    <loc>http://adamhsparks.github.io/epicrop//articles/multiples.html</loc>
+  </url>
+</urlset>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get weather data from NASA POWER API for use in epicrop modelling — get_wth • epicrop</title>
+<title>Get weather data for use in epicrop modelling — get_wth • epicrop</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,11 @@
 
 
 
-<meta property="og:title" content="Get weather data from NASA POWER API for use in epicrop modelling — get_wth" />
-<meta property="og:description" content="Get weather data from NASA POWER API for use in epicrop modelling" />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:title" content="Get weather data for use in epicrop modelling — get_wth" />
+<meta property="og:description" content="This function is a wrapper for the nasapower::get_power() or
+chirps::get_chirps()/chirps::get_chirts() functions with predefined
+parameters suitable for use in epicrop." />
+<meta property="og:image" content="http://adamhsparks.github.io/epicrop/logo.png" />
 
 
 
@@ -80,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -134,16 +136,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get weather data from NASA POWER API for use in epicrop modelling</h1>
+    <h1>Get weather data for use in epicrop modelling</h1>
     <small class="dont-index">Source: <a href='https://github.com/adamhsparks/epicrop/blob/master/R/get_wth.R'><code>R/get_wth.R</code></a></small>
     <div class="hidden name"><code>get_wth.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get weather data from NASA POWER API for use in epicrop modelling</p>
+    <p>This function is a wrapper for the <code><a href='https://docs.ropensci.org/nasapower/reference/get_power.html'>nasapower::get_power()</a></code> or
+<code><a href='https://docs.ropensci.org/chirps/reference/get_chirps.html'>chirps::get_chirps()</a></code>/<code><a href='https://docs.ropensci.org/chirps/reference/get_chirts.html'>chirps::get_chirts()</a></code> functions with predefined
+parameters suitable for use in <span class="pkg">epicrop</span>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_wth</span><span class='op'>(</span><span class='va'>lonlat</span>, <span class='va'>dates</span>, <span class='va'>duration</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_wth</span><span class='op'>(</span><span class='va'>lonlat</span>, <span class='va'>dates</span>, <span class='va'>duration</span>, source <span class='op'>=</span> <span class='st'>"nasapower"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,6 +169,15 @@ date will be used and the end date will be ignored if supplied.  This must
 match the <code>duration</code> parameter value passed along to <code><a href='SEIR.html'>SEIR()</a></code> or any of the
 <code>predict</code> family of functions.</p></td>
     </tr>
+    <tr>
+      <th>source</th>
+      <td><p>A character string value that denotes whether to use the
+<acronym>NASA</acronym> <acronym>POWER</acronym> data (<code>nasapower</code>), the default, or
+<acronym>CHIRPS</acronym>/<acronym>CHIRTS</acronym> data, <code>chirps</code>, for rainfall,
+temperature and relative humidity from the Climate Hazards Data center at
+UC Santa Barbara, <a href='https://www.chc.ucsb.edu/data'>https://www.chc.ucsb.edu/data</a>.  See parameter
+details for more discussion.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -183,10 +196,30 @@ with the following columns:</p><table class='table'>
 </table>
 
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="source-select-your-weather-data-source-of-choice"><a class="anchor" href="#source-select-your-weather-data-source-of-choice"></a><em>source</em> - Select your weather data source of choice</h2>
 
-    <p>This function is just a wrapper for the <code><a href='https://docs.ropensci.org/nasapower/reference/get_power.html'>nasapower::get_power()</a></code>
-function with predefined parameters suitable for use in <span class="pkg">epicrop</span>.</p>
+    <p>Access to three databases is provided by this function through the use of
+two possible parameter values, <code>nasapower</code> or <code>chirps</code>.</p>
+<p><code>nasapower</code>: the default database is the <acronym>NASA</acronym> <acronym>POWER</acronym>
+database, <a href='https://power.larc.nasa.gov'>https://power.larc.nasa.gov</a>, which can supply all parameters
+required for <span class="pkg">epicrop</span> to run.  The global data are available from Jan.
+1, 1983 to near-present at a 0.5 x 0.5 arc degree resolution for meteorology
+data.  Using this will request and return all values necessary to use
+<span class="pkg">epicrop</span>.</p>
+<p><code>chirps</code>: <acronym>CHIRPS</acronym> is quasi-global (50°S – 50°N) high-resolution
+(0.05 arc-degrees) rainfall data set, which incorporates satellite imagery
+and in-situ station data to create gridded rainfall time series for trend
+analysis and seasonal drought monitoring. <acronym>CHIRTS</acronym> is a quasi-global
+(60°S – 70°N), high-resolution data set of daily maximum and minimum
+temperatures.  For more details on <acronym>CHIRPS</acronym> and <acronym>CHIRTS</acronym> data
+please visit the official homepage <a href='https://chc.ucsb.edu/data'>https://chc.ucsb.edu/data</a>.</p>
+<p>By using <code>chirps</code>, the function will return the precipitation, temperature
+and relative humidity from the <acronym>CHIRPS</acronym> and <acronym>CHIRTS</acronym>
+data in a single data.table for you.</p>
+<p>The <acronym>POWER</acronym> database covers a longer period of time but the spatial
+resolution is not as small.  However, it is faster to respond than the
+<acronym>CHIRPS</acronym> and <acronym>CHIRTS</acronym> data.  Differences in the data
+are likely to be minimal and have little effect on the <span class="pkg">epicrop</span> models.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Adam H. Sparks</p>
@@ -194,18 +227,30 @@ function with predefined parameters suitable for use in <span class="pkg">epicro
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># interactive()</span>
 
-<span class='co'># get weather for IRRI Zeigler Experiment Station in wet season 2000</span>
-<span class='op'>(</span><span class='va'>wth</span> <span class='op'>&lt;-</span> <span class='fu'>get_wth</span><span class='op'>(</span>
+<span class='co'># get weather for IRRI Zeigler Experiment Station in wet season 2000 from the</span>
+<span class='co'># default NASA POWER data.</span>
+<span class='va'>power</span> <span class='op'>&lt;-</span> <span class='fu'>get_wth</span><span class='op'>(</span>
   lonlat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>121.25562</span>, <span class='fl'>14.6774</span><span class='op'>)</span>,
   dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-06-30"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span>
-<span class='op'>)</span><span class='op'>)</span>
-<span class='co'># get 120 days of weather for IRRI Zeigler Experiment Station in wet</span>
-<span class='co'># season 2000</span>
-<span class='op'>(</span><span class='va'>wth</span> <span class='op'>&lt;-</span> <span class='fu'>get_wth</span><span class='op'>(</span>
+<span class='op'>)</span>
+
+<span class='co'># get 120 days of weather for IRRI Zeigler Experiment Station in wet season</span>
+<span class='co'># 2000 by specifying the duration but not the end-date and specifying to use</span>
+<span class='co'># POWER data.</span>
+<span class='va'>power</span> <span class='op'>&lt;-</span> <span class='fu'>get_wth</span><span class='op'>(</span>
   lonlat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>121.25562</span>, <span class='fl'>14.6774</span><span class='op'>)</span>,
   dates <span class='op'>=</span> <span class='st'>"2000-06-30"</span>,
-  duration <span class='op'>=</span> <span class='fl'>120</span>
-<span class='op'>)</span><span class='op'>)</span>
+  duration <span class='op'>=</span> <span class='fl'>120</span>,
+  source <span class='op'>=</span> <span class='st'>"nasapower"</span>
+<span class='op'>)</span>
+
+<span class='co'># get the same data from CHIRPS and CHIRTS data</span>
+<span class='va'>chirps</span> <span class='op'>&lt;-</span> <span class='fu'>get_wth</span><span class='op'>(</span>
+  lonlat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>121.25562</span>, <span class='fl'>14.6774</span><span class='op'>)</span>,
+  dates <span class='op'>=</span> <span class='st'>"2000-06-30"</span>,
+  duration <span class='op'>=</span> <span class='fl'>120</span>,
+  source <span class='op'>=</span> <span class='st'>"chirps"</span>
+<span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
