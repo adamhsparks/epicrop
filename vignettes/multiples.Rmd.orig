@@ -294,12 +294,10 @@ ggplot(data = multi_dates,
        )) +
   geom_segment() +
   geom_point() +
-  scale_x_continuous(
-    expand = expansion(mult = c(0, 0.1))  # remove space on left side of "0"
-    ) +
-  scale_y_discrete(limits = rev) + # alphabetical order top to bottom
-                       ylab("Establishment Date") +
-                       theme_classic()
+  scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
+  scale_y_discrete(limits = rev) +
+  ylab("Establishment Date") +
+  theme_classic()
 ```
 
 ### Using _furrr_ to run multiple establishment dates in parallel
