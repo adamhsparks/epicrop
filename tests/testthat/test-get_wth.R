@@ -22,7 +22,7 @@
     skip_on_cran()
     wth <- get_wth(
       lonlat = c(151.81, -27.48),
-      dates = c("2015-01-15", "2015-01-16"),
+      dates = c("2015-01-15", "2015-01-17"),
       source = "chirps"
     )
     expect_named(wth,
