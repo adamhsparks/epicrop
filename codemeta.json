@@ -5,17 +5,17 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "epicrop",
-  "description": "Generic simulation modelling of crop diseases using a Susceptible-\n    Exposed-Infectious-Removed ('SEIR') model. This type of model was first\n    described in botanical epidemiology by Zadoks (1971)\n    <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary\n    et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's\n    development, use and results from modeling global unmanaged\n    epidemics of rice diseases for five major rice diseases, bacterial blight,\n    brown spot, leaf blast, sheath blight and tungro. A second model, 'EPIWHEAT'\n    was published by Savary et al. (2015) <doi:10.1007/s10658-015-0650-7> that\n    added a lesion expansion parameter and modelled potential disease epidemics\n    of leaf (brown) rust and Septoria tritici blotch. Specific functions are\n    provided to simulate all of these diseases with a generic 'SEIR' model\n    function that is suitable for parameterising for use with other pathosystems\n    as demonstrated in Savary et al. 2012 and 2015.",
+  "description": "Generic simulation modelling of crop diseases using a Susceptible-\n    Exposed-Infectious-Removed ('SEIR') model.  This type of model was first\n    described in botanical epidemiology by Zadoks (1971)\n    <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary\n    et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's\n    development, use and results from modeling global unmanaged\n    epidemics of rice diseases for five major rice diseases, bacterial blight,\n    brown spot, leaf blast, sheath blight and tungro.  A second model,\n    'EPIWHEAT' was published by Savary et al. (2015)\n    <doi:10.1007/s10658-015-0650-7> that added a lesion expansion parameter and\n    modelled potential disease epidemics of leaf (brown) rust and Septoria\n    tritici blotch.  Specific functions are provided to simulate all of these\n    diseases with a generic 'SEIR' model function that is suitable for\n    parameterising for use with other pathosystems as demonstrated in Savary et\n    al. 2012 and 2015.",
   "name": "epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
   "codeRepository": "https://github.com/adamhsparks/epicrop/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.0.9011",
+  "version": "0.0.0.9013",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.0 (2021-05-18)",
+  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
   "author": [
     {
       "@type": "Person",
@@ -262,6 +262,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "chirps",
+      "name": "chirps",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://github.com/ropensci/chirps"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
       "provider": {
@@ -276,6 +288,7 @@
       "@type": "SoftwareApplication",
       "identifier": "nasapower",
       "name": "nasapower",
+      "version": ">= 4.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -283,11 +296,16 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=nasapower"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats"
     }
   ],
   "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
-  "fileSize": "480272.755KB",
-  "contIntegration": "https://codecov.io/gh/adamhsparks/epicrop",
+  "fileSize": "503.043KB",
+  "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://codecov.io/gh/adamhsparks/epicrop"],
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
   "citation": [
     {
