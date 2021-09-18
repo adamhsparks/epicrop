@@ -63,3 +63,4 @@ test_that("Values are as expected", {
   expect_equal(lb[[1, "lat"]], 14.67741, tolerance = 0.00001)
   expect_equal(lb[[1, "lon"]], 121.2556, tolerance = 0.0001)
 })
+

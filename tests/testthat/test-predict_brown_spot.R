@@ -34,16 +34,16 @@ test_that("Values are as expected", {
   expect_equal(bs[[120, "latent"]], 2963.0, tolerance = 0.1)
 
   expect_equal(bs[[1, "infectious"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "infectious"]], 1632.1, tolerance = 0.1)
+  expect_equal(bs[[120, "infectious"]], 2253.3, tolerance = 0.1)
 
   expect_equal(bs[[1, "removed"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "removed"]], 128.4, tolerance = 0.1)
+  expect_equal(bs[[120, "removed"]], 177.1, tolerance = 0.1)
 
   expect_equal(bs[[1, "senesced"]], 0, tolerance = 0.1)
   expect_equal(bs[[120, "senesced"]], 55963.4, tolerance = 0.1)
 
   expect_equal(bs[[1, "rateinf"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "rateinf"]], 904.1, tolerance = 0.1)
+  expect_equal(bs[[120, "rateinf"]], 1259.2, tolerance = 0.1)
 
   expect_equal(bs[[1, "rtransfer"]], 0, tolerance = 0.1)
   expect_equal(bs[[120, "rtransfer"]], 0, tolerance = 0.1)
