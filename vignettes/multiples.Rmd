@@ -533,8 +533,8 @@ map(
 ```
 
 ![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
-<!----
-## Comparing sequential versus parallel methods
+
+## Benchmarking to sequential versus parallel methods
 
 It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the _microbenchmark_ package.
 Here an example of how to use benchmarking is shown using the second set of examples showing how to simulate multiple establishment dates with the already created objects from those examples.
@@ -568,15 +568,14 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr      min       lq      mean   median        uq
-#>  sequential 1.375098 1.300577 0.7949387 1.337227 0.4039254
-#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
-#>        max neval cld
-#>  0.5160392   100  a 
-#>  1.0000000   100   b
+#>        expr      min       lq      mean   median       uq       max
+#>  sequential 1.349626 1.289372 0.8408426 1.336278 1.057371 0.6632588
+#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.000000 1.0000000
+#>  neval cld
+#>    100  a 
+#>    100   b
 autoplot(mbm) +
   theme_classic()
 ```
 
 ![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
----->
