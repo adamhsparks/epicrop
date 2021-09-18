@@ -119,7 +119,7 @@ Plotting intensity over time does not require any data manipulation.
 ```{r wet_plot_intensity, fig.cap="Wet season disease intensity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.  Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program."}
 ggplot(data = bb_wet,
        aes(x = dates,
-           y = intensity)) +
+           y = intensity * 100)) +
   labs(y = "Intensity (%)",
        x = "Date") +
   geom_line() +
@@ -148,7 +148,7 @@ Check the disease progress curve for the dry season.
 ```{r dry_plot_intensity, fig.cap="Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program."}
 ggplot(data = bb_dry,
        aes(x = dates,
-           y = intensity)) +
+           y = intensity * 100)) +
   labs(y = "Intensity (%)",
        x = "Date") +
   geom_line() +
@@ -177,7 +177,7 @@ AUDPC(
 ```
 
 The AUDPC of the wet season is greater than that of the dry season.
-Checking the data and referring to the curves, the wet season intensity reaches a peak value of `r round(max(bb_wet$intensity), 2)`% and the dry season tops out at `r round(max(bb_dry$intensity), 2)`%.
+Checking the data and referring to the curves, the wet season intensity reaches a peak value of `r round(max(bb_wet$intensity), 2)*100`% and the dry season tops out at `r round(max(bb_dry$intensity), 2)*100`%.
 So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.
 
 # References

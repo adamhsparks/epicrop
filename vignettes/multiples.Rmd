@@ -2,7 +2,7 @@
 
 ---
 title: "Modelling Multiple Simulations"
-author: "Adam H Sparks"
+author: "Adam H. Sparks"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Modelling Multiple Simulations}
@@ -48,11 +48,7 @@ You could also use R's base `lapply()` here as well if you prefer.
 ```r
 library("epicrop")
 library("purrr")
-#> 
-#> Attaching package: 'purrr'
-#> The following object is masked from 'package:testthat':
-#> 
-#>     is_null
+
 seasons_wth <-
   map(
     .x = seasons,
@@ -141,7 +137,6 @@ An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code 
 ```r
 library("epicrop")
 library("furrr")
-#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("epifitter")
@@ -574,11 +569,11 @@ mbm <- microbenchmark(
 mbm
 #> Unit: relative
 #>        expr      min       lq      mean   median        uq
-#>  sequential 1.403677 1.346118 0.8163245 1.418167 0.6115181
+#>  sequential 1.325605 1.264652 0.7484613 1.288274 0.4052184
 #>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
-#>        max neval cld
-#>  0.2947755   100  a 
-#>  1.0000000   100   b
+#>        max neval
+#>  0.9744758   100
+#>  1.0000000   100
 autoplot(mbm) +
   theme_classic()
 ```
