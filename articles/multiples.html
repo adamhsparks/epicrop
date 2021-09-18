@@ -661,9 +661,9 @@
 </div>
 </div>
 </div>
-<div id="benchmarking-to-sequential-versus-parallel-methods" class="section level2">
+<div id="benchmarking-sequential-versus-parallel-methods" class="section level2">
 <h2 class="hasAnchor">
-<a href="#benchmarking-to-sequential-versus-parallel-methods" class="anchor"></a>Benchmarking to sequential versus parallel methods</h2>
+<a href="#benchmarking-sequential-versus-parallel-methods" class="anchor"></a>Benchmarking sequential versus parallel methods</h2>
 <p>It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the <em>microbenchmark</em> package. Here an example of how to use benchmarking is shown using the second set of examples showing how to simulate multiple establishment dates with the already created objects from those examples.</p>
 <p>Greater gains in efficiency will be realised with more dates, locations, etc. when running in parallel than sequentially.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -692,9 +692,9 @@
 
 <span class="va">mbm</span>
 <span class="co">#&gt; Unit: relative</span>
-<span class="co">#&gt;        expr      min       lq      mean   median       uq       max</span>
-<span class="co">#&gt;  sequential 1.349626 1.289372 0.8408426 1.336278 1.057371 0.6632588</span>
-<span class="co">#&gt;    parallel 1.000000 1.000000 1.0000000 1.000000 1.000000 1.0000000</span>
+<span class="co">#&gt;        expr      min       lq     mean   median        uq       max</span>
+<span class="co">#&gt;  sequential 1.386719 1.341272 0.802715 1.385581 0.4074279 0.6635148</span>
+<span class="co">#&gt;    parallel 1.000000 1.000000 1.000000 1.000000 1.0000000 1.0000000</span>
 <span class="co">#&gt;  neval cld</span>
 <span class="co">#&gt;    100  a </span>
 <span class="co">#&gt;    100   b</span>
