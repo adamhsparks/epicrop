@@ -1,5 +1,5 @@
 
-#' Get weather data from NASA POWER API for use in epicrop modelling
+#' Get weather data for use in epicrop modelling
 #'
 #' This function is a wrapper for the [nasapower::get_power()] or
 #'  [chirps::get_chirps()]/[chirps::get_chirts()] functions with predefined
@@ -41,8 +41,9 @@
 #' `nasapower`: the default database is the \acronym{NASA} \acronym{POWER}
 #' database, \url{https://power.larc.nasa.gov}, which can supply all parameters
 #' required for \pkg{epicrop} to run.  The global data are available from Jan.
-#' 1, 1983 to near-present at a 0.5 x 0.625 arc-degree resolution.  Using this
-#' will request and return all values necessary to use \pkg{epicrop}.
+#' 1, 1983 to near-present at a 0.5 x 0.5 arc degree resolution for meteorology
+#' data.  Using this will request and return all values necessary to use
+#' \pkg{epicrop}.
 #'
 #' `chirps`: \acronym{CHIRPS} is quasi-global (50°S – 50°N) high-resolution
 #' (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery
@@ -104,6 +105,9 @@ get_wth <- function(lonlat,
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
+
+  id <- TEMP <- NULL
+
   if (source == "nasapower") {
     wth <- setDT(
       nasapower::get_power(

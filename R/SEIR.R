@@ -116,8 +116,7 @@
 #' * [predict_sheath_blight()],
 #' * [predict_tungro()]
 #'
-#' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
-#' Adam H. Sparks, Aji Sukarta
+#' @author Adam H. Sparks
 #'
 #' @return A [data.table::data.table()] containing the following columns:
 #'
@@ -190,7 +189,7 @@ SEIR <-
     emergence <- as.Date(emergence)
 
     # create vector of dates
-    dates <- seq(emergence, emergence + duration, 1)
+    dates <- seq(emergence, emergence + sum(duration, -1), 1)
 
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) ||
@@ -203,13 +202,14 @@ SEIR <-
     # less than duration
     if (nrow(wth) > duration) {
       wth <-
-        wth[YYYYMMDD %between% c(emergence, emergence + duration)]
+        wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1))]
     }
 
     # create vectors for referencing
     wth_rain <- wth$RAIN
     wth_rhum <- wth$RHUM
-    wth_temp <- wth$TEMP
+    Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
+    Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
 
     # outputvars
     cofr <-
@@ -218,16 +218,16 @@ SEIR <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <- now_latent <- sites <- total_sites <-
-      rep(0, times = duration + 1)
+      vector(mode = "double", length = duration)
 
-    for (d in 0:duration) {
-      # State calculations for() loop -----
-      d1 <- sum(d, 1)
+    for (d in 1:duration) {
+      # State calculations  -----
+      d_1 <- sum(d, -1)
 
-      if (d == 0) {
+      if (d == 1) {
         # start crop growth
-        sites[d1] <- H0
-        rsenesced[d1] <- RRS * sites[d1]
+        sites[d] <- H0
+        rsenesced[d] <- RRS * sites[d]
       } else {
         if (d > i) {
           # as this never happens when `d > inftrans` so `infday` is assigned
@@ -235,72 +235,71 @@ SEIR <-
           # so until `d > i`, `removed_today` will always be equal to "0" since
           # the disease has not had time to completely transit the infectious
           # period as specified by parameter `i` - AHS
-          removed_today <- infectious[infday + 2]
+          removed_today <- infectious[infday + 1]
         } else {
           removed_today <- 0
         }
 
-        sites[d1] <-
-          sum(sites[d], rgrowth[d], -infection[d], -rsenesced[d])
-        rsenesced[d1] <- sum(removed_today, RRS * sites[d1])
-        senesced[d1] <- sum(senesced[d], rsenesced[d])
+        sites[d] <-
+          sum(sites[d_1], rgrowth[d_1], -infection[d_1], -rsenesced[d_1])
+        rsenesced[d] <- sum(removed_today, RRS * sites[d])
+        senesced[d] <- sum(senesced[d_1], rsenesced[d_1])
 
-        latency[d1] <- infection[d]
+        latency[d] <- infection[d_1]
         latday <- sum(d, -p, 1)
-        latday <- max(0, latday)
-        now_latent[d1] <- sum(latency[latday:d + 1])
+        latday <- max(1, latday)
+        now_latent[d] <- sum(latency[latday:d])
 
-        infectious[d1] <- rtransfer[d]
+        infectious[d] <- rtransfer[d_1]
         infday <- sum(d, -i, 1)
-        infday <- max(0, infday)
-        now_infectious[d1] <- sum(infectious[infday:d + 1]) # why is this different than using `d1` here? h
+        infday <- max(1, infday)
+        now_infectious[d] <- sum(infectious[infday:d])
       }
 
-      if (sites[d1] < 0) {
-        sites[d1] <- 0
+      if (sites[d] < 0) {
+        sites[d] <- 0
         break
       }
 
-      if (wth_rhum[d1] >= rhlim || wth_rain[d1] >= rainlim) {
-        RcW[d1] <- 1
+      if (wth_rhum[d] >= rhlim || wth_rain[d] >= rainlim) {
+        RcW[d] <- 1
       }
 
-      rc[d1] <- RcOpt * select_mod_val(xy = RcA, x = d) *
-        select_mod_val(xy = RcT, x = wth_temp[d1]) * RcW[d1]
+      rc[d] <- RcOpt * Rc_age[d] * Rc_temp[d] * RcW[d]
 
-      diseased[d1] <- sum(sum(infectious), now_latent[d1], removed[d1])
+      diseased[d] <- sum(sum(infectious), now_latent[d], removed[d])
 
-      removed[d1] <- sum(sum(infectious), -now_infectious[d1])
+      removed[d] <- sum(sum(infectious), -now_infectious[d])
 
-      cofr[d1] <- 1 - diseased[d1] / sum(sites[d1], diseased[d1])
+      cofr[d] <- 1 - diseased[d] / sum(sites[d], diseased[d])
 
       if (d == onset) {
         # initialisation of the disease
-        infection[d1] <- I0
+        infection[d] <- I0
       } else if (d > onset) {
-        infection[d1] <- now_infectious[d1] * rc[d1] * (cofr[d1] ^ a)
+        infection[d] <- now_infectious[d] * rc[d] * (cofr[d] ^ a)
       } else {
-        infection[d1] <- 0
+        infection[d] <- 0
       }
 
       if (d >= p) {
-        rtransfer[d1] <- latency[latday + 1]
+        rtransfer[d] <- latency[latday]
       } else {
-        rtransfer[d1] <- 0
+        rtransfer[d] <- 0
       }
 
-      total_sites[d1] <- sum(diseased[d1], sites[d1])
+      total_sites[d] <- sum(diseased[d], sites[d])
 
-      rgrowth[d1] <- RRG * sites[d1] * sum(1, -(total_sites[d1] / Sx))
-      intensity[d1] <- sum(diseased[d1], -removed[d1]) /
-                          sum(total_sites[d1], -removed[d1])
+      rgrowth[d] <- RRG * sites[d] * sum(1, -(total_sites[d] / Sx))
+      intensity[d] <- sum(diseased[d], -removed[d]) /
+                          sum(total_sites[d], -removed[d])
     } # end loop
 
     out <-
       setDT(
         list(
-          0:duration,
-          dates[1:d1],
+          1:duration,
+          dates[1:d],
           sites,
           now_latent,
           now_infectious,
@@ -344,60 +343,27 @@ SEIR <-
     return(out[])
   }
 
-#' Select a modifier value from a given curve
+#' Use approx() to return a modifier value from an RcA or RcT curve
 #'
-#' Takes a matrix and numeric value for the _i_th day in the duration of a
-#' `for()` loop and returns a value from the matrix corresponding to the value
-#' along the corresponding correction curve, either `RcA` (removals corrected
-#' for crop age) or `RcT` (removals corrected for temperature).
-#' @param xy a matrix of modifier values for the rate of removals corrected for
-#'  crop age, `RcA`, or temperature, `RcT` representing a fitted curve.
-#' @param x a numeric value indicating the _i_th day of the duration of the run
-#'  for crop age, `RcA`, or the temperature value, `RcT`, on the _i_th day.
-#' @details If you check CRAN, you'll find \CRANpkg{ZeBook}, in that package's
-#'  version of this function the authors use a different methodology for
-#'  determining the modifier value.  While the code is more simple and easy-to-
-#'  read, it sacrifices speed for this clarity.  Using \CRANpkg{microbenchmark}
-#'  illustrates how much quicker this function is as it is written here.  Since
-#'  this package is intended to be somewhat quicker to run, I've elected to keep
-#'  this function in this state.
-#' @note The original author of [afgen()] is Robert J. Hijmans.  This version
-#'  was adapted from the \R package \pkg{cropsim} for \pkg{epicrop} by Adam H.
-#'  Sparks under the GPL3 License.
-#' @author Robert J. Hijmans (original) Adam H. Sparks (adopter)
+#' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
+#'  or age, `RcA`.
+#' @param .out a value for `x`, either a temperature or age modifier value.
+#'
+#' @return A numeric value for modifying a growth curve in SEIR()
+#'
+#' @note This is a faster (and more simple) function that does what the original
+#'  `afgen()` from \pkg{cropsim} does.
+#'
 #' @keywords internal
-#' @examples
-#' day <- 1
-#' RcA <-
-#'   cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
-#' select_mod_val(xy = RcA, x = day)
-#' @return A numeric value corresponding to the _i_th day's value
+#'
 #' @noRd
-select_mod_val <- function(xy, x) {
-  d <- dim(xy)
-  if (x <= xy[1, 1]) {
-    mod_val <- xy[1, 2]
-  } else if (x >= xy[d[1], 1]) {
-    mod_val <- xy[d[1], 2]
-  } else {
-    a <- xy[xy[, 1] <= x, ]
-    b <- xy[xy[, 1] >= x, ]
-    if (length(a) == 2) {
-      int <- rbind(a, b[1, ])
-    } else if (length(b) == 2) {
-      int <- rbind(a[dim(a)[1], ], b)
-    } else {
-      int <- rbind(a[dim(a)[1], ], b[1, ])
-    }
-    if (x == int[1, 1]) {
-      mod_val <- int[1, 2]
-    } else if (x == int[2, 1]) {
-      mod_val <- int[2, 2]
-      # calculate point on curve if no previous match in 'xy' matrix
-    } else {
-      mod_val <- int[1, 2] + (x - int[1, 1]) *
-        ((int[2, 2] - int[1, 2]) / (int[2, 1] - int[1, 1]))
-    }
-  }
-  return(mod_val)
-}
+
+.fn_Rc <- function(.Rc, .xout)
+  stats::approx(
+    x = .Rc[, 1],
+    y = .Rc[, 2],
+    method = "linear",
+    xout = .xout,
+    yleft = 0,
+    yright = 0
+  )$y

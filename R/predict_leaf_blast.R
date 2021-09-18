@@ -59,8 +59,8 @@
 #' on blast severity and yield of rice. Plant Disease 71:1035-1038. DOI:
 #' <https://doi.org/10.1094/PD-71-1035>.
 #'
-#' Kato, H. and Kozaka, T., 1974. Effect of temperature on lesion enlargement and
-#' sporulation of _Pyricularia oryzae_ in rice leaves. Phytopathology
+#' Kato, H. and Kozaka, T., 1974. Effect of temperature on lesion enlargement
+#' and sporulation of _Pyricularia oryzae_ in rice leaves. Phytopathology
 #' 64:828-830. DOI: <https://doi.org/10.1094/Phyto-64-828>.
 #'
 #' Wei-Hong, L. 1996. Simulation and measurement of leaf wetness formation in
