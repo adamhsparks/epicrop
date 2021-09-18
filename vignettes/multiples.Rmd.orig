@@ -461,7 +461,7 @@ map(
   theme_classic()
 ```
 
-## Benchmarking to sequential versus parallel methods
+## Benchmarking sequential versus parallel methods
 
 It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the _microbenchmark_ package.
 Here an example of how to use benchmarking is shown using the second set of examples showing how to simulate multiple establishment dates with the already created objects from those examples.
