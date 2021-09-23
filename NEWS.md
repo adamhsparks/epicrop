@@ -9,7 +9,7 @@ This leads to longer, but clearer lines of code.
 
 ## Bug fixes
 
-* Fixes bug in `SEIR()` where Rc value was calculated incorrectly that was introduced with commit https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287. See Lines 124:126 that were changed to Lines 118:120 where
+* Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287. See Lines 124:126 that were changed to Lines 118:120 where
 ```r 
 Rc[day+1] <- baseRc * AFGen(ageRc, day) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
 ```
