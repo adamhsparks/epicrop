@@ -86,7 +86,33 @@
 predict_leaf_blast <- function(wth, emergence, ...) {
   age_coef_rc <-
     cbind(
-      0:24 * 5,
+      c(
+        0L,
+        5L,
+        10L,
+        15L,
+        20L,
+        25L,
+        30L,
+        35L,
+        40L,
+        45L,
+        50L,
+        55L,
+        60L,
+        65L,
+        70L,
+        75L,
+        80L,
+        85L,
+        90L,
+        95L,
+        100L,
+        105L,
+        110L,
+        115L,
+        120L
+      ),
       c(
         1,
         1,
@@ -116,7 +142,8 @@ predict_leaf_blast <- function(wth, emergence, ...) {
       )
     )
   temp_coef_rc <-
-    cbind(2:9 * 5, c(0, 0.5, 1, 0.6, 0.2, 0.05, 0.01, 0))
+    cbind(c(10L, 15L, 20L, 25L, 30L, 35L, 40L, 45L),
+          c(0, 0.5, 1, 0.6, 0.2, 0.05, 0.01, 0))
   return(
     SEIR(
       wth = wth,

@@ -92,10 +92,10 @@
 #' @export
 predict_bacterial_blight <- function(wth, emergence, ...) {
   age_coef_rc <-
-    cbind(0:12 * 10,
+    cbind(c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
           c(1, 1, 1, 0.9, 0.62, 0.43, 0.41, 0.41, 0.41, 0.41, 0.41, 0.41, 0.41))
   temp_coef_rc <-
-    cbind(16 + (0:8 * 3),
+    cbind(c(16L, 19L, 22L, 25L, 28L, 31L, 34L, 37L, 40L),
           c(0, 0.29, 0.44, 0.90, 0.90, 1.0, 0.88, 0.01, 0))
   return(
     SEIR(
