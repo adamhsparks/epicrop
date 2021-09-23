@@ -349,7 +349,7 @@ SEIR <-
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
 #'  or age, `RcA`.
-#' @param .out a value for `x`, either a temperature or age modifier value.
+#' @param .xout a value for `x`, either a temperature or age modifier value.
 #'
 #' @return A numeric value for modifying a growth curve in SEIR()
 #'
