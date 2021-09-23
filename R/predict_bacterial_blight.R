@@ -4,7 +4,8 @@
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent _Xanthomonas oryzae_ pv. _oryzae_.  The model is driven by daily
 #' weather data, which can easily be accessed using [get_wth()] to download
-#' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+#' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or
+#' \CRANpkg{chirps} for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
 #'
 #' @details
 #' The model represents site size as 1 rice plant's leaf.

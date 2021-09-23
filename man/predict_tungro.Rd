@@ -32,8 +32,9 @@ sites.  See \code{\link[=SEIR]{SEIR()}} for a full description of the column val
 A dynamic mechanistic simulation of tungro disease of rice, causal agents
 \emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Bacilliform Virus}.
 The model is driven by daily weather data, which can easily be accessed using
-\code{\link[=get_wth]{get_wth()}} to download weather data from \acronym{NASA}
-\acronym{POWER} using \CRANpkg{nasapower}.
+\code{\link[=get_wth]{get_wth()}} to download weather data from \acronym{NASA} \acronym{POWER} using
+\CRANpkg{nasapower} or \CRANpkg{chirps} for data from \acronym{CHIRPS} and
+\acronym{CHIRTS}.
 }
 \details{
 The model represents site size as 1 rice plant.
