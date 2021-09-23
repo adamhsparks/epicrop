@@ -1,5 +1,9 @@
 # epicrop 0.0.0.9013
 
+## Minor changes
+
+* Updates input values for `Rc` curves in each of the EPIRICE models such that the values used to compute the curve are all supplied, none are computed before the interpolation is performed.
+This leads to longer, but clearer lines of code.
 
 # epicrop 0.0.0.9012
 
