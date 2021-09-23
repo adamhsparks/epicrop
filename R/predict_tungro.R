@@ -89,7 +89,7 @@ predict_tungro <- function(wth, emergence, ...) {
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
       RcOpt = 0.18,
-      p =  6,
+      p = 6,
       i = 120,
       Sx = 100,
       a = 1,

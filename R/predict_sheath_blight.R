@@ -119,7 +119,7 @@ predict_sheath_blight <- function(wth, emergence, ...) {
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
       RcOpt = 0.46,
-      p =  3,
+      p = 3,
       i = 120,
       Sx = 800,
       a = 2.8,

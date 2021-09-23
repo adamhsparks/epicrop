@@ -130,7 +130,7 @@ predict_leaf_blast <- function(wth, emergence, ...) {
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
       RcOpt = 1.14,
-      p =  5,
+      p = 5,
       i = 20,
       a = 1,
       Sx = 30000,

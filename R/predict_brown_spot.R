@@ -97,7 +97,7 @@ predict_brown_spot <- function(wth, emergence, ...) {
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
       RcOpt = 0.61,
-      p =  6,
+      p = 6,
       i = 19,
       a = 1,
       Sx = 100000,

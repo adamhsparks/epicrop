@@ -110,7 +110,7 @@ predict_bacterial_blight <- function(wth, emergence, ...) {
       RcA = age_coef_rc,
       RcT = temp_coef_rc,
       RcOpt = 0.87,
-      p =  5,
+      p = 5,
       i = 30,
       Sx = 3200,
       a = 4,
