@@ -1,9 +1,11 @@
+# epicrop 0.0.0.9014
+
 # epicrop 0.0.0.9013
 
 ## Bug fixes
 
 * Fixes a bug introduced into SEIR() with the last round of bug fixes.
-The calculations for latent and infectious sites were still calculating for the next, not current day in the `for()` loop.
+The calculations for latent and infectious sites were still calculating for the next, not current, day in the `for()` loop.
 
 * Corrects values in the example for `SEIR()` to run the model for brown spot.
 
