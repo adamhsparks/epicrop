@@ -163,30 +163,30 @@
 <code class="sourceCode R"><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span>
 
 <span class="va">bb</span>
-<span class="co">#&gt;      simday      dates     sites   latent infectious  removed    senesced</span>
-<span class="co">#&gt;   1:      1 2000-07-01  100.0000  0.00000     0.0000   0.0000    0.000000</span>
-<span class="co">#&gt;   2:      2 2000-07-02  108.6875  0.00000     0.0000   0.0000    1.000000</span>
-<span class="co">#&gt;   3:      3 2000-07-03  118.1002  0.00000     0.0000   0.0000    2.086875</span>
-<span class="co">#&gt;   4:      4 2000-07-04  128.2934  0.00000     0.0000   0.0000    3.267877</span>
-<span class="co">#&gt;   5:      5 2000-07-05  139.3254  0.00000     0.0000   0.0000    4.550811</span>
-<span class="co">#&gt;  ---                                                                     </span>
-<span class="co">#&gt; 116:    116 2000-10-24 1189.7392 53.98388   880.6517 440.0734 2221.835013</span>
-<span class="co">#&gt; 117:    117 2000-10-25 1153.1921 35.83058   850.5259 488.3525 2282.011556</span>
-<span class="co">#&gt; 118:    118 2000-10-26 1109.5230 29.63849   824.0101 532.8853 2338.076260</span>
-<span class="co">#&gt; 119:    119 2000-10-27 1071.6977 22.15270   801.0138 573.6951 2389.981335</span>
-<span class="co">#&gt; 120:    120 2000-10-28 1033.1810 31.28753   757.8526 616.8564 2443.859534</span>
-<span class="co">#&gt;        rateinf rtransfer  rgrowth rsenesced diseased intensity     lat      lon</span>
-<span class="co">#&gt;   1:  0.000000   0.00000  9.68750  1.000000    0.000 0.0000000 14.6774 121.2556</span>
-<span class="co">#&gt;   2:  0.000000   0.00000 10.49959  1.086875    0.000 0.0000000 14.6774 121.2556</span>
-<span class="co">#&gt;   3:  0.000000   0.00000 11.37416  1.181002    0.000 0.0000000 14.6774 121.2556</span>
-<span class="co">#&gt;   4:  0.000000   0.00000 12.31499  1.282934    0.000 0.0000000 14.6774 121.2556</span>
-<span class="co">#&gt;   5:  0.000000   0.00000 13.32593  1.393254    0.000 0.0000000 14.6774 121.2556</span>
-<span class="co">#&gt;  ---                                                                           </span>
-<span class="co">#&gt; 116:  0.000000  18.15330 23.62940 60.176543 1374.709 0.4399580 14.6774 121.2556</span>
-<span class="co">#&gt; 117: 11.824954  18.01704 24.22060 56.064704 1374.709 0.4345846 14.6774 121.2556</span>
-<span class="co">#&gt; 118: 10.327744  17.81354 24.40753 51.905074 1386.534 0.4348314 14.6774 121.2556</span>
-<span class="co">#&gt; 119:  9.134832   0.00000 24.49635 53.878200 1396.862 0.4344198 14.6774 121.2556</span>
-<span class="co">#&gt; 120:  7.831815   0.00000 24.56460 55.340858 1405.996 0.4330412 14.6774 121.2556</span></code></pre></div>
+<span class="co">#&gt;      simday      dates     sites    latent infectious  removed    senesced</span>
+<span class="co">#&gt;   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000</span>
+<span class="co">#&gt;   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000</span>
+<span class="co">#&gt;   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875</span>
+<span class="co">#&gt;   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877</span>
+<span class="co">#&gt;   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811</span>
+<span class="co">#&gt;  ---                                                                      </span>
+<span class="co">#&gt; 116:    116 2000-10-24 1453.0383 107.60598   953.2163 217.8993 2095.744599</span>
+<span class="co">#&gt; 117:    117 2000-10-25 1429.1891  77.30207   952.9399 248.4797 2140.855357</span>
+<span class="co">#&gt; 118:    118 2000-10-26 1380.4038  73.81997   947.4256 281.2134 2187.881013</span>
+<span class="co">#&gt; 119:    119 2000-10-27 1332.8691  69.34615   938.4942 315.9354 2236.407049</span>
+<span class="co">#&gt; 120:    120 2000-10-28 1286.3824  64.14358   926.0857 352.6359 2286.436253</span>
+<span class="co">#&gt;       rateinf rtransfer  rgrowth rsenesced diseased intensity     lat      lon</span>
+<span class="co">#&gt;   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 14.6774 121.2556</span>
+<span class="co">#&gt;  ---                                                                          </span>
+<span class="co">#&gt; 116:  0.00000  30.30391 21.26159 45.110758 1278.722 0.4219893 14.6774 121.2556</span>
+<span class="co">#&gt; 117: 23.73737  27.21946 21.97777 47.025655 1278.722 0.4188944 14.6774 121.2556</span>
+<span class="co">#&gt; 118: 21.31678  25.79060 22.30807 48.526036 1302.459 0.4252267 14.6774 121.2556</span>
+<span class="co">#&gt; 119: 19.08944  24.29201 22.63192 50.029205 1323.776 0.4305705 14.6774 121.2556</span>
+<span class="co">#&gt; 120: 17.03536   0.00000 22.94393 47.492428 1342.865 0.4349575 14.6774 121.2556</span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>

@@ -119,7 +119,11 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="http://purrr.tidyverse.org">"purrr"</a></span><span class="op">)</span>
-
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'purrr'</span>
+<span class="co">#&gt; The following object is masked from 'package:testthat':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     is_null</span>
 <span class="va">seasons_wth</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span>
     .x <span class="op">=</span> <span class="va">seasons</span>,
@@ -168,11 +172,11 @@
 <tbody>
 <tr class="odd">
 <td align="center">2000</td>
-<td align="center">12.31</td>
+<td align="center">11.12</td>
 </tr>
 <tr class="even">
 <td align="center">2001</td>
-<td align="center">6.803</td>
+<td align="center">5.94</td>
 </tr>
 </tbody>
 </table>
@@ -206,6 +210,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/DavisVaughan/furrr">"furrr"</a></span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: future</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org">"lubridate"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
@@ -260,11 +265,11 @@
 <tbody>
 <tr class="odd">
 <td align="center">2000</td>
-<td align="center">12.31</td>
+<td align="center">11.12</td>
 </tr>
 <tr class="even">
 <td align="center">2001</td>
-<td align="center">6.803</td>
+<td align="center">5.94</td>
 </tr>
 </tbody>
 </table>
@@ -356,123 +361,123 @@
 <tbody>
 <tr class="odd">
 <td align="center">2001-06-01</td>
-<td align="center">14.34</td>
+<td align="center">11.75</td>
 </tr>
 <tr class="even">
 <td align="center">2001-06-14</td>
-<td align="center">9.064</td>
+<td align="center">6.976</td>
 </tr>
 <tr class="odd">
 <td align="center">2001-06-30</td>
-<td align="center">6.803</td>
+<td align="center">5.94</td>
 </tr>
 <tr class="even">
 <td align="center">2002-06-01</td>
-<td align="center">15.02</td>
+<td align="center">12.47</td>
 </tr>
 <tr class="odd">
 <td align="center">2002-06-14</td>
-<td align="center">12.87</td>
+<td align="center">10.45</td>
 </tr>
 <tr class="even">
 <td align="center">2002-06-30</td>
-<td align="center">15.03</td>
+<td align="center">12.19</td>
 </tr>
 <tr class="odd">
 <td align="center">2003-06-01</td>
-<td align="center">13.12</td>
+<td align="center">10.18</td>
 </tr>
 <tr class="even">
 <td align="center">2003-06-14</td>
-<td align="center">13.98</td>
+<td align="center">10.58</td>
 </tr>
 <tr class="odd">
 <td align="center">2003-06-30</td>
-<td align="center">17.58</td>
+<td align="center">15.26</td>
 </tr>
 <tr class="even">
 <td align="center">2004-06-01</td>
-<td align="center">12.88</td>
+<td align="center">10.3</td>
 </tr>
 <tr class="odd">
 <td align="center">2004-06-14</td>
-<td align="center">14.7</td>
+<td align="center">13.29</td>
 </tr>
 <tr class="even">
 <td align="center">2004-06-30</td>
-<td align="center">12.35</td>
+<td align="center">10.19</td>
 </tr>
 <tr class="odd">
 <td align="center">2005-06-01</td>
-<td align="center">16.64</td>
+<td align="center">14.29</td>
 </tr>
 <tr class="even">
 <td align="center">2005-06-14</td>
-<td align="center">16.16</td>
+<td align="center">13.86</td>
 </tr>
 <tr class="odd">
 <td align="center">2005-06-30</td>
-<td align="center">17.28</td>
+<td align="center">15.1</td>
 </tr>
 <tr class="even">
 <td align="center">2006-06-01</td>
-<td align="center">17</td>
+<td align="center">15.06</td>
 </tr>
 <tr class="odd">
 <td align="center">2006-06-14</td>
-<td align="center">16.07</td>
+<td align="center">14.01</td>
 </tr>
 <tr class="even">
 <td align="center">2006-06-30</td>
-<td align="center">14.73</td>
+<td align="center">12.62</td>
 </tr>
 <tr class="odd">
 <td align="center">2007-06-01</td>
-<td align="center">9.041</td>
+<td align="center">7.811</td>
 </tr>
 <tr class="even">
 <td align="center">2007-06-14</td>
-<td align="center">7.244</td>
+<td align="center">7.173</td>
 </tr>
 <tr class="odd">
 <td align="center">2007-06-30</td>
-<td align="center">11.52</td>
+<td align="center">10.91</td>
 </tr>
 <tr class="even">
 <td align="center">2008-06-01</td>
-<td align="center">10.45</td>
+<td align="center">9.31</td>
 </tr>
 <tr class="odd">
 <td align="center">2008-06-14</td>
-<td align="center">10.37</td>
+<td align="center">8.957</td>
 </tr>
 <tr class="even">
 <td align="center">2008-06-30</td>
-<td align="center">12.85</td>
+<td align="center">10.27</td>
 </tr>
 <tr class="odd">
 <td align="center">2009-06-01</td>
-<td align="center">5.72</td>
+<td align="center">4.83</td>
 </tr>
 <tr class="even">
 <td align="center">2009-06-14</td>
-<td align="center">11.15</td>
+<td align="center">9.118</td>
 </tr>
 <tr class="odd">
 <td align="center">2009-06-30</td>
-<td align="center">8.802</td>
+<td align="center">6.797</td>
 </tr>
 <tr class="even">
 <td align="center">2010-06-01</td>
-<td align="center">15.22</td>
+<td align="center">13.95</td>
 </tr>
 <tr class="odd">
 <td align="center">2010-06-14</td>
-<td align="center">18.24</td>
+<td align="center">16.31</td>
 </tr>
 <tr class="even">
 <td align="center">2010-06-30</td>
-<td align="center">17.83</td>
+<td align="center">16</td>
 </tr>
 </tbody>
 </table>
@@ -690,12 +695,12 @@
 
 <span class="va">mbm</span>
 <span class="co">#&gt; Unit: relative</span>
-<span class="co">#&gt;        expr      min       lq     mean   median        uq       max</span>
-<span class="co">#&gt;  sequential 1.386719 1.341272 0.802715 1.385581 0.4074279 0.6635148</span>
-<span class="co">#&gt;    parallel 1.000000 1.000000 1.000000 1.000000 1.0000000 1.0000000</span>
-<span class="co">#&gt;  neval cld</span>
-<span class="co">#&gt;    100  a </span>
-<span class="co">#&gt;    100   b</span>
+<span class="co">#&gt;        expr      min       lq      mean   median        uq</span>
+<span class="co">#&gt;  sequential 1.352833 1.297219 0.7646038 1.343346 0.4011853</span>
+<span class="co">#&gt;    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000</span>
+<span class="co">#&gt;        max neval cld</span>
+<span class="co">#&gt;  0.6702418   100  a </span>
+<span class="co">#&gt;  1.0000000   100   b</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure">
