@@ -1,9 +1,18 @@
 # epicrop 0.0.0.9013
 
+## Bug fixes
+
+* Fixes a bug introduced into SEIR() with the last round of bug fixes.
+The calculations for latent and infectious sites were still calculating for the next, not current day in the `for()` loop.
+
+* Corrects values in the example for `SEIR()` to run the model for brown spot.
+
 ## Minor changes
 
 * Updates input values for `Rc` curves in each of the EPIRICE models such that the values used to compute the curve are all supplied, none are computed before the interpolation is performed.
 This leads to longer, but clearer lines of code.
+
+* All of the help files now reference NASA POWER and CHIRPS both as sources of possible weather data for use in the model.
 
 # epicrop 0.0.0.9012
 
