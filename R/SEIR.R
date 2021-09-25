@@ -248,12 +248,12 @@ SEIR <-
         senesced[d] <- sum(senesced[d_1], rsenesced[d_1])
 
         latency[d] <- infection[d_1]
-        latday <- sum(d, -p, 1)
+        latday <- sum(d, -p)
         latday <- max(1, latday)
         now_latent[d] <- sum(latency[latday:d])
 
         infectious[d] <- rtransfer[d_1]
-        infday <- sum(d, -i, 1)
+        infday <- sum(d, -i)
         infday <- max(1, infday)
         now_infectious[d] <- sum(infectious[infday:d])
       }
