@@ -48,7 +48,11 @@ You could also use R's base `lapply()` here as well if you prefer.
 ```r
 library("epicrop")
 library("purrr")
-
+#> 
+#> Attaching package: 'purrr'
+#> The following object is masked from 'package:testthat':
+#> 
+#>     is_null
 seasons_wth <-
   map(
     .x = seasons,
@@ -96,9 +100,9 @@ pander(seasons)
 ----------------
  season   AUDPC 
 -------- -------
-  2000    12.31 
+  2000    11.12 
 
-  2001    6.803 
+  2001    5.94  
 ----------------
 
 ### Visualising differences in AUDPC between seasons
@@ -137,6 +141,7 @@ An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code 
 ```r
 library("epicrop")
 library("furrr")
+#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("epifitter")
@@ -185,9 +190,9 @@ future_map_dfr(
 ----------------
  season   AUDPC 
 -------- -------
-  2000    12.31 
+  2000    11.12 
 
-  2001    6.803 
+  2001    5.94  
 ----------------
 
 We can see here that the AUDPC values match using both processing methods.
@@ -275,65 +280,65 @@ pander(multi_dates)
 --------------------
  emergence    AUDPC 
 ------------ -------
- 2001-06-01   14.34 
+ 2001-06-01   11.75 
 
- 2001-06-14   9.064 
+ 2001-06-14   6.976 
 
- 2001-06-30   6.803 
+ 2001-06-30   5.94  
 
- 2002-06-01   15.02 
+ 2002-06-01   12.47 
 
- 2002-06-14   12.87 
+ 2002-06-14   10.45 
 
- 2002-06-30   15.03 
+ 2002-06-30   12.19 
 
- 2003-06-01   13.12 
+ 2003-06-01   10.18 
 
- 2003-06-14   13.98 
+ 2003-06-14   10.58 
 
- 2003-06-30   17.58 
+ 2003-06-30   15.26 
 
- 2004-06-01   12.88 
+ 2004-06-01   10.3  
 
- 2004-06-14   14.7  
+ 2004-06-14   13.29 
 
- 2004-06-30   12.35 
+ 2004-06-30   10.19 
 
- 2005-06-01   16.64 
+ 2005-06-01   14.29 
 
- 2005-06-14   16.16 
+ 2005-06-14   13.86 
 
- 2005-06-30   17.28 
+ 2005-06-30   15.1  
 
- 2006-06-01    17   
+ 2006-06-01   15.06 
 
- 2006-06-14   16.07 
+ 2006-06-14   14.01 
 
- 2006-06-30   14.73 
+ 2006-06-30   12.62 
 
- 2007-06-01   9.041 
+ 2007-06-01   7.811 
 
- 2007-06-14   7.244 
+ 2007-06-14   7.173 
 
- 2007-06-30   11.52 
+ 2007-06-30   10.91 
 
- 2008-06-01   10.45 
+ 2008-06-01   9.31  
 
- 2008-06-14   10.37 
+ 2008-06-14   8.957 
 
- 2008-06-30   12.85 
+ 2008-06-30   10.27 
 
- 2009-06-01   5.72  
+ 2009-06-01   4.83  
 
- 2009-06-14   11.15 
+ 2009-06-14   9.118 
 
- 2009-06-30   8.802 
+ 2009-06-30   6.797 
 
- 2010-06-01   15.22 
+ 2010-06-01   13.95 
 
- 2010-06-14   18.24 
+ 2010-06-14   16.31 
 
- 2010-06-30   17.83 
+ 2010-06-30    16   
 --------------------
 
 That's a bit long and there's lots of values to digest here.
@@ -566,12 +571,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr      min       lq     mean   median        uq       max
-#>  sequential 1.386719 1.341272 0.802715 1.385581 0.4074279 0.6635148
-#>    parallel 1.000000 1.000000 1.000000 1.000000 1.0000000 1.0000000
-#>  neval cld
-#>    100  a 
-#>    100   b
+#>        expr      min       lq      mean   median        uq
+#>  sequential 1.352833 1.297219 0.7646038 1.343346 0.4011853
+#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
+#>        max neval cld
+#>  0.6702418   100  a 
+#>  1.0000000   100   b
 autoplot(mbm) +
   theme_classic()
 ```
