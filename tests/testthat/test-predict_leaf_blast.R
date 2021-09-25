@@ -34,10 +34,10 @@ test_that("Values are as expected", {
   expect_equal(lb[[120, "latent"]], 0, tolerance = 0.1)
 
   expect_equal(lb[[1, "infectious"]], 0, tolerance = 0.1)
-  expect_equal(lb[[120, "infectious"]], 0.1, tolerance = 0.1)
+  expect_equal(lb[[120, "infectious"]], 0.275, tolerance = 0.001)
 
   expect_equal(lb[[1, "removed"]], 0, tolerance = 0.1)
-  expect_equal(lb[[120, "removed"]], 43.9, tolerance = 0.1)
+  expect_equal(lb[[120, "removed"]], 38.4, tolerance = 0.1)
 
   expect_equal(lb[[1, "senesced"]], 0, tolerance = 0.1)
   expect_equal(lb[[120, "senesced"]], 20606.0, tolerance = 0.1)
@@ -55,7 +55,7 @@ test_that("Values are as expected", {
   expect_equal(lb[[120, "rsenesced"]], 269.3, tolerance = 0.1)
 
   expect_equal(lb[[1, "diseased"]], 0, tolerance = 0.1)
-  expect_equal(lb[[120, "diseased"]], 44.1, tolerance = 0.1)
+  expect_equal(lb[[120, "diseased"]], 38.7, tolerance = 0.1)
 
   expect_equal(lb[[1, "intensity"]], 0, tolerance = 0.1)
   expect_equal(lb[[120, "intensity"]], 0, tolerance = 0.1)

@@ -31,7 +31,7 @@ test_that("Values are as expected", {
   expect_equal(sb[[120, "sites"]], 165.1, tolerance = 0.1)
 
   expect_equal(sb[[1, "latent"]], 0, tolerance = 0.1)
-  expect_equal(sb[[120, "latent"]], 11.6, tolerance = 0.1)
+  expect_equal(sb[[120, "latent"]], 14.3, tolerance = 0.1)
 
   expect_equal(sb[[1, "infectious"]], 0, tolerance = 0.1)
   expect_equal(sb[[120, "infectious"]], 603.1, tolerance = 0.1)
@@ -43,10 +43,10 @@ test_that("Values are as expected", {
   expect_equal(sb[[120, "senesced"]], 281.8, tolerance = 0.1)
 
   expect_equal(sb[[1, "rateinf"]], 0, tolerance = 0.1)
-  expect_equal(sb[[120, "rateinf"]], 3.4, tolerance = 0.1)
+  expect_equal(sb[[120, "rateinf"]], 4.14, tolerance = 0.01)
 
   expect_equal(sb[[1, "rtransfer"]], 0, tolerance = 0.1)
-  expect_equal(sb[[120, "rtransfer"]], 4.1, tolerance = 0.1)
+  expect_equal(sb[[120, "rtransfer"]], 0, tolerance = 0.1)
 
   expect_equal(sb[[1, "rgrowth"]], 4.8, tolerance = 0.1)
   expect_equal(sb[[120, "rgrowth"]], 0.8, tolerance = 0.1)
