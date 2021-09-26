@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> • epicrop</title>
+<title>epicrop • epicrop</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="">
+<script src="../pkgdown.js"></script><meta property="og:title" content="epicrop">
 <meta property="og:description" content="epicrop">
 <meta property="og:image" content="http://adamhsparks.github.io/epicrop/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
       </span>
     </div>
 
@@ -64,7 +64,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/multiples.html">UNKNOWN TITLE</a>
+      <a href="../articles/multiples.html">Multiple Simulations</a>
     </li>
   </ul>
 </li>
@@ -195,16 +195,11 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyr.tidyverse.org">"tidyr"</a></span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: 'tidyr'</code></pre>
-<pre><code>## The following object is masked from 'package:testthat':
-## 
-##     matches</code></pre>
 <div id="wet-season-sites" class="section level3">
 <h3 class="hasAnchor">
 <a href="#wet-season-sites" class="anchor"></a>Wet season sites</h3>
 <p>The model records the number of sites for each bin daily; this can be graphed as follows.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
   <span class="va">bb_wet</span>,
   cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,
@@ -232,7 +227,7 @@
 <h3 class="hasAnchor">
 <a href="#wet-season-intensity" class="anchor"></a>Wet season intensity</h3>
 <p>Plotting intensity over time does not require any data manipulation.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_wet</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
            y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -251,7 +246,7 @@
 <a href="#comparing-epidemics" class="anchor"></a>Comparing epidemics</h2>
 <p>The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977). This is easily calculated from the output of any of the <code>predict_()</code> family of functions or a custom <code><a href="../reference/SEIR.html">SEIR()</a></code> run using the <em>epifitter</em> package (Alves and Del Ponte 2020).</p>
 <p>Load <em>epifitter</em> and simulate the disease intensity in the dry season starting in January to compare with the initial <code>bb_wet</code> results.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
 
 <span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span>
@@ -295,7 +290,7 @@
 <h3 class="hasAnchor">
 <a href="#dry-season-intensity" class="anchor"></a>Dry season intensity</h3>
 <p>Check the disease progress curve for the dry season.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_dry</span>,
        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
            y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -308,7 +303,7 @@
 <img src="dry_plot_intensity-1.png" alt=""><p class="caption">Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
 </div>
 <p>Calculate the AUDPC using the <code><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC()</a></code> from <em>epifitter</em> for both seasons and compare.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Dry season</span>
 <span class="fu"><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC</a></span><span class="op">(</span>
   time <span class="op">=</span> <span class="va">bb_dry</span><span class="op">$</span><span class="va">simday</span>,
@@ -317,7 +312,7 @@
   type <span class="op">=</span> <span class="st">"absolute"</span>
 <span class="op">)</span></code></pre></div>
 <pre><code>## [1] 3.57641</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Wet season</span>
 <span class="fu"><a href="https://rdrr.io/pkg/epifitter/man/AUDPC.html">AUDPC</a></span><span class="op">(</span>
   time <span class="op">=</span> <span class="va">bb_wet</span><span class="op">$</span><span class="va">simday</span>,
