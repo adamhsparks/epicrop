@@ -35,3 +35,78 @@ test_that("SEIR() stops if `a` < 1", {
     )
   )
 })
+
+test_that("SEIR() stops if `H0` < 0", {
+  expect_error(
+    SEIR(
+      wth = data.frame(wth),
+      emergence = "1999-07-01",
+      onset = 20,
+      duration = 120,
+      rhlim = 90,
+      rainlim = 5,
+      RcA = RcA,
+      RcT = RcT,
+      H0 = -1,
+      I0 = 1,
+      RcOpt = 0.61,
+      p =  6,
+      i = 19,
+      a = 1,
+      Sx = 100000,
+      RRS = 0.01,
+      RRG = 0.1
+    )
+  )
+})
+
+test_that("SEIR() stops if `I0` < 0", {
+  wth <- epicrop:::wth
+  expect_error(
+    SEIR(
+      wth = wth,
+      emergence = "1999-07-01",
+      onset = 20,
+      duration = 120,
+      rhlim = 90,
+      rainlim = 5,
+      RcA = RcA,
+      RcT = RcT,
+      H0 = 600,
+      I0 = -1,
+      RcOpt = 0.61,
+      p =  6,
+      i = 19,
+      a = 1,
+      Sx = 100000,
+      RRS = 0.01,
+      RRG = 0.1
+    )
+  )
+})
+
+wth <-
+test_that("SEIR() converts wth to a data.table object if it is not already", {
+  wth <- epicrop:::wth
+  expect_error(
+    SEIR(
+      wth = wth,
+      emergence = "1999-07-01",
+      onset = 20,
+      duration = 120,
+      rhlim = 90,
+      rainlim = 5,
+      RcA = RcA,
+      RcT = RcT,
+      H0 = 600,
+      I0 = -1,
+      RcOpt = 0.61,
+      p =  6,
+      i = 19,
+      a = 1,
+      Sx = 100000,
+      RRS = 0.01,
+      RRG = 0.1
+    )
+  )
+})
