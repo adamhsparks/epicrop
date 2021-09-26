@@ -206,6 +206,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/DavisVaughan/furrr">"furrr"</a></span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: future</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org">"lubridate"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/AlvesKS/epifitter">"epifitter"</a></span><span class="op">)</span>
@@ -690,12 +691,12 @@
 
 <span class="va">mbm</span>
 <span class="co">#&gt; Unit: relative</span>
-<span class="co">#&gt;        expr       min        lq     mean   median       uq</span>
-<span class="co">#&gt;  sequential 1.0000000 1.0000000 1.000000 1.000000 1.000000</span>
-<span class="co">#&gt;    parallel 0.7558304 0.7815766 1.504766 2.387271 2.343517</span>
-<span class="co">#&gt;        max neval cld</span>
-<span class="co">#&gt;  1.0000000   100  a </span>
-<span class="co">#&gt;  0.6924794   100   b</span>
+<span class="co">#&gt;        expr      min       lq      mean   median       uq       max</span>
+<span class="co">#&gt;  sequential 1.366104 1.413324 0.8155192 1.302419 1.097651 0.2565807</span>
+<span class="co">#&gt;    parallel 1.000000 1.000000 1.0000000 1.000000 1.000000 1.0000000</span>
+<span class="co">#&gt;  neval cld</span>
+<span class="co">#&gt;    100  a </span>
+<span class="co">#&gt;    100   b</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="figure">
