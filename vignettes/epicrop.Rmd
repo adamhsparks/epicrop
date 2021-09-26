@@ -120,7 +120,7 @@ summary(bb_wet)
 ##  Max.   :0.43496   Max.   :14.68   Max.   :121.3
 ```
 
-## Plotting using ggplot2
+## Plotting using _ggplot2_
 
 The data are in a wide format by default and need to be converted to long format for use in _ggplot2_ if you wish to plot more than one variable at a time.
 
