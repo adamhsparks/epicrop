@@ -300,40 +300,21 @@ SEIR <-
     out <-
       setDT(
         list(
-          1:duration,
-          dates[1:d],
-          sites,
-          now_latent,
-          now_infectious,
-          removed,
-          senesced,
-          infection,
-          rtransfer,
-          rgrowth,
-          rsenesced,
-          diseased,
-          intensity
+          "simday" = 1:duration,
+          "dates" = dates[1:d],
+          "sites" = sites,
+          "latent" = now_latent,
+          "infectious" = now_infectious,
+          "removed" = removed,
+          "senesced" = senesced,
+          "rateinf" = infection,
+          "rtransfer" = rtransfer,
+          "rgrowth" = rgrowth,
+          "rsenesced" = rsenesced,
+          "diseased" = diseased,
+          "intensity" = intensity
         )
       )
-
-    setnames(
-      out,
-      c(
-        "simday",
-        "dates",
-        "sites",
-        "latent",
-        "infectious",
-        "removed",
-        "senesced",
-        "rateinf",
-        "rtransfer",
-        "rgrowth",
-        "rsenesced",
-        "diseased",
-        "intensity"
-      )
-    )
 
     # Only add Lat and Lon values if they exist in WTH
     if (all(c("LAT", "LON") %in% names(wth)))
