@@ -145,7 +145,7 @@ ggplot(data = bb,
 -   Please [report any issues or
     bugs](https://github.com/adamhsparks/epicrop/issues).
 
--   License: MIT
+-   License: GPL-3
 
 -   To cite *epicrop*, please use the output from
     `citation(package = "epicrop")`.
