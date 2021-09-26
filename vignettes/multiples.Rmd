@@ -137,6 +137,7 @@ An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code 
 ```r
 library("epicrop")
 library("furrr")
+#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("epifitter")
@@ -566,12 +567,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr       min        lq     mean   median       uq
-#>  sequential 1.0000000 1.0000000 1.000000 1.000000 1.000000
-#>    parallel 0.7558304 0.7815766 1.504766 2.387271 2.343517
-#>        max neval cld
-#>  1.0000000   100  a 
-#>  0.6924794   100   b
+#>        expr      min       lq      mean   median       uq       max
+#>  sequential 1.366104 1.413324 0.8155192 1.302419 1.097651 0.2565807
+#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.000000 1.0000000
+#>  neval cld
+#>    100  a 
+#>    100   b
 autoplot(mbm) +
   theme_classic()
 ```
