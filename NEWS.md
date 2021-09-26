@@ -1,5 +1,13 @@
 # epicrop 0.0.0.9014
 
+## Minor changes
+
+* Check user inputs for `H0` and `I0` to ensure that they are >= 0.
+
+* 100% complete test coverage.
+
+* The final `data.frame` created from vectors of state values in `SEIR()` is simplified into one step, creating a named `data.table` rather than create a `data.table` and then naming cols.
+
 # epicrop 0.0.0.9013
 
 ## Bug fixes
