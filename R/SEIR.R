@@ -187,6 +187,21 @@ SEIR <-
       )
     }
 
+    # check site values
+    if (H0 < 0) {
+      stop(
+        call. = FALSE,
+        "H0 cannot be < 0, check your initial number of healthy sites."
+      )
+    }
+
+    if (I0 < 0) {
+      stop(
+        call. = FALSE,
+        "I0 cannot be < 0, check your initial number of infective sites."
+      )
+    }
+
     # set date formats
     emergence <- as.Date(emergence)
 
@@ -256,11 +271,6 @@ SEIR <-
         infday <- sum(d, -i)
         infday <- max(1, infday)
         now_infectious[d] <- sum(infectious[infday:d])
-      }
-
-      if (sites[d] < 0) {
-        sites[d] <- 0
-        break
       }
 
       if (wth_rhum[d] >= rhlim || wth_rain[d] >= rainlim) {
