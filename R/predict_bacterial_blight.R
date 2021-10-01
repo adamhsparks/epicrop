@@ -25,8 +25,9 @@
 #' columns are provided by default when using [get_wth()].
 #'
 #' @param wth Weather data with a daily time-step, normally \acronym{NASA}
-#' \acronym{POWER} from [get_wth()], but any[base::data.frame()] object that has
-#' the following properly named columns in them will work.
+#' \acronym{POWER} or \acronym{CHIRPS}/\acronym{CHIRTS} data from [get_wth()],
+#' but any[base::data.frame()] object that has the following properly named
+#' columns in them will work.
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
