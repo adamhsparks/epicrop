@@ -134,7 +134,6 @@
 #'   \item{rtransfer}{Rate of transfer from latent to infectious sites}
 #'   \item{rgrowth}{Rate of growth of healthy sites}
 #'   \item{rsenesced}{Rate of senescence of healthy sites}
-#'   \item{rlex}{Rate of lesion expansion}
 #'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on
 #'    day "x"}
 #'   \item{intensity}{Proportion of diseased (latent + infectious + removed)
