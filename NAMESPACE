@@ -2,9 +2,11 @@
 
 export(SEIR)
 export(get_wth)
+export(predict_Septoria_tritici_blotch)
 export(predict_bacterial_blight)
 export(predict_brown_spot)
 export(predict_leaf_blast)
+export(predict_leaf_rust)
 export(predict_sheath_blight)
 export(predict_tungro)
 importFrom(data.table,.I)

@@ -95,8 +95,10 @@ Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \code{\link[=SEIR]{SEIR()}}
 
 Other predict functions: 
+\code{\link{predict_Septoria_tritici_blotch}()},
 \code{\link{predict_brown_spot}()},
 \code{\link{predict_leaf_blast}()},
+\code{\link{predict_leaf_rust}()},
 \code{\link{predict_sheath_blight}()},
 \code{\link{predict_tungro}()}
 }

@@ -16,6 +16,7 @@ SEIR(
   RcA,
   RcT,
   RcOpt,
+  RRLEX,
   p,
   i,
   Sx,
@@ -31,7 +32,7 @@ with the following field names.\tabular{rl}{
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily temperature (°C) (required for EPIRICE models only) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
    \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
@@ -39,56 +40,63 @@ with the following field names.\tabular{rl}{
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{onset}{expected number of days until the onset of disease after
 emergence date (day, integer).  Described in Table 1 of Savary \emph{et al.}
-2012.}
+2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{duration}{simulation duration \emph{i.e.}, growing season length (day,
-integer).  Described in Table 1 of Savary \emph{et al.} 2012.}
+integer).  Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of
+Savary \emph{et al.} 2015.}
 
 \item{rhlim}{relative humidity value threshold to decide whether leaves are
-wet or not (numeric).  Savary \emph{et al.} 2012 used 90\%.}
+wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used 90\%.}
 
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not (numeric).  Savary \emph{et al.} 2012 used 5mm.}
+wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used 5mm.}
 
 \item{H0}{initial number of plant's healthy sites (integer).  Described in
-Table 1 of Savary \emph{et al.} 2012.}
+Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{I0}{initial number of infective sites (integer).  Described in Table 1
-of Savary \emph{et al.} 2012.}
+of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for crop age (numeric vector).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature (numeric vector).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
-Derived from Table 1 of Savary \emph{et al.} 2012.}
+Derived from Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
+2015.}
+
+\item{RRLEX}{relative rate of lesion expansion (numeric).  Described in Table
+1 of Savary \emph{et al.} 2015.}
 
 \item{p}{duration of latent period (day, integer).  Described in  Table 1 of
-Savary \emph{et al.} 2012.}
+Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{i}{duration of infectious period (day, integer).  Described in Table 1
-of Savary \emph{et al.} 2012.}
+of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{Sx}{maximum number of sites (integer).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
-Described in Table 1 of Savary \emph{et al.} 2012.  See further details in
-\strong{\emph{a} - Aggregation} section.}
+Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
+2015.  See further details in \strong{\emph{a} - Aggregation} section.}
 
 \item{RRS}{relative rate of physiological senescence (numeric).  Described in
-Table 1 of Savary \emph{et al.} 2012.}
+Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} containing the following columns:
@@ -116,8 +124,9 @@ sites per total sites not including removed sites on day "x"}
 }
 \description{
 This function is originally used by specific disease models in
-\sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
-proper values it can be used with other pathosystems as well.
+\sQuote{EPIRICE} and \sQuote{EPIWHEAT} to model disease intensity of five
+rice diseases and two wheat diseases, respectively.  Given proper values it
+can be used with other pathosystems as well.
 }
 \note{
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
@@ -160,6 +169,7 @@ emergence <- "2000-07-15"
   RcA = RcA,
   RcT = RcT,
   RcOpt = 0.61,
+  RRLEX = NULL,
   p =  6,
   i = 19,
   H0 = 600,
