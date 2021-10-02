@@ -151,7 +151,7 @@ from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRA
 <a href='https://CRAN.R-project.org/package=chirps'><span class="pkg">chirps</span></a> for data from <acronym>CHIRPS</acronym> and <acronym>CHIRTS</acronym>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>predict_sheath_blight</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>predict_sheath_blight</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,8 +159,9 @@ from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRA
     <tr>
       <th>wth</th>
       <td><p>Weather data with a daily time-step, normally <acronym>NASA</acronym>
-<acronym>POWER</acronym> from <code><a href='get_wth.html'>get_wth()</a></code>, but any<code><a href='https://rdrr.io/r/base/data.frame.html'>base::data.frame()</a></code> object that has
-the following properly named columns in them will work.</p><table class='table'>
+<acronym>POWER</acronym> or <acronym>CHIRPS</acronym>/<acronym>CHIRTS</acronym> data from <code><a href='get_wth.html'>get_wth()</a></code>,
+but any<code><a href='https://rdrr.io/r/base/data.frame.html'>base::data.frame()</a></code> object that has the following properly named
+columns in them will work.</p><table class='table'>
 <tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr>
 <tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr>
 <tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr>
@@ -175,10 +176,6 @@ the following properly named columns in them will work.</p><table class='table'>
     <tr>
       <th>emergence</th>
       <td><p>Expected date of crop emergence</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments, see <code><a href='SEIR.html'>SEIR()</a></code></p></td>
     </tr>
     </table>
 
