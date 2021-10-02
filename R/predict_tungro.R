@@ -70,7 +70,7 @@
 #' [SEIR()]
 #'
 #' @export
-predict_tungro <- function(wth, emergence, ...) {
+predict_tungro <- function(wth, emergence) {
   age_coef_rc <-
     cbind(c(0L, 15L, 30L, 45L, 60L, 75L, 90L, 105L, 120L),
           c(1.0, 1.0, 0.98, 0.73, 0.51, 0.34, 0, 0, 0))

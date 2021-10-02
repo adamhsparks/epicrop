@@ -79,7 +79,7 @@
 #' [SEIR()]
 #'
 #' @export
-predict_brown_spot <- function(wth, emergence, ...) {
+predict_brown_spot <- function(wth, emergence) {
   age_coef_rc <-
     cbind(c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
           c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))

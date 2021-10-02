@@ -86,7 +86,7 @@
 #' [SEIR()]
 #'
 #' @export
-predict_sheath_blight <- function(wth, emergence, ...) {
+predict_sheath_blight <- function(wth, emergence) {
   age_coef_rc <-
     cbind(c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
           c(

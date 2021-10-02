@@ -4,7 +4,7 @@
 \alias{predict_bacterial_blight}
 \title{Predict rice bacterial blight intensity}
 \usage{
-predict_bacterial_blight(wth, emergence, ...)
+predict_bacterial_blight(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -22,8 +22,6 @@ columns in them will work.\tabular{rl}{
 }}
 
 \item{emergence}{Expected date of crop emergence}
-
-\item{...}{Additional arguments, see \code{\link[=SEIR]{SEIR()}}}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection

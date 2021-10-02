@@ -40,7 +40,6 @@
 #'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
 #'
 #' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments, see [SEIR()]
 #'
 #' @return A [data.table::data.table()] of disease intensity and infection
 #' sites. See [SEIR()] for a full description of the column values.
@@ -91,7 +90,7 @@
 #' [SEIR()]
 #'
 #' @export
-predict_bacterial_blight <- function(wth, emergence, ...) {
+predict_bacterial_blight <- function(wth, emergence) {
   age_coef_rc <-
     cbind(c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
           c(1, 1, 1, 0.9, 0.62, 0.43, 0.41, 0.41, 0.41, 0.41, 0.41, 0.41, 0.41))

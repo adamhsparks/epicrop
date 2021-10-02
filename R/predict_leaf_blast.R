@@ -83,7 +83,7 @@
 #' [SEIR()]
 #'
 #' @export
-predict_leaf_blast <- function(wth, emergence, ...) {
+predict_leaf_blast <- function(wth, emergence) {
   age_coef_rc <-
     cbind(
       c(
