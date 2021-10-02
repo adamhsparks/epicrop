@@ -54,7 +54,7 @@ wet or not (numeric).  Savary \emph{et al.} 2012 used 90\%.}
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
 wet or not (numeric).  Savary \emph{et al.} 2012 used 5mm.}
 
-\item{H0}{initial number of plant's healthy sites (integer).  Described in
+\item{H0}{initial number of the plants's healthy sites (integer).  Described in
 Table 1 of Savary \emph{et al.} 2012.}
 
 \item{I0}{initial number of infective sites (integer).  Described in Table 1
@@ -77,18 +77,18 @@ Savary \emph{et al.} 2012.}
 \item{i}{duration of infectious period (day, integer).  Described in Table 1
 of Savary \emph{et al.} 2012.}
 
-\item{Sx}{maximum number of sites (integer).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\item{Sx}{maximum number of sites that can be infected (integer).  Described
+in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
 Described in Table 1 of Savary \emph{et al.} 2012.  See further details in
 \strong{\emph{a} - Aggregation} section.}
 
-\item{RRS}{relative rate of physiological senescence (numeric).  Described in
-Table 1 of Savary \emph{et al.} 2012.}
+\item{RRS}{relative rate of the plant's physiological senescence (numeric).
+Described in Table 1 of Savary \emph{et al.} 2012.}
 
-\item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\item{RRG}{relative rate of the plant's growth (numeric).  Described in Table
+1 of Savary \emph{et al.} 2012.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} containing the following columns:

@@ -30,7 +30,7 @@
 #'  wet or not (numeric).  Savary _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Savary _et al._ 2012 used 5mm.
-#' @param H0 initial number of plant's healthy sites (integer).  Described in
+#' @param H0 initial number of the plants's healthy sites (integer).  Described in
 #'  Table 1 of Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (integer).  Described in Table 1
 #'  of Savary _et al._ 2012.
@@ -46,15 +46,15 @@
 #'  of Savary _et al._ 2012.
 #' @param p duration of latent period (day, integer).  Described in  Table 1 of
 #'  Savary _et al._ 2012.
-#' @param Sx maximum number of sites (integer).  Described in Table 1 of Savary
-#'  _et al._ 2012.
+#' @param Sx maximum number of sites that can be infected (integer).  Described
+#'  in Table 1 of Savary _et al._ 2012.
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012.  See further details in
 #'  **_a_ - Aggregation** section.
-#' @param RRS relative rate of physiological senescence (numeric).  Described in
-#'  Table 1 of Savary _et al._ 2012.
-#' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
-#'  _et al._ 2012.
+#' @param RRS relative rate of the plant's physiological senescence (numeric).
+#'  Described in Table 1 of Savary _et al._ 2012.
+#' @param RRG relative rate of the plant's growth (numeric).  Described in Table
+#'  1 of Savary _et al._ 2012.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
