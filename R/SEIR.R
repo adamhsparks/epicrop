@@ -2,8 +2,9 @@
 #' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
 #'
 #' This function is originally used by specific disease models in
-#'  \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
-#'  proper values it can be used with other pathosystems as well.
+#'  \sQuote{EPIRICE} and \sQuote{EPIWHEAT} to model disease intensity of five
+#'  rice diseases and two wheat diseases, respectively.  Given proper values it
+#'  can be used with other pathosystems as well.
 #'
 #' @param wth a `data.frame` of weather on a daily time-step containing data
 #' with the following field names.
@@ -13,48 +14,54 @@
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_ | Consecutive day of year, commonly called "Julian date"
 #'   _TEMP_ | Mean daily temperature (°C)
-#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily temperature (°C) (required for EPIRICE models only)
 #'   _RAIN_ | Mean daily rainfall (mm)
 #'   _LAT_ | **Optional** latitude of weather observation. See LAT/LON Note.
 #'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).  Described in Table 1 of Savary
-#'  _et al._ 2012.
+#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param onset expected number of days until the onset of disease after
 #'  emergence date (day, integer).  Described in Table 1 of Savary _et al._
-#'  2012.
+#'  2012 and Table 1 of Savary _et al._ 2015.
 #' @param duration simulation duration *i.e.*, growing season length (day,
-#'  integer).  Described in Table 1 of Savary _et al._ 2012.
+#'  integer).  Described in Table 1 of Savary _et al._ 2012 and Table 1 of
+#'  Savary _et al._ 2015.
 #' @param rhlim relative humidity value threshold to decide whether leaves are
-#'  wet or not (numeric).  Savary _et al._ 2012 used 90%.
+#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012. Savary
+#'  _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
-#'  wet or not (numeric).  Savary _et al._ 2012 used 5mm.
+#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012. Savary
+#'  _et al._ 2012 used 5mm.
 #' @param H0 initial number of plant's healthy sites (integer).  Described in
-#'  Table 1 of Savary _et al._ 2012.
+#'  Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param I0 initial number of infective sites (integer).  Described in Table 1
-#'  of Savary _et al._ 2012.
+#'  of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for crop age (numeric vector).  Described in Table 1 of Savary
-#'  _et al._ 2012.
+#'  _et al._ 2012 Table 1 of Savary _et al._ 2015.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature (numeric vector).  Described in Table 1 of Savary
-#'  _et al._ 2012.
+#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
-#'  Derived from Table 1 of Savary _et al._ 2012.
+#'  Derived from Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
+#'  2015.
+#' @param RRLEX relative rate of lesion expansion (numeric).  Described in Table
+#'  1 of Savary _et al._ 2015.
 #' @param i duration of infectious period (day, integer).  Described in Table 1
-#'  of Savary _et al._ 2012.
+#'  of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param p duration of latent period (day, integer).  Described in  Table 1 of
-#'  Savary _et al._ 2012.
+#'  Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param Sx maximum number of sites (integer).  Described in Table 1 of Savary
-#'  _et al._ 2012.
+#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric).
-#'  Described in Table 1 of Savary _et al._ 2012.  See further details in
-#'  **_a_ - Aggregation** section.
+#'  Described in Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
+#'  2015.  See further details in **_a_ - Aggregation** section.
 #' @param RRS relative rate of physiological senescence (numeric).  Described in
-#'  Table 1 of Savary _et al._ 2012.
+#'  Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
-#'  _et al._ 2012.
+#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #'
 #' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
@@ -87,6 +94,7 @@
 #'   RcA = RcA,
 #'   RcT = RcT,
 #'   RcOpt = 0.61,
+#'   RRLEX = NULL,
 #'   p =  6,
 #'   i = 19,
 #'   H0 = 600,
@@ -163,6 +171,7 @@ SEIR <-
            RcA,
            RcT,
            RcOpt,
+           RRLEX,
            p,
            i,
            Sx,
