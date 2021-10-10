@@ -26,15 +26,17 @@ SEIR(
 }
 \arguments{
 \item{wth}{a \code{data.frame} of weather on a daily time-step containing data
-with the following field names.\tabular{rl}{
-   \strong{Field Name} \tab \strong{Value} \cr
-   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
-   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
-   \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
-   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
+with the following field names.
+
+\describe{
+\item{YYYYMMDD}{Date as Year Month Day (ISO8601)}
+\item{DOY}{Consecutive day of year, commonly called "Julian date"}
+\item{TEMP}{Mean daily temperature (°C)}
+\item{RHUM}{Mean daily temperature (°C)}
+\item{RAIN}{Mean daily rainfall (mm)}
+\item{LAT}{Optional. Latitude of weather observation. See LAT/LON Section.}
+\item{LON}{Optional. Longitude of weather observation.
+See LAT/LON Section.}
 }}
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
@@ -110,19 +112,14 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} containing the f
 day "x"}
 \item{intensity}{Proportion of diseased (latent + infectious + removed)
 sites per total sites not including removed sites on day "x"}
-\item{lat}{Latitude value if provided by \code{wth} object}
-\item{lon}{Longitude value if provided by \code{wth} object}
+\item{lat}{Latitude value if provided by the \code{wth} object}
+\item{lon}{Longitude value if provided by the \code{wth} object}
 }
 }
 \description{
 This function is originally used by specific disease models in
 \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
 proper values it can be used with other pathosystems as well.
-}
-\note{
-If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
-in the output for mapping purposes. Both values must be present. These
-columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 \section{\emph{a} - Aggregation}{
 When \emph{a} is set to \code{1} the assumption is that that there is no disease
@@ -131,6 +128,12 @@ When \emph{a} is greater than \code{1} there is aggregation in the disease occur
 the pathogen is unable to access the entire population of healthy sites,
 which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
 greater detail.
+}
+
+\section{\emph{LAT}/\emph{LON}}{
+If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 
 \examples{
@@ -175,7 +178,7 @@ emergence <- "2000-07-15"
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
 Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-\url{http://dx.doi.org/10.1016/j.cropro.2011.11.009}.
+\href{https://dx.doi.org/10.1016/j.cropro.2011.11.009}{10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
 \code{SEIR()} is called by the following specific disease modelling functions:
@@ -188,5 +191,5 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 }
 }
 \author{
-Adam H. Sparks
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }
