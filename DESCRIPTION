@@ -76,7 +76,6 @@ Imports:
     stats
 Suggests:
     dplyr,
-    epifitter,
     furrr,
     ggplot2,
     knitr,
