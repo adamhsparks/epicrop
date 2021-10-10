@@ -57,10 +57,11 @@
 #' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
 #'  _et al._ 2012.
 #'
-#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' @references
+#' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
 #' Protection_, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
+#' [10.1016/j.cropro.2011.11.009](https://dx.doi.org/10.1016/j.cropro.2011.11.009).
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
