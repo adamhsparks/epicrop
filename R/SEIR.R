@@ -332,7 +332,7 @@ SEIR <-
           "rsenesced" = rsenesced,
           "diseased" = diseased,
           "intensity" = intensity,
-          "audpc" = audpc
+          "audpc" = rep_len(audpc, duration)
         )
       )
 
