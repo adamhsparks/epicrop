@@ -120,7 +120,7 @@
 #' * [predict_sheath_blight()],
 #' * [predict_tungro()]
 #'
-#' @author Adam H. Sparks
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
 #' @return A [data.table::data.table()] containing the following columns:
 #'
