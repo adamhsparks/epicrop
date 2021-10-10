@@ -8,15 +8,16 @@
 #' @param wth a `data.frame` of weather on a daily time-step containing data
 #' with the following field names.
 #'
-#'   **Field Name** | **Value**
-#'   --------------:|:----------
-#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
-#'   _DOY_ | Consecutive day of year, commonly called "Julian date"
-#'   _TEMP_ | Mean daily temperature (°C)
-#'   _RHUM_ | Mean daily temperature (°C)
-#'   _RAIN_ | Mean daily rainfall (mm)
-#'   _LAT_ | **Optional** latitude of weather observation. See LAT/LON Note.
-#'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
+#' \describe{
+#'   \item{YYYYMMDD}{Date as Year Month Day (ISO8601)}
+#'   \item{DOY}{Consecutive day of year, commonly called "Julian date"}
+#'   \item{TEMP}{Mean daily temperature (°C)}
+#'   \item{RHUM}{Mean daily temperature (°C)}
+#'   \item{RAIN}{Mean daily rainfall (mm)}
+#'   \item{LAT}{Optional. Latitude of weather observation. See LAT/LON Section.}
+#'   \item{LON}{Optional. Longitude of weather observation.
+#'    See LAT/LON Section.}
+#' }
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).  Described in Table 1 of Savary
