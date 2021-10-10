@@ -93,7 +93,7 @@ Table 1 of Savary \emph{et al.} 2012.}
 \emph{et al.} 2012.}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} containing the following columns:
+A \code{\link[=data.table]{data.table()}} containing the following columns:
 
 \describe{
 \item{simday}{Zero indexed day of simulation that was run}
@@ -112,6 +112,8 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} containing the f
 day "x"}
 \item{intensity}{Proportion of diseased (latent + infectious + removed)
 sites per total sites not including removed sites on day "x"}
+\item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the
+simulation}
 \item{lat}{Latitude value if provided by the \code{wth} object}
 \item{lon}{Longitude value if provided by the \code{wth} object}
 }
@@ -175,6 +177,15 @@ emergence <- "2000-07-15"
 \dontshow{\}) # examplesIf}
 }
 \references{
+Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
+Disease Progress over Time. \emph{The Plant Health Instructor}.
+DOI:\link{10.1094/PHI-A-2008-0129-02}https://doi.org/10.1094/PHI-A-2008-0129-02).
+
+Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
+Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+DOI:\href{https://doi.org/10.1094/9780890545058}{10.1094/9780890545058}.
+
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
 Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
