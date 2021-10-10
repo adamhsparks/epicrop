@@ -1,7 +1,10 @@
 #' Calculate the area under the disease progress curve (AUDPC)
 #'
-#' @param x A [data.table] object that is the output of [SEIR()] or any of the
-#' `predict` family of functions.
+#' This function is used to return the AUDPC in the output of SEIR().  Not to be
+#' used alone.
+#'
+#' @param intensity A `vector` of disease intensity from `SEIR()`.
+#' @param simday A `vector` of simulation days from `SEIR()`.
 #'
 #' @return  A `numeric` value as `double`.
 #'
@@ -25,14 +28,13 @@
 #' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
 #' DOI:[10.1094/9780890545058](https://doi.org/10.1094/9780890545058).
 #'
-#' @export
+#' @keywords internal
+#' @noRd
 
-calculate_audpc <- function(x) {
+.calculate_audpc <- function(intensity, simday) {
   n <- sum(nrow(x), -1)
 
   meanvec <- intvec <- vector(mode = "double", length = n)
-  intensity <- x$intensity
-  simday <- x$simday
 
   for (i in 1:n) {
     j <- sum(i, 1)
