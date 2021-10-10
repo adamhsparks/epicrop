@@ -202,11 +202,10 @@ SEIR <-
       )
     }
 
-    # set date formats
+    # Set and check dates ----
     emergence <- as.Date(emergence)
-
-    # create vector of dates
-    dates <- seq(emergence, emergence + sum(duration, -1), 1)
+    harvest <- emergence + sum(duration, -1)
+    dates <- seq(from = emergence, to = harvest, by = "day")
 
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) ||
@@ -222,13 +221,13 @@ SEIR <-
         wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1))]
     }
 
-    # create vectors for referencing
+    # Create vectors for referencing ----
     wth_rain <- wth$RAIN
     wth_rhum <- wth$RHUM
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
 
-    # outputvars
+    # Create output vars
     cofr <-
       rc <-
       RcW <- latency <- infectious <- intensity <- rsenesced <-
@@ -237,8 +236,8 @@ SEIR <-
       now_infectious <- now_latent <- sites <- total_sites <-
       vector(mode = "double", length = duration)
 
+    # Calculate state values -----
     for (d in 1:duration) {
-      # State calculations  -----
       d_1 <- sum(d, -1)
 
       if (d == 1) {
@@ -307,6 +306,7 @@ SEIR <-
                           sum(total_sites[d], -removed[d])
     } # end loop
 
+    # Create output object ----
     out <-
       setDT(
         list(
