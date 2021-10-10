@@ -9,7 +9,6 @@ vignette: >
   %\VignetteDepends{ggplot2}
   %\VignetteDepends{tidyr}
   %\VignetteDepends{lubridate}
-  %\VignetteDepends{epifitter}
   %\VignetteDepends{dplyr}
   %\VignetteDepends{purrr}
   %\VignetteDepends{furrr}
@@ -140,7 +139,6 @@ library("furrr")
 #> Loading required package: future
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("pander")
 
 # Respect the API server and use 1 core
