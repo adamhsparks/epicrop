@@ -7,9 +7,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
-  %\VignetteDepends{tidyr}
   %\VignetteDepends{lubridate}
-  %\VignetteDepends{epifitter}
   %\VignetteDepends{dplyr}
   %\VignetteDepends{purrr}
   %\VignetteDepends{furrr}
@@ -23,8 +21,6 @@ vignette: >
 suggested_packages <-
   c(
     "ggplot2",
-    "epifitter",
-    "tidyr",
     "lubridate",
     "dplyr",
     "purrr",
@@ -96,7 +92,6 @@ Add a column to specify the season, in this case we only have wet seasons for tw
 ```{r run-predict, message=FALSE}
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("pander")
 
 seasons <- map_df(
@@ -152,7 +147,6 @@ library("epicrop")
 library("furrr")
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("pander")
 
 # Respect the API server and use 1 core
@@ -214,7 +208,6 @@ library("epicrop")
 library("purrr")
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("pander")
 
 years <- 2001:2010
@@ -314,7 +307,6 @@ library("dplyr")
 library("ggplot2")
 library("lubridate")
 library("epicrop")
-library("epifitter")
 
 plan(multisession, workers = 1)
 
@@ -428,7 +420,6 @@ The process for using _furrr_ won't be shown here, but to implement several loca
 ```{r run-multi-loc, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines."}
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("ggplot2")
 
 map(
