@@ -141,8 +141,8 @@
 #'    day "x"}
 #'   \item{intensity}{Proportion of diseased (latent + infectious + removed)
 #'    sites per total sites not including removed sites on day "x"}
-#'   \item{lat}{Latitude value if provided by `wth` object}
-#'   \item{lon}{Longitude value if provided by `wth` object}
+#'   \item{lat}{Latitude value if provided by the `wth` object}
+#'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
 #'
 #' @importFrom data.table setnames
