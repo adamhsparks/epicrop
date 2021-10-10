@@ -1,6 +1,6 @@
 #' Generate summary statistics for epicrop output
 #'
-#' "Distills" the voluminous output from [SEIR()] into easy to interpret
+#' "Distils" the voluminous output from [SEIR()] into easy to interpret
 #' outputs that are useful values for communicating the output of \pkg{epicrop}.
 #'
 #' @param x A [data.table] object that is the output of [SEIR()] or any of the
@@ -24,7 +24,7 @@
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #' bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
-#' distill(x = bb)
+#' distil(x = bb)
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
@@ -45,7 +45,7 @@
 #'
 #' @export
 
-distill <- function(x) {
+distil <- function(x) {
   lon <- lat <- NULL
 
   audpc <- .calculate_audpc(x)
