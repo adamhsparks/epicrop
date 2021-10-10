@@ -58,6 +58,15 @@
 #'  _et al._ 2012.
 #'
 #' @references
+#' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+#' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
+#' Disease Progress over Time. *The Plant Health Instructor*.
+#' DOI:[10.1094/PHI-A-2008-0129-02]https://doi.org/10.1094/PHI-A-2008-0129-02).
+#'
+#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
+#' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+#' DOI:[10.1094/9780890545058](https://doi.org/10.1094/9780890545058).
+#'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
 #' Protection_, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
@@ -122,7 +131,7 @@
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
-#' @return A [data.table::data.table()] containing the following columns:
+#' @return A [data.table()] containing the following columns:
 #'
 #' \describe{
 #'   \item{simday}{Zero indexed day of simulation that was run}
@@ -141,16 +150,12 @@
 #'    day "x"}
 #'   \item{intensity}{Proportion of diseased (latent + infectious + removed)
 #'    sites per total sites not including removed sites on day "x"}
+#'   \item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the
+#'    simulation}
 #'   \item{lat}{Latitude value if provided by the `wth` object}
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
 #'
-#' @importFrom data.table setnames
-#' @importFrom data.table setcolorder
-#' @importFrom data.table `:=`
-#' @importFrom data.table data.table
-#' @importFrom data.table `.N`
-#' @importFrom data.table `%between%`
 #' @export
 
 SEIR <-
@@ -177,7 +182,7 @@ SEIR <-
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
-      wth <- data.table::as.data.table(wth)
+      wth <- as.data.table(wth)
     }
 
     # check aggregation values
@@ -308,6 +313,8 @@ SEIR <-
                           sum(total_sites[d], -removed[d])
     } # end loop
 
+    audpc <- .calculate_audpc(intensity, simday)
+
     # Create output object ----
     out <-
       setDT(
@@ -324,7 +331,8 @@ SEIR <-
           "rgrowth" = rgrowth,
           "rsenesced" = rsenesced,
           "diseased" = diseased,
-          "intensity" = intensity
+          "intensity" = intensity,
+          "audpc" = audpc
         )
       )
 
