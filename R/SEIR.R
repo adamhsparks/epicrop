@@ -107,7 +107,7 @@
 #' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.
 #'
-#' @note
+#' @details # _LAT_/_LON_
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
 #' columns are provided by default when using [get_wth()].
