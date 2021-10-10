@@ -326,7 +326,7 @@ SEIR <-
         )
       )
 
-    # Only add Lat and Lon values if they exist in WTH
+    # Only add LAT and LON values if they exist in `wth`
     if (all(c("LAT", "LON") %in% names(wth)))
     {
       out[, lat := rep_len(wth[, LAT], .N)]
