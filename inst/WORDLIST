@@ -1,4 +1,5 @@
 AUDPC
+Acqua
 Adanve
 Adhikari
 Alves
@@ -21,6 +22,7 @@ Chakrabarti
 Cochliobolus
 DOI
 DOY
+Dall
 Drechslera
 EPIMAY
 EPIRICE
@@ -28,11 +30,13 @@ EPIWHEAT
 Ecija
 El
 Elazegui
+Esker
 Etten
 Fabrice
 Finney
 François
 Ganguly
+Guo
 Hashiba
 Helminthosporium
 Hemmi
@@ -94,6 +98,7 @@ Serological
 ShB
 Shaner
 Sharma
+Silwal
 Solberg
 Sporulation
 Stacia
@@ -105,13 +110,10 @@ Svein
 Teng
 Tikhonova
 Tiongco
+Tolos
 Tritici
 Tungro
 UC
-VignetteDepends
-VignetteEncoding
-VignetteEngine
-VignetteIndexEntry
 Visualising
 Wageningen
 Waggoner
@@ -133,7 +135,6 @@ dcac
 de
 df
 doi
-dplyr
 epifitter
 et
 fd
@@ -146,8 +147,6 @@ https
 infective
 inoculum
 joss
-knitr
-lubridate
 maximise
 md
 microbenchmark
@@ -164,7 +163,6 @@ polder
 purrr
 pv
 realised
-rmarkdown
 roxygen
 ryegrass
 senesced
@@ -173,7 +171,6 @@ solani
 spatio
 sporulation
 theming
-tidyr
 tritici
 tungro
 turcicum
