@@ -55,7 +55,7 @@ dissolve <- function(x) {
     setDT(list("audpc" = audpc,
                "sd" = sd))
 
-  # Only add lat and lon values if they exist in `wth`
+  # Only add lat and lon values if they exist in `x`
   if (all(c("lat", "lon") %in% names(x)))
   {
     out[, lat := x$lat[1]]
