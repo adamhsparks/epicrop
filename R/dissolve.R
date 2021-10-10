@@ -46,6 +46,8 @@
 #' @export
 
 dissolve <- function(x) {
+  lon <- lat <- NULL
+
   audpc <- .calculate_audpc(x)
   sd <- sd(x$intensity)
 
