@@ -25,10 +25,9 @@
 #' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
 #' DOI:[10.1094/9780890545058](https://doi.org/10.1094/9780890545058).
 #'
-#' @keywords internal
-#' @noRd
+#' @export
 
-.calculate_audpc <- function(x) {
+calculate_audpc <- function(x) {
   n <- sum(nrow(x), -1)
 
   meanvec <- intvec <- vector(mode = "double", length = n)
