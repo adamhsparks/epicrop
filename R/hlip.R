@@ -1,19 +1,20 @@
 
-#' Healthy Latent Infectious Post-Infectious (HLIP) model framework with lesion expansion
+#' Healthy Latent Infectious Post-Infectious (HLIP) model framework
 #'
 #' A model framework based on the medical idea of a Susceptible-Exposed-
 #' Infectious-Removed (\acronym{SEIR}) model.  This framework is designed for
 #' plant diseases. This function is originally used by specific disease models
-#' in \sQuote{EPIWHEAT} to model disease intensity of two wheat diseases.  Given
-#' proper values it can be used with other pathosystems as well.
+#' in \sQuote{EPIRICE} to model disease intensity of five rice diseases (Savary
+#' _et al._ 2012).  Given proper values it  can be used with other pathosystems
+#' as well.
 #'
-#' @section Differences between `hlip_2012()` and `hlip_2015()`:
+#' @section Differences between `hlip()` and `hlip_rrlex()`:
 #' \describe{
-#'   \item{`RcW`}{`hlip_2012()` uses both relative humidity (RH) and rainfall to
-#'   predict leaf wetness.  This differs from `hlip_2015()`, which uses only
+#'   \item{`RRLEX`}{`hlip()`, does not include a parameter for the relative
+#'   rate of lesion expansion whereas `hlip_rrlex()` does.}
+#'   \item{`RcW`}{`hlip()` uses both relative humidity (RH) and rainfall to
+#'   predict leaf wetness.  This differs from `hlip_rrlex()`, which uses only
 #'   rainfall to predict leaf wetness.}
-#'   \item{`RRLEX`}{`hlip_2012()`, does not include a parameter for the relative
-#'   rate of lesion expansion whereas `hlip_2015()` does.}
 #' }
 #'
 #' @param wth a `data.frame` of weather on a daily time-step containing data
@@ -21,12 +22,13 @@
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
-#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601).
-#'   _DOY_ | Consecutive day of year, commonly called "Julian date".
-#'   _TEMP_ | Mean daily temperature (°C).
-#'   _RAIN_ | Mean daily rainfall (mm).
-#'   _LAT_ | **Optional** latitude of weather observation. See LAT/LON Note.
-#'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
+#'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
+#'   _DOY_  | Consecutive day of year, commonly called "Julian date"
+#'   _TEMP_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily relative humidity (RH)
+#'   _RAIN_ | Mean daily rainfall (mm)
+#'   _LAT_  | **Optional** latitude of weather observation, see LAT/LON Note
+#'   _LON_  | **Optional** longitude of weather observation, see LAT/LON Note
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).  Described in Table 1 of Savary
@@ -56,8 +58,6 @@
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Derived from Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
 #'  2015.
-#' @param RRLEX relative rate of lesion expansion (numeric).  Described in Table
-#'  1 of Savary _et al._ 2015.
 #' @param i duration of infectious period (day, integer).  Described in Table 1
 #'  of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param p duration of latent period (day, integer).  Described in  Table 1 of
@@ -72,17 +72,16 @@
 #' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
 #'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #'
-#' @references Savary, S., Stetkiewicz, S., Brun, R., and Willocquet, L.
-#' Modelling and Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf
-#' Rust and Septoria Tritici Blotch Using EPIWHEAT. _European Journal of Plant
-#' Pathology_ Volume 142, No. 4, 2015, Pages 771–90, DOI:
-#' <https://doi.org/10.1007/s10658-015-0650-7>.
+#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
+#' Protection_, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' <https://dx.doi.org/10.1016/j.cropro.2012.11.009>.
 #'
 #' @examplesIf interactive()
-#' # get weather for Esperance, WA, AU for 2021 growing season
+#' # get weather for IRRI Zeigler Experiment Station in wet season 2000
 #' wth <- get_wth(
-#'   lonlat = c(121.891945, -33.861111),
-#'   dates = c("2021-01-01", "2021-12-31")
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
 #' )
 #'
 #' # provide suitable values for brown spot intensity
@@ -94,7 +93,7 @@
 #'         c(0, 0.06, 1.0, 0.85, 0.16, 0))
 #' emergence <- "2000-07-15"
 #'
-#' (hlip_2015(
+#' (hlip(
 #'   wth = wth,
 #'   emergence = emergence,
 #'   onset = 20,
@@ -103,14 +102,14 @@
 #'   rainlim = 5,
 #'   RcA = RcA,
 #'   RcT = RcT,
-#'   RcOpt = 1.17,
-#'   RRLEX = 0.09,
-#'   p =  11,
-#'   i = 18,
-#'   H0 = 250,
-#'   I0 = 15,
+#'   RcOpt = 0.61,
+#'   RRLEX = NULL,
+#'   p =  6,
+#'   i = 19,
+#'   H0 = 600,
+#'   I0 = 1,
 #'   a = 1,
-#'   Sx = 174000,
+#'   Sx = 100000,
 #'   RRS = 0.01,
 #'   RRG = 0.1
 #' ))
@@ -129,9 +128,12 @@
 #' columns are provided by default when using [get_wth()].
 #'
 #' @seealso
-#' `hlip_2015()` is called by the following specific disease modelling functions:
-#' * [predict_leaf_rust()],
-#' * [predict_septoria_tritici_blotch()]
+#' `hlip()` is called by the following specific disease modelling functions:
+#' * [predict_bacterial_blight()],
+#' * [predict_brown_spot()],
+#' * [predict_leaf_blast()],
+#' * [predict_sheath_blight()],
+#' * [predict_tungro()]
 #'
 #' @author Adam H. Sparks
 #'
@@ -149,7 +151,6 @@
 #'   \item{rtransfer}{Rate of transfer from latent to infectious sites}
 #'   \item{rgrowth}{Rate of growth of healthy sites}
 #'   \item{rsenesced}{Rate of senescence of healthy sites}
-#'   \item{rlex}{Rate of lesion expansion}
 #'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on
 #'    day "x"}
 #'   \item{intensity}{Proportion of diseased (latent + infectious + removed)
@@ -160,7 +161,7 @@
 #'
 #' @export
 
-hlip_2015 <-
+hlip <-
   function(wth,
            emergence,
            onset,
@@ -172,7 +173,6 @@ hlip_2015 <-
            RcA,
            RcT,
            RcOpt,
-           RRLEX,
            p,
            i,
            Sx,
@@ -182,7 +182,7 @@ hlip_2015 <-
     # CRAN NOTE avoidance
     infday <- YYYYMMDD <- lat <- lon <- LAT <- LON <- NULL #nocov
 
-    # set `wth` input as a data.table object if it's not already one, else this
+    # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
       wth <- data.table::as.data.table(wth)
@@ -199,17 +199,13 @@ hlip_2015 <-
 
     # check site values
     if (H0 < 0) {
-      stop(
-        call. = FALSE,
-        "H0 cannot be < 0, check your initial number of healthy sites."
-      )
+      stop(call. = FALSE,
+           "H0 cannot be < 0, check your initial number of healthy sites.")
     }
 
     if (I0 < 0) {
-      stop(
-        call. = FALSE,
-        "I0 cannot be < 0, check your initial number of infective sites."
-      )
+      stop(call. = FALSE,
+           "I0 cannot be < 0, check your initial number of infective sites.")
     }
 
     # set date formats
@@ -314,7 +310,7 @@ hlip_2015 <-
 
       rgrowth[d] <- RRG * sites[d] * sum(1, -(total_sites[d] / Sx))
       intensity[d] <- sum(diseased[d], -removed[d]) /
-                          sum(total_sites[d], -removed[d])
+        sum(total_sites[d], -removed[d])
     } # end loop
 
     out <-
