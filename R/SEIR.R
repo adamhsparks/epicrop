@@ -146,12 +146,6 @@
 #'   \item{lon}{Longitude value if provided by `wth` object}
 #' }
 #'
-#' @importFrom data.table setnames
-#' @importFrom data.table setcolorder
-#' @importFrom data.table `:=`
-#' @importFrom data.table data.table
-#' @importFrom data.table `.N`
-#' @importFrom data.table `%between%`
 #' @export
 
 SEIR <-

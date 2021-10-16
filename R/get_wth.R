@@ -91,11 +91,6 @@
 #'
 #' @author Adam H. Sparks
 #' @export get_wth
-#' @importFrom data.table setDT
-#' @importFrom data.table setkey
-#' @importFrom data.table setnames
-#' @importFrom data.table setcolorder
-#' @importFrom data.table .I
 
 get_wth <- function(lonlat,
                     dates,
