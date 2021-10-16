@@ -2,6 +2,8 @@
 
 export(SEIR)
 export(get_wth)
+export(hlip_2012)
+export(hlip_2015)
 export(predict_Septoria_tritici_blotch)
 export(predict_bacterial_blight)
 export(predict_brown_spot)
