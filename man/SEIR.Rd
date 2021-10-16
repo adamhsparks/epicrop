@@ -31,64 +31,68 @@ with the following field names.\tabular{rl}{
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (RH) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
+   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Note \cr
+   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Note \cr
 }}
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{onset}{expected number of days until the onset of disease after
 emergence date (day, integer).  Described in Table 1 of Savary \emph{et al.}
-2012.}
+2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{duration}{simulation duration \emph{i.e.}, growing season length (day,
-integer).  Described in Table 1 of Savary \emph{et al.} 2012.}
+integer).  Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of
+Savary \emph{et al.} 2015.}
 
 \item{rhlim}{relative humidity value threshold to decide whether leaves are
-wet or not (numeric).  Savary \emph{et al.} 2012 used 90\%.}
+wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used 90\%.}
 
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not (numeric).  Savary \emph{et al.} 2012 used 5mm.}
+wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used 5mm.}
 
-\item{H0}{initial number of the plants's healthy sites (integer).  Described in
-Table 1 of Savary \emph{et al.} 2012.}
+\item{H0}{initial number of plant's healthy sites (integer).  Described in
+Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{I0}{initial number of infective sites (integer).  Described in Table 1
-of Savary \emph{et al.} 2012.}
+of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for crop age (numeric vector).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature (numeric vector).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
-Derived from Table 1 of Savary \emph{et al.} 2012.}
+Derived from Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
+2015.}
 
 \item{p}{duration of latent period (day, integer).  Described in  Table 1 of
-Savary \emph{et al.} 2012.}
+Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{i}{duration of infectious period (day, integer).  Described in Table 1
-of Savary \emph{et al.} 2012.}
+of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
-\item{Sx}{maximum number of sites that can be infected (integer).  Described
-in Table 1 of Savary \emph{et al.} 2012.}
+\item{Sx}{maximum number of sites (integer).  Described in Table 1 of Savary
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
-Described in Table 1 of Savary \emph{et al.} 2012.  See further details in
-\strong{\emph{a} - Aggregation} section.}
+Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
+2015.  See further details in \strong{\emph{a} - Aggregation} section.}
 
-\item{RRS}{relative rate of the plant's physiological senescence (numeric).
-Described in Table 1 of Savary \emph{et al.} 2012.}
+\item{RRS}{relative rate of physiological senescence (numeric).  Described in
+Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
-\item{RRG}{relative rate of the plant's growth (numeric).  Described in Table
-1 of Savary \emph{et al.} 2012.}
+\item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
+\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} containing the following columns:
