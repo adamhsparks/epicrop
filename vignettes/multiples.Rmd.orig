@@ -102,13 +102,8 @@ seasons <- map_df(
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
                             year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2)
+  relocate(season, audpc) %>%
+  distinct(audpc, season)
 
 pander(seasons)
 ```
@@ -121,7 +116,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
-           x = AUDPC, )) +
+           x = audpc, )) +
   geom_col(width = 0.5,
            orientation = "y") +
   ylab("Season") +
@@ -178,13 +173,8 @@ future_map_dfr(
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
                             year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2) %>%
+  relocate(season, audpc) %>%
+  distinct(audpc, season) %>%
   pander()
 ```
 
@@ -209,6 +199,7 @@ library("purrr")
 library("dplyr")
 library("lubridate")
 library("pander")
+library("furrr")
 
 years <- 2001:2010
 month_day <- c("-06-01", "-06-14", "-06-30")
@@ -257,13 +248,9 @@ multi_dates <- map2(
 ) %>%
   bind_rows(.id = "emergence") %>%
   group_by(emergence) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2)
+  relocate(emergence, audpc) %>%
+  distinct(audpc, emergence)
+
 pander(multi_dates)
 ```
 
@@ -280,7 +267,7 @@ Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are nece
 library("ggplot2")
 ggplot(data = multi_dates,
        aes(
-         x = AUDPC,
+         x = audpc,
          xend = 0,
          y = as.factor(emergence),
          yend = as.factor(emergence)
@@ -357,15 +344,10 @@ future_map2(
 ) %>%
   bind_rows(.id = "emergence") %>%
   group_by(emergence) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2) %>%
+  relocate(emergence, audpc) %>%
+  distinct(audpc, emergence) %>%
   ggplot(aes(
-    x = AUDPC,
+    x = audpc,
     xend = 0,
     y = as.factor(emergence),
     yend = as.factor(emergence)
@@ -429,15 +411,10 @@ map(
 ) %>%
   bind_rows(.id = "location") %>%
   group_by(location) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2) %>%
+  relocate(location, audpc) %>%
+  distinct(audpc, location) %>%
   ggplot(aes(
-    x = AUDPC,
+    x = audpc,
     xend = 0,
     y = as.factor(location),
     yend = as.factor(location)

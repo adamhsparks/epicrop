@@ -7,7 +7,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
-  %\VignetteDepends{tidyr}
   %\VignetteDepends{lubridate}
   %\VignetteDepends{dplyr}
   %\VignetteDepends{purrr}
@@ -69,7 +68,6 @@ Add a column to specify the season, in this case we only have wet seasons for tw
 ```r
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("pander")
 
 seasons <- map_df(
@@ -80,20 +78,15 @@ seasons <- map_df(
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
                             year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2)
+  relocate(season, audpc) %>%
+  distinct(audpc, season)
 
 pander(seasons)
 ```
 
 
 ----------------
- season   AUDPC 
+ season   audpc 
 -------- -------
   2000    11.12 
 
@@ -109,7 +102,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
-           x = AUDPC, )) +
+           x = audpc, )) +
   geom_col(width = 0.5,
            orientation = "y") +
   ylab("Season") +
@@ -136,7 +129,6 @@ An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code 
 ```r
 library("epicrop")
 library("furrr")
-#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -170,19 +162,14 @@ future_map_dfr(
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
                             year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2) %>%
+  relocate(season, audpc) %>%
+  distinct(audpc, season) %>%
   pander()
 ```
 
 
 ----------------
- season   AUDPC 
+ season   audpc 
 -------- -------
   2000    11.12 
 
@@ -210,8 +197,8 @@ library("epicrop")
 library("purrr")
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("pander")
+library("furrr")
 
 years <- 2001:2010
 month_day <- c("-06-01", "-06-14", "-06-30")
@@ -260,19 +247,15 @@ multi_dates <- map2(
 ) %>%
   bind_rows(.id = "emergence") %>%
   group_by(emergence) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2)
+  relocate(emergence, audpc) %>%
+  distinct(audpc, emergence)
+
 pander(multi_dates)
 ```
 
 
 --------------------
- emergence    AUDPC 
+ emergence    audpc 
 ------------ -------
  2001-06-01   11.75 
 
@@ -349,7 +332,7 @@ Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are nece
 library("ggplot2")
 ggplot(data = multi_dates,
        aes(
-         x = AUDPC,
+         x = audpc,
          xend = 0,
          y = as.factor(emergence),
          yend = as.factor(emergence)
@@ -379,7 +362,6 @@ library("dplyr")
 library("ggplot2")
 library("lubridate")
 library("epicrop")
-library("epifitter")
 
 plan(multisession, workers = 1)
 
@@ -430,15 +412,10 @@ future_map2(
 ) %>%
   bind_rows(.id = "emergence") %>%
   group_by(emergence) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2) %>%
+  relocate(emergence, audpc) %>%
+  distinct(audpc, emergence) %>%
   ggplot(aes(
-    x = AUDPC,
+    x = audpc,
     xend = 0,
     y = as.factor(emergence),
     yend = as.factor(emergence)
@@ -498,7 +475,6 @@ The process for using _furrr_ won't be shown here, but to implement several loca
 ```r
 library("dplyr")
 library("lubridate")
-library("epifitter")
 library("ggplot2")
 
 map(
@@ -508,15 +484,10 @@ map(
 ) %>%
   bind_rows(.id = "location") %>%
   group_by(location) %>%
-  summarise(AUDPC(
-    time = simday,
-    y = intensity,
-    y_proportion = FALSE,
-    type = "absolute"
-  )) %>%
-  rename(AUDPC = 2) %>%
+  relocate(location, audpc) %>%
+  distinct(audpc, location) %>%
   ggplot(aes(
-    x = AUDPC,
+    x = audpc,
     xend = 0,
     y = as.factor(location),
     yend = as.factor(location)
@@ -565,12 +536,13 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr      min       lq      mean   median       uq       max
-#>  sequential 1.366104 1.413324 0.8155192 1.302419 1.097651 0.2565807
-#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.000000 1.0000000
+#>        expr      min       lq    mean   median        uq       max
+#>  sequential 1.470609 1.522885 0.70725 1.424245 0.4379588 0.2876966
+#>    parallel 1.000000 1.000000 1.00000 1.000000 1.0000000 1.0000000
 #>  neval cld
 #>    100  a 
 #>    100   b
+
 autoplot(mbm) +
   theme_classic()
 ```
