@@ -19,6 +19,7 @@ test_that("Values are as expected", {
       "rsenesced",
       "diseased",
       "intensity",
+      "audpc",
       "lat",
       "lon"
     )

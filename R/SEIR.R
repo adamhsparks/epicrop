@@ -60,10 +60,20 @@
 #' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
 #'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #'
-#' @references Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' @references
+#' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+#' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
+#' Disease Progress over Time. *The Plant Health Instructor*.
+#' DOI:[10.1094/PHI-A-2008-0129-02]https://doi.org/10.1094/PHI-A-2008-0129-02).
+#'
+#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
+#' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+#' DOI:[10.1094/9780890545058](https://doi.org/10.1094/9780890545058).
+#'
+#' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 #' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
 #' Protection_, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <http://dx.doi.org/10.1016/j.cropro.2011.11.009>.
+#' [10.1016/j.cropro.2011.11.009](https://dx.doi.org/10.1016/j.cropro.2011.11.009).
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -109,7 +119,7 @@
 #' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.
 #'
-#' @note
+#' @details # _LAT_/_LON_
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
 #' columns are provided by default when using [get_wth()].
@@ -122,9 +132,9 @@
 #' * [predict_sheath_blight()],
 #' * [predict_tungro()]
 #'
-#' @author Adam H. Sparks
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
-#' @return A [data.table::data.table()] containing the following columns:
+#' @return A [data.table()] containing the following columns:
 #'
 #' \describe{
 #'   \item{simday}{Zero indexed day of simulation that was run}
@@ -142,8 +152,10 @@
 #'    day "x"}
 #'   \item{intensity}{Proportion of diseased (latent + infectious + removed)
 #'    sites per total sites not including removed sites on day "x"}
-#'   \item{lat}{Latitude value if provided by `wth` object}
-#'   \item{lon}{Longitude value if provided by `wth` object}
+#'   \item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the
+#'    simulation}
+#'   \item{lat}{Latitude value if provided by the `wth` object}
+#'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
 #'
 #' @export
@@ -172,7 +184,7 @@ SEIR <-
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
-      wth <- data.table::as.data.table(wth)
+      wth <- as.data.table(wth)
     }
 
     # check aggregation values
@@ -199,11 +211,10 @@ SEIR <-
       )
     }
 
-    # set date formats
+    # Set and check dates ----
     emergence <- as.Date(emergence)
-
-    # create vector of dates
-    dates <- seq(emergence, emergence + sum(duration, -1), 1)
+    harvest <- emergence + sum(duration, -1)
+    dates <- seq(from = emergence, to = harvest, by = "day")
 
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) ||
@@ -219,13 +230,13 @@ SEIR <-
         wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1))]
     }
 
-    # create vectors for referencing
+    # Create vectors for referencing ----
     wth_rain <- wth$RAIN
     wth_rhum <- wth$RHUM
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
 
-    # outputvars
+    # Create output vars
     cofr <-
       rc <-
       RcW <- latency <- infectious <- intensity <- rsenesced <-
@@ -234,8 +245,8 @@ SEIR <-
       now_infectious <- now_latent <- sites <- total_sites <-
       vector(mode = "double", length = duration)
 
+    # Calculate state values -----
     for (d in 1:duration) {
-      # State calculations  -----
       d_1 <- sum(d, -1)
 
       if (d == 1) {
@@ -304,10 +315,14 @@ SEIR <-
                           sum(total_sites[d], -removed[d])
     } # end loop
 
+    simday <- seq_len(duration)
+    audpc <- .calculate_audpc(intensity, simday)
+
+    # Create output object ----
     out <-
       setDT(
         list(
-          "simday" = 1:duration,
+          "simday" = simday,
           "dates" = dates[1:d],
           "sites" = sites,
           "latent" = now_latent,
@@ -319,11 +334,12 @@ SEIR <-
           "rgrowth" = rgrowth,
           "rsenesced" = rsenesced,
           "diseased" = diseased,
-          "intensity" = intensity
+          "intensity" = intensity,
+          "audpc" = rep_len(audpc, duration)
         )
       )
 
-    # Only add Lat and Lon values if they exist in WTH
+    # Only add LAT and LON values if they exist in `wth`
     if (all(c("LAT", "LON") %in% names(wth)))
     {
       out[, lat := rep_len(wth[, LAT], .N)]

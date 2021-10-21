@@ -111,13 +111,13 @@ summary(bb_wet)
 ##  Mean   :40.322   Mean   :19.449   Mean   : 309.862  
 ##  3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724  
 ##  Max.   :79.689   Max.   :50.029   Max.   :1342.865  
-##    intensity            lat             lon       
-##  Min.   :0.00000   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:0.00191   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :0.01194   Median :14.68   Median :121.3  
-##  Mean   :0.10512   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:0.21246   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :0.43496   Max.   :14.68   Max.   :121.3
+##    intensity           audpc           lat             lon       
+##  Min.   :0.00000   Min.   :12.4   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.01194   Median :12.4   Median :14.68   Median :121.3  
+##  Mean   :0.10512   Mean   :12.4   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.43496   Max.   :12.4   Max.   :14.68   Max.   :121.3
 ```
 
 ## Plotting using _ggplot2_
@@ -221,13 +221,13 @@ summary(bb_dry)
 ##  Mean   :42.212   Mean   :19.566   Mean   : 98.776  
 ##  3rd Qu.:57.742   3rd Qu.:26.886   3rd Qu.:174.526  
 ##  Max.   :79.485   Max.   :47.858   Max.   :313.789  
-##    intensity            lat             lon       
-##  Min.   :0.00000   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:0.00234   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :0.01105   Median :14.68   Median :121.3  
-##  Mean   :0.03012   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:0.05569   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :0.10021   Max.   :14.68   Max.   :121.3
+##    intensity           audpc            lat             lon       
+##  Min.   :0.00000   Min.   :3.576   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.01105   Median :3.576   Median :14.68   Median :121.3  
+##  Mean   :0.03012   Mean   :3.576   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.10021   Max.   :3.576   Max.   :14.68   Max.   :121.3
 ```
 
 ### Dry season intensity

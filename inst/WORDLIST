@@ -1,4 +1,5 @@
 AUDPC
+Acqua
 Adanve
 Adhikari
 Alves
@@ -21,6 +22,7 @@ Chakrabarti
 Cochliobolus
 DOI
 DOY
+Dall
 Drechslera
 EPIMAY
 EPIRICE
@@ -28,11 +30,13 @@ EPIWHEAT
 Ecija
 El
 Elazegui
+Esker
 Etten
 Fabrice
 Finney
 François
 Ganguly
+Guo
 Hashiba
 Helminthosporium
 Hemmi
@@ -82,8 +86,13 @@ Prachin
 Pyricularia
 README
 RHUM
+RRG
+RRS
 Rao
 Rc
+RcA
+RcOpt
+RcT
 Refaei
 Rhizoctonia
 SEIR
@@ -94,6 +103,7 @@ Serological
 ShB
 Shaner
 Sharma
+Silwal
 Solberg
 Sporulation
 Stacia
@@ -102,16 +112,14 @@ Stetkiewicz
 Surinam
 Suriya
 Svein
+Sx
 Teng
 Tikhonova
 Tiongco
+Tolos
 Tritici
 Tungro
 UC
-VignetteDepends
-VignetteEncoding
-VignetteEngine
-VignetteIndexEntry
 Visualising
 Wageningen
 Waggoner
@@ -122,8 +130,10 @@ Yamada
 Zadoks
 Zeigler
 al
+audpc
 behaviour
 benchmarking
+cbind
 ce
 codecov
 conceptor
@@ -133,7 +143,6 @@ dcac
 de
 df
 doi
-dplyr
 epifitter
 et
 fd
@@ -146,8 +155,7 @@ https
 infective
 inoculum
 joss
-knitr
-lubridate
+lonlat
 maximise
 md
 microbenchmark
@@ -163,8 +171,9 @@ pathosystems
 polder
 purrr
 pv
+rainlim
 realised
-rmarkdown
+rhlim
 roxygen
 ryegrass
 senesced
@@ -173,7 +182,6 @@ solani
 spatio
 sporulation
 theming
-tidyr
 tritici
 tungro
 turcicum
@@ -181,4 +189,5 @@ unmanaged
 virescens
 visualisation
 visualise
+wth
 Ø

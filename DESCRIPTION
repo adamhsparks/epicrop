@@ -76,7 +76,6 @@ Imports:
     stats
 Suggests:
     dplyr,
-    epifitter,
     furrr,
     ggplot2,
     knitr,
@@ -86,8 +85,7 @@ Suggests:
     purrr,
     rmarkdown,
     spelling,
-    testthat,
-    tidyr
+    testthat
 Remotes:
     github::ropensci/chirps
 VignetteBuilder: knitr
