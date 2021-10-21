@@ -20,7 +20,7 @@ figs <-
              pattern = ".png$",
              full.names = TRUE)
 file.copy(from = figs,
-          to   = paste0(here("vignettes/"),
+          to = paste0(here("vignettes/"),
                         basename(figs)),
           overwrite = TRUE)
 file.remove(figs)
