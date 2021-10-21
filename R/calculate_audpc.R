@@ -32,7 +32,7 @@
 #' @noRd
 
 .calculate_audpc <- function(intensity, simday) {
-  n <- sum(nrow(x), -1)
+  n <- sum(length(intensity), -1)
 
   meanvec <- intvec <- vector(mode = "double", length = n)
 

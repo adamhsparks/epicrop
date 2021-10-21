@@ -313,13 +313,14 @@ SEIR <-
                           sum(total_sites[d], -removed[d])
     } # end loop
 
+    simday <- seq_len(duration)
     audpc <- .calculate_audpc(intensity, simday)
 
     # Create output object ----
     out <-
       setDT(
         list(
-          "simday" = 1:duration,
+          "simday" = simday,
           "dates" = dates[1:d],
           "sites" = sites,
           "latent" = now_latent,
