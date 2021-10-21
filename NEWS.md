@@ -1,3 +1,9 @@
+# epicrop 0.0.0.9015
+
+## Minor changes
+
+* Add area under the disease progress curve (AUDPC) values to model output.
+
 # epicrop 0.0.0.9014
 
 ## Minor changes
