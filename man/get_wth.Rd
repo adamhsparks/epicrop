@@ -33,7 +33,7 @@ with the following columns:\tabular{rl}{
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily relative humidity (RH) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab Latitude of area of interest \cr
    \emph{LON} \tab Longitude of area of interest \cr

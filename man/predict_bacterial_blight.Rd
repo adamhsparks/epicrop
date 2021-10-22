@@ -15,7 +15,7 @@ columns in them will work.\tabular{rl}{
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
    \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
