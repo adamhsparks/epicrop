@@ -2,9 +2,12 @@
 % Please edit documentation in R/predict_sheath_blight.R
 \name{predict_sheath_blight}
 \alias{predict_sheath_blight}
+\alias{predict_sb}
 \title{Predict rice sheath blight intensity}
 \usage{
 predict_sheath_blight(wth, emergence)
+
+predict_sb(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -39,6 +42,8 @@ The model represents site size as 1 rice plant's tiller.
 
 Default values for this disease model are derived from Table 2 (Savary \emph{et
 al.} 2012).
+
+\code{\link[=predict_sb]{predict_sb()}} is a shorthand alias for \code{\link[=predict_sheath_blight]{predict_sheath_blight()}}.
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -59,6 +64,11 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 sb <- predict_sheath_blight(wth, emergence = "2000-07-01")
+plot(x = sb$dates, y = sb$intensity, type = "l")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# use shorthand function
+sb <- predict_sb(wth, emergence = "2000-07-01")
 plot(x = sb$dates, y = sb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }

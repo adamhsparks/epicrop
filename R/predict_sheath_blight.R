@@ -14,6 +14,8 @@
 #' Default values for this disease model are derived from Table 2 (Savary *et
 #' al.* 2012).
 #'
+#' [predict_sb()] is a shorthand alias for [predict_sheath_blight()].
+#'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
@@ -129,3 +131,12 @@ predict_sheath_blight <- function(wth, emergence) {
     )
   )
 }
+
+#' @rdname predict_sheath_blight
+#' @examplesIf interactive()
+#' # use shorthand function
+#' sb <- predict_sb(wth, emergence = "2000-07-01")
+#' plot(x = sb$dates, y = sb$intensity, type = "l")
+#' @export
+predict_sb <- predict_sheath_blight
+

@@ -2,9 +2,12 @@
 % Please edit documentation in R/predict_brown_spot.R
 \name{predict_brown_spot}
 \alias{predict_brown_spot}
+\alias{predict_bs}
 \title{Predict rice brown spot intensity}
 \usage{
 predict_brown_spot(wth, emergence)
+
+predict_bs(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -40,6 +43,8 @@ for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
 
 Default values for this disease model are derived from Table 2 (Savary
 \emph{et al.} 2012).
+
+\code{\link[=predict_bs]{predict_bs()}} is a shorthand alias for \code{\link[=predict_brown_spot]{predict_brown_spot()}}.
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -64,6 +69,11 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 bs <- predict_brown_spot(wth, emergence = "2000-07-01")
+plot(x = bs$dates, y = bs$intensity, type = "l")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# use shorthand function
+bs <- predict_bs(wth, emergence = "2000-07-01")
 plot(x = bs$dates, y = bs$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }

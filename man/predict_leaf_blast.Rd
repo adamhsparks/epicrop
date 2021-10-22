@@ -2,9 +2,12 @@
 % Please edit documentation in R/predict_leaf_blast.R
 \name{predict_leaf_blast}
 \alias{predict_leaf_blast}
+\alias{predict_lb}
 \title{Predict rice leaf blast intensity}
 \usage{
 predict_leaf_blast(wth, emergence)
+
+predict_lb(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -40,6 +43,8 @@ The model represents site size as 45
 
 Default values for this disease model are derived from Table 2 (Savary
 \emph{et al.} 2012).
+
+\code{\link[=predict_lb]{predict_lb()}} is a shorthand alias for \code{\link[=predict_leaf_blast]{predict_leaf_blast()}}.
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -65,6 +70,11 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 lb <- predict_leaf_blast(wth, emergence = "2000-07-01")
+plot(x = lb$dates, y = lb$intensity, type = "l")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# use shorthand function
+lb <- predict_lb(wth, emergence = "2000-07-01")
 plot(x = lb$dates, y = lb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }

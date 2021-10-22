@@ -7,13 +7,14 @@
 #' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or \CRANpkg{chirps}
 #' for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
 #'
-#'
 #' @details
 #' The model represents site size as 45
 #'  \ifelse{html}{\out{mm<sup>2</sup>}}{\eqn{mm^2}} of a rice plant's leaf.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
+#'
+#' [predict_lb()] is a shorthand alias for [predict_leaf_blast()].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -166,3 +167,11 @@ predict_leaf_blast <- function(wth, emergence) {
     )
   )
 }
+
+#' @rdname predict_leaf_blast
+#' @examplesIf interactive()
+#' # use shorthand function
+#' lb <- predict_lb(wth, emergence = "2000-07-01")
+#' plot(x = lb$dates, y = lb$intensity, type = "l")
+#' @export
+predict_lb <- predict_leaf_blast

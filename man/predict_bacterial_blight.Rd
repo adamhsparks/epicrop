@@ -2,9 +2,12 @@
 % Please edit documentation in R/predict_bacterial_blight.R
 \name{predict_bacterial_blight}
 \alias{predict_bacterial_blight}
+\alias{predict_bb}
 \title{Predict rice bacterial blight intensity}
 \usage{
 predict_bacterial_blight(wth, emergence)
+
+predict_bb(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -39,6 +42,8 @@ The model represents site size as 1 rice plant's leaf.
 
 Default values for this disease model are derived from Table 2 (Savary
 \emph{et al.} 2012).
+
+\code{\link[=predict_bb]{predict_bb()}} is a shorthand alias for \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}}.
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -59,6 +64,11 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+plot(x = bb$dates, y = bb$intensity, type = "l")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# use shorthand function
+bb <- predict_bb(wth, emergence = "2000-07-01")
 plot(x = bb$dates, y = bb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }

@@ -13,6 +13,8 @@
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'
+#' [predict_bb()] is a shorthand alias for [predict_bacterial_blight()].
+#'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
@@ -119,3 +121,11 @@ predict_bacterial_blight <- function(wth, emergence) {
     )
   )
 }
+
+#' @rdname predict_bacterial_blight
+#' @examplesIf interactive()
+#' # use shorthand function
+#' bb <- predict_bb(wth, emergence = "2000-07-01")
+#' plot(x = bb$dates, y = bb$intensity, type = "l")
+#' @export
+predict_bb <- predict_bacterial_blight
