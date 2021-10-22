@@ -143,7 +143,7 @@ get_wth <- function(lonlat,
       setDT(
         suppressMessages(chirps::get_chirps(object = lonlat,
                                             dates = dates,
-                                            server = "ClimateSERV"))
+                                            server = "CHC"))
         )
     chirps[, id := .I]
 
