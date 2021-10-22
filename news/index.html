@@ -144,7 +144,31 @@
 <h2 class="hasAnchor">
 <a href="#minor-changes" class="anchor"></a>Minor changes</h2>
 <ul>
-<li>Add area under the disease progress curve (AUDPC) values to model output.</li>
+<li><p>Add area under the disease progress curve (AUDPC) values to model output.</p></li>
+<li>
+<p>Adds shorthand versions of functions for:</p>
+<ul>
+<li>
+<code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> &gt; <code><a href="../reference/predict_bacterial_blight.html">predict_bb()</a></code>
+</li>
+<li>
+<code><a href="../reference/predict_brown_spot.html">predict_brown_spot()</a></code> &gt; <code><a href="../reference/predict_brown_spot.html">predict_bs()</a></code>
+</li>
+<li>
+<code><a href="../reference/predict_leaf_blast.html">predict_leaf_blast()</a></code> &gt; <code><a href="../reference/predict_leaf_blast.html">predict_lb()</a></code>
+</li>
+<li>
+<code><a href="../reference/predict_sheath_blight.html">predict_sheath_blight()</a></code> &gt; <code><a href="../reference/predict_sheath_blight.html">predict_sb()</a></code>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixes bug when that caused a failure fetching CHIRPS weather data.</li>
 </ul>
 </div>
 </div>
@@ -164,9 +188,9 @@
     <div id="epicrop-0009013" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9013">
 <a href="#epicrop-0009013" class="anchor"></a>epicrop 0.0.0.9013</h1>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li><p>Fixes a bug introduced into SEIR() with the last round of bug fixes. The calculations for latent and infectious sites were still calculating for the next, not current, day in the <code>for()</code> loop.</p></li>
 <li><p>Corrects values in the example for <code><a href="../reference/SEIR.html">SEIR()</a></code> to run the model for brown spot.</p></li>
@@ -184,9 +208,9 @@
     <div id="epicrop-0009012" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9012">
 <a href="#epicrop-0009012" class="anchor"></a>epicrop 0.0.0.9012</h1>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixes bug in <code><a href="../reference/SEIR.html">SEIR()</a></code> where <code>Rc</code> value was calculated incorrectly that was introduced with commit <a href="https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287" class="uri">https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287</a>. See Lines 124:126 that were changed to Lines 118:120 where</li>
 </ul>
@@ -329,9 +353,9 @@
 <li>Only import <em>data.table</em> functions as necessary, don’t import whole package.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Convert <code>wth</code> (weather input object) to a <code>data.table</code> type object internally if it is not already one. Prior, if the object was not a <code>data.table</code>, <code><a href="../reference/SEIR.html">SEIR()</a></code> would fail with a message that the dates did not align. This should fix that issue and any <code>data.frame</code> type object including a <code>tibble</code> can be provided now. Thanks to Jean Fabrice Adanve for helping me find this bug.</li>
 </ul>
@@ -340,9 +364,9 @@
     <div id="epicrop-0009004" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.0.9004">
 <a href="#epicrop-0009004" class="anchor"></a>epicrop 0.0.0.9004</h1>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li><p>Fixes bug where the relative humidity checks in <code><a href="../reference/SEIR.html">SEIR()</a></code> only checked if the daily RH value was equal to (<code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>) not equal to or greater than (<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>) the set parameter for <code>rhlim</code> (default is 90%).</p></li>
 <li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in <em>roxygen</em> section now works properly when executed by the user.</p></li>
