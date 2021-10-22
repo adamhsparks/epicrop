@@ -29,7 +29,7 @@
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_      | Consecutive day of year, commonly called "Julian date"
 #'   _TEMP_     | Mean daily temperature (°C)
-#'   _RHUM_     | Mean daily temperature (°C)
+#'   _RHUM_     | Mean daily relative humidity (RH)
 #'   _RAIN_     | Mean daily rainfall (mm)
 #'   _LAT_      | Latitude of area of interest
 #'   _LON_      | Longitude of area of interest
