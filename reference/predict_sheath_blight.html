@@ -84,7 +84,7 @@ chirps for data from CHIRPS and CHIRTS." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
       </span>
     </div>
 
@@ -151,7 +151,9 @@ from <acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRA
 <a href='https://CRAN.R-project.org/package=chirps'><span class="pkg">chirps</span></a> for data from <acronym>CHIRPS</acronym> and <acronym>CHIRTS</acronym>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>predict_sheath_blight</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>predict_sheath_blight</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span><span class='op'>)</span>
+
+<span class='fu'>predict_sb</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,7 +168,7 @@ columns in them will work.</p><table class='table'>
 <tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr>
 <tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr>
 <tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr>
-<tr><td><em>RHUM</em></td><td>Mean daily temperature (°C)</td></tr>
+<tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr>
 <tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr>
 <tr><td><em>LAT</em></td><td><strong>Optional</strong> latitude of weather observation. See LAT/LON Note.</td></tr>
 <tr><td><em>LON</em></td><td><strong>Optional</strong> longitude of weather observation. See LAT/LON Note.</td></tr>
@@ -188,6 +190,7 @@ sites. See <code><a href='SEIR.html'>SEIR()</a></code> for a full description of
     <p>The model represents site size as 1 rice plant's tiller.</p>
 <p>Default values for this disease model are derived from Table 2 (Savary <em>et
 al.</em> 2012).</p>
+<p><code>predict_sb()</code> is a shorthand alias for <code>predict_sheath_blight()</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Adapted from <span class="pkg">cropsim</span> package version 0.2.0-5 by Adam H. Sparks,
@@ -251,6 +254,11 @@ and Adam H. Sparks</p>
   dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-06-30"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='va'>sb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_sheath_blight</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># interactive()</span>
+<span class='co'># use shorthand function</span>
+<span class='va'>sb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_sb</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>sb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
