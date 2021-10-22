@@ -64,7 +64,7 @@
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 #' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
 #' Disease Progress over Time. *The Plant Health Instructor*.
-#' DOI:[10.1094/PHI-A-2008-0129-02]https://doi.org/10.1094/PHI-A-2008-0129-02).
+#' DOI:[10.1094/PHI-A-2008-0129-02](https://doi.org/10.1094/PHI-A-2008-0129-02).
 #'
 #' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
 #' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
@@ -148,12 +148,9 @@
 #'   \item{rtransfer}{Rate of transfer from latent to infectious sites}
 #'   \item{rgrowth}{Rate of growth of healthy sites}
 #'   \item{rsenesced}{Rate of senescence of healthy sites}
-#'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on
-#'    day "x"}
-#'   \item{intensity}{Proportion of diseased (latent + infectious + removed)
-#'    sites per total sites not including removed sites on day "x"}
-#'   \item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the
-#'    simulation}
+#'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on day "x"}
+#'   \item{intensity}{Proportion of diseased (latent + infectious + removed) sites per total sites not including removed sites on day "x"}
+#'   \item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
 #'   \item{lat}{Latitude value if provided by the `wth` object}
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }

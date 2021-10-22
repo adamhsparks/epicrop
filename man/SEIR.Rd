@@ -26,7 +26,6 @@ SEIR(
 }
 \arguments{
 \item{wth}{a \code{data.frame} of weather on a daily time-step containing data
-<<<<<<< HEAD
 with the following field names.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
@@ -36,19 +35,6 @@ with the following field names.\tabular{rl}{
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Note \cr
    \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Note \cr
-=======
-with the following field names.
-
-\describe{
-\item{YYYYMMDD}{Date as Year Month Day (ISO8601)}
-\item{DOY}{Consecutive day of year, commonly called "Julian date"}
-\item{TEMP}{Mean daily temperature (°C)}
-\item{RHUM}{Mean daily temperature (°C)}
-\item{RAIN}{Mean daily rainfall (mm)}
-\item{LAT}{Optional. Latitude of weather observation. See LAT/LON Section.}
-\item{LON}{Optional. Longitude of weather observation.
-See LAT/LON Section.}
->>>>>>> AUDPC
 }}
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
@@ -123,12 +109,9 @@ A \code{\link[=data.table]{data.table()}} containing the following columns:
 \item{rtransfer}{Rate of transfer from latent to infectious sites}
 \item{rgrowth}{Rate of growth of healthy sites}
 \item{rsenesced}{Rate of senescence of healthy sites}
-\item{diseased}{Number of diseased (latent + infectious + removed) sites on
-day "x"}
-\item{intensity}{Proportion of diseased (latent + infectious + removed)
-sites per total sites not including removed sites on day "x"}
-\item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the
-simulation}
+\item{diseased}{Number of diseased (latent + infectious + removed) sites on day "x"}
+\item{intensity}{Proportion of diseased (latent + infectious + removed) sites per total sites not including removed sites on day "x"}
+\item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
 \item{lat}{Latitude value if provided by the \code{wth} object}
 \item{lon}{Longitude value if provided by the \code{wth} object}
 }
@@ -195,7 +178,7 @@ emergence <- "2000-07-15"
 Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
 Disease Progress over Time. \emph{The Plant Health Instructor}.
-DOI:\link{10.1094/PHI-A-2008-0129-02}https://doi.org/10.1094/PHI-A-2008-0129-02).
+DOI:\href{https://doi.org/10.1094/PHI-A-2008-0129-02}{10.1094/PHI-A-2008-0129-02}.
 
 Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
 Disease Epidemics. American Phytopathological Society, St. Paul, MN.
