@@ -60,7 +60,7 @@ Description: Generic simulation modelling of crop diseases using a Susceptible-
     parameterising for use with other pathosystems as demonstrated in Savary et
     al. 2012 and 2015.
 License: GPL-3 + file LICENSE
-RoxygenNote: 7.1.2
+RoxygenNote: 7.1.2.9000
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 NeedsCompilation: no
