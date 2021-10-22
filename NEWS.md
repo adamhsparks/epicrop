@@ -4,6 +4,16 @@
 
 * Add area under the disease progress curve (AUDPC) values to model output.
 
+* Adds shorthand versions of functions for:
+  - `predict_bacterial_blight()` > `predict_bb()`
+  - `predict_brown_spot()` > `predict_bs()`
+  - `predict_leaf_blast()` > `predict_lb()`
+  - `predict_sheath_blight()` > `predict_sb()`
+  
+## Bug fixes
+
+* Fixes bug when that caused a failure fetching CHIRPS weather data.
+
 # epicrop 0.0.0.9014
 
 ## Minor changes
