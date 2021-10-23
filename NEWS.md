@@ -1,3 +1,7 @@
+# epicrop 0.0.0.9017
+
+* Update README R output
+
 # epicrop 0.0.0.9016
 
 ## Minor changes

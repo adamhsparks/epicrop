@@ -97,7 +97,7 @@ ggplot(data = bb,
   - License: GPL-3
 
   - To cite _epicrop_, please use the output from `citation(package = "epicrop")`.
-  
+
 ## Code of Conduct
 
 Please note that the epicrop project is released with a [Contributor Code of Conduct](http://adamhsparks.github.io/epicrop/CODE_OF_CONDUCT.html).
