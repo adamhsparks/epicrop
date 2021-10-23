@@ -14,6 +14,12 @@ knit(input = "vignettes/multiples.Rmd.orig",
 purl("vignettes/multiples.Rmd.orig",
      output = "vignettes/multiples.R")
 
+# mapping vignette
+knit(input = "vignettes/mapping.Rmd.orig",
+     output = "vignettes/mapping.Rmd")
+purl("vignettes/mapping.Rmd.orig",
+     output = "vignettes/mapping.R")
+
 # move image files
 figs <-
   list.files(here("figure/"),
@@ -42,6 +48,14 @@ multiples_replace <- gsub("\\(figure/", "\\(", multiples_replace)
 multiples_file_con <- file("vignettes/multiples.Rmd")
 writeLines(multiples_replace, multiples_file_con)
 close(multiples_file_con)
+
+## mapping vignette
+mapping_replace <- readLines("vignettes/mapping.Rmd")
+mapping_replace <- gsub("\\(figure/", "\\(", mapping_replace)
+
+mapping_file_con <- file("vignettes/mapping.Rmd")
+writeLines(mapping_replace, mapping_file_con)
+close(mapping_file_con)
 
 # build vignettes
 library("devtools")
