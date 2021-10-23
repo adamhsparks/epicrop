@@ -78,15 +78,15 @@ seasons <- map_df(
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
                             year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
-  relocate(season, audpc) %>%
-  distinct(audpc, season)
+  relocate(season, AUDPC) %>%
+  distinct(AUDPC, season)
 
 pander(seasons)
 ```
 
 
 ----------------
- season   audpc 
+ season   AUDPC 
 -------- -------
   2000    11.12 
 
@@ -102,7 +102,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
-           x = audpc, )) +
+           x = AUDPC, )) +
   geom_col(width = 0.5,
            orientation = "y") +
   ylab("Season") +
@@ -162,14 +162,14 @@ future_map_dfr(
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
                             year(dates) == 2001 ~ 2001)) %>%
   group_by(season) %>%
-  relocate(season, audpc) %>%
-  distinct(audpc, season) %>%
+  relocate(season, AUDPC) %>%
+  distinct(AUDPC, season) %>%
   pander()
 ```
 
 
 ----------------
- season   audpc 
+ season   AUDPC 
 -------- -------
   2000    11.12 
 
@@ -247,15 +247,15 @@ multi_dates <- map2(
 ) %>%
   bind_rows(.id = "emergence") %>%
   group_by(emergence) %>%
-  relocate(emergence, audpc) %>%
-  distinct(audpc, emergence)
+  relocate(emergence, AUDPC) %>%
+  distinct(AUDPC, emergence)
 
 pander(multi_dates)
 ```
 
 
 --------------------
- emergence    audpc 
+ emergence    AUDPC 
 ------------ -------
  2001-06-01   11.75 
 
@@ -332,7 +332,7 @@ Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are nece
 library("ggplot2")
 ggplot(data = multi_dates,
        aes(
-         x = audpc,
+         x = AUDPC,
          xend = 0,
          y = as.factor(emergence),
          yend = as.factor(emergence)
@@ -412,10 +412,10 @@ future_map2(
 ) %>%
   bind_rows(.id = "emergence") %>%
   group_by(emergence) %>%
-  relocate(emergence, audpc) %>%
-  distinct(audpc, emergence) %>%
+  relocate(emergence, AUDPC) %>%
+  distinct(AUDPC, emergence) %>%
   ggplot(aes(
-    x = audpc,
+    x = AUDPC,
     xend = 0,
     y = as.factor(emergence),
     yend = as.factor(emergence)
@@ -484,10 +484,10 @@ map(
 ) %>%
   bind_rows(.id = "location") %>%
   group_by(location) %>%
-  relocate(location, audpc) %>%
-  distinct(audpc, location) %>%
+  relocate(location, AUDPC) %>%
+  distinct(AUDPC, location) %>%
   ggplot(aes(
-    x = audpc,
+    x = AUDPC,
     xend = 0,
     y = as.factor(location),
     yend = as.factor(location)
@@ -536,9 +536,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr      min       lq    mean   median        uq       max
-#>  sequential 1.470609 1.522885 0.70725 1.424245 0.4379588 0.2876966
-#>    parallel 1.000000 1.000000 1.00000 1.000000 1.0000000 1.0000000
+#>        expr       min        lq     mean   median       uq      max
+#>  sequential 1.0000000 1.0000000 1.000000 1.000000 1.000000 1.000000
+#>    parallel 0.6446963 0.6905277 1.790541 2.296547 2.204928 2.110078
 #>  neval cld
 #>    100  a 
 #>    100   b

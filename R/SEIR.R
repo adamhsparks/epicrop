@@ -150,7 +150,7 @@
 #'   \item{rsenesced}{Rate of senescence of healthy sites}
 #'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on day "x"}
 #'   \item{intensity}{Proportion of diseased (latent + infectious + removed) sites per total sites not including removed sites on day "x"}
-#'   \item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
+#'   \item{AUDPC}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
 #'   \item{lat}{Latitude value if provided by the `wth` object}
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
@@ -313,7 +313,7 @@ SEIR <-
     } # end loop
 
     simday <- seq_len(duration)
-    audpc <- .calculate_audpc(intensity, simday)
+    AUDPC <- .calculate_audpc(intensity, simday)
 
     # Create output object ----
     out <-
@@ -332,7 +332,7 @@ SEIR <-
           "rsenesced" = rsenesced,
           "diseased" = diseased,
           "intensity" = intensity,
-          "audpc" = rep_len(audpc, duration)
+          "AUDPC" = rep_len(AUDPC, duration)
         )
       )
 

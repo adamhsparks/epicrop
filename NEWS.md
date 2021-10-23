@@ -1,3 +1,7 @@
+# epicrop 0.0.0.9016
+
+* Change `audpc` to `AUDPC` for easier graphing.
+
 # epicrop 0.0.0.9015
 
 ## Minor changes
