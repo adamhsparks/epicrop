@@ -3,8 +3,9 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   epicrop: epicrop.html
+  mapping: mapping.html
   multiples: multiples.html
-last_built: 2021-10-23T04:33Z
+last_built: 2021-10-23T09:44Z
 urls:
   reference: http://adamhsparks.github.io/epicrop//reference
   article: http://adamhsparks.github.io/epicrop//articles
