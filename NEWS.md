@@ -1,6 +1,10 @@
 # epicrop 0.0.0.9016
 
+## Minor changes
+
 * Change `audpc` to `AUDPC` for easier graphing.
+
+* Add new vignette to demonstrate mapping AUDPC values using lat/lon from model output.
 
 # epicrop 0.0.0.9015
 
