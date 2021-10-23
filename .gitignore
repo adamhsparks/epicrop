@@ -2,11 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
-
+^rosm\.cache$
 .DS_Store
 inst/doc
 docs/
-
 *.code-workspace
 /doc/
 /Meta/
