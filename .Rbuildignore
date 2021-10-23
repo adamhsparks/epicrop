@@ -19,3 +19,4 @@
 ^doc$
 ^Meta$
 ^epicrop.code-workspace$
+^rosm\.cache$
