@@ -9,3 +9,5 @@ docs/
 *.code-workspace
 /doc/
 /Meta/
+
+vignettes/rosm.cache/cartolight/
