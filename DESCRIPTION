@@ -78,6 +78,7 @@ Suggests:
     dplyr,
     furrr,
     ggplot2,
+    ggspatial,
     knitr,
     lubridate,
     microbenchmark,
