@@ -168,27 +168,27 @@
 ##  Mean   : 65.0439   Mean   :214.99   Mean   : 29.83  
 ##  3rd Qu.:126.2923   3rd Qu.:379.33   3rd Qu.: 16.12  
 ##  Max.   :264.3734   Max.   :953.22   Max.   :352.64  
-##     senesced         rateinf          rtransfer        rgrowth      
-##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688  
-##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.659  
-##  Median : 642.6   Median : 0.9286   Median : 0.00   Median :33.172  
-##  Mean   : 803.0   Mean   :11.3325   Mean   :10.66   Mean   :40.322  
-##  3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29   3rd Qu.:57.583  
-##  Max.   :2286.4   Max.   :64.5756   Max.   :64.58   Max.   :79.689  
-##    rsenesced         diseased          intensity      
-##  Min.   : 1.000   Min.   :   0.000   Min.   :0.00000  
-##  1st Qu.: 9.331   1st Qu.:   1.707   1st Qu.:0.00191  
-##  Median :22.890   Median :  31.153   Median :0.01194  
-##  Mean   :19.449   Mean   : 309.862   Mean   :0.10512  
-##  3rd Qu.:26.081   3rd Qu.: 619.724   3rd Qu.:0.21246  
-##  Max.   :50.029   Max.   :1342.865   Max.   :0.43496  
-##      AUDPC           lat             lon       
-##  Min.   :12.4   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :12.4   Median :14.68   Median :121.3  
-##  Mean   :12.4   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :12.4   Max.   :14.68   Max.   :121.3</code></pre>
+##     senesced         rateinf          rtransfer    
+##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00  
+##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00  
+##  Median : 642.6   Median : 0.9286   Median : 0.00  
+##  Mean   : 803.0   Mean   :11.3325   Mean   :10.66  
+##  3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29  
+##  Max.   :2286.4   Max.   :64.5756   Max.   :64.58  
+##     rgrowth         rsenesced         diseased       
+##  Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  
+##  1st Qu.:22.659   1st Qu.: 9.331   1st Qu.:   1.707  
+##  Median :33.172   Median :22.890   Median :  31.153  
+##  Mean   :40.322   Mean   :19.449   Mean   : 309.862  
+##  3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724  
+##  Max.   :79.689   Max.   :50.029   Max.   :1342.865  
+##    intensity           AUDPC           lat             lon       
+##  Min.   :0.00000   Min.   :12.4   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.01194   Median :12.4   Median :14.68   Median :121.3  
+##  Mean   :0.10512   Mean   :12.4   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.43496   Max.   :12.4   Max.   :14.68   Max.   :121.3</code></pre>
 </div>
 </div>
 <div id="plotting-using-ggplot2" class="section level2">
@@ -198,13 +198,13 @@
 <p>The data are in a wide format by default and need to be converted to long format for use in <em>ggplot2</em> if you wish to plot more than one variable at a time.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyr.tidyverse.org">"tidyr"</a></span><span class="op">)</span></code></pre></div>
 <div id="wet-season-sites" class="section level3">
 <h3 class="hasAnchor">
 <a href="#wet-season-sites" class="anchor"></a>Wet season sites</h3>
 <p>The model records the number of sites for each bin daily; this can be graphed as follows.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">pivot_longer</span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
   <span class="va">bb_wet</span>,
   cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,
   names_to <span class="op">=</span> <span class="st">"site"</span>,
@@ -248,12 +248,9 @@
 <div id="comparing-epidemics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#comparing-epidemics" class="anchor"></a>Comparing epidemics</h2>
-<p>The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977). This is easily calculated from the output of any of the <code>predict_()</code> family of functions or a custom <code><a href="../reference/SEIR.html">SEIR()</a></code> run using the <em>epifitter</em> package (Alves and Del Ponte 2020).</p>
-<p>Load <em>epifitter</em> and simulate the disease intensity in the dry season starting in January to compare with the initial <code>bb_wet</code> results.</p>
+<p>The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977). The AUDPC value for a given simulated season is returned as a part of the output from any of the disease simulations offered in <em>epicrop</em>. You can find the value in the <code>AUDPC</code> column. We can compare the dry season with the wet season by looking at the AUDPC values for both seasons.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"epifitter"</span><span class="op">)</span>
-
-<span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></code></pre></div>
 <pre><code>##      simday           dates                sites       
 ##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0  
@@ -306,24 +303,14 @@
 <div class="figure">
 <img src="dry_plot_intensity-1.png" alt=""><p class="caption">Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
 </div>
-<p>Calculate the AUDPC using the <code>AUDPC()</code> from <em>epifitter</em> for both seasons and compare.</p>
+<p>As the AUDPC value is found in the <code>AUDPC</code> column and is repeated for every row of the <code>data.table</code> so we only need to access the first row. We can easily do this by calling the column using the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator and <code>[]</code> to select an index value, in this case the first row of the <code>data.table</code>. Optionally if you wished to used <em>dplyr</em> you could use the <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">dplyr::distinct()</a></code> function, which is demonstrated in the “Mapping Simulations” vignette.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Dry season</span>
-<span class="fu">AUDPC</span><span class="op">(</span>
-  time <span class="op">=</span> <span class="va">bb_dry</span><span class="op">$</span><span class="va">simday</span>,
-  y <span class="op">=</span> <span class="va">bb_dry</span><span class="op">$</span><span class="va">intensity</span>,
-  y_proportion <span class="op">=</span> <span class="cn">FALSE</span>,
-  type <span class="op">=</span> <span class="st">"absolute"</span>
-<span class="op">)</span></code></pre></div>
+<span class="va">bb_dry</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] 3.57641</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Wet season</span>
-<span class="fu">AUDPC</span><span class="op">(</span>
-  time <span class="op">=</span> <span class="va">bb_wet</span><span class="op">$</span><span class="va">simday</span>,
-  y <span class="op">=</span> <span class="va">bb_wet</span><span class="op">$</span><span class="va">intensity</span>,
-  y_proportion <span class="op">=</span> <span class="cn">FALSE</span>,
-  type <span class="op">=</span> <span class="st">"absolute"</span>
-<span class="op">)</span></code></pre></div>
+<span class="va">bb_wet</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] 12.39699</code></pre>
 <p>The AUDPC of the wet season is greater than that of the dry season. Checking the data and referring to the curves, the wet season intensity reaches a peak value of 43% and the dry season tops out at 10%. So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.</p>
 </div>
@@ -331,7 +318,6 @@
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
-<p>Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0. URL: <a href="https://CRAN.R-project.org/package=epifitter" class="uri">https://CRAN.R-project.org/package=epifitter</a>.</p>
 <p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009">10.1016/j.cropro.2011.11.009</a>.</p>
 <p>Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. <em>Phytopathology</em> Volume 67.8, 1977, Pages 1051-1056.</p>
 <p>Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. Journal of Open Source Software, 3(30), 1035, DOI: <a href="https://doi.org/10.21105/joss.01035">10.21105/joss.01035</a>.</p>

@@ -579,11 +579,11 @@
 <p>Multiple locations will look much like the previous example for multiple seasons (years) but a vector of latitude and longitude values are provided to <code><a href="../reference/get_wth.html">get_wth()</a></code>. In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  mekong_river <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">105.5943</span>, <span class="fl">10.0634</span><span class="op">)</span>,
-  red_river <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">105.9700</span>, <span class="fl">20.9034</span><span class="op">)</span>,
-  prachin_buri <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">101.6601</span>, <span class="fl">14.0421</span><span class="op">)</span>,
-  chennai <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80.2707</span>, <span class="fl">13.0827</span><span class="op">)</span>,
-  neuva_ecija <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.1113</span>, <span class="fl">15.5784</span><span class="op">)</span>
+  <span class="st">"Mekong River"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">105.5943</span>, <span class="fl">10.0634</span><span class="op">)</span>,
+  <span class="st">"Red River"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">105.9700</span>, <span class="fl">20.9034</span><span class="op">)</span>,
+  <span class="st">"Prachin Buri"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">101.6601</span>, <span class="fl">14.0421</span><span class="op">)</span>,
+  <span class="st">"Chennai"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80.2707</span>, <span class="fl">13.0827</span><span class="op">)</span>,
+  <span class="st">"Neuva Ecija"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.1113</span>, <span class="fl">15.5784</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>Next use <code><a href="../reference/get_wth.html">get_wth()</a></code> to fetch the weather data from the <a href="https://power.larc.nasa.gov">POWER API</a>. With the list of locations, <code>locations</code>, use <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> to fetch all of the locations with one function. You could also use R’s base <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> here as well if you prefer.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -665,12 +665,12 @@
 
 <span class="va">mbm</span>
 <span class="co">#&gt; Unit: relative</span>
-<span class="co">#&gt;        expr       min        lq     mean   median       uq      max</span>
-<span class="co">#&gt;  sequential 1.0000000 1.0000000 1.000000 1.000000 1.000000 1.000000</span>
-<span class="co">#&gt;    parallel 0.6446963 0.6905277 1.790541 2.296547 2.204928 2.110078</span>
-<span class="co">#&gt;  neval cld</span>
-<span class="co">#&gt;    100  a </span>
-<span class="co">#&gt;    100   b</span>
+<span class="co">#&gt;        expr      min       lq      mean   median        uq</span>
+<span class="co">#&gt;  sequential 1.444657 1.387845 0.6508964 1.276774 0.4456437</span>
+<span class="co">#&gt;    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000</span>
+<span class="co">#&gt;        max neval cld</span>
+<span class="co">#&gt;  0.2171475   100  a </span>
+<span class="co">#&gt;  1.0000000   100   b</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>

@@ -116,6 +116,8 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="http://purrr.tidyverse.org">"purrr"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://paleolimbot.github.io/ggspatial/">"ggspatial"</a></span><span class="op">)</span>
 
 <span class="va">locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   <span class="st">"Mekong River"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">105.5943</span>, <span class="fl">10.0634</span><span class="op">)</span>,
@@ -143,23 +145,36 @@
   <span class="fu">group_by</span><span class="op">(</span><span class="va">location</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">distinct</span><span class="op">(</span><span class="va">AUDPC</span>, <span class="va">location</span>, <span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">annotation_map_tile</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"cartolight"</span>,
+  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_map_tile.html">annotation_map_tile</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"cartolight"</span>,
                       zoomin <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_spatial_point</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">AUDPC</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_spatial_label_repel</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">location</span>,
+  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html">geom_spatial_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">AUDPC</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html">geom_spatial_label_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">location</span>,
                                              <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">AUDPC</span>, <span class="fl">0</span><span class="op">)</span>,
                                              sep <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span>,
                            box.padding <span class="op">=</span> <span class="fl">1</span>,
                            size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"© OpenStreetMap contributors"</span>,
-       x <span class="op">=</span> <span class="st">"Longitude"</span>,
-       y <span class="op">=</span> <span class="st">"Latitude"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>
+    legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.025</span>, <span class="fl">.025</span><span class="op">)</span>,
+    legend.justification <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"bottom"</span><span class="op">)</span>,
+    legend.box.just <span class="op">=</span> <span class="st">"right"</span>,
+    legend.margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>,
+    legend.direction <span class="op">=</span> <span class="st">"horizontal"</span>,
+    legend.spacing.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">0</span>, <span class="st">"mm"</span><span class="op">)</span>,
+    panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,
+    axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,
+    legend.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+    legend.key <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
+    legend.box.background <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    x <span class="op">=</span> <span class="st">"Longitude"</span>,
+    y <span class="op">=</span> <span class="st">"Latitude"</span>
+  <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">127</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></code></pre></div>
 <div class="figure">
-<img src="map-AUDPC-1.png" alt=""><p class="caption">Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.</p>
+<img src="map-AUDPC-1.png" alt=""><p class="caption">Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.</p>
 </div>
 </div>
   </div>
