@@ -1,6 +1,12 @@
 # epicrop 0.0.0.9017
 
-* Update README R output
+* Update README R output.
+
+* Polish map output in the mapping vignette.
+
+* Polish names for figure in multiple locations figure.
+
+* Remove references and functionality called from _epifitter_; AUDPC is calculated internally now.
 
 # epicrop 0.0.0.9016
 
