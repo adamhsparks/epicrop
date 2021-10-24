@@ -111,7 +111,7 @@ A \code{\link[=data.table]{data.table()}} containing the following columns:
 \item{rsenesced}{Rate of senescence of healthy sites}
 \item{diseased}{Number of diseased (latent + infectious + removed) sites on day "x"}
 \item{intensity}{Proportion of diseased (latent + infectious + removed) sites per total sites not including removed sites on day "x"}
-\item{audpc}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
+\item{AUDPC}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
 \item{lat}{Latitude value if provided by the \code{wth} object}
 \item{lon}{Longitude value if provided by the \code{wth} object}
 }
