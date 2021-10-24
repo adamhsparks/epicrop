@@ -1,7 +1,9 @@
 ---
 title: Multiple Simulations
 author: Adam H. Sparks
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_document:
+    theme: journal
 vignette: >
   %\VignetteIndexEntry{Multiple Simulations}
   %\VignetteEngine{knitr::rmarkdown}
@@ -440,11 +442,11 @@ In this example we will fetch data for the Mekong River Delta and Red River Delt
 
 ```r
 locations <- list(
-  mekong_river = c(105.5943, 10.0634),
-  red_river = c(105.9700, 20.9034),
-  prachin_buri = c(101.6601, 14.0421),
-  chennai = c(80.2707, 13.0827),
-  neuva_ecija = c(121.1113, 15.5784)
+  "Mekong River" = c(105.5943, 10.0634),
+  "Red River" = c(105.9700, 20.9034),
+  "Prachin Buri" = c(101.6601, 14.0421),
+  "Chennai" = c(80.2707, 13.0827),
+  "Neuva Ecija" = c(121.1113, 15.5784)
 )
 ```
 
@@ -536,12 +538,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: relative
-#>        expr       min        lq     mean   median       uq      max
-#>  sequential 1.0000000 1.0000000 1.000000 1.000000 1.000000 1.000000
-#>    parallel 0.6446963 0.6905277 1.790541 2.296547 2.204928 2.110078
-#>  neval cld
-#>    100  a 
-#>    100   b
+#>        expr      min       lq      mean   median        uq
+#>  sequential 1.444657 1.387845 0.6508964 1.276774 0.4456437
+#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
+#>        max neval cld
+#>  0.2171475   100  a 
+#>  1.0000000   100   b
 
 autoplot(mbm) +
   theme_classic()

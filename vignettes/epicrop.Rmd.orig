@@ -1,20 +1,21 @@
 ---
 title: epicrop
 author: Adam H. Sparks
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_document:
+    theme: journal
 vignette: >
   %\VignetteIndexEntry{epicrop}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
   %\VignetteDepends{tidyr}
-  %\VignetteDepends{epifitter}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
 
-suggested_packages <- c("ggplot2", "epifitter", "tidyr")
+suggested_packages <- c("ggplot2", "tidyr")
 
 knitr::opts_chunk$set(eval = all(
   vapply(
@@ -129,13 +130,11 @@ ggplot(data = bb_wet,
 ## Comparing epidemics
 
 The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977).
-This is easily calculated from the output of any of the `predict_()` family of functions or a custom `SEIR()` run using the _epifitter_ package (Alves and Del Ponte 2020).
+The AUDPC value for a given simulated season is returned as a part of the output from any of the disease simulations offered in _epicrop_.
+You can find the value in the `AUDPC` column.
+We can compare the dry season with the wet season by looking at the AUDPC values for both seasons.
 
-Load _epifitter_ and simulate the disease intensity in the dry season starting in January to compare with the initial `bb_wet` results.
-
-```{r epifitter}
-library("epifitter")
-
+```{r dry_summary}
 bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
 summary(bb_dry)
 ```
@@ -155,24 +154,16 @@ ggplot(data = bb_dry,
   theme_classic()
 ```
 
-Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons and compare.
+As the AUDPC value is found in the `AUDPC` column and is repeated for every row of the `data.table` so we only need to access the first row.
+We can easily do this by calling the column using the `$` operator and `[]` to select an index value, in this case the first row of the `data.table`.
+Optionally if you wished to used _dplyr_ you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
 
 ```{r audpc}
 # Dry season
-AUDPC(
-  time = bb_dry$simday,
-  y = bb_dry$intensity,
-  y_proportion = FALSE,
-  type = "absolute"
-)
+bb_dry$AUDPC[1]
 
 # Wet season
-AUDPC(
-  time = bb_wet$simday,
-  y = bb_wet$intensity,
-  y_proportion = FALSE,
-  type = "absolute"
-)
+bb_wet$AUDPC[1]
 ```
 
 The AUDPC of the wet season is greater than that of the dry season.
@@ -180,7 +171,6 @@ Checking the data and referring to the curves, the wet season intensity reaches 
 So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.
 
 # References
-Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0. URL: <https://CRAN.R-project.org/package=epifitter>.
 
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
