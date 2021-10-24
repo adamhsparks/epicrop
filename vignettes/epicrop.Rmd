@@ -1,14 +1,15 @@
 ---
 title: epicrop
 author: Adam H. Sparks
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_document:
+    theme: journal
 vignette: >
   %\VignetteIndexEntry{epicrop}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
   %\VignetteDepends{tidyr}
-  %\VignetteDepends{epifitter}
 ---
 
 
@@ -97,27 +98,27 @@ summary(bb_wet)
 ##  Mean   : 65.0439   Mean   :214.99   Mean   : 29.83  
 ##  3rd Qu.:126.2923   3rd Qu.:379.33   3rd Qu.: 16.12  
 ##  Max.   :264.3734   Max.   :953.22   Max.   :352.64  
-##     senesced         rateinf          rtransfer        rgrowth      
-##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688  
-##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.659  
-##  Median : 642.6   Median : 0.9286   Median : 0.00   Median :33.172  
-##  Mean   : 803.0   Mean   :11.3325   Mean   :10.66   Mean   :40.322  
-##  3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29   3rd Qu.:57.583  
-##  Max.   :2286.4   Max.   :64.5756   Max.   :64.58   Max.   :79.689  
-##    rsenesced         diseased          intensity      
-##  Min.   : 1.000   Min.   :   0.000   Min.   :0.00000  
-##  1st Qu.: 9.331   1st Qu.:   1.707   1st Qu.:0.00191  
-##  Median :22.890   Median :  31.153   Median :0.01194  
-##  Mean   :19.449   Mean   : 309.862   Mean   :0.10512  
-##  3rd Qu.:26.081   3rd Qu.: 619.724   3rd Qu.:0.21246  
-##  Max.   :50.029   Max.   :1342.865   Max.   :0.43496  
-##      AUDPC           lat             lon       
-##  Min.   :12.4   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :12.4   Median :14.68   Median :121.3  
-##  Mean   :12.4   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :12.4   Max.   :14.68   Max.   :121.3
+##     senesced         rateinf          rtransfer    
+##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00  
+##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00  
+##  Median : 642.6   Median : 0.9286   Median : 0.00  
+##  Mean   : 803.0   Mean   :11.3325   Mean   :10.66  
+##  3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29  
+##  Max.   :2286.4   Max.   :64.5756   Max.   :64.58  
+##     rgrowth         rsenesced         diseased       
+##  Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  
+##  1st Qu.:22.659   1st Qu.: 9.331   1st Qu.:   1.707  
+##  Median :33.172   Median :22.890   Median :  31.153  
+##  Mean   :40.322   Mean   :19.449   Mean   : 309.862  
+##  3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724  
+##  Max.   :79.689   Max.   :50.029   Max.   :1342.865  
+##    intensity           AUDPC           lat             lon       
+##  Min.   :0.00000   Min.   :12.4   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.01194   Median :12.4   Median :14.68   Median :121.3  
+##  Mean   :0.10512   Mean   :12.4   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.43496   Max.   :12.4   Max.   :14.68   Max.   :121.3
 ```
 
 ## Plotting using _ggplot2_
@@ -180,14 +181,12 @@ ggplot(data = bb_wet,
 ## Comparing epidemics
 
 The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977).
-This is easily calculated from the output of any of the `predict_()` family of functions or a custom `SEIR()` run using the _epifitter_ package (Alves and Del Ponte 2020).
-
-Load _epifitter_ and simulate the disease intensity in the dry season starting in January to compare with the initial `bb_wet` results.
+The AUDPC value for a given simulated season is returned as a part of the output from any of the disease simulations offered in _epicrop_.
+You can find the value in the `AUDPC` column.
+We can compare the dry season with the wet season by looking at the AUDPC values for both seasons.
 
 
 ```r
-library("epifitter")
-
 bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
 summary(bb_dry)
 ```
@@ -248,17 +247,14 @@ ggplot(data = bb_dry,
 
 ![Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](dry_plot_intensity-1.png)
 
-Calculate the AUDPC using the `AUDPC()` from _epifitter_ for both seasons and compare.
+As the AUDPC value is found in the `AUDPC` column and is repeated for every row of the `data.table` so we only need to access the first row.
+We can easily do this by calling the column using the `$` operator and `[]` to select an index value, in this case the first row of the `data.table`.
+Optionally if you wished to used _dplyr_ you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
 
 
 ```r
 # Dry season
-AUDPC(
-  time = bb_dry$simday,
-  y = bb_dry$intensity,
-  y_proportion = FALSE,
-  type = "absolute"
-)
+bb_dry$AUDPC[1]
 ```
 
 ```
@@ -267,12 +263,7 @@ AUDPC(
 
 ```r
 # Wet season
-AUDPC(
-  time = bb_wet$simday,
-  y = bb_wet$intensity,
-  y_proportion = FALSE,
-  type = "absolute"
-)
+bb_wet$AUDPC[1]
 ```
 
 ```
@@ -284,7 +275,6 @@ Checking the data and referring to the curves, the wet season intensity reaches 
 So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.
 
 # References
-Kaique dos S. Alves and Emerson M. Del Ponte (2020). epifitter: Analysis and Simulation of Plant Disease Progress Curves. R package version 0.2.0. URL: <https://CRAN.R-project.org/package=epifitter>.
 
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
