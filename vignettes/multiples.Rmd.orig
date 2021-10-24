@@ -1,7 +1,9 @@
 ---
 title: Multiple Simulations
 author: Adam H. Sparks
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_document:
+    theme: journal
 vignette: >
   %\VignetteIndexEntry{Multiple Simulations}
   %\VignetteEngine{knitr::rmarkdown}
@@ -369,11 +371,11 @@ In this example we will fetch data for the Mekong River Delta and Red River Delt
 
 ```{r locations-list}
 locations <- list(
-  mekong_river = c(105.5943, 10.0634),
-  red_river = c(105.9700, 20.9034),
-  prachin_buri = c(101.6601, 14.0421),
-  chennai = c(80.2707, 13.0827),
-  neuva_ecija = c(121.1113, 15.5784)
+  "Mekong River" = c(105.5943, 10.0634),
+  "Red River" = c(105.9700, 20.9034),
+  "Prachin Buri" = c(101.6601, 14.0421),
+  "Chennai" = c(80.2707, 13.0827),
+  "Neuva Ecija" = c(121.1113, 15.5784)
 )
 ```
 
