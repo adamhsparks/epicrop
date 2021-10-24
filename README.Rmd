@@ -105,16 +105,17 @@ By contributing to this project, you agree to abide by its terms.
 
 # References
 
-Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009) Simulation modeling of crops and their diseases. R package version 0.2-6.
+Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.
 
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.(2012). Modeling and mapping potential epidemics of rice diseases globally. _Crop Protection_, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
-Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. _European Journal of Plant Pathology_ 142, no. 4 (August 1, 2015): 771–90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
+Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). _European Journal of Plant Pathology_ 142, no. 4:771–90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
 Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS Precipitation Data in R. Journal of Open Source Software, 5(51), 2419, DOI: [10.21105/joss.02419](https://doi.org/10.21105/joss.02419)
 
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
+Adam Sparks (2021). _nasapower: NASA-POWER Data from R_. DOI: [10.5281/zenodo.1040727](https://doi.org/10.5281/zenodo.1040727), R package version 4.0.0, URL:
+[https://CRAN.R-project.org/package=nasapower](https://CRAN.R-project.org/package=nasapower).
 
-Jan C. Zadoks. (1971) Systems Analysis and the Dynamics of Epidemics. _Phytopathology_ 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+Jan C. Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. _Phytopathology_ 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).

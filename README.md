@@ -171,7 +171,7 @@ contributing to this project, you agree to abide by its terms.
 
 # References
 
-Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009)
+Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009).
 Simulation modeling of crops and their diseases. R package version
 0.2-6.
 
@@ -184,8 +184,8 @@ diseases globally. *Crop Protection*, Volume 34, Pages 6-17, ISSN
 Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia
 Willocquet. Modelling and Mapping Potential Epidemics of Wheat
 Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using
-EPIWHEAT. *European Journal of Plant Pathology* 142, no. 4 (August 1,
-2015): 771–90. DOI:
+EPIWHEAT. (2015). *European Journal of Plant Pathology* 142, no.
+4:771–90. DOI:
 [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
 Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten
@@ -198,9 +198,11 @@ Solar Energy and Climatology Data Client for R. Journal of Open Source
 Software, 3(30), 1035, DOI:
 [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Adam Sparks (2020). *nasapower: NASA-POWER Data from R*. R package
-version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
+Adam Sparks (2021). *nasapower: NASA-POWER Data from R*. DOI:
+[10.5281/zenodo.1040727](https://doi.org/10.5281/zenodo.1040727), R
+package version 4.0.0, URL:
+<https://CRAN.R-project.org/package=nasapower>.
 
-Jan C. Zadoks. (1971) Systems Analysis and the Dynamics of Epidemics.
+Jan C. Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics.
 *Phytopathology* 61:600. DOI:
 [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
