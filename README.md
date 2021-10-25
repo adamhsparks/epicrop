@@ -109,7 +109,7 @@ bb
 #> 118:    118 2000-10-26 1380.4038  73.81997   947.4256 281.2134 2187.881013
 #> 119:    119 2000-10-27 1332.8691  69.34615   938.4942 315.9354 2236.407049
 #> 120:    120 2000-10-28 1286.3824  64.14358   926.0857 352.6359 2286.436253
-#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat
+#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    audpc     lat
 #>   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.39699 14.6774
 #>   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.39699 14.6774
 #>   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.39699 14.6774
@@ -190,12 +190,12 @@ EPIWHEAT. (2015). *European Journal of Plant Pathology* 142, no.
 
 Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten
 and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS
-Precipitation Data in R. Journal of Open Source Software, 5(51), 2419,
+Precipitation Data in R. *Journal of Open Source Software*, 5(51), 2419,
 DOI: [10.21105/joss.02419](https://doi.org/10.21105/joss.02419)
 
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface
-Solar Energy and Climatology Data Client for R. Journal of Open Source
-Software, 3(30), 1035, DOI:
+Solar Energy and Climatology Data Client for R. *Journal of Open Source
+Software*, 3(30), 1035, DOI:
 [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
 Adam Sparks (2021). *nasapower: NASA-POWER Data from R*. DOI:
