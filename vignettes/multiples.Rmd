@@ -104,7 +104,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
-           x = AUDPC, )) +
+           x = AUDPC)) +
   geom_col(width = 0.5,
            orientation = "y") +
   ylab("Season") +
@@ -539,10 +539,10 @@ mbm <- microbenchmark(
 mbm
 #> Unit: relative
 #>        expr      min       lq      mean   median        uq
-#>  sequential 1.444657 1.387845 0.6508964 1.276774 0.4456437
+#>  sequential 1.498649 1.537463 0.7097847 1.396522 0.4355627
 #>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
 #>        max neval cld
-#>  0.2171475   100  a 
+#>  0.5529797   100  a 
 #>  1.0000000   100   b
 
 autoplot(mbm) +
