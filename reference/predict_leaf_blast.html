@@ -247,22 +247,22 @@ the Philippines at Los Baños, 82 p.</p>
 and Adam H. Sparks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># interactive()</span>
-
-<span class='co'># get weather for IRRI Zeigler Experiment Station in wet season 2000</span>
-<span class='va'>wth</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_wth.html'>get_wth</a></span><span class='op'>(</span>
-  lonlat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>121.25562</span>, <span class='fl'>14.6774</span><span class='op'>)</span>,
-  dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-06-30"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span>
-<span class='op'>)</span>
-<span class='va'>lb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_leaf_blast</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># interactive()</span>
-<span class='co'># use shorthand function</span>
-<span class='va'>lb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_lb</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># interactive()</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># get weather for IRRI Zeigler Experiment Station in wet season 2000</span></span>
+<span class='r-in'><span class='va'>wth</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_wth.html'>get_wth</a></span><span class='op'>(</span></span>
+<span class='r-in'>  lonlat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>121.25562</span>, <span class='fl'>14.6774</span><span class='op'>)</span>,</span>
+<span class='r-in'>  dates <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2000-06-30"</span>, <span class='st'>"2000-12-31"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>lb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_leaf_blast</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># interactive()</span></span>
+<span class='r-in'><span class='co'># use shorthand function</span></span>
+<span class='r-in'><span class='va'>lb</span> <span class='op'>&lt;-</span> <span class='fu'>predict_lb</span><span class='op'>(</span><span class='va'>wth</span>, emergence <span class='op'>=</span> <span class='st'>"2000-07-01"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>dates</span>, y <span class='op'>=</span> <span class='va'>lb</span><span class='op'>$</span><span class='va'>intensity</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
