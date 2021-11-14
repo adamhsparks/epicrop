@@ -48,11 +48,6 @@ You could also use R's base `lapply()` here as well if you prefer.
 ```r
 library("epicrop")
 library("purrr")
-#> 
-#> Attaching package: 'purrr'
-#> The following object is masked from 'package:epicrop':
-#> 
-#>     transpose
 
 seasons_wth <-
   map(
@@ -173,9 +168,16 @@ future_map_dfr(
   relocate(season, AUDPC) %>%
   distinct(AUDPC, season) %>%
   pander()
-#> Error: there is no package called ‘epicrop’
-#> Error in if (tail(stdout, 1) == "") {: argument is of length zero
 ```
+
+
+----------------
+ season   AUDPC 
+-------- -------
+  2000    11.12 
+
+  2001    5.94  
+----------------
 
 We can see here that the AUDPC values match using both processing methods.
 
@@ -427,8 +429,9 @@ future_map2(
   scale_y_discrete(limits = rev) +
   ylab("Establishment Date") +
   theme_classic()
-#> Error: there is no package called ‘epicrop’
 ```
+
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.](parallel-establishment-1.png)
 
 ## Multiple locations
 
