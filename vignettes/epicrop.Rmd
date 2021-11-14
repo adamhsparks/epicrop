@@ -135,14 +135,6 @@ The data are in a wide format by default and need to be converted to long format
 
 ```r
 library("ggplot2")
-```
-
-```
-## Need help? Try Stackoverflow:
-## https://stackoverflow.com/tags/ggplot2
-```
-
-```r
 library("tidyr")
 ```
 
