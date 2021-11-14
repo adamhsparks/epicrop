@@ -5,9 +5,9 @@ library("ggplot2")
 library("lubridate")
 library("epicrop")
 
-plan(multisession, workers = 4)
+plan(multisession)
 
-years <- 2016:2021
+years <- 2013:2015
 month_day <- c("-01-01", "-01-14", "-01-31")
 emergence_dates <-
   cross2(years, month_day) %>%
@@ -27,6 +27,7 @@ seasons_wth <-
     .f = get_wth,
     lonlat = c(-49.264, -16.6869),
     duration = 180,
+    source = "chirps",
     .options = furrr_options(seed = NULL)
   ) %>%
   mutate(YYYYMMDD = as_date(YYYYMMDD))
