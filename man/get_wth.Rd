@@ -4,7 +4,7 @@
 \alias{get_wth}
 \title{Get weather data for use in epicrop modelling}
 \usage{
-get_wth(lonlat, dates, duration, source = "nasapower")
+get_wth(lonlat, dates, duration)
 }
 \arguments{
 \item{lonlat}{A numeric vector of geographic coordinates for a cell or region
@@ -17,13 +17,6 @@ growing season being simulated is to be.  If this is used, only the start
 date will be used and the end date will be ignored if supplied.  This must
 match the \code{duration} parameter value passed along to \code{\link[=SEIR]{SEIR()}} or any of the
 \code{predict} family of functions.}
-
-\item{source}{A character string value that denotes whether to use the
-\acronym{NASA} \acronym{POWER} data (\code{nasapower}), the default, or
-\acronym{CHIRPS}/\acronym{CHIRTS} data, \code{chirps}, for rainfall,
-temperature and relative humidity from the Climate Hazards Data center at
-UC Santa Barbara, \url{https://www.chc.ucsb.edu/data}.  See parameter
-details for more discussion.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of weather data, dates and
@@ -40,39 +33,9 @@ with the following columns:\tabular{rl}{
 }
 }
 \description{
-This function is a wrapper for the \code{\link[nasapower:get_power]{nasapower::get_power()}} or
-\code{\link[chirps:get_chirps]{chirps::get_chirps()}}/\code{\link[chirps:get_chirts]{chirps::get_chirts()}} functions with predefined
+This function is a wrapper for the \code{\link[nasapower:get_power]{nasapower::get_power()}} with predefined
 parameters suitable for use in \pkg{epicrop}.
 }
-\section{\emph{source} - Select your weather data source of choice}{
-Access to three databases is provided by this function through the use of
-two possible parameter values, \code{nasapower} or \code{chirps}.
-
-\code{nasapower}: the default database is the \acronym{NASA} \acronym{POWER}
-database, \url{https://power.larc.nasa.gov}, which can supply all parameters
-required for \pkg{epicrop} to run.  The global data are available from Jan.
-1, 1983 to near-present at a 0.5 x 0.5 arc degree resolution for meteorology
-data.  Using this will request and return all values necessary to use
-\pkg{epicrop}.
-
-\code{chirps}: \acronym{CHIRPS} is quasi-global (50°S – 50°N) high-resolution
-(0.05 arc-degrees) rainfall data set, which incorporates satellite imagery
-and in-situ station data to create gridded rainfall time series for trend
-analysis and seasonal drought monitoring. \acronym{CHIRTS} is a quasi-global
-(60°S – 70°N), high-resolution data set of daily maximum and minimum
-temperatures.  For more details on \acronym{CHIRPS} and \acronym{CHIRTS} data
-please visit the official homepage \url{https://chc.ucsb.edu/data}.
-
-By using \code{chirps}, the function will return the precipitation, temperature
-and relative humidity from the \acronym{CHIRPS} and \acronym{CHIRTS}
-data in a single \link{data.table} for you.
-
-The \acronym{POWER} database covers a longer period of time but the spatial
-resolution is not as small.  However, it is faster to respond than the
-\acronym{CHIRPS} and \acronym{CHIRTS} data.  Differences in the data
-are likely to be minimal and have little effect on the \pkg{epicrop} models.
-}
-
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
@@ -92,16 +55,8 @@ power <- get_wth(
   duration = 120,
   source = "nasapower"
 )
-
-# get the same data from CHIRPS and CHIRTS data
-chirps <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = "2000-06-30",
-  duration = 120,
-  source = "chirps"
-)
 \dontshow{\}) # examplesIf}
 }
 \author{
-Adam H. Sparks
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }

@@ -11,9 +11,8 @@ predict_sb(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} or \acronym{CHIRPS}/\acronym{CHIRTS} data from \code{\link[=get_wth]{get_wth()}},
-but any\code{\link[base:data.frame]{base::data.frame()}} object that has the following properly named
-columns in them will work.\tabular{rl}{
+\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object
+that has the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
@@ -34,8 +33,7 @@ sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column valu
 A dynamic mechanistic simulation of sheath blight disease of rice, causal
 agent \emph{Rhizoctonia solani} AG1-1A Kühn. The model is driven by daily weather
 data, which can easily be accessed using\code{\link[=get_wth]{get_wth()}} to download weather data
-from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or
-\CRANpkg{chirps} for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
+from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
 The model represents site size as 1 rice plant's tiller.

@@ -21,7 +21,7 @@ vignette: >
 _epicrop_ provides an R package of the 'EPIRICE' model as described in Savary _et al._ 2012.
 Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
 The model uses daily weather data to estimate disease intensity.
-A function, `get_wth()`, is provided to simplify downloading weather data via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) or [_chirps_](https://docs.ropensci.org/chirps/) package (de Sousa _et al. 2020), which provides weather data from the Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS' and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+A function, `get_wth()`, is provided to simplify downloading weather data via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
 If you are interested in modelling other pathosystems, please refer to Savary _et al._ 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
@@ -112,13 +112,20 @@ summary(bb_wet)
 ##  Mean   :40.322   Mean   :19.449   Mean   : 309.862  
 ##  3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724  
 ##  Max.   :79.689   Max.   :50.029   Max.   :1342.865  
-##    intensity           AUDPC           lat             lon       
-##  Min.   :0.00000   Min.   :12.4   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :0.01194   Median :12.4   Median :14.68   Median :121.3  
-##  Mean   :0.10512   Mean   :12.4   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :0.43496   Max.   :12.4   Max.   :14.68   Max.   :121.3
+##    intensity           AUDPC           lat       
+##  Min.   :0.00000   Min.   :12.4   Min.   :14.68  
+##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68  
+##  Median :0.01194   Median :12.4   Median :14.68  
+##  Mean   :0.10512   Mean   :12.4   Mean   :14.68  
+##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68  
+##  Max.   :0.43496   Max.   :12.4   Max.   :14.68  
+##       lon       
+##  Min.   :121.3  
+##  1st Qu.:121.3  
+##  Median :121.3  
+##  Mean   :121.3  
+##  3rd Qu.:121.3  
+##  Max.   :121.3
 ```
 
 ## Plotting using _ggplot2_
@@ -128,6 +135,14 @@ The data are in a wide format by default and need to be converted to long format
 
 ```r
 library("ggplot2")
+```
+
+```
+## Need help? Try Stackoverflow:
+## https://stackoverflow.com/tags/ggplot2
+```
+
+```r
 library("tidyr")
 ```
 
@@ -220,13 +235,20 @@ summary(bb_dry)
 ##  Mean   :42.212   Mean   :19.566   Mean   : 98.776  
 ##  3rd Qu.:57.742   3rd Qu.:26.886   3rd Qu.:174.526  
 ##  Max.   :79.485   Max.   :47.858   Max.   :313.789  
-##    intensity           AUDPC            lat             lon       
-##  Min.   :0.00000   Min.   :3.576   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :0.01105   Median :3.576   Median :14.68   Median :121.3  
-##  Mean   :0.03012   Mean   :3.576   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :0.10021   Max.   :3.576   Max.   :14.68   Max.   :121.3
+##    intensity           AUDPC            lat       
+##  Min.   :0.00000   Min.   :3.576   Min.   :14.68  
+##  1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68  
+##  Median :0.01105   Median :3.576   Median :14.68  
+##  Mean   :0.03012   Mean   :3.576   Mean   :14.68  
+##  3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68  
+##  Max.   :0.10021   Max.   :3.576   Max.   :14.68  
+##       lon       
+##  Min.   :121.3  
+##  1st Qu.:121.3  
+##  Median :121.3  
+##  Mean   :121.3  
+##  3rd Qu.:121.3  
+##  Max.   :121.3
 ```
 
 ### Dry season intensity

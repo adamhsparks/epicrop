@@ -4,8 +4,7 @@
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 #' _Magnaporthe oryzae_. The model is driven by daily weather data, which can
 #' easily be accessed using[get_wth()] to download weather data from
-#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or \CRANpkg{chirps}
-#' for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
+#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' @details
 #' The model represents site size as 45

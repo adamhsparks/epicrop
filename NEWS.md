@@ -1,3 +1,7 @@
+# epicrop 0.0.0.9018
+
+* Remove `chirps` functionality to simplify package structure.
+
 # epicrop 0.0.0.9017
 
 * Update README R output.

@@ -4,26 +4,7 @@
     skip_on_cran()
     wth <- get_wth(
       lonlat = c(151.81, -27.48),
-      dates = c("2015-01-15", "2015-01-16"),
-      source = "nasapower"
-    )
-    expect_named(wth,
-                 c("YYYYMMDD",
-                   "DOY",
-                   "TEMP",
-                   "RHUM",
-                   "RAIN",
-                   "LAT",
-                   "LON"))
-    expect_s3_class(wth, c("data.table", "data.frame"))
-  })
-
-  test_that("Weather data is as expected after fetching from CHIRPS API", {
-    skip_on_cran()
-    wth <- get_wth(
-      lonlat = c(151.81, -27.48),
-      dates = c("2015-01-15", "2015-01-17"),
-      source = "chirps"
+      dates = c("2015-01-15", "2015-01-16")
     )
     expect_named(wth,
                  c("YYYYMMDD",
@@ -41,8 +22,7 @@
     wth_season <- get_wth(
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-05-15"),
-      duration = 2,
-      source = "nasapower"
+      duration = 2
     )
     expect_equal(nrow(wth_season), 3)
   })
