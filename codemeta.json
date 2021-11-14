@@ -5,17 +5,17 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "epicrop",
-  "description": "Generic simulation modelling of crop diseases using a Susceptible-\n    Exposed-Infectious-Removed ('SEIR') model.  This type of model was first\n    described in botanical epidemiology by Zadoks (1971)\n    <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary\n    et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's\n    development, use and results from modeling global unmanaged\n    epidemics of rice diseases for five major rice diseases, bacterial blight,\n    brown spot, leaf blast, sheath blight and tungro.  Specific functions are\n    provided to simulate all of these diseases with a generic 'SEIR' model\n    function that is suitable for parameterising for use with other pathosystems\n    as demonstrated in Savary et al. 2012.",
+  "description": "Generic simulation modelling of crop diseases using a Susceptible- Exposed-Infectious-Removed ('SEIR') model. This type of model was first described in botanical epidemiology by Zadoks (1971) <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's development, use and results from modeling global unmanaged epidemics of rice diseases for five major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro. Specific functions are provided to simulate all of these diseases with a generic 'SEIR' model function that is suitable for parameterising for use with other pathosystems as demonstrated in Savary et al. 2012.",
   "name": "epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
   "codeRepository": "https://github.com/adamhsparks/epicrop/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.0.9017",
+  "version": "0.0.0.9018",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.1 (2021-08-10)",
+  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
   "author": [
     {
       "@type": "Person",
@@ -251,18 +251,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "chirps",
-      "name": "chirps",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://github.com/ropensci/chirps"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
       "provider": {
@@ -292,10 +280,9 @@
       "name": "stats"
     }
   ],
-  "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
-  "fileSize": "616.345KB",
+  "fileSize": "788.308KB",
   "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://codecov.io/gh/adamhsparks/epicrop"],
-  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
+  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -329,6 +316,7 @@
       "name": "{epicrop}: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
       "identifier": "10.5281/zenodo.5070395",
       "url": "https://github.com/adamhsparks/epicrop",
+      "description": "R package version 0.0.0.9018",
       "@id": "https://doi.org/10.5281/zenodo.5070395",
       "sameAs": "https://doi.org/10.5281/zenodo.5070395"
     }

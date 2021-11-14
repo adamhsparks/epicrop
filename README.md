@@ -22,12 +22,8 @@ A fork of [*cropsim*](https://r-forge.r-project.org/R/?group_id=335)
 *et al.* 2012) for rice diseases easier to use. This version provides
 easy to use functions to fetch weather data from NASA POWER, via the
 [*nasapower*](https://cran.r-project.org/package=nasapower) package
-(Sparks 2018, Sparks 2020) or
-[*chirps*](https://docs.ropensci.org/chirps/) package (de Sousa \_et
-al. 2020), which provides weather data from the Client for the Climate
-Hazards Center ‘CHIRPS’ and ‘CHIRTS’ and predict disease intensity of
-five rice diseases using a generic SEIR model (Zadoks 1971) function,
-`SEIR()`.
+(Sparks 2018, Sparks 2020) and predict disease intensity of five rice
+diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details
 the model and results of its use to model global epidemics of rice
@@ -39,10 +35,9 @@ and rice tungro, which are included in this package.
 
 You can easily simulate any of the five diseases for rice grown anywhere
 in the world for years from 1983 to near current using `get_wth()` to
-fetch data from the [NASA POWER web API](https://power.larc.nasa.gov) or
-[CHIRPS and CHIRTS web APIs](https://chc.ucsb.edu/data). Alternatively,
-you can supply your own weather data for any time period as long as it
-fits the model’s requirements.
+fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
+Alternatively, you can supply your own weather data for any time period
+as long as it fits the model’s requirements.
 
 *epicrop* is not yet on CRAN. You can install it this way.
 
@@ -109,7 +104,7 @@ bb
 #> 118:    118 2000-10-26 1380.4038  73.81997   947.4256 281.2134 2187.881013
 #> 119:    119 2000-10-27 1332.8691  69.34615   938.4942 315.9354 2236.407049
 #> 120:    120 2000-10-28 1286.3824  64.14358   926.0857 352.6359 2286.436253
-#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    audpc     lat
+#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat
 #>   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.39699 14.6774
 #>   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.39699 14.6774
 #>   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.39699 14.6774
