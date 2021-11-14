@@ -8,13 +8,6 @@
 
 <title>Predict rice brown spot intensity — predict_brown_spot • epicrop</title>
 
-<!-- favicons -->
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -50,9 +43,7 @@
 <meta property="og:description" content="A dynamic mechanistic simulation of rice brown spot, causal agent
 Cochliobolus miyabeanus. The model is driven by daily weather data, which
 can easily be accessed usingget_wth() to download weather data from
-NASA POWER using nasapower or chirps
-for data from CHIRPS and CHIRTS." />
-<meta property="og:image" content="http://adamhsparks.github.io/epicrop/logo.png" />
+NASA POWER using nasapower." />
 
 
 
@@ -84,7 +75,7 @@ for data from CHIRPS and CHIRTS." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
       </span>
     </div>
 
@@ -150,8 +141,7 @@ for data from CHIRPS and CHIRTS." />
     <p>A dynamic mechanistic simulation of rice brown spot, causal agent
 <em>Cochliobolus miyabeanus</em>. The model is driven by daily weather data, which
 can easily be accessed using<code><a href='get_wth.html'>get_wth()</a></code> to download weather data from
-<acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a> or <a href='https://CRAN.R-project.org/package=chirps'><span class="pkg">chirps</span></a>
-for data from <acronym>CHIRPS</acronym> and <acronym>CHIRTS</acronym>.</p>
+<acronym>NASA</acronym> <acronym>POWER</acronym> using <a href='https://CRAN.R-project.org/package=nasapower'><span class="pkg">nasapower</span></a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predict_brown_spot</span><span class='op'>(</span><span class='va'>wth</span>, <span class='va'>emergence</span><span class='op'>)</span>
@@ -164,9 +154,8 @@ for data from <acronym>CHIRPS</acronym> and <acronym>CHIRTS</acronym>.</p>
     <tr>
       <th>wth</th>
       <td><p>Weather data with a daily time-step, normally <acronym>NASA</acronym>
-<acronym>POWER</acronym> or <acronym>CHIRPS</acronym>/<acronym>CHIRTS</acronym> data from <code><a href='get_wth.html'>get_wth()</a></code>,
-but any<code><a href='https://rdrr.io/r/base/data.frame.html'>base::data.frame()</a></code> object that has the following properly named
-columns in them will work.</p><table class='table'>
+<acronym>POWER</acronym> data from <code><a href='get_wth.html'>get_wth()</a></code>, but any<code><a href='https://rdrr.io/r/base/data.frame.html'>base::data.frame()</a></code> object
+that has the following properly named columns in them will work.</p><table class='table'>
 <tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr>
 <tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr>
 <tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr>
