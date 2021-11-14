@@ -5,9 +5,9 @@ library("ggplot2")
 library("lubridate")
 library("epicrop")
 
-plan(multisession, workers = 4)
+plan(multisession)
 
-years <- 2017:2021
+years <- 2013:2015
 month_day <- c("-01-01", "-01-14", "-01-31")
 emergence_dates <-
   cross2(years, month_day) %>%
@@ -25,8 +25,9 @@ seasons_wth <-
   future_map_dfr(
     .x = wth_start_dates,
     .f = get_wth,
-    lonlat = c(-46.0490, -19.3108),
+    lonlat = c(-49.264, -16.6869),
     duration = 180,
+    source = "chirps",
     .options = furrr_options(seed = NULL)
   ) %>%
   mutate(YYYYMMDD = as_date(YYYYMMDD))
@@ -51,9 +52,22 @@ lb <- future_map2(
   .options = furrr_options(seed = NULL)
 )
 
+# check diseased sites
 lb %>%
   bind_rows(.id = "emergence") %>%
   ggplot(aes(x = simday, y = diseased, group = 1)) +
   geom_line() +
-  ylab("Number of sites") +
-  facet_wrap(. ~ emergence, ncol = 3)
+  ylab("Diseased sites (n)") +
+  xlab("Simulation day") +
+  facet_wrap(. ~ emergence, ncol = 3) +
+  theme_classic()
+
+# check AUDPC
+lb %>%
+  bind_rows(.id = "emergence") %>%
+  distinct(emergence, AUDPC) %>%
+  ggplot(aes(x = as.factor(emergence), y = AUDPC)) +
+  geom_col(width = 0.5,
+           aes(fill = as.factor(year(emergence)))) +
+  theme_classic() +
+  coord_flip()

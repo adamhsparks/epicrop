@@ -118,7 +118,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
-           x = AUDPC, )) +
+           x = AUDPC)) +
   geom_col(width = 0.5,
            orientation = "y") +
   ylab("Season") +

@@ -48,6 +48,11 @@ You could also use R's base `lapply()` here as well if you prefer.
 ```r
 library("epicrop")
 library("purrr")
+#> 
+#> Attaching package: 'purrr'
+#> The following object is masked from 'package:epicrop':
+#> 
+#>     transpose
 
 seasons_wth <-
   map(
@@ -104,7 +109,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
-           x = AUDPC, )) +
+           x = AUDPC)) +
   geom_col(width = 0.5,
            orientation = "y") +
   ylab("Season") +
@@ -131,6 +136,7 @@ An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code 
 ```r
 library("epicrop")
 library("furrr")
+#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -167,16 +173,9 @@ future_map_dfr(
   relocate(season, AUDPC) %>%
   distinct(AUDPC, season) %>%
   pander()
+#> Error: there is no package called ‘epicrop’
+#> Error in if (tail(stdout, 1) == "") {: argument is of length zero
 ```
-
-
-----------------
- season   AUDPC 
--------- -------
-  2000    11.12 
-
-  2001    5.94  
-----------------
 
 We can see here that the AUDPC values match using both processing methods.
 
@@ -428,9 +427,8 @@ future_map2(
   scale_y_discrete(limits = rev) +
   ylab("Establishment Date") +
   theme_classic()
+#> Error: there is no package called ‘epicrop’
 ```
-
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.](parallel-establishment-1.png)
 
 ## Multiple locations
 
@@ -535,18 +533,12 @@ mbm <- microbenchmark(
     bind_rows(.id = "emergence"),
   unit = "relative"
 )
+#> Error in match.arg(unit, values): 'arg' should be one of "nanoseconds", "ns", "microseconds", "us", "milliseconds", "ms", "seconds", "s", "secs", "time", "t", "frequency", "f", "hz", "khz", "mhz", "eps"
 
 mbm
-#> Unit: relative
-#>        expr      min       lq      mean   median        uq
-#>  sequential 1.444657 1.387845 0.6508964 1.276774 0.4456437
-#>    parallel 1.000000 1.000000 1.0000000 1.000000 1.0000000
-#>        max neval cld
-#>  0.2171475   100  a 
-#>  1.0000000   100   b
+#> Error in eval(expr, envir, enclos): object 'mbm' not found
 
 autoplot(mbm) +
   theme_classic()
+#> Error in autoplot(mbm): object 'mbm' not found
 ```
-
-![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
