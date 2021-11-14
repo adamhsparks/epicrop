@@ -27,13 +27,13 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 A fork of [_cropsim_](https://r-forge.r-project.org/R/?group_id=335) (Hijmans _et al._ 2009) designed to make using the EPIRICE model (Savary _et al._ 2012) for rice diseases easier to use.
-This version provides easy to use functions to fetch weather data from NASA POWER, via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) or [_chirps_](https://docs.ropensci.org/chirps/) package (de Sousa _et al. 2020), which provides weather data from the Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS' and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+This version provides easy to use functions to fetch weather data from NASA POWER, via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 The original EPIRICE manuscript, Savary _et al._ (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in _Crop Protection_ detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
 
 # Quick start
 
-You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using `get_wth()` to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov) or [CHIRPS and CHIRTS web APIs](https://chc.ucsb.edu/data).
+You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using `get_wth()` to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
 Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.
 
 _epicrop_ is not yet on CRAN. You can install it this way.
