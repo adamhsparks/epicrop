@@ -36,6 +36,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -48,18 +50,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9018</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/epicrop.html">Get started</a>
 </li>
@@ -87,7 +83,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/adamhsparks/epicrop/">
+  <a href="https://github.com/adamhsparks/epicrop/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -105,37 +101,38 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model" class="anchor"></a><em>epicrop</em>: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model">
+<em>epicrop</em>: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model<a class="anchor" aria-label="anchor" href="#epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model"></a>
+</h1></div>
 <p><img align="right" src="reference/figures/logo.png"></p>
 <!-- badges: start -->
-<p><a href="https://github.com/adamhsparks/epicrop/actions"><img src="https://github.com/adamhsparks/epicrop/workflows/tic/badge.svg?branch=main" alt="tic"></a> <a href="https://codecov.io/gh/adamhsparks/epicrop"><img src="https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP" alt="codecov"></a> <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a> <a href="https://zenodo.org/badge/latestdoi/58613738"><img src="https://zenodo.org/badge/58613738.svg" alt="DOI"></a> <!-- badges: end --></p>
-<p>A fork of <a href="https://r-forge.r-project.org/R/?group_id=335"><em>cropsim</em></a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower"><em>nasapower</em></a> package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, <code><a href="reference/SEIR.html">SEIR()</a></code>.</p>
+
+<p>A fork of <a href="https://r-forge.r-project.org/R/?group_id=335" class="external-link"><em>cropsim</em></a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link"><em>nasapower</em></a> package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, <code><a href="reference/SEIR.html">SEIR()</a></code>.</p>
 <p>The original EPIRICE manuscript, Savary <em>et al.</em> (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in <em>Crop Protection</em> detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.</p>
 </div>
-<div id="quick-start" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quick-start" class="anchor"></a>Quick start</h1>
-<p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov">NASA POWER web API</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
+<div class="section level1">
+<h1 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h1>
+<p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov" class="external-link">NASA POWER web API</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
 <p><em>epicrop</em> is not yet on CRAN. You can install it this way.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"adamhsparks/epicrop"</span>,
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"adamhsparks/epicrop"</span>,
                         build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
-<div id="get-weather-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#get-weather-data" class="anchor"></a>Get weather data</h2>
+<div class="section level2">
+<h2 id="get-weather-data">Get weather data<a class="anchor" aria-label="anchor" href="#get-weather-data"></a>
+</h2>
 <p>First you need to provide weather data for the model. <em>epicrop</em> provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. Using it you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/">"epicrop"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span>
 
 <span class="co"># Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI</span>
 <span class="co"># Zeigler Experiment Station</span>
 <span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_wth.html">get_wth</a></span><span class="op">(</span>
-  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
+  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
   dates <span class="op">=</span> <span class="st">"2000-07-01"</span>,
   duration <span class="op">=</span> <span class="fl">120</span>
 <span class="op">)</span>
@@ -154,9 +151,9 @@
 <span class="co">#&gt; 120: 2000-10-28 302 25.44 91.88 74.20 14.6774 121.2556</span>
 <span class="co">#&gt; 121: 2000-10-29 303 24.97 94.12 29.11 14.6774 121.2556</span></code></pre></div>
 </div>
-<div id="modelling-bacterial-blight-disease-intensity" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modelling-bacterial-blight-disease-intensity" class="anchor"></a>Modelling bacterial blight disease intensity</h2>
+<div class="section level2">
+<h2 id="modelling-bacterial-blight-disease-intensity">Modelling bacterial blight disease intensity<a class="anchor" aria-label="anchor" href="#modelling-bacterial-blight-disease-intensity"></a>
+</h2>
 <p>Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span>
@@ -200,92 +197,100 @@
 <span class="co">#&gt; 120: 121.2556</span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span>
 
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb</span>,
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb</span>,
+       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
            y <span class="op">=</span> <span class="va">intensity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity"</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity"</span>,
        x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-plot-1.png" title="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%"></p>
 </div>
 </div>
-<div id="meta" class="section level1">
-<h1 class="hasAnchor">
-<a href="#meta" class="anchor"></a>Meta</h1>
+<div class="section level1">
+<h1 id="meta">Meta<a class="anchor" aria-label="anchor" href="#meta"></a>
+</h1>
 <ul>
-<li><p>Please <a href="https://github.com/adamhsparks/epicrop/issues">report any issues or bugs</a>.</p></li>
+<li><p>Please <a href="https://github.com/adamhsparks/epicrop/issues" class="external-link">report any issues or bugs</a>.</p></li>
 <li><p>License: GPL-3</p></li>
 <li><p>To cite <em>epicrop</em>, please use the output from <code>citation(package = "epicrop")</code>.</p></li>
 </ul>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
 <p>Please note that the epicrop project is released with a <a href="http://adamhsparks.github.io/epicrop/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level1">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
 <p>Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.</p>
-<p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.(2012). Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009">10.1016/j.cropro.2011.11.009</a>.</p>
-<p>Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). <em>European Journal of Plant Pathology</em> 142, no. 4:771–90. DOI: <a href="https://doi.org/10.1007/s10658-015-0650-7">10.1007/s10658-015-0650-7</a>.</p>
-<p>Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS Precipitation Data in R. <em>Journal of Open Source Software</em>, 5(51), 2419, DOI: <a href="https://doi.org/10.21105/joss.02419">10.21105/joss.02419</a></p>
-<p>Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. <em>Journal of Open Source Software</em>, 3(30), 1035, DOI: <a href="https://doi.org/10.21105/joss.01035">10.21105/joss.01035</a>.</p>
-<p>Adam Sparks (2021). <em>nasapower: NASA-POWER Data from R</em>. DOI: <a href="https://doi.org/10.5281/zenodo.1040727">10.5281/zenodo.1040727</a>, R package version 4.0.0, URL: <a href="https://CRAN.R-project.org/package=nasapower" class="uri">https://CRAN.R-project.org/package=nasapower</a>.</p>
-<p>Jan C. Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. <em>Phytopathology</em> 61:600. DOI: <a href="https://doi.org/10.1094/Phyto-61-600">10.1094/Phyto-61-600</a>.</p>
+<p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.(2012). Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009" class="external-link">10.1016/j.cropro.2011.11.009</a>.</p>
+<p>Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). <em>European Journal of Plant Pathology</em> 142, no. 4:771–90. DOI: <a href="https://doi.org/10.1007/s10658-015-0650-7" class="external-link">10.1007/s10658-015-0650-7</a>.</p>
+<p>Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS Precipitation Data in R. <em>Journal of Open Source Software</em>, 5(51), 2419, DOI: <a href="https://doi.org/10.21105/joss.02419" class="external-link">10.21105/joss.02419</a></p>
+<p>Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. <em>Journal of Open Source Software</em>, 3(30), 1035, DOI: <a href="https://doi.org/10.21105/joss.01035" class="external-link">10.21105/joss.01035</a>.</p>
+<p>Adam Sparks (2021). <em>nasapower: NASA-POWER Data from R</em>. DOI: <a href="https://doi.org/10.5281/zenodo.1040727" class="external-link">10.5281/zenodo.1040727</a>, R package version 4.0.0, URL: <a href="https://CRAN.R-project.org/package=nasapower" class="external-link uri">https://CRAN.R-project.org/package=nasapower</a>.</p>
+<p>Jan C. Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. <em>Phytopathology</em> 61:600. DOI: <a href="https://doi.org/10.1094/Phyto-61-600" class="external-link">10.1094/Phyto-61-600</a>.</p>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/adamhsparks/epicrop/">https://​github.com/​adamhsparks/​epicrop/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/adamhsparks/epicrop/issues">https://​github.com/​adamhsparks/​epicrop/​issues</a>
-</li>
+<li><a href="https://github.com/adamhsparks/epicrop/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/adamhsparks/epicrop/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
+<a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing epicrop</a></li>
+<li><a href="authors.html#citation">Citing epicrop</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Adam H. Sparks <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-0061-8359" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Robert Hijmans <br><small class="roles"> Author, translator </small> <a href="https://orcid.org/0000-0001-5872-2872" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> <br><small>(Original R implementation)</small>
-</li>
-<li>Serge Savary <br><small class="roles"> Author, conceptor </small> <a href="https://orcid.org/0000-0002-6867-180X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> <br><small>(Model conception and development in Stella)</small>
-</li>
-<li>Ireno Pangga <br><small class="roles"> Author, translator </small>  <br><small>(Model conception, development in Stella and original R
-           implementation)</small>
-</li>
-<li>Jorrel Aunario <br><small class="roles"> Author, translator </small>  <br><small>(Original R implementation)</small>
-</li>
-<li><a href="authors.html">All authors...</a></li>
+<li>Adam H. Sparks <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-0061-8359" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Robert Hijmans <br><small class="roles"> Author, translator </small> <a href="https://orcid.org/0000-0001-5872-2872" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Serge Savary <br><small class="roles"> Author, conceptor </small> <a href="https://orcid.org/0000-0002-6867-180X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Ireno Pangga <br><small class="roles"> Author, translator </small>  </li>
+<li>Jorrel Aunario <br><small class="roles"> Author, translator </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/adamhsparks/epicrop/actions" class="external-link"><img src="https://github.com/adamhsparks/epicrop/workflows/tic/badge.svg?branch=main" alt="tic"></a></li>
+<li><a href="https://codecov.io/gh/adamhsparks/epicrop" class="external-link"><img src="https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP" alt="codecov"></a></li>
+<li><a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/58613738" class="external-link"><img src="https://zenodo.org/badge/58613738.svg" alt="DOI"></a></li>
 </ul>
 </div>
 
@@ -294,11 +299,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario.</p>
+  <p></p>
+<p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
 </div>
 
       </footer>
@@ -306,6 +313,8 @@
 
   
 
+
+  
 
   </body>
 </html>
