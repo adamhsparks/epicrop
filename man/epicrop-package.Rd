@@ -6,6 +6,8 @@
 \alias{epicrop-package}
 \title{epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Generic simulation modelling of crop diseases using a Susceptible- Exposed-Infectious-Removed ('SEIR') model. This type of model was first described in botanical epidemiology by Zadoks (1971) <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's development, use and results from modeling global unmanaged epidemics of rice diseases for five major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro. Specific functions are provided to simulate all of these diseases with a generic 'SEIR' model function that is suitable for parameterising for use with other pathosystems as demonstrated in Savary et al. 2012.
 }
 \seealso{

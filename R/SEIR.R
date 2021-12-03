@@ -63,7 +63,7 @@
 #' @references
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 #' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-#' Disease Progress over Time. *The Plant Health Instructor*.
+#' Disease Progress over Time. _The Plant Health Instructor_.
 #' DOI:[10.1094/PHI-A-2008-0129-02](https://doi.org/10.1094/PHI-A-2008-0129-02).
 #'
 #' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
