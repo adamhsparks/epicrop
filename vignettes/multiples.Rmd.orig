@@ -137,7 +137,7 @@ For small runs, _e.g._ one or two seasons or locations, this is will not reduce 
 Best guess is that unless you have > 40 or 50 seasons or locations or some combinations thereof; to run the processes in parallel will not be any benefit.
 
 In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially.
-An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code is provided below.
+An example benchmarking different methods is provided here.
 
 ```{r parallel-seasons}
 library("epicrop")

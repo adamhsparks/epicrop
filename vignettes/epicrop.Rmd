@@ -83,7 +83,41 @@ summary(bb_wet)
 ```
 
 ```
-## Error in summary(bb_wet): object 'bb_wet' not found
+##      simday           dates                sites       
+##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0  
+##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1  
+##  Median : 60.50   Median :2000-08-29   Median :1827.5  
+##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2  
+##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5  
+##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9  
+##      latent           infectious        removed          senesced     
+##  Min.   :  0.0000   Min.   :  0.00   Min.   :  0.00   Min.   :   0.0  
+##  1st Qu.:  0.7071   1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4  
+##  Median : 12.4138   Median : 17.74   Median :  1.00   Median : 642.6  
+##  Mean   : 65.0439   Mean   :214.99   Mean   : 29.83   Mean   : 803.0  
+##  3rd Qu.:126.2923   3rd Qu.:379.33   3rd Qu.: 16.12   3rd Qu.:1410.1  
+##  Max.   :264.3734   Max.   :953.22   Max.   :352.64   Max.   :2286.4  
+##     rateinf          rtransfer        rgrowth         rsenesced     
+##  Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688   Min.   : 1.000  
+##  1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.659   1st Qu.: 9.331  
+##  Median : 0.9286   Median : 0.00   Median :33.172   Median :22.890  
+##  Mean   :11.3325   Mean   :10.66   Mean   :40.322   Mean   :19.449  
+##  3rd Qu.:19.6572   3rd Qu.:16.29   3rd Qu.:57.583   3rd Qu.:26.081  
+##  Max.   :64.5756   Max.   :64.58   Max.   :79.689   Max.   :50.029  
+##     diseased          intensity           AUDPC           lat       
+##  Min.   :   0.000   Min.   :0.00000   Min.   :12.4   Min.   :14.68  
+##  1st Qu.:   1.707   1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68  
+##  Median :  31.153   Median :0.01194   Median :12.4   Median :14.68  
+##  Mean   : 309.862   Mean   :0.10512   Mean   :12.4   Mean   :14.68  
+##  3rd Qu.: 619.724   3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68  
+##  Max.   :1342.865   Max.   :0.43496   Max.   :12.4   Max.   :14.68  
+##       lon       
+##  Min.   :121.3  
+##  1st Qu.:121.3  
+##  Median :121.3  
+##  Mean   :121.3  
+##  3rd Qu.:121.3  
+##  Max.   :121.3
 ```
 
 ## Plotting using _ggplot2_
@@ -174,7 +208,41 @@ summary(bb_dry)
 ```
 
 ```
-## Error in summary(bb_dry): object 'bb_dry' not found
+##      simday           dates                sites       
+##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0  
+##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7  
+##  Median : 60.50   Median :2000-03-04   Median :2494.0  
+##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1846.3  
+##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2598.9  
+##  Max.   :120.00   Max.   :2000-05-03   Max.   :2714.5  
+##      latent          infectious        removed          senesced     
+##  Min.   :  0.000   Min.   :  0.00   Min.   :  0.00   Min.   :   0.0  
+##  1st Qu.:  0.000   1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4  
+##  Median :  3.499   Median : 16.03   Median :  1.00   Median : 641.4  
+##  Mean   : 15.689   Mean   : 66.40   Mean   : 16.69   Mean   : 823.4  
+##  3rd Qu.: 20.839   3rd Qu.:115.30   3rd Qu.: 17.03   3rd Qu.:1446.5  
+##  Max.   :139.262   Max.   :256.91   Max.   :109.70   Max.   :2300.1  
+##     rateinf          rtransfer          rgrowth         rsenesced     
+##  Min.   : 0.0000   Min.   : 0.0000   Min.   : 9.688   Min.   : 1.000  
+##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:28.311   1st Qu.: 9.327  
+##  Median : 0.0000   Median : 0.0000   Median :34.267   Median :24.997  
+##  Mean   : 2.6149   Mean   : 2.6149   Mean   :42.212   Mean   :19.566  
+##  3rd Qu.: 0.5386   3rd Qu.: 0.5386   3rd Qu.:57.742   3rd Qu.:26.886  
+##  Max.   :39.2813   Max.   :39.2813   Max.   :79.485   Max.   :47.858  
+##     diseased         intensity           AUDPC            lat       
+##  Min.   :  0.000   Min.   :0.00000   Min.   :3.576   Min.   :14.68  
+##  1st Qu.:  2.179   1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68  
+##  Median : 28.878   Median :0.01105   Median :3.576   Median :14.68  
+##  Mean   : 98.776   Mean   :0.03012   Mean   :3.576   Mean   :14.68  
+##  3rd Qu.:174.526   3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68  
+##  Max.   :313.789   Max.   :0.10021   Max.   :3.576   Max.   :14.68  
+##       lon       
+##  Min.   :121.3  
+##  1st Qu.:121.3  
+##  Median :121.3  
+##  Mean   :121.3  
+##  3rd Qu.:121.3  
+##  Max.   :121.3
 ```
 
 ### Dry season intensity
