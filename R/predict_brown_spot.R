@@ -51,7 +51,7 @@
 #'
 #' Levy, Y. and Cohen, Y., 1980. Sporulation of _Helminthosporium turcicum_ on
 #' sweet corn: Effects of temperature and dew period. Canadian Journal of Plant
-#' Pathology 2:65-69. DOI: <https://doi.org/10.1080/07060668009501440>.
+#' Pathology 2:65-69. DOI: \doi{10.1080/07060668009501440}.
 #'
 #' Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
 #' paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
@@ -67,7 +67,7 @@
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,
 #' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <https://doi.org/10.1016/j.cropro.2011.11.009>.
+#' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A Simulator of
 #' Southern Corn Leaf Blight. Bulletin of the Connecticut Experiment Station,
