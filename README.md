@@ -51,7 +51,7 @@ remotes::install_github("adamhsparks/epicrop",
 
 ## Get weather data
 
-First you need to provide weather data for the model. *epicrop* provides
+First you need to provide weather data for the model; *epicrop* provides
 the `get_wth()` function to do this. Using it you can fetch weather data
 for any place in the world from 1983 to near present by providing the
 and latitude and dates or length of rice growing season as shown below.
