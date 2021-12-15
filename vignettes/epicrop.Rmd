@@ -47,23 +47,18 @@ wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-01-01", "2000-12-31")
 )
+```
 
+```
+## Error: Something went wrong with the query, no data were returned. Please see <https://power.larc.nasa.gov> for potential server issues.
+```
+
+```r
 wth
 ```
 
 ```
-##        YYYYMMDD DOY  TEMP  RHUM  RAIN     LAT      LON
-##   1: 2000-01-01   1 24.38 91.25 14.93 14.6774 121.2556
-##   2: 2000-01-02   2 24.27 90.88  6.96 14.6774 121.2556
-##   3: 2000-01-03   3 23.82 88.38  2.28 14.6774 121.2556
-##   4: 2000-01-04   4 23.68 88.00  0.87 14.6774 121.2556
-##   5: 2000-01-05   5 24.11 88.12  0.43 14.6774 121.2556
-##  ---                                                  
-## 362: 2000-12-27 362 24.46 92.50 21.15 14.6774 121.2556
-## 363: 2000-12-28 363 24.64 91.94  6.01 14.6774 121.2556
-## 364: 2000-12-29 364 24.58 90.81  5.49 14.6774 121.2556
-## 365: 2000-12-30 365 25.31 86.25  2.07 14.6774 121.2556
-## 366: 2000-12-31 366 24.48 87.81  3.45 14.6774 121.2556
+## Error in eval(expr, envir, enclos): object 'wth' not found
 ```
 
 ### Predict bacterial blight
@@ -78,54 +73,17 @@ See the help file for `SEIR()` for more on the values returned.
 bb_wet <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 ```
 
+```
+## Error in SEIR(wth = wth, emergence = emergence, onset = 20L, duration = 120L, : object 'wth' not found
+```
+
 
 ```r
 summary(bb_wet)
 ```
 
 ```
-##      simday           dates                sites       
-##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0  
-##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1  
-##  Median : 60.50   Median :2000-08-29   Median :1827.5  
-##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2  
-##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5  
-##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9  
-##      latent           infectious        removed      
-##  Min.   :  0.0000   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  0.7071   1st Qu.:  1.00   1st Qu.:  0.00  
-##  Median : 12.4138   Median : 17.74   Median :  1.00  
-##  Mean   : 65.0439   Mean   :214.99   Mean   : 29.83  
-##  3rd Qu.:126.2923   3rd Qu.:379.33   3rd Qu.: 16.12  
-##  Max.   :264.3734   Max.   :953.22   Max.   :352.64  
-##     senesced         rateinf          rtransfer    
-##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00  
-##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00  
-##  Median : 642.6   Median : 0.9286   Median : 0.00  
-##  Mean   : 803.0   Mean   :11.3325   Mean   :10.66  
-##  3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29  
-##  Max.   :2286.4   Max.   :64.5756   Max.   :64.58  
-##     rgrowth         rsenesced         diseased       
-##  Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  
-##  1st Qu.:22.659   1st Qu.: 9.331   1st Qu.:   1.707  
-##  Median :33.172   Median :22.890   Median :  31.153  
-##  Mean   :40.322   Mean   :19.449   Mean   : 309.862  
-##  3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724  
-##  Max.   :79.689   Max.   :50.029   Max.   :1342.865  
-##    intensity           AUDPC           lat       
-##  Min.   :0.00000   Min.   :12.4   Min.   :14.68  
-##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68  
-##  Median :0.01194   Median :12.4   Median :14.68  
-##  Mean   :0.10512   Mean   :12.4   Mean   :14.68  
-##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68  
-##  Max.   :0.43496   Max.   :12.4   Max.   :14.68  
-##       lon       
-##  Min.   :121.3  
-##  1st Qu.:121.3  
-##  Median :121.3  
-##  Mean   :121.3  
-##  3rd Qu.:121.3  
-##  Max.   :121.3
+## Error in summary(bb_wet): object 'bb_wet' not found
 ```
 
 ## Plotting using _ggplot2_
@@ -150,7 +108,13 @@ dat <- pivot_longer(
   names_to = "site",
   values_to = "value"
 )
+```
 
+```
+## Error in pivot_longer(bb_wet, cols = c("diseased", "removed", "latent", : object 'bb_wet' not found
+```
+
+```r
 ggplot(data = dat,
        aes(
          x = dates,
@@ -165,7 +129,9 @@ ggplot(data = dat,
   theme_classic()
 ```
 
-![Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](wet_plot_sites-1.png)
+```
+## Error in ggplot(data = dat, aes(x = dates, y = value, shape = site, linetype = site)): object 'dat' not found
+```
 
 ### Wet season intensity
 
@@ -183,7 +149,9 @@ ggplot(data = bb_wet,
   theme_classic()
 ```
 
-![Wet season disease intensity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.  Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](wet_plot_intensity-1.png)
+```
+## Error in ggplot(data = bb_wet, aes(x = dates, y = intensity * 100)): object 'bb_wet' not found
+```
 
 ## Comparing epidemics
 
@@ -195,52 +163,18 @@ We can compare the dry season with the wet season by looking at the AUDPC values
 
 ```r
 bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
+```
+
+```
+## Error in SEIR(wth = wth, emergence = emergence, onset = 20L, duration = 120L, : object 'wth' not found
+```
+
+```r
 summary(bb_dry)
 ```
 
 ```
-##      simday           dates                sites       
-##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0  
-##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7  
-##  Median : 60.50   Median :2000-03-04   Median :2494.0  
-##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1846.3  
-##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2598.9  
-##  Max.   :120.00   Max.   :2000-05-03   Max.   :2714.5  
-##      latent          infectious        removed      
-##  Min.   :  0.000   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  0.000   1st Qu.:  1.00   1st Qu.:  0.00  
-##  Median :  3.499   Median : 16.03   Median :  1.00  
-##  Mean   : 15.689   Mean   : 66.40   Mean   : 16.69  
-##  3rd Qu.: 20.839   3rd Qu.:115.30   3rd Qu.: 17.03  
-##  Max.   :139.262   Max.   :256.91   Max.   :109.70  
-##     senesced         rateinf          rtransfer      
-##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.0000  
-##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.0000  
-##  Median : 641.4   Median : 0.0000   Median : 0.0000  
-##  Mean   : 823.4   Mean   : 2.6149   Mean   : 2.6149  
-##  3rd Qu.:1446.5   3rd Qu.: 0.5386   3rd Qu.: 0.5386  
-##  Max.   :2300.1   Max.   :39.2813   Max.   :39.2813  
-##     rgrowth         rsenesced         diseased      
-##  Min.   : 9.688   Min.   : 1.000   Min.   :  0.000  
-##  1st Qu.:28.311   1st Qu.: 9.327   1st Qu.:  2.179  
-##  Median :34.267   Median :24.997   Median : 28.878  
-##  Mean   :42.212   Mean   :19.566   Mean   : 98.776  
-##  3rd Qu.:57.742   3rd Qu.:26.886   3rd Qu.:174.526  
-##  Max.   :79.485   Max.   :47.858   Max.   :313.789  
-##    intensity           AUDPC            lat       
-##  Min.   :0.00000   Min.   :3.576   Min.   :14.68  
-##  1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68  
-##  Median :0.01105   Median :3.576   Median :14.68  
-##  Mean   :0.03012   Mean   :3.576   Mean   :14.68  
-##  3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68  
-##  Max.   :0.10021   Max.   :3.576   Max.   :14.68  
-##       lon       
-##  Min.   :121.3  
-##  1st Qu.:121.3  
-##  Median :121.3  
-##  Mean   :121.3  
-##  3rd Qu.:121.3  
-##  Max.   :121.3
+## Error in summary(bb_dry): object 'bb_dry' not found
 ```
 
 ### Dry season intensity
@@ -259,7 +193,9 @@ ggplot(data = bb_dry,
   theme_classic()
 ```
 
-![Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](dry_plot_intensity-1.png)
+```
+## Error in ggplot(data = bb_dry, aes(x = dates, y = intensity * 100)): object 'bb_dry' not found
+```
 
 As the AUDPC value is found in the `AUDPC` column and is repeated for every row of the `data.table` so we only need to access the first row.
 We can easily do this by calling the column using the `$` operator and `[]` to select an index value, in this case the first row of the `data.table`.
@@ -272,7 +208,7 @@ bb_dry$AUDPC[1]
 ```
 
 ```
-## [1] 3.57641
+## Error in eval(expr, envir, enclos): object 'bb_dry' not found
 ```
 
 ```r
@@ -281,20 +217,6 @@ bb_wet$AUDPC[1]
 ```
 
 ```
-## [1] 12.39699
+## Error in eval(expr, envir, enclos): object 'bb_wet' not found
 ```
 
-The AUDPC of the wet season is greater than that of the dry season.
-Checking the data and referring to the curves, the wet season intensity reaches a peak value of 43% and the dry season tops out at 10%.
-So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.
-
-# References
-
-Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
-
-Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. *Phytopathology* Volume 67.8, 1977, Pages 1051-1056.
-
-Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
-Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
-
-Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.

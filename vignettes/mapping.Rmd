@@ -88,7 +88,62 @@ map(
     y = "Latitude"
   ) +
   ylim(c(0, 25)) +
-  xlim(c(75, 127))
+  xlim(c(75, 127)) +
+  coord_sf(crs = 4326)
 ```
 
 ![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.](map-AUDPC-1.png)
+
+```
+#> 
+  |                                                          
+  |                                                    |   0%
+  |                                                          
+  |==                                                  |   4%
+  |                                                          
+  |====                                                |   8%
+  |                                                          
+  |======                                              |  12%
+  |                                                          
+  |=========                                           |  17%
+  |                                                          
+  |===========                                         |  21%
+  |                                                          
+  |=============                                       |  25%
+  |                                                          
+  |===============                                     |  29%
+  |                                                          
+  |=================                                   |  33%
+  |                                                          
+  |====================                                |  38%
+  |                                                          
+  |======================                              |  42%
+  |                                                          
+  |========================                            |  46%
+  |                                                          
+  |==========================                          |  50%
+  |                                                          
+  |============================                        |  54%
+  |                                                          
+  |==============================                      |  58%
+  |                                                          
+  |================================                    |  62%
+  |                                                          
+  |===================================                 |  67%
+  |                                                          
+  |=====================================               |  71%
+  |                                                          
+  |=======================================             |  75%
+  |                                                          
+  |=========================================           |  79%
+  |                                                          
+  |===========================================         |  83%
+  |                                                          
+  |==============================================      |  88%
+  |                                                          
+  |================================================    |  92%
+  |                                                          
+  |==================================================  |  96%
+  |                                                          
+  |====================================================| 100%
+```

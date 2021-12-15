@@ -456,8 +456,7 @@ mbm <- microbenchmark(
                               wth = .x),
     .options = furrr_options(seed = NULL)
   ) %>%
-    bind_rows(.id = "emergence"),
-  unit = "relative"
+    bind_rows(.id = "emergence")
 )
 
 mbm

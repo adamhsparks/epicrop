@@ -56,6 +56,7 @@ seasons_wth <-
     lonlat = c(121.255669, 14.16742),
     duration = 120
   )
+#> Error: Something went wrong with the query, no data were returned. Please see <https://power.larc.nasa.gov> for potential server issues.
 ```
 
 ### Using _purrr_ to simplify the simulation of multiple seasons
@@ -82,18 +83,12 @@ seasons <- map_df(
   group_by(season) %>%
   relocate(season, AUDPC) %>%
   distinct(AUDPC, season)
+#> Error in .x$YYYYMMDD: $ operator is invalid for atomic vectors
 
 pander(seasons)
 ```
 
-
-----------------
- season   AUDPC 
--------- -------
-  2000    11.12 
-
-  2001    5.94  
-----------------
+_2000-06-30_ and _2001-06-30_
 
 ### Visualising differences in AUDPC between seasons
 
@@ -109,9 +104,8 @@ ggplot(seasons,
            orientation = "y") +
   ylab("Season") +
   theme_classic()
+#> Error: `data` must be a data frame, or other object coercible by `fortify()`, not a character vector.
 ```
-
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
 ### Simulating multiple seasons with _furrr_ using parallel processing
 
@@ -131,7 +125,6 @@ An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code 
 ```r
 library("epicrop")
 library("furrr")
-#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -149,6 +142,7 @@ seasons_wth <-
     duration = 120,
     .options = furrr_options(seed = NULL)
   )
+#> Error: Something went wrong with the query, no data were returned. Please see <https://power.larc.nasa.gov> for potential server issues.
 
 # for local processing use 2 cores, this will assign one to each year, if you
 # have more years and more cores, e.g., an HPC, explore using more resources
@@ -168,16 +162,9 @@ future_map_dfr(
   relocate(season, AUDPC) %>%
   distinct(AUDPC, season) %>%
   pander()
+#> Error in .x$YYYYMMDD: $ operator is invalid for atomic vectors
+#> Error in if (tail(stdout, 1) == "") {: argument is of length zero
 ```
-
-
-----------------
- season   AUDPC 
--------- -------
-  2000    11.12 
-
-  2001    5.94  
-----------------
 
 We can see here that the AUDPC values match using both processing methods.
 
@@ -227,6 +214,7 @@ seasons_wth <- map_dfr(
   duration = 180
 ) %>%
   mutate(YYYYMMDD = as_date(YYYYMMDD))
+#> Error: Something went wrong with the query, no data were returned. Please see <https://power.larc.nasa.gov> for potential server issues.
 
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
@@ -391,6 +379,7 @@ seasons_wth <-
     .options = furrr_options(seed = NULL)
   ) %>%
   mutate(YYYYMMDD = as_date(YYYYMMDD))
+#> Error: Something went wrong with the query, no data were returned. Please see <https://power.larc.nasa.gov> for potential server issues.
 
 # Once we have all the weather, create a list of weather data.frames for each
 # establishment date
@@ -467,6 +456,7 @@ locations_wth <-
     dates = "2000-06-30",
     duration = 120
   )
+#> Error: Something went wrong with the query, no data were returned. Please see <https://power.larc.nasa.gov> for potential server issues.
 ```
 
 ### Simulating multiple locations with _purrr_
@@ -533,15 +523,20 @@ mbm <- microbenchmark(
                               wth = .x),
     .options = furrr_options(seed = NULL)
   ) %>%
-    bind_rows(.id = "emergence"),
-  unit = "relative"
+    bind_rows(.id = "emergence")
 )
-#> Error in match.arg(unit, values): 'arg' should be one of "nanoseconds", "ns", "microseconds", "us", "milliseconds", "ms", "seconds", "s", "secs", "time", "t", "frequency", "f", "hz", "khz", "mhz", "eps"
 
 mbm
-#> Error in eval(expr, envir, enclos): object 'mbm' not found
+#> Unit: milliseconds
+#>        expr      min       lq     mean   median        uq
+#>  sequential 52.64794 58.12322 63.84161 64.39536  66.53929
+#>    parallel 36.74609 39.69282 75.09316 45.49052 148.68254
+#>        max neval cld
+#>   85.76388   100   a
+#>  360.15868   100   a
 
 autoplot(mbm) +
   theme_classic()
-#> Error in autoplot(mbm): object 'mbm' not found
 ```
+
+![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
