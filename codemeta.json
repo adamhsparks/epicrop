@@ -280,9 +280,10 @@
       "name": "stats"
     }
   ],
-  "fileSize": "788.308KB",
+  "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
+  "fileSize": "760.274KB",
   "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://codecov.io/gh/adamhsparks/epicrop"],
-  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
+  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
   "citation": [
     {
       "@type": "SoftwareSourceCode",
