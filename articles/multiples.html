@@ -118,6 +118,11 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="http://purrr.tidyverse.org" class="external-link">"purrr"</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'purrr'</span>
+<span class="co">#&gt; The following object is masked from 'package:epicrop':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     transpose</span>
 
 <span class="va">seasons_wth</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span>
@@ -195,7 +200,7 @@
 <h4 id="a-note-on-the-use-of-parallel-processing">A note on the use of parallel processing<a class="anchor" aria-label="anchor" href="#a-note-on-the-use-of-parallel-processing"></a>
 </h4>
 <p>Use parallel processing with caution. <em>epicrop</em> is highly optimised for speed (as much as pure R can be). For small runs, <em>e.g.</em> one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing. Best guess is that unless you have &gt; 40 or 50 seasons or locations or some combinations thereof; to run the processes in parallel will not be any benefit.</p>
-<p>In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially. An example of <a href="Comparing-sequential-versus-parallel-methods">benchmarking</a> code is provided below.</p>
+<p>In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially. An example benchmarking different methods is provided here.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/DavisVaughan/furrr" class="external-link">"furrr"</a></span><span class="op">)</span>
@@ -301,6 +306,7 @@
   duration <span class="op">=</span> <span class="fl">180</span>
 <span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>YYYYMMDD <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_date</a></span><span class="op">(</span><span class="va">YYYYMMDD</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle): Timeout was reached: [power.larc.nasa.gov] Operation timed out after 30005 milliseconds with 0 bytes received</span>
 
 <span class="co"># Now use 4 cores for the local processing</span>
 <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
@@ -315,6 +321,7 @@
       .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">seasons_wth</span>, <span class="va">YYYYMMDD</span> <span class="op">&gt;=</span> <span class="va">.x</span> <span class="op">&amp;</span>
                       <span class="va">YYYYMMDD</span> <span class="op">&lt;=</span> <span class="va">.x</span> <span class="op">+</span> <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">emergence_dates</span><span class="op">)</span>
+<span class="co">#&gt; Error in subset.default(seasons_wth, YYYYMMDD &gt;= .x &amp; YYYYMMDD &lt;= .x + : object 'YYYYMMDD' not found</span>
 
 <span class="va">multi_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html" class="external-link">map2</a></span><span class="op">(</span>
   .x <span class="op">=</span> <span class="va">wth</span>,
@@ -326,140 +333,13 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">emergence</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">emergence</span>, <span class="va">AUDPC</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">AUDPC</span>, <span class="va">emergence</span><span class="op">)</span>
+<span class="co">#&gt; Error: Mapped vectors must have consistent lengths:</span>
+<span class="co">#&gt; * `.x` has length 7</span>
+<span class="co">#&gt; * `.y` has length 30</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/pander/man/pander.html" class="external-link">pander</a></span><span class="op">(</span><span class="va">multi_dates</span><span class="op">)</span></code></pre></div>
-<table style="width:29%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="11%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">emergence</th>
-<th align="center">AUDPC</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="center">2001-06-01</td>
-<td align="center">11.75</td>
-</tr>
-<tr class="even">
-<td align="center">2001-06-14</td>
-<td align="center">6.976</td>
-</tr>
-<tr class="odd">
-<td align="center">2001-06-30</td>
-<td align="center">5.94</td>
-</tr>
-<tr class="even">
-<td align="center">2002-06-01</td>
-<td align="center">12.47</td>
-</tr>
-<tr class="odd">
-<td align="center">2002-06-14</td>
-<td align="center">10.45</td>
-</tr>
-<tr class="even">
-<td align="center">2002-06-30</td>
-<td align="center">12.19</td>
-</tr>
-<tr class="odd">
-<td align="center">2003-06-01</td>
-<td align="center">10.18</td>
-</tr>
-<tr class="even">
-<td align="center">2003-06-14</td>
-<td align="center">10.58</td>
-</tr>
-<tr class="odd">
-<td align="center">2003-06-30</td>
-<td align="center">15.26</td>
-</tr>
-<tr class="even">
-<td align="center">2004-06-01</td>
-<td align="center">10.3</td>
-</tr>
-<tr class="odd">
-<td align="center">2004-06-14</td>
-<td align="center">13.29</td>
-</tr>
-<tr class="even">
-<td align="center">2004-06-30</td>
-<td align="center">10.19</td>
-</tr>
-<tr class="odd">
-<td align="center">2005-06-01</td>
-<td align="center">14.29</td>
-</tr>
-<tr class="even">
-<td align="center">2005-06-14</td>
-<td align="center">13.86</td>
-</tr>
-<tr class="odd">
-<td align="center">2005-06-30</td>
-<td align="center">15.1</td>
-</tr>
-<tr class="even">
-<td align="center">2006-06-01</td>
-<td align="center">15.06</td>
-</tr>
-<tr class="odd">
-<td align="center">2006-06-14</td>
-<td align="center">14.01</td>
-</tr>
-<tr class="even">
-<td align="center">2006-06-30</td>
-<td align="center">12.62</td>
-</tr>
-<tr class="odd">
-<td align="center">2007-06-01</td>
-<td align="center">7.811</td>
-</tr>
-<tr class="even">
-<td align="center">2007-06-14</td>
-<td align="center">7.173</td>
-</tr>
-<tr class="odd">
-<td align="center">2007-06-30</td>
-<td align="center">10.91</td>
-</tr>
-<tr class="even">
-<td align="center">2008-06-01</td>
-<td align="center">9.31</td>
-</tr>
-<tr class="odd">
-<td align="center">2008-06-14</td>
-<td align="center">8.957</td>
-</tr>
-<tr class="even">
-<td align="center">2008-06-30</td>
-<td align="center">10.27</td>
-</tr>
-<tr class="odd">
-<td align="center">2009-06-01</td>
-<td align="center">4.83</td>
-</tr>
-<tr class="even">
-<td align="center">2009-06-14</td>
-<td align="center">9.118</td>
-</tr>
-<tr class="odd">
-<td align="center">2009-06-30</td>
-<td align="center">6.797</td>
-</tr>
-<tr class="even">
-<td align="center">2010-06-01</td>
-<td align="center">13.95</td>
-</tr>
-<tr class="odd">
-<td align="center">2010-06-14</td>
-<td align="center">16.31</td>
-</tr>
-<tr class="even">
-<td align="center">2010-06-30</td>
-<td align="center">16</td>
-</tr>
-</tbody>
-</table>
+<span class="fu"><a href="https://rdrr.io/pkg/pander/man/pander.html" class="external-link">pander</a></span><span class="op">(</span><span class="va">multi_dates</span><span class="op">)</span>
+<span class="co">#&gt; Error in pander(multi_dates): object 'multi_dates' not found</span>
+<span class="co">#&gt; Error in if (tail(stdout, 1) == "") {: argument is of length zero</span></code></pre></div>
 <p>That’s a bit long and there’s lots of values to digest here.</p>
 </div>
 <div class="section level3">
@@ -481,10 +361,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html" class="external-link">scale_y_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="va">rev</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Establishment Date"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<img src="stem-plot-1.png" alt=""><p class="caption">Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.</p>
-</div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Error in ggplot(data = multi_dates, aes(x = AUDPC, xend = 0, y = as.factor(emergence), : object 'multi_dates' not found</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="using-furrr-to-run-multiple-establishment-dates-in-parallel">Using <em>furrr</em> to run multiple establishment dates in parallel<a class="anchor" aria-label="anchor" href="#using-furrr-to-run-multiple-establishment-dates-in-parallel"></a>
@@ -655,17 +533,23 @@
                               wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>,
     .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
   <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span>,
-  unit <span class="op">=</span> <span class="st">"relative"</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; Error in match.arg(unit, values): 'arg' should be one of "nanoseconds", "ns", "microseconds", "us", "milliseconds", "ms", "seconds", "s", "secs", "time", "t", "frequency", "f", "hz", "khz", "mhz", "eps"</span>
 
 <span class="va">mbm</span>
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'mbm' not found</span>
+<span class="co">#&gt; Unit: milliseconds</span>
+<span class="co">#&gt;        expr      min        lq      mean    median        uq      max</span>
+<span class="co">#&gt;  sequential 55.46062  64.20661  88.83744  72.67082  86.85241 310.2908</span>
+<span class="co">#&gt;    parallel 40.30858 147.28252 174.75522 151.75029 181.89703 723.9585</span>
+<span class="co">#&gt;  neval cld</span>
+<span class="co">#&gt;    100  a </span>
+<span class="co">#&gt;    100   b</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">mbm</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Error in autoplot(mbm): object 'mbm' not found</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<img src="benchmark-1.png" alt=""><p class="caption">Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines</p>
+</div>
 </div>
   </div>
 
