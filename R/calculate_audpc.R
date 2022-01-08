@@ -1,10 +1,10 @@
 #' Calculate the area under the disease progress curve (AUDPC)
 #'
 #' This function is used to return the AUDPC in the output of SEIR().  Not to be
-#' used alone.
+#' used alone as it assumes that there is always only one day between
+#' observations so it takes shortcuts in the calculation of the values.
 #'
 #' @param intensity A `vector` of disease intensity from `SEIR()`.
-#' @param simday A `vector` of simulation days from `SEIR()`.
 #'
 #' @return  A `numeric` value as `double`.
 #'
@@ -21,28 +21,23 @@
 #' @references
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 #' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-#' Disease Progress over Time. *The Plant Health Instructor*.
-#' DOI:[10.1094/PHI-A-2008-0129-02]https://doi.org/10.1094/PHI-A-2008-0129-02).
+#' Disease Progress over Time. _The Plant Health Instructor_.
+#' \doi{10.1094/PHI-A-2008-0129-02}.
 #'
 #' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
 #' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
-#' DOI:[10.1094/9780890545058](https://doi.org/10.1094/9780890545058).
+#' \doi{https://doi.org/10.1094/9780890545058}.
 #'
 #' @keywords internal
 #' @noRd
 
-.calculate_audpc <- function(intensity, simday) {
+.calculate_audpc <- function(intensity) {
   n <- sum(length(intensity), -1)
-
-  meanvec <- intvec <- vector(mode = "double", length = n)
+  meanvec <- vector(mode = "double", length = n)
 
   for (i in 1:n) {
-    j <- sum(i, 1)
-    meanvec[i] <- mean(c(intensity[i], intensity[j]))
-    intvec[i] <- sum(simday[j], -simday[i])
+    meanvec[i] <- mean(c(intensity[i], intensity[sum(i, 1)]))
   }
 
-  infprod <- meanvec * intvec
-
-  return(sum(infprod))
+  return(sum(meanvec))
 }

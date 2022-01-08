@@ -77,12 +77,12 @@
 #'
 #' Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 #' resistance to bacterial blight disease of rice. Journal of Phytopathology
-#' 119:312-318. DOI: <https://doi.org/10.1111/j.1439-0434.1987.tb04402.x>.
+#' 119:312-318. DOI: \doi{10.1111/j.1439-0434.1987.tb04402.x}.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,
 #' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <https://doi.org/10.1016/j.cropro.2011.11.009>.
+#' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' @family predict functions
 #'

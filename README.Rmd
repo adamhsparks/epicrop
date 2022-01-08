@@ -111,8 +111,6 @@ Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunar
 
 Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). _European Journal of Plant Pathology_ 142, no. 4:771–90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
-Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS Precipitation Data in R. _Journal of Open Source Software_, 5(51), 2419, DOI: [10.21105/joss.02419](https://doi.org/10.21105/joss.02419)
-
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. _Journal of Open Source Software_, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
 Adam Sparks (2021). _nasapower: NASA-POWER Data from R_. DOI: [10.5281/zenodo.1040727](https://doi.org/10.5281/zenodo.1040727), R package version 4.0.0, URL:

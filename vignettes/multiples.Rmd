@@ -48,6 +48,11 @@ You could also use R's base `lapply()` here as well if you prefer.
 ```r
 library("epicrop")
 library("purrr")
+#> 
+#> Attaching package: 'purrr'
+#> The following object is masked from 'package:epicrop':
+#> 
+#>     transpose
 
 seasons_wth <-
   map(
@@ -125,7 +130,7 @@ For small runs, _e.g._ one or two seasons or locations, this is will not reduce 
 Best guess is that unless you have > 40 or 50 seasons or locations or some combinations thereof; to run the processes in parallel will not be any benefit.
 
 In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially.
-An example of [benchmarking](Comparing-sequential-versus-parallel-methods) code is provided below.
+An example benchmarking different methods is provided here.
 
 
 ```r
@@ -227,6 +232,7 @@ seasons_wth <- map_dfr(
   duration = 180
 ) %>%
   mutate(YYYYMMDD = as_date(YYYYMMDD))
+#> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle): Timeout was reached: [power.larc.nasa.gov] Operation timed out after 30005 milliseconds with 0 bytes received
 
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
@@ -241,6 +247,7 @@ wth <-
       .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
                       YYYYMMDD <= .x + 120)) %>%
   setNames(emergence_dates)
+#> Error in subset.default(seasons_wth, YYYYMMDD >= .x & YYYYMMDD <= .x + : object 'YYYYMMDD' not found
 
 multi_dates <- map2(
   .x = wth,
@@ -252,74 +259,14 @@ multi_dates <- map2(
   group_by(emergence) %>%
   relocate(emergence, AUDPC) %>%
   distinct(AUDPC, emergence)
+#> Error: Mapped vectors must have consistent lengths:
+#> * `.x` has length 7
+#> * `.y` has length 30
 
 pander(multi_dates)
+#> Error in pander(multi_dates): object 'multi_dates' not found
+#> Error in if (tail(stdout, 1) == "") {: argument is of length zero
 ```
-
-
---------------------
- emergence    AUDPC 
------------- -------
- 2001-06-01   11.75 
-
- 2001-06-14   6.976 
-
- 2001-06-30   5.94  
-
- 2002-06-01   12.47 
-
- 2002-06-14   10.45 
-
- 2002-06-30   12.19 
-
- 2003-06-01   10.18 
-
- 2003-06-14   10.58 
-
- 2003-06-30   15.26 
-
- 2004-06-01   10.3  
-
- 2004-06-14   13.29 
-
- 2004-06-30   10.19 
-
- 2005-06-01   14.29 
-
- 2005-06-14   13.86 
-
- 2005-06-30   15.1  
-
- 2006-06-01   15.06 
-
- 2006-06-14   14.01 
-
- 2006-06-30   12.62 
-
- 2007-06-01   7.811 
-
- 2007-06-14   7.173 
-
- 2007-06-30   10.91 
-
- 2008-06-01   9.31  
-
- 2008-06-14   8.957 
-
- 2008-06-30   10.27 
-
- 2009-06-01   4.83  
-
- 2009-06-14   9.118 
-
- 2009-06-30   6.797 
-
- 2010-06-01   13.95 
-
- 2010-06-14   16.31 
-
- 2010-06-30    16   
---------------------
 
 That's a bit long and there's lots of values to digest here.
 
@@ -346,9 +293,8 @@ ggplot(data = multi_dates,
   scale_y_discrete(limits = rev) +
   ylab("Establishment Date") +
   theme_classic()
+#> Error in ggplot(data = multi_dates, aes(x = AUDPC, xend = 0, y = as.factor(emergence), : object 'multi_dates' not found
 ```
-
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.](stem-plot-1.png)
 
 ### Using _furrr_ to run multiple establishment dates in parallel
 
@@ -533,15 +479,20 @@ mbm <- microbenchmark(
                               wth = .x),
     .options = furrr_options(seed = NULL)
   ) %>%
-    bind_rows(.id = "emergence"),
-  unit = "relative"
+    bind_rows(.id = "emergence")
 )
-#> Error in match.arg(unit, values): 'arg' should be one of "nanoseconds", "ns", "microseconds", "us", "milliseconds", "ms", "seconds", "s", "secs", "time", "t", "frequency", "f", "hz", "khz", "mhz", "eps"
 
 mbm
-#> Error in eval(expr, envir, enclos): object 'mbm' not found
+#> Unit: milliseconds
+#>        expr      min        lq      mean    median        uq      max
+#>  sequential 55.46062  64.20661  88.83744  72.67082  86.85241 310.2908
+#>    parallel 40.30858 147.28252 174.75522 151.75029 181.89703 723.9585
+#>  neval cld
+#>    100  a 
+#>    100   b
 
 autoplot(mbm) +
   theme_classic()
-#> Error in autoplot(mbm): object 'mbm' not found
 ```
+
+![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)

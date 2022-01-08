@@ -280,9 +280,9 @@
       "name": "stats"
     }
   ],
-  "fileSize": "788.308KB",
-  "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://codecov.io/gh/adamhsparks/epicrop"],
-  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
+  "fileSize": "766.415KB",
+  "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://app.codecov.io/gh/adamhsparks/epicrop"],
+  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -324,5 +324,6 @@
   "issueTracker": "https://github.com/adamhsparks/epicrop/issues",
   "developmentStatus": ["https://www.repostatus.org/#active", "https://lifecycle.r-lib.org/articles/stages.html#experimental"],
   "applicationCategory": "Tools",
-  "releaseNotes": "https://github.com/adamhsparks/epicrop/blob/master/NEWS.md"
+  "releaseNotes": "https://github.com/adamhsparks/epicrop/blob/master/NEWS.md",
+  "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md"
 }
