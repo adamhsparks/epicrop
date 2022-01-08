@@ -36,8 +36,7 @@
   meanvec <- vector(mode = "double", length = n)
 
   for (i in 1:n) {
-    j <- sum(i, 1)
-    meanvec[i] <- mean(c(intensity[i], intensity[j]))
+    meanvec[i] <- mean(c(intensity[i], intensity[sum(i, 1)]))
   }
 
   return(sum(meanvec))
