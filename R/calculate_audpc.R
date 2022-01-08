@@ -1,10 +1,10 @@
 #' Calculate the area under the disease progress curve (AUDPC)
 #'
 #' This function is used to return the AUDPC in the output of SEIR().  Not to be
-#' used alone.
+#' used alone as it assumes that there is always only one day between
+#' observations so it takes shortcuts in the calculation of the values.
 #'
 #' @param intensity A `vector` of disease intensity from `SEIR()`.
-#' @param simday A `vector` of simulation days from `SEIR()`.
 #'
 #' @return  A `numeric` value as `double`.
 #'
@@ -31,18 +31,14 @@
 #' @keywords internal
 #' @noRd
 
-.calculate_audpc <- function(intensity, simday) {
+.calculate_audpc <- function(intensity) {
   n <- sum(length(intensity), -1)
-
-  meanvec <- intvec <- vector(mode = "double", length = n)
+  meanvec <- vector(mode = "double", length = n)
 
   for (i in 1:n) {
     j <- sum(i, 1)
     meanvec[i] <- mean(c(intensity[i], intensity[j]))
-    intvec[i] <- sum(simday[j], -simday[i])
   }
 
-  infprod <- meanvec * intvec
-
-  return(sum(infprod))
+  return(sum(meanvec))
 }

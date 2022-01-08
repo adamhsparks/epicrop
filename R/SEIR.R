@@ -313,7 +313,7 @@ SEIR <-
     } # end loop
 
     simday <- seq_len(duration)
-    AUDPC <- .calculate_audpc(intensity, simday)
+    AUDPC <- .calculate_audpc(intensity)
 
     # Create output object ----
     out <-
