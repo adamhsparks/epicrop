@@ -31,7 +31,7 @@
 #'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012. Savary
 #'  _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
-#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012. Savary
+#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
 #'  _et al._ 2012 used 5mm.
 #' @param H0 initial number of plant's healthy sites (integer).  Described in
 #'  Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
@@ -48,7 +48,7 @@
 #'  2015.
 #' @param i duration of infectious period (day, integer).  Described in Table 1
 #'  of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
-#' @param p duration of latent period (day, integer).  Described in  Table 1 of
+#' @param p duration of latent period (day, integer).  Described in Table 1 of
 #'  Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param Sx maximum number of sites (integer).  Described in Table 1 of Savary
 #'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.

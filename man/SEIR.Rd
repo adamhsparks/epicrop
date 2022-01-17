@@ -54,7 +54,7 @@ wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
 \emph{et al.} 2012 used 90\%.}
 
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
+wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
 \emph{et al.} 2012 used 5mm.}
 
 \item{H0}{initial number of plant's healthy sites (integer).  Described in
@@ -75,7 +75,7 @@ removals) for temperature (numeric vector).  Described in Table 1 of Savary
 Derived from Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
 2015.}
 
-\item{p}{duration of latent period (day, integer).  Described in  Table 1 of
+\item{p}{duration of latent period (day, integer).  Described in Table 1 of
 Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
 \item{i}{duration of infectious period (day, integer).  Described in Table 1
