@@ -262,53 +262,53 @@ SEIR <-
           removed_today <- 0
         }
 
-        sites[d] <-
+        sites[[d]] <-
           sum(sites[d_1], rgrowth[d_1], -infection[d_1], -rsenesced[d_1])
-        rsenesced[d] <- sum(removed_today, RRS * sites[d])
-        senesced[d] <- sum(senesced[d_1], rsenesced[d_1])
+        rsenesced[[d]] <- sum(removed_today, RRS * sites[d])
+        senesced[[d]] <- sum(senesced[d_1], rsenesced[d_1])
 
-        latency[d] <- infection[d_1]
+        latency[[d]] <- infection[d_1]
         latday <- sum(d, -p)
         latday <- max(1, latday)
-        now_latent[d] <- sum(latency[latday:d])
+        now_latent[[d]] <- sum(latency[latday:d])
 
-        infectious[d] <- rtransfer[d_1]
+        infectious[[d]] <- rtransfer[d_1]
         infday <- sum(d, -i)
         infday <- max(1, infday)
-        now_infectious[d] <- sum(infectious[infday:d])
+        now_infectious[[d]] <- sum(infectious[infday:d])
       }
 
-      if (wth_rhum[d] >= rhlim || wth_rain[d] >= rainlim) {
-        RcW[d] <- 1
+      if (wth_rhum[[d]] >= rhlim || wth_rain[[d]] >= rainlim) {
+        RcW[[d]] <- 1
       }
 
-      rc[d] <- RcOpt * Rc_age[d] * Rc_temp[d] * RcW[d]
+      rc[[d]] <- RcOpt * Rc_age[d] * Rc_temp[d] * RcW[d]
 
-      diseased[d] <- sum(sum(infectious), now_latent[d], removed[d])
+      diseased[[d]] <- sum(sum(infectious), now_latent[d], removed[d])
 
-      removed[d] <- sum(sum(infectious), -now_infectious[d])
+      removed[[d]] <- sum(sum(infectious), -now_infectious[d])
 
-      cofr[d] <- 1 - diseased[d] / sum(sites[d], diseased[d])
+      cofr[[d]] <- 1 - diseased[d] / sum(sites[d], diseased[d])
 
       if (d == onset) {
         # initialisation of the disease
-        infection[d] <- I0
+        infection[[d]] <- I0
       } else if (d > onset) {
-        infection[d] <- now_infectious[d] * rc[d] * (cofr[d] ^ a)
+        infection[[d]] <- now_infectious[d] * rc[d] * (cofr[d] ^ a)
       } else {
-        infection[d] <- 0
+        infection[[d]] <- 0
       }
 
       if (d >= p) {
-        rtransfer[d] <- latency[latday]
+        rtransfer[[d]] <- latency[latday]
       } else {
-        rtransfer[d] <- 0
+        rtransfer[[d]] <- 0
       }
 
-      total_sites[d] <- sum(diseased[d], sites[d])
+      total_sites[[d]] <- sum(diseased[d], sites[d])
 
-      rgrowth[d] <- RRG * sites[d] * sum(1, -(total_sites[d] / Sx))
-      intensity[d] <- sum(diseased[d], -removed[d]) /
+      rgrowth[[d]] <- RRG * sites[d] * sum(1, -(total_sites[d] / Sx))
+      intensity[[d]] <- sum(diseased[d], -removed[d]) /
                           sum(total_sites[d], -removed[d])
     } # end loop
 
