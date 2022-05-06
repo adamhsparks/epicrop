@@ -215,12 +215,12 @@
 <span class="va">years</span> <span class="op">&lt;-</span> <span class="fl">2000</span><span class="op">:</span><span class="fl">2001</span>
 <span class="va">seasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">years</span>, <span class="st">"-06-30"</span><span class="op">)</span>
 <span class="va">seasons_wth</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map.html" class="external-link">future_map</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html" class="external-link">future_map</a></span><span class="op">(</span>
     .x <span class="op">=</span> <span class="va">seasons</span>,
     .f <span class="op">=</span> <span class="va">get_wth</span>,
     lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,
     duration <span class="op">=</span> <span class="fl">120</span>,
-    .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+    .options <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
   <span class="op">)</span>
 
 <span class="co"># for local processing use 2 cores, this will assign one to each year, if you</span>
@@ -229,11 +229,11 @@
 <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="co"># run predict_bacterial_blight() over the data frames of weather</span>
-<span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map.html" class="external-link">future_map_dfr</a></span><span class="op">(</span>
+<span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html" class="external-link">future_map_dfr</a></span><span class="op">(</span>
   .x <span class="op">=</span> <span class="va">seasons_wth</span>,
   .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.x</span><span class="op">$</span><span class="va">YYYYMMDD</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,
                                   wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+  .options <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2000</span> <span class="op">~</span> <span class="fl">2000</span>,
                             <span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html" class="external-link">year</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2001</span> <span class="op">~</span> <span class="fl">2001</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -394,12 +394,12 @@
 <span class="va">wth_start_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">years</span>, <span class="va">month_day</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
 
 <span class="va">seasons_wth</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map.html" class="external-link">future_map_dfr</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html" class="external-link">future_map_dfr</a></span><span class="op">(</span>
     .x <span class="op">=</span> <span class="va">wth_start_dates</span>,
     .f <span class="op">=</span> <span class="va">get_wth</span>,
     lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,
     duration <span class="op">=</span> <span class="fl">180</span>,
-    .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+    .options <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
   <span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>YYYYMMDD <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html" class="external-link">as_date</a></span><span class="op">(</span><span class="va">YYYYMMDD</span><span class="op">)</span><span class="op">)</span>
 
@@ -412,17 +412,17 @@
 <span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 
 <span class="va">wth</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map.html" class="external-link">future_map</a></span><span class="op">(</span>.x <span class="op">=</span> <span class="va">emergence_dates</span>,
+  <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html" class="external-link">future_map</a></span><span class="op">(</span>.x <span class="op">=</span> <span class="va">emergence_dates</span>,
              .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">seasons_wth</span>, <span class="va">YYYYMMDD</span> <span class="op">&gt;=</span> <span class="va">.x</span> <span class="op">&amp;</span>
                              <span class="va">YYYYMMDD</span> <span class="op">&lt;=</span> <span class="va">.x</span> <span class="op">+</span> <span class="fl">120</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">emergence_dates</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map2.html" class="external-link">future_map2</a></span><span class="op">(</span>
+<span class="fu"><a href="https://furrr.futureverse.org/reference/future_map2.html" class="external-link">future_map2</a></span><span class="op">(</span>
   .x <span class="op">=</span> <span class="va">wth</span>,
   .y <span class="op">=</span> <span class="va">emergence_dates</span>,
   .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.y</span>,
                                   wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>,
-  .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+  .options <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 <span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">emergence</span><span class="op">)</span> <span class="op"><a href="https://purrr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -526,12 +526,12 @@
                                     wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>
   <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span>,
-  parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map2.html" class="external-link">future_map2</a></span><span class="op">(</span>
+  parallel <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map2.html" class="external-link">future_map2</a></span><span class="op">(</span>
     .x <span class="op">=</span> <span class="va">wth</span>,
     .y <span class="op">=</span> <span class="va">emergence_dates</span>,
     .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.y</span>,
                               wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span>,
-    .options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+    .options <span class="op">=</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
   <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"emergence"</span><span class="op">)</span>
 <span class="op">)</span>
