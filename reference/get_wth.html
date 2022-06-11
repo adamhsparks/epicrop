@@ -79,19 +79,29 @@ parameters suitable for use in <span class="pkg">epicrop</span>.</p>
     <dl><dt>lonlat</dt>
 <dd><p>A numeric vector of geographic coordinates for a cell or region
 entered as x, y coordinates.</p></dd>
+
+
 <dt>dates</dt>
 <dd><p>A character vector of start and end dates in that order.</p></dd>
+
+
 <dt>duration</dt>
 <dd><p>A numeric value indicating how many days a single
 growing season being simulated is to be.  If this is used, only the start
 date will be used and the end date will be ignored if supplied.  This must
 match the <code>duration</code> parameter value passed along to <code><a href="SEIR.html">SEIR()</a></code> or any of the
 <code>predict</code> family of functions.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table()</a></code> of weather data, dates and
-geolocation information (LAT/LON values) suitable for use in <span class="pkg">epicrop</span>with the following columns:</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>LAT</em></td><td>Latitude of area of interest</td></tr><tr><td><em>LON</em></td><td>Longitude of area of interest</td></tr></table></div>
+    
+
+<p>A <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table()</a></code> of weather data, dates and
+geolocation information (LAT/LON values) suitable for use in <span class="pkg">epicrop</span></p>
+
+
+<p>with the following columns:</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>LAT</em></td><td>Latitude of area of interest</td></tr><tr><td><em>LON</em></td><td>Longitude of area of interest</td></tr></table></div>
     <div id="author">
     <h2>Author</h2>
     <p>Adam H. Sparks, <a href="mailto:adamhsparks@gmail.com">adamhsparks@gmail.com</a></p>
@@ -132,7 +142,7 @@ geolocation information (LAT/LON values) suitable for use in <span class="pkg">e
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

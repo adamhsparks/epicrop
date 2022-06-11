@@ -99,67 +99,105 @@ proper values it can be used with other pathosystems as well.</p>
     <dl><dt>wth</dt>
 <dd><p>a <code>data.frame</code> of weather on a daily time-step containing data
 with the following field names.</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>LAT</em></td><td><strong>Optional</strong> latitude of weather observation, see LAT/LON Note</td></tr><tr><td><em>LON</em></td><td><strong>Optional</strong> longitude of weather observation, see LAT/LON Note</td></tr></table></dd>
+
+
 <dt>emergence</dt>
 <dd><p>expected date of plant emergence (or transplanting for rice)
 entered in <code>YYYY-MM-DD</code> format (character).  Described in Table 1 of Savary
 <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>onset</dt>
 <dd><p>expected number of days until the onset of disease after
 emergence date (day, integer).  Described in Table 1 of Savary <em>et al.</em>
 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>duration</dt>
 <dd><p>simulation duration <em>i.e.</em>, growing season length (day,
 integer).  Described in Table 1 of Savary <em>et al.</em> 2012 and Table 1 of
 Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>rhlim</dt>
 <dd><p>relative humidity value threshold to decide whether leaves are
 wet or not (numeric).  Described in Table 1 of Savary <em>et al.</em> 2012. Savary
 <em>et al.</em> 2012 used 90%.</p></dd>
+
+
 <dt>rainlim</dt>
 <dd><p>rainfall amount (mm) threshold to decide whether leaves are
 wet or not (numeric).  Described in Table 1 of Savary <em>et al.</em> 2012.  Savary
 <em>et al.</em> 2012 used 5mm.</p></dd>
+
+
 <dt>H0</dt>
 <dd><p>initial number of plant's healthy sites (integer).  Described in
 Table 1 of Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>I0</dt>
 <dd><p>initial number of infective sites (integer).  Described in Table 1
 of Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>RcA</dt>
 <dd><p>modifier for <em>Rc</em> (the basic infection rate corrected for
 removals) for crop age (numeric vector).  Described in Table 1 of Savary
 <em>et al.</em> 2012 Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>RcT</dt>
 <dd><p>modifier for <em>Rc</em> (the basic infection rate corrected for
 removals) for temperature (numeric vector).  Described in Table 1 of Savary
 <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>RcOpt</dt>
 <dd><p>potential basic infection rate corrected for removals (numeric).
 Derived from Table 1 of Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em>
 2015.</p></dd>
+
+
 <dt>p</dt>
 <dd><p>duration of latent period (day, integer).  Described in Table 1 of
 Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>i</dt>
 <dd><p>duration of infectious period (day, integer).  Described in Table 1
 of Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>Sx</dt>
 <dd><p>maximum number of sites (integer).  Described in Table 1 of Savary
 <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>a</dt>
 <dd><p>aggregation coefficient, values are from 1 to &gt;1 (numeric).
 Described in Table 1 of Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em>
 2015.  See further details in <strong><em>a</em> - Aggregation</strong> section.</p></dd>
+
+
 <dt>RRS</dt>
 <dd><p>relative rate of physiological senescence (numeric).  Described in
 Table 1 of Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
+
 <dt>RRG</dt>
 <dd><p>relative rate of growth (numeric).  Described in Table 1 of Savary
 <em>et al.</em> 2012 and Table 1 of Savary <em>et al.</em> 2015.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>data.table()</code> containing the following columns:</p><dl><dt>simday</dt>
+    
+
+<p>A <code>data.table()</code> containing the following columns:</p>
+
+
+<dl><dt>simday</dt>
 <dd><p>Zero indexed day of simulation that was run</p></dd>
 
 <dt>dates</dt>
@@ -307,7 +345,7 @@ Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
