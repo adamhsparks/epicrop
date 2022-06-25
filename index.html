@@ -116,96 +116,96 @@
 <p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov" class="external-link">NASA POWER web API</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
 <p><em>epicrop</em> is not yet on CRAN. You can install it this way.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"adamhsparks/epicrop"</span>,
-                        build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"adamhsparks/epicrop"</span>,</span>
+<span>                        build_vignettes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="get-weather-data">Get weather data<a class="anchor" aria-label="anchor" href="#get-weather-data"></a>
 </h2>
 <p>First you need to provide weather data for the model; <em>epicrop</em> provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. Using it you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span>
-
-<span class="co"># Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI</span>
-<span class="co"># Zeigler Experiment Station</span>
-<span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_wth.html">get_wth</a></span><span class="op">(</span>
-  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
-  dates <span class="op">=</span> <span class="st">"2000-07-01"</span>,
-  duration <span class="op">=</span> <span class="fl">120</span>
-<span class="op">)</span>
-
-<span class="va">wth</span>
-<span class="co">#&gt;        YYYYMMDD DOY  TEMP  RHUM  RAIN     LAT      LON</span>
-<span class="co">#&gt;   1: 2000-07-01 183 25.30 92.19 23.12 14.6774 121.2556</span>
-<span class="co">#&gt;   2: 2000-07-02 184 26.13 86.00 17.34 14.6774 121.2556</span>
-<span class="co">#&gt;   3: 2000-07-03 185 25.51 94.19 29.08 14.6774 121.2556</span>
-<span class="co">#&gt;   4: 2000-07-04 186 25.81 92.44 13.00 14.6774 121.2556</span>
-<span class="co">#&gt;   5: 2000-07-05 187 25.97 92.31 32.20 14.6774 121.2556</span>
-<span class="co">#&gt;  ---                                                  </span>
-<span class="co">#&gt; 117: 2000-10-25 299 25.82 89.75 12.04 14.6774 121.2556</span>
-<span class="co">#&gt; 118: 2000-10-26 300 25.44 94.94 13.03 14.6774 121.2556</span>
-<span class="co">#&gt; 119: 2000-10-27 301 25.74 91.44 11.54 14.6774 121.2556</span>
-<span class="co">#&gt; 120: 2000-10-28 302 25.44 91.88 74.20 14.6774 121.2556</span>
-<span class="co">#&gt; 121: 2000-10-29 303 24.97 94.12 29.11 14.6774 121.2556</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI</span></span>
+<span><span class="co"># Zeigler Experiment Station</span></span>
+<span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_wth.html">get_wth</a></span><span class="op">(</span></span>
+<span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span>
+<span>  dates <span class="op">=</span> <span class="st">"2000-07-01"</span>,</span>
+<span>  duration <span class="op">=</span> <span class="fl">120</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">wth</span></span>
+<span><span class="co">#&gt;        YYYYMMDD DOY  TEMP  RHUM  RAIN     LAT      LON</span></span>
+<span><span class="co">#&gt;   1: 2000-07-01 183 25.30 92.19 23.12 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   2: 2000-07-02 184 26.13 86.00 17.34 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   3: 2000-07-03 185 25.51 94.19 29.08 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   4: 2000-07-04 186 25.81 92.44 13.00 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   5: 2000-07-05 187 25.97 92.31 32.20 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;  ---                                                  </span></span>
+<span><span class="co">#&gt; 117: 2000-10-25 299 25.82 89.75 12.04 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 118: 2000-10-26 300 25.44 94.94 13.03 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 119: 2000-10-27 301 25.74 91.44 11.54 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 120: 2000-10-28 302 25.44 91.88 74.20 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 121: 2000-10-29 303 24.97 94.12 29.11 14.6774 121.2556</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="modelling-bacterial-blight-disease-intensity">Modelling bacterial blight disease intensity<a class="anchor" aria-label="anchor" href="#modelling-bacterial-blight-disease-intensity"></a>
 </h2>
 <p>Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span>
-
-<span class="va">bb</span>
-<span class="co">#&gt;      simday      dates     sites    latent infectious  removed    senesced</span>
-<span class="co">#&gt;   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000</span>
-<span class="co">#&gt;   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000</span>
-<span class="co">#&gt;   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875</span>
-<span class="co">#&gt;   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877</span>
-<span class="co">#&gt;   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811</span>
-<span class="co">#&gt;  ---                                                                      </span>
-<span class="co">#&gt; 116:    116 2000-10-24 1453.0383 107.60598   953.2163 217.8993 2095.744599</span>
-<span class="co">#&gt; 117:    117 2000-10-25 1429.1891  77.30207   952.9399 248.4797 2140.855357</span>
-<span class="co">#&gt; 118:    118 2000-10-26 1380.4038  73.81997   947.4256 281.2134 2187.881013</span>
-<span class="co">#&gt; 119:    119 2000-10-27 1332.8691  69.34615   938.4942 315.9354 2236.407049</span>
-<span class="co">#&gt; 120:    120 2000-10-28 1286.3824  64.14358   926.0857 352.6359 2286.436253</span>
-<span class="co">#&gt;       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat</span>
-<span class="co">#&gt;   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.39699 14.6774</span>
-<span class="co">#&gt;   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.39699 14.6774</span>
-<span class="co">#&gt;   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.39699 14.6774</span>
-<span class="co">#&gt;   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 12.39699 14.6774</span>
-<span class="co">#&gt;   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 12.39699 14.6774</span>
-<span class="co">#&gt;  ---                                                                          </span>
-<span class="co">#&gt; 116:  0.00000  30.30391 21.26159 45.110758 1278.722 0.4219893 12.39699 14.6774</span>
-<span class="co">#&gt; 117: 23.73737  27.21946 21.97777 47.025655 1278.722 0.4188944 12.39699 14.6774</span>
-<span class="co">#&gt; 118: 21.31678  25.79060 22.30807 48.526036 1302.459 0.4252267 12.39699 14.6774</span>
-<span class="co">#&gt; 119: 19.08944  24.29201 22.63192 50.029205 1323.776 0.4305705 12.39699 14.6774</span>
-<span class="co">#&gt; 120: 17.03536   0.00000 22.94393 47.492428 1342.865 0.4349575 12.39699 14.6774</span>
-<span class="co">#&gt;           lon</span>
-<span class="co">#&gt;   1: 121.2556</span>
-<span class="co">#&gt;   2: 121.2556</span>
-<span class="co">#&gt;   3: 121.2556</span>
-<span class="co">#&gt;   4: 121.2556</span>
-<span class="co">#&gt;   5: 121.2556</span>
-<span class="co">#&gt;  ---         </span>
-<span class="co">#&gt; 116: 121.2556</span>
-<span class="co">#&gt; 117: 121.2556</span>
-<span class="co">#&gt; 118: 121.2556</span>
-<span class="co">#&gt; 119: 121.2556</span>
-<span class="co">#&gt; 120: 121.2556</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bb</span></span>
+<span><span class="co">#&gt;      simday      dates     sites    latent infectious  removed    senesced</span></span>
+<span><span class="co">#&gt;   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000</span></span>
+<span><span class="co">#&gt;   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000</span></span>
+<span><span class="co">#&gt;   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875</span></span>
+<span><span class="co">#&gt;   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877</span></span>
+<span><span class="co">#&gt;   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811</span></span>
+<span><span class="co">#&gt;  ---                                                                      </span></span>
+<span><span class="co">#&gt; 116:    116 2000-10-24 1453.0383 107.60598   953.2163 217.8993 2095.744599</span></span>
+<span><span class="co">#&gt; 117:    117 2000-10-25 1429.1891  77.30207   952.9399 248.4797 2140.855357</span></span>
+<span><span class="co">#&gt; 118:    118 2000-10-26 1380.4038  73.81997   947.4256 281.2134 2187.881013</span></span>
+<span><span class="co">#&gt; 119:    119 2000-10-27 1332.8691  69.34615   938.4942 315.9354 2236.407049</span></span>
+<span><span class="co">#&gt; 120:    120 2000-10-28 1286.3824  64.14358   926.0857 352.6359 2286.436253</span></span>
+<span><span class="co">#&gt;       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat</span></span>
+<span><span class="co">#&gt;   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.39699 14.6774</span></span>
+<span><span class="co">#&gt;   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.39699 14.6774</span></span>
+<span><span class="co">#&gt;   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.39699 14.6774</span></span>
+<span><span class="co">#&gt;   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 12.39699 14.6774</span></span>
+<span><span class="co">#&gt;   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 12.39699 14.6774</span></span>
+<span><span class="co">#&gt;  ---                                                                          </span></span>
+<span><span class="co">#&gt; 116:  0.00000  30.30391 21.26159 45.110758 1278.722 0.4219893 12.39699 14.6774</span></span>
+<span><span class="co">#&gt; 117: 23.73737  27.21946 21.97777 47.025655 1278.722 0.4188944 12.39699 14.6774</span></span>
+<span><span class="co">#&gt; 118: 21.31678  25.79060 22.30807 48.526036 1302.459 0.4252267 12.39699 14.6774</span></span>
+<span><span class="co">#&gt; 119: 19.08944  24.29201 22.63192 50.029205 1323.776 0.4305705 12.39699 14.6774</span></span>
+<span><span class="co">#&gt; 120: 17.03536   0.00000 22.94393 47.492428 1342.865 0.4349575 12.39699 14.6774</span></span>
+<span><span class="co">#&gt;           lon</span></span>
+<span><span class="co">#&gt;   1: 121.2556</span></span>
+<span><span class="co">#&gt;   2: 121.2556</span></span>
+<span><span class="co">#&gt;   3: 121.2556</span></span>
+<span><span class="co">#&gt;   4: 121.2556</span></span>
+<span><span class="co">#&gt;   5: 121.2556</span></span>
+<span><span class="co">#&gt;  ---         </span></span>
+<span><span class="co">#&gt; 116: 121.2556</span></span>
+<span><span class="co">#&gt; 117: 121.2556</span></span>
+<span><span class="co">#&gt; 118: 121.2556</span></span>
+<span><span class="co">#&gt; 119: 121.2556</span></span>
+<span><span class="co">#&gt; 120: 121.2556</span></span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb</span>,
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
-           y <span class="op">=</span> <span class="va">intensity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity"</span>,
-       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,</span>
+<span>           y <span class="op">=</span> <span class="va">intensity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot-1.png" title="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%"></p>
 </div>
 </div>
@@ -303,7 +303,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

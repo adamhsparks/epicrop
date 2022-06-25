@@ -113,77 +113,77 @@
 </h4>
 <p>Load the library.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="get-weather-data">Get weather data<a class="anchor" aria-label="anchor" href="#get-weather-data"></a>
 </h4>
 <p>The most simple way to use the model is to download weather data from NASA POWER using <code><a href="../reference/get_wth.html">get_wth()</a></code>, which provides the data in a format suitable for use in the model and is freely available. See the help file for <code>naspower::get_power()</code> for more details of this functionality and details on the data (Sparks 2018, Sparks 2020).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station</span>
-<span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span>
-  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,
-  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-01-01"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="va">wth</span></code></pre></div>
-<pre><code><span class="co">##        YYYYMMDD DOY  TEMP  RHUM  RAIN     LAT      LON</span>
-<span class="co">##   1: 2000-01-01   1 24.38 91.25 14.93 14.6774 121.2556</span>
-<span class="co">##   2: 2000-01-02   2 24.27 90.88  6.96 14.6774 121.2556</span>
-<span class="co">##   3: 2000-01-03   3 23.82 88.38  2.28 14.6774 121.2556</span>
-<span class="co">##   4: 2000-01-04   4 23.68 88.00  0.87 14.6774 121.2556</span>
-<span class="co">##   5: 2000-01-05   5 24.11 88.12  0.43 14.6774 121.2556</span>
-<span class="co">##  ---                                                  </span>
-<span class="co">## 362: 2000-12-27 362 24.46 92.50 21.15 14.6774 121.2556</span>
-<span class="co">## 363: 2000-12-28 363 24.64 91.94  6.01 14.6774 121.2556</span>
-<span class="co">## 364: 2000-12-29 364 24.58 90.81  5.49 14.6774 121.2556</span>
-<span class="co">## 365: 2000-12-30 365 25.31 86.25  2.07 14.6774 121.2556</span>
-<span class="co">## 366: 2000-12-31 366 24.48 87.81  3.45 14.6774 121.2556</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station</span></span>
+<span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_wth.html">get_wth</a></span><span class="op">(</span></span>
+<span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span>
+<span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-01-01"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">wth</span></span></code></pre></div>
+<pre><code><span><span class="co">##        YYYYMMDD DOY  TEMP  RHUM  RAIN     LAT      LON</span></span>
+<span><span class="co">##   1: 2000-01-01   1 24.38 91.25 14.93 14.6774 121.2556</span></span>
+<span><span class="co">##   2: 2000-01-02   2 24.27 90.88  6.96 14.6774 121.2556</span></span>
+<span><span class="co">##   3: 2000-01-03   3 23.82 88.38  2.28 14.6774 121.2556</span></span>
+<span><span class="co">##   4: 2000-01-04   4 23.68 88.00  0.87 14.6774 121.2556</span></span>
+<span><span class="co">##   5: 2000-01-05   5 24.11 88.12  0.43 14.6774 121.2556</span></span>
+<span><span class="co">##  ---                                                  </span></span>
+<span><span class="co">## 362: 2000-12-27 362 24.46 92.50 21.15 14.6774 121.2556</span></span>
+<span><span class="co">## 363: 2000-12-28 363 24.64 91.94  6.01 14.6774 121.2556</span></span>
+<span><span class="co">## 364: 2000-12-29 364 24.58 90.81  5.49 14.6774 121.2556</span></span>
+<span><span class="co">## 365: 2000-12-30 365 25.31 86.25  2.07 14.6774 121.2556</span></span>
+<span><span class="co">## 366: 2000-12-31 366 24.48 87.81  3.45 14.6774 121.2556</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="predict-bacterial-blight">Predict bacterial blight<a class="anchor" aria-label="anchor" href="#predict-bacterial-blight"></a>
 </h4>
 <p>All of the <code>predict_()</code> family of functions work in exactly the same manner. You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease intensity over the season and other values associated with the model. See the help file for <code><a href="../reference/SEIR.html">SEIR()</a></code> for more on the values returned.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Predict bacterial blight intensity for the year 2000 wet season at IRRI</span>
-<span class="va">bb_wet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Predict bacterial blight intensity for the year 2000 wet season at IRRI</span></span>
+<span><span class="va">bb_wet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_wet</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##      simday           dates                sites       </span>
-<span class="co">##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0  </span>
-<span class="co">##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1  </span>
-<span class="co">##  Median : 60.50   Median :2000-08-29   Median :1827.5  </span>
-<span class="co">##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2  </span>
-<span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5  </span>
-<span class="co">##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9  </span>
-<span class="co">##      latent           infectious        removed          senesced     </span>
-<span class="co">##  Min.   :  0.0000   Min.   :  0.00   Min.   :  0.00   Min.   :   0.0  </span>
-<span class="co">##  1st Qu.:  0.7071   1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4  </span>
-<span class="co">##  Median : 12.4138   Median : 17.74   Median :  1.00   Median : 642.6  </span>
-<span class="co">##  Mean   : 65.0439   Mean   :214.99   Mean   : 29.83   Mean   : 803.0  </span>
-<span class="co">##  3rd Qu.:126.2923   3rd Qu.:379.33   3rd Qu.: 16.12   3rd Qu.:1410.1  </span>
-<span class="co">##  Max.   :264.3734   Max.   :953.22   Max.   :352.64   Max.   :2286.4  </span>
-<span class="co">##     rateinf          rtransfer        rgrowth         rsenesced     </span>
-<span class="co">##  Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688   Min.   : 1.000  </span>
-<span class="co">##  1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.659   1st Qu.: 9.331  </span>
-<span class="co">##  Median : 0.9286   Median : 0.00   Median :33.172   Median :22.890  </span>
-<span class="co">##  Mean   :11.3325   Mean   :10.66   Mean   :40.322   Mean   :19.449  </span>
-<span class="co">##  3rd Qu.:19.6572   3rd Qu.:16.29   3rd Qu.:57.583   3rd Qu.:26.081  </span>
-<span class="co">##  Max.   :64.5756   Max.   :64.58   Max.   :79.689   Max.   :50.029  </span>
-<span class="co">##     diseased          intensity           AUDPC           lat       </span>
-<span class="co">##  Min.   :   0.000   Min.   :0.00000   Min.   :12.4   Min.   :14.68  </span>
-<span class="co">##  1st Qu.:   1.707   1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68  </span>
-<span class="co">##  Median :  31.153   Median :0.01194   Median :12.4   Median :14.68  </span>
-<span class="co">##  Mean   : 309.862   Mean   :0.10512   Mean   :12.4   Mean   :14.68  </span>
-<span class="co">##  3rd Qu.: 619.724   3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68  </span>
-<span class="co">##  Max.   :1342.865   Max.   :0.43496   Max.   :12.4   Max.   :14.68  </span>
-<span class="co">##       lon       </span>
-<span class="co">##  Min.   :121.3  </span>
-<span class="co">##  1st Qu.:121.3  </span>
-<span class="co">##  Median :121.3  </span>
-<span class="co">##  Mean   :121.3  </span>
-<span class="co">##  3rd Qu.:121.3  </span>
-<span class="co">##  Max.   :121.3</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_wet</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      simday           dates                sites       </span></span>
+<span><span class="co">##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0  </span></span>
+<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1  </span></span>
+<span><span class="co">##  Median : 60.50   Median :2000-08-29   Median :1827.5  </span></span>
+<span><span class="co">##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2  </span></span>
+<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5  </span></span>
+<span><span class="co">##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9  </span></span>
+<span><span class="co">##      latent           infectious        removed          senesced     </span></span>
+<span><span class="co">##  Min.   :  0.0000   Min.   :  0.00   Min.   :  0.00   Min.   :   0.0  </span></span>
+<span><span class="co">##  1st Qu.:  0.7071   1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4  </span></span>
+<span><span class="co">##  Median : 12.4138   Median : 17.74   Median :  1.00   Median : 642.6  </span></span>
+<span><span class="co">##  Mean   : 65.0439   Mean   :214.99   Mean   : 29.83   Mean   : 803.0  </span></span>
+<span><span class="co">##  3rd Qu.:126.2923   3rd Qu.:379.33   3rd Qu.: 16.12   3rd Qu.:1410.1  </span></span>
+<span><span class="co">##  Max.   :264.3734   Max.   :953.22   Max.   :352.64   Max.   :2286.4  </span></span>
+<span><span class="co">##     rateinf          rtransfer        rgrowth         rsenesced     </span></span>
+<span><span class="co">##  Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688   Min.   : 1.000  </span></span>
+<span><span class="co">##  1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.659   1st Qu.: 9.331  </span></span>
+<span><span class="co">##  Median : 0.9286   Median : 0.00   Median :33.172   Median :22.890  </span></span>
+<span><span class="co">##  Mean   :11.3325   Mean   :10.66   Mean   :40.322   Mean   :19.449  </span></span>
+<span><span class="co">##  3rd Qu.:19.6572   3rd Qu.:16.29   3rd Qu.:57.583   3rd Qu.:26.081  </span></span>
+<span><span class="co">##  Max.   :64.5756   Max.   :64.58   Max.   :79.689   Max.   :50.029  </span></span>
+<span><span class="co">##     diseased          intensity           AUDPC           lat       </span></span>
+<span><span class="co">##  Min.   :   0.000   Min.   :0.00000   Min.   :12.4   Min.   :14.68  </span></span>
+<span><span class="co">##  1st Qu.:   1.707   1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68  </span></span>
+<span><span class="co">##  Median :  31.153   Median :0.01194   Median :12.4   Median :14.68  </span></span>
+<span><span class="co">##  Mean   : 309.862   Mean   :0.10512   Mean   :12.4   Mean   :14.68  </span></span>
+<span><span class="co">##  3rd Qu.: 619.724   3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68  </span></span>
+<span><span class="co">##  Max.   :1342.865   Max.   :0.43496   Max.   :12.4   Max.   :14.68  </span></span>
+<span><span class="co">##       lon       </span></span>
+<span><span class="co">##  Min.   :121.3  </span></span>
+<span><span class="co">##  1st Qu.:121.3  </span></span>
+<span><span class="co">##  Median :121.3  </span></span>
+<span><span class="co">##  Mean   :121.3  </span></span>
+<span><span class="co">##  3rd Qu.:121.3  </span></span>
+<span><span class="co">##  Max.   :121.3</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -191,34 +191,34 @@
 </h3>
 <p>The data are in a wide format by default and need to be converted to long format for use in <em>ggplot2</em> if you wish to plot more than one variable at a time.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Keep up to date with changes at https://www.tidyverse.org/blog/</span></code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Keep up to date with changes at https://www.tidyverse.org/blog/</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyr.tidyverse.org" class="external-link">"tidyr"</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyr.tidyverse.org" class="external-link">"tidyr"</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="wet-season-sites">Wet season sites<a class="anchor" aria-label="anchor" href="#wet-season-sites"></a>
 </h4>
 <p>The model records the number of sites for each bin daily; this can be graphed as follows.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>
-  <span class="va">bb_wet</span>,
-  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,
-  names_to <span class="op">=</span> <span class="st">"site"</span>,
-  values_to <span class="op">=</span> <span class="st">"value"</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>,
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>
-         x <span class="op">=</span> <span class="va">dates</span>,
-         y <span class="op">=</span> <span class="va">value</span>,
-         shape <span class="op">=</span> <span class="va">site</span>,
-         linetype <span class="op">=</span> <span class="va">site</span>
-       <span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Sites"</span>,
-       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">site</span>, colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
+<span>  <span class="va">bb_wet</span>,</span>
+<span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,</span>
+<span>  names_to <span class="op">=</span> <span class="st">"site"</span>,</span>
+<span>  values_to <span class="op">=</span> <span class="st">"value"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span></span>
+<span>         x <span class="op">=</span> <span class="va">dates</span>,</span>
+<span>         y <span class="op">=</span> <span class="va">value</span>,</span>
+<span>         shape <span class="op">=</span> <span class="va">site</span>,</span>
+<span>         linetype <span class="op">=</span> <span class="va">site</span></span>
+<span>       <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Sites"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">site</span>, colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="wet_plot_sites-1.png" alt=""><p class="caption">Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
 </div>
@@ -228,14 +228,14 @@
 </h4>
 <p>Plotting intensity over time does not require any data manipulation.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_wet</span>,
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
-           y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity (%)"</span>,
-       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_wet</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,</span>
+<span>           y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity (%)"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="wet_plot_intensity-1.png" alt=""><p class="caption">Wet season disease intensity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
 </div>
@@ -246,68 +246,68 @@
 </h3>
 <p>The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977). The AUDPC value for a given simulated season is returned as a part of the output from any of the disease simulations offered in <em>epicrop</em>. You can find the value in the <code>AUDPC</code> column. We can compare the dry season with the wet season by looking at the AUDPC values for both seasons.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##      simday           dates                sites       </span>
-<span class="co">##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0  </span>
-<span class="co">##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7  </span>
-<span class="co">##  Median : 60.50   Median :2000-03-04   Median :2494.0  </span>
-<span class="co">##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1846.3  </span>
-<span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2598.9  </span>
-<span class="co">##  Max.   :120.00   Max.   :2000-05-03   Max.   :2714.5  </span>
-<span class="co">##      latent          infectious        removed          senesced     </span>
-<span class="co">##  Min.   :  0.000   Min.   :  0.00   Min.   :  0.00   Min.   :   0.0  </span>
-<span class="co">##  1st Qu.:  0.000   1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4  </span>
-<span class="co">##  Median :  3.499   Median : 16.03   Median :  1.00   Median : 641.4  </span>
-<span class="co">##  Mean   : 15.689   Mean   : 66.40   Mean   : 16.69   Mean   : 823.4  </span>
-<span class="co">##  3rd Qu.: 20.839   3rd Qu.:115.30   3rd Qu.: 17.03   3rd Qu.:1446.5  </span>
-<span class="co">##  Max.   :139.262   Max.   :256.91   Max.   :109.70   Max.   :2300.1  </span>
-<span class="co">##     rateinf          rtransfer          rgrowth         rsenesced     </span>
-<span class="co">##  Min.   : 0.0000   Min.   : 0.0000   Min.   : 9.688   Min.   : 1.000  </span>
-<span class="co">##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:28.311   1st Qu.: 9.327  </span>
-<span class="co">##  Median : 0.0000   Median : 0.0000   Median :34.267   Median :24.997  </span>
-<span class="co">##  Mean   : 2.6149   Mean   : 2.6149   Mean   :42.212   Mean   :19.566  </span>
-<span class="co">##  3rd Qu.: 0.5386   3rd Qu.: 0.5386   3rd Qu.:57.742   3rd Qu.:26.886  </span>
-<span class="co">##  Max.   :39.2813   Max.   :39.2813   Max.   :79.485   Max.   :47.858  </span>
-<span class="co">##     diseased         intensity           AUDPC            lat       </span>
-<span class="co">##  Min.   :  0.000   Min.   :0.00000   Min.   :3.576   Min.   :14.68  </span>
-<span class="co">##  1st Qu.:  2.179   1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68  </span>
-<span class="co">##  Median : 28.878   Median :0.01105   Median :3.576   Median :14.68  </span>
-<span class="co">##  Mean   : 98.776   Mean   :0.03012   Mean   :3.576   Mean   :14.68  </span>
-<span class="co">##  3rd Qu.:174.526   3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68  </span>
-<span class="co">##  Max.   :313.789   Max.   :0.10021   Max.   :3.576   Max.   :14.68  </span>
-<span class="co">##       lon       </span>
-<span class="co">##  Min.   :121.3  </span>
-<span class="co">##  1st Qu.:121.3  </span>
-<span class="co">##  Median :121.3  </span>
-<span class="co">##  Mean   :121.3  </span>
-<span class="co">##  3rd Qu.:121.3  </span>
-<span class="co">##  Max.   :121.3</span></code></pre>
+<code class="sourceCode R"><span><span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      simday           dates                sites       </span></span>
+<span><span class="co">##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0  </span></span>
+<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7  </span></span>
+<span><span class="co">##  Median : 60.50   Median :2000-03-04   Median :2494.0  </span></span>
+<span><span class="co">##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1846.3  </span></span>
+<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2598.9  </span></span>
+<span><span class="co">##  Max.   :120.00   Max.   :2000-05-03   Max.   :2714.5  </span></span>
+<span><span class="co">##      latent          infectious        removed          senesced     </span></span>
+<span><span class="co">##  Min.   :  0.000   Min.   :  0.00   Min.   :  0.00   Min.   :   0.0  </span></span>
+<span><span class="co">##  1st Qu.:  0.000   1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4  </span></span>
+<span><span class="co">##  Median :  3.499   Median : 16.03   Median :  1.00   Median : 641.4  </span></span>
+<span><span class="co">##  Mean   : 15.689   Mean   : 66.40   Mean   : 16.69   Mean   : 823.4  </span></span>
+<span><span class="co">##  3rd Qu.: 20.839   3rd Qu.:115.30   3rd Qu.: 17.03   3rd Qu.:1446.5  </span></span>
+<span><span class="co">##  Max.   :139.262   Max.   :256.91   Max.   :109.70   Max.   :2300.1  </span></span>
+<span><span class="co">##     rateinf          rtransfer          rgrowth         rsenesced     </span></span>
+<span><span class="co">##  Min.   : 0.0000   Min.   : 0.0000   Min.   : 9.688   Min.   : 1.000  </span></span>
+<span><span class="co">##  1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:28.311   1st Qu.: 9.327  </span></span>
+<span><span class="co">##  Median : 0.0000   Median : 0.0000   Median :34.267   Median :24.997  </span></span>
+<span><span class="co">##  Mean   : 2.6149   Mean   : 2.6149   Mean   :42.212   Mean   :19.566  </span></span>
+<span><span class="co">##  3rd Qu.: 0.5386   3rd Qu.: 0.5386   3rd Qu.:57.742   3rd Qu.:26.886  </span></span>
+<span><span class="co">##  Max.   :39.2813   Max.   :39.2813   Max.   :79.485   Max.   :47.858  </span></span>
+<span><span class="co">##     diseased         intensity           AUDPC            lat       </span></span>
+<span><span class="co">##  Min.   :  0.000   Min.   :0.00000   Min.   :3.576   Min.   :14.68  </span></span>
+<span><span class="co">##  1st Qu.:  2.179   1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68  </span></span>
+<span><span class="co">##  Median : 28.878   Median :0.01105   Median :3.576   Median :14.68  </span></span>
+<span><span class="co">##  Mean   : 98.776   Mean   :0.03012   Mean   :3.576   Mean   :14.68  </span></span>
+<span><span class="co">##  3rd Qu.:174.526   3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68  </span></span>
+<span><span class="co">##  Max.   :313.789   Max.   :0.10021   Max.   :3.576   Max.   :14.68  </span></span>
+<span><span class="co">##       lon       </span></span>
+<span><span class="co">##  Min.   :121.3  </span></span>
+<span><span class="co">##  1st Qu.:121.3  </span></span>
+<span><span class="co">##  Median :121.3  </span></span>
+<span><span class="co">##  Mean   :121.3  </span></span>
+<span><span class="co">##  3rd Qu.:121.3  </span></span>
+<span><span class="co">##  Max.   :121.3</span></span></code></pre>
 <div class="section level4">
 <h4 id="dry-season-intensity">Dry season intensity<a class="anchor" aria-label="anchor" href="#dry-season-intensity"></a>
 </h4>
 <p>Check the disease progress curve for the dry season.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_dry</span>,
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,
-           y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity (%)"</span>,
-       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_dry</span>,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,</span>
+<span>           y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Intensity (%)"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="dry_plot_intensity-1.png" alt=""><p class="caption">Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
 </div>
 <p>As the AUDPC value is found in the <code>AUDPC</code> column and is repeated for every row of the <code>data.table</code> so we only need to access the first row. We can easily do this by calling the column using the <code>$</code> operator and <code>[]</code> to select an index value, in this case the first row of the <code>data.table</code>. Optionally if you wished to used <em>dplyr</em> you could use the <code><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">dplyr::distinct()</a></code> function, which is demonstrated in the “Mapping Simulations” vignette.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Dry season</span>
-<span class="va">bb_dry</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
-<pre><code><span class="co">## [1] 3.57641</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Dry season</span></span>
+<span><span class="va">bb_dry</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 3.57641</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Wet season</span>
-<span class="va">bb_wet</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
-<pre><code><span class="co">## [1] 12.39699</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># Wet season</span></span>
+<span><span class="va">bb_wet</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 12.39699</span></span></code></pre>
 <p>The AUDPC of the wet season is greater than that of the dry season. Checking the data and referring to the curves, the wet season intensity reaches a peak value of 43% and the dry season tops out at 10%. So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.</p>
 </div>
 </div>
@@ -338,7 +338,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

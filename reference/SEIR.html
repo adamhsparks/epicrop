@@ -73,25 +73,25 @@ proper values it can be used with other pathosystems as well.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">SEIR</span><span class="op">(</span>
-  <span class="va">wth</span>,
-  <span class="va">emergence</span>,
-  <span class="va">onset</span>,
-  <span class="va">duration</span>,
-  <span class="va">rhlim</span>,
-  <span class="va">rainlim</span>,
-  <span class="va">H0</span>,
-  <span class="va">I0</span>,
-  <span class="va">RcA</span>,
-  <span class="va">RcT</span>,
-  <span class="va">RcOpt</span>,
-  <span class="va">p</span>,
-  <span class="va">i</span>,
-  <span class="va">Sx</span>,
-  <span class="va">a</span>,
-  <span class="va">RRS</span>,
-  <span class="va">RRG</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SEIR</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  <span class="va">onset</span>,</span>
+<span>  <span class="va">duration</span>,</span>
+<span>  <span class="va">rhlim</span>,</span>
+<span>  <span class="va">rainlim</span>,</span>
+<span>  <span class="va">H0</span>,</span>
+<span>  <span class="va">I0</span>,</span>
+<span>  <span class="va">RcA</span>,</span>
+<span>  <span class="va">RcT</span>,</span>
+<span>  <span class="va">RcOpt</span>,</span>
+<span>  <span class="va">p</span>,</span>
+<span>  <span class="va">i</span>,</span>
+<span>  <span class="va">Sx</span>,</span>
+<span>  <span class="va">a</span>,</span>
+<span>  <span class="va">RRS</span>,</span>
+<span>  <span class="va">RRG</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -295,42 +295,42 @@ Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span>
-<span class="r-in"><span class="co"># get weather for IRRI Zeigler Experiment Station in wet season 2000</span></span>
-<span class="r-in"><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span>
-<span class="r-in">  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span>
-<span class="r-in">  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># provide suitable values for brown spot intensity</span></span>
-<span class="r-in"><span class="va">RcA</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">20L</span>, <span class="fl">40L</span>, <span class="fl">60L</span>, <span class="fl">80L</span>, <span class="fl">100L</span>, <span class="fl">120L</span><span class="op">)</span>,</span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.35</span>, <span class="fl">0.35</span>, <span class="fl">0.35</span>, <span class="fl">0.47</span>, <span class="fl">0.59</span>, <span class="fl">0.71</span>, <span class="fl">1.0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">RcT</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15L</span>, <span class="fl">20L</span>, <span class="fl">25L</span>, <span class="fl">30L</span>, <span class="fl">35L</span>, <span class="fl">40L</span><span class="op">)</span>,</span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.06</span>, <span class="fl">1.0</span>, <span class="fl">0.85</span>, <span class="fl">0.16</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="st">"2000-07-15"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span><span class="fu">SEIR</span><span class="op">(</span></span>
-<span class="r-in">  wth <span class="op">=</span> <span class="va">wth</span>,</span>
-<span class="r-in">  emergence <span class="op">=</span> <span class="va">emergence</span>,</span>
-<span class="r-in">  onset <span class="op">=</span> <span class="fl">20</span>,</span>
-<span class="r-in">  duration <span class="op">=</span> <span class="fl">120</span>,</span>
-<span class="r-in">  rhlim <span class="op">=</span> <span class="fl">90</span>,</span>
-<span class="r-in">  rainlim <span class="op">=</span> <span class="fl">5</span>,</span>
-<span class="r-in">  RcA <span class="op">=</span> <span class="va">RcA</span>,</span>
-<span class="r-in">  RcT <span class="op">=</span> <span class="va">RcT</span>,</span>
-<span class="r-in">  RcOpt <span class="op">=</span> <span class="fl">0.61</span>,</span>
-<span class="r-in">  p <span class="op">=</span>  <span class="fl">6</span>,</span>
-<span class="r-in">  i <span class="op">=</span> <span class="fl">19</span>,</span>
-<span class="r-in">  H0 <span class="op">=</span> <span class="fl">600</span>,</span>
-<span class="r-in">  I0 <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">  a <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">  Sx <span class="op">=</span> <span class="fl">100000</span>,</span>
-<span class="r-in">  RRS <span class="op">=</span> <span class="fl">0.01</span>,</span>
-<span class="r-in">  RRG <span class="op">=</span> <span class="fl">0.1</span></span>
-<span class="r-in"><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
+<span class="r-in"><span><span class="co"># get weather for IRRI Zeigler Experiment Station in wet season 2000</span></span></span>
+<span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># provide suitable values for brown spot intensity</span></span></span>
+<span class="r-in"><span><span class="va">RcA</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">20L</span>, <span class="fl">40L</span>, <span class="fl">60L</span>, <span class="fl">80L</span>, <span class="fl">100L</span>, <span class="fl">120L</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.35</span>, <span class="fl">0.35</span>, <span class="fl">0.35</span>, <span class="fl">0.47</span>, <span class="fl">0.59</span>, <span class="fl">0.71</span>, <span class="fl">1.0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">RcT</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15L</span>, <span class="fl">20L</span>, <span class="fl">25L</span>, <span class="fl">30L</span>, <span class="fl">35L</span>, <span class="fl">40L</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.06</span>, <span class="fl">1.0</span>, <span class="fl">0.85</span>, <span class="fl">0.16</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="st">"2000-07-15"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="fu">SEIR</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  wth <span class="op">=</span> <span class="va">wth</span>,</span></span>
+<span class="r-in"><span>  emergence <span class="op">=</span> <span class="va">emergence</span>,</span></span>
+<span class="r-in"><span>  onset <span class="op">=</span> <span class="fl">20</span>,</span></span>
+<span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120</span>,</span></span>
+<span class="r-in"><span>  rhlim <span class="op">=</span> <span class="fl">90</span>,</span></span>
+<span class="r-in"><span>  rainlim <span class="op">=</span> <span class="fl">5</span>,</span></span>
+<span class="r-in"><span>  RcA <span class="op">=</span> <span class="va">RcA</span>,</span></span>
+<span class="r-in"><span>  RcT <span class="op">=</span> <span class="va">RcT</span>,</span></span>
+<span class="r-in"><span>  RcOpt <span class="op">=</span> <span class="fl">0.61</span>,</span></span>
+<span class="r-in"><span>  p <span class="op">=</span>  <span class="fl">6</span>,</span></span>
+<span class="r-in"><span>  i <span class="op">=</span> <span class="fl">19</span>,</span></span>
+<span class="r-in"><span>  H0 <span class="op">=</span> <span class="fl">600</span>,</span></span>
+<span class="r-in"><span>  I0 <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  Sx <span class="op">=</span> <span class="fl">100000</span>,</span></span>
+<span class="r-in"><span>  RRS <span class="op">=</span> <span class="fl">0.01</span>,</span></span>
+<span class="r-in"><span>  RRG <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -345,7 +345,7 @@ Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
