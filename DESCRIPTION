@@ -73,6 +73,7 @@ Suggests:
     dplyr,
     furrr,
     ggplot2,
+    ggrepel,
     ggspatial,
     knitr,
     lubridate,
