@@ -155,7 +155,7 @@ of the seasons with one function. You could also use R’s base
 seasons<a class="anchor" aria-label="anchor" href="#using-purrr-to-simplify-the-simulation-of-multiple-seasons"></a>
 </h3>
 <p>Now that we have a list of weather data for two seasons we will use
-<code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::map_df()</a></code> now to run
+<code><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">purrr::map_df()</a></code> now to run
 <code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> for two seasons and create a
 single data frame of the two seasons. Using <code><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::map()</a></code> as
 above would return a list of two data frames, if you wish. This
@@ -170,7 +170,7 @@ year, use <code><a href="https://lubridate.tidyverse.org/reference/ymd.html" cla
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://lubridate.tidyverse.org" class="external-link">"lubridate"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://rapporter.github.io/pander/" class="external-link">"pander"</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">seasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_df</a></span><span class="op">(</span></span>
+<span><span class="va">seasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_df</a></span><span class="op">(</span></span>
 <span>  .x <span class="op">=</span> <span class="va">seasons_wth</span>,</span>
 <span>  .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.x</span><span class="op">$</span><span class="va">YYYYMMDD</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>                                  wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span></span>
@@ -356,7 +356,7 @@ grouping the data for further analysis or visualisation.</p>
 <span><span class="co"># Here just taking 180 days, 6 months, works well.</span></span>
 <span><span class="va">wth_start_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">years</span>, <span class="va">month_day</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">seasons_wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_dfr</a></span><span class="op">(</span></span>
+<span><span class="va">seasons_wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr</a></span><span class="op">(</span></span>
 <span>  .x <span class="op">=</span> <span class="va">wth_start_dates</span>,</span>
 <span>  .f <span class="op">=</span> <span class="va">get_wth</span>,</span>
 <span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span>
