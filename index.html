@@ -102,8 +102,7 @@
   <div class="contents col-md-9">
 
 <div class="section level1">
-<div class="page-header"><h1 id="epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model">
-<em>epicrop</em>: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model<a class="anchor" aria-label="anchor" href="#epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model"></a>
+<div class="page-header"><h1 id="epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model">{epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model<a class="anchor" aria-label="anchor" href="#epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model"></a>
 </h1></div>
 <p><img align="right" src="reference/figures/logo.png"></p>
 <!-- badges: start -->
@@ -115,7 +114,7 @@
 <h1 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h1>
 <p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov" class="external-link">NASA POWER web API</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
-<p><em>epicrop</em> is not yet on CRAN. You can install it this way.</p>
+<p>{epicrop} is not yet on CRAN. You can install it this way.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
@@ -125,7 +124,7 @@
 <div class="section level2">
 <h2 id="get-weather-data">Get weather data<a class="anchor" aria-label="anchor" href="#get-weather-data"></a>
 </h2>
-<p>First you need to provide weather data for the model; <em>epicrop</em> provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. Using it you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.</p>
+<p>First you need to provide weather data for the model; {epicrop} provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. Using it you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span></span>
 <span></span>
@@ -207,7 +206,11 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-plot-1.png" title="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%"></p>
+<div class="figure">
+<img src="reference/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%"><p class="caption">
+Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.
+</p>
+</div>
 </div>
 </div>
 <div class="section level1">
