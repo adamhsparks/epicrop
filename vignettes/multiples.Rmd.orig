@@ -49,7 +49,7 @@ knitr::opts_chunk$set(
 ```
 
 You may wish to compare the effects of different establishment dates, different seasons or different locations on disease levels.
-This vignette details how you can automate several runs of _epicrop_ in R and visualise them.
+This vignette details how you can automate several runs of {epicrop} in R and visualise them.
 Examples are given that show how to run the process sequentially and in parallel, decreasing the runtime necessary and how to benchmark your processes to help optimise your workflow.
 
 ## Multiple seasons
@@ -132,7 +132,7 @@ Using _furrr_, we can do the same thing in parallel to reduce the runtime, espec
 #### A note on the use of parallel processing
 
 Use parallel processing with caution.
-_epicrop_ is highly optimised for speed (as much as pure R can be).
+{epicrop} is highly optimised for speed (as much as pure R can be).
 For small runs, _e.g._ one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing.
 Best guess is that unless you have > 40 or 50 seasons or locations or some combinations thereof; to run the processes in parallel will not be any benefit.
 

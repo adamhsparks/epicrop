@@ -208,7 +208,7 @@ Thanks to Jean Fabrice Adanve for helping me find this bug.
 
 * Standardise italics to use "_" rather than "*".
 
-* Use `ggplot2::theme_classic()` for example figures in README and _epicrop_ vignette.
+* Use `ggplot2::theme_classic()` for example figures in README and {epicrop} vignette.
 
 # epicrop 0.0.0.9003
 

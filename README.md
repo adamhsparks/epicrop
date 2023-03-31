@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# *epicrop*: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
+# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
 
@@ -39,7 +39,7 @@ fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
 Alternatively, you can supply your own weather data for any time period
 as long as it fits the model’s requirements.
 
-*epicrop* is not yet on CRAN. You can install it this way.
+{epicrop} is not yet on CRAN. You can install it this way.
 
 ``` r
 if (!require("remotes"))
@@ -51,7 +51,7 @@ remotes::install_github("adamhsparks/epicrop",
 
 ## Get weather data
 
-First you need to provide weather data for the model; *epicrop* provides
+First you need to provide weather data for the model; {epicrop} provides
 the `get_wth()` function to do this. Using it you can fetch weather data
 for any place in the world from 1983 to near present by providing the
 and latitude and dates or length of rice growing season as shown below.
@@ -145,17 +145,28 @@ ggplot(data = bb,
   theme_classic()
 ```
 
-<img src="man/figures/README-plot-1.png" title="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
+<div class="figure">
+
+<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
+<p class="caption">
+Bacterial blight disease progress over time. Results for wet season year
+2000 at IRRI Zeigler Experiment Station shown. Weather data used to run
+the model were obtained from the NASA Langley Research Center POWER
+Project funded through the NASA Earth Science Directorate Applied
+Science Program.
+</p>
+
+</div>
 
 # Meta
 
--   Please [report any issues or
-    bugs](https://github.com/adamhsparks/epicrop/issues).
+- Please [report any issues or
+  bugs](https://github.com/adamhsparks/epicrop/issues).
 
--   License: GPL-3
+- License: GPL-3
 
--   To cite *epicrop*, please use the output from
-    `citation(package = "epicrop")`.
+- To cite *epicrop*, please use the output from
+  `citation(package = "epicrop")`.
 
 ## Code of Conduct
 

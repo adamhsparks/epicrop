@@ -22,7 +22,7 @@ vignette: >
 
 
 You may wish to compare the effects of different establishment dates, different seasons or different locations on disease levels.
-This vignette details how you can automate several runs of _epicrop_ in R and visualise them.
+This vignette details how you can automate several runs of {epicrop} in R and visualise them.
 Examples are given that show how to run the process sequentially and in parallel, decreasing the runtime necessary and how to benchmark your processes to help optimise your workflow.
 
 ## Multiple seasons
@@ -48,11 +48,6 @@ You could also use R's base `lapply()` here as well if you prefer.
 ```r
 library("epicrop")
 library("purrr")
-#> 
-#> Attaching package: 'purrr'
-#> The following object is masked from 'package:epicrop':
-#> 
-#>     transpose
 
 seasons_wth <-
   map(
@@ -91,15 +86,6 @@ seasons <- map_df(
 pander(seasons)
 ```
 
-
-----------------
- season   AUDPC 
--------- -------
-  2000    11.12 
-
-  2001    5.94  
-----------------
-
 ### Visualising differences in AUDPC between seasons
 
 A simple bar chart created using _ggplot2_ is an effective way to visualise the difference between the two seasons.
@@ -116,8 +102,6 @@ ggplot(seasons,
   theme_classic()
 ```
 
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
-
 ### Simulating multiple seasons with _furrr_ using parallel processing
 
 Using _furrr_, we can do the same thing in parallel to reduce the runtime, especially if you have several seasons.
@@ -125,7 +109,7 @@ Using _furrr_, we can do the same thing in parallel to reduce the runtime, espec
 #### A note on the use of parallel processing
 
 Use parallel processing with caution.
-_epicrop_ is highly optimised for speed (as much as pure R can be).
+{epicrop} is highly optimised for speed (as much as pure R can be).
 For small runs, _e.g._ one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing.
 Best guess is that unless you have > 40 or 50 seasons or locations or some combinations thereof; to run the processes in parallel will not be any benefit.
 
@@ -136,7 +120,6 @@ An example benchmarking different methods is provided here.
 ```r
 library("epicrop")
 library("furrr")
-#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -174,15 +157,6 @@ future_map_dfr(
   distinct(AUDPC, season) %>%
   pander()
 ```
-
-
-----------------
- season   AUDPC 
--------- -------
-  2000    11.12 
-
-  2001    5.94  
-----------------
 
 We can see here that the AUDPC values match using both processing methods.
 
@@ -232,7 +206,6 @@ seasons_wth <- map_dfr(
   duration = 180
 ) %>%
   mutate(YYYYMMDD = as_date(YYYYMMDD))
-#> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle): Timeout was reached: [power.larc.nasa.gov] Operation timed out after 30005 milliseconds with 0 bytes received
 
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
@@ -247,7 +220,6 @@ wth <-
       .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
                       YYYYMMDD <= .x + 120)) %>%
   setNames(emergence_dates)
-#> Error in subset.default(seasons_wth, YYYYMMDD >= .x & YYYYMMDD <= .x + : object 'YYYYMMDD' not found
 
 multi_dates <- map2(
   .x = wth,
@@ -259,13 +231,8 @@ multi_dates <- map2(
   group_by(emergence) %>%
   relocate(emergence, AUDPC) %>%
   distinct(AUDPC, emergence)
-#> Error: Mapped vectors must have consistent lengths:
-#> * `.x` has length 7
-#> * `.y` has length 30
 
 pander(multi_dates)
-#> Error in pander(multi_dates): object 'multi_dates' not found
-#> Error in if (tail(stdout, 1) == "") {: argument is of length zero
 ```
 
 That's a bit long and there's lots of values to digest here.
@@ -293,7 +260,6 @@ ggplot(data = multi_dates,
   scale_y_discrete(limits = rev) +
   ylab("Establishment Date") +
   theme_classic()
-#> Error in ggplot(data = multi_dates, aes(x = AUDPC, xend = 0, y = as.factor(emergence), : object 'multi_dates' not found
 ```
 
 ### Using _furrr_ to run multiple establishment dates in parallel
@@ -377,8 +343,6 @@ future_map2(
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.](parallel-establishment-1.png)
-
 ## Multiple locations
 
 ### Using _purrr_ to simulate multiple locations
@@ -449,8 +413,6 @@ map(
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
-
 ## Benchmarking sequential versus parallel methods
 
 It is possible to measure the effect of running the simulations in parallel as compared to sequentially using the _microbenchmark_ package.
@@ -483,16 +445,7 @@ mbm <- microbenchmark(
 )
 
 mbm
-#> Unit: milliseconds
-#>        expr      min        lq      mean    median        uq      max
-#>  sequential 55.46062  64.20661  88.83744  72.67082  86.85241 310.2908
-#>    parallel 40.30858 147.28252 174.75522 151.75029 181.89703 723.9585
-#>  neval cld
-#>    100  a 
-#>    100   b
 
 autoplot(mbm) +
   theme_classic()
 ```
-
-![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
