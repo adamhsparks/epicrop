@@ -1,8 +1,7 @@
-{epicrop} Simulation Modelling of Crop Diseases Using a
-Susceptible-Exposed-Infectious-Removed (SEIR) Model
-================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
 
