@@ -13,7 +13,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.2 (2022-10-31)",
+  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
   "author": [
     {
       "@type": "Person",
@@ -279,7 +279,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
-  "fileSize": "606.966KB",
+  "fileSize": "606.98KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -318,6 +318,7 @@
       "sameAs": "https://doi.org/10.5281/zenodo.5070395"
     }
   ],
+  "releaseNotes": "https://github.com/adamhsparks/epicrop/blob/master/NEWS.md",
   "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
   "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://codecov.io/gh/adamhsparks/epicrop"],
   "developmentStatus": ["https://www.repostatus.org/#active", "https://lifecycle.r-lib.org/articles/stages.html#experimental"]

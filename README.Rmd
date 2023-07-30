@@ -1,4 +1,5 @@
 ---
+title: "{epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model"
 output: github_document
 ---
 
@@ -12,8 +13,6 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-
-# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
 
