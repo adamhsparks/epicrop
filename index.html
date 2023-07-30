@@ -101,16 +101,18 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<p>{epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model ================</p>
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<div class="section level1">
+<div class="page-header"><h1 id="epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model">{epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model<a class="anchor" aria-label="anchor" href="#epicrop-simulation-modelling-of-crop-diseases-using-a-susceptible-exposed-infectious-removed-seir-model"></a>
+</h1></div>
 <p><img align="right" src="reference/figures/logo.png"></p>
 <!-- badges: start -->
 
 <p>A fork of <a href="https://r-forge.r-project.org/R/?group_id=335" class="external-link"><em>cropsim</em></a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link"><em>nasapower</em></a> package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, <code><a href="reference/SEIR.html">SEIR()</a></code>.</p>
 <p>The original EPIRICE manuscript, Savary <em>et al.</em> (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in <em>Crop Protection</em> detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.</p>
+</div>
 <div class="section level1">
-<div class="page-header"><h1 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
-</h1></div>
+<h1 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+</h1>
 <p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov" class="external-link">NASA POWER web API</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
 <p>{epicrop} is not yet on CRAN. You can install it this way.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
