@@ -155,6 +155,7 @@
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
 #'
+#' @autoglobal
 #' @export
 
 SEIR <-
@@ -175,8 +176,6 @@ SEIR <-
            a,
            RRS,
            RRG) {
-    # CRAN NOTE avoidance
-    infday <- YYYYMMDD <- lat <- lon <- LAT <- LON <- NULL #nocov
 
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182

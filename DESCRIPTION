@@ -56,8 +56,9 @@ Description: Generic simulation modelling of crop diseases using a Susceptible-
     function that is suitable for parameterising for use with other pathosystems
     as demonstrated in Savary et al. 2012.
 License: GPL-3 + file LICENSE
-RoxygenNote: 7.2.0
-Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
+    "roxyglobals::global_roclet"))
 Encoding: UTF-8
 NeedsCompilation: no
 ByteCompile: TRUE
@@ -81,6 +82,7 @@ Suggests:
     pander,
     purrr,
     rmarkdown,
+    roxyglobals,
     spelling,
     testthat
 VignetteBuilder: knitr
@@ -89,3 +91,5 @@ X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease, model,
     seir, agricultural-modelling, agricultural-modeling, crop-protection,
     agricultural-research, model, modelling, modeling, seir-model
+Config/roxyglobals/filename: globals.R
+Config/roxyglobals/unique: FALSE

@@ -47,6 +47,7 @@
 #' )
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @export get_wth
 
 get_wth <- function(lonlat,
@@ -56,8 +57,6 @@ get_wth <- function(lonlat,
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
-
-  id <- TEMP <- NULL
 
     wth <- setDT(
       nasapower::get_power(
