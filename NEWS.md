@@ -1,6 +1,14 @@
+# epicrop 0.0.1
+
+* First stable release on GitHub.
+
+* Fixes function title formatting.
+
+* Replaces outdated {tidyverse} functions found in vignettes with modern versions.
+
 # epicrop 0.0.0.9018
 
-* Remove `chirps` functionality to simplify package structure.
+* Remove {chirps} functionality to simplify package structure.
 
 # epicrop 0.0.0.9017
 
@@ -10,7 +18,7 @@
 
 * Polish names for figure in multiple locations figure.
 
-* Remove references and functionality called from _epifitter_; AUDPC is calculated internally now.
+* Remove references and functionality called from {epifitter}; AUDPC is calculated internally now.
 
 # epicrop 0.0.0.9016
 
@@ -86,7 +94,7 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5
 
 * Implements new functionality for `get_wth()` to optionally get data from the CHIRPS/CHIRTS APIs in addition to the default NASA POWER API.
 
-* Uses one-indexed `for()` loop, in place of the zero-indexed `for()` loop found in _cropsim_.
+* Uses one-indexed `for()` loop, in place of the zero-indexed `for()` loop found in {cropsim}.
 
 # epicrop 0.0.0.9011
 
@@ -104,7 +112,7 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5
 
 * Better, more consistent documentation.
 
-* Update `get_wth()` to work with the new (unreleased) version of _nasapower_ that works with the new version of the POWER API.
+* Update `get_wth()` to work with the new (unreleased) version of {nasapower} that works with the new version of the POWER API.
 
 # epicrop 0.0.0.9010-1
 
@@ -168,7 +176,7 @@ This column represents the proportion of actively diseased sites on day "x" expr
 
 ## Minor changes
 
-* Only import _data.table_ functions as necessary, don't import whole package.
+* Only import {data.table} functions as necessary, don't import whole package.
 
 ## Bug fixes
 
@@ -183,7 +191,7 @@ Thanks to Jean Fabrice Adanve for helping me find this bug.
 
 * Fixes bug where the relative humidity checks in `SEIR()` only checked if the daily RH value was equal to (`==`) not equal to or greater than (`>=`) the set parameter for `rhlim` (default is 90%).
 
-* Example for `SEIR()` in _roxygen_ section now works properly when executed by the user.
+* Example for `SEIR()` in {roxygen} section now works properly when executed by the user.
 
 ## Major changes
 
@@ -208,7 +216,7 @@ Thanks to Jean Fabrice Adanve for helping me find this bug.
 
 * Standardise italics to use "_" rather than "*".
 
-* Use `ggplot2::theme_classic()` for example figures in README and _epicrop_ vignette.
+* Use `ggplot2::theme_classic()` for example figures in README and {epicrop} vignette.
 
 # epicrop 0.0.0.9003
 
