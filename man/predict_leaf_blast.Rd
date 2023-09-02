@@ -3,7 +3,7 @@
 \name{predict_leaf_blast}
 \alias{predict_leaf_blast}
 \alias{predict_lb}
-\title{Predict rice leaf blast intensity}
+\title{Predict Rice Leaf Blast Intensity}
 \usage{
 predict_leaf_blast(wth, emergence)
 

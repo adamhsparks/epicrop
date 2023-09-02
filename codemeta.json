@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/adamhsparks/epicrop/",
   "issueTracker": "https://github.com/adamhsparks/epicrop/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.0.9018",
+  "version": "0.0.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -131,6 +131,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "ggrepel",
+      "name": "ggrepel",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggrepel"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "ggspatial",
       "name": "ggspatial",
       "provider": {
@@ -215,6 +227,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "roxyglobals",
+      "name": "roxyglobals",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=roxyglobals"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "spelling",
       "name": "spelling",
       "provider": {
@@ -236,6 +260,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
     }
   ],
   "softwareRequirements": {
@@ -279,7 +315,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
-  "fileSize": "606.98KB",
+  "fileSize": "805.758KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -313,7 +349,7 @@
       "name": "{epicrop}: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
       "identifier": "10.5281/zenodo.5070395",
       "url": "https://github.com/adamhsparks/epicrop",
-      "description": "R package version 0.0.0.9018",
+      "description": "R package version 0.0.1",
       "@id": "https://doi.org/10.5281/zenodo.5070395",
       "sameAs": "https://doi.org/10.5281/zenodo.5070395"
     }

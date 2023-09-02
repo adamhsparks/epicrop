@@ -1,5 +1,5 @@
 
-#' Predict rice leaf blast intensity
+#' Predict Rice Leaf Blast Intensity
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 #' _Magnaporthe oryzae_. The model is driven by daily weather data, which can

@@ -1,4 +1,4 @@
-#' Calculate the area under the disease progress curve (AUDPC)
+#' Calculate the Area Under the Disease Progress Curve (AUDPC)
 #'
 #' This function is used to return the AUDPC in the output of SEIR().  Not to be
 #' used alone as it assumes that there is always only one day between

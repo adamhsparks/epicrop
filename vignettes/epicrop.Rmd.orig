@@ -34,7 +34,7 @@ knitr::opts_chunk$set(eval = all(
 {epicrop} provides an R package of the 'EPIRICE' model as described in Savary _et al._ 2012.
 Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
 The model uses daily weather data to estimate disease intensity.
-A function, `get_wth()`, is provided to simplify downloading weather data via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
 If you are interested in modelling other pathosystems, please refer to Savary _et al._ 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
@@ -77,9 +77,9 @@ bb_wet <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 summary(bb_wet)
 ```
 
-## Plotting using _ggplot2_
+## Plotting using {ggplot2}
 
-The data are in a wide format by default and need to be converted to long format for use in _ggplot2_ if you wish to plot more than one variable at a time.
+The data are in a wide format by default and need to be converted to long format for use in {ggplot2} if you wish to plot more than one variable at a time.
 
 ```{r ggplot2}
 library("ggplot2")
@@ -156,7 +156,7 @@ ggplot(data = bb_dry,
 
 As the AUDPC value is found in the `AUDPC` column and is repeated for every row of the `data.table` so we only need to access the first row.
 We can easily do this by calling the column using the `$` operator and `[]` to select an index value, in this case the first row of the `data.table`.
-Optionally if you wished to used _dplyr_ you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
+Optionally if you wished to used {dplyr} you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
 
 ```{r audpc}
 # Dry season

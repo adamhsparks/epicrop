@@ -3,7 +3,7 @@
 \name{predict_brown_spot}
 \alias{predict_brown_spot}
 \alias{predict_bs}
-\title{Predict rice brown spot intensity}
+\title{Predict Rice Brown Spot Intensity}
 \usage{
 predict_brown_spot(wth, emergence)
 

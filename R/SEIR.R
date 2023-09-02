@@ -1,5 +1,5 @@
 
-#' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
+#' Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework
 #'
 #' This function is originally used by specific disease models in
 #'  \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
@@ -155,6 +155,7 @@
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
 #'
+#' @autoglobal
 #' @export
 
 SEIR <-
@@ -175,8 +176,6 @@ SEIR <-
            a,
            RRS,
            RRG) {
-    # CRAN NOTE avoidance
-    infday <- YYYYMMDD <- lat <- lon <- LAT <- LON <- NULL #nocov
 
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
@@ -346,27 +345,28 @@ SEIR <-
     return(out[])
   }
 
-#' Use approx() to return a modifier value from an RcA or RcT curve
+# .fn_Rc() ----
+
+#' Use approx() to Return a Modifier Value From an RcA or RcT Curve
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
 #'  or age, `RcA`.
 #' @param .xout a value for `x`, either a temperature or age modifier value.
 #'
-#' @return A numeric value for modifying a growth curve in SEIR()
+#' @return A numeric value for modifying a growth curve in `SEIR()`
 #'
 #' @note This is a faster (and more simple) function that does what the original
 #'  `afgen()` from \pkg{cropsim} does.
 #'
 #' @keywords internal
-#'
 #' @noRd
 
 .fn_Rc <- function(.Rc, .xout)
-  stats::approx(
+  return(stats::approx(
     x = .Rc[, 1],
     y = .Rc[, 2],
     method = "linear",
     xout = .xout,
     yleft = 0,
     yright = 0
-  )$y
+  )$y)

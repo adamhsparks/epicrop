@@ -1,7 +1,7 @@
 Package: epicrop
 Type: Package
 Title: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
-Version: 0.0.0.9018
+Version: 0.0.1
 DOI: 10.5281/zenodo.5070395
 Authors@R: c(
     person(given = "Adam H.",
@@ -57,7 +57,8 @@ Description: Generic simulation modelling of crop diseases using a Susceptible-
     as demonstrated in Savary et al. 2012.
 License: GPL-3 + file LICENSE
 RoxygenNote: 7.2.3
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
+    "roxyglobals::global_roclet"))
 Encoding: UTF-8
 NeedsCompilation: no
 ByteCompile: TRUE
@@ -73,6 +74,7 @@ Suggests:
     dplyr,
     furrr,
     ggplot2,
+    ggrepel,
     ggspatial,
     knitr,
     lubridate,
@@ -80,11 +82,15 @@ Suggests:
     pander,
     purrr,
     rmarkdown,
+    roxyglobals,
     spelling,
-    testthat
+    testthat,
+    tidyr
 VignetteBuilder: knitr
 Language: en-US
 X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease, model,
     seir, agricultural-modelling, agricultural-modeling, crop-protection,
     agricultural-research, model, modelling, modeling, seir-model
+Config/roxyglobals/filename: globals.R
+Config/roxyglobals/unique: FALSE

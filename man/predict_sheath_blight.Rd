@@ -3,7 +3,7 @@
 \name{predict_sheath_blight}
 \alias{predict_sheath_blight}
 \alias{predict_sb}
-\title{Predict rice sheath blight intensity}
+\title{Predict Rice Sheath Blight Intensity}
 \usage{
 predict_sheath_blight(wth, emergence)
 

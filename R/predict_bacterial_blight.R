@@ -1,5 +1,5 @@
 
-#' Predict rice bacterial blight intensity
+#' Predict Rice Bacterial Blight Intensity
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent _Xanthomonas oryzae_ pv. _oryzae_.  The model is driven by daily

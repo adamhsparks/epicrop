@@ -21,7 +21,7 @@ vignette: >
 {epicrop} provides an R package of the 'EPIRICE' model as described in Savary _et al._ 2012.
 Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
 The model uses daily weather data to estimate disease intensity.
-A function, `get_wth()`, is provided to simplify downloading weather data via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
 If you are interested in modelling other pathosystems, please refer to Savary _et al._ 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
@@ -84,39 +84,39 @@ summary(bb_wet)
 ```
 
 ```
-##      simday           dates                sites            latent           infectious    
-##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0   Min.   :  0.0000   Min.   :  0.00  
-##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1   1st Qu.:  0.7071   1st Qu.:  1.00  
-##  Median : 60.50   Median :2000-08-29   Median :1827.5   Median : 12.4138   Median : 17.74  
-##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2   Mean   : 65.0439   Mean   :214.99  
-##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5   3rd Qu.:126.2923   3rd Qu.:379.33  
-##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9   Max.   :264.3734   Max.   :953.22  
-##     removed          senesced         rateinf          rtransfer        rgrowth      
-##  Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688  
-##  1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.659  
-##  Median :  1.00   Median : 642.6   Median : 0.9286   Median : 0.00   Median :33.172  
-##  Mean   : 29.83   Mean   : 803.0   Mean   :11.3325   Mean   :10.66   Mean   :40.322  
-##  3rd Qu.: 16.12   3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29   3rd Qu.:57.583  
-##  Max.   :352.64   Max.   :2286.4   Max.   :64.5756   Max.   :64.58   Max.   :79.689  
-##    rsenesced         diseased          intensity           AUDPC           lat       
-##  Min.   : 1.000   Min.   :   0.000   Min.   :0.00000   Min.   :12.4   Min.   :14.68  
-##  1st Qu.: 9.331   1st Qu.:   1.707   1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68  
-##  Median :22.890   Median :  31.153   Median :0.01194   Median :12.4   Median :14.68  
-##  Mean   :19.449   Mean   : 309.862   Mean   :0.10512   Mean   :12.4   Mean   :14.68  
-##  3rd Qu.:26.081   3rd Qu.: 619.724   3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68  
-##  Max.   :50.029   Max.   :1342.865   Max.   :0.43496   Max.   :12.4   Max.   :14.68  
-##       lon       
-##  Min.   :121.3  
-##  1st Qu.:121.3  
-##  Median :121.3  
-##  Mean   :121.3  
-##  3rd Qu.:121.3  
-##  Max.   :121.3
+##      simday           dates                sites            latent        
+##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0   Min.   :  0.0000  
+##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1   1st Qu.:  0.7071  
+##  Median : 60.50   Median :2000-08-29   Median :1827.5   Median : 12.4138  
+##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2   Mean   : 65.0439  
+##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5   3rd Qu.:126.2923  
+##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9   Max.   :264.3734  
+##    infectious        removed          senesced         rateinf       
+##  Min.   :  0.00   Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000  
+##  1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000  
+##  Median : 17.74   Median :  1.00   Median : 642.6   Median : 0.9286  
+##  Mean   :214.99   Mean   : 29.83   Mean   : 803.0   Mean   :11.3325  
+##  3rd Qu.:379.33   3rd Qu.: 16.12   3rd Qu.:1410.1   3rd Qu.:19.6572  
+##  Max.   :953.22   Max.   :352.64   Max.   :2286.4   Max.   :64.5756  
+##    rtransfer        rgrowth         rsenesced         diseased       
+##  Min.   : 0.00   Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  
+##  1st Qu.: 0.00   1st Qu.:22.659   1st Qu.: 9.331   1st Qu.:   1.707  
+##  Median : 0.00   Median :33.172   Median :22.890   Median :  31.153  
+##  Mean   :10.66   Mean   :40.322   Mean   :19.449   Mean   : 309.862  
+##  3rd Qu.:16.29   3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724  
+##  Max.   :64.58   Max.   :79.689   Max.   :50.029   Max.   :1342.865  
+##    intensity           AUDPC           lat             lon       
+##  Min.   :0.00000   Min.   :12.4   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.01194   Median :12.4   Median :14.68   Median :121.3  
+##  Mean   :0.10512   Mean   :12.4   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.43496   Max.   :12.4   Max.   :14.68   Max.   :121.3
 ```
 
-## Plotting using _ggplot2_
+## Plotting using {ggplot2}
 
-The data are in a wide format by default and need to be converted to long format for use in _ggplot2_ if you wish to plot more than one variable at a time.
+The data are in a wide format by default and need to be converted to long format for use in {ggplot2} if you wish to plot more than one variable at a time.
 
 
 ```r
@@ -185,34 +185,34 @@ summary(bb_dry)
 ```
 
 ```
-##      simday           dates                sites            latent          infectious    
-##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :  0.00  
-##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7   1st Qu.:  0.000   1st Qu.:  1.00  
-##  Median : 60.50   Median :2000-03-04   Median :2494.0   Median :  3.499   Median : 16.03  
-##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1846.3   Mean   : 15.689   Mean   : 66.40  
-##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2598.9   3rd Qu.: 20.839   3rd Qu.:115.30  
-##  Max.   :120.00   Max.   :2000-05-03   Max.   :2714.5   Max.   :139.262   Max.   :256.91  
-##     removed          senesced         rateinf          rtransfer          rgrowth      
-##  Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000   Min.   : 0.0000   Min.   : 9.688  
-##  1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:28.311  
-##  Median :  1.00   Median : 641.4   Median : 0.0000   Median : 0.0000   Median :34.267  
-##  Mean   : 16.69   Mean   : 823.4   Mean   : 2.6149   Mean   : 2.6149   Mean   :42.212  
-##  3rd Qu.: 17.03   3rd Qu.:1446.5   3rd Qu.: 0.5386   3rd Qu.: 0.5386   3rd Qu.:57.742  
-##  Max.   :109.70   Max.   :2300.1   Max.   :39.2813   Max.   :39.2813   Max.   :79.485  
-##    rsenesced         diseased         intensity           AUDPC            lat       
-##  Min.   : 1.000   Min.   :  0.000   Min.   :0.00000   Min.   :3.576   Min.   :14.68  
-##  1st Qu.: 9.327   1st Qu.:  2.179   1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68  
-##  Median :24.997   Median : 28.878   Median :0.01105   Median :3.576   Median :14.68  
-##  Mean   :19.566   Mean   : 98.776   Mean   :0.03012   Mean   :3.576   Mean   :14.68  
-##  3rd Qu.:26.886   3rd Qu.:174.526   3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68  
-##  Max.   :47.858   Max.   :313.789   Max.   :0.10021   Max.   :3.576   Max.   :14.68  
-##       lon       
-##  Min.   :121.3  
-##  1st Qu.:121.3  
-##  Median :121.3  
-##  Mean   :121.3  
-##  3rd Qu.:121.3  
-##  Max.   :121.3
+##      simday           dates                sites            latent       
+##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000  
+##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7   1st Qu.:  0.000  
+##  Median : 60.50   Median :2000-03-04   Median :2494.0   Median :  3.499  
+##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1846.3   Mean   : 15.689  
+##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2598.9   3rd Qu.: 20.839  
+##  Max.   :120.00   Max.   :2000-05-03   Max.   :2714.5   Max.   :139.262  
+##    infectious        removed          senesced         rateinf       
+##  Min.   :  0.00   Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000  
+##  1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000  
+##  Median : 16.03   Median :  1.00   Median : 641.4   Median : 0.0000  
+##  Mean   : 66.40   Mean   : 16.69   Mean   : 823.4   Mean   : 2.6149  
+##  3rd Qu.:115.30   3rd Qu.: 17.03   3rd Qu.:1446.5   3rd Qu.: 0.5386  
+##  Max.   :256.91   Max.   :109.70   Max.   :2300.1   Max.   :39.2813  
+##    rtransfer          rgrowth         rsenesced         diseased      
+##  Min.   : 0.0000   Min.   : 9.688   Min.   : 1.000   Min.   :  0.000  
+##  1st Qu.: 0.0000   1st Qu.:28.311   1st Qu.: 9.327   1st Qu.:  2.179  
+##  Median : 0.0000   Median :34.267   Median :24.997   Median : 28.878  
+##  Mean   : 2.6149   Mean   :42.212   Mean   :19.566   Mean   : 98.776  
+##  3rd Qu.: 0.5386   3rd Qu.:57.742   3rd Qu.:26.886   3rd Qu.:174.526  
+##  Max.   :39.2813   Max.   :79.485   Max.   :47.858   Max.   :313.789  
+##    intensity           AUDPC            lat             lon       
+##  Min.   :0.00000   Min.   :3.576   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :0.01105   Median :3.576   Median :14.68   Median :121.3  
+##  Mean   :0.03012   Mean   :3.576   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :0.10021   Max.   :3.576   Max.   :14.68   Max.   :121.3
 ```
 
 ### Dry season intensity
@@ -235,7 +235,7 @@ ggplot(data = bb_dry,
 
 As the AUDPC value is found in the `AUDPC` column and is repeated for every row of the `data.table` so we only need to access the first row.
 We can easily do this by calling the column using the `$` operator and `[]` to select an index value, in this case the first row of the `data.table`.
-Optionally if you wished to used _dplyr_ you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
+Optionally if you wished to used {dplyr} you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
 
 
 ```r

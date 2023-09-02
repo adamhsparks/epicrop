@@ -44,14 +44,14 @@ knitr::opts_chunk$set(
 
 You may wish to compare the effects of different establishment dates, different seasons or different locations on disease levels.
 This vignette details how you can automate several runs of {epicrop} in R and visualise them on maps.
-If you have not familiarised yourself with the workflow for multiple runs in the "Multiple Simulations" vignette, please read that first if you are unfamiliar with using `purrr`.
+If you have not familiarised yourself with the workflow for multiple runs in the "Multiple Simulations" vignette, please read that first if you are unfamiliar with using {purrr}.
 
 ## Map of AUDPC at multiple locations
 
 In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.
 The map will show a point, with the size relative to the AUDPC value for that location using the latitude and longitude values that were supplied to fetch the weather data.
 
-The [_ggspatial_](https://paleolimbot.github.io/ggspatial/) package is used to provide a base layer of countries using [Open Street Map](https://www.openstreetmap.org/) map baselayer data and labelling capabilities.
+The [{ggspatial}](https://paleolimbot.github.io/ggspatial/) package is used to provide a base layer of countries using [Open Street Map](https://www.openstreetmap.org/) map baselayer data and labelling capabilities.
 
 ```{r map-AUDPC, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.", message = FALSE, fig.width = 7}
 library("epicrop")
@@ -80,10 +80,10 @@ map(
   .x = locations_wth,
   .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
                                   wth = .x)
-) %>%
-  bind_rows(.id = "location") %>%
-  group_by(location) %>%
-  distinct(AUDPC, location, lon, lat) %>%
+) |>
+  bind_rows(.id = "location") |>
+  group_by(location) |>
+  distinct(AUDPC, location, lon, lat) |>
   ggplot(aes(x = lon, y = lat)) +
   annotation_map_tile(type = "cartolight",
                       zoomin = 0) +

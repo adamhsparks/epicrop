@@ -3,7 +3,7 @@
 \name{predict_bacterial_blight}
 \alias{predict_bacterial_blight}
 \alias{predict_bb}
-\title{Predict rice bacterial blight intensity}
+\title{Predict Rice Bacterial Blight Intensity}
 \usage{
 predict_bacterial_blight(wth, emergence)
 

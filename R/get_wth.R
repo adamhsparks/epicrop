@@ -1,5 +1,5 @@
 
-#' Get weather data for use in epicrop modelling
+#' Get Weather Data for Use in epicrop Modelling
 #'
 #' This function is a wrapper for the [nasapower::get_power()] with predefined
 #'  parameters suitable for use in \pkg{epicrop}.
@@ -47,6 +47,7 @@
 #' )
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @export get_wth
 
 get_wth <- function(lonlat,
@@ -56,8 +57,6 @@ get_wth <- function(lonlat,
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
-
-  id <- TEMP <- NULL
 
     wth <- setDT(
       nasapower::get_power(

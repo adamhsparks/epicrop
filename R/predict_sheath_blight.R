@@ -1,5 +1,5 @@
 
-#' Predict rice sheath blight intensity
+#' Predict Rice Sheath Blight Intensity
 #'
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal
 #' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
