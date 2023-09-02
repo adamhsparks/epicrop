@@ -8,14 +8,13 @@ predict_Septoria_tritici_blotch(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} or \acronym{CHIRPS}/\acronym{CHIRTS} data from \code{\link[=get_wth]{get_wth()}},
-but any\code{\link[base:data.frame]{base::data.frame()}} object that has the following properly named
-columns in them will work.\tabular{rl}{
+\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object
+that has the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
    \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
@@ -64,7 +63,33 @@ plot(x = sb$dates, y = sb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{
+Adhikari, T.B., 1991. Effects of rice genotype and environment on
+bacterial blight progression. PhD Thesis, University of the Philippines at
+Los Baños, 143 p.
 
+Baw A. and Mew, T.W., 1988. Scoring systems for evaluating rice varietal
+resistance to bacterial blight (BB): lesion size by growth stage.
+International Rice Research Newsletter 13:10-11.
+
+Horino, O., Mew, T.W., Yamada, T., 1982. The effect of temperature on the
+development of bacterial leaf blight on rice. Annals of the Phytopathological
+Society of Japan 48: 72-75.
+
+Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
+paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
+
+Medalla, E. 1992. Characterization of resistance of IR cultivars to two races
+of \emph{Xanthomonas oryzae} pv. \emph{oryzae}. Unpublished M.S. Thesis, University
+of the Philippines at Los Baños, 81 p.
+
+Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
+resistance to bacterial blight disease of rice. Journal of Phytopathology
+119:312-318. DOI: \doi{10.1111/j.1439-0434.1987.tb04402.x}.
+
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
+and mapping potential epidemics of rice diseases globally. Crop Protection,
+Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+\doi{10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
 \code{\link[=SEIR]{SEIR()}}

@@ -56,9 +56,6 @@ lr <- predict_leaf_rust(wth, emergence = "2000-07-01")
 plot(x = lr$dates, y = lr$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
-\references{
-
-}
 \seealso{
 \code{\link[=SEIR]{SEIR()}}
 
