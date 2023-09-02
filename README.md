@@ -13,15 +13,15 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738)
 <!-- badges: end -->
 
-A fork of [*cropsim*](https://r-forge.r-project.org/R/?group_id=335)
+A fork of [{cropsim}](https://r-forge.r-project.org/R/?group_id=335)
 (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary
 *et al.* 2012) for rice diseases easier to use. This version provides
 easy to use functions to fetch weather data from NASA POWER, via the
-[*nasapower*](https://cran.r-project.org/package=nasapower) package
+[{nasapower}](https://cran.r-project.org/package=nasapower) package
 (Sparks 2018, Sparks 2020) and predict disease intensity of five rice
 diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 

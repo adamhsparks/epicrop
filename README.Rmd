@@ -23,12 +23,12 @@ knitr::opts_chunk$set(
 [![tic](https://github.com/adamhsparks/epicrop/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epicrop/actions)
 [![codecov](https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epicrop)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738)
 <!-- badges: end -->
 
-A fork of [_cropsim_](https://r-forge.r-project.org/R/?group_id=335) (Hijmans _et al._ 2009) designed to make using the EPIRICE model (Savary _et al._ 2012) for rice diseases easier to use.
-This version provides easy to use functions to fetch weather data from NASA POWER, via the [_nasapower_](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+A fork of [{cropsim}](https://r-forge.r-project.org/R/?group_id=335) (Hijmans _et al._ 2009) designed to make using the EPIRICE model (Savary _et al._ 2012) for rice diseases easier to use.
+This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 The original EPIRICE manuscript, Savary _et al._ (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in _Crop Protection_ detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
 
