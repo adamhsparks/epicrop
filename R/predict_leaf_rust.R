@@ -1,8 +1,8 @@
 
-#' Predict wheat leaf or brown rust intensity
+#' Predict Wheat Leaf/Brown Rust Intensity
 #'
-#' A dynamic mechanistic simulation of leaf or brown rust disease of wheat,
-#' causal agent _Puccinia triticina_.  The model is driven by daily
+#' A dynamic mechanistic simulation of leaf, also known as brown rust, disease
+#' of wheat, causal agent _Puccinia triticina_.  The model is driven by daily
 #' weather data, which can easily be accessed using [get_wth()] to download
 #' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or
 #' \CRANpkg{chirps} for data from \acronym{CHIRPS} and \acronym{CHIRTS}.

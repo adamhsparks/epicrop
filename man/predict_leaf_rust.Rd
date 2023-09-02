@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_leaf_rust.R
 \name{predict_leaf_rust}
 \alias{predict_leaf_rust}
-\title{Predict wheat leaf or brown rust intensity}
+\title{Predict Wheat Leaf/Brown Rust Intensity}
 \usage{
 predict_leaf_rust(wth, emergence)
 }
@@ -27,8 +27,8 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} of disease inten
 sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column values.
 }
 \description{
-A dynamic mechanistic simulation of leaf or brown rust disease of wheat,
-causal agent \emph{Puccinia triticina}.  The model is driven by daily
+A dynamic mechanistic simulation of leaf, also known as brown rust, disease
+of wheat, causal agent \emph{Puccinia triticina}.  The model is driven by daily
 weather data, which can easily be accessed using \code{\link[=get_wth]{get_wth()}} to download
 weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or
 \CRANpkg{chirps} for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
