@@ -359,15 +359,14 @@ SEIR <-
 #'  `afgen()` from \pkg{cropsim} does.
 #'
 #' @keywords internal
-#'
 #' @noRd
 
 .fn_Rc <- function(.Rc, .xout)
-  stats::approx(
+  return(stats::approx(
     x = .Rc[, 1],
     y = .Rc[, 2],
     method = "linear",
     xout = .xout,
     yleft = 0,
     yright = 0
-  )$y
+  )$y)
