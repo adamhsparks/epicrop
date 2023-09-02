@@ -84,7 +84,8 @@ Suggests:
     rmarkdown,
     roxyglobals,
     spelling,
-    testthat
+    testthat,
+    tidyr
 VignetteBuilder: knitr
 Language: en-US
 X-schema.org-applicationCategory: Tools
