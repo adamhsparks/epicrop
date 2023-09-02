@@ -268,7 +268,7 @@ Using `ggplot2::geom_segment()` and `ggplot2::geom_point()` we can maximise the 
 
 Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are necessary since we're using `ggplot2::geom_segment()`.
 
-```{r stem-plot, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines."}
+```{r stem-plot, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."}
 library("ggplot2")
 ggplot(data = multi_dates,
        aes(
@@ -292,7 +292,7 @@ These are easily identified by the `future_` prefix on each of the functions whe
 
 In this example rather than printing the whole table, the data are piped directly into the `ggplot2::ggplot()` function for creating a figure that again, is the same as the previous example, but run in parallel using {furrr}.
 
-```{r parallel-establishment, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines."}
+```{r parallel-establishment, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."}
 library("furrr")
 library("purrr")
 library("tidyr")

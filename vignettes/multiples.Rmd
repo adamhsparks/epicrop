@@ -356,7 +356,7 @@ ggplot(data = multi_dates,
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philipppines.](stem-plot-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](stem-plot-1.png)
 
 ### Using {furrr} to run multiple establishment dates in parallel
 
@@ -556,9 +556,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr      min       lq      mean    median        uq      max neval
-#>  sequential 55.65844 57.28469  64.21014  62.70036  67.02334 131.5799   100
-#>    parallel 89.46610 99.32285 110.43175 101.29267 105.45510 609.3216   100
+#>        expr      min       lq      mean   median        uq      max neval
+#>  sequential 55.06743 57.35525  64.96381  63.2335  67.59143 111.5783   100
+#>    parallel 86.81389 98.69229 108.23346 100.0182 105.34382 602.9069   100
 
 autoplot(mbm) +
   theme_classic()
