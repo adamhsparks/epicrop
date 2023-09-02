@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epicrop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
@@ -109,8 +109,7 @@ different seasons or different locations on disease levels. This
 vignette details how you can automate several runs of {epicrop} in R and
 visualise them on maps. If you have not familiarised yourself with the
 workflow for multiple runs in the “Multiple Simulations” vignette,
-please read that first if you are unfamiliar with using
-<code>purrr</code>.</p>
+please read that first if you are unfamiliar with using {purrr}.</p>
 <div class="section level2">
 <h2 id="map-of-audpc-at-multiple-locations">Map of AUDPC at multiple locations<a class="anchor" aria-label="anchor" href="#map-of-audpc-at-multiple-locations"></a>
 </h2>
@@ -120,8 +119,8 @@ Ecija, in the Philippines for the wet season (second half of the year)
 in 2000. The map will show a point, with the size relative to the AUDPC
 value for that location using the latitude and longitude values that
 were supplied to fetch the weather data.</p>
-<p>The <a href="https://paleolimbot.github.io/ggspatial/" class="external-link"><em>ggspatial</em></a>
-package is used to provide a base layer of countries using <a href="https://www.openstreetmap.org/" class="external-link">Open Street Map</a> map baselayer
+<p>The <a href="https://paleolimbot.github.io/ggspatial/" class="external-link">{ggspatial}</a> package
+is used to provide a base layer of countries using <a href="https://www.openstreetmap.org/" class="external-link">Open Street Map</a> map baselayer
 data and labelling capabilities.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span></span>
@@ -150,10 +149,10 @@ data and labelling capabilities.</p>
 <span>  .x <span class="op">=</span> <span class="va">locations_wth</span>,</span>
 <span>  .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.x</span><span class="op">$</span><span class="va">YYYYMMDD</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>                                  wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">bind_rows</span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"location"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">location</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">distinct</span><span class="op">(</span><span class="va">AUDPC</span>, <span class="va">location</span>, <span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">bind_rows</span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"location"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">location</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">distinct</span><span class="op">(</span><span class="va">AUDPC</span>, <span class="va">location</span>, <span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_map_tile.html" class="external-link">annotation_map_tile</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"cartolight"</span>,</span>
 <span>                      zoomin <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
@@ -183,6 +182,16 @@ data and labelling capabilities.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">127</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="map-AUDPC-1.png" alt=""><p class="caption">Rice bacterial blight area under the disease progress
+curve (AUDPC) values for an establishment date of June 30, 2000 at five
+locations, Mekong River Delta and Red River Delta in Vietnam; Prachin
+Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.
+These data were obtained from the NASA Langley Research Center POWER
+Project funded through the NASA Earth Science Directorate Applied
+Science Program. Map base layer data is © OpenStreetMap
+contributors.</p>
+</div>
 </div>
   </div>
 
