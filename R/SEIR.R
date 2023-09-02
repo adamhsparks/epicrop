@@ -1,5 +1,5 @@
 
-#' Susceptible-Exposed-Infectious-Removed (SEIR) model framework
+#' Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework
 #'
 #' This function is originally used by specific disease models in
 #'  \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
@@ -345,7 +345,9 @@ SEIR <-
     return(out[])
   }
 
-#' Use approx() to return a modifier value from an RcA or RcT curve
+# .fn_Rc() ----
+
+#' Use approx() to Return a Modifier Value From an RcA or RcT Curve
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
 #'  or age, `RcA`.
