@@ -1,5 +1,5 @@
 
-#' Predict rice brown spot intensity
+#' Predict Rice Brown Spot Intensity
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
 #' _Cochliobolus miyabeanus_. The model is driven by daily weather data, which

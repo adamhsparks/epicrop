@@ -1,5 +1,5 @@
 
-#' Predict rice tungro disease incidence
+#' Predict Rice Tungro Disease Incidence
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
 #' _Rice Tungro Spherical Virus_ and _Rice Tungro Bacilliform Virus_.
