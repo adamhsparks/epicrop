@@ -1,11 +1,10 @@
 
-#' Predict rice sheath blight intensity
+#' Predict Rice Sheath Blight Intensity
 #'
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal
 #' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
 #' data, which can easily be accessed using[get_wth()] to download weather data
-#' from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or
-#' \CRANpkg{chirps} for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
+#' from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #'
 #' @details
@@ -13,6 +12,8 @@
 #'
 #' Default values for this disease model are derived from Table 2 (Savary *et
 #' al.* 2012).
+#'
+#' [predict_sb()] is a shorthand alias for [predict_sheath_blight()].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -50,7 +51,7 @@
 #' Gross, M.K., Santini, J.B., Tikhonova, I. and Latin, R. 1998. The influence
 #' of temperature and leaf wetness duration on infection of perennial ryegrass
 #' by _Rhizoctonia solani_. Plant Disease 82:1012-1016. DOI:
-#' <https://doi.org/10.1094/PDIS.1998.82.9.1012>
+#' \doi{10.1094/PDIS.1998.82.9.1012}.
 #'
 #' Hashiba, T. and Ijiri, T., 1989. Estimation of yield loss and computerized
 #' forecasting system (BLIGHTAS) for rice sheath blight disease. International
@@ -60,17 +61,16 @@
 #'
 #' Savary, S., Willocquet, L., Teng, P.S., 1997. Modelling sheath blight
 #' epidemics on rice tillers. Agricultural Systems 55:359-384. DOI:
-#' <https://doi.org/10.1016/S0308-521X(97)00014-0>.
+#' \doi{10.1016/S0308-521X(97)00014-0}.
 #'
 #' Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the spatio-
 #' temporal structure of rice sheath blight epidemics in a farmer's field.
-#' Plant Pathology 50:53-68. DOI:
-#' <https://doi.org/10.1046/j.1365-3059.2001.00531.x>
+#' Plant Pathology 50:53-68. DOI: \doi{10.1046/j.1365-3059.2001.00531.x}.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,
 #' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <https://doi.org/10.1016/j.cropro.2011.11.009>.
+#' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' Sharma, N.R., Teng, P.S., Olivares, F.M., 1990. Effect of rice growth stage
 #' on sheath blight (ShB) development and yield loss. International Rice
@@ -129,3 +129,12 @@ predict_sheath_blight <- function(wth, emergence) {
     )
   )
 }
+
+#' @rdname predict_sheath_blight
+#' @examplesIf interactive()
+#' # use shorthand function
+#' sb <- predict_sb(wth, emergence = "2000-07-01")
+#' plot(x = sb$dates, y = sb$intensity, type = "l")
+#' @export
+predict_sb <- predict_sheath_blight
+

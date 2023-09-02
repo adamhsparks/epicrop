@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: linux-macos-windows-deploy
-## revision date: 2022-08-28
+## revision date: 2023-05-22
 on:
   workflow_dispatch:
   push:
@@ -64,7 +64,7 @@ jobs:
       - name: "[Cache] Prepare daily timestamp for cache"
         if: runner.os != 'Windows'
         id: date
-        run: echo "::set-output name=date::$(date '+%d-%m')"
+        run: echo "date=$(date '+%d-%m')" >> $GITHUB_OUTPUT
 
       - name: "[Cache] Cache R packages"
         if: runner.os != 'Windows'
@@ -73,6 +73,10 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
+
+      - name: "[Custom block] [macOS] Install udunits"
+        if: runner.os == 'macOS'
+        run: brew install udunits
 
       - name: "[Stage] Install pak"
         run: Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/stable')"
@@ -88,7 +92,7 @@ jobs:
 
       - name: "[Stage] Upload R CMD check artifacts"
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check

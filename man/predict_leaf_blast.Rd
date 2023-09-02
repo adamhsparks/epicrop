@@ -2,20 +2,22 @@
 % Please edit documentation in R/predict_leaf_blast.R
 \name{predict_leaf_blast}
 \alias{predict_leaf_blast}
-\title{Predict rice leaf blast intensity}
+\alias{predict_lb}
+\title{Predict Rice Leaf Blast Intensity}
 \usage{
 predict_leaf_blast(wth, emergence)
+
+predict_lb(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} or \acronym{CHIRPS}/\acronym{CHIRTS} data from \code{\link[=get_wth]{get_wth()}},
-but any\code{\link[base:data.frame]{base::data.frame()}} object that has the following properly named
-columns in them will work.\tabular{rl}{
+\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object
+that has the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
    \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
@@ -31,8 +33,7 @@ sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column valu
 A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 \emph{Magnaporthe oryzae}. The model is driven by daily weather data, which can
 easily be accessed using\code{\link[=get_wth]{get_wth()}} to download weather data from
-\acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or \CRANpkg{chirps}
-for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
+\acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
 The model represents site size as 45
@@ -40,6 +41,8 @@ The model represents site size as 45
 
 Default values for this disease model are derived from Table 2 (Savary
 \emph{et al.} 2012).
+
+\code{\link[=predict_lb]{predict_lb()}} is a shorthand alias for \code{\link[=predict_leaf_blast]{predict_leaf_blast()}}.
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -67,6 +70,11 @@ wth <- get_wth(
 lb <- predict_leaf_blast(wth, emergence = "2000-07-01")
 plot(x = lb$dates, y = lb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# use shorthand function
+lb <- predict_lb(wth, emergence = "2000-07-01")
+plot(x = lb$dates, y = lb$intensity, type = "l")
+\dontshow{\}) # examplesIf}
 }
 \references{
 El Refaei, M.I., 1977. Epidemiology of rice blast disease in the
@@ -81,11 +89,11 @@ Improvement, Department of Agriculture and Forestry, Japan No. 105, 145p.
 
 Hwang, B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant resistance
 on blast severity and yield of rice. Plant Disease 71:1035-1038. DOI:
-\url{https://doi.org/10.1094/PD-71-1035}.
+\doi{10.1094/PD-71-1035}.
 
 Kato, H. and Kozaka, T., 1974. Effect of temperature on lesion enlargement
 and sporulation of \emph{Pyricularia oryzae} in rice leaves. Phytopathology
-64:828-830. DOI: \url{https://doi.org/10.1094/Phyto-64-828}.
+64:828-830. DOI: \doi{10.1094/Phyto-64-828}.
 
 Wei-Hong, L. 1996. Simulation and measurement of leaf wetness formation in
 paddy rice crops. PhD Thesis, Wageningen Agricultural University, 87 p.
@@ -93,7 +101,7 @@ paddy rice crops. PhD Thesis, Wageningen Agricultural University, 87 p.
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
 Modeling and mapping potential epidemics of rice diseases globally. Crop
 Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-\url{https://doi.org/10.1016/j.cropro.2011.11.009}.
+\doi{10.1016/j.cropro.2011.11.009}.
 
 Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
 \emph{Pyricularia oryzae} Cav. in upland rice varieties. PhD Thesis, University of

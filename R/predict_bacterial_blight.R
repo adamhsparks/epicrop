@@ -1,17 +1,18 @@
 
-#' Predict rice bacterial blight intensity
+#' Predict Rice Bacterial Blight Intensity
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent _Xanthomonas oryzae_ pv. _oryzae_.  The model is driven by daily
 #' weather data, which can easily be accessed using [get_wth()] to download
-#' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or
-#' \CRANpkg{chirps} for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
+#' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' @details
 #' The model represents site size as 1 rice plant's leaf.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
+#'
+#' [predict_bb()] is a shorthand alias for [predict_bacterial_blight()].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -25,16 +26,15 @@
 #' columns are provided by default when using [get_wth()].
 #'
 #' @param wth Weather data with a daily time-step, normally \acronym{NASA}
-#' \acronym{POWER} or \acronym{CHIRPS}/\acronym{CHIRTS} data from [get_wth()],
-#' but any[base::data.frame()] object that has the following properly named
-#' columns in them will work.
+#' \acronym{POWER} data from [get_wth()], but any[base::data.frame()] object
+#' that has the following properly named columns in them will work.
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_ | Consecutive day of year, commonly called "Julian date"
 #'   _TEMP_ | Mean daily temperature (°C)
-#'   _RHUM_ | Mean daily temperature (°C)
+#'   _RHUM_ | Mean daily relative humidity (%)
 #'   _RAIN_ | Mean daily rainfall (mm)
 #'   _LAT_ | **Optional** latitude of weather observation. See LAT/LON Note.
 #'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
@@ -77,12 +77,12 @@
 #'
 #' Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 #' resistance to bacterial blight disease of rice. Journal of Phytopathology
-#' 119:312-318. DOI: <https://doi.org/10.1111/j.1439-0434.1987.tb04402.x>.
+#' 119:312-318. DOI: \doi{10.1111/j.1439-0434.1987.tb04402.x}.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,
 #' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <https://doi.org/10.1016/j.cropro.2011.11.009>.
+#' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' @family predict functions
 #'
@@ -119,3 +119,11 @@ predict_bacterial_blight <- function(wth, emergence) {
     )
   )
 }
+
+#' @rdname predict_bacterial_blight
+#' @examplesIf interactive()
+#' # use shorthand function
+#' bb <- predict_bb(wth, emergence = "2000-07-01")
+#' plot(x = bb$dates, y = bb$intensity, type = "l")
+#' @export
+predict_bb <- predict_bacterial_blight

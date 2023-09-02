@@ -2,20 +2,19 @@
 % Please edit documentation in R/predict_tungro.R
 \name{predict_tungro}
 \alias{predict_tungro}
-\title{Predict rice tungro disease incidence}
+\title{Predict Rice Tungro Disease Incidence}
 \usage{
 predict_tungro(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} or \acronym{CHIRPS}/\acronym{CHIRTS} data from \code{\link[=get_wth]{get_wth()}},
-but any\code{\link[base:data.frame]{base::data.frame()}} object that has the following properly named
-columns in them will work.\tabular{rl}{
+\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object
+that has the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
    \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
@@ -32,8 +31,7 @@ A dynamic mechanistic simulation of tungro disease of rice, causal agents
 \emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Bacilliform Virus}.
 The model is driven by daily weather data, which can easily be accessed using
 \code{\link[=get_wth]{get_wth()}} to download weather data from \acronym{NASA} \acronym{POWER} using
-\CRANpkg{nasapower} or \CRANpkg{chirps} for data from \acronym{CHIRPS} and
-\acronym{CHIRTS}.
+\CRANpkg{nasapower}.
 }
 \details{
 The model represents site size as 1 rice plant.
@@ -78,12 +76,12 @@ rice. Plant Disease Reporter 49:127-131.
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
 Modeling and mapping potential epidemics of rice diseases globally. Crop
 Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-\url{https://doi.org/10.1016/j.cropro.2011.11.009}.
+\doi{10.1016/j.cropro.2011.11.009}.
 
 Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and Koganezawa, H.,
 1993. Serological monitoring of rice tungro disease development in the field:
-its implication in disease management. Plant Disease 77:877-882. DOI
-\url{https://doi.org/10.1094/PD-77-0877}.
+its implication in disease management. Plant Disease 77:877-882. DOI:
+\doi{10.1094/PD-77-0877}.
 }
 \seealso{
 \code{\link[=SEIR]{SEIR()}}

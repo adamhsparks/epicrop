@@ -1,19 +1,19 @@
 
-#' Predict rice brown spot intensity
+#' Predict Rice Brown Spot Intensity
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
 #' _Cochliobolus miyabeanus_. The model is driven by daily weather data, which
 #' can easily be accessed using[get_wth()] to download weather data from
-#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or \CRANpkg{chirps}
-#' for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
-#'
+#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' @details
-#' #' The model represents site size as 10
+#' The model represents site size as 10
 #'  \ifelse{html}{\out{mm<sup>2</sup>}}{\eqn{mm^2}} of a rice plant's leaf.
 #'
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
+#'
+#' [predict_bs()] is a shorthand alias for [predict_brown_spot()].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -51,7 +51,7 @@
 #'
 #' Levy, Y. and Cohen, Y., 1980. Sporulation of _Helminthosporium turcicum_ on
 #' sweet corn: Effects of temperature and dew period. Canadian Journal of Plant
-#' Pathology 2:65-69. DOI: <https://doi.org/10.1080/07060668009501440>.
+#' Pathology 2:65-69. DOI: \doi{10.1080/07060668009501440}.
 #'
 #' Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
 #' paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
@@ -67,7 +67,7 @@
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,
 #' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-#' <https://doi.org/10.1016/j.cropro.2011.11.009>.
+#' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A Simulator of
 #' Southern Corn Leaf Blight. Bulletin of the Connecticut Experiment Station,
@@ -108,3 +108,11 @@ predict_brown_spot <- function(wth, emergence) {
     )
   )
 }
+
+#' @rdname predict_brown_spot
+#' @examplesIf interactive()
+#' # use shorthand function
+#' bs <- predict_bs(wth, emergence = "2000-07-01")
+#' plot(x = bs$dates, y = bs$intensity, type = "l")
+#' @export
+predict_bs <- predict_brown_spot

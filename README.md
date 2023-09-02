@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# *epicrop*: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
+# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
 
@@ -13,21 +13,17 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738)
 <!-- badges: end -->
 
-A fork of [*cropsim*](https://r-forge.r-project.org/R/?group_id=335)
+A fork of [{cropsim}](https://r-forge.r-project.org/R/?group_id=335)
 (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary
 *et al.* 2012) for rice diseases easier to use. This version provides
 easy to use functions to fetch weather data from NASA POWER, via the
-[*nasapower*](https://cran.r-project.org/package=nasapower) package
-(Sparks 2018, Sparks 2020) or
-[*chirps*](https://docs.ropensci.org/chirps/) package (de Sousa \_et
-al. 2020), which provides weather data from the Client for the Climate
-Hazards Center ‘CHIRPS’ and ‘CHIRTS’ and predict disease intensity of
-five rice diseases using a generic SEIR model (Zadoks 1971) function,
-`SEIR()`.
+[{nasapower}](https://cran.r-project.org/package=nasapower) package
+(Sparks 2018, Sparks 2020) and predict disease intensity of five rice
+diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details
 the model and results of its use to model global epidemics of rice
@@ -39,12 +35,11 @@ and rice tungro, which are included in this package.
 
 You can easily simulate any of the five diseases for rice grown anywhere
 in the world for years from 1983 to near current using `get_wth()` to
-fetch data from the [NASA POWER web API](https://power.larc.nasa.gov) or
-[CHIRPS and CHIRTS web APIs](https://chc.ucsb.edu/data). Alternatively,
-you can supply your own weather data for any time period as long as it
-fits the model’s requirements.
+fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
+Alternatively, you can supply your own weather data for any time period
+as long as it fits the model’s requirements.
 
-*epicrop* is not yet on CRAN. You can install it this way.
+{epicrop} is not yet on CRAN. You can install it this way.
 
 ``` r
 if (!require("remotes"))
@@ -56,7 +51,7 @@ remotes::install_github("adamhsparks/epicrop",
 
 ## Get weather data
 
-First you need to provide weather data for the model. *epicrop* provides
+First you need to provide weather data for the model; {epicrop} provides
 the `get_wth()` function to do this. Using it you can fetch weather data
 for any place in the world from 1983 to near present by providing the
 and latitude and dates or length of rice growing season as shown below.
@@ -109,18 +104,30 @@ bb
 #> 118:    118 2000-10-26 1380.4038  73.81997   947.4256 281.2134 2187.881013
 #> 119:    119 2000-10-27 1332.8691  69.34615   938.4942 315.9354 2236.407049
 #> 120:    120 2000-10-28 1286.3824  64.14358   926.0857 352.6359 2286.436253
-#>       rateinf rtransfer  rgrowth rsenesced diseased intensity     lat      lon
-#>   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 14.6774 121.2556
-#>   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 14.6774 121.2556
-#>   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 14.6774 121.2556
-#>   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 14.6774 121.2556
-#>   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 14.6774 121.2556
+#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat
+#>   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.39699 14.6774
+#>   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.39699 14.6774
+#>   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.39699 14.6774
+#>   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 12.39699 14.6774
+#>   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 12.39699 14.6774
 #>  ---                                                                          
-#> 116:  0.00000  30.30391 21.26159 45.110758 1278.722 0.4219893 14.6774 121.2556
-#> 117: 23.73737  27.21946 21.97777 47.025655 1278.722 0.4188944 14.6774 121.2556
-#> 118: 21.31678  25.79060 22.30807 48.526036 1302.459 0.4252267 14.6774 121.2556
-#> 119: 19.08944  24.29201 22.63192 50.029205 1323.776 0.4305705 14.6774 121.2556
-#> 120: 17.03536   0.00000 22.94393 47.492428 1342.865 0.4349575 14.6774 121.2556
+#> 116:  0.00000  30.30391 21.26159 45.110758 1278.722 0.4219893 12.39699 14.6774
+#> 117: 23.73737  27.21946 21.97777 47.025655 1278.722 0.4188944 12.39699 14.6774
+#> 118: 21.31678  25.79060 22.30807 48.526036 1302.459 0.4252267 12.39699 14.6774
+#> 119: 19.08944  24.29201 22.63192 50.029205 1323.776 0.4305705 12.39699 14.6774
+#> 120: 17.03536   0.00000 22.94393 47.492428 1342.865 0.4349575 12.39699 14.6774
+#>           lon
+#>   1: 121.2556
+#>   2: 121.2556
+#>   3: 121.2556
+#>   4: 121.2556
+#>   5: 121.2556
+#>  ---         
+#> 116: 121.2556
+#> 117: 121.2556
+#> 118: 121.2556
+#> 119: 121.2556
+#> 120: 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -138,17 +145,28 @@ ggplot(data = bb,
   theme_classic()
 ```
 
-<img src="man/figures/README-plot-1.png" title="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
+<div class="figure">
+
+<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
+<p class="caption">
+Bacterial blight disease progress over time. Results for wet season year
+2000 at IRRI Zeigler Experiment Station shown. Weather data used to run
+the model were obtained from the NASA Langley Research Center POWER
+Project funded through the NASA Earth Science Directorate Applied
+Science Program.
+</p>
+
+</div>
 
 # Meta
 
--   Please [report any issues or
-    bugs](https://github.com/adamhsparks/epicrop/issues).
+- Please [report any issues or
+  bugs](https://github.com/adamhsparks/epicrop/issues).
 
--   License: GPL-3
+- License: GPL-3
 
--   To cite *epicrop*, please use the output from
-    `citation(package = "epicrop")`.
+- To cite {epicrop}, please use the output from
+  `citation(package = "epicrop")`.
 
 ## Code of Conduct
 
@@ -159,7 +177,7 @@ contributing to this project, you agree to abide by its terms.
 
 # References
 
-Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009)
+Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009).
 Simulation modeling of crops and their diseases. R package version
 0.2-6.
 
@@ -172,23 +190,20 @@ diseases globally. *Crop Protection*, Volume 34, Pages 6-17, ISSN
 Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia
 Willocquet. Modelling and Mapping Potential Epidemics of Wheat
 Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using
-EPIWHEAT. *European Journal of Plant Pathology* 142, no. 4 (August 1,
-2015): 771–90. DOI:
+EPIWHEAT. (2015). *European Journal of Plant Pathology* 142, no.
+4:771–90. DOI:
 [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
-Kauê de Sousa and Adam H. Sparks and William Ashmall and Jacob van Etten
-and Svein Ø. Solberg (2020). chirps: API Client for the CHIRPS
-Precipitation Data in R. Journal of Open Source Software, 5(51), 2419,
-DOI: [10.21105/joss.02419](https://doi.org/10.21105/joss.02419)
-
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface
-Solar Energy and Climatology Data Client for R. Journal of Open Source
-Software, 3(30), 1035, DOI:
+Solar Energy and Climatology Data Client for R. *Journal of Open Source
+Software*, 3(30), 1035, DOI:
 [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Adam Sparks (2020). *nasapower: NASA-POWER Data from R*. R package
-version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
+Adam Sparks (2021). *nasapower: NASA-POWER Data from R*. DOI:
+[10.5281/zenodo.1040727](https://doi.org/10.5281/zenodo.1040727), R
+package version 4.0.0, URL:
+<https://CRAN.R-project.org/package=nasapower>.
 
-Jan C. Zadoks. (1971) Systems Analysis and the Dynamics of Epidemics.
+Jan C. Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics.
 *Phytopathology* 61:600. DOI:
 [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).

@@ -1,8 +1,7 @@
 
-#' Get weather data for use in epicrop modelling
+#' Get Weather Data for Use in epicrop Modelling
 #'
-#' This function is a wrapper for the [nasapower::get_power()] or
-#'  [chirps::get_chirps()]/[chirps::get_chirts()] functions with predefined
+#' This function is a wrapper for the [nasapower::get_power()] with predefined
 #'  parameters suitable for use in \pkg{epicrop}.
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
@@ -13,12 +12,6 @@
 #'  date will be used and the end date will be ignored if supplied.  This must
 #'  match the `duration` parameter value passed along to [SEIR()] or any of the
 #'  `predict` family of functions.
-#' @param source A character string value that denotes whether to use the
-#'  \acronym{NASA} \acronym{POWER} data (`nasapower`), the default, or
-#'  \acronym{CHIRPS}/\acronym{CHIRTS} data, `chirps`, for rainfall,
-#'  temperature and relative humidity from the Climate Hazards Data center at
-#'  UC Santa Barbara, \url{https://www.chc.ucsb.edu/data}.  See parameter
-#'  details for more discussion.
 #'
 #' @return A [data.table::data.table()] of weather data, dates and
 #'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
@@ -29,38 +22,10 @@
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_      | Consecutive day of year, commonly called "Julian date"
 #'   _TEMP_     | Mean daily temperature (°C)
-#'   _RHUM_     | Mean daily temperature (°C)
+#'   _RHUM_     | Mean daily relative humidity (%)
 #'   _RAIN_     | Mean daily rainfall (mm)
 #'   _LAT_      | Latitude of area of interest
 #'   _LON_      | Longitude of area of interest
-#'
-#' @details # _source_ - Select your weather data source of choice
-#' Access to three databases is provided by this function through the use of
-#' two possible parameter values, `nasapower` or `chirps`.
-#'
-#' `nasapower`: the default database is the \acronym{NASA} \acronym{POWER}
-#' database, \url{https://power.larc.nasa.gov}, which can supply all parameters
-#' required for \pkg{epicrop} to run.  The global data are available from Jan.
-#' 1, 1983 to near-present at a 0.5 x 0.5 arc degree resolution for meteorology
-#' data.  Using this will request and return all values necessary to use
-#' \pkg{epicrop}.
-#'
-#' `chirps`: \acronym{CHIRPS} is quasi-global (50°S – 50°N) high-resolution
-#' (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery
-#' and in-situ station data to create gridded rainfall time series for trend
-#' analysis and seasonal drought monitoring. \acronym{CHIRTS} is a quasi-global
-#' (60°S – 70°N), high-resolution data set of daily maximum and minimum
-#' temperatures.  For more details on \acronym{CHIRPS} and \acronym{CHIRTS} data
-#' please visit the official homepage \url{https://chc.ucsb.edu/data}.
-#'
-#' By using `chirps`, the function will return the precipitation, temperature
-#' and relative humidity from the \acronym{CHIRPS} and \acronym{CHIRTS}
-#' data in a single [data.table] for you.
-#'
-#' The \acronym{POWER} database covers a longer period of time but the spatial
-#' resolution is not as small.  However, it is faster to respond than the
-#' \acronym{CHIRPS} and \acronym{CHIRTS} data.  Differences in the data
-#' are likely to be minimal and have little effect on the \pkg{epicrop} models.
 #'
 #' @examplesIf interactive()
 #'
@@ -81,34 +46,18 @@
 #'   source = "nasapower"
 #' )
 #'
-#' # get the same data from CHIRPS and CHIRTS data
-#' chirps <- get_wth(
-#'   lonlat = c(121.25562, 14.6774),
-#'   dates = "2000-06-30",
-#'   duration = 120,
-#'   source = "chirps"
-#' )
-#'
-#' @author Adam H. Sparks
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @export get_wth
-#' @importFrom data.table setDT
-#' @importFrom data.table setkey
-#' @importFrom data.table setnames
-#' @importFrom data.table setcolorder
-#' @importFrom data.table .I
 
 get_wth <- function(lonlat,
                     dates,
-                    duration,
-                    source = "nasapower") {
+                    duration) {
   if (!missing(duration)) {
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
 
-  id <- TEMP <- NULL
-
-  if (source == "nasapower") {
     wth <- setDT(
       nasapower::get_power(
         lonlat = lonlat,
@@ -140,65 +89,6 @@ get_wth <- function(lonlat,
                   "LON"))
     .check_na(.wth = wth)
     return(wth)
-  } else if (source == "chirps") {
-    # CHIRPS ----
-    names(lonlat) <- c("lon", "lat")
-    lonlat <- data.frame(as.list(lonlat))
-    chirps <-
-      setDT(
-        suppressMessages(chirps::get_chirps(object = lonlat,
-                                            dates = dates,
-                                            server = "ClimateSERV"))
-        )
-    chirps[, id := .I]
-
-    # CHIRTS ----
-    j <- vector(mode = "list", length = 3)
-    names(j) <- c("Tmin", "Tmax", "RHum")
-
-    for (i in names(j)) {
-      j[[i]] <- setDT(chirps::get_chirts(
-        object = lonlat,
-        dates = dates,
-        var = i
-      ))
-      setnames(j[[i]], "chirts", i)
-    }
-
-    chirts <- Reduce(function(...)
-      merge(..., all = TRUE), j)
-    chirts[, TEMP := round(rowMeans(chirts[, c("Tmin", "Tmax")]), 2)]
-    chirts[, c("Tmin", "Tmax") := NULL]
-    chirts[, id := .I]
-
-    wth <- merge(chirps, chirts, by = c("id", "lon", "lat", "date"))
-    wth$DOY <- format(wth$date, "%j")
-    setnames(
-      wth,
-      old = c("lon",
-              "lat",
-              "date",
-              "chirps",
-              "RHum"),
-      new = c("LON",
-              "LAT",
-              "YYYYMMDD",
-              "RAIN",
-              "RHUM")
-    )
-    wth[, id := NULL]
-    setcolorder(wth,
-                c("YYYYMMDD",
-                  "DOY",
-                  "TEMP",
-                  "RHUM",
-                  "RAIN",
-                  "LAT",
-                  "LON"))
-
-    .check_na(.wth = wth)
-    return(wth)
-  }
 }
 
 #' Check POWER data for any missing values

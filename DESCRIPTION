@@ -1,7 +1,7 @@
 Package: epicrop
 Type: Package
 Title: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
-Version: 0.0.0.9014
+Version: 0.0.1
 DOI: 10.5281/zenodo.5070395
 Authors@R: c(
     person(given = "Adam H.",
@@ -51,17 +51,14 @@ Description: Generic simulation modelling of crop diseases using a Susceptible-
     et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's
     development, use and results from modeling global unmanaged
     epidemics of rice diseases for five major rice diseases, bacterial blight,
-    brown spot, leaf blast, sheath blight and tungro.  A second model,
-    'EPIWHEAT' was published by Savary et al. (2015)
-    <doi:10.1007/s10658-015-0650-7> that added a lesion expansion parameter and
-    modelled potential disease epidemics of leaf (brown) rust and Septoria
-    tritici blotch.  Specific functions are provided to simulate all of these
-    diseases with a generic 'SEIR' model function that is suitable for
-    parameterising for use with other pathosystems as demonstrated in Savary et
-    al. 2012 and 2015.
+    brown spot, leaf blast, sheath blight and tungro.  Specific functions are
+    provided to simulate all of these diseases with a generic 'SEIR' model
+    function that is suitable for parameterising for use with other pathosystems
+    as demonstrated in Savary et al. 2012.
 License: GPL-3 + file LICENSE
-RoxygenNote: 7.1.2.9000
-Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
+    "roxyglobals::global_roclet"))
 Encoding: UTF-8
 NeedsCompilation: no
 ByteCompile: TRUE
@@ -70,29 +67,30 @@ BugReports: https://github.com/adamhsparks/epicrop/issues
 Depends:
     R (>= 3.5.0)
 Imports:
-    chirps,
     data.table,
     nasapower (>= 4.0),
     stats
 Suggests:
     dplyr,
-    epifitter,
     furrr,
     ggplot2,
+    ggrepel,
+    ggspatial,
     knitr,
     lubridate,
     microbenchmark,
     pander,
     purrr,
     rmarkdown,
+    roxyglobals,
     spelling,
     testthat,
     tidyr
-Remotes:
-    github::ropensci/chirps
 VignetteBuilder: knitr
 Language: en-US
 X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease, model,
     seir, agricultural-modelling, agricultural-modeling, crop-protection,
     agricultural-research, model, modelling, modeling, seir-model
+Config/roxyglobals/filename: globals.R
+Config/roxyglobals/unique: FALSE

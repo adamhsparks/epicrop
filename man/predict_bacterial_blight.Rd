@@ -2,20 +2,22 @@
 % Please edit documentation in R/predict_bacterial_blight.R
 \name{predict_bacterial_blight}
 \alias{predict_bacterial_blight}
-\title{Predict rice bacterial blight intensity}
+\alias{predict_bb}
+\title{Predict Rice Bacterial Blight Intensity}
 \usage{
 predict_bacterial_blight(wth, emergence)
+
+predict_bb(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} or \acronym{CHIRPS}/\acronym{CHIRTS} data from \code{\link[=get_wth]{get_wth()}},
-but any\code{\link[base:data.frame]{base::data.frame()}} object that has the following properly named
-columns in them will work.\tabular{rl}{
+\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object
+that has the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
    \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
@@ -31,14 +33,15 @@ sites. See \code{\link[=SEIR]{SEIR()}} for a full description of the column valu
 A dynamic mechanistic simulation of bacterial blight disease of rice,
 causal agent \emph{Xanthomonas oryzae} pv. \emph{oryzae}.  The model is driven by daily
 weather data, which can easily be accessed using \code{\link[=get_wth]{get_wth()}} to download
-weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower} or
-\CRANpkg{chirps} for data from \acronym{CHIRPS} and \acronym{CHIRTS}.
+weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
 The model represents site size as 1 rice plant's leaf.
 
 Default values for this disease model are derived from Table 2 (Savary
 \emph{et al.} 2012).
+
+\code{\link[=predict_bb]{predict_bb()}} is a shorthand alias for \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}}.
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -59,6 +62,11 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+plot(x = bb$dates, y = bb$intensity, type = "l")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# use shorthand function
+bb <- predict_bb(wth, emergence = "2000-07-01")
 plot(x = bb$dates, y = bb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
@@ -84,12 +92,12 @@ of the Philippines at Los Baños, 81 p.
 
 Nayak, P., Suriya Rao, A.V., Chakrabarti, N.K., 1987. Components of
 resistance to bacterial blight disease of rice. Journal of Phytopathology
-119:312-318. DOI: \url{https://doi.org/10.1111/j.1439-0434.1987.tb04402.x}.
+119:312-318. DOI: \doi{10.1111/j.1439-0434.1987.tb04402.x}.
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 and mapping potential epidemics of rice diseases globally. Crop Protection,
 Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
-\url{https://doi.org/10.1016/j.cropro.2011.11.009}.
+\doi{10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
 \code{\link[=SEIR]{SEIR()}}
