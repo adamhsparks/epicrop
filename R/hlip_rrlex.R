@@ -1,5 +1,5 @@
 
-#' Healthy Latent Infectious Post-Infectious (HLIP) model framework with lesion expansion
+#' Healthy Latent Infectious Post-Infectious (HLIP) Model Framework With Lesion Expansion
 #'
 #' A model framework based on the medical idea of a Susceptible-Exposed-
 #' Infectious-Removed (\acronym{SEIR}) model.  This framework is designed for
@@ -85,7 +85,7 @@
 #'   dates = c("2021-01-01", "2021-12-31")
 #' )
 #'
-#' # provide suitable values for brown spot intensity
+#' # provide suitable values for leaf rust intensity
 #' RcA <-
 #'   cbind(c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
 #'         c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
@@ -314,7 +314,7 @@ hlip_rrlex <-
 
       rgrowth[d] <- RRG * sites[d] * sum(1, -(total_sites[d] / Sx))
       intensity[d] <- sum(diseased[d], -removed[d]) /
-                          sum(total_sites[d], -removed[d])
+        sum(total_sites[d], -removed[d])
     } # end loop
 
     out <-
@@ -337,8 +337,7 @@ hlip_rrlex <-
       )
 
     # Only add Lat and Lon values if they exist in WTH
-    if (all(c("LAT", "LON") %in% names(wth)))
-    {
+    if (all(c("LAT", "LON") %in% names(wth))) {
       out[, lat := rep_len(wth[, LAT], .N)]
       out[, lon := rep_len(wth[, LON], .N)]
     }
@@ -346,7 +345,7 @@ hlip_rrlex <-
     return(out[])
   }
 
-#' Use approx() to return a modifier value from an RcA or RcT curve
+#' Use approx() to Return a Modifier Value From an RcA or RcT Curve
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
 #'  or age, `RcA`.
@@ -358,15 +357,17 @@ hlip_rrlex <-
 #'  `afgen()` from \pkg{cropsim} does.
 #'
 #' @keywords internal
-#'
 #' @noRd
 
-.fn_Rc <- function(.Rc, .xout)
+.fn_Rc <- function(.Rc, .xout) {
   stats::approx(
-    x = .Rc[, 1],
-    y = .Rc[, 2],
-    method = "linear",
-    xout = .xout,
-    yleft = 0,
-    yright = 0
-  )$y
+    return(
+      x = .Rc[, 1],
+      y = .Rc[, 2],
+      method = "linear",
+      xout = .xout,
+      yleft = 0,
+      yright = 0
+    )$y
+  )
+}
