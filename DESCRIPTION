@@ -85,7 +85,8 @@ Suggests:
     roxyglobals,
     spelling,
     testthat,
-    tidyr
+    tidyr,
+    vcr (>= 0.6.0)
 VignetteBuilder: knitr
 Language: en-US
 X-schema.org-applicationCategory: Tools
