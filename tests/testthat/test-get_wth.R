@@ -1,7 +1,8 @@
 
 # weather handling and checking ------------------------------------------------
-  test_that("Weather data is as expected after fetching from POWER API", {
-    skip_on_cran()
+test_that("Weather data is as expected after fetching from POWER API", {
+  skip_on_cran()
+  vcr::use_cassette("get_wth", {
     wth <- get_wth(
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-01-16")
@@ -16,9 +17,11 @@
                    "LON"))
     expect_s3_class(wth, c("data.table", "data.frame"))
   })
+})
 
-  test_that("Supplying the season overrides an end-date value", {
-    skip_on_cran()
+test_that("Supplying the season overrides an end-date value", {
+  skip_on_cran()
+  vcr::use_cassette("get_wth_w_season", {
     wth_season <- get_wth(
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-05-15"),
@@ -26,6 +29,7 @@
     )
     expect_equal(nrow(wth_season), 3)
   })
+})
 
 test_that("Any NA values in the POWER data will emit a message", {
   skip_on_cran()
