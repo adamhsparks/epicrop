@@ -1,3 +1,15 @@
+# epicrop 0.0.2
+
+## Minor changes
+
+* Simplify inputs in helper functions, don't create a vector, just use in function call.
+
+* Use {vcr} for tests involving weather data fetching.
+
+## Bug fixes
+
+* Correct issue where {dplyr} library was not loaded in vignette, causing example to error when run.
+
 # epicrop 0.0.1
 
 * First stable release on GitHub.

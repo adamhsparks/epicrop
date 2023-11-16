@@ -87,26 +87,6 @@
 #'
 #' @export
 predict_sheath_blight <- function(wth, emergence) {
-  age_coef_rc <-
-    cbind(c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
-          c(
-            0.84,
-            0.84,
-            0.84,
-            0.84,
-            0.84,
-            0.84,
-            0.84,
-            0.88,
-            0.88,
-            1.0,
-            1.0,
-            1.0,
-            1.0
-          ))
-  temp_coef_rc <-
-    cbind(c(12L, 16L, 20L, 24L, 28L, 32L, 36L, 40L),
-          c(0, 0.42, 0.94, 0.94, 1.0, 0.85, 0.64, 0))
   return(
     SEIR(
       wth = wth,
@@ -117,8 +97,28 @@ predict_sheath_blight <- function(wth, emergence) {
       rainlim = 5L,
       H0 = 25L,
       I0 = 1L,
-      RcA = age_coef_rc,
-      RcT = temp_coef_rc,
+      RcA = cbind(
+        c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
+        c(
+          0.84,
+          0.84,
+          0.84,
+          0.84,
+          0.84,
+          0.84,
+          0.84,
+          0.88,
+          0.88,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        )
+      ),
+      RcT = cbind(
+        c(12L, 16L, 20L, 24L, 28L, 32L, 36L, 40L),
+        c(0, 0.42, 0.94, 0.94, 1.0, 0.85, 0.64, 0)
+      ),
       RcOpt = 0.46,
       p = 3L,
       i = 120L,
@@ -137,4 +137,3 @@ predict_sheath_blight <- function(wth, emergence) {
 #' plot(x = sb$dates, y = sb$intensity, type = "l")
 #' @export
 predict_sb <- predict_sheath_blight
-

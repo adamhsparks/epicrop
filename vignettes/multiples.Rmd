@@ -134,6 +134,7 @@ An example benchmarking different methods is provided here.
 ```r
 library("epicrop")
 library("furrr")
+#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -556,9 +557,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr      min       lq      mean   median        uq      max neval
-#>  sequential 55.06743 57.35525  64.96381  63.2335  67.59143 111.5783   100
-#>    parallel 86.81389 98.69229 108.23346 100.0182 105.34382 602.9069   100
+#>        expr      min        lq      mean    median        uq      max neval
+#>  sequential 54.62684  57.50359  64.40765  61.12979  69.11981 130.5738   100
+#>    parallel 89.47217 100.68524 109.07574 102.15027 104.23744 660.7879   100
 
 autoplot(mbm) +
   theme_classic()

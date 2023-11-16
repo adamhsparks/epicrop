@@ -80,12 +80,6 @@
 #'
 #' @export
 predict_brown_spot <- function(wth, emergence) {
-  age_coef_rc <-
-    cbind(c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
-          c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
-  temp_coef_rc <-
-    cbind(c(15L, 20L, 25L, 30L, 35L, 40L),
-          c(0, 0.06, 1.0, 0.85, 0.16, 0))
   return(
     SEIR(
       wth = wth,
@@ -96,8 +90,12 @@ predict_brown_spot <- function(wth, emergence) {
       rainlim = 5L,
       H0 = 600L,
       I0 = 1L,
-      RcA = age_coef_rc,
-      RcT = temp_coef_rc,
+      RcA = cbind(
+        c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
+        c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0)
+      ),
+      RcT = cbind(c(15L, 20L, 25L, 30L, 35L, 40L),
+                  c(0, 0.06, 1.0, 0.85, 0.16, 0)),
       RcOpt = 0.61,
       p = 6L,
       i = 19L,

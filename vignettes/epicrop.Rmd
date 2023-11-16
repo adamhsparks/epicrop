@@ -91,27 +91,27 @@ summary(bb_wet)
 ##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2   Mean   : 65.0439  
 ##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5   3rd Qu.:126.2923  
 ##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9   Max.   :264.3734  
-##    infectious        removed          senesced         rateinf       
-##  Min.   :  0.00   Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000  
-##  1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000  
-##  Median : 17.74   Median :  1.00   Median : 642.6   Median : 0.9286  
-##  Mean   :214.99   Mean   : 29.83   Mean   : 803.0   Mean   :11.3325  
-##  3rd Qu.:379.33   3rd Qu.: 16.12   3rd Qu.:1410.1   3rd Qu.:19.6572  
-##  Max.   :953.22   Max.   :352.64   Max.   :2286.4   Max.   :64.5756  
-##    rtransfer        rgrowth         rsenesced         diseased       
-##  Min.   : 0.00   Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  
-##  1st Qu.: 0.00   1st Qu.:22.659   1st Qu.: 9.331   1st Qu.:   1.707  
-##  Median : 0.00   Median :33.172   Median :22.890   Median :  31.153  
-##  Mean   :10.66   Mean   :40.322   Mean   :19.449   Mean   : 309.862  
-##  3rd Qu.:16.29   3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724  
-##  Max.   :64.58   Max.   :79.689   Max.   :50.029   Max.   :1342.865  
-##    intensity           AUDPC           lat             lon       
-##  Min.   :0.00000   Min.   :12.4   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :0.01194   Median :12.4   Median :14.68   Median :121.3  
-##  Mean   :0.10512   Mean   :12.4   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :0.43496   Max.   :12.4   Max.   :14.68   Max.   :121.3
+##    infectious        removed          senesced         rateinf          rtransfer    
+##  Min.   :  0.00   Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00  
+##  1st Qu.:  1.00   1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00  
+##  Median : 17.74   Median :  1.00   Median : 642.6   Median : 0.9286   Median : 0.00  
+##  Mean   :214.99   Mean   : 29.83   Mean   : 803.0   Mean   :11.3325   Mean   :10.66  
+##  3rd Qu.:379.33   3rd Qu.: 16.12   3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29  
+##  Max.   :953.22   Max.   :352.64   Max.   :2286.4   Max.   :64.5756   Max.   :64.58  
+##     rgrowth         rsenesced         diseased          intensity      
+##  Min.   : 9.688   Min.   : 1.000   Min.   :   0.000   Min.   :0.00000  
+##  1st Qu.:22.659   1st Qu.: 9.331   1st Qu.:   1.707   1st Qu.:0.00191  
+##  Median :33.172   Median :22.890   Median :  31.153   Median :0.01194  
+##  Mean   :40.322   Mean   :19.449   Mean   : 309.862   Mean   :0.10512  
+##  3rd Qu.:57.583   3rd Qu.:26.081   3rd Qu.: 619.724   3rd Qu.:0.21246  
+##  Max.   :79.689   Max.   :50.029   Max.   :1342.865   Max.   :0.43496  
+##      AUDPC           lat             lon       
+##  Min.   :12.4   Min.   :14.68   Min.   :121.3  
+##  1st Qu.:12.4   1st Qu.:14.68   1st Qu.:121.3  
+##  Median :12.4   Median :14.68   Median :121.3  
+##  Mean   :12.4   Mean   :14.68   Mean   :121.3  
+##  3rd Qu.:12.4   3rd Qu.:14.68   3rd Qu.:121.3  
+##  Max.   :12.4   Max.   :14.68   Max.   :121.3
 ```
 
 ## Plotting using {ggplot2}
@@ -122,6 +122,17 @@ The data are in a wide format by default and need to be converted to long format
 ```r
 library("ggplot2")
 library("tidyr")
+```
+
+```
+## 
+## Attaching package: 'tidyr'
+```
+
+```
+## The following object is masked from 'package:testthat':
+## 
+##     matches
 ```
 
 ### Wet season sites
