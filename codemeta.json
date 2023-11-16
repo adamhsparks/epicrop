@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/adamhsparks/epicrop/",
   "issueTracker": "https://github.com/adamhsparks/epicrop/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
+  "runtimePlatform": "R version 4.3.2 (2023-10-31)",
   "author": [
     {
       "@type": "Person",
@@ -272,6 +272,19 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "vcr",
+      "name": "vcr",
+      "version": ">= 0.6.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vcr"
     }
   ],
   "softwareRequirements": {
@@ -315,7 +328,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
-  "fileSize": "804.839KB",
+  "fileSize": "809.723KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -349,7 +362,7 @@
       "name": "{epicrop}: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
       "identifier": "10.5281/zenodo.5070395",
       "url": "https://github.com/adamhsparks/epicrop",
-      "description": "R package version 0.0.1",
+      "description": "R package version 0.0.2",
       "@id": "https://doi.org/10.5281/zenodo.5070395",
       "sameAs": "https://doi.org/10.5281/zenodo.5070395"
     }
@@ -357,5 +370,5 @@
   "releaseNotes": "https://github.com/adamhsparks/epicrop/blob/master/NEWS.md",
   "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
   "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://codecov.io/gh/adamhsparks/epicrop"],
-  "developmentStatus": ["https://www.repostatus.org/#active", "https://lifecycle.r-lib.org/articles/stages.html#experimental"]
+  "developmentStatus": ["https://www.repostatus.org/#active", "https://lifecycle.r-lib.org/articles/stages.html#stable"]
 }
