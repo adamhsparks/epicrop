@@ -184,7 +184,7 @@ SEIR <-
     }
 
     # check aggregation values
-    if (a < 1) {
+    if (a < 1L) {
       stop(
         call. = FALSE,
         "`a` cannot be set to less than 1. Valid aggregation values, `a`,",
