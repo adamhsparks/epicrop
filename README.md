@@ -1,6 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# ATTENTION!
+All active development has ceased in this repository due to GitHub's continued pivot towards AI.
+It has moved to <https://codeberg.org/adamhsparks/epicrop>.
+This repository will be deleted in the future.
+
 # {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
