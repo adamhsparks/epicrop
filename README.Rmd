@@ -1,11 +1,9 @@
 ---
-title: ""
+title: "{epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model"
 output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
