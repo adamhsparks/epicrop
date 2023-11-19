@@ -4,8 +4,8 @@
   "identifier": "epicrop",
   "description": "Generic simulation modelling of crop diseases using a Susceptible- Exposed-Infectious-Removed ('SEIR') model. This type of model was first described in botanical epidemiology by Zadoks (1971) <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's development, use and results from modeling global unmanaged epidemics of rice diseases for five major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro. Specific functions are provided to simulate all of these diseases with a generic 'SEIR' model function that is suitable for parameterising for use with other pathosystems as demonstrated in Savary et al. 2012.",
   "name": "epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
-  "codeRepository": "https://github.com/adamhsparks/epicrop/",
-  "issueTracker": "https://github.com/adamhsparks/epicrop/issues",
+  "codeRepository": "https://codeberg.org/adamhsparks/epicrop",
+  "issueTracker": "https://codeberg.org/adamhsparks/epicrop/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "0.0.2",
   "programmingLanguage": {
@@ -327,8 +327,8 @@
     "SystemRequirements": null
   },
   "applicationCategory": "Tools",
-  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "modelling", "modeling", "seir-model", "rice-diseases", "epirice-model", "r", "rstats"],
-  "fileSize": "809.723KB",
+  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
+  "fileSize": "809.464KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -367,8 +367,5 @@
       "sameAs": "https://doi.org/10.5281/zenodo.5070395"
     }
   ],
-  "releaseNotes": "https://github.com/adamhsparks/epicrop/blob/master/NEWS.md",
-  "readme": "https://github.com/adamhsparks/epicrop/blob/main/README.md",
-  "contIntegration": ["https://github.com/adamhsparks/epicrop/actions", "https://codecov.io/gh/adamhsparks/epicrop"],
   "developmentStatus": ["https://www.repostatus.org/#active", "https://lifecycle.r-lib.org/articles/stages.html#stable"]
 }

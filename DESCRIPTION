@@ -62,8 +62,8 @@ Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
 Encoding: UTF-8
 NeedsCompilation: no
 ByteCompile: TRUE
-URL: https://github.com/adamhsparks/epicrop/
-BugReports: https://github.com/adamhsparks/epicrop/issues
+URL: https://codeberg.org/adamhsparks/epicrop
+BugReports: https://codeberg.org/adamhsparks/epicrop/issues
 Depends:
     R (>= 3.5.0)
 Imports:

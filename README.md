@@ -1,19 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ATTENTION!
-All active development has ceased in this repository due to GitHub's continued pivot towards AI.
-It has moved to <https://codeberg.org/adamhsparks/epicrop>.
-This repository will be deleted in the future.
-
 # {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <img align="right" src="man/figures/logo.png">
 
 <!-- badges: start -->
 
-[![tic](https://github.com/adamhsparks/epicrop/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epicrop/actions)
-[![codecov](https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epicrop)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -49,8 +42,8 @@ as long as it fits the model’s requirements.
 ``` r
 if (!require("remotes"))
   install.packages("remotes")
-remotes::install_github("adamhsparks/epicrop",
-                        build_vignettes = TRUE
+remotes::install_git("https://codeberg.org/adamhsparks/epicrop",
+                     build_vignettes = TRUE
 )
 ```
 

@@ -20,8 +20,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 
-[![tic](https://github.com/adamhsparks/epicrop/workflows/tic/badge.svg?branch=main)](https://github.com/adamhsparks/epicrop/actions)
-[![codecov](https://codecov.io/gh/adamhsparks/epicrop/branch/main/graph/badge.svg?token=NWrKsX9MaP)](https://codecov.io/gh/adamhsparks/epicrop)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738)
@@ -42,8 +40,8 @@ Alternatively, you can supply your own weather data for any time period as long 
 ```{r eval=FALSE}
 if (!require("remotes"))
   install.packages("remotes")
-remotes::install_github("adamhsparks/epicrop",
-                        build_vignettes = TRUE
+remotes::install_git("https://codeberg.org/adamhsparks/epicrop",
+                     build_vignettes = TRUE
 )
 ```
 
@@ -93,7 +91,7 @@ ggplot(data = bb,
 
 # Meta
 
-  - Please [report any issues or bugs](https://github.com/adamhsparks/epicrop/issues).
+  - Please [report any issues or bugs](https://codeberg.org/adamhsparks/epicrop/issues).
 
   - License: GPL-3
 
@@ -101,7 +99,7 @@ ggplot(data = bb,
 
 ## Code of Conduct
 
-Please note that the epicrop project is released with a [Contributor Code of Conduct](http://adamhsparks.github.io/epicrop/CODE_OF_CONDUCT.html).
+Please note that the epicrop project is released with a [Contributor Code of Conduct](https://codeberg.org/adamhsparks/epicrop/src/branch/main/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
 
 # References

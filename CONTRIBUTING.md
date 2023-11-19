@@ -18,9 +18,6 @@ bug, create an associated issue and illustrate the bug with a minimal
 ### Pull request process
 
 *  We recommend that you create a Git branch for each pull request (PR).  
-*  Look at the Travis and AppVeyor build status before and after making changes.
-The `README` should contain badges for any continuous integration services used
-by the package.  
 *  We recommend the tidyverse [style guide](http://style.tidyverse.org).
 You can use the [styler](https://CRAN.R-project.org/package=styler) package to
 apply these styles, but please don't restyle code that has nothing to do with 
@@ -34,16 +31,12 @@ GitHub username, and links to relevant issue(s)/PR(s).
 
 ### Code of Conduct
 
-Please note that the nasapower project is released with a
+Please note that the {epicrop} project is released with a
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this
 project you agree to abide by its terms.
 
 ### See rOpenSci [contributing guide](https://ropensci.github.io/dev_guide/contributingguide.html)
 for further details.
-
-### Discussion forum
-
-Check out our [discussion forum](https://discuss.ropensci.org) if you think your issue requires a longer form discussion.
 
 ### Prefer to Email? 
 
