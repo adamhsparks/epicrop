@@ -159,7 +159,7 @@ Science Program.
 # Meta
 
 - Please [report any issues or
-  bugs](https://github.com/adamhsparks/epicrop/issues).
+  bugs](https://codeberg.org/adamhsparks/epicrop/issues).
 
 - License: GPL-3
 
@@ -170,8 +170,8 @@ Science Program.
 
 Please note that the epicrop project is released with a [Contributor
 Code of
-Conduct](http://adamhsparks.github.io/epicrop/CODE_OF_CONDUCT.html). By
-contributing to this project, you agree to abide by its terms.
+Conduct](https://codeberg.org/adamhsparks/epicrop/src/branch/main/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
 
 # References
 
