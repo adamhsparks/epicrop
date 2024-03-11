@@ -52,8 +52,7 @@ power <- get_wth(
 power <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = "2000-06-30",
-  duration = 120,
-  source = "nasapower"
+  duration = 120
 )
 \dontshow{\}) # examplesIf}
 }

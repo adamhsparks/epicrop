@@ -1,4 +1,3 @@
-
 #' Get Weather Data for Use in epicrop Modelling
 #'
 #' This function is a wrapper for the [nasapower::get_power()] with predefined
@@ -42,8 +41,7 @@
 #' power <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = "2000-06-30",
-#'   duration = 120,
-#'   source = "nasapower"
+#'   duration = 120
 #' )
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
@@ -58,37 +56,47 @@ get_wth <- function(lonlat,
       as.character(as.Date(as.Date(dates[1]) + (duration)))
   }
 
-    wth <- setDT(
-      nasapower::get_power(
-        lonlat = lonlat,
-        dates = dates,
-        community = "AG",
-        pars = c("T2M",
-                 "RH2M",
-                 "PRECTOTCORR"),
-        temporal_api = "DAILY"
-      )
+  wth <- setDT(
+    nasapower::get_power(
+      lonlat = lonlat,
+      dates = dates,
+      community = "AG",
+      pars = c(
+        "T2M",
+        "RH2M",
+        "PRECTOTCORR"
+      ),
+      temporal_api = "DAILY"
     )
-    wth[, c("YEAR", "MM", "DD") := NULL][]
-    setnames(
-      wth,
-      old = c("T2M",
-              "PRECTOTCORR",
-              "RH2M"),
-      new = c("TEMP",
-              "RAIN",
-              "RHUM")
+  )
+  wth[, c("YEAR", "MM", "DD") := NULL][]
+  setnames(
+    wth,
+    old = c(
+      "T2M",
+      "PRECTOTCORR",
+      "RH2M"
+    ),
+    new = c(
+      "TEMP",
+      "RAIN",
+      "RHUM"
     )
-    setcolorder(wth,
-                c("YYYYMMDD",
-                  "DOY",
-                  "TEMP",
-                  "RHUM",
-                  "RAIN",
-                  "LAT",
-                  "LON"))
-    .check_na(.wth = wth)
-    return(wth)
+  )
+  setcolorder(
+    wth,
+    c(
+      "YYYYMMDD",
+      "DOY",
+      "TEMP",
+      "RHUM",
+      "RAIN",
+      "LAT",
+      "LON"
+    )
+  )
+  .check_na(.wth = wth)
+  return(wth)
 }
 
 #' Check POWER data for any missing values

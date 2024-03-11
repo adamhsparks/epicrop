@@ -13,8 +13,8 @@ Generic simulation modelling of crop diseases using a Susceptible- Exposed-Infec
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/adamhsparks/epicrop/}
-  \item Report bugs at \url{https://github.com/adamhsparks/epicrop/issues}
+  \item \url{https://codeberg.org/adamhsparks/epicrop}
+  \item Report bugs at \url{https://codeberg.org/adamhsparks/epicrop/issues}
 }
 
 }
