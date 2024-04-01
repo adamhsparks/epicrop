@@ -12,5 +12,5 @@ bibentry(bibtype = "Manual",
                     person("Jorel", "Aunario")),
          year = year,
          note = note,
-         url = "https://github.com/adamhsparks/epicrop",
+         url = "https://codeberg.org/adamhsparks/epicrop",
          doi = "10.5281/zenodo.5070395")
