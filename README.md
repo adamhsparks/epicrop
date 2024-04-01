@@ -14,6 +14,8 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop)
 <!-- badges: end -->
 
 A fork of
