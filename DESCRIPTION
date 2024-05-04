@@ -1,67 +1,36 @@
-Package: epicrop
 Type: Package
-Title: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model
+Package: epicrop
+Title: Simulation Modelling of Crop Diseases Using a
+    Susceptible-Exposed-Infectious-Removed (SEIR) Model
 Version: 0.0.3
-DOI: 10.5281/zenodo.5070395
 Authors@R: c(
-    person(given = "Adam H.",
-           family = "Sparks",
-           role = c("cre", "aut"),
-           email = "adamhsparks@gmail.com",
+    person("Adam H.", "Sparks", , "adamhsparks@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-0061-8359")),
-    person(given = "Robert",
-           family = "Hijmans",
-           role = c("aut", "trl"),
-           email = "robert.hijmans@gmail.com",
-           comment = c("Original R implementation",
-                     c(ORCID = "0000-0001-5872-2872"))),
-    person(given = "Serge",
-           family = "Savary",
-           role = c("aut", "ccp"),
-           email = "serge.savary@toulouse.inra.fr",
-           comment = c("Model conception and development in Stella",
-                     c(ORCID = "0000-0002-6867-180X"))),
-    person(given = "Ireno",
-           family = "Pangga",
-           role = c("aut", "trl"),
-           email = "ibpangga@yahoo.com",
-           comment = "Model conception, development in Stella and original R
-           implementation"),
-    person(given = "Jorrel",
-           family = "Aunario",
-           role = c("aut", "trl"),
-           email = "j.aunario@irri.org",
+    person("Robert", "Hijmans", , "robert.hijmans@gmail.com", role = c("aut", "trl"),
+           comment = c("Original R implementation", ORCID = "0000-0001-5872-2872")),
+    person("Serge", "Savary", , "serge.savary@toulouse.inra.fr", role = c("aut", "ccp"),
+           comment = c("Model conception and development in Stella", ORCID = "0000-0002-6867-180X")),
+    person("Ireno", "Pangga", , "ibpangga@yahoo.com", role = c("aut", "trl"),
+           comment = "Model conception, development in Stella and original R\n           implementation"),
+    person("Jorrel", "Aunario", , "j.aunario@irri.org", role = c("aut", "trl"),
            comment = "Original R implementation"),
-    person(given = "Aji",
-           family = "Sukarta",
-           role = "ctb",
-           email = "aji.ixb@gmail.com",
-           comment = "Helped fix bug related to SEIR model and establishment
-           date"),
-    person(given = "Emerson",
-           family = "Del Ponte",
-           role = "ctb",
-           email = "delponte@ufv.br",
-           comment = c("Suggested fixes for several typos in the documentation",
-                     c(ORCID = "0000-0003-4398-409X"))))
-Description: Generic simulation modelling of crop diseases using a Susceptible-
-    Exposed-Infectious-Removed ('SEIR') model.  This type of model was first
-    described in botanical epidemiology by Zadoks (1971)
-    <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary
-    et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's
-    development, use and results from modeling global unmanaged
-    epidemics of rice diseases for five major rice diseases, bacterial blight,
-    brown spot, leaf blast, sheath blight and tungro.  Specific functions are
-    provided to simulate all of these diseases with a generic 'SEIR' model
-    function that is suitable for parameterising for use with other pathosystems
-    as demonstrated in Savary et al. 2012.
+    person("Aji", "Sukarta", , "aji.ixb@gmail.com", role = "ctb",
+           comment = "Helped fix bug related to SEIR model and establishment\n           date"),
+    person("Emerson", "Del Ponte", , "delponte@ufv.br", role = "ctb",
+           comment = c("Suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X"))
+  )
+Description: Generic simulation modelling of crop diseases using a
+    Susceptible- Exposed-Infectious-Removed ('SEIR') model.  This type of
+    model was first described in botanical epidemiology by Zadoks (1971)
+    <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by
+    Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the
+    model's development, use and results from modeling global unmanaged
+    epidemics of rice diseases for five major rice diseases, bacterial
+    blight, brown spot, leaf blast, sheath blight and tungro.  Specific
+    functions are provided to simulate all of these diseases with a
+    generic 'SEIR' model function that is suitable for parameterising for
+    use with other pathosystems as demonstrated in Savary et al. 2012.
 License: GPL-3 + file LICENSE
-RoxygenNote: 7.3.1
-Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
-    "roxyglobals::global_roclet"))
-Encoding: UTF-8
-NeedsCompilation: no
-ByteCompile: TRUE
 URL: https://codeberg.org/adamhsparks/epicrop
 BugReports: https://codeberg.org/adamhsparks/epicrop/issues
 Depends:
@@ -87,11 +56,20 @@ Suggests:
     testthat,
     tidyr,
     vcr (>= 0.6.0)
-VignetteBuilder: knitr
-Language: en-US
-X-schema.org-applicationCategory: Tools
-X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease, model,
-    seir, agricultural-modelling, agricultural-modeling, crop-protection,
-    agricultural-research, model, modelling, modeling, seir-model
+VignetteBuilder: 
+    knitr
+ByteCompile: TRUE
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE
+DOI: 10.5281/zenodo.5070395
+Encoding: UTF-8
+Language: en-US
+NeedsCompilation: no
+Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
+    "roxyglobals::global_roclet"))
+RoxygenNote: 7.3.1
+X-schema.org-applicationCategory: Tools
+X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease,
+    model, seir, agricultural-modelling, agricultural-modeling,
+    crop-protection, agricultural-research, model, modelling, modeling,
+    seir-model
