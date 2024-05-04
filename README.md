@@ -4,7 +4,7 @@ Susceptible-Exposed-Infectious-Removed (SEIR) Model
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img align="right" src="man/figures/logo.png">
+<img src="man/figures/logo.png" align="right"/>
 
 <!-- badges: start -->
 
@@ -16,6 +16,7 @@ stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecy
 [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop)
+
 <!-- badges: end -->
 
 A fork of
