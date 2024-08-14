@@ -156,6 +156,7 @@ ggplot(data = bb,
 
 <img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
 <p class="caption">
+
 Bacterial blight disease progress over time. Results for wet season year
 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run
 the model were obtained from the NASA Langley Research Center POWER
