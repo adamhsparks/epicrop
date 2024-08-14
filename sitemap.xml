@@ -1,63 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/404.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/articles/epicrop.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/articles/mapping.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/articles/multiples.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/index.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/SEIR.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/epicrop-package.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/get_wth.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/predict_bacterial_blight.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/predict_brown_spot.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/predict_leaf_blast.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/predict_sheath_blight.html</loc>
-  </url>
-  <url>
-    <loc>http://adamhsparks.github.io/epicrop/reference/predict_tungro.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/404.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/CONTRIBUTING.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/LICENSE-text.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/articles/epicrop.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/articles/index.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/articles/mapping.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/articles/multiples.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/authors.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/index.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/news/index.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/SEIR.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/epicrop-package.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/get_wth.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/index.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/predict_bacterial_blight.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/predict_brown_spot.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/predict_leaf_blast.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/predict_sheath_blight.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/predict_tungro.html</loc></url>
 </urlset>
+
