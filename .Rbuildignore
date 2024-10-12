@@ -19,3 +19,4 @@
 ^epicrop.code-workspace$
 ^rosm\.cache$
 ^_pkgdown\.yml$
+^pkgdown$
