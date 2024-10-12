@@ -35,7 +35,7 @@ In this case, since we specify the duration of the season, there is no need to e
 You can use as many start dates, representing as many seasons as you desire, but for the purposes of speed in this vignette, only two will be used.
 
 
-```r
+``` r
 years <- 2000:2001
 seasons <- paste0(years, "-06-30")
 ```
@@ -46,7 +46,7 @@ With the vector of establishment dates, `seasons`, use `purrr::map()` to fetch a
 You could also use R's base `lapply()` here as well if you prefer.
 
 
-```r
+``` r
 library("epicrop")
 library("purrr")
 
@@ -68,7 +68,7 @@ This behaviour would be the same as if you used R's base `lapply()` here as well
 Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, _e.g._, for multiple seasons in one year, use `lubridate::ymd()`.
 
 
-```r
+``` r
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -103,7 +103,7 @@ pander(seasons)
 A simple bar chart created using _ggplot2_ is an effective way to visualise the difference between the two seasons.
 
 
-```r
+``` r
 library("ggplot2")
 ggplot(seasons,
        aes(y = as.factor(season),
@@ -131,10 +131,9 @@ In this case, while this code runs, you can benchmark it and see that this is no
 An example benchmarking different methods is provided here.
 
 
-```r
+``` r
 library("epicrop")
 library("furrr")
-#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -200,7 +199,7 @@ Using `purrr::map2` allows for using two variables, one for weather data, `wth`,
 This returns a list of data, but using `dplyr::bind_rows(.id = "emergence")` creates a data frame with a column of emergence/establishment dates that can be used for grouping the data for further analysis or visualisation.
 
 
-```r
+``` r
 library("epicrop")
 library("purrr")
 library("dplyr")
@@ -340,7 +339,7 @@ Using `ggplot2::geom_segment()` and `ggplot2::geom_point()` we can maximise the 
 Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are necessary since we're using `ggplot2::geom_segment()`.
 
 
-```r
+``` r
 library("ggplot2")
 ggplot(data = multi_dates,
        aes(
@@ -367,7 +366,7 @@ These are easily identified by the `future_` prefix on each of the functions whe
 In this example rather than printing the whole table, the data are piped directly into the `ggplot2::ggplot()` function for creating a figure that again, is the same as the previous example, but run in parallel using {furrr}.
 
 
-```r
+``` r
 library("furrr")
 library("purrr")
 library("tidyr")
@@ -394,7 +393,7 @@ Only take the earliest establishment date, then extend the duration out past 120
 Here just taking 180 days, 6 months, works well.
 
 
-```r
+``` r
 wth_start_dates <- paste(years, month_day[1], sep = "-")
 
 seasons_wth <-
@@ -412,7 +411,7 @@ Once we have all the weather, create a list of weather `data.frames` for each es
 Create time intervals to subset the weather data, creating a list new `data.frames` for each establishment date.
 
 
-```r
+``` r
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
 
@@ -458,7 +457,7 @@ Multiple locations will look much like the previous example for multiple seasons
 In this example we will fetch data for the Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines for the wet season (second half of the year) in 2000.
 
 
-```r
+``` r
 locations <- list(
   "Mekong River" = c(105.5943, 10.0634),
   "Red River" = c(105.9700, 20.9034),
@@ -473,7 +472,7 @@ With the list of locations, `locations`, use `purrr::map()` to fetch all of the 
 You could also use R's base `lapply()` here as well if you prefer.
 
 
-```r
+``` r
 library("epicrop")
 library("purrr")
 
@@ -492,7 +491,7 @@ This behaviour would be the same as if you used R's base `lapply()` here as well
 The process for using {furrr} won't be shown here, but to implement several locations or year locations and planting date simulations in parallel would be as shown above.
 
 
-```r
+``` r
 library("dplyr")
 library("lubridate")
 library("ggplot2")
@@ -530,7 +529,7 @@ Here an example of how to use benchmarking is shown using the second set of exam
 Greater gains in efficiency will be realised with more dates, locations, etc. when running in parallel than sequentially.
 
 
-```r
+``` r
 
 library("microbenchmark")
 
@@ -557,9 +556,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr      min        lq      mean    median        uq      max neval
-#>  sequential 54.62684  57.50359  64.40765  61.12979  69.11981 130.5738   100
-#>    parallel 89.47217 100.68524 109.07574 102.15027 104.23744 660.7879   100
+#>        expr      min       lq     mean   median       uq      max neval cld
+#>  sequential 102.8553 110.3077 121.4834 115.3445 124.6142 423.2244   100   a
+#>    parallel  99.2150 106.8921 119.1965 110.4769 116.4565 616.3325   100   a
 
 autoplot(mbm) +
   theme_classic()
