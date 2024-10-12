@@ -118,7 +118,6 @@ baselayer
 behaviour
 benchmarking
 ce
-codecov
 conceptor
 cropro
 cropsim
@@ -166,6 +165,7 @@ tidyverse
 tungro
 turcicum
 unmanaged
+vcr
 virescens
 visualisation
 visualise
