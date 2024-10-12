@@ -42,10 +42,10 @@ as long as it fits the model’s requirements.
 {epicrop} is not yet on CRAN. You can install it this way.
 
 ``` r
-if (!require("remotes"))
-  install.packages("remotes")
-remotes::install_git("https://codeberg.org/adamhsparks/epicrop",
-                     build_vignettes = TRUE
+if (!require("pak"))
+  install.packages("pak")
+pak::pkg_install("https://codeberg.org/adamhsparks/epicrop",
+                 build_vignettes = TRUE
 )
 ```
 

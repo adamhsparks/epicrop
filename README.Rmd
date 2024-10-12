@@ -35,10 +35,10 @@ Alternatively, you can supply your own weather data for any time period as long 
 You can install it this way.
 
 ```{r eval=FALSE}
-if (!require("remotes"))
-  install.packages("remotes")
-remotes::install_git("https://codeberg.org/adamhsparks/epicrop",
-                     build_vignettes = TRUE
+if (!require("pak"))
+  install.packages("pak")
+pak::pkg_install("https://codeberg.org/adamhsparks/epicrop",
+                 build_vignettes = TRUE
 )
 ```
 
