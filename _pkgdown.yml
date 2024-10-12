@@ -2,7 +2,3 @@ template:
   params:
     bootswatch: journal
 url: https://adamhsparks.codeberg.page/epicrop/
-navbar:
-   structure:
-     left:  [reference, news, articles]
-     right: [search]
