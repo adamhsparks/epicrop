@@ -20,3 +20,4 @@
 ^rosm\.cache$
 ^_pkgdown\.yml$
 ^pkgdown$
+^LICENSE\.md$

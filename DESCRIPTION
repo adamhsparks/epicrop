@@ -30,7 +30,7 @@ Description: Generic simulation modelling of crop diseases using a
     functions are provided to simulate all of these diseases with a
     generic 'SEIR' model function that is suitable for parameterising for
     use with other pathosystems as demonstrated in Savary et al. 2012.
-License: GPL-3 + file LICENSE
+License: GPL (>= 3)
 URL: https://codeberg.org/adamhsparks/epicrop,
     https://adamhsparks.codeberg.page/epicrop
 BugReports: https://codeberg.org/adamhsparks/epicrop/issues
