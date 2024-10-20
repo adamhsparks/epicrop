@@ -1,26 +1,20 @@
 
 # weather handling and checking ------------------------------------------------
 test_that("Weather data is as expected after fetching from POWER API", {
-skip_if_offline()
+  skip_if_offline()
   vcr::use_cassette("get_wth", {
     wth <- get_wth(
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-01-16")
     )
     expect_named(wth,
-                 c("YYYYMMDD",
-                   "DOY",
-                   "TEMP",
-                   "RHUM",
-                   "RAIN",
-                   "LAT",
-                   "LON"))
+                 c("YYYYMMDD", "DOY", "TEMP", "RHUM", "RAIN", "LAT", "LON"))
     expect_s3_class(wth, c("data.table", "data.frame"))
   })
 })
 
 test_that("Supplying the season overrides an end-date value", {
-skip_if_offline()
+  skip_if_offline()
   vcr::use_cassette("get_wth_w_season", {
     wth_season <- get_wth(
       lonlat = c(151.81, -27.48),
@@ -32,7 +26,7 @@ skip_if_offline()
 })
 
 test_that("Any NA values in the POWER data will emit a message", {
-skip_if_offline()
+  skip_if_offline()
   expect_message(.check_na(
     .wth = data.frame(
       "YYYYMMDD" = as.Date("2015-01-15"),
