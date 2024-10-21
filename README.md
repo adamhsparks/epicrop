@@ -44,9 +44,7 @@ as long as it fits the model’s requirements.
 ``` r
 if (!require("pak"))
   install.packages("pak")
-pak::pkg_install("https://codeberg.org/adamhsparks/epicrop",
-                 build_vignettes = TRUE
-)
+pak::pkg_install("https://codeberg.org/adamhsparks/epicrop")
 ```
 
 ## Get weather data
