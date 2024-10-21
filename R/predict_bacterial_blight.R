@@ -1,4 +1,3 @@
-
 #' Predict Rice Bacterial Blight Intensity
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
@@ -101,9 +100,9 @@ predict_bacterial_blight <- function(wth, emergence) {
       rainlim = 5L,
       H0 = 100L,
       I0 = 1L,
-      RcA =  cbind(
+      RcA = cbind(
         c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
-        c(1, 1, 1, 0.9, 0.62, 0.43, 0.41, 0.41, 0.41, 0.41, 0.41, 0.41, 0.41)
+        c(1, 1, 1, 0.9, 0.62, 0.43, 0.42, 0.42, 0.41, 0.41, 0.41, 0.41, 0.41)
       ),
       RcT = cbind(
         c(16L, 19L, 22L, 25L, 28L, 31L, 34L, 37L, 40L),
