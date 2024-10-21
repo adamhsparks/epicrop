@@ -62,7 +62,6 @@ VignetteBuilder:
 ByteCompile: TRUE
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE
-DOI: 10.5281/zenodo.5070395
 Encoding: UTF-8
 Language: en-US
 NeedsCompilation: no
