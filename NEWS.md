@@ -1,3 +1,13 @@
+# epicrop 0.0.3
+
+## Major changes
+
+* Extend the RcA curve for bacterial blight, the original version of EPIRICE had `...0.43, 0.41, 0.42, 0.41`, previous versions of {epicrop} had `...0.43, 0.41, 0.41, 0.41`, now we have `...0.43, 0.42, 0.42, 0.41...`.
+
+## Bug fixes
+
+* Corrected documentation for `get_wth()`, {nasapower} is only client used.
+
 # epicrop 0.0.2
 
 ## Minor changes
