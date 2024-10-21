@@ -134,7 +134,7 @@
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
-#' @return A [data.table()] containing the following columns:
+#' @return A \CRANpkg{data.table} object containing the following columns:
 #'
 #' \describe{
 #'   \item{simday}{Zero indexed day of simulation that was run}

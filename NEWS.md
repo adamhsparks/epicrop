@@ -86,7 +86,7 @@ This leads to longer, but clearer lines of code.
 
 ## Bug fixes
 
-* Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit https://github.com/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287. See Lines 124:126 that were changed to Lines 118:120 where
+* Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287. See Lines 124:126 that were changed to Lines 118:120 where
 ```r 
 Rc[day+1] <- baseRc * AFGen(ageRc, day) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
 ```
@@ -94,11 +94,11 @@ should have been
 ```r
 Rc[day+1] <- baseRc * AFGen(ageRc, day+1) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
 ```
-to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://github.com/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
+to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://codeberg.org/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
 
 * Fixes typos in `RcA` values for `predict_bacterial_blight()` and `predict_sheath_blight()`.
-  * In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit [8b2c36b61d4f949385dcac4c03ff435b8400e335](https://github.com/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335).
-  * In `predict_sheath_blight()` the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: [69b89ce24dd41c16d4627225c028355f76a64b80](https://github.com/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80).
+  * In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit [8b2c36b61d4f949385dcac4c03ff435b8400e335](https://codeberg.org/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335).
+  * In `predict_sheath_blight()` the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: [69b89ce24dd41c16d4627225c028355f76a64b80](https://codeberg.org/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80).
 
 ## Major changes
 

@@ -95,7 +95,7 @@ Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 }
 \value{
-A \code{\link[=data.table]{data.table()}} containing the following columns:
+A \CRANpkg{data.table} object containing the following columns:
 
 \describe{
 \item{simday}{Zero indexed day of simulation that was run}
