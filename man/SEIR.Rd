@@ -95,7 +95,7 @@ Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 }
 \value{
-A \CRANpkg{data.table} object containing the following columns:
+A \link[data.table:data.table]{data.table::data.table} object containing the following columns:
 
 \describe{
 \item{simday}{Zero indexed day of simulation that was run}
@@ -146,11 +146,15 @@ wth <- get_wth(
 
 # provide suitable values for brown spot intensity
 RcA <-
-  cbind(c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
-        c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
+  cbind(
+    c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
+    c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0)
+  )
 RcT <-
-  cbind(c(15L, 20L, 25L, 30L, 35L, 40L),
-        c(0, 0.06, 1.0, 0.85, 0.16, 0))
+  cbind(
+    c(15L, 20L, 25L, 30L, 35L, 40L),
+    c(0, 0.06, 1.0, 0.85, 0.16, 0)
+  )
 emergence <- "2000-07-15"
 
 (SEIR(
@@ -163,7 +167,7 @@ emergence <- "2000-07-15"
   RcA = RcA,
   RcT = RcT,
   RcOpt = 0.61,
-  p =  6,
+  p = 6,
   i = 19,
   H0 = 600,
   I0 = 1,
@@ -192,11 +196,11 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \seealso{
 \code{SEIR()} is called by the following specific disease modelling functions:
 \itemize{
-\item \code{\link[=predict_bacterial_blight]{predict_bacterial_blight()}},
-\item \code{\link[=predict_brown_spot]{predict_brown_spot()}},
-\item \code{\link[=predict_leaf_blast]{predict_leaf_blast()}},
-\item \code{\link[=predict_sheath_blight]{predict_sheath_blight()}},
-\item \code{\link[=predict_tungro]{predict_tungro()}}
+\item \link{predict_bacterial_blight},
+\item \link{predict_brown_spot},
+\item \link{predict_leaf_blast},
+\item \link{predict_sheath_blight},
+\item \link{predict_tungro}
 }
 }
 \author{

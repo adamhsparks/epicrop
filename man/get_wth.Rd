@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wth.R
 \name{get_wth}
 \alias{get_wth}
-\title{Get Weather Data for Use in epicrop Modelling}
+\title{Get Weather Data for Modelling Disease}
 \usage{
 get_wth(lonlat, dates, duration)
 }
@@ -15,11 +15,11 @@ entered as x, y coordinates.}
 \item{duration}{A numeric value indicating how many days a single
 growing season being simulated is to be.  If this is used, only the start
 date will be used and the end date will be ignored if supplied.  This must
-match the \code{duration} parameter value passed along to \code{\link[=SEIR]{SEIR()}} or any of the
+match the \code{duration} parameter value passed along to \link{SEIR} or any of the
 \code{predict} family of functions.}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} of weather data, dates and
+A \link[data.table:data.table]{data.table::data.table} object of weather data, dates and
 geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
 with the following columns:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
@@ -29,11 +29,11 @@ with the following columns:\tabular{rl}{
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab Latitude of area of interest \cr
-   \emph{LON} \tab Longitude of area of interest \cr
+   \emph{LON} \tab Longitude of area of interest. \cr
 }
 }
 \description{
-This function is a wrapper for the \code{\link[nasapower:get_power]{nasapower::get_power()}} with predefined
+This function is a wrapper for the \link[nasapower:get_power]{nasapower::get_power} with predefined
 parameters suitable for use in \pkg{epicrop}.
 }
 \examples{

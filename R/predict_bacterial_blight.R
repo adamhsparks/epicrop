@@ -40,7 +40,7 @@
 #'
 #' @param emergence Expected date of crop emergence
 #'
-#' @return A [data.table::data.table()] of disease intensity and infection
+#' @returns A [data.table::data.table()] of disease intensity and infection
 #' sites. See [SEIR()] for a full description of the column values.
 #'
 #' @examplesIf interactive()

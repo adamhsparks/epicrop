@@ -65,11 +65,11 @@ Config/roxyglobals/unique: FALSE
 Encoding: UTF-8
 Language: en-US
 NeedsCompilation: no
-Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
-    "roxyglobals::global_roclet"))
+Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd", "roxyglobals::global_roclet", "devtag::dev_roclet"))
 RoxygenNote: 7.3.2
 X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease,
     model, seir, agricultural-modelling, agricultural-modeling,
     crop-protection, agricultural-research, model, modelling, modeling,
     seir-model
+Config/Needs/build: moodymudskipper/devtag

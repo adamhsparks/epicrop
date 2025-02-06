@@ -1,6 +1,6 @@
-#' Get Weather Data for Use in epicrop Modelling
+#' Get Weather Data for Modelling Disease
 #'
-#' This function is a wrapper for the [nasapower::get_power()] with predefined
+#' This function is a wrapper for the [nasapower::get_power] with predefined
 #'  parameters suitable for use in \pkg{epicrop}.
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
@@ -9,10 +9,10 @@
 #' @param duration A numeric value indicating how many days a single
 #'  growing season being simulated is to be.  If this is used, only the start
 #'  date will be used and the end date will be ignored if supplied.  This must
-#'  match the `duration` parameter value passed along to [SEIR()] or any of the
+#'  match the `duration` parameter value passed along to [SEIR] or any of the
 #'  `predict` family of functions.
 #'
-#' @return A [data.table::data.table()] of weather data, dates and
+#' @returns A [data.table::data.table] object of weather data, dates and
 #'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
 #'  with the following columns:
 #'
@@ -24,7 +24,7 @@
 #'   _RHUM_     | Mean daily relative humidity (%)
 #'   _RAIN_     | Mean daily rainfall (mm)
 #'   _LAT_      | Latitude of area of interest
-#'   _LON_      | Longitude of area of interest
+#'   _LON_      | Longitude of area of interest.
 #'
 #' @examplesIf interactive()
 #'
@@ -105,9 +105,23 @@ get_wth <- function(lonlat,
 #' Checks the data returned from the POWER dataset and informs the user if
 #' missing values are found. It does not do anything other than emitting am
 #' message about missing data.
-#' @return NULL
-#' @example .check_na(.wth)
-#' @noRd
+#' @returns NULL
+#' @examples
+#' wth <- setDT(
+#'   nasapower::get_power(
+#'     lonlat = c(121.25562, 14.6774),
+#'     dates = "2000-06-30",
+#'     community = "AG",
+#'     pars = c(
+#'       "T2M",
+#'       "RH2M",
+#'       "PRECTOTCORR"
+#'     ),
+#'     temporal_api = "DAILY"
+#'   )
+#' )
+#' .check_na(wth)
+#' @dev
 
 .check_na <- function(.wth) {
   if (anyNA(.wth[, c("TEMP", "RHUM", "RAIN")])) {

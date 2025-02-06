@@ -1,4 +1,3 @@
-
 #' Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework
 #'
 #' This function is originally used by specific disease models in
@@ -84,11 +83,15 @@
 #'
 #' # provide suitable values for brown spot intensity
 #' RcA <-
-#'   cbind(c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
-#'         c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
+#'   cbind(
+#'     c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
+#'     c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0)
+#'   )
 #' RcT <-
-#'   cbind(c(15L, 20L, 25L, 30L, 35L, 40L),
-#'         c(0, 0.06, 1.0, 0.85, 0.16, 0))
+#'   cbind(
+#'     c(15L, 20L, 25L, 30L, 35L, 40L),
+#'     c(0, 0.06, 1.0, 0.85, 0.16, 0)
+#'   )
 #' emergence <- "2000-07-15"
 #'
 #' (SEIR(
@@ -101,7 +104,7 @@
 #'   RcA = RcA,
 #'   RcT = RcT,
 #'   RcOpt = 0.61,
-#'   p =  6,
+#'   p = 6,
 #'   i = 19,
 #'   H0 = 600,
 #'   I0 = 1,
@@ -126,15 +129,15 @@
 #'
 #' @seealso
 #' `SEIR()` is called by the following specific disease modelling functions:
-#' * [predict_bacterial_blight()],
-#' * [predict_brown_spot()],
-#' * [predict_leaf_blast()],
-#' * [predict_sheath_blight()],
-#' * [predict_tungro()]
+#' * [predict_bacterial_blight],
+#' * [predict_brown_spot],
+#' * [predict_leaf_blast],
+#' * [predict_sheath_blight],
+#' * [predict_tungro]
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
-#' @return A \CRANpkg{data.table} object containing the following columns:
+#' @returns A [data.table::data.table] object containing the following columns:
 #'
 #' \describe{
 #'   \item{simday}{Zero indexed day of simulation that was run}
@@ -176,7 +179,6 @@ SEIR <-
            a,
            RRS,
            RRG) {
-
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
@@ -214,9 +216,11 @@ SEIR <-
 
     # check that the dates roughly align
     if (!(emergence >= wth[1, YYYYMMDD]) ||
-        (max(dates) > max(wth[, YYYYMMDD]))) {
-      stop(call. = FALSE,
-           "Incomplete weather data or dates do not align")
+      (max(dates) > max(wth[, YYYYMMDD]))) {
+      stop(
+        call. = FALSE,
+        "Incomplete weather data or dates do not align"
+      )
     }
 
     # subset weather data where date is greater than emergence minus one and
@@ -293,7 +297,7 @@ SEIR <-
         # initialisation of the disease
         infection[[d]] <- I0
       } else if (d > onset) {
-        infection[[d]] <- now_infectious[d] * rc[d] * (cofr[d] ^ a)
+        infection[[d]] <- now_infectious[d] * rc[d] * (cofr[d]^a)
       } else {
         infection[[d]] <- 0
       }
@@ -308,7 +312,7 @@ SEIR <-
 
       rgrowth[[d]] <- RRG * sites[d] * sum(1, -(total_sites[d] / Sx))
       intensity[[d]] <- sum(diseased[d], -removed[d]) /
-                          sum(total_sites[d], -removed[d])
+        sum(total_sites[d], -removed[d])
     } # end loop
 
     simday <- seq_len(duration)
@@ -336,8 +340,7 @@ SEIR <-
       )
 
     # Only add LAT and LON values if they exist in `wth`
-    if (all(c("LAT", "LON") %in% names(wth)))
-    {
+    if (all(c("LAT", "LON") %in% names(wth))) {
       out[, lat := rep_len(wth[, LAT], .N)]
       out[, lon := rep_len(wth[, LON], .N)]
     }
@@ -353,15 +356,14 @@ SEIR <-
 #'  or age, `RcA`.
 #' @param .xout a value for `x`, either a temperature or age modifier value.
 #'
-#' @return A numeric value for modifying a growth curve in `SEIR()`
+#' @returns A numeric value for modifying a growth curve in `SEIR()`
 #'
 #' @note This is a faster (and more simple) function that does what the original
 #'  `afgen()` from \pkg{cropsim} does.
 #'
-#' @keywords internal
-#' @noRd
+#' @dev
 
-.fn_Rc <- function(.Rc, .xout)
+.fn_Rc <- function(.Rc, .xout) {
   return(stats::approx(
     x = .Rc[, 1],
     y = .Rc[, 2],
@@ -370,3 +372,4 @@ SEIR <-
     yleft = 0,
     yright = 0
   )$y)
+}

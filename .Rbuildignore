@@ -21,3 +21,5 @@
 ^_pkgdown\.yml$
 ^pkgdown$
 ^LICENSE\.md$
+^man/dot-fn_Rc\.Rd$
+^man/dot-check_na\.Rd$

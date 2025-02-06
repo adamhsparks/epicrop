@@ -6,7 +6,7 @@
 #'
 #' @param intensity A `vector` of disease intensity from `SEIR()`.
 #'
-#' @return  A `numeric` value as `double`.
+#' @returns  A `numeric` value as `double`.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
