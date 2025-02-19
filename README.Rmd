@@ -35,11 +35,16 @@ Alternatively, you can supply your own weather data for any time period as long 
 You can install it this way.
 
 ```{r eval=FALSE}
-if (!require("remotes"))
-  install.packages("remotes")
-remotes::install_git("https://codeberg.org/adamhsparks/epicrop",
-                         build_vignettes = TRUE
-)
+if (!require("pak")) {
+  install.packages("pak",
+    repos = sprintf(
+      "https://r-lib.github.io/p/pak/stable/%s/%s/%s",
+      .Platform$pkgType, R.Version()$os, R.Version()$arch
+    )
+  )
+}
+
+pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop")
 ```
 
 ## Get weather data
@@ -76,11 +81,17 @@ Lastly, you can visualise the result of the model run.
 ```{r plot, fig.cap="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.",}
 library("ggplot2")
 
-ggplot(data = bb,
-       aes(x = dates,
-           y = intensity)) +
-  labs(y = "Intensity",
-       x = "Date") +
+ggplot(
+  data = bb,
+  aes(
+    x = dates,
+    y = intensity
+  )
+) +
+  labs(
+    y = "Intensity",
+    x = "Date"
+  ) +
   geom_line() +
   geom_point() +
   theme_classic()
