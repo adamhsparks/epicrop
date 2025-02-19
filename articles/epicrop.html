@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="epicrop">
 </head>
 <body>
@@ -104,7 +104,7 @@ are implemented in the individual disease model functions.</p>
 </h4>
 <p>Load the library.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/adamhsparks/epicrop/" class="external-link">"epicrop"</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://codeberg.org/adamhsparks/epicrop" class="external-link">"epicrop"</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="get-weather-data">Get weather data<a class="anchor" aria-label="anchor" href="#get-weather-data"></a>
@@ -151,34 +151,27 @@ values associated with the model. See the help file for
 <span><span class="va">bb_wet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_wet</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##      simday           dates                sites            latent           infectious    </span></span>
-<span><span class="co">##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0   Min.   :  0.0000   Min.   :  0.00  </span></span>
-<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1   1st Qu.:  0.7071   1st Qu.:  1.00  </span></span>
-<span><span class="co">##  Median : 60.50   Median :2000-08-29   Median :1827.5   Median : 12.4138   Median : 17.74  </span></span>
-<span><span class="co">##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1622.2   Mean   : 65.0439   Mean   :214.99  </span></span>
-<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2360.5   3rd Qu.:126.2923   3rd Qu.:379.33  </span></span>
-<span><span class="co">##  Max.   :120.00   Max.   :2000-10-28   Max.   :2622.9   Max.   :264.3734   Max.   :953.22  </span></span>
-<span><span class="co">##     removed          senesced         rateinf          rtransfer        rgrowth      </span></span>
-<span><span class="co">##  Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688  </span></span>
-<span><span class="co">##  1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.659  </span></span>
-<span><span class="co">##  Median :  1.00   Median : 642.6   Median : 0.9286   Median : 0.00   Median :33.172  </span></span>
-<span><span class="co">##  Mean   : 29.83   Mean   : 803.0   Mean   :11.3325   Mean   :10.66   Mean   :40.322  </span></span>
-<span><span class="co">##  3rd Qu.: 16.12   3rd Qu.:1410.1   3rd Qu.:19.6572   3rd Qu.:16.29   3rd Qu.:57.583  </span></span>
-<span><span class="co">##  Max.   :352.64   Max.   :2286.4   Max.   :64.5756   Max.   :64.58   Max.   :79.689  </span></span>
-<span><span class="co">##    rsenesced         diseased          intensity           AUDPC           lat       </span></span>
-<span><span class="co">##  Min.   : 1.000   Min.   :   0.000   Min.   :0.00000   Min.   :12.4   Min.   :14.68  </span></span>
-<span><span class="co">##  1st Qu.: 9.331   1st Qu.:   1.707   1st Qu.:0.00191   1st Qu.:12.4   1st Qu.:14.68  </span></span>
-<span><span class="co">##  Median :22.890   Median :  31.153   Median :0.01194   Median :12.4   Median :14.68  </span></span>
-<span><span class="co">##  Mean   :19.449   Mean   : 309.862   Mean   :0.10512   Mean   :12.4   Mean   :14.68  </span></span>
-<span><span class="co">##  3rd Qu.:26.081   3rd Qu.: 619.724   3rd Qu.:0.21246   3rd Qu.:12.4   3rd Qu.:14.68  </span></span>
-<span><span class="co">##  Max.   :50.029   Max.   :1342.865   Max.   :0.43496   Max.   :12.4   Max.   :14.68  </span></span>
-<span><span class="co">##       lon       </span></span>
-<span><span class="co">##  Min.   :121.3  </span></span>
-<span><span class="co">##  1st Qu.:121.3  </span></span>
-<span><span class="co">##  Median :121.3  </span></span>
-<span><span class="co">##  Mean   :121.3  </span></span>
-<span><span class="co">##  3rd Qu.:121.3  </span></span>
-<span><span class="co">##  Max.   :121.3</span></span></code></pre>
+<pre><code><span><span class="co">##      simday           dates                sites            latent           infectious        removed      </span></span>
+<span><span class="co">##  Min.   :  1.00   Min.   :2000-07-01   Min.   : 100.0   Min.   :  0.0000   Min.   :  0.00   Min.   :  0.00  </span></span>
+<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 933.1   1st Qu.:  0.7071   1st Qu.:  1.00   1st Qu.:  0.00  </span></span>
+<span><span class="co">##  Median : 60.50   Median :2000-08-29   Median :1821.7   Median : 12.6362   Median : 17.76   Median :  1.00  </span></span>
+<span><span class="co">##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1618.1   Mean   : 65.3177   Mean   :217.53   Mean   : 30.51  </span></span>
+<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:2358.0   3rd Qu.:127.6445   3rd Qu.:388.47   3rd Qu.: 16.13  </span></span>
+<span><span class="co">##  Max.   :120.00   Max.   :2000-10-28   Max.   :2620.1   Max.   :263.3698   Max.   :954.95   Max.   :361.16  </span></span>
+<span><span class="co">##     senesced         rateinf          rtransfer        rgrowth         rsenesced         diseased       </span></span>
+<span><span class="co">##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.00   Min.   : 9.688   Min.   : 1.000   Min.   :   0.000  </span></span>
+<span><span class="co">##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.00   1st Qu.:22.652   1st Qu.: 9.331   1st Qu.:   1.707  </span></span>
+<span><span class="co">##  Median : 642.6   Median : 0.9286   Median : 0.00   Median :33.113   Median :22.836   Median :  31.397  </span></span>
+<span><span class="co">##  Mean   : 802.8   Mean   :11.3659   Mean   :10.71   Mean   :40.299   Mean   :19.484   Mean   : 313.356  </span></span>
+<span><span class="co">##  3rd Qu.:1408.6   3rd Qu.:19.9624   3rd Qu.:16.82   3rd Qu.:57.582   3rd Qu.:26.072   3rd Qu.: 630.980  </span></span>
+<span><span class="co">##  Max.   :2290.2   Max.   :64.4151   Max.   :64.42   Max.   :79.689   Max.   :50.495   Max.   :1347.322  </span></span>
+<span><span class="co">##    intensity           AUDPC            lat             lon       </span></span>
+<span><span class="co">##  Min.   :0.00000   Min.   :12.54   Min.   :14.68   Min.   :121.3  </span></span>
+<span><span class="co">##  1st Qu.:0.00191   1st Qu.:12.54   1st Qu.:14.68   1st Qu.:121.3  </span></span>
+<span><span class="co">##  Median :0.01204   Median :12.54   Median :14.68   Median :121.3  </span></span>
+<span><span class="co">##  Mean   :0.10633   Mean   :12.54   Mean   :14.68   Mean   :121.3  </span></span>
+<span><span class="co">##  3rd Qu.:0.21646   3rd Qu.:12.54   3rd Qu.:14.68   3rd Qu.:121.3  </span></span>
+<span><span class="co">##  Max.   :0.43605   Max.   :12.54   Max.   :14.68   Max.   :121.3</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -260,34 +253,27 @@ the AUDPC values for both seasons.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##      simday           dates                sites            latent          infectious    </span></span>
-<span><span class="co">##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :  0.00  </span></span>
-<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7   1st Qu.:  0.000   1st Qu.:  1.00  </span></span>
-<span><span class="co">##  Median : 60.50   Median :2000-03-04   Median :2494.0   Median :  3.499   Median : 16.03  </span></span>
-<span><span class="co">##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1846.3   Mean   : 15.689   Mean   : 66.40  </span></span>
-<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2598.9   3rd Qu.: 20.839   3rd Qu.:115.30  </span></span>
-<span><span class="co">##  Max.   :120.00   Max.   :2000-05-03   Max.   :2714.5   Max.   :139.262   Max.   :256.91  </span></span>
-<span><span class="co">##     removed          senesced         rateinf          rtransfer          rgrowth      </span></span>
-<span><span class="co">##  Min.   :  0.00   Min.   :   0.0   Min.   : 0.0000   Min.   : 0.0000   Min.   : 9.688  </span></span>
-<span><span class="co">##  1st Qu.:  0.00   1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:28.311  </span></span>
-<span><span class="co">##  Median :  1.00   Median : 641.4   Median : 0.0000   Median : 0.0000   Median :34.267  </span></span>
-<span><span class="co">##  Mean   : 16.69   Mean   : 823.4   Mean   : 2.6149   Mean   : 2.6149   Mean   :42.212  </span></span>
-<span><span class="co">##  3rd Qu.: 17.03   3rd Qu.:1446.5   3rd Qu.: 0.5386   3rd Qu.: 0.5386   3rd Qu.:57.742  </span></span>
-<span><span class="co">##  Max.   :109.70   Max.   :2300.1   Max.   :39.2813   Max.   :39.2813   Max.   :79.485  </span></span>
-<span><span class="co">##    rsenesced         diseased         intensity           AUDPC            lat       </span></span>
-<span><span class="co">##  Min.   : 1.000   Min.   :  0.000   Min.   :0.00000   Min.   :3.576   Min.   :14.68  </span></span>
-<span><span class="co">##  1st Qu.: 9.327   1st Qu.:  2.179   1st Qu.:0.00234   1st Qu.:3.576   1st Qu.:14.68  </span></span>
-<span><span class="co">##  Median :24.997   Median : 28.878   Median :0.01105   Median :3.576   Median :14.68  </span></span>
-<span><span class="co">##  Mean   :19.566   Mean   : 98.776   Mean   :0.03012   Mean   :3.576   Mean   :14.68  </span></span>
-<span><span class="co">##  3rd Qu.:26.886   3rd Qu.:174.526   3rd Qu.:0.05569   3rd Qu.:3.576   3rd Qu.:14.68  </span></span>
-<span><span class="co">##  Max.   :47.858   Max.   :313.789   Max.   :0.10021   Max.   :3.576   Max.   :14.68  </span></span>
-<span><span class="co">##       lon       </span></span>
-<span><span class="co">##  Min.   :121.3  </span></span>
-<span><span class="co">##  1st Qu.:121.3  </span></span>
-<span><span class="co">##  Median :121.3  </span></span>
-<span><span class="co">##  Mean   :121.3  </span></span>
-<span><span class="co">##  3rd Qu.:121.3  </span></span>
-<span><span class="co">##  Max.   :121.3</span></span></code></pre>
+<pre><code><span><span class="co">##      simday           dates                sites            latent          infectious        removed      </span></span>
+<span><span class="co">##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :  0.00   Min.   :  0.00  </span></span>
+<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 932.7   1st Qu.:  0.000   1st Qu.:  1.00   1st Qu.:  0.00  </span></span>
+<span><span class="co">##  Median : 60.50   Median :2000-03-04   Median :2493.8   Median :  3.499   Median : 16.03   Median :  1.00  </span></span>
+<span><span class="co">##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1844.2   Mean   : 16.006   Mean   : 67.78   Mean   : 16.95  </span></span>
+<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:2596.9   3rd Qu.: 21.387   3rd Qu.:118.27   3rd Qu.: 17.03  </span></span>
+<span><span class="co">##  Max.   :120.00   Max.   :2000-05-03   Max.   :2712.3   Max.   :141.684   Max.   :262.34   Max.   :112.16  </span></span>
+<span><span class="co">##     senesced         rateinf          rtransfer          rgrowth         rsenesced         diseased      </span></span>
+<span><span class="co">##  Min.   :   0.0   Min.   : 0.0000   Min.   : 0.0000   Min.   : 9.688   Min.   : 1.000   Min.   :  0.000  </span></span>
+<span><span class="co">##  1st Qu.: 113.4   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:28.292   1st Qu.: 9.327   1st Qu.:  2.179  </span></span>
+<span><span class="co">##  Median : 641.4   Median : 0.0000   Median : 0.0000   Median :34.255   Median :24.996   Median : 29.099  </span></span>
+<span><span class="co">##  Mean   : 823.3   Mean   : 2.6677   Mean   : 2.6677   Mean   :42.201   Mean   :19.569   Mean   :100.735  </span></span>
+<span><span class="co">##  3rd Qu.:1445.9   3rd Qu.: 0.5386   3rd Qu.: 0.5386   3rd Qu.:57.742   3rd Qu.:26.874   3rd Qu.:178.434  </span></span>
+<span><span class="co">##  Max.   :2300.0   Max.   :40.0214   Max.   :40.0214   Max.   :79.485   Max.   :48.296   Max.   :320.118  </span></span>
+<span><span class="co">##    intensity           AUDPC           lat             lon       </span></span>
+<span><span class="co">##  Min.   :0.00000   Min.   :3.65   Min.   :14.68   Min.   :121.3  </span></span>
+<span><span class="co">##  1st Qu.:0.00234   1st Qu.:3.65   1st Qu.:14.68   1st Qu.:121.3  </span></span>
+<span><span class="co">##  Median :0.01114   Median :3.65   Median :14.68   Median :121.3  </span></span>
+<span><span class="co">##  Mean   :0.03074   Mean   :3.65   Mean   :14.68   Mean   :121.3  </span></span>
+<span><span class="co">##  3rd Qu.:0.05707   3rd Qu.:3.65   3rd Qu.:14.68   3rd Qu.:121.3  </span></span>
+<span><span class="co">##  Max.   :0.10238   Max.   :3.65   Max.   :14.68   Max.   :121.3</span></span></code></pre>
 <div class="section level4">
 <h4 id="dry-season-intensity">Dry season intensity<a class="anchor" aria-label="anchor" href="#dry-season-intensity"></a>
 </h4>
@@ -319,14 +305,14 @@ Optionally if you wished to used {dplyr} you could use the
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dry season</span></span>
 <span><span class="va">bb_dry</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 3.57641</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 3.650291</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Wet season</span></span>
 <span><span class="va">bb_wet</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 12.39699</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 12.54141</span></span></code></pre>
 <p>The AUDPC of the wet season is greater than that of the dry season.
 Checking the data and referring to the curves, the wet season intensity
-reaches a peak value of 43% and the dry season tops out at 10%. So, this
+reaches a peak value of 44% and the dry season tops out at 10%. So, this
 meets the expectations that the wet season AUDPC is higher than the dry
 season, which was predicted to have less disease intensity.</p>
 </div>
