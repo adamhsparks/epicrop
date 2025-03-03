@@ -1,4 +1,3 @@
-
 #' Predict Rice Tungro Disease Incidence
 #'
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
@@ -83,7 +82,7 @@ predict_tungro <- function(wth, emergence) {
         c(0L, 15L, 30L, 45L, 60L, 75L, 90L, 105L, 120L),
         c(1.0, 1.0, 0.98, 0.73, 0.51, 0.34, 0, 0, 0)
       ),
-      RcT =     cbind(
+      RcT = cbind(
         c(
           9,
           10,

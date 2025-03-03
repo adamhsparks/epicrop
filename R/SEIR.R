@@ -163,23 +163,24 @@
 
 SEIR <-
   function(
-      wth,
-      emergence,
-      onset,
-      duration,
-      rhlim,
-      rainlim,
-      H0,
-      I0,
-      RcA,
-      RcT,
-      RcOpt,
-      p,
-      i,
-      Sx,
-      a,
-      RRS,
-      RRG) {
+    wth,
+    emergence,
+    onset,
+    duration,
+    rhlim,
+    rainlim,
+    H0,
+    I0,
+    RcA,
+    RcT,
+    RcOpt,
+    p,
+    i,
+    Sx,
+    a,
+    RRS,
+    RRG
+  ) {
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
@@ -242,11 +243,11 @@ SEIR <-
     # Create output vars
     cofr <-
       rc <-
-      RcW <- latency <- infectious <- intensity <- rsenesced <-
-      rgrowth <-
-      rtransfer <- infection <- diseased <- senesced <- removed <-
-      now_infectious <- now_latent <- sites <- total_sites <-
-      vector(mode = "double", length = duration)
+        RcW <- latency <- infectious <- intensity <- rsenesced <-
+          rgrowth <-
+            rtransfer <- infection <- diseased <- senesced <- removed <-
+              now_infectious <- now_latent <- sites <- total_sites <-
+                vector(mode = "double", length = duration)
 
     # Calculate state values -----
     for (d in 1:duration) {

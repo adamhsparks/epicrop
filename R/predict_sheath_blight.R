@@ -1,4 +1,3 @@
-
 #' Predict Rice Sheath Blight Intensity
 #'
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal

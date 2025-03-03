@@ -48,9 +48,7 @@
 #' @autoglobal
 #' @export get_wth
 
-get_wth <- function(lonlat,
-                    dates,
-                    duration) {
+get_wth <- function(lonlat, dates, duration) {
   if (!missing(duration)) {
     dates[2] <-
       as.character(as.Date(as.Date(dates[1]) + (duration)))

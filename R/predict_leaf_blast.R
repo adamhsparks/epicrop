@@ -1,4 +1,3 @@
-
 #' Predict Rice Leaf Blast Intensity
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
