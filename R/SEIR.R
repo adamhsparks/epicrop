@@ -162,23 +162,24 @@
 #' @export
 
 SEIR <-
-  function(wth,
-           emergence,
-           onset,
-           duration,
-           rhlim,
-           rainlim,
-           H0,
-           I0,
-           RcA,
-           RcT,
-           RcOpt,
-           p,
-           i,
-           Sx,
-           a,
-           RRS,
-           RRG) {
+  function(
+      wth,
+      emergence,
+      onset,
+      duration,
+      rhlim,
+      rainlim,
+      H0,
+      I0,
+      RcA,
+      RcT,
+      RcOpt,
+      p,
+      i,
+      Sx,
+      a,
+      RRS,
+      RRG) {
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
@@ -215,8 +216,10 @@ SEIR <-
     dates <- seq(from = emergence, to = harvest, by = "day")
 
     # check that the dates roughly align
-    if (!(emergence >= wth[1, YYYYMMDD]) ||
-      (max(dates) > max(wth[, YYYYMMDD]))) {
+    if (
+      !(emergence >= wth[1, YYYYMMDD]) ||
+        (max(dates) > max(wth[, YYYYMMDD]))
+    ) {
       stop(
         call. = FALSE,
         "Incomplete weather data or dates do not align"
@@ -364,12 +367,14 @@ SEIR <-
 #' @dev
 
 .fn_Rc <- function(.Rc, .xout) {
-  return(stats::approx(
-    x = .Rc[, 1],
-    y = .Rc[, 2],
-    method = "linear",
-    xout = .xout,
-    yleft = 0,
-    yright = 0
-  )$y)
+  return(
+    stats::approx(
+      x = .Rc[, 1],
+      y = .Rc[, 2],
+      method = "linear",
+      xout = .xout,
+      yleft = 0,
+      yright = 0
+    )$y
+  )
 }
