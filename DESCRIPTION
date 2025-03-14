@@ -37,6 +37,7 @@ BugReports: https://codeberg.org/adamhsparks/epicrop/issues
 Depends:
     R (>= 3.5.0)
 Imports:
+    cli,
     data.table,
     nasapower (>= 4.0),
     stats
