@@ -22,9 +22,9 @@
 ^pkgdown$
 ^LICENSE\.md$
 ^air\.toml$
-^man/dot-fn_Rc\.Rd$
-^man/dot-check_na\.Rd$
 
 
 # flir files
 ^flir$
+^man/dot-fn_Rc\.Rd$
+^man/dot-check_na\.Rd$
