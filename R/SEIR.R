@@ -163,24 +163,23 @@
 
 SEIR <-
   function(
-    wth,
-    emergence,
-    onset,
-    duration,
-    rhlim,
-    rainlim,
-    H0,
-    I0,
-    RcA,
-    RcT,
-    RcOpt,
-    p,
-    i,
-    Sx,
-    a,
-    RRS,
-    RRG
-  ) {
+      wth,
+      emergence,
+      onset,
+      duration,
+      rhlim,
+      rainlim,
+      H0,
+      I0,
+      RcA,
+      RcT,
+      RcOpt,
+      p,
+      i,
+      Sx,
+      a,
+      RRS,
+      RRG) {
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
@@ -189,25 +188,22 @@ SEIR <-
 
     # check aggregation values
     if (a < 1L) {
-      stop(
-        call. = FALSE,
-        "`a` cannot be set to less than 1. Valid aggregation values, `a`,",
+      cli::abort(
+        "{.var a} cannot be set to less than 1. Valid aggregation values, `a`,",
         " are from 1 to > 1."
       )
     }
 
     # check site values
     if (H0 < 0) {
-      stop(
-        call. = FALSE,
-        "H0 cannot be < 0, check your initial number of healthy sites."
+      cli::cli_abort(
+        "{.var H0} ffnnot be < 0, check your initial number of healthy sites."
       )
     }
 
     if (I0 < 0) {
-      stop(
-        call. = FALSE,
-        "I0 cannot be < 0, check your initial number of infective sites."
+      cli::cli_abort(
+        "{.var I0} cannot be < 0, check your initial number of infective sites."
       )
     }
 
@@ -221,9 +217,8 @@ SEIR <-
       !(emergence >= wth[1, YYYYMMDD]) ||
         (max(dates) > max(wth[, YYYYMMDD]))
     ) {
-      stop(
-        call. = FALSE,
-        "Incomplete weather data or dates do not align"
+      cli::cli_abort(
+        "Incomplete weather data or dates do not align."
       )
     }
 
@@ -243,11 +238,11 @@ SEIR <-
     # Create output vars
     cofr <-
       rc <-
-        RcW <- latency <- infectious <- intensity <- rsenesced <-
-          rgrowth <-
-            rtransfer <- infection <- diseased <- senesced <- removed <-
-              now_infectious <- now_latent <- sites <- total_sites <-
-                vector(mode = "double", length = duration)
+      RcW <- latency <- infectious <- intensity <- rsenesced <-
+      rgrowth <-
+      rtransfer <- infection <- diseased <- senesced <- removed <-
+      now_infectious <- now_latent <- sites <- total_sites <-
+      vector(mode = "double", length = duration)
 
     # Calculate state values -----
     for (d in 1:duration) {
@@ -349,7 +344,7 @@ SEIR <-
       out[, lon := rep_len(wth[, LON], .N)]
     }
 
-    return(out[])
+    out[]
   }
 
 # .fn_Rc() ----
@@ -368,14 +363,12 @@ SEIR <-
 #' @dev
 
 .fn_Rc <- function(.Rc, .xout) {
-  return(
-    stats::approx(
-      x = .Rc[, 1],
-      y = .Rc[, 2],
-      method = "linear",
-      xout = .xout,
-      yleft = 0,
-      yright = 0
-    )$y
-  )
+  stats::approx(
+    x = .Rc[, 1],
+    y = .Rc[, 2],
+    method = "linear",
+    xout = .xout,
+    yleft = 0,
+    yright = 0
+  )$y
 }
