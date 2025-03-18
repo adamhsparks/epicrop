@@ -12,8 +12,6 @@
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'
-#' [predict_lb()] is a shorthand alias for [predict_leaf_blast()].
-#'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
@@ -79,7 +77,7 @@
 #' @family predict functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [SEIR]
 #'
 #' @export
 predict_leaf_blast <- function(wth, emergence) {

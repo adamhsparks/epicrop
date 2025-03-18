@@ -41,8 +41,6 @@ The model represents site size as 45
 
 Default values for this disease model are derived from Table 2 (Savary
 \emph{et al.} 2012).
-
-\code{\link[=predict_lb]{predict_lb()}} is a shorthand alias for \code{\link[=predict_leaf_blast]{predict_leaf_blast()}}.
 }
 \note{
 Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
@@ -108,7 +106,7 @@ Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
 the Philippines at Los Baños, 82 p.
 }
 \seealso{
-\code{\link[=SEIR]{SEIR()}}
+\link{SEIR}
 
 Other predict functions: 
 \code{\link{predict_bacterial_blight}()},
