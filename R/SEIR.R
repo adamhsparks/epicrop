@@ -42,6 +42,12 @@
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature (numeric vector).  Described in Table 1 of Savary
 #'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#' @param RcRH modifier for _Rc_ (the basic infection rate corrected for
+#'  removals) for relative humidity (numeric vector).  _Not in the original
+#'  model_. This is an optional parameter to allow for the inclusion of relative
+#'  humidity in the calculation of the basic infection rate corrected for
+#'  removals as used in Kim et al. 2015.  If not provided, the model will not
+#'  use this parameter. Defaults to `NULL`.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Derived from Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
 #'  2015.
@@ -103,6 +109,7 @@
 #'   rainlim = 5,
 #'   RcA = RcA,
 #'   RcT = RcT,
+#'   RcRH = RcRH,
 #'   RcOpt = 0.61,
 #'   p = 6,
 #'   i = 19,
@@ -125,15 +132,15 @@
 #' @details # _LAT_/_LON_
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
 #' @seealso
 #' `SEIR()` is called by the following specific disease modelling functions:
-#' * [predict_bacterial_blight],
-#' * [predict_brown_spot],
-#' * [predict_leaf_blast],
-#' * [predict_sheath_blight],
-#' * [predict_tungro]
+#' * [bacterial_blight],
+#' * [brown_spot],
+#' * [leaf_blast],
+#' * [sheath_blight],
+#' * [tungro]
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
@@ -173,6 +180,7 @@ SEIR <-
       I0,
       RcA,
       RcT,
+      RcRH = NULL,
       RcOpt,
       p,
       i,
@@ -235,6 +243,9 @@ SEIR <-
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
 
+    if (!is.null(RcRH)) {
+      Rc_rhum <- .fn_Rc(.Rc = RcRH, .xout = wth$RHUM)
+    }
     # Create output vars
     cofr <-
       rc <-

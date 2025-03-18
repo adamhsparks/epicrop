@@ -15,6 +15,7 @@ SEIR(
   I0,
   RcA,
   RcT,
+  RcRH = NULL,
   RcOpt,
   p,
   i,
@@ -70,6 +71,13 @@ removals) for crop age (numeric vector).  Described in Table 1 of Savary
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature (numeric vector).  Described in Table 1 of Savary
 \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+
+\item{RcRH}{modifier for \emph{Rc} (the basic infection rate corrected for
+removals) for relative humidity (numeric vector).  \emph{Not in the original
+model}. This is an optional parameter to allow for the inclusion of relative
+humidity in the calculation of the basic infection rate corrected for
+removals as used in Kim et al. 2015.  If not provided, the model will not
+use this parameter. Defaults to \code{NULL}.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Derived from Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
@@ -133,7 +141,7 @@ greater detail.
 \section{\emph{LAT}/\emph{LON}}{
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These
-columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
+columns are provided by default when using \link{get_wth}.
 }
 
 \examples{
@@ -166,6 +174,7 @@ emergence <- "2000-07-15"
   rainlim = 5,
   RcA = RcA,
   RcT = RcT,
+  RcRH = RcRH,
   RcOpt = 0.61,
   p = 6,
   i = 19,
@@ -196,11 +205,11 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \seealso{
 \code{SEIR()} is called by the following specific disease modelling functions:
 \itemize{
-\item \link{predict_bacterial_blight},
-\item \link{predict_brown_spot},
-\item \link{predict_leaf_blast},
-\item \link{predict_sheath_blight},
-\item \link{predict_tungro}
+\item \link{bacterial_blight},
+\item \link{brown_spot},
+\item \link{leaf_blast},
+\item \link{sheath_blight},
+\item \link{tungro}
 }
 }
 \author{
