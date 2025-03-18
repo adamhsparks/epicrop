@@ -26,7 +26,7 @@
 #' in the output for mapping purposes. Both values must be present. These
 #' columns are provided by default when using [get_wth].
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
 #'
 #' @returns A [data.table::data.table] of disease intensity and infection
 #' sites. See [SEIR] for a full description of the column values.

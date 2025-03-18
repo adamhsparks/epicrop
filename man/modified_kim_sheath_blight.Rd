@@ -8,7 +8,7 @@ modified_kim_sheath_blight(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any\code{\link[base:data.frame]{base::data.frame()}} object
+\acronym{POWER} data from \link{get_wth}, but any\link[base:data.frame]{base::data.frame} object
 that has the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
@@ -111,11 +111,11 @@ Science Council Monthly, ROC 7:1208-1219.
 \link{SEIR}
 
 Other predict functions: 
-\code{\link{predict_bacterial_blight}()},
-\code{\link{predict_brown_spot}()},
-\code{\link{predict_leaf_blast}()},
-\code{\link{predict_sheath_blight}()},
-\code{\link{predict_tungro}()}
+\code{\link{bacterial_blight}()},
+\code{\link{brown_spot}()},
+\code{\link{leaf_blast}()},
+\code{\link{sheath_blight}()},
+\code{\link{tungro}()}
 }
 \author{
 Kwang-Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,

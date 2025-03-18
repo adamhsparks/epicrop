@@ -7,7 +7,7 @@
 .check_na(.wth)
 }
 \arguments{
-\item{.wth}{A data.frame object from \code{\link[nasapower:get_power]{nasapower::get_power()}} with weather
+\item{.wth}{A data.frame object from \link[nasapower:get_power]{nasapower::get_power} with weather
 data for checking
 Checks the data returned from the POWER dataset and informs the user if
 missing values are found. It does not do anything other than emitting am

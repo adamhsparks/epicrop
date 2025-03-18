@@ -3,7 +3,7 @@
 #' A dynamic mechanistic simulation of tungro disease of rice, causal agents
 #' _Rice Tungro Spherical Virus_ and _Rice Tungro Bacilliform Virus_.
 #' The model is driven by daily weather data, which can easily be accessed using
-#'[get_wth()] to download weather data from \acronym{NASA} \acronym{POWER} using
+#'[get_wth] to download weather data from \acronym{NASA} \acronym{POWER} using
 #'\CRANpkg{nasapower}.
 #'
 #' @details
@@ -21,12 +21,12 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
 #'
-#' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites.  See [SEIR()] for a full description of the column values.
+#' @returns A [data.table::data.table] of disease intensity and infection
+#' sites.  See [SEIR] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -35,7 +35,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' tg <- predict_tungro(wth, emergence = "2000-07-01")
+#' tg <- tungro(wth, emergence = "2000-07-01")
 #' plot(x = tg$dates, y = tg$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
@@ -64,10 +64,10 @@
 #' @family predict functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [SEIR]
 #'
 #' @export
-predict_tungro <- function(wth, emergence) {
+tungro <- function(wth, emergence) {
   return(
     SEIR(
       wth = wth,

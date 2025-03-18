@@ -98,7 +98,7 @@ get_wth <- function(lonlat, dates, duration) {
 }
 
 #' Check POWER data for any missing values
-#' @param .wth A data.frame object from [nasapower::get_power()] with weather
+#' @param .wth A data.frame object from [nasapower::get_power] with weather
 #'  data for checking
 #' Checks the data returned from the POWER dataset and informs the user if
 #' missing values are found. It does not do anything other than emitting am

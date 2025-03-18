@@ -2,7 +2,7 @@
 #'
 #' A dynamic mechanistic simulation of rice brown spot, causal agent
 #' _Cochliobolus miyabeanus_. The model is driven by daily weather data, which
-#' can easily be accessed using[get_wth()] to download weather data from
+#' can easily be accessed using[get_wth] to download weather data from
 #' \acronym{NASA} \acronym{POWER}.
 #'
 #' @details
@@ -12,7 +12,7 @@
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'
-#' [predict_bs()] is a shorthand alias for [predict_brown_spot()].
+#' [bs] is a shorthand alias for [brown_spot].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -23,16 +23,16 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
 #' @note The optimum temperature for brown spot as presented in Table 2 of
 #' Savary _et al._ 2012 has a typo. The optimal value should be 25 °C, not
 #' 20 °C as shown. The correct value, 25 °C, is used in this implementation.
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
 #'
-#' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [SEIR()] for a full description of the column values.
+#' @returns A [data.table::data.table] of disease intensity and infection
+#' sites. See [SEIR] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -40,7 +40,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' bs <- predict_brown_spot(wth, emergence = "2000-07-01")
+#' bs <- brown_spot(wth, emergence = "2000-07-01")
 #' plot(x = bs$dates, y = bs$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
@@ -75,10 +75,10 @@
 #' @family predict functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [SEIR]
 #'
 #' @export
-predict_brown_spot <- function(wth, emergence) {
+brown_spot <- function(wth, emergence) {
   return(
     SEIR(
       wth = wth,
@@ -108,10 +108,10 @@ predict_brown_spot <- function(wth, emergence) {
   )
 }
 
-#' @rdname predict_brown_spot
+#' @rdname brown_spot
 #' @examplesIf interactive()
 #' # use shorthand function
-#' bs <- predict_bs(wth, emergence = "2000-07-01")
+#' bs <- bs(wth, emergence = "2000-07-01")
 #' plot(x = bs$dates, y = bs$intensity, type = "l")
 #' @export
-predict_bs <- predict_brown_spot
+bs <- brown_spot

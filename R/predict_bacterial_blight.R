@@ -2,7 +2,7 @@
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent _Xanthomonas oryzae_ pv. _oryzae_.  The model is driven by daily
-#' weather data, which can easily be accessed using [get_wth()] to download
+#' weather data, which can easily be accessed using [get_wth] to download
 #' weather data from \acronym{NASA} \acronym{POWER}.
 #'
 #' @details
@@ -11,7 +11,7 @@
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'
-#' [predict_bb()] is a shorthand alias for [predict_bacterial_blight()].
+#' [bb] is a shorthand alias for [bacterial_blight].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -22,10 +22,10 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
 #' @param wth Weather data with a daily time-step, normally \acronym{NASA}
-#' \acronym{POWER} data from [get_wth()], but any[base::data.frame()] object
+#' \acronym{POWER} data from [get_wth], but any[base::data.frame] object
 #' that has the following properly named columns in them will work.
 #'
 #'   **Field Name** | **Value**
@@ -40,8 +40,8 @@
 #'
 #' @param emergence Expected date of crop emergence
 #'
-#' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [SEIR()] for a full description of the column values.
+#' @returns A [data.table::data.table] of disease intensity and infection
+#' sites. See [SEIR] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -49,7 +49,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+#' bb <- bacterial_blight(wth, emergence = "2000-07-01")
 #' plot(x = bb$dates, y = bb$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
@@ -86,10 +86,10 @@
 #' @family predict functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [SEIR]
 #'
 #' @export
-predict_bacterial_blight <- function(wth, emergence) {
+bacterial_blight <- function(wth, emergence) {
   return(
     SEIR(
       wth = wth,
@@ -119,10 +119,10 @@ predict_bacterial_blight <- function(wth, emergence) {
   )
 }
 
-#' @rdname predict_bacterial_blight
+#' @rdname bacterial_blight
 #' @examplesIf interactive()
 #' # use shorthand function
-#' bb <- predict_bb(wth, emergence = "2000-07-01")
+#' bb <- bb(wth, emergence = "2000-07-01")
 #' plot(x = bb$dates, y = bb$intensity, type = "l")
 #' @export
-predict_bb <- predict_bacterial_blight
+bb <- bacterial_blight

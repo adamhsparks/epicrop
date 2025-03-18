@@ -14,7 +14,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+#' bb <- bacterial_blight(wth, emergence = "2000-07-01")
 #' .calculate_audpc(intensity = bb$intensity)
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}

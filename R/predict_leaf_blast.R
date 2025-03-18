@@ -14,16 +14,16 @@
 #'
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
 #' The optimum temperature for leaf blast as presented in Table 2 of
 #' Savary _et al._ 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
 #'
-#' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [SEIR()] for a full description of the column values.
+#' @returns A [data.table::data.table] of disease intensity and infection
+#' sites. See [SEIR] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -32,7 +32,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' lb <- predict_leaf_blast(wth, emergence = "2000-07-01")
+#' lb <- leaf_blast(wth, emergence = "2000-07-01")
 #' plot(x = lb$dates, y = lb$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
@@ -74,7 +74,7 @@
 #' [SEIR]
 #'
 #' @export
-predict_leaf_blast <- function(wth, emergence) {
+leaf_blast <- function(wth, emergence) {
   return(
     SEIR(
       wth = wth,
@@ -156,10 +156,10 @@ predict_leaf_blast <- function(wth, emergence) {
   )
 }
 
-#' @rdname predict_leaf_blast
+#' @rdname leaf_blast
 #' @examplesIf interactive()
 #' # use shorthand function
-#' lb <- predict_lb(wth, emergence = "2000-07-01")
+#' lb <- lb(wth, emergence = "2000-07-01")
 #' plot(x = lb$dates, y = lb$intensity, type = "l")
 #' @export
-predict_lb <- predict_leaf_blast
+lb <- leaf_blast
