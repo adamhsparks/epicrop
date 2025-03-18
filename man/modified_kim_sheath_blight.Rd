@@ -2,7 +2,7 @@
 % Please edit documentation in R/modfied_kim_sheath_blight.R
 \name{modified_kim_sheath_blight}
 \alias{modified_kim_sheath_blight}
-\title{Predict Rice Sheath Blight Intensity}
+\title{Predict Rice Sheath Blight Intensity Using a Modified Kim Model}
 \usage{
 modified_kim_sheath_blight(wth, emergence)
 }
@@ -118,7 +118,7 @@ Other predict functions:
 \code{\link{predict_tungro}()}
 }
 \author{
-Kwang Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,
+Kwang-Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,
 Jorrel Khalil Aunario, and Adam H. Sparks
 }
 \concept{predict functions}

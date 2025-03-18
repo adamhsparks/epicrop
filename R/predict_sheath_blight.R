@@ -3,7 +3,7 @@
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal
 #' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
 #' data, which can easily be accessed using[get_wth()] to download weather data
-#' from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+#' from \acronym{NASA} \acronym{POWER}.
 #'
 #'
 #' @details

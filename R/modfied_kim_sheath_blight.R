@@ -1,4 +1,4 @@
-#' Predict Rice Sheath Blight Intensity
+#' Predict Rice Sheath Blight Intensity Using a Modified Kim Model
 #'
 #' A dynamic mechanistic simulation of sheath blight disease of rice, causal
 #' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
@@ -40,7 +40,7 @@
 #' mk_sb <- modified_kim_sheath_blight(wth, emergence = "2000-07-01")
 #' plot(x = mk_sb$dates, y = mk_sb$intensity, type = "l")
 #'
-#' @author Kwang Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,
+#' @author Kwang-Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,
 #' Jorrel Khalil Aunario, and Adam H. Sparks
 #'
 #' @references
