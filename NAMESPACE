@@ -2,6 +2,7 @@
 
 export(SEIR)
 export(get_wth)
+export(modified_kim_sheath_blight)
 export(predict_bacterial_blight)
 export(predict_bb)
 export(predict_brown_spot)

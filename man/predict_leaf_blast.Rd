@@ -109,6 +109,7 @@ the Philippines at Los Baños, 82 p.
 \link{SEIR}
 
 Other predict functions: 
+\code{\link{modified_kim_sheath_blight}()},
 \code{\link{predict_bacterial_blight}()},
 \code{\link{predict_brown_spot}()},
 \code{\link{predict_sheath_blight}()},

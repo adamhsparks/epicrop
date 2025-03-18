@@ -87,6 +87,7 @@ its implication in disease management. Plant Disease 77:877-882. DOI:
 \code{\link[=SEIR]{SEIR()}}
 
 Other predict functions: 
+\code{\link{modified_kim_sheath_blight}()},
 \code{\link{predict_bacterial_blight}()},
 \code{\link{predict_brown_spot}()},
 \code{\link{predict_leaf_blast}()},

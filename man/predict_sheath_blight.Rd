@@ -112,6 +112,7 @@ Science Council Monthly, ROC 7:1208-1219.
 \code{\link[=SEIR]{SEIR()}}
 
 Other predict functions: 
+\code{\link{modified_kim_sheath_blight}()},
 \code{\link{predict_bacterial_blight}()},
 \code{\link{predict_brown_spot}()},
 \code{\link{predict_leaf_blast}()},
