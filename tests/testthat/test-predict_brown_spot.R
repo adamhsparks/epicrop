@@ -1,7 +1,7 @@
 
 test_that("Values are as expected", {
   wth <- epicrop:::wth
-  bs <- predict_brown_spot(wth, emergence = "2000-07-01")
+  bs <- brown_spot(wth, emergence = "2000-07-01")
 
   expect_named(
     bs,

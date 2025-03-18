@@ -1,7 +1,7 @@
 
 test_that("Values are as expected", {
   wth <- epicrop:::wth
-  tungro <- predict_tungro(wth, emergence = "2000-07-01")
+  tungro <- tungro(wth, emergence = "2000-07-01")
 
   expect_named(
     tungro,

@@ -1,7 +1,7 @@
 
 test_that("Values are as expected", {
   wth <- epicrop:::wth
-  lb <- predict_leaf_blast(wth, emergence = "2000-07-01")
+  lb <- leaf_blast(wth, emergence = "2000-07-01")
 
   expect_named(
     lb,
