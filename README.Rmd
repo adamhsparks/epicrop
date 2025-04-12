@@ -50,7 +50,7 @@ if (!require("pak")) {
 
 pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop")
 
-options(0) # reset options
+options(o) # reset options
 ```
 
 ## Get weather data
