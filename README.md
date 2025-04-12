@@ -17,7 +17,7 @@ output: github_document
 A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use.
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
-The original EPIRICE manuscript, Savary *et al.* (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
+The original EPIRICE manuscript, Savary *et al.* (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
 
 # Quick start
 
@@ -29,6 +29,10 @@ You can install it this way.
 
 
 ``` r
+o <- options() # capture default options
+
+options(pkg.build_vignettes = TRUE)
+
 if (!require("pak")) {
   install.packages("pak",
     repos = sprintf(
@@ -39,6 +43,8 @@ if (!require("pak")) {
 }
 
 pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop")
+
+options(0) # reset options
 ```
 
 ## Get weather data
@@ -83,32 +89,45 @@ Once you have the weather data, run the model for any of the five rice diseases 
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 
 bb
-#>      simday      dates     sites    latent infectious  removed    senesced  rateinf rtransfer
-#>       <int>     <Date>     <num>     <num>      <num>    <num>       <num>    <num>     <num>
-#>   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000  0.00000   0.00000
-#>   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000  0.00000   0.00000
-#>   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875  0.00000   0.00000
-#>   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877  0.00000   0.00000
-#>   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811  0.00000   0.00000
-#>  ---                                                                                         
-#> 116:    116 2000-10-24 1442.4836 105.87923   954.9354 223.8352 2097.385647  0.00000  29.85591
-#> 117:    117 2000-10-25 1418.0978  76.02332   953.5148 255.1118 2143.087067 23.19935  26.80440
-#> 118:    118 2000-10-26 1369.3763  72.41827   946.9419 288.4890 2190.645270 20.80752  25.36284
-#> 119:    119 2000-10-27 1321.9560  67.86296   937.0147 323.7791 2239.629140 18.61122  23.85609
-#> 120:    120 2000-10-28 1275.5526  62.61810   923.6023 361.0475 2290.117140 16.58631   0.00000
-#>       rgrowth rsenesced diseased intensity    AUDPC     lat      lon
-#>         <num>     <num>    <num>     <num>    <num>   <num>    <num>
-#>   1:  9.68750  1.000000    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   2: 10.49959  1.086875    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   3: 11.37416  1.181002    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   4: 12.31499  1.282934    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   5: 13.32593  1.393254    0.000 0.0000000 12.53946 14.6774 121.2556
-#>  ---                                                                
-#> 116: 21.31570 45.701419 1284.650 0.4237668 12.53946 14.6774 121.2556
-#> 117: 22.03601 47.558203 1284.650 0.4206255 12.53946 14.6774 121.2556
-#> 118: 22.37109 48.983870 1307.849 0.4267361 12.53946 14.6774 121.2556
-#> 119: 22.69581 50.488000 1328.657 0.4318648 12.53946 14.6774 121.2556
-#> 120: 23.00696 47.881728 1347.268 0.4360386 12.53946 14.6774 121.2556
+#>      simday      dates     sites    latent infectious  removed    senesced
+#>       <int>     <Date>     <num>     <num>      <num>    <num>       <num>
+#>   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000
+#>   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000
+#>   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875
+#>   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877
+#>   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811
+#>  ---                                                                      
+#> 116:    116 2000-10-24 1442.4836 105.87923   954.9354 223.8352 2097.385647
+#> 117:    117 2000-10-25 1418.0978  76.02332   953.5148 255.1118 2143.087067
+#> 118:    118 2000-10-26 1369.3763  72.41827   946.9419 288.4890 2190.645270
+#> 119:    119 2000-10-27 1321.9560  67.86296   937.0147 323.7791 2239.629140
+#> 120:    120 2000-10-28 1275.5526  62.61810   923.6023 361.0475 2290.117140
+#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat
+#>         <num>     <num>    <num>     <num>    <num>     <num>    <num>   <num>
+#>   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.53946 14.6774
+#>   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.53946 14.6774
+#>   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.53946 14.6774
+#>   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 12.53946 14.6774
+#>   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 12.53946 14.6774
+#>  ---                                                                          
+#> 116:  0.00000  29.85591 21.31570 45.701419 1284.650 0.4237668 12.53946 14.6774
+#> 117: 23.19935  26.80440 22.03601 47.558203 1284.650 0.4206255 12.53946 14.6774
+#> 118: 20.80752  25.36284 22.37109 48.983870 1307.849 0.4267361 12.53946 14.6774
+#> 119: 18.61122  23.85609 22.69581 50.488000 1328.657 0.4318648 12.53946 14.6774
+#> 120: 16.58631   0.00000 23.00696 47.881728 1347.268 0.4360386 12.53946 14.6774
+#>           lon
+#>         <num>
+#>   1: 121.2556
+#>   2: 121.2556
+#>   3: 121.2556
+#>   4: 121.2556
+#>   5: 121.2556
+#>  ---         
+#> 116: 121.2556
+#> 117: 121.2556
+#> 118: 121.2556
+#> 119: 121.2556
+#> 120: 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
