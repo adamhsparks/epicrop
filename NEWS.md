@@ -1,245 +1,256 @@
+# epicrop 1.0.9000
+
+## Major Changes
+
+- `SEIR()` is now `seir()`
+
+- Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.
+
 # epicrop 0.0.3
 
-## Major changes
+## Minor changes
 
-* Extend the RcA curve for bacterial blight, the original version of EPIRICE had `...0.43, 0.41, 0.42, 0.41`, previous versions of {epicrop} had `...0.43, 0.41, 0.41, 0.41`, now we have `...0.43, 0.42, 0.42, 0.41...`.
+- Extend the RcA curve for bacterial blight, the original version of EPIRICE had `...0.43, 0.41, 0.42, 0.41`, previous versions of {epicrop} had `...0.43, 0.41, 0.41, 0.41`, now we have `...0.43, 0.42, 0.42, 0.41...`.
 
 ## Bug fixes
 
-* Corrected documentation for `get_wth()`, {nasapower} is only client used.
+- Corrected documentation for `get_wth()`, {nasapower} is only client used.
 
 # epicrop 0.0.2
 
 ## Minor changes
 
-* Simplify inputs in helper functions, don't create a vector, just use in function call.
+- Simplify inputs in helper functions, don't create a vector, just use in function call.
 
-* Use {vcr} for tests involving weather data fetching.
+- Use {vcr} for tests involving weather data fetching.
 
 ## Bug fixes
 
-* Correct issue where {dplyr} library was not loaded in vignette, causing example to error when run.
+- Correct issue where {dplyr} library was not loaded in vignette, causing example to error when run.
 
 # epicrop 0.0.1
 
-* First stable release on GitHub.
+- First stable release on GitHub.
 
-* Fixes function title formatting.
+- Fixes function title formatting.
 
-* Replaces outdated {tidyverse} functions found in vignettes with modern versions.
+- Replaces outdated {tidyverse} functions found in vignettes with modern versions.
 
 # epicrop 0.0.0.9018
 
-* Remove {chirps} functionality to simplify package structure.
+- Remove {chirps} functionality to simplify package structure.
 
 # epicrop 0.0.0.9017
 
-* Update README R output.
+- Update README R output.
 
-* Polish map output in the mapping vignette.
+- Polish map output in the mapping vignette.
 
-* Polish names for figure in multiple locations figure.
+- Polish names for figure in multiple locations figure.
 
-* Remove references and functionality called from {epifitter}; AUDPC is calculated internally now.
+- Remove references and functionality called from {epifitter}; AUDPC is calculated internally now.
 
 # epicrop 0.0.0.9016
 
 ## Minor changes
 
-* Change `audpc` to `AUDPC` for easier graphing.
+- Change `audpc` to `AUDPC` for easier graphing.
 
-* Add new vignette to demonstrate mapping AUDPC values using lat/lon from model output.
+- Add new vignette to demonstrate mapping AUDPC values using lat/lon from model output.
 
 # epicrop 0.0.0.9015
 
 ## Minor changes
 
-* Add area under the disease progress curve (AUDPC) values to model output.
+- Add area under the disease progress curve (AUDPC) values to model output.
 
-* Adds shorthand versions of functions for:
+- Adds shorthand versions of functions for:
   - `predict_bacterial_blight()` > `predict_bb()`
   - `predict_brown_spot()` > `predict_bs()`
   - `predict_leaf_blast()` > `predict_lb()`
   - `predict_sheath_blight()` > `predict_sb()`
-  
+
 ## Bug fixes
 
-* Fixes bug when that caused a failure fetching CHIRPS weather data.
+- Fixes bug when that caused a failure fetching CHIRPS weather data.
 
 # epicrop 0.0.0.9014
 
 ## Minor changes
 
-* Check user inputs for `H0` and `I0` to ensure that they are >= 0.
+- Check user inputs for `H0` and `I0` to ensure that they are >= 0.
 
-* 100% complete test coverage.
+- 100% complete test coverage.
 
-* The final `data.frame` created from vectors of state values in `SEIR()` is simplified into one step, creating a named `data.table` rather than create a `data.table` and then naming cols.
+- The final `data.frame` created from vectors of state values in `SEIR()` is simplified into one step, creating a named `data.table` rather than create a `data.table` and then naming cols.
 
 # epicrop 0.0.0.9013
 
 ## Bug fixes
 
-* Fixes a bug introduced into SEIR() with the last round of bug fixes.
-The calculations for latent and infectious sites were still calculating for the next, not current, day in the `for()` loop.
+- Fixes a bug introduced into SEIR() with the last round of bug fixes.
+  The calculations for latent and infectious sites were still calculating for the next, not current, day in the `for()` loop.
 
-* Corrects values in the example for `SEIR()` to run the model for brown spot.
+- Corrects values in the example for `SEIR()` to run the model for brown spot.
 
 ## Minor changes
 
-* Updates input values for `Rc` curves in each of the EPIRICE models such that the values used to compute the curve are all supplied, none are computed before the interpolation is performed.
-This leads to longer, but clearer lines of code.
+- Updates input values for `Rc` curves in each of the EPIRICE models such that the values used to compute the curve are all supplied, none are computed before the interpolation is performed.
+  This leads to longer, but clearer lines of code.
 
-* All of the help files now reference NASA POWER and CHIRPS both as sources of possible weather data for use in the model.
+- All of the help files now reference NASA POWER and CHIRPS both as sources of possible weather data for use in the model.
 
 # epicrop 0.0.0.9012
 
 ## Bug fixes
 
-* Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287. See Lines 124:126 that were changed to Lines 118:120 where
-```r 
+- Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit <https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287>. See Lines 124:126 that were changed to Lines 118:120 where
+
+```r
 Rc[day+1] <- baseRc * AFGen(ageRc, day) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
 ```
+
 should have been
+
 ```r
 Rc[day+1] <- baseRc * AFGen(ageRc, day+1) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
 ```
+
 to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://codeberg.org/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
 
-* Fixes typos in `RcA` values for `predict_bacterial_blight()` and `predict_sheath_blight()`.
-  * In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit [8b2c36b61d4f949385dcac4c03ff435b8400e335](https://codeberg.org/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335).
-  * In `predict_sheath_blight()` the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: [69b89ce24dd41c16d4627225c028355f76a64b80](https://codeberg.org/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80).
+- Fixes typos in `RcA` values for `predict_bacterial_blight()` and `predict_sheath_blight()`.
+  - In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit [8b2c36b61d4f949385dcac4c03ff435b8400e335](https://codeberg.org/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335).
+  - In `predict_sheath_blight()` the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: [69b89ce24dd41c16d4627225c028355f76a64b80](https://codeberg.org/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80).
 
 ## Major changes
 
-* Implements a new function to calculate the correction values for crop age, `RcA`, and temperature, `RcT`, using `approx()` in a custom function that is faster than the `select_mod_value()` function.
+- Implements a new function to calculate the correction values for crop age, `RcA`, and temperature, `RcT`, using `approx()` in a custom function that is faster than the `select_mod_value()` function.
 
-* Implements new functionality for `get_wth()` to optionally get data from the CHIRPS/CHIRTS APIs in addition to the default NASA POWER API.
+- Implements new functionality for `get_wth()` to optionally get data from the CHIRPS/CHIRTS APIs in addition to the default NASA POWER API.
 
-* Uses one-indexed `for()` loop, in place of the zero-indexed `for()` loop found in {cropsim}.
+- Uses one-indexed `for()` loop, in place of the zero-indexed `for()` loop found in {cropsim}.
 
 # epicrop 0.0.0.9011
 
 ## Minor changes
 
-* Fix title in vignette entry.
+- Fix title in vignette entry.
 
-* Remove `lazyData` field from DESCRIPTION.
+- Remove `lazyData` field from DESCRIPTION.
 
-* Remove redundant `maintainer` field from DESCRIPTION.
+- Remove redundant `maintainer` field from DESCRIPTION.
 
-* Remove dates (date when knit) from vignettes.
+- Remove dates (date when knit) from vignettes.
 
-* Fix/clean up note on parallel processing in "Multiples" vignette.
+- Fix/clean up note on parallel processing in "Multiples" vignette.
 
-* Better, more consistent documentation.
+- Better, more consistent documentation.
 
-* Update `get_wth()` to work with the new (unreleased) version of {nasapower} that works with the new version of the POWER API.
+- Update `get_wth()` to work with the new (unreleased) version of {nasapower} that works with the new version of the POWER API.
 
 # epicrop 0.0.0.9010-1
 
 ## Minor changes
 
-* Fixes issue in vignettes with duplicate titles and plot theming.
+- Fixes issue in vignettes with duplicate titles and plot theming.
 
 # epicrop 0.0.0.9010
 
 ## Major changes
 
-* **BREAKING CHANGE** `intensity` column, in `SEIR()` is now a proportion, _i.e._ values range between 0 - 1.
-If you wish to have the same values as previously reported, `df$intensity*100` will give you these values.
+- **BREAKING CHANGE** `intensity` column, in `SEIR()` is now a proportion, _i.e._ values range between 0 - 1.
+  If you wish to have the same values as previously reported, `df$intensity*100` will give you these values.
 
-* **BREAKING CHANGE** Removes column, `severity`, in `SEIR()` output.
+- **BREAKING CHANGE** Removes column, `severity`, in `SEIR()` output.
 
-* Adds a new vignette illustrating how to run multiple simulations and use parallel processing to reduce run time for these simulations.
+- Adds a new vignette illustrating how to run multiple simulations and use parallel processing to reduce run time for these simulations.
 
 # epicrop 0.0.0.9009
 
 ## Major changes
 
-* **BREAKING CHANGE** Add a new column to `SEIR()` output, `severity`, not to be confused with the previous column called `severity` (now called `intensity`), which represents the cumulative proportion of diseased sites on day "x" expressed as, $\frac{diseased\ sites}{total\ sites}\times100$.
+- **BREAKING CHANGE** Add a new column to `SEIR()` output, `severity`, not to be confused with the previous column called `severity` (now called `intensity`), which represents the cumulative proportion of diseased sites on day "x" expressed as, $\frac{diseased\ sites}{total\ sites}\times100$.
 
 ## Minor changes
 
-* More improvements to function documentation, include `#' @family predict functions` in each of the `predict` functions rather than only using `'# @seealso`.
+- More improvements to function documentation, include `#' @family predict functions` in each of the `predict` functions rather than only using `'# @seealso`.
 
 # epicrop 0.0.0.9008
 
 ## Major changes
 
-* * **BREAKING CHANGE** The `severity` output column from `SEIR()` has been renamed as `intensity` to follow the nomenclature of Savary _et al._ 2012.
-This column represents the proportion of actively diseased sites on day "x" expressed as, $\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100$.
+- - **BREAKING CHANGE** The `severity` output column from `SEIR()` has been renamed as `intensity` to follow the nomenclature of Savary _et al._ 2012.
+    This column represents the proportion of actively diseased sites on day "x" expressed as, $\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100$.
 
 # epicrop 0.0.0.9007
 
 ## Minor changes
 
-* Only include Lat/Lon values if the `wth` object provides them.
+- Only include Lat/Lon values if the `wth` object provides them.
 
-* Better documentation about the Lat/Lon values in the output of `SEIR()`
+- Better documentation about the Lat/Lon values in the output of `SEIR()`
 
-* Parameters for `predict_bacterial_blight()` are used as basis for all of the other `predict_*()` family of functions.
+- Parameters for `predict_bacterial_blight()` are used as basis for all of the other `predict_*()` family of functions.
 
-* Add DOI to CITATION and DESCRIPTION files.
+- Add DOI to CITATION and DESCRIPTION files.
 
-* Add Lifecycle and DOI badges to README files.
+- Add Lifecycle and DOI badges to README files.
 
 # epicrop 0.0.0.9006
 
 ## Minor changes
 
-* Optimise `SEIR()` internal functionality.
+- Optimise `SEIR()` internal functionality.
 
-* Minor improvements to documentation.
+- Minor improvements to documentation.
 
-* Polish NEWS.md.
+- Polish NEWS.md.
 
 # epicrop 0.0.0.9005
 
 ## Minor changes
 
-* Only import {data.table} functions as necessary, don't import whole package.
+- Only import {data.table} functions as necessary, don't import whole package.
 
 ## Bug fixes
 
-* Convert `wth` (weather input object) to a `data.table` type object internally if it is not already one.
-Prior, if the object was not a `data.table`, `SEIR()` would fail with a message that the dates did not align.
-This should fix that issue and any `data.frame` type object including a `tibble` can be provided now.
-Thanks to Jean Fabrice Adanve for helping me find this bug.
+- Convert `wth` (weather input object) to a `data.table` type object internally if it is not already one.
+  Prior, if the object was not a `data.table`, `SEIR()` would fail with a message that the dates did not align.
+  This should fix that issue and any `data.frame` type object including a `tibble` can be provided now.
+  Thanks to Jean Fabrice Adanve for helping me find this bug.
 
 # epicrop 0.0.0.9004
 
 ## Bug fixes
 
-* Fixes bug where the relative humidity checks in `SEIR()` only checked if the daily RH value was equal to (`==`) not equal to or greater than (`>=`) the set parameter for `rhlim` (default is 90%).
+- Fixes bug where the relative humidity checks in `SEIR()` only checked if the daily RH value was equal to (`==`) not equal to or greater than (`>=`) the set parameter for `rhlim` (default is 90%).
 
-* Example for `SEIR()` in {roxygen} section now works properly when executed by the user.
+- Example for `SEIR()` in {roxygen} section now works properly when executed by the user.
 
 ## Major changes
 
-* Any default parameter values are moved from `SEIR()` to the `predict_()` functions themselves, so any calls directly to `SEIR()` must specify all parameters.
+- Any default parameter values are moved from `SEIR()` to the `predict_()` functions themselves, so any calls directly to `SEIR()` must specify all parameters.
 
-* Deleted `inst/alt_versions/tungrov2.R` file.
+- Deleted `inst/alt_versions/tungrov2.R` file.
 
-* Deleted `inst/workflows/spatsim.R` file. 
+- Deleted `inst/workflows/spatsim.R` file.
 
 ## Minor changes
 
-* Edit documentation for better clarity
+- Edit documentation for better clarity
 
-* Better commenting in code for self and others' reference
+- Better commenting in code for self and others' reference
 
-* `SEIR()` is simplified and further optimised
-  * In some cases in the `for()` loop, the value of `day + 1` was repeatedly calculated and assigned to a new object. This has been corrected with a single object, `d1` being created at the beginning of each loop instance.
-  * In some cases where RH, TEMP or RAIN are repeatedly checked against, vectors of these three values are created outside the loop to save time when checking or extracting values.
-  * Redundant code and other unused objects are cleaned up and removed.
-  
-* Standardise library loading calls to use standard evaluation in documentation.
+- `SEIR()` is simplified and further optimised
+  - In some cases in the `for()` loop, the value of `day + 1` was repeatedly calculated and assigned to a new object. This has been corrected with a single object, `d1` being created at the beginning of each loop instance.
+  - In some cases where RH, TEMP or RAIN are repeatedly checked against, vectors of these three values are created outside the loop to save time when checking or extracting values.
+  - Redundant code and other unused objects are cleaned up and removed.
+- Standardise library loading calls to use standard evaluation in documentation.
 
-* Standardise italics to use "_" rather than "*".
+- Standardise italics to use "\_" rather than "\*".
 
-* Use `ggplot2::theme_classic()` for example figures in README and {epicrop} vignette.
+- Use `ggplot2::theme_classic()` for example figures in README and {epicrop} vignette.
 
 # epicrop 0.0.0.9003
 
-* Added a `NEWS.md` file to track changes to the package.
+- Added a `NEWS.md` file to track changes to the package.
