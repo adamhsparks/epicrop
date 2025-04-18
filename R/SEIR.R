@@ -363,8 +363,6 @@ seir <-
     out[]
   }
 
-# .fn_Rc() ----
-
 #' Use `approx()` to return a modifier value from an RcA, RcT or RcRH curve
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
