@@ -109,7 +109,7 @@
 #'   rainlim = 5,
 #'   RcA = RcA,
 #'   RcT = RcT,
-#'   RcRH = RcRH,
+#'   RcRH = NULL,
 #'   RcOpt = 0.61,
 #'   p = 6,
 #'   i = 19,
@@ -233,7 +233,10 @@ seir <-
     # less than duration
     if (nrow(wth) > duration) {
       wth <-
-        wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1))]
+        wth[
+          YYYYMMDD %between%
+            c(emergence, emergence + sum(duration, -1))
+        ]
     }
 
     # Create vectors for referencing ----
@@ -277,7 +280,12 @@ seir <-
         }
 
         sites[[d]] <-
-          sum(sites[d_1], rgrowth[d_1], -infection[d_1], -rsenesced[d_1])
+          sum(
+            sites[d_1],
+            rgrowth[d_1],
+            -infection[d_1],
+            -rsenesced[d_1]
+          )
         rsenesced[[d]] <- sum(removed_today, RRS * sites[d])
         senesced[[d]] <- sum(senesced[d_1], rsenesced[d_1])
 
@@ -297,9 +305,9 @@ seir <-
       }
 
       if (!is.null(RcRH)) {
-        Rc[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * rc_rhum[d] * RcW[d]
+        rc[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * rc_rhum[d] * RcW[d]
       } else {
-        Rc[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * RcW[d]
+        rc[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * RcW[d]
       }
 
       diseased[[d]] <- sum(sum(infectious), now_latent[d], removed[d])
