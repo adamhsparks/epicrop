@@ -1,4 +1,4 @@
-#' Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework
+#' Susceptible-Exposed-Infectious-Removed (seir) Model Framework
 #'
 #' This function is originally used by specific disease models in
 #'  \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
@@ -100,7 +100,7 @@
 #'   )
 #' emergence <- "2000-07-15"
 #'
-#' (SEIR(
+#' (seir(
 #'   wth = wth,
 #'   emergence = emergence,
 #'   onset = 20,
@@ -135,7 +135,7 @@
 #' columns are provided by default when using [get_wth].
 #'
 #' @seealso
-#' `SEIR()` is called by the following specific disease modelling functions:
+#' `seir()` is called by the following specific disease modelling functions:
 #' * [bacterial_blight],
 #' * [brown_spot],
 #' * [leaf_blast],
@@ -168,7 +168,7 @@
 #' @autoglobal
 #' @export
 
-SEIR <-
+seir <-
   function(
       wth,
       emergence,
@@ -197,8 +197,7 @@ SEIR <-
     # check aggregation values
     if (a < 1L) {
       cli::abort(
-        "{.var a} cannot be set to less than 1. Valid aggregation values, `a`,",
-        " are from 1 to > 1."
+        "{.var a} cannot be set to less than 1. Valid aggregation values are from 1 to > 1."
       )
     }
 
@@ -240,12 +239,14 @@ SEIR <-
     # Create vectors for referencing ----
     wth_rain <- wth$RAIN
     wth_rhum <- wth$RHUM
-    Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
-    Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
+    rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
+    rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
 
+    # for modified Kim et al. 2015 model
     if (!is.null(RcRH)) {
-      Rc_rhum <- .fn_Rc(.Rc = RcRH, .xout = wth$RHUM)
+      rc_rhum <- .fn_Rc(.Rc = RcRH, .xout = wth$RHUM)
     }
+
     # Create output vars
     cofr <-
       rc <-
@@ -295,7 +296,11 @@ SEIR <-
         RcW[[d]] <- 1
       }
 
-      rc[[d]] <- RcOpt * Rc_age[d] * Rc_temp[d] * RcW[d]
+      if (!is.null(RcRH)) {
+        Rc[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * rc_rhum[d] * RcW[d]
+      } else {
+        Rc[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * RcW[d]
+      }
 
       diseased[[d]] <- sum(sum(infectious), now_latent[d], removed[d])
 
@@ -360,13 +365,13 @@ SEIR <-
 
 # .fn_Rc() ----
 
-#' Use approx() to Return a Modifier Value From an RcA or RcT Curve
+#' Use `approx()` to return a modifier value from an RcA, RcT or RcRH curve
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
-#'  or age, `RcA`.
+#'  age, `RcA`, or relative humidity RcRH.
 #' @param .xout a value for `x`, either a temperature or age modifier value.
 #'
-#' @returns A numeric value for modifying a growth curve in `SEIR()`
+#' @returns A numeric value for modifying a growth curve in `seir()`
 #'
 #' @note This is a faster (and more simple) function that does what the original
 #'  `afgen()` from \pkg{cropsim} does.

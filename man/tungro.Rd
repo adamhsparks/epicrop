@@ -24,7 +24,7 @@ that has the following properly named columns in them will work.\tabular{rl}{
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection
-sites.  See \link{SEIR} for a full description of the column values.
+sites.  See \link{seir} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of tungro disease of rice, causal agents
@@ -84,7 +84,7 @@ its implication in disease management. Plant Disease 77:877-882. DOI:
 \doi{10.1094/PD-77-0877}.
 }
 \seealso{
-\link{SEIR}
+\link{seir}
 
 Other predict functions: 
 \code{\link{bacterial_blight}()},

@@ -1,5 +1,5 @@
 
-test_that("SEIR() stops if dates do not align", {
+test_that("seir() stops if dates do not align", {
   wth <- epicrop:::wth
 
   expect_error(bacterial_blight(wth, emergence = "1999-07-01"),
@@ -11,10 +11,10 @@ RcA <-
 RcT <-
   cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
 
-test_that("SEIR() stops if `a` < 1", {
+test_that("seir() stops if `a` < 1", {
   wth <- epicrop:::wth
   expect_error(
-    SEIR(
+    seir(
       wth = wth,
       emergence = "1999-07-01",
       onset = 20,
@@ -36,9 +36,9 @@ test_that("SEIR() stops if `a` < 1", {
   )
 })
 
-test_that("SEIR() stops if `H0` < 0", {
+test_that("seir() stops if `H0` < 0", {
   expect_error(
-    SEIR(
+    seir(
       wth = data.frame(wth),
       emergence = "1999-07-01",
       onset = 20,
@@ -60,10 +60,10 @@ test_that("SEIR() stops if `H0` < 0", {
   )
 })
 
-test_that("SEIR() stops if `I0` < 0", {
+test_that("seir() stops if `I0` < 0", {
   wth <- epicrop:::wth
   expect_error(
-    SEIR(
+    seir(
       wth = wth,
       emergence = "1999-07-01",
       onset = 20,
@@ -86,10 +86,10 @@ test_that("SEIR() stops if `I0` < 0", {
 })
 
 wth <-
-  test_that("SEIR() converts wth to a data.table object if it is not already", {
+  test_that("seir() converts wth to a data.table object if it is not already", {
     wth <- epicrop:::wth
     expect_error(
-      SEIR(
+      seir(
         wth = wth,
         emergence = "1999-07-01",
         onset = 20,

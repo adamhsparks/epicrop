@@ -28,7 +28,7 @@
 #' @inherit bacterial_blight
 #'
 #' @returns A [data.table::data.table] of disease intensity and infection
-#' sites. See [SEIR] for a full description of the column values.
+#' sites. See [seir] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -82,12 +82,12 @@
 #' @family predict functions
 #'
 #' @seealso
-#' [SEIR]
+#' [seir]
 #'
 #' @export
 sheath_blight <- function(wth, emergence) {
   return(
-    SEIR(
+    seir(
       wth = wth,
       emergence = emergence,
       onset = 30L,

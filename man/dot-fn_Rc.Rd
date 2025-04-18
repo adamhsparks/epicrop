@@ -2,21 +2,21 @@
 % Please edit documentation in R/SEIR.R
 \name{.fn_Rc}
 \alias{.fn_Rc}
-\title{Use approx() to Return a Modifier Value From an RcA or RcT Curve}
+\title{Use \code{approx()} to return a modifier value from an RcA, RcT or RcRH curve}
 \usage{
 .fn_Rc(.Rc, .xout)
 }
 \arguments{
 \item{.Rc}{A matrix describing a growth curve for either temperature, \code{RcT},
-or age, \code{RcA}.}
+age, \code{RcA}, or relative humidity RcRH.}
 
 \item{.xout}{a value for \code{x}, either a temperature or age modifier value.}
 }
 \value{
-A numeric value for modifying a growth curve in \code{SEIR()}
+A numeric value for modifying a growth curve in \code{seir()}
 }
 \description{
-Use approx() to Return a Modifier Value From an RcA or RcT Curve
+Use \code{approx()} to return a modifier value from an RcA, RcT or RcRH curve
 }
 \note{
 This is a faster (and more simple) function that does what the original

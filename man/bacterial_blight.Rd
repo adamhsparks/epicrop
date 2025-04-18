@@ -27,7 +27,7 @@ that has the following properly named columns in them will work.\tabular{rl}{
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection
-sites. See \link{SEIR} for a full description of the column values.
+sites. See \link{seir} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of bacterial blight disease of rice,
@@ -100,7 +100,7 @@ Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \doi{10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
-\link{SEIR}
+\link{seir}
 
 Other predict functions: 
 \code{\link{brown_spot}()},

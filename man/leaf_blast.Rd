@@ -32,10 +32,10 @@ that has the following properly named columns in them will work.\tabular{rl}{
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection
-sites. See \link{SEIR} for a full description of the column values.
+sites. See \link{seir} for a full description of the column values.
 
 A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection
-sites. See \link{SEIR} for a full description of the column values.
+sites. See \link{seir} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
@@ -176,9 +176,9 @@ Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
 the Philippines at Los Baños, 82 p.
 }
 \seealso{
-\link{SEIR}
+\link{seir}
 
-\link{SEIR}
+\link{seir}
 
 Other predict functions: 
 \code{\link{bacterial_blight}()},

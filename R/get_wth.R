@@ -9,7 +9,7 @@
 #' @param duration A numeric value indicating how many days a single
 #'  growing season being simulated is to be.  If this is used, only the start
 #'  date will be used and the end date will be ignored if supplied.  This must
-#'  match the `duration` parameter value passed along to [SEIR] or any of the
+#'  match the `duration` parameter value passed along to [seir] or any of the
 #'  `predict` family of functions.
 #'
 #' @returns A [data.table::data.table] object of weather data, dates and
