@@ -2,23 +2,10 @@ Type: Package
 Package: epicrop
 Title: Simulation Modelling of Crop Diseases Using a
     Susceptible-Exposed-Infectious-Removed (SEIR) Model
-Version: 0.0.3
+Version: 1.0.0.9000
 Authors@R: c(
-    person("Adam H.", "Sparks", , "adamhsparks@gmail.com", role = c("cre", "aut"),
-           comment = c(ORCID = "0000-0002-0061-8359")),
-    person("Robert", "Hijmans", , "robert.hijmans@gmail.com", role = c("aut", "trl"),
-           comment = c("Original R implementation", ORCID = "0000-0001-5872-2872")),
-    person("Serge", "Savary", , "serge.savary@toulouse.inra.fr", role = c("aut", "ccp"),
-           comment = c("Model conception and development in Stella", ORCID = "0000-0002-6867-180X")),
-    person("Ireno", "Pangga", , "ibpangga@yahoo.com", role = c("aut", "trl"),
-           comment = "Model conception, development in Stella and original R\n           implementation"),
-    person("Jorrel", "Aunario", , "j.aunario@irri.org", role = c("aut", "trl"),
-           comment = "Original R implementation"),
-    person("Aji", "Sukarta", , "aji.ixb@gmail.com", role = "ctb",
-           comment = "Helped fix bug related to SEIR model and establishment\n           date"),
-    person("Emerson", "Del Ponte", , "delponte@ufv.br", role = "ctb",
-           comment = c("Suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X"))
-  )
+ .
+   )
 Description: Generic simulation modelling of crop diseases using a
     Susceptible-Exposed-Infectious-Removed ('SEIR') model.  This type of
     model was first described in botanical epidemiology by Zadoks (1971)
