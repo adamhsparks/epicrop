@@ -43,11 +43,12 @@
 #'  removals) for temperature (numeric vector).  Described in Table 1 of Savary
 #'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param RcRH modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for relative humidity (numeric vector).  _Not in the original
-#'  model_. This is an optional parameter to allow for the inclusion of relative
-#'  humidity in the calculation of the basic infection rate corrected for
-#'  removals as used in Kim et al. 2015.  If not provided, the model will not
-#'  use this parameter. Defaults to `NULL`.
+#'  removals) for relative humidity (numeric vector).  Described in Table 1 of
+#'  Savary _et al. 2012 and Table 1 of Savary _et al._ 2015.  Defaults to
+#'  `NULL` and uses a simple calculation for leaf wetness based on percent RH
+#'  and rainfall only. If `RcRH` is provided, it will be used instead of the
+#'  default calculation and leaf wetness duration will be calculated using the
+#'  `RcRH` values.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Derived from Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
 #'  2015.
@@ -394,3 +395,8 @@ seir <-
     yright = 0
   )$y
 }
+
+#' @rdname seir
+#' @examplesIf interactive()
+#' @export
+SEIR <- seir

@@ -19,24 +19,4 @@ Useful links:
 }
 
 }
-\author{
-\strong{Maintainer}: Adam H. Sparks \email{adamhsparks@gmail.com} (\href{https://orcid.org/0000-0002-0061-8359}{ORCID})
-
-Authors:
-\itemize{
-  \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R implementation) [translator]
-  \item Serge Savary \email{serge.savary@toulouse.inra.fr} (\href{https://orcid.org/0000-0002-6867-180X}{ORCID}) (Model conception and development in Stella) [conceptor]
-  \item Ireno Pangga \email{ibpangga@yahoo.com} (Model conception, development in Stella and original R
- implementation) [translator]
-  \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator]
-}
-
-Other contributors:
-\itemize{
-  \item Aji Sukarta \email{aji.ixb@gmail.com} (Helped fix bug related to SEIR model and establishment
- date) [contributor]
-  \item Emerson Del Ponte \email{delponte@ufv.br} (\href{https://orcid.org/0000-0003-4398-409X}{ORCID}) (Suggested fixes for several typos in the documentation) [contributor]
-}
-
-}
 \keyword{internal}
