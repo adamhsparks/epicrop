@@ -2,8 +2,7 @@
 % Please edit documentation in R/seir.R
 \name{seir}
 \alias{seir}
-\alias{SEIR}
-\title{Susceptible-Exposed-Infectious-Removed (seir) Model Framework}
+\title{Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework}
 \usage{
 seir(
   wth,
@@ -16,28 +15,6 @@ seir(
   I0,
   RcA,
   RcT,
-  RcRH = NULL,
-  RcOpt,
-  p,
-  i,
-  Sx,
-  a,
-  RRS,
-  RRG
-)
-
-SEIR(
-  wth,
-  emergence,
-  onset,
-  duration,
-  rhlim,
-  rainlim,
-  H0,
-  I0,
-  RcA,
-  RcT,
-  RcRH = NULL,
   RcOpt,
   p,
   i,
@@ -93,14 +70,6 @@ removals) for crop age (numeric vector).  Described in Table 1 of Savary
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature (numeric vector).  Described in Table 1 of Savary
 \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
-
-\item{RcRH}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for relative humidity (numeric vector).  Described in Table 1 of
-Savary _et al. 2012 and Table 1 of Savary \emph{et al.} 2015.  Defaults to
-\code{NULL} and uses a simple calculation for leaf wetness based on percent RH
-and rainfall only. If \code{RcRH} is provided, it will be used instead of the
-default calculation and leaf wetness duration will be calculated using the
-\code{RcRH} values.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Derived from Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
@@ -164,7 +133,7 @@ greater detail.
 \section{\emph{LAT}/\emph{LON}}{
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These
-columns are provided by default when using \link{get_wth}.
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 
 \examples{
@@ -197,7 +166,6 @@ emergence <- "2000-07-15"
   rainlim = 5,
   RcA = RcA,
   RcT = RcT,
-  RcRH = NULL,
   RcOpt = 0.61,
   p = 6,
   i = 19,
@@ -208,8 +176,6 @@ emergence <- "2000-07-15"
   RRS = 0.01,
   RRG = 0.1
 ))
-\dontshow{\}) # examplesIf}
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \dontshow{\}) # examplesIf}
 }
 \references{
@@ -230,11 +196,11 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \seealso{
 \code{seir()} is called by the following specific disease modelling functions:
 \itemize{
-\item \link{bacterial_blight},
-\item \link{brown_spot},
-\item \link{leaf_blast},
-\item \link{sheath_blight},
-\item \link{tungro}
+\item \link{predict_bacterial_blight},
+\item \link{predict_brown_spot},
+\item \link{predict_leaf_blast},
+\item \link{predict_sheath_blight},
+\item \link{predict_tungro}
 }
 }
 \author{
