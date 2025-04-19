@@ -9,12 +9,13 @@ seir(
   emergence,
   onset,
   duration,
-  rhlim,
-  rainlim,
+  rhlim = NULL,
+  rainlim = NULL,
   H0,
   I0,
   RcA,
   RcT,
+  RcRH = NULL,
   RcOpt,
   p,
   i,
@@ -55,7 +56,7 @@ wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
 
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
 wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
-\emph{et al.} 2012 used 5mm.}
+\emph{et al.} 2012 used 5 mm.}
 
 \item{H0}{initial number of plant's healthy sites (integer).  Described in
 Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
@@ -68,8 +69,14 @@ removals) for crop age (numeric vector).  Described in Table 1 of Savary
 \emph{et al.} 2012 Table 1 of Savary \emph{et al.} 2015.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for temperature (numeric vector).  Described in Table 1 of Savary
-\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+removals) for temperature (numeric two column matrix).  Described in Table 1
+of Savary   \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+
+\item{RcRH}{modifier for \emph{Rc} (the basic infection rate corrected for
+removals) for relative humidity (numeric two column matrix).  Described in
+Table 1 of '  Savary \emph{et al.} 2012.  Can be set to \code{NULL} to use a simple
+caclulation of leaf wetness based on the \code{rhlim} and \code{rainlim} values
+provided.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Derived from Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}

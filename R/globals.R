@@ -2,6 +2,9 @@
 
 utils::globalVariables(c(
   "YYYYMMDD", # <seir>
+  "rc_age", # <seir>
+  "rc_temp", # <seir>
+  "rc_rhum", # <seir>
   "lat", # <seir>
   "LAT", # <seir>
   "lon", # <seir>

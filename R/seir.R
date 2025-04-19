@@ -31,7 +31,7 @@
 #'  _et al._ 2012 used 90%.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
-#'  _et al._ 2012 used 5mm.
+#'  _et al._ 2012 used 5 mm.
 #' @param H0 initial number of plant's healthy sites (integer).  Described in
 #'  Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
 #' @param I0 initial number of infective sites (integer).  Described in Table 1
@@ -40,8 +40,13 @@
 #'  removals) for crop age (numeric vector).  Described in Table 1 of Savary
 #'  _et al._ 2012 Table 1 of Savary _et al._ 2015.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for temperature (numeric vector).  Described in Table 1 of Savary
-#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  removals) for temperature (numeric two column matrix).  Described in Table 1
+#'   of Savary   _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#' @param RcRH modifier for _Rc_ (the basic infection rate corrected for
+#'  removals) for relative humidity (numeric two column matrix).  Described in
+#'  Table 1 of '  Savary _et al._ 2012.  Can be set to `NULL` to use a simple
+#'  caclulation of leaf wetness based on the `rhlim` and `rainlim` values
+#'  provided.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Derived from Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
 #'  2015.
@@ -167,12 +172,13 @@ seir <-
       emergence,
       onset,
       duration,
-      rhlim,
-      rainlim,
+      rhlim = NULL,
+      rainlim = NULL,
       H0,
       I0,
       RcA,
       RcT,
+      RcRH = NULL,
       RcOpt,
       p,
       i,
@@ -207,6 +213,12 @@ seir <-
       )
     }
 
+    if (is.null(RcRH) || (is.null(rhlim) && is.null(rainlim))) {
+      cli::cli_abort(
+        "If {.var RcRH} is set to {.code NULL}, then both {.var rhlim} and
+      {.var rainlim} must be provided."
+      )
+    }
     # Set and check dates ----
     emergence <- as.Date(emergence)
     harvest <- emergence + sum(duration, -1)
@@ -234,6 +246,7 @@ seir <-
     wth_rhum <- wth$RHUM
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
+    Rc_rhum <- .fn_Rc(.Rc = RcRH, .xout = wth$RHUM)
 
     # Create output vars
     cofr <-
@@ -280,8 +293,14 @@ seir <-
         now_infectious[[d]] <- sum(infectious[infday:d])
       }
 
-      if (wth_rhum[[d]] >= rhlim || wth_rain[[d]] >= rainlim) {
-        RcW[[d]] <- 1
+      if (!is.null(RcRH)) {
+        RcW[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * rc_rhum[d] * RcW[d]
+      } else {
+        if (wth_rhum[[d]] >= rhlim || wth_rain[[d]] >= rainlim) {
+          RcW[[d]] <- 1
+        } else {
+          RcW[[d]] <- 0
+        }
       }
 
       rc[[d]] <- RcOpt * Rc_age[d] * Rc_temp[d] * RcW[d]
