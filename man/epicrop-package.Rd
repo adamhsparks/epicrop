@@ -29,7 +29,7 @@ Authors:
   \item Ireno Pangga \email{ibpangga@yahoo.com} (Model conception, development in Stella and original R
  implementation) [translator]
   \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator]
-  \item Kwang Hyung Kim \email{sospicy77@gmail.com} (Contributed code for modified Kim leaf blast and sheath blight functions.)
+  \item Kwang-Hyung Kim \email{sospicy77@gmail.com} (Contributed code for modified Kim leaf blast and sheath blight functions.)
 }
 
 Other contributors:

@@ -14,7 +14,7 @@ Authors@R: c(
            comment = "Model conception, development in Stella and original R\n           implementation"),
     person("Jorrel", "Aunario", , "j.aunario@irri.org", role = c("aut", "trl"),
            comment = "Original R implementation"),
-    person("Kwang Hyung", "Kim", , "sospicy77@gmail.com", role = "aut",
+    person("Kwang-Hyung", "Kim", , "sospicy77@gmail.com", role = "aut",
            comment = "Contributed code for modified Kim leaf blast and sheath blight functions."),
     person("Aji", "Sukarta", , "aji.ixb@gmail.com", role = "ctb",
            comment = "Helped fix bug related to SEIR model and establishment\n           date"),
