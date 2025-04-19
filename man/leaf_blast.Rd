@@ -15,7 +15,7 @@ lb(wth, emergence)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} data from \link{get_wth}, but any\link[base:data.frame]{base::data.frame} object
+\acronym{POWER} data from \link{get_wth}, but any \link[base:data.frame]{base::data.frame} object
 that has the following properly named columns in them will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
