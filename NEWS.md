@@ -8,6 +8,8 @@
 
 - Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.
 
+- Adds the RcRH parameter to `seir()` to calculate the relative humidity correction factor for the disease progress curve as published in Savary _et al._ 2012.
+
 # epicrop 0.0.3
 
 ## Minor changes
