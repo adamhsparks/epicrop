@@ -2,19 +2,27 @@
 #'
 #' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
 #' _Magnaporthe oryzae_. The model is driven by daily weather data, which can
-#' easily be accessed using[get_wth] to download weather data from
-#' \acronym{NASA} \acronym{POWER}.
+#' easily be accessed using[get_wth()] to download weather data from
+#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' @details
 #' The model represents site size as 45
 #'  \ifelse{html}{\out{mm<sup>2</sup>}}{\eqn{mm^2}} of a rice plant's leaf.
 #'
-#' @note This model is a modified version of the Kim *et al.* (2015) model,
-#' which
+#' Default values for this disease model are derived from Table 2 (Savary
+#' _et al._ 2012).
+#'
+#' [lb()] is a shorthand alias for [leaf_blast()].
+#'
+#' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
+#' Department of Primary Industries and Regional Development, WA, AU.
+#' Original model development: Serge Savary & Rene Pangga (IRRI).
+#' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
+#' Aunario (IRRI).
 #'
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth].
+#' columns are provided by default when using [get_wth()].
 #'
 #' The optimum temperature for leaf blast as presented in Table 2 of
 #' Savary _et al._ 2012 has a typo. The optimal value should be 20 °C, not
@@ -22,8 +30,8 @@
 #'
 #' @inherit bacterial_blight
 #'
-#' @returns A [data.table::data.table] of disease intensity and infection
-#' sites. See [seir] for a full description of the column values.
+#' @returns A [data.table::data.table()] of disease intensity and infection
+#' sites. See [SEIR()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -71,12 +79,12 @@
 #' @family predict functions
 #'
 #' @seealso
-#' [seir]
+#' [SEIR()]
 #'
 #' @export
 leaf_blast <- function(wth, emergence) {
   return(
-    seir(
+    SEIR(
       wth = wth,
       emergence = emergence,
       onset = 15L,
@@ -87,52 +95,52 @@ leaf_blast <- function(wth, emergence) {
       I0 = 1L,
       RcA = cbind(
         c(
-          0,
-          5,
-          10,
-          15,
-          20,
-          25,
-          30,
-          35,
-          40,
-          45,
-          50,
-          55,
-          60,
-          65,
-          70,
-          75,
-          80,
-          85,
-          90,
-          95,
-          100,
-          105,
-          110,
-          115,
-          120
+          0L,
+          5L,
+          10L,
+          15L,
+          20L,
+          25L,
+          30L,
+          35L,
+          40L,
+          45L,
+          50L,
+          55L,
+          60L,
+          65L,
+          70L,
+          75L,
+          80L,
+          85L,
+          90L,
+          95L,
+          100L,
+          105L,
+          110L,
+          115L,
+          120L
         ),
         c(
           1,
           1,
           1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          0.4,
-          0.3,
-          0.1,
-          0.1,
-          0.05,
+          0.9,
+          0.8,
+          0.7,
+          0.64,
+          0.59,
+          0.53,
+          0.43,
+          0.32,
+          0.22,
+          0.16,
+          0.09,
           0.03,
-          0.03,
           0.02,
           0.02,
           0.02,
+          0.01,
           0.01,
           0.01,
           0.01,
@@ -142,15 +150,15 @@ leaf_blast <- function(wth, emergence) {
         )
       ),
       RcT = cbind(
-        c(9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39),
-        c(0, 0.4, 0.72, 0.88, 1, 0.9, 0.45, 0.2, 0.05, 0.01, 0)
+        c(10L, 15L, 20L, 25L, 30L, 35L, 40L, 45L),
+        c(0, 0.5, 1, 0.6, 0.2, 0.05, 0.01, 0)
       ),
-      RcOpt = 0.86,
-      p = 4L,
+      RcOpt = 1.14,
+      p = 5L,
       i = 20L,
       a = 1L,
-      Sx = 90000L,
-      RRS = 0.005,
+      Sx = 30000L,
+      RRS = 0.01,
       RRG = 0.1
     )
   )

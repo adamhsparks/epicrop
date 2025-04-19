@@ -105,6 +105,7 @@ Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 Other predict functions: 
 \code{\link{brown_spot}()},
 \code{\link{leaf_blast}()},
+\code{\link{modified_kim_leaf_blast}()},
 \code{\link{modified_kim_sheath_blight}()},
 \code{\link{sheath_blight}()},
 \code{\link{tungro}()}

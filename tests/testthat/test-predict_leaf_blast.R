@@ -1,7 +1,5 @@
-
 test_that("Values are as expected", {
-  wth <- epicrop:::wth
-  lb <- leaf_blast(wth, emergence = "2000-07-01")
+  lb <- leaf_blast(epicrop:::wth, emergence = "2000-07-01")
 
   expect_named(
     lb,
@@ -64,4 +62,3 @@ test_that("Values are as expected", {
   expect_equal(lb[[1, "lat"]], 14.67741, tolerance = 0.00001)
   expect_equal(lb[[1, "lon"]], 121.2556, tolerance = 0.0001)
 })
-

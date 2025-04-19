@@ -90,6 +90,7 @@ Other predict functions:
 \code{\link{bacterial_blight}()},
 \code{\link{brown_spot}()},
 \code{\link{leaf_blast}()},
+\code{\link{modified_kim_leaf_blast}()},
 \code{\link{modified_kim_sheath_blight}()},
 \code{\link{sheath_blight}()}
 }

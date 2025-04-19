@@ -4,6 +4,8 @@
 
 - `SEIR()` is now `seir()`
 
+- Helper functions no longer are named `predict_`..., just the disease name is used.
+
 - Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.
 
 # epicrop 0.0.3
