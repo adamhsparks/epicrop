@@ -26,5 +26,5 @@
 
 # flir files
 ^flir$
-^man/dot-fn_Rc\.Rd$
 ^man/dot-check_na\.Rd$
+^man/dot-fn_Rc\.Rd$
