@@ -29,7 +29,7 @@
 #' \doi{https://doi.org/10.1094/9780890545058}.
 #'
 #' @keywords internal
-#' @noRd
+#' @dev
 
 .calculate_audpc <- function(intensity) {
   n <- sum(length(intensity), -1)
