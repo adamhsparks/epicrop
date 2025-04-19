@@ -6,7 +6,7 @@ output: github_document
 
 
 
-# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model <img src="man/figures/logo.png" align="right"/>
+# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (seir()) Model <img src="man/figures/logo.png" align="right"/>
 
 <!-- badges: start -->
 
@@ -15,7 +15,7 @@ output: github_document
 <!-- badges: end -->
 
 A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use.
-This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic seir() model (Zadoks 1971) function, `seir()()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
 
@@ -81,34 +81,23 @@ Once you have the weather data, run the model for any of the five rice diseases 
 
 ``` r
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+#> Error in predict_bacterial_blight(wth, emergence = "2000-07-01"): could not find function "predict_bacterial_blight"
 
 bb
-#>      simday      dates     sites    latent infectious  removed    senesced  rateinf rtransfer
-#>       <int>     <Date>     <num>     <num>      <num>    <num>       <num>    <num>     <num>
-#>   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000  0.00000   0.00000
-#>   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000  0.00000   0.00000
-#>   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875  0.00000   0.00000
-#>   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877  0.00000   0.00000
-#>   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811  0.00000   0.00000
-#>  ---                                                                                         
-#> 116:    116 2000-10-24 1442.4836 105.87923   954.9354 223.8352 2097.385647  0.00000  29.85591
-#> 117:    117 2000-10-25 1418.0978  76.02332   953.5148 255.1118 2143.087067 23.19935  26.80440
-#> 118:    118 2000-10-26 1369.3763  72.41827   946.9419 288.4890 2190.645270 20.80752  25.36284
-#> 119:    119 2000-10-27 1321.9560  67.86296   937.0147 323.7791 2239.629140 18.61122  23.85609
-#> 120:    120 2000-10-28 1275.5526  62.61810   923.6023 361.0475 2290.117140 16.58631   0.00000
-#>       rgrowth rsenesced diseased intensity    AUDPC     lat      lon
-#>         <num>     <num>    <num>     <num>    <num>   <num>    <num>
-#>   1:  9.68750  1.000000    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   2: 10.49959  1.086875    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   3: 11.37416  1.181002    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   4: 12.31499  1.282934    0.000 0.0000000 12.53946 14.6774 121.2556
-#>   5: 13.32593  1.393254    0.000 0.0000000 12.53946 14.6774 121.2556
-#>  ---                                                                
-#> 116: 21.31570 45.701419 1284.650 0.4237668 12.53946 14.6774 121.2556
-#> 117: 22.03601 47.558203 1284.650 0.4206255 12.53946 14.6774 121.2556
-#> 118: 22.37109 48.983870 1307.849 0.4267361 12.53946 14.6774 121.2556
-#> 119: 22.69581 50.488000 1328.657 0.4318648 12.53946 14.6774 121.2556
-#> 120: 23.00696 47.881728 1347.268 0.4360386 12.53946 14.6774 121.2556
+#> function (wth, emergence) 
+#> {
+#>     return(seir(wth = wth, emergence = emergence, onset = 20L, 
+#>         duration = 120L, rhlim = 90L, rainlim = 5L, H0 = 100L, 
+#>         I0 = 1L, RcA = cbind(c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 
+#>             70L, 80L, 90L, 100L, 110L, 120L), c(1, 1, 1, 0.9, 
+#>             0.62, 0.43, 0.42, 0.42, 0.41, 0.41, 0.41, 0.41, 0.41)), 
+#>         RcT = cbind(c(16L, 19L, 22L, 25L, 28L, 31L, 34L, 37L, 
+#>             40L), c(0, 0.29, 0.44, 0.9, 0.9, 1, 0.88, 0.01, 0)), 
+#>         RcOpt = 0.87, p = 5L, i = 30L, Sx = 3200L, a = 4L, RRS = 0.01, 
+#>         RRG = 0.1))
+#> }
+#> <bytecode: 0x1250dcfd0>
+#> <environment: namespace:epicrop>
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -131,12 +120,10 @@ ggplot(
   geom_line() +
   geom_point() +
   theme_classic()
+#> Error in `ggplot()`:
+#> ! `data` cannot be a function.
+#> ℹ Have you misspelled the `data` argument in `ggplot()`
 ```
-
-<div class="figure">
-<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
-<p class="caption">Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
-</div>
 
 # Meta
 
