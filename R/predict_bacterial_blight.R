@@ -25,7 +25,7 @@
 #' columns are provided by default when using [get_wth].
 #'
 #' @param wth Weather data with a daily time-step, normally \acronym{NASA}
-#' \acronym{POWER} data from [get_wth], but any[base::data.frame] object
+#' \acronym{POWER} data from [get_wth], but any [base::data.frame] object
 #' that has the following properly named columns in them will work.
 #'
 #'   **Field Name** | **Value**
@@ -107,6 +107,10 @@ bacterial_blight <- function(wth, emergence) {
       RcT = cbind(
         c(16L, 19L, 22L, 25L, 28L, 31L, 34L, 37L, 40L),
         c(0, 0.29, 0.44, 0.90, 0.90, 1.0, 0.88, 0.01, 0)
+      ),
+      RcRH = cbind(
+        c(2L, 3L, 6L, 9L, 12L, 15L, 18L, 21L, 24L),
+        c(0, 0.67, 0.81, 0.84, 0.87, 0.91, 0.94, 0.97, 1.0)
       ),
       RcOpt = 0.87,
       p = 5L,
