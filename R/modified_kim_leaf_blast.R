@@ -79,7 +79,7 @@
 #' [seir]
 #'
 #' @export
-leaf_blast <- function(wth, emergence) {
+modified_kim_leaf_blast <- function(wth, emergence) {
   seir(
     wth = wth,
     emergence = emergence,
@@ -149,6 +149,7 @@ leaf_blast <- function(wth, emergence) {
       c(9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39),
       c(0, 0.4, 0.72, 0.88, 1, 0.9, 0.45, 0.2, 0.05, 0.01, 0)
     ),
+    RcRH = c(0, 0.24, 0.41, 0.68, 0.94, 0.97, 1, 1, 1, 1, 1),
     RcOpt = 0.86,
     p = 4L,
     i = 20L,
@@ -158,11 +159,3 @@ leaf_blast <- function(wth, emergence) {
     RRG = 0.1
   )
 }
-
-#' @rdname leaf_blast
-#' @examplesIf interactive()
-#' # use shorthand function
-#' lb <- lb(wth, emergence = "2000-07-01")
-#' plot(x = lb$dates, y = lb$intensity, type = "l")
-#' @export
-lb <- leaf_blast
