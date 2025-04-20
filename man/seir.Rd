@@ -72,11 +72,10 @@ removals) for crop age (numeric vector).  Described in Table 1 of Savary
 removals) for temperature (numeric two column matrix).  Described in Table 1
 of Savary   \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
 
-\item{RcRH}{modifier for \emph{Rc} (the basic infection rate corrected for
-removals) for relative humidity (numeric two column matrix).  Described in
-Table 1 of '  Savary \emph{et al.} 2012.  Can be set to \code{NULL} to use a simple
-caclulation of leaf wetness based on the \code{rhlim} and \code{rainlim} values
-provided.}
+\item{RcRH}{modifier for \emph{Rc} to calculate leaf wetness using
+relative humidity (numeric two column matrix). Can be set to \code{NULL} to use a
+simple caclulation of leaf wetness based on the \code{rhlim} and \code{rainlim}
+values that the user provides.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Derived from Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}

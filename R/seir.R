@@ -42,11 +42,10 @@
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature (numeric two column matrix).  Described in Table 1
 #'   of Savary   _et al._ 2012 and Table 1 of Savary _et al._ 2015.
-#' @param RcRH modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for relative humidity (numeric two column matrix).  Described in
-#'  Table 1 of '  Savary _et al._ 2012.  Can be set to `NULL` to use a simple
-#'  caclulation of leaf wetness based on the `rhlim` and `rainlim` values
-#'  provided.
+#' @param RcRH modifier for _Rc_ to calculate leaf wetness using
+#'  relative humidity (numeric two column matrix). Can be set to `NULL` to use a
+#'  simple caclulation of leaf wetness based on the `rhlim` and `rainlim`
+#'  values that the user provides.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Derived from Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
 #'  2015.
@@ -371,8 +370,9 @@ seir <-
 #' Use approx() to Return a Modifier Value From an RcA or RcT Curve
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
-#'  or age, `RcA`.
-#' @param .xout a value for `x`, either a temperature or age modifier value.
+#'  age, `RcA`, or RHUM, `RcRH`.
+#' @param .xout a value for `x`, either a temperature, age or RHUM modifier
+#'  value.
 #'
 #' @returns A numeric value for modifying a growth curve in `seir()`
 #'
