@@ -21,6 +21,9 @@
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_      | Consecutive day of year, commonly called "Julian date"
 #'   _TEMP_     | Mean daily temperature (°C)
+#'   _TMIN_     | Daily minimum temperature (˚C)
+#'   _TMAX_     | Daily maximum temperature (˚C)
+#'   _T2MDEW_   | Daily dew point temperature (˚C)
 #'   _RHUM_     | Mean daily relative humidity (%)
 #'   _RAIN_     | Mean daily rainfall (mm)
 #'   _LAT_      | Latitude of area of interest
@@ -61,6 +64,9 @@ get_wth <- function(lonlat, dates, duration) {
       community = "AG",
       pars = c(
         "T2M",
+        "T2M_MIN",
+        "T2M_MAX",
+        "T2M_DEW",
         "RH2M",
         "PRECTOTCORR"
       ),
@@ -71,12 +77,18 @@ get_wth <- function(lonlat, dates, duration) {
   setnames(
     wth,
     old = c(
-      "T2M",
+      "T2M", ,
+      "T2M_MIN",
+      "T2M_MAX",
+      "T2M_DEW",
       "PRECTOTCORR",
       "RH2M"
     ),
     new = c(
       "TEMP",
+      "TMIN",
+      "TMAX",
+      "TDEW",
       "RAIN",
       "RHUM"
     )
@@ -87,6 +99,9 @@ get_wth <- function(lonlat, dates, duration) {
       "YYYYMMDD",
       "DOY",
       "TEMP",
+      "TMIN",
+      "TMAX",
+      "TDEW",
       "RHUM",
       "RAIN",
       "LAT",
@@ -132,3 +147,4 @@ get_wth <- function(lonlat, dates, duration) {
     return(NULL)
   }
 }
+

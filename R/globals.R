@@ -9,5 +9,12 @@ utils::globalVariables(c(
   "LAT", # <seir>
   "lon", # <seir>
   "LON", # <seir>
+  "DOY", # <.leaf_wet>
+  "RHUM", # <.leaf_wet>
+  "TMIN", # <.leaf_wet>
+  "TMAX", # <.leaf_wet>
+  "TEMP", # <.leaf_wet>
+  "LAT", # <.leaf_wet>
+  "P", # <.daylength>
   NULL
 ))
