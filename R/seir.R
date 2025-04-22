@@ -246,12 +246,11 @@ seir <-
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
 
-    if (wetness == 1) {
-      # TODO: Check if it works
+    if (simple_wetness == 1) {
       w <- .calculate_leaf_wetness(wth, simple_wetness = TRUE)
       Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
     } else {
-      RHCoef <- as.numeric((wth$rhmax >= rhlim | wth$prec >= rainlim))
+      Rc_wet <- as.numeric((wth$rhmax >= rhlim | wth$prec >= rainlim))
     }
 
     # Create output vars

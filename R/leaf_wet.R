@@ -28,10 +28,11 @@
 #'  \email{adamhsparks@@gmail.com}
 
 .calculate_leaf_wetness <- function(
-    simple_wetness = TRUE,
-    wth,
-    rhlim,
-    rainlim) {
+  simple_wetness = TRUE,
+  wth,
+  rhlim,
+  rainlim
+) {
   rh <- wth$RHUM
   prec <- wth$RAIN
   tmin <- wth$TMIN
@@ -40,7 +41,7 @@
   date <- wth$DOY
 
   rh <- .diurnalRH(rh, tmin, tmax, lat, doy)
-  if (simple) {
+  if (simple_wetness) {
     lw <- length(rh[rh >= rhlim])
   } else {
     w <- rh
@@ -147,7 +148,7 @@
               exp(
                 -(hr + 24 - x["sunset"]) / 4L
               )) /
-            (1L - exp(-x["nightl"] / 4L))
+          (1L - exp(-x["nightl"] / 4L))
       } else if (hr < x["sunset"]) {
         # period b: dhour between time of sunrise and sunset
         hr_temp[[hr]] <-
@@ -168,7 +169,7 @@
           (x["tmin"] -
             tsunst * exp(-x["nightl"] / 4L) +
             (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4L)) /
-            (1L - exp(-x["nightl"] / 4L))
+          (1L - exp(-x["nightl"] / 4L))
       }
     }
     return(hr_temp)
