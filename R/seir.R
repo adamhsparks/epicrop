@@ -301,13 +301,6 @@ seir <-
         now_infectious[[d]] <- sum(infectious[infday:d])
       }
 
-      if (simple_wetness) {
-        if (wth_rhum[[d]] >= rhlim || wth_rain[[d]] >= rainlim) {
-          Rc_wet[[d]] <- 1
-        }
-      } else {
-      }
-
       rc[[d]] <- RcOpt * Rc_age[d] * Rc_temp[d] * Rc_wet[d]
 
       diseased[[d]] <- sum(sum(infectious), now_latent[d], removed[d])

@@ -11,6 +11,7 @@ seir(
   duration,
   rhlim = NULL,
   rainlim = NULL,
+  simple_wetness = TRUE,
   H0,
   I0,
   RcA,
