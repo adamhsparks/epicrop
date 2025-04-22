@@ -167,24 +167,26 @@
 #' @export
 
 seir <-
-  function(wth,
-           emergence,
-           onset,
-           duration,
-           rhlim = NULL,
-           rainlim = NULL,
-           H0,
-           I0,
-           RcA,
-           RcT,
-           RcW = NULL,
-           RcOpt,
-           p,
-           i,
-           Sx,
-           a,
-           RRS,
-           RRG) {
+  function(
+      wth,
+      emergence,
+      onset,
+      duration,
+      rhlim = NULL,
+      rainlim = NULL,
+      simple_wetness = TRUE,
+      H0,
+      I0,
+      RcA,
+      RcT,
+      RcW = NULL,
+      RcOpt,
+      p,
+      i,
+      Sx,
+      a,
+      RRS,
+      RRG) {
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
@@ -212,10 +214,10 @@ seir <-
       )
     }
 
-    if (is.null(RcRH) || (is.null(rhlim) && is.null(rainlim))) {
+    if (is.null(rhlim) || is.null(rainlim)) {
       cli::cli_abort(
-        "If {.var RcRH} is set to {.code NULL}, then both {.var rhlim} and
-      {.var rainlim} must be provided."
+        "Both {.var rhlim} and {.var rainlim} must be provided.
+        The values used by Savary _et al._ (2012) are 90 and 5 respectively."
       )
     }
     # Set and check dates ----
@@ -243,24 +245,25 @@ seir <-
     # Create vectors for referencing ----
     wth_rain <- wth$RAIN
     wth_rhum <- wth$RHUM
-    Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
-    Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
-
-    if (simple_wetness == 1) {
-      w <- .calculate_leaf_wetness(wth, simple_wetness = TRUE)
-      Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
-    } else {
-      Rc_wet <- as.numeric((wth$rhmax >= rhlim | wth$prec >= rainlim))
-    }
 
     # Create output vars
     cofr <-
       rc <-
-      RcW <- latency <- infectious <- intensity <- rsenesced <-
+      latency <- infectious <- intensity <- rsenesced <-
       rgrowth <-
       rtransfer <- infection <- diseased <- senesced <- removed <-
       now_infectious <- now_latent <- sites <- total_sites <-
       vector(mode = "double", length = duration)
+
+    if (simple_wetness) {
+      w <- .calculate_leaf_wetness(wth, simple_wetness = TRUE)
+      Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
+    } else {
+      Rc_wet <- vector(mode = "double", length = duration)
+    }
+
+    Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
+    Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
 
     # Calculate state values -----
     for (d in 1:duration) {
@@ -298,17 +301,14 @@ seir <-
         now_infectious[[d]] <- sum(infectious[infday:d])
       }
 
-      if (!is.null(RcRH)) {
-        RcW[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * rc_wet[d] * RcW[d]
-      } else {
+      if (simple_wetness) {
         if (wth_rhum[[d]] >= rhlim || wth_rain[[d]] >= rainlim) {
-          RcW[[d]] <- 1
-        } else {
-          RcW[[d]] <- 0
+          Rc_wet[[d]] <- 1
         }
+      } else {
       }
 
-      rc[[d]] <- RcOpt * Rc_age[d] * Rc_temp[d] * RcW[d]
+      rc[[d]] <- RcOpt * Rc_age[d] * Rc_temp[d] * Rc_wet[d]
 
       diseased[[d]] <- sum(sum(infectious), now_latent[d], removed[d])
 
