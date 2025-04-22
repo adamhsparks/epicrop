@@ -19,49 +19,50 @@
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).  Described in Table 1 of Savary
-#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  _et al._ 2012.
 #' @param onset expected number of days until the onset of disease after
 #'  emergence date (day, integer).  Described in Table 1 of Savary _et al._
-#'  2012 and Table 1 of Savary _et al._ 2015.
+#'  2012.
 #' @param duration simulation duration *i.e.*, growing season length (day,
-#'  integer).  Described in Table 1 of Savary _et al._ 2012 and Table 1 of
-#'  Savary _et al._ 2015.
+#'  integer).  Described in Table 1 of Savary _et al._ 2012.
 #' @param rhlim relative humidity value threshold to decide whether leaves are
-#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012. Savary
-#'  _et al._ 2012 used 90%.
+#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
+#'  _et al._ 2012 used `90`.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
-#'  _et al._ 2012 used 5 mm.
+#'  _et al._ 2012 used `5`.
 #' @param H0 initial number of plant's healthy sites (integer).  Described in
-#'  Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  Table 1 of Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (integer).  Described in Table 1
-#'  of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  of Savary _et al._ 2012.
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for crop age (numeric vector).  Described in Table 1 of Savary
-#'  _et al._ 2012 Table 1 of Savary _et al._ 2015.
+#'  removals) for crop age as a numeric two-column matrix with the first column
+#'  being the crop age in days (1 to `duration`) and the second being the
+#'  modfier (bounded by 0 and 1).  Described in Tables 1 ond 2 of Savary
+#'  _et al._ 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
-#'  removals) for temperature (numeric two column matrix).  Described in Table 1
-#'   of Savary   _et al._ 2012 and Table 1 of Savary _et al._ 2015.
-#' @param RcRH modifier for _Rc_ to calculate leaf wetness using
-#'  relative humidity (numeric two column matrix). Can be set to `NULL` to use a
-#'  simple caclulation of leaf wetness based on the `rhlim` and `rainlim`
-#'  values that the user provides.
+#'  removals) for temperature as a numeric two-column matrix with the first
+#'  column being temperature in ˚C and the second the modifier (bounded by 0 and
+#'  1).  Described in Tables 1 and 2 of Savary _et al._ 2012.
+#' @param RcW modifier for _Rc_ to calculate leaf wetness effect, 1 if wet, 0
+#'  otherwise. This is a numeric two-column matrix with the first column being
+#'  hours (1 to 24) and the second the modifier (bounded by 0 and 1).
+#'  Described in Tables 1 and 2  of Savary _et al._ 2012.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
-#'  Derived from Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
-#'  2015.
+#'  Described in Table 1 of Savary _et al._ 2012.
 #' @param i duration of infectious period (day, integer).  Described in Table 1
-#'  of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  of Savary _et al._ 2012.
 #' @param p duration of latent period (day, integer).  Described in Table 1 of
-#'  Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  Savary _et al._ 2012.
 #' @param Sx maximum number of sites (integer).  Described in Table 1 of Savary
-#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  _et al._ 2012.
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._
 #'  2015.  See further details in **_a_ - Aggregation** section.
 #' @param RRS relative rate of physiological senescence (numeric).  Described in
-#'  Table 1 of Savary _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  Table 1 of Savary _et al._ 2012.
 #' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
-#'  _et al._ 2012 and Table 1 of Savary _et al._ 2015.
+#'  _et al._ 2012.
 #'
 #' @references
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
@@ -166,25 +167,24 @@
 #' @export
 
 seir <-
-  function(
-      wth,
-      emergence,
-      onset,
-      duration,
-      rhlim = NULL,
-      rainlim = NULL,
-      H0,
-      I0,
-      RcA,
-      RcT,
-      RcRH = NULL,
-      RcOpt,
-      p,
-      i,
-      Sx,
-      a,
-      RRS,
-      RRG) {
+  function(wth,
+           emergence,
+           onset,
+           duration,
+           rhlim = NULL,
+           rainlim = NULL,
+           H0,
+           I0,
+           RcA,
+           RcT,
+           RcW = NULL,
+           RcOpt,
+           p,
+           i,
+           Sx,
+           a,
+           RRS,
+           RRG) {
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
     if (!inherits(wth, "data.table")) {
@@ -245,7 +245,14 @@ seir <-
     wth_rhum <- wth$RHUM
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
-    Rc_rhum <- .fn_Rc(.Rc = RcRH, .xout = wth$RHUM)
+
+    if (wetness == 1) {
+      # TODO: Check if it works
+      w <- .calculate_leaf_wetness(wth, simple_wetness = TRUE)
+      Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
+    } else {
+      RHCoef <- as.numeric((wth$rhmax >= rhlim | wth$prec >= rainlim))
+    }
 
     # Create output vars
     cofr <-
@@ -293,7 +300,7 @@ seir <-
       }
 
       if (!is.null(RcRH)) {
-        RcW[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * rc_rhum[d] * RcW[d]
+        RcW[[d]] <- RcOpt * rc_age[d] * rc_temp[d] * rc_wet[d] * RcW[d]
       } else {
         if (wth_rhum[[d]] >= rhlim || wth_rain[[d]] >= rainlim) {
           RcW[[d]] <- 1

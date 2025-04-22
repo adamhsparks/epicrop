@@ -8,7 +8,7 @@
 }
 \arguments{
 \item{.Rc}{A matrix describing a growth curve for either temperature, \code{RcT},
-age, \code{RcA}, or RHUM, \code{RcW}.}
+age, \code{RcA}, or RHUM, \code{RcRH}.}
 
 \item{.xout}{a value for \code{x}, either a temperature, age or RHUM modifier
 value.}

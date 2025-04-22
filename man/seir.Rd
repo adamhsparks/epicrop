@@ -11,7 +11,6 @@ seir(
   duration,
   rhlim = NULL,
   rainlim = NULL,
-  simple_wetness = TRUE,
   H0,
   I0,
   RcA,
@@ -41,71 +40,66 @@ with the following field names.\tabular{rl}{
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).  Described in Table 1 of Savary
-\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+\emph{et al.} 2012.}
 
 \item{onset}{expected number of days until the onset of disease after
 emergence date (day, integer).  Described in Table 1 of Savary \emph{et al.}
-2012 and Table 1 of Savary \emph{et al.} 2015.}
+2012.}
 
 \item{duration}{simulation duration \emph{i.e.}, growing season length (day,
-integer).  Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of
-Savary \emph{et al.} 2015.}
+integer).  Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{rhlim}{relative humidity value threshold to decide whether leaves are
-wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012. Savary
-\emph{et al.} 2012 used 90\%.}
+wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
+\emph{et al.} 2012 used \code{90}.}
 
 \item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
 wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
-\emph{et al.} 2012 used 5 mm.}
-
-\item{simple_wetness}{A \code{Boolean} value indicating whether to use simple leaf
-wetness calculation (\code{TRUE}) or a more complex calculation (\code{FALSE}).
-Defaults to \code{TRUE} using the simple calculation.  See \strong{Details} for more.}
+\emph{et al.} 2012 used \code{5}.}
 
 \item{H0}{initial number of plant's healthy sites (integer).  Described in
-Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+Table 1 of Savary \emph{et al.} 2012.}
 
 \item{I0}{initial number of infective sites (integer).  Described in Table 1
-of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+of Savary \emph{et al.} 2012.}
 
-\item{RcA}{modifier for \emph{R~c~}, the basic infection rate corrected for
-removals (Van der Plank, 1963), for crop age (two column numeric matrix).
-Described in Table 1 of Savary \emph{et al.} 2012 Table 1 of Savary \emph{et al.}
-2015.}
+\item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
+removals) for crop age as a numeric two-column matrix with the first column
+being the crop age in days (1 to \code{duration}) and the second being the
+modfier (bounded by 0 and 1).  Described in Tables 1 ond 2 of Savary
+\emph{et al.} 2012.}
 
-\item{RcT}{modifier for \emph{R~c~}, the basic infection rate corrected for
-removals (Van der Plank, 1963), for temperature (two column numeric matrix).
-Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
-2015.}
+\item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
+removals) for temperature as a numeric two-column matrix with the first
+column being temperature in ˚C and the second the modifier (bounded by 0 and
+1).  Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
 
-\item{RcW}{modifier for \emph{R~c~}, the basic infection rate corrected for
-removals (Van der Plank, 1963), for leaf wetness (two column numeric
-matrix).  Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary
-\emph{et al.} 2015.}
+\item{RcW}{modifier for \emph{Rc} to calculate leaf wetness effect, 1 if wet, 0
+otherwise. This is a numeric two-column matrix with the first column being
+hours (1 to 24) and the second the modifier (bounded by 0 and 1).
+Described in Tables 1 and 2  of Savary \emph{et al.} 2012.}
 
-\item{RcOpt}{potential basic infection rate, \emph{R~c~} (Van der Plank, 1963)
-corrected for removals (numeric). Derived from Table 1 of Savary \emph{et al.}
-2012 and Table 1 of Savary \emph{et al.} 2015.}
+\item{RcOpt}{potential basic infection rate corrected for removals (numeric).
+Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{p}{duration of latent period (day, integer).  Described in Table 1 of
-Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+Savary \emph{et al.} 2012.}
 
 \item{i}{duration of infectious period (day, integer).  Described in Table 1
-of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+of Savary \emph{et al.} 2012.}
 
 \item{Sx}{maximum number of sites (integer).  Described in Table 1 of Savary
-\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+\emph{et al.} 2012.}
 
 \item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
 Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
 2015.  See further details in \strong{\emph{a} - Aggregation} section.}
 
 \item{RRS}{relative rate of physiological senescence (numeric).  Described in
-Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
-\emph{et al.} 2012 and Table 1 of Savary \emph{et al.} 2015.}
+\emph{et al.} 2012.}
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} object containing the following columns:
@@ -139,7 +133,7 @@ When \emph{a} is set to \code{1} the assumption is that that there is no disease
 aggregation with new infections occurring at random among the healthy sites.
 When \emph{a} is greater than \code{1} there is aggregation in the disease occurrence,
 the pathogen is unable to access the entire population of healthy sites,
-which results in disease aggregation.  Refer to Savary \emph{et al.} (2012) for
+which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
 greater detail.
 }
 
@@ -147,16 +141,6 @@ greater detail.
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These
 columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
-}
-
-\section{simple_wetness}{
-For the complex calculation, the boundaries are included in the upper
-or lower boundaries, \emph{i.e.}, \code{rhlim} will be set to 1 and 80\% will be set
-to 0. For the simple calculation, \code{rhlim} is included in the upper
-boundary, \emph{i.e.}, \code{rhlim} will be set to 1 and anything > \code{rhlim} will be
-set to 0. For the \code{rainlim}, anything > \code{rainlim} will be set to 1.
-Savary \emph{et al.} (2012) used a simple calculation with \code{rhlim} = 90, and
-\code{rainlim} = 5.
 }
 
 \examples{
@@ -205,19 +189,16 @@ emergence <- "2000-07-15"
 Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
 Disease Progress over Time. \emph{The Plant Health Instructor}.
-\doi{10.1094/PHI-A-2008-0129-02}.
+DOI: \doi{10.1094/PHI-A-2008-0129-02}.
 
 Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
 Disease Epidemics. American Phytopathological Society, St. Paul, MN.
-\doi{10.1094/9780890545058}.
+DOI: \doi{10.1094/9780890545058}.
 
-Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,J. Modeling
-and mapping potential epidemics of rice diseases globally. \emph{Crop Protection},
-Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
+Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \doi{10.1016/j.cropro.2011.11.009}.
-
-Van der Plank, J. E., 1963. Plant Diseases. Epidemics and Control. Academic
-Press, New York.
 }
 \seealso{
 \code{seir()} is called by the following specific disease modelling functions:
