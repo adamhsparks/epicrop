@@ -8,9 +8,10 @@
 }
 \arguments{
 \item{.Rc}{A matrix describing a growth curve for either temperature, \code{RcT},
-or age, \code{RcA}.}
+age, \code{RcA}, or RHUM, \code{RcW}.}
 
-\item{.xout}{a value for \code{x}, either a temperature or age modifier value.}
+\item{.xout}{a value for \code{x}, either a temperature, age or RHUM modifier
+value.}
 }
 \value{
 A numeric value for modifying a growth curve in \code{seir()}

@@ -28,7 +28,6 @@ with the following columns:\tabular{rl}{
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
    \emph{TMIN} \tab Daily minimum temperature (˚C) \cr
    \emph{TMAX} \tab Daily maximum temperature (˚C) \cr
-   \emph{T2MDEW} \tab Daily dew point temperature (˚C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab Latitude of area of interest \cr

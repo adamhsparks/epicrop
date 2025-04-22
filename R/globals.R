@@ -4,17 +4,10 @@ utils::globalVariables(c(
   "YYYYMMDD", # <seir>
   "rc_age", # <seir>
   "rc_temp", # <seir>
-  "rc_rhum", # <seir>
+  "rc_w", # <seir>
   "lat", # <seir>
   "LAT", # <seir>
   "lon", # <seir>
   "LON", # <seir>
-  "DOY", # <.leaf_wet>
-  "RHUM", # <.leaf_wet>
-  "TMIN", # <.leaf_wet>
-  "TMAX", # <.leaf_wet>
-  "TEMP", # <.leaf_wet>
-  "LAT", # <.leaf_wet>
-  "P", # <.daylength>
   NULL
 ))
