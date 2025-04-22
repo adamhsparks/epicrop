@@ -23,7 +23,6 @@
 #'   _TEMP_     | Mean daily temperature (°C)
 #'   _TMIN_     | Daily minimum temperature (˚C)
 #'   _TMAX_     | Daily maximum temperature (˚C)
-#'   _T2MDEW_   | Daily dew point temperature (˚C)
 #'   _RHUM_     | Mean daily relative humidity (%)
 #'   _RAIN_     | Mean daily rainfall (mm)
 #'   _LAT_      | Latitude of area of interest
@@ -66,7 +65,6 @@ get_wth <- function(lonlat, dates, duration) {
         "T2M",
         "T2M_MIN",
         "T2M_MAX",
-        "T2M_DEW",
         "RH2M",
         "PRECTOTCORR"
       ),
@@ -77,10 +75,9 @@ get_wth <- function(lonlat, dates, duration) {
   setnames(
     wth,
     old = c(
-      "T2M", ,
+      "T2M",
       "T2M_MIN",
       "T2M_MAX",
-      "T2M_DEW",
       "PRECTOTCORR",
       "RH2M"
     ),
@@ -88,7 +85,6 @@ get_wth <- function(lonlat, dates, duration) {
       "TEMP",
       "TMIN",
       "TMAX",
-      "TDEW",
       "RAIN",
       "RHUM"
     )
@@ -101,7 +97,6 @@ get_wth <- function(lonlat, dates, duration) {
       "TEMP",
       "TMIN",
       "TMAX",
-      "TDEW",
       "RHUM",
       "RAIN",
       "LAT",
@@ -116,9 +111,9 @@ get_wth <- function(lonlat, dates, duration) {
 #' @param .wth A data.frame object from [nasapower::get_power] with weather
 #'  data for checking
 #' Checks the data returned from the POWER dataset and informs the user if
-#' missing values are found. It does not do anything other than emitting am
+#' missing values are found. It does not do anything other than emitting a
 #' message about missing data.
-#' @returns NULL
+#' @returns Called for its side-effects, an invisible `NULL`.
 #' @examples
 #' wth <- setDT(
 #'   nasapower::get_power(
@@ -127,24 +122,61 @@ get_wth <- function(lonlat, dates, duration) {
 #'     community = "AG",
 #'     pars = c(
 #'       "T2M",
+#'       "T2M_MIN",
+#'       "T2M_MAX",
 #'       "RH2M",
 #'       "PRECTOTCORR"
 #'     ),
 #'     temporal_api = "DAILY"
 #'   )
 #' )
+#'
+#' wth[, c("YEAR", "MM", "DD") := NULL][]
+#' setnames(
+#'   wth,
+#'   old = c(
+#'     "T2M", ,
+#'     "T2M_MIN",
+#'     "T2M_MAX",
+#'     "PRECTOTCORR",
+#'     "RH2M"
+#'   ),
+#'   new = c(
+#'     "TEMP",
+#'     "TMIN",
+#'     "TMAX",
+#'     "RAIN",
+#'     "RHUM"
+#'   )
+#' )
+#' setcolorder(
+#'   wth,
+#'   c(
+#'     "YYYYMMDD",
+#'     "DOY",
+#'     "TEMP",
+#'     "TMIN",
+#'     "TMAX",
+#'     "RHUM",
+#'     "RAIN",
+#'     "LAT",
+#'     "LON"
+#'   )
+#' )
+#' setnames(wth,
 #' .check_na(wth)
 #' @dev
 
 .check_na <- function(.wth) {
-  if (anyNA(.wth[, c("TEMP", "RHUM", "RAIN")])) {
-    message(
-      "The weather data have missing values in your request.\n",
-      "This can cause errors when running the model.\n",
-      "You should inspect the weather data carefully and either fill missing\n",
-      "or try again to download to see if that provides a complete set of data."
+  if (anyNA(.wth[, c("TEMP", "TMIN", "TMAX", "RHUM", "RAIN")])) {
+    cli::cli_alert(
+      i = c(
+        "The weather data have missing values in your request.
+      This can cause errors when running the model.
+      You should inspect the weather data carefully and either fill missing
+      or try again to download to see if that provides a complete set of data."
+      )
     )
-    return(NULL)
+    return(invisible(NULL))
   }
 }
-
