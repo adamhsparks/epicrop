@@ -99,7 +99,7 @@ tungro <- function(wth, emergence) {
         ),
         c(0, 0.13, 0.65, 0.75, 0.83, 0.89, 0.93, 0.97, 1.0, 0.96, 0.93, 0)
       ),
-      RcRH = 1L,
+      RcW = 1L,
       RcOpt = 0.18,
       p = 6L,
       i = 120L,
