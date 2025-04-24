@@ -190,15 +190,15 @@ emergence <- "2000-07-15"
 Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
 Disease Progress over Time. \emph{The Plant Health Instructor}.
-DOI: \doi{10.1094/PHI-A-2008-0129-02}.
+\doi{10.1094/PHI-A-2008-0129-02}.
 
 Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
 Disease Epidemics. American Phytopathological Society, St. Paul, MN.
-DOI: \doi{10.1094/9780890545058}.
+\doi{10.1094/9780890545058}.
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
 J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
-Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 \doi{10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
