@@ -81,7 +81,9 @@ hours (1 to 24) and the second the modifier (bounded by 0 and 1).
 Described in Tables 1 and 2  of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
-Described in Table 1 of Savary \emph{et al.} 2012.}
+Described in Table 1 of Savary \emph{et al.} 2012.  This value can be modified
+to reflect crop cultivar resistance ratings as well, see Kim \emph{et al.} 2015
+for more details.}
 
 \item{p}{duration of latent period (day, integer).  Described in Table 1 of
 Savary \emph{et al.} 2012.}
