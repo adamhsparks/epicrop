@@ -1,4 +1,3 @@
-
 # weather handling and checking ------------------------------------------------
 test_that("Weather data is as expected after fetching from POWER API", {
   skip_if_offline()
@@ -7,8 +6,10 @@ test_that("Weather data is as expected after fetching from POWER API", {
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-01-16")
     )
-    expect_named(wth,
-                 c("YYYYMMDD", "DOY", "TEMP", "RHUM", "RAIN", "LAT", "LON"))
+    expect_named(
+      wth,
+      c("YYYYMMDD", "DOY", "TEMP", "TMIN", "TMAX", "RHUM", "RAIN", "LAT", "LON")
+    )
     expect_s3_class(wth, c("data.table", "data.frame"))
   })
 })
@@ -32,6 +33,8 @@ test_that("Any NA values in the POWER data will emit a message", {
       "YYYYMMDD" = as.Date("2015-01-15"),
       "DOY" = 15,
       "TEMP" = 26.05,
+      "TMIN" = 25.1,
+      "TMAX" = 27.0,
       "RHUM" = 56.6,
       "RAIN" = NA,
       "LAT" = -27.48,
