@@ -150,7 +150,7 @@ modified_kim_leaf_blast <- function(wth, emergence) {
       c(0, 0.4, 0.72, 0.88, 1, 0.9, 0.45, 0.2, 0.05, 0.01, 0)
     ),
     RcW = cbind(
-      c(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L),
+      c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L),
       c(0, 0.24, 0.41, 0.68, 0.94, 0.97, 1, 1, 1, 1, 1)
     ),
     RcOpt = 0.86,
