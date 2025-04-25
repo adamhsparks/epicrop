@@ -1,6 +1,8 @@
 #' Format weather data for use
 #'
 #' Formats an existing [data.frame] of weather data for use in \pkg{cropsim}.
+#'  Only the data necessary for use in the model is returned and the columns
+#'  are renamed to values expected by the model.
 #'
 #' @param wth A [data.frame] object containing the weather data for use.
 #' @param date The column name indicating the field containing the date values.
@@ -92,6 +94,7 @@ format_wth <- function(
         "LAT",
         "LON"
       )
+      wth[, .SD, .SDcols = old_names]
       setnames(wth, old = old_names, new = new_names)
     } else {
       setcolorder(wth, c(date, temp, rhum, rain))
