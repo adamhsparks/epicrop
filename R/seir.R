@@ -239,7 +239,7 @@ seir <-
 
     # subset weather data where date is greater than emergence minus one and
     # less than duration
-    if (nrow(wth) > duration) {
+    if (dim(wth)[1] > duration) {
       wth <-
         wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1))]
     }
@@ -258,10 +258,16 @@ seir <-
       vector(mode = "double", length = duration)
 
     if (simple_wetness) {
-      w <- .calculate_leaf_wetness(wth, simple_wetness = TRUE)
-      Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
+      Rc_wet <- vector(mode = "double", length = length(wth_rhum))
+      Rc_wet[wth_rhum >= rhlim | wth_rain >= rainlim] <- 1
     } else {
-      Rc_wet <- vector(mode = "double", length = duration)
+      w <- .calculate_leaf_wetness(
+        wth,
+        rhlim = rhlim,
+        rainlim = rainlim,
+        weighted_wetness = FALSE
+      )
+      Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
     }
 
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)

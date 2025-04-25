@@ -4,11 +4,14 @@
 \alias{.calculate_leaf_wetness}
 \title{Calculate leaf wetness based on relative humidity}
 \usage{
-.calculate_leaf_wetness(simple_wetness = TRUE, wth, rhlim, rainlim)
+.calculate_leaf_wetness(weighted_wetness = FALSE, wth, rhlim, rainlim)
 }
 \arguments{
-\item{simple_wetness}{A \code{Boolean} value indicating whether to use simple leaf
-wetness calculation (\code{TRUE}) or a more complex calculation (\code{FALSE}).}
+\item{weighted_wetness}{A \code{Boolean} value indicating whether to use simple
+leaf wetness calculation, \code{FALSE}, or a more complex calculation, \code{TRUE},
+that weights the leaf wetness value based on the relative humidity for each
+hour between RH \code{rhlim} and 80\%, \eqn{(rh - 80) / (rhlim - 80)}. Defaults to
+\code{FALSE}, using the hourly \code{rhlim} value to return a 0 or 1 value.}
 
 \item{wth}{Weather data in the proper format.}
 

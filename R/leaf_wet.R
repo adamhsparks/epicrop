@@ -8,8 +8,11 @@
 #'  `1` using a scaled value of relative humidity where values > rhlim == 1,
 #'  < 95% & > 80% == (rh - 80) / 15) or < 80%  == 0.
 #'
-#' @param simple_wetness A `Boolean` value indicating whether to use simple leaf
-#'  wetness calculation (`TRUE`) or a more complex calculation (`FALSE`).
+#' @param weighted_wetness A `Boolean` value indicating whether to use simple
+#'  leaf wetness calculation, `FALSE`, or a more complex calculation, `TRUE`,
+#'  that weights the leaf wetness value based on the relative humidity for each
+#'  hour between RH `rhlim` and 80%, \eqn{(rh - 80) / (rhlim - 80)}. Defaults to
+#'  `FALSE`, using the hourly `rhlim` value to return a 0 or 1 value.
 #' @param wth Weather data in the proper format.
 #' @param rhlim Relative humidity threshold (%) to determine if there is free
 #'  water on the leaf surface.
@@ -28,28 +31,25 @@
 #'  \email{adamhsparks@@gmail.com}
 
 .calculate_leaf_wetness <- function(
-  simple_wetness = TRUE,
-  wth,
-  rhlim,
-  rainlim
-) {
+    weighted_wetness = FALSE,
+    wth,
+    rhlim,
+    rainlim) {
   rh <- wth$RHUM
   prec <- wth$RAIN
   tmin <- wth$TMIN
   tmax <- wth$TMAX
+  tmp <- wth$TEMP
   lat <- wth$LAT
-  date <- wth$DOY
+  doy <- wth$DOY
 
-  rh <- .diurnalRH(rh, tmin, tmax, lat, doy)
-  if (simple_wetness) {
-    lw <- length(rh[rh >= rhlim])
+  rh <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
+
+  if (isFALSE(weighted_wetness)) {
+    lw <- unlist(lapply(rh_hr, .check_threshold, rhlim = rhlim))
   } else {
-    w <- rh
-    x <- (rh - 80) / (rhlim - 80)
-    w[rh >= rhlim] <- 1
-    w[rh < rhlim] <- x[rh < rhlim]
-    w[rh < 80] <- 0
-    lw <- sum(w)
+    w <- lapply(rh, .calc_weighted_hr_wet, rhlim = rhlim)
+    lw <- unlist(lapply(w, sum))
   }
 
   prec[is.na(prec)] <- 0
@@ -88,11 +88,21 @@
 #'
 #' @dev
 .diurnal_rh <- function(rh, tmin, tmax, tmp, lat, doy) {
-  vp <- .saturated_vapour_pressure(tmp) * rh / 100
-  hrtemp <- .diurnal_temp(lat = lat, doy = doy, tmin = tmin, tmax = tmax)
-  es <- .saturated_vapour_pressure(hrtemp)
-  rh <- 100 * vp / es
-  return(pmin(100, pmax(0, rh)))
+  rh_hr <- vector(mode = "list", length = length(doy))
+  names(rh_hr) <- doy
+  for (i in seq_along(doy)) {
+    vp <- .saturated_vapour_pressure(tmp[[i]]) * rh[[i]] / 100
+    hrtemp <- .diurnal_temp(
+      lat = lat[[i]],
+      doy = doy[[i]],
+      tmin = tmin[[i]],
+      tmax = tmax[[i]]
+    )
+    es <- .saturated_vapour_pressure(hrtemp)
+    rh_hr[[i]] <- 100 * vp / es
+    rh_hr[[i]] <- pmin(100, pmax(0, rh_hr[[i]]))
+  }
+  return(rh_hr)
 }
 
 #' Calculate hourly temperature for a given day
@@ -148,7 +158,7 @@
               exp(
                 -(hr + 24 - x["sunset"]) / 4L
               )) /
-          (1L - exp(-x["nightl"] / 4L))
+            (1L - exp(-x["nightl"] / 4L))
       } else if (hr < x["sunset"]) {
         # period b: dhour between time of sunrise and sunset
         hr_temp[[hr]] <-
@@ -169,7 +179,7 @@
           (x["tmin"] -
             tsunst * exp(-x["nightl"] / 4L) +
             (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4L)) /
-          (1L - exp(-x["nightl"] / 4L))
+            (1L - exp(-x["nightl"] / 4L))
       }
     }
     return(hr_temp)
@@ -230,4 +240,25 @@
 #' @dev
 .saturated_vapour_pressure <- function(tmp) {
   0.61094 * exp((17.625 * (tmp)) / ((tmp) + 243.04))
+}
+
+#' Check if the relative humidity is above the threshold
+#' @param rh_hr A list of 24 relative humidity values for every DOY in the
+#'  data.
+#' @param rhlim The relative humidity threshold to check against.
+.check_threshold <- function(rh_hr, rhlim) {
+  return(sum(rh_hr > rhlim))
+}
+
+#' Calculates the weighted hourly leaf wetness value
+#' @param rh A numeric vector of relative humidity values.
+#' @param rhlim The relative humidity threshold to check against.
+#'
+.calc_weighted_hr_wet <- function(rh, rhlim) {
+  w <- rh
+  x <- (rh - 80) / (rhlim - 80)
+  w[rh >= rhlim] <- 1
+  w[rh < rhlim] <- x[rh < rhlim]
+  w[rh < 80] <- 0
+  return(w)
 }
