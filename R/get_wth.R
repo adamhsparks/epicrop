@@ -170,9 +170,9 @@ get_wth <- function(lonlat, dates, duration) {
 .check_na <- function(.wth) {
   if (anyNA(.wth[, c("TEMP", "TMIN", "TMAX", "RHUM", "RAIN")])) {
     cli::cli_alert(
-      i = c(
-        "The weather data have missing values in your request.
-      This can cause errors when running the model.
+      c(
+        i = "The weather data have missing values in your request.",
+        x = "This can cause errors when running the model.
       You should inspect the weather data carefully and either fill missing
       or try again to download to see if that provides a complete set of data."
       )
