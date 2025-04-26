@@ -19,7 +19,7 @@
 #' @param lat The column name indicating the field containing the latitude of
 #'  the observation data (optional).
 #' @param lon The column name indicating the field containing the longitude of
-#'  the observasion data (optional).
+#'  the observation data (optional).
 #'
 #' @details
 #'
@@ -60,7 +60,28 @@
 #'
 #' @returns A data.frame suitable for use in \pkg{epicrop}.
 #' @examples
-#' format_wth(wth)
+#' # Get weather data from the POWER API, using the `get_wth()` function,
+#' # this is for example purposes only as it is NOT necessary to reformat
+#' # the data provided by `get_wth()`.
+#'
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
+#' )
+#'
+#' format_wth(wth,
+#'   date = "YYYYMMDD",
+#'   temp = "TEMP",
+#'   tmin = "TMIN", ,
+#'   tmax = "TMAX",
+#'   rhum = "RHUM",
+#'   rain = "RAIN",
+#'   lat = "LAT",
+#'   lon = "LON"
+#' )
+#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @export
 format_wth <- function(
     wth,
@@ -72,12 +93,15 @@ format_wth <- function(
     rain,
     lat = NULL,
     lon = NULL) {
-  vars <- c(wth, date, temp, rhum, rain)
-  for (i in vars) {
-    if (missing(i)) {
-      cli::cli_abort("{.var i} must be supplied.")
-    }
+  supplied <- rlang::call_args_names(rlang::caller_call(n = 1))
+  setdiff(c(wth, date, temp, rhum, rain), suppplied)
+
+  if (any(defined %notin% passed)) {
+    cli::cli_abort(
+      "Missing values for { {setdiff(defined, passed)} }."
+    )
   }
+
   if (inherits(wth, "data.frame")) {
     setDT(wth)
 
@@ -85,7 +109,6 @@ format_wth <- function(
       old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
       new_names <- c(
         "YYYYMMDD",
-        "DOY",
         "TEMP",
         "TMIN",
         "TMAX",
@@ -94,23 +117,22 @@ format_wth <- function(
         "LAT",
         "LON"
       )
-      wth[, .SD, .SDcols = old_names]
       setnames(wth, old = old_names, new = new_names)
     } else {
-      setcolorder(wth, c(date, temp, rhum, rain))
       setnames(
         wth,
-        old = vars[-wth],
+        old = c(date, temp, rhum, rain),
         new = c("YYYYMMDD", "TEMP", "RHUM", "RAIN")
       )
     }
   } else {
     cli::cli_abort("{.var wth} must be a data.frame.")
   }
+  # Add the Julian day of year
   wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
-  setcolorder(
+  return(setcolorder(
     wth,
-    c("YYYYMMDD", "DOY", "TEMP", "TMIN", "TMAX", "RHUM", "RAIN"),
+    c("YYYYMMDD", "DOY", "TEMP", "TMIN", "TMAX", "RHUM", "RAIN", "LAT", "LON"),
     skip_absent = TRUE
-  )
+  ))
 }
