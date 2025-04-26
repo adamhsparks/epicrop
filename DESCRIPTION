@@ -42,6 +42,7 @@ Imports:
     cli,
     data.table,
     nasapower (>= 4.0),
+    rlang,
     stats
 Suggests:
     dplyr,
