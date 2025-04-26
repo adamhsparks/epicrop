@@ -40,7 +40,7 @@ rainfall.}
 the observation data (optional).}
 
 \item{lon}{The column name indicating the field containing the longitude of
-the observasion data (optional).}
+the observation data (optional).}
 }
 \value{
 A data.frame suitable for use in \pkg{epicrop}.
@@ -90,5 +90,27 @@ when using default settings.
 }
 }
 \examples{
-format_wth(wth)
+# Get weather data from the POWER API, using the `get_wth()` function,
+# this is for example purposes only as it is NOT necessary to reformat
+# the data provided by `get_wth()`.
+
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-06-30", "2000-12-31")
+)
+
+format_wth(wth,
+  date = "YYYYMMDD",
+  temp = "TEMP",
+  tmin = "TMIN", ,
+  tmax = "TMAX",
+  rhum = "RHUM",
+  rain = "RAIN",
+  lat = "LAT",
+  lon = "LON"
+)
+
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }

@@ -10,7 +10,7 @@
 #' The model represents site size as 1 rice plant's tiller.
 #'
 #' This model is a modified version of the Kim *et al.* (2015) model, which
-#' starts with a high growth rate followed by a rapid delcine after the max
+#' starts with a high growth rate followed by a rapid decline after the max
 #' tillering stage, based on observed tiller numbers in Korean rice varieties,
 #' Kim (personal communication). The age effect increases until max tillering
 #' and decreases after heading stage. The optimum temperature is from 23--27 ˚C.

@@ -58,6 +58,13 @@ wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savar
 wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
 \emph{et al.} 2012 used \code{5}.}
 
+\item{simple_wetness}{\code{Boolean} value, if \code{TRUE} the function will use a
+simple calculation of leaf wetness based on the daily \code{rhlim} and \code{rainlim}
+values. If \code{FALSE} the function will use a more complex calculation of leaf
+wetness based on the \code{wth} data and will calculate the leaf wetness value
+for each hour of the day and use \code{RcW} to determine the effect of leaf
+wetness on the infection rate.}
+
 \item{H0}{initial number of plant's healthy sites (integer).  Described in
 Table 1 of Savary \emph{et al.} 2012.}
 
@@ -67,7 +74,7 @@ of Savary \emph{et al.} 2012.}
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for crop age as a numeric two-column matrix with the first column
 being the crop age in days (1 to \code{duration}) and the second being the
-modfier (bounded by 0 and 1).  Described in Tables 1 ond 2 of Savary
+modifier (bounded by 0 and 1).  Described in Tables 1 and 2 of Savary
 \emph{et al.} 2012.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
@@ -206,11 +213,11 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 \seealso{
 \code{seir()} is called by the following specific disease modelling functions:
 \itemize{
-\item \link{predict_bacterial_blight},
-\item \link{predict_brown_spot},
-\item \link{predict_leaf_blast},
-\item \link{predict_sheath_blight},
-\item \link{predict_tungro}
+\item \link{bacterial_blight},
+\item \link{brown_spot},
+\item \link{leaf_blast},
+\item \link{sheath_blight},
+\item \link{tungro}
 }
 }
 \author{

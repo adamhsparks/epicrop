@@ -4,7 +4,7 @@
 #'  humidity and rainfall values in the weather data. The simple calculation
 #'  uses only the relative humidity and rainfall threshold to set the value to 0
 #'  or 1 based on the threshold values. While the complex calculation uses a
-#'  formula to calcuate a more nuanced value for leaf wetness between `0` and
+#'  formula to calculate a more nuanced value for leaf wetness between `0` and
 #'  `1` using a scaled value of relative humidity where values > rhlim == 1,
 #'  < 95% & > 80% == (rh - 80) / 15) or < 80%  == 0.
 #'
@@ -27,6 +27,7 @@
 #'
 #' @returns A numeric vector of leaf wetness values for use with `Rc_wet`.
 #' @dev
+#' @autoglobal
 #' @author Robert J. Hijmans with modifications by Adam H. Sparks,
 #'  \email{adamhsparks@@gmail.com}
 
@@ -206,7 +207,7 @@
 #' @references
 #' William C. Forsythe and Edward J. Rykiel and Randal S. Stahl and Hsin-i Wu
 #' and Robert M. Schoolfield. Ecological Modeling, Volume 80 (1995) pp. 87-95,
-#' "A Model Comparison for Daylength as a Function of Latitude and Day of the
+#' "A Model Comparison for Day Length as a Function of Latitude and Day of the
 #' Year", \doi{10.1016/0304-3800(94)00034-F}
 #'
 #' @returns A numeric vector of daylight hours based on latitude and date

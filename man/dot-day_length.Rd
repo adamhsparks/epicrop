@@ -29,7 +29,7 @@ wth <- get_wth(
 \references{
 William C. Forsythe and Edward J. Rykiel and Randal S. Stahl and Hsin-i Wu
 and Robert M. Schoolfield. Ecological Modeling, Volume 80 (1995) pp. 87-95,
-"A Model Comparison for Daylength as a Function of Latitude and Day of the
+"A Model Comparison for Day Length as a Function of Latitude and Day of the
 Year", \doi{10.1016/0304-3800(94)00034-F}
 }
 \author{

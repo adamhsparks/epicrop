@@ -31,6 +31,12 @@
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
 #'  _et al._ 2012 used `5`.
+#' @param simple_wetness `Boolean` value, if `TRUE` the function will use a
+#'  simple calculation of leaf wetness based on the daily `rhlim` and `rainlim`
+#'  values. If `FALSE` the function will use a more complex calculation of leaf
+#'  wetness based on the `wth` data and will calculate the leaf wetness value
+#'  for each hour of the day and use `RcW` to determine the effect of leaf
+#'  wetness on the infection rate.
 #' @param H0 initial number of plant's healthy sites (integer).  Described in
 #'  Table 1 of Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (integer).  Described in Table 1
@@ -38,7 +44,7 @@
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for crop age as a numeric two-column matrix with the first column
 #'  being the crop age in days (1 to `duration`) and the second being the
-#'  modfier (bounded by 0 and 1).  Described in Tables 1 ond 2 of Savary
+#'  modifier (bounded by 0 and 1).  Described in Tables 1 and 2 of Savary
 #'  _et al._ 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature as a numeric two-column matrix with the first
@@ -136,11 +142,11 @@
 #'
 #' @seealso
 #' `seir()` is called by the following specific disease modelling functions:
-#' * [predict_bacterial_blight],
-#' * [predict_brown_spot],
-#' * [predict_leaf_blast],
-#' * [predict_sheath_blight],
-#' * [predict_tungro]
+#' * [bacterial_blight],
+#' * [brown_spot],
+#' * [leaf_blast],
+#' * [sheath_blight],
+#' * [tungro]
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
@@ -197,7 +203,7 @@ seir <-
 
     # check aggregation values
     if (a < 1L) {
-      cli::abort(
+      cli::cli_abort(
         "{.var a} cannot be set to less than 1. Valid aggregation values, `a`,",
         " are from 1 to > 1."
       )

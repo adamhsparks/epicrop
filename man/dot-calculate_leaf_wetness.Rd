@@ -35,7 +35,7 @@ Calculate a leaf wetness value between \code{0} and \code{1} based on the relati
 humidity and rainfall values in the weather data. The simple calculation
 uses only the relative humidity and rainfall threshold to set the value to 0
 or 1 based on the threshold values. While the complex calculation uses a
-formula to calcuate a more nuanced value for leaf wetness between \code{0} and
+formula to calculate a more nuanced value for leaf wetness between \code{0} and
 \code{1} using a scaled value of relative humidity where values > rhlim == 1,
 < 95\% & > 80\% == (rh - 80) / 15) or < 80\%  == 0.
 }
