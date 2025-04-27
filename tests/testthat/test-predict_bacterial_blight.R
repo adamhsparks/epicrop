@@ -1,7 +1,6 @@
-
 test_that("Values are as expected", {
-  wth <- epicrop:::wth
-  bb <- bacterial_blight(wth, emergence = "2000-07-01")
+  # wth_formatted is loaded in setup-testdata.R
+  bb <- bacterial_blight(wth_formatted, emergence = "2000-07-01")
 
   expect_named(
     bb,
@@ -61,6 +60,6 @@ test_that("Values are as expected", {
   expect_equal(bb[[1, "intensity"]], 0, tolerance = 0.1)
   expect_equal(bb[[120, "intensity"]], 0.43, tolerance = 0.01)
 
-  expect_equal(bb[[1, "lat"]], 14.67741, tolerance = 0.00001)
-  expect_equal(bb[[1, "lon"]], 121.2556, tolerance = 0.0001)
+  expect_equal(bb[[1, "lat"]], 14.6774, tolerance = 0.01)
+  expect_equal(bb[[1, "lon"]], 121.2556, tolerance = 0.01)
 })

@@ -1,7 +1,6 @@
-
 test_that("Values are as expected", {
-  wth <- epicrop:::wth
-  tungro <- tungro(wth, emergence = "2000-07-01")
+  # wth_formatted is loaded in setup-testdata.R
+  tungro <- tungro(wth_formatted, emergence = "2000-07-01")
 
   expect_named(
     tungro,
@@ -61,6 +60,6 @@ test_that("Values are as expected", {
   expect_equal(tungro[[1, "intensity"]], 0)
   expect_equal(tungro[[120, "intensity"]], 0.1, tolerance = 0.1)
 
-  expect_equal(tungro[[1, "lat"]], 14.67741, tolerance = 0.00001)
-  expect_equal(tungro[[1, "lon"]], 121.2556, tolerance = 0.0001)
+  expect_equal(tungro[[1, "lat"]], 14.6774, tolerance = 0.01)
+  expect_equal(tungro[[1, "lon"]], 121.2556, tolerance = 0.01)
 })

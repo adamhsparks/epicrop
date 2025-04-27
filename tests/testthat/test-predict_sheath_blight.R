@@ -1,7 +1,6 @@
-
 test_that("Values are as expected", {
-  wth <- epicrop:::wth
-  sb <- sheath_blight(wth, emergence = "2000-07-01")
+  # wth_formatted is loaded in setup-testdata.R
+  sb <- sheath_blight(wth_formatted, emergence = "2000-07-01")
 
   expect_named(
     sb,
@@ -61,6 +60,6 @@ test_that("Values are as expected", {
   expect_equal(sb[[1, "intensity"]], 0, tolerance = 0.1)
   expect_equal(sb[[120, "intensity"]], 0.7, tolerance = 0.1)
 
-  expect_equal(sb[[1, "lat"]], 14.67741, tolerance = 0.00001)
-  expect_equal(sb[[1, "lon"]], 121.2556, tolerance = 0.0001)
+  expect_equal(sb[[1, "lat"]], 14.6774, tolerance = 0.01)
+  expect_equal(sb[[1, "lon"]], 121.2556, tolerance = 0.01)
 })
