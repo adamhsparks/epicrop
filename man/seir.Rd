@@ -27,7 +27,8 @@ seir(
 )
 }
 \arguments{
-\item{wth}{a \code{data.frame} of weather on a daily time-step containing data
+\item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or
+\code{\link[=format_wth]{format_wth()}} containing weather on a daily time-step containing data
 with the following field names.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
@@ -35,8 +36,10 @@ with the following field names.\tabular{rl}{
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Note \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Note \cr
+   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (°C), see TMIN/TMAX Details \cr
+   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (°C), see TMIN/TMAX Details \cr
+   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Details \cr
+   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
 }}
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
@@ -132,6 +135,8 @@ A \link[data.table:data.table]{data.table::data.table} object containing the fol
 \item{lat}{Latitude value if provided by the \code{wth} object}
 \item{lon}{Longitude value if provided by the \code{wth} object}
 }
+
+#TODO: add more details for Lat/lon and tmin/tmax
 }
 \description{
 This function is originally used by specific disease models in

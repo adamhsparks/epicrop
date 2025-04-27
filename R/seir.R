@@ -4,7 +4,8 @@
 #'  \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
 #'  proper values it can be used with other pathosystems as well.
 #'
-#' @param wth a `data.frame` of weather on a daily time-step containing data
+#' @param wth a `data.frame` of class `epicrop.wth` from either [get_wth()] or
+#'  [format_wth()] containing weather on a daily time-step containing data
 #' with the following field names.
 #'
 #'   **Field Name** | **Value**
@@ -14,8 +15,10 @@
 #'   _TEMP_ | Mean daily temperature (°C)
 #'   _RHUM_ | Mean daily relative humidity (%)
 #'   _RAIN_ | Mean daily rainfall (mm)
-#'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON Note
-#'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Note
+#'   _TMIN_ | **Optional** Minimum daily temperature (°C), see TMIN/TMAX Details
+#'   _TMAX_ | **Optional** Maximum daily temperature (°C), see TMIN/TMAX Details
+#'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON Details
+#'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
 #' @param emergence expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).  Described in Table 1 of Savary
@@ -171,6 +174,8 @@
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
 #'
+#' #TODO: add more details for Lat/lon and tmin/tmax
+#'
 #' @autoglobal
 #' @export
 
@@ -195,12 +200,6 @@ seir <-
       a,
       RRS,
       RRG) {
-    # set wth input as a data.table object if it's not already one, else this
-    # function will fail on line 182
-    if (!inherits(wth, "epicrop.wth")) {
-      wth <- as.data.table(wth)
-    }
-
     # check aggregation values
     if (a < 1L) {
       cli::cli_abort(
