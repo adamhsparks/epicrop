@@ -119,9 +119,6 @@ format_wth <- function(
   if (inherits(wth, "data.frame")) {
     setDT(wth)
 
-    # Add the Julian day of year
-    wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
-
     if (length(passed_args) == 8) {
       old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
       new_names <- c(
@@ -157,6 +154,9 @@ format_wth <- function(
   } else {
     cli::cli_abort("{.var wth} must be a data.frame.")
   }
+
+  # Add the Julian day of year
+  wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
 
   setcolorder(
     wth,

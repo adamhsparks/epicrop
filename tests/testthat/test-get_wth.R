@@ -42,3 +42,54 @@ test_that("Any NA values in the POWER data will emit a message", {
     )
   ))
 })
+
+# `wth` is loaded in setup-testdata.R
+test_that("format_wth() works with all 8 inputs", {
+  wth_8 <- format_wth(
+    wth,
+    date = "YYYYMMDD",
+    temp = "T2M",
+    rhum = "RH2M",
+    rain = "PRECTOTCORR",
+    tmin = "T2M_MIN",
+    tmax = "T2M_MAX",
+    lat = "LAT",
+    lon = "LON"
+  )
+  expect_s3_class(wth_8, c("epicrop.wth", "data.table", "data.frame"))
+  expect_named(
+    wth_8,
+    c(
+      "YYYYMMDD",
+      "DOY",
+      "TEMP",
+      "TMIN",
+      "TMAX",
+      "RHUM",
+      "RAIN",
+      "LAT",
+      "LON"
+    )
+  )
+})
+
+test_that("format_wth() works with only 4 inputs", {
+  wth_4 <- format_wth(
+    wth,
+    date = "YYYYMMDD",
+    temp = "T2M",
+    rhum = "RH2M",
+    rain = "PRECTOTCORR"
+  )
+  expect_s3_class(wth, c("epicrop.wth", "data.table", "data.frame"))
+  expect_named(
+    wth_4,
+    c(
+      "YYYYMMDD",
+      "DOY",
+      "TEMP",
+      "RHUM",
+      "RAIN"
+    )
+  )
+})
