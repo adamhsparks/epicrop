@@ -57,25 +57,36 @@
 #' *Values marked with "*" are optional and not necessary to run the model
 #'   when using default settings.
 #'
-#'
-#' @returns A data.frame suitable for use in \pkg{epicrop}.
+#' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table],'
+#'  suitable for use in \pkg{epicrop}.
 #' @examples
 #' # Get weather data from the POWER API, using the `get_wth()` function,
 #' # this is for example purposes only as it is NOT necessary to reformat
 #' # the data provided by `get_wth()`.
 #'
-#' wth <- get_wth(
-#'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-06-30", "2000-12-31")
+#' library(nasapower)
+#' w <- get_power(
+#'   lonlat = c(121.25562, 14.6674),
+#'   dates = c("2000-06-30", "2000-12-31"),
+#'   community = "AG",
+#'   pars = c(
+#'     "T2M",
+#'     "T2M_MIN",
+#'     "T2M_MAX",
+#'     "RH2M",
+#'     "PRECTOTCORR"
+#'   ),
+#'   temporal_api = "DAILY"
 #' )
 #'
-#' format_wth(wth,
+#' format_wth(
+#'   wth = w,
 #'   date = "YYYYMMDD",
-#'   temp = "TEMP",
-#'   tmin = "TMIN", ,
-#'   tmax = "TMAX",
-#'   rhum = "RHUM",
-#'   rain = "RAIN",
+#'   temp = "T2M",
+#'   rhum = "RH2M",
+#'   rain = "PRECTOTCORR",
+#'   tmin = "T2M_MIN",
+#'   tmax = "T2M_MAX",
 #'   lat = "LAT",
 #'   lon = "LON"
 #' )
@@ -87,25 +98,31 @@ format_wth <- function(
     wth,
     date,
     temp,
-    tmin = NULL,
-    tmax = NULL,
     rhum,
     rain,
-    lat = NULL,
-    lon = NULL) {
-  supplied <- rlang::call_args_names(rlang::caller_call(n = 1))
-  setdiff(c(wth, date, temp, rhum, rain), suppplied)
-
-  if (any(defined %notin% passed)) {
+    tmin,
+    tmax,
+    lat,
+    lon) {
+  rlang::check_required(c(wth, date, temp, rhum, rain))
+  passed_args <- as.character(match.call())[-c(1:2)] # remove fn & `wth` fm args
+  if (any(passed_args %notin% names(wth))) {
+    not_in <- passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
-      "Missing values for { {setdiff(defined, passed)} }."
+      c(
+        "The following columns that you have provided are not in {.var wth}:
+        {.var {not_in}}."
+      )
     )
   }
 
   if (inherits(wth, "data.frame")) {
     setDT(wth)
 
-    if (length(wth) == 8) {
+    # Add the Julian day of year
+    wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
+
+    if (length(passed_args) == 8) {
       old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
       new_names <- c(
         "YYYYMMDD",
@@ -118,21 +135,35 @@ format_wth <- function(
         "LON"
       )
       setnames(wth, old = old_names, new = new_names)
+      # select only the columns that are needed
+      wth <- wth[, new_names, with = FALSE]
     } else {
+      old_names <- c(date, temp, rhum, rain)
+
+      new_names <- c(
+        "YYYYMMDD",
+        "TEMP",
+        "RHUM",
+        "RAIN"
+      )
       setnames(
         wth,
-        old = c(date, temp, rhum, rain),
-        new = c("YYYYMMDD", "TEMP", "RHUM", "RAIN")
+        old = old_names,
+        new = new_names
       )
+      # select only the columns that are needed
+      wth <- wth[, new_names, with = FALSE]
     }
   } else {
     cli::cli_abort("{.var wth} must be a data.frame.")
   }
-  # Add the Julian day of year
-  wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
-  return(setcolorder(
+
+  setcolorder(
     wth,
     c("YYYYMMDD", "DOY", "TEMP", "TMIN", "TMAX", "RHUM", "RAIN", "LAT", "LON"),
     skip_absent = TRUE
-  ))
+  )[]
+
+  class(wth) <- union("epicrop.wth", class(wth))
+  return(wth)
 }
