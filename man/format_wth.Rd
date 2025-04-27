@@ -4,17 +4,7 @@
 \alias{format_wth}
 \title{Format weather data for use}
 \usage{
-format_wth(
-  wth,
-  date,
-  temp,
-  tmin = NULL,
-  tmax = NULL,
-  rhum,
-  rain,
-  lat = NULL,
-  lon = NULL
-)
+format_wth(wth, date, temp, rhum, rain, tmin, tmax, lat, lon)
 }
 \arguments{
 \item{wth}{A \link{data.frame} object containing the weather data for use.}
@@ -24,17 +14,17 @@ format_wth(
 \item{temp}{The column name indicating the field containing the average daily
 temperature values.}
 
-\item{tmin}{The column name indicating the field containing the minimum daily
-temperature (optional).}
-
-\item{tmax}{The column name indicating the field containing the maximum daily
-temperature.}
-
 \item{rhum}{The column name indicating the field containing the average daily
 relative humidity.}
 
 \item{rain}{The column name indicating the field containing the total daily
 rainfall.}
+
+\item{tmin}{The column name indicating the field containing the minimum daily
+temperature (optional).}
+
+\item{tmax}{The column name indicating the field containing the maximum daily
+temperature.}
 
 \item{lat}{The column name indicating the field containing the latitude of
 the observation data (optional).}
@@ -43,7 +33,8 @@ the observation data (optional).}
 the observation data (optional).}
 }
 \value{
-A data.frame suitable for use in \pkg{epicrop}.
+A \code{epicrop.wth}, a data frame based on a \link[data.table:data.table]{data.table::data.table},'
+suitable for use in \pkg{epicrop}.
 }
 \description{
 Formats an existing \link{data.frame} of weather data for use in \pkg{cropsim}.
@@ -94,18 +85,29 @@ when using default settings.
 # this is for example purposes only as it is NOT necessary to reformat
 # the data provided by `get_wth()`.
 
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
+library(nasapower)
+w <- get_power(
+  lonlat = c(121.25562, 14.6674),
+  dates = c("2000-06-30", "2000-12-31"),
+  community = "AG",
+  pars = c(
+    "T2M",
+    "T2M_MIN",
+    "T2M_MAX",
+    "RH2M",
+    "PRECTOTCORR"
+  ),
+  temporal_api = "DAILY"
 )
 
-format_wth(wth,
+format_wth(
+  wth = w,
   date = "YYYYMMDD",
-  temp = "TEMP",
-  tmin = "TMIN", ,
-  tmax = "TMAX",
-  rhum = "RHUM",
-  rain = "RAIN",
+  temp = "T2M",
+  rhum = "RH2M",
+  rain = "PRECTOTCORR",
+  tmin = "T2M_MIN",
+  tmax = "T2M_MAX",
   lat = "LAT",
   lon = "LON"
 )

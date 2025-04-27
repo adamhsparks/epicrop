@@ -19,9 +19,9 @@ match the \code{duration} parameter value passed along to \link{seir} or any of 
 \code{predict} family of functions.}
 }
 \value{
-A \link[data.table:data.table]{data.table::data.table} object of weather data, dates and
-geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
-with the following columns:\tabular{rl}{
+A \code{epicrop.wth}, a data frame based on a \link[data.table:data.table]{data.table::data.table},
+object suitable for use in \pkg{epicrop} containing weather data, dates and
+geolocation information (LAT/LON values) with the following columns:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
