@@ -12,9 +12,9 @@
 #'  match the `duration` parameter value passed along to [seir] or any of the
 #'  `predict` family of functions.
 #'
-#' @returns A [data.table::data.table] object of weather data, dates and
-#'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
-#'  with the following columns:
+#' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table],
+#'  object suitable for use in \pkg{epicrop} containing weather data, dates and
+#'  geolocation information (LAT/LON values) with the following columns:
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
@@ -104,6 +104,7 @@ get_wth <- function(lonlat, dates, duration) {
     )
   )
   .check_na(.wth = wth)
+  class(wth) <- union("epicrop.wth", class(wth))
   return(wth)
 }
 

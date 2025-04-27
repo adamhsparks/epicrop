@@ -197,7 +197,7 @@ seir <-
       RRG) {
     # set wth input as a data.table object if it's not already one, else this
     # function will fail on line 182
-    if (!inherits(wth, "data.table")) {
+    if (!inherits(wth, "epicrop.wth")) {
       wth <- as.data.table(wth)
     }
 
