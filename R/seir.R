@@ -138,6 +138,14 @@
 #' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.
 #'
+#' @details # TMIN/TMAX
+#' If `simple_wetness` is set to `FALSE`, the function will use the `TMIN` and
+#'  TMAX` columns in the `wth` object to calculate the leaf wetness value for
+#'  24 hours of the day using the `rhlim` and `rainlim` values and then uses
+#'  `RcW` to calculate a value between 0 and 1.  When `simple_wetness` is set to
+#'  `TRUE`, the function only sets the leaf wetness to 0 or 1 for the day based
+#'  on the `rhlim` and `rainlim` values.
+#'
 #' @details # _LAT_/_LON_
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
@@ -174,8 +182,6 @@
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
 #'
-#' #TODO: add more details for Lat/lon and tmin/tmax
-#'
 #' @autoglobal
 #' @export
 
@@ -185,8 +191,8 @@ seir <-
       emergence,
       onset,
       duration,
-      rhlim = NULL,
-      rainlim = NULL,
+      rhlim,
+      rainlim,
       simple_wetness = TRUE,
       H0,
       I0,
@@ -221,12 +227,17 @@ seir <-
       )
     }
 
-    if (is.null(rhlim) || is.null(rainlim)) {
+    if (simple_wetness && ("TMIN" && "TMAX" %notin% names(wth))) {
       cli::cli_abort(
-        "Both {.var rhlim} and {.var rainlim} must be provided.
-        The values used by Savary _et al._ (2012) are 90 and 5 respectively."
+        c(
+          i = "You have set {.var simple_wetness} to {.val TRUE}
+               but you do not have TMIN and TMAX in your weather data.",
+          x = "Please set {.var simple_wetness} to {.val FALSE} or add",
+          "TMIN and TMAX to your weather data."
+        )
       )
     }
+
     # Set and check dates ----
     emergence <- as.Date(emergence)
     harvest <- emergence + sum(duration, -1)

@@ -9,8 +9,8 @@ seir(
   emergence,
   onset,
   duration,
-  rhlim = NULL,
-  rainlim = NULL,
+  rhlim,
+  rainlim,
   simple_wetness = TRUE,
   H0,
   I0,
@@ -135,8 +135,6 @@ A \link[data.table:data.table]{data.table::data.table} object containing the fol
 \item{lat}{Latitude value if provided by the \code{wth} object}
 \item{lon}{Longitude value if provided by the \code{wth} object}
 }
-
-#TODO: add more details for Lat/lon and tmin/tmax
 }
 \description{
 This function is originally used by specific disease models in
@@ -150,6 +148,11 @@ When \emph{a} is greater than \code{1} there is aggregation in the disease occur
 the pathogen is unable to access the entire population of healthy sites,
 which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
 greater detail.
+}
+
+\section{TMIN/TMAX}{
+If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
+TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
 }
 
 \section{\emph{LAT}/\emph{LON}}{
