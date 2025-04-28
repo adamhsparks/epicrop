@@ -5,9 +5,9 @@
 \alias{lb}
 \title{Predict Rice Leaf Blast Intensity}
 \usage{
-leaf_blast(wth, emergence)
+leaf_blast(wth, emergence, ...)
 
-lb(wth, emergence)
+lb(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -27,6 +27,8 @@ named columns and will work.\tabular{rl}{
 }}
 
 \item{emergence}{Expected date of crop emergence}
+
+\item{...}{Additional arguments passed to \link{seir}.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection

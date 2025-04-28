@@ -4,7 +4,7 @@
 \alias{modified_kim_leaf_blast}
 \title{Predict Rice Leaf Blast Intensity Using Modified Kim Model}
 \usage{
-modified_kim_leaf_blast(wth, emergence)
+modified_kim_leaf_blast(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -24,6 +24,8 @@ named columns and will work.\tabular{rl}{
 }}
 
 \item{emergence}{Expected date of crop emergence}
+
+\item{...}{Additional arguments passed to \link{seir}.}
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection

@@ -5,9 +5,9 @@
 \alias{bs}
 \title{Predict Rice Brown Spot Intensity}
 \usage{
-brown_spot(wth, emergence)
+brown_spot(wth, emergence, ...)
 
-bs(wth, emergence)
+bs(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -27,6 +27,8 @@ named columns and will work.\tabular{rl}{
 }}
 
 \item{emergence}{Expected date of crop emergence}
+
+\item{...}{Additional arguments passed to \link{seir}.}
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection
