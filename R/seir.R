@@ -161,7 +161,8 @@
 #' * [modified_kim_leaf_blast], and,
 #' * [modified_kim_sheath_blight].
 #'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com} from original by
+#'   Robert J. Hijmans, Rene Pangga and Jorell Aunario.
 #'
 #' @returns A [data.table::data.table] object containing the following columns:
 #'
