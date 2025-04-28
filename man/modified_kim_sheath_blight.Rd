@@ -27,10 +27,11 @@ A \link[data.table:data.table]{data.table::data.table} of disease intensity and 
 sites. See \link{seir} for a full description of the column values.
 }
 \description{
-A dynamic mechanistic simulation of sheath blight disease of rice, causal
-agent \emph{Rhizoctonia solani} AG1-1A Kühn. The model is driven by daily weather
-data, which can easily be accessed using \link{get_wth} to download weather data
-from \acronym{NASA} \acronym{POWER}.
+A helper function to provide values used by Kim _et al. 2015 for a dynamic
+mechanistic simulation of sheath blight disease of rice, causal agent
+\emph{Rhizoctonia solani} AG1-1A Kühn. The model is driven by daily weather data,
+which can easily be accessed using \link{get_wth} to download weather data from
+\acronym{NASA} \acronym{POWER}.
 }
 \details{
 The model represents site size as 1 rice plant's tiller.

@@ -27,9 +27,10 @@ A \link[data.table:data.table]{data.table::data.table} of disease intensity and 
 sites. See \link{seir} for a full description of the column values.
 }
 \description{
-A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
+A helper function to provide values used by Kim _et al. 2015 for a dynamic
+mechanistic simulation of leaf blast disease of rice, causal agent
 \emph{Magnaporthe oryzae}. The model is driven by daily weather data, which can
-easily be accessed using\link{get_wth} to download weather data from
+easily be accessed using \link{get_wth} to download weather data from
 \acronym{NASA} \acronym{POWER}.
 }
 \details{

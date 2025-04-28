@@ -30,10 +30,10 @@ A \link[data.table:data.table]{data.table::data.table} of disease intensity and 
 sites. See \link{seir} for a full description of the column values.
 }
 \description{
-A dynamic mechanistic simulation of rice brown spot, causal agent
-\emph{Cochliobolus miyabeanus}. The model is driven by daily weather data, which
-can easily be accessed using\link{get_wth} to download weather data from
-\acronym{NASA} \acronym{POWER}.
+A helper function to provide sensible defaults for a dynamic mechanistic
+simulation of rice brown spot, causal agent \emph{Cochliobolus miyabeanus}. The
+model is driven by daily weather data, which can easily be accessed using
+\link{get_wth} to download weather data from \acronym{NASA} \acronym{POWER}.
 }
 \details{
 The model represents site size as 10

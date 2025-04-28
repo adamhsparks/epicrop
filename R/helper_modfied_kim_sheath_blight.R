@@ -1,9 +1,10 @@
 #' Predict Rice Sheath Blight Intensity Using a Modified Kim Model
 #'
-#' A dynamic mechanistic simulation of sheath blight disease of rice, causal
-#' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
-#' data, which can easily be accessed using [get_wth] to download weather data
-#' from \acronym{NASA} \acronym{POWER}.
+#' A helper function to provide values used by Kim _et al. 2015 for a dynamic
+#' mechanistic simulation of sheath blight disease of rice, causal agent
+#' _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather data,
+#' which can easily be accessed using [get_wth] to download weather data from
+#' \acronym{NASA} \acronym{POWER}.
 #'
 #'
 #' @details

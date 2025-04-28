@@ -27,11 +27,11 @@ A \link[data.table:data.table]{data.table::data.table} of disease intensity and 
 sites.  See \link{seir} for a full description of the column values.
 }
 \description{
-A dynamic mechanistic simulation of tungro disease of rice, causal agents
-\emph{Rice Tungro Spherical Virus} and \emph{Rice Tungro Bacilliform Virus}.
-The model is driven by daily weather data, which can easily be accessed using
-\link{get_wth} to download weather data from \acronym{NASA} \acronym{POWER} using
-\CRANpkg{nasapower}.
+A helper function to provide sensible defaults for a dynamic mechanistic
+simulation of tungro disease of rice, causal agents \emph{Rice Tungro Spherical
+Virus} and \emph{Rice Tungro Bacilliform Virus}.  The model is driven by daily
+weather data, which can easily be accessed using \link{get_wth} to download
+weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 }
 \details{
 The model represents site size as 1 rice plant.

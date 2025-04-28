@@ -30,10 +30,11 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} of disease inten
 sites. See \code{\link[=seir]{seir()}} for a full description of the column values.
 }
 \description{
-A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-\emph{Magnaporthe oryzae}. The model is driven by daily weather data, which can
-easily be accessed using\code{\link[=get_wth]{get_wth()}} to download weather data from
-\acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+A helper function to provide sensible defaults for a dynamic mechanistic
+simulation of leaf blast disease of rice, causal agent \emph{Magnaporthe oryzae}.
+The model is driven by daily weather data, which can easily be accessed using
+\code{\link[=get_wth]{get_wth()}} to download weather data from \acronym{NASA} \acronym{POWER}
+using \CRANpkg{nasapower}.
 }
 \details{
 The model represents site size as 45

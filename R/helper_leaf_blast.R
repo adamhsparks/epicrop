@@ -1,9 +1,10 @@
 #' Predict Rice Leaf Blast Intensity
 #'
-#' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-#' _Magnaporthe oryzae_. The model is driven by daily weather data, which can
-#' easily be accessed using[get_wth()] to download weather data from
-#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+#' A helper function to provide sensible defaults for a dynamic mechanistic
+#' simulation of leaf blast disease of rice, causal agent _Magnaporthe oryzae_.
+#' The model is driven by daily weather data, which can easily be accessed using
+#' [get_wth()] to download weather data from \acronym{NASA} \acronym{POWER}
+#' using \CRANpkg{nasapower}.
 #'
 #' @details
 #' The model represents site size as 45

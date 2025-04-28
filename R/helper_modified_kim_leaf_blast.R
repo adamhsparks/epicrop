@@ -1,8 +1,9 @@
 #' Predict Rice Leaf Blast Intensity Using Modified Kim Model
 #'
-#' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
+#' A helper function to provide values used by Kim _et al. 2015 for a dynamic
+#' mechanistic simulation of leaf blast disease of rice, causal agent
 #' _Magnaporthe oryzae_. The model is driven by daily weather data, which can
-#' easily be accessed using[get_wth] to download weather data from
+#' easily be accessed using [get_wth] to download weather data from
 #' \acronym{NASA} \acronym{POWER}.
 #'
 #' @details

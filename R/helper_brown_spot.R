@@ -1,9 +1,9 @@
 #' Predict Rice Brown Spot Intensity
 #'
-#' A dynamic mechanistic simulation of rice brown spot, causal agent
-#' _Cochliobolus miyabeanus_. The model is driven by daily weather data, which
-#' can easily be accessed using[get_wth] to download weather data from
-#' \acronym{NASA} \acronym{POWER}.
+#' A helper function to provide sensible defaults for a dynamic mechanistic
+#' simulation of rice brown spot, causal agent _Cochliobolus miyabeanus_. The
+#' model is driven by daily weather data, which can easily be accessed using
+#' [get_wth] to download weather data from \acronym{NASA} \acronym{POWER}.
 #'
 #' @details
 #' The model represents site size as 10
