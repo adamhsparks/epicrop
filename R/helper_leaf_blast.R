@@ -85,7 +85,7 @@
 #' [seir()]
 #'
 #' @export
-leaf_blast <- function(wth, emergence) {
+leaf_blast <- function(wth, emergence, ...) {
   return(
     seir(
       wth = wth,

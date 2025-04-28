@@ -82,7 +82,7 @@
 #' [seir]
 #'
 #' @export
-modified_kim_leaf_blast <- function(wth, emergence) {
+modified_kim_leaf_blast <- function(wth, emergence, ...) {
   seir(
     wth = wth,
     emergence = emergence,

@@ -69,7 +69,7 @@
 #' [seir]
 #'
 #' @export
-tungro <- function(wth, emergence) {
+tungro <- function(wth, emergence, ...) {
   return(
     seir(
       wth = wth,

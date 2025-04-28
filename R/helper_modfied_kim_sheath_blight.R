@@ -97,7 +97,7 @@
 #' [seir]
 #'
 #' @export
-modified_kim_sheath_blight <- function(wth, emergence) {
+modified_kim_sheath_blight <- function(wth, emergence, ...) {
   seir(
     wth = wth,
     emergence = emergence,

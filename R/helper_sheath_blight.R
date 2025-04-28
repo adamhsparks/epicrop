@@ -88,7 +88,7 @@
 #' [seir]
 #'
 #' @export
-sheath_blight <- function(wth, emergence) {
+sheath_blight <- function(wth, emergence, ...) {
   return(
     seir(
       wth = wth,

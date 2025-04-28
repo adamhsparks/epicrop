@@ -80,7 +80,7 @@
 #' [seir]
 #'
 #' @export
-brown_spot <- function(wth, emergence) {
+brown_spot <- function(wth, emergence, ...) {
   return(
     seir(
       wth = wth,
