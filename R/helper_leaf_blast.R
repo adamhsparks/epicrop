@@ -167,8 +167,7 @@ leaf_blast <- function(wth, emergence) {
       Sx = 30000L,
       RRS = 0.01,
       RRG = 0.1
-    ),
-    ...
+    )
   )
 }
 

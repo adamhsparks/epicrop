@@ -139,7 +139,6 @@ modified_kim_sheath_blight <- function(wth, emergence) {
         0.0001,
         0.0001
       )
-    ),
-    ...
+    )
   )
 }

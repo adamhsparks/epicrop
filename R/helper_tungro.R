@@ -109,7 +109,6 @@ tungro <- function(wth, emergence) {
       a = 1L,
       RRS = 0.01,
       RRG = 0.1
-    ),
-    ...
+    )
   )
 }

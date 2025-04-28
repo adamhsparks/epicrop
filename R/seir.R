@@ -193,25 +193,26 @@
 
 seir <-
   function(
-      wth,
-      emergence,
-      onset,
-      duration,
-      rhlim,
-      rainlim,
-      simple_wetness = TRUE,
-      H0,
-      I0,
-      RcA,
-      RcT,
-      RcW = NULL,
-      RcOpt,
-      p,
-      i,
-      Sx,
-      a,
-      RRS,
-      RRG) {
+    wth,
+    emergence,
+    onset,
+    duration,
+    rhlim,
+    rainlim,
+    simple_wetness = TRUE,
+    H0,
+    I0,
+    RcA,
+    RcT,
+    RcW = NULL,
+    RcOpt,
+    p,
+    i,
+    Sx,
+    a,
+    RRS,
+    RRG
+  ) {
     if (a < 1L) {
       cli::cli_abort(
         "{.var a} cannot be set to less than 1. Valid aggregation values for
@@ -231,7 +232,7 @@ seir <-
       )
     }
 
-    if (simple_wetness && ("TMIN" && "TMAX" %notin% names(wth))) {
+    if (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth))) {
       cli::cli_abort(
         c(
           i = "You have set {.var simple_wetness} to {.code TRUE}
@@ -271,11 +272,11 @@ seir <-
     # Create output vars
     cofr <-
       rc <-
-      latency <- infectious <- intensity <- rsenesced <-
-      rgrowth <-
-      rtransfer <- infection <- diseased <- senesced <- removed <-
-      now_infectious <- now_latent <- sites <- total_sites <-
-      vector(mode = "double", length = duration)
+        latency <- infectious <- intensity <- rsenesced <-
+          rgrowth <-
+            rtransfer <- infection <- diseased <- senesced <- removed <-
+              now_infectious <- now_latent <- sites <- total_sites <-
+                vector(mode = "double", length = duration)
 
     if (simple_wetness) {
       Rc_wet <- vector(mode = "double", length = length(wth_rhum))

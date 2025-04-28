@@ -42,7 +42,6 @@
 #'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
 #' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments passed to [seir].
 #' @inheritSection seir TMIN/TMAX Details
 #' @inheritSection seir LAT/LON Details
 #'
@@ -125,8 +124,7 @@ bacterial_blight <- function(wth, emergence) {
       a = 4L,
       RRS = 0.01,
       RRG = 0.1
-    ),
-    ...
+    )
   )
 }
 

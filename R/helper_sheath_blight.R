@@ -132,8 +132,7 @@ sheath_blight <- function(wth, emergence) {
       a = 2.8,
       RRS = 0.005,
       RRG = 0.2
-    ),
-    ...
+    )
   )
 }
 

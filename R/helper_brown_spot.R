@@ -110,8 +110,7 @@ brown_spot <- function(wth, emergence) {
       Sx = 100000L,
       RRS = 0.01,
       RRG = 0.1
-    ),
-    ...
+    )
   )
 }
 

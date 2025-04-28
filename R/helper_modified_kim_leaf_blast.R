@@ -162,7 +162,6 @@ modified_kim_leaf_blast <- function(wth, emergence) {
     a = 1L,
     Sx = 90000L,
     RRS = 0.005,
-    RRG = 0.1,
-    ...
+    RRG = 0.1
   )
 }

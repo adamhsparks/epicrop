@@ -27,8 +27,6 @@ named columns and will work.\tabular{rl}{
 }}
 
 \item{emergence}{Expected date of crop emergence}
-
-\item{...}{Additional arguments passed to \link{seir}.}
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection
