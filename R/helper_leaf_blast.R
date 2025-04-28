@@ -76,7 +76,7 @@
 #' _Pyricularia oryzae_ Cav. in upland rice varieties. PhD Thesis, University of
 #' the Philippines at Los Baños, 82 p.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
 #' [seir()]

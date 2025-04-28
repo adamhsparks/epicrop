@@ -152,7 +152,7 @@ greater detail.
 
 \section{TMIN/TMAX}{
 If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
-TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
+TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1 for the whole day.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
 }
 
 \section{\emph{LAT}/\emph{LON}}{
@@ -225,7 +225,9 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 \item \link{brown_spot},
 \item \link{leaf_blast},
 \item \link{sheath_blight},
-\item \link{tungro}
+\item \link{tungro},
+\item \link{modified_kim_leaf_blast}, and,
+\item \link{modified_kim_sheath_blight}.
 }
 }
 \author{

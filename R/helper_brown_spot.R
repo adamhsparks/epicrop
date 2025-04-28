@@ -72,7 +72,7 @@
 #' Southern Corn Leaf Blight. Bulletin of the Connecticut Experiment Station,
 #' New Haven, 85p.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
 #' [seir]

@@ -61,7 +61,7 @@
 #' its implication in disease management. Plant Disease 77:877-882.
 #' \doi{10.1094/PD-77-0877}.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
 #' [seir]

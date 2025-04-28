@@ -83,7 +83,7 @@
 #' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 #' \doi{10.1016/j.cropro.2011.11.009}.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
 #' [seir]

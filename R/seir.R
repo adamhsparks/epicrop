@@ -142,9 +142,9 @@
 #' If `simple_wetness` is set to `FALSE`, the function will use the `TMIN` and
 #'  TMAX` columns in the `wth` object to calculate the leaf wetness value for
 #'  24 hours of the day using the `rhlim` and `rainlim` values and then uses
-#'  `RcW` to calculate a value between 0 and 1.  When `simple_wetness` is set to
-#'  `TRUE`, the function only sets the leaf wetness to 0 or 1 for the day based
-#'  on the `rhlim` and `rainlim` values.
+#'  `RcW` to calculate a value between 0 and 1 for the whole day.  When
+#'  `simple_wetness` is set to `TRUE`, the function only sets the leaf wetness
+#'  to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
 #'
 #' @details # _LAT_/_LON_
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
@@ -157,7 +157,9 @@
 #' * [brown_spot],
 #' * [leaf_blast],
 #' * [sheath_blight],
-#' * [tungro]
+#' * [tungro],
+#' * [modified_kim_leaf_blast], and,
+#' * [modified_kim_sheath_blight].
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
@@ -206,22 +208,20 @@ seir <-
       a,
       RRS,
       RRG) {
-    # check aggregation values
     if (a < 1L) {
       cli::cli_abort(
-        "{.var a} cannot be set to less than 1. Valid aggregation values, `a`,",
-        " are from 1 to > 1."
+        "{.var a} cannot be set to less than 1. Valid aggregation values for
+        {.var a} are from 1 to > 1."
       )
     }
 
-    # check site values
-    if (H0 < 0) {
+    if (H0 < 0L) {
       cli::cli_abort(
         "{.var H0} ffnnot be < 0, check your initial number of healthy sites."
       )
     }
 
-    if (I0 < 0) {
+    if (I0 < 0L) {
       cli::cli_abort(
         "{.var I0} cannot be < 0, check your initial number of infective sites."
       )
@@ -230,10 +230,10 @@ seir <-
     if (simple_wetness && ("TMIN" && "TMAX" %notin% names(wth))) {
       cli::cli_abort(
         c(
-          i = "You have set {.var simple_wetness} to {.val TRUE}
+          i = "You have set {.var simple_wetness} to {.code TRUE}
                but you do not have TMIN and TMAX in your weather data.",
-          x = "Please set {.var simple_wetness} to {.val FALSE} or add",
-          "TMIN and TMAX to your weather data."
+          x = "Please set {.var simple_wetness} to {.code FALSE} or provide
+               TMIN and TMAX in your {.var wth} data."
         )
       )
     }
@@ -243,7 +243,7 @@ seir <-
     harvest <- emergence + sum(duration, -1)
     dates <- seq(from = emergence, to = harvest, by = "day")
 
-    # check that the dates roughly align
+    # check that the dates align
     if (
       !(emergence >= wth[1, YYYYMMDD]) ||
         (max(dates) > max(wth[, YYYYMMDD]))
