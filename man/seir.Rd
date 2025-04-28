@@ -141,7 +141,9 @@ This function is originally used by specific disease models in
 \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
 proper values it can be used with other pathosystems as well.
 }
-\section{\emph{a} - Aggregation}{
+\section{\emph{a} -- Aggregation Details}{
+
+
 When \emph{a} is set to \code{1} the assumption is that that there is no disease
 aggregation with new infections occurring at random among the healthy sites.
 When \emph{a} is greater than \code{1} there is aggregation in the disease occurrence,
@@ -150,13 +152,17 @@ which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
 greater detail.
 }
 
-\section{TMIN/TMAX}{
+\section{TMIN/TMAX Details}{
+
+
 If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
 TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1 for the whole day.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
 }
 
-\section{\emph{LAT}/\emph{LON}}{
-If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
+\section{LAT/LON Details}{
+
+
+If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These
 columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }

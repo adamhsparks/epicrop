@@ -130,7 +130,8 @@
 #'   RRG = 0.1
 #' ))
 #'
-#' @details # _a_ - Aggregation
+#' @section _a_ -- Aggregation Details:
+#'
 #' When _a_ is set to `1` the assumption is that that there is no disease
 #' aggregation with new infections occurring at random among the healthy sites.
 #' When _a_ is greater than `1` there is aggregation in the disease occurrence,
@@ -138,7 +139,8 @@
 #' which results in disease aggregation. Refer to Savary _et al._ (2012) for
 #' greater detail.
 #'
-#' @details # TMIN/TMAX
+#' @section TMIN/TMAX Details:
+#'
 #' If `simple_wetness` is set to `FALSE`, the function will use the `TMIN` and
 #'  TMAX` columns in the `wth` object to calculate the leaf wetness value for
 #'  24 hours of the day using the `rhlim` and `rainlim` values and then uses
@@ -146,8 +148,9 @@
 #'  `simple_wetness` is set to `TRUE`, the function only sets the leaf wetness
 #'  to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
 #'
-#' @details # _LAT_/_LON_
-#' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
+#' @section LAT/LON Details:
+#'
+#' If the `wth` object provides `LAT` and `LON` columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
 #' columns are provided by default when using [get_wth()].
 #'

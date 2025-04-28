@@ -9,15 +9,18 @@ modified_kim_leaf_blast(wth, emergence)
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
 \acronym{POWER} data from \link{get_wth}, but any \link[base:data.frame]{base::data.frame} object
-that has the following properly named columns in them will work.\tabular{rl}{
+that has been formatted using \link{format_wth} will have the following properly
+named columns and will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation. See LAT/LON Note. \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation. See LAT/LON Note. \cr
+   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (°C), see TMIN/TMAX Details \cr
+   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (°C), see TMIN/TMAX Details \cr
+   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Details \cr
+   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
 }}
 
 \item{emergence}{Expected date of crop emergence}
@@ -49,6 +52,21 @@ The optimum temperature for leaf blast as presented in Table 2 of
 Savary \emph{et al.} 2012 has a typo. The optimal value should be 20 °C, not
 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 }
+\section{TMIN/TMAX Details}{
+
+
+If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
+TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1 for the whole day.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
+}
+
+\section{LAT/LON Details}{
+
+
+If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
+}
+
 \examples{
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 

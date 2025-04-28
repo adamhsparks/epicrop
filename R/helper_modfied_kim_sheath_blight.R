@@ -28,6 +28,8 @@
 #' columns are provided by default when using [get_wth].
 #'
 #' @inherit bacterial_blight
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
 #'
 #' @returns A [data.table::data.table] of disease intensity and infection
 #' sites. See [seir] for a full description of the column values.
@@ -137,6 +139,7 @@ modified_kim_sheath_blight <- function(wth, emergence) {
         0.0001,
         0.0001
       )
-    )
+    ),
+    ...
   )
 }

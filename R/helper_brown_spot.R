@@ -30,6 +30,8 @@
 #' 20 °C as shown. The correct value, 25 °C, is used in this implementation.
 #'
 #' @inherit bacterial_blight
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
 #'
 #' @returns A [data.table::data.table] of disease intensity and infection
 #' sites. See [seir] for a full description of the column values.
@@ -108,7 +110,8 @@ brown_spot <- function(wth, emergence) {
       Sx = 100000L,
       RRS = 0.01,
       RRG = 0.1
-    )
+    ),
+    ...
   )
 }
 

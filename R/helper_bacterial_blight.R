@@ -26,7 +26,8 @@
 #'
 #' @param wth Weather data with a daily time-step, normally \acronym{NASA}
 #' \acronym{POWER} data from [get_wth], but any [base::data.frame] object
-#' that has the following properly named columns in them will work.
+#' that has been formatted using [format_wth] will have the following properly
+#' named columns and will work.
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
@@ -35,10 +36,14 @@
 #'   _TEMP_ | Mean daily temperature (°C)
 #'   _RHUM_ | Mean daily relative humidity (%)
 #'   _RAIN_ | Mean daily rainfall (mm)
-#'   _LAT_ | **Optional** latitude of weather observation. See LAT/LON Note.
-#'   _LON_ | **Optional** longitude of weather observation. See LAT/LON Note.
+#'   _TMIN_ | **Optional** Minimum daily temperature (°C), see TMIN/TMAX Details
+#'   _TMAX_ | **Optional** Maximum daily temperature (°C), see TMIN/TMAX Details
+#'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON Details
+#'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
 #' @param emergence Expected date of crop emergence
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
 #'
 #' @returns A [data.table::data.table] of disease intensity and infection
 #' sites. See [seir] for a full description of the column values.
@@ -119,7 +124,8 @@ bacterial_blight <- function(wth, emergence) {
       a = 4L,
       RRS = 0.01,
       RRG = 0.1
-    )
+    ),
+    ...
   )
 }
 

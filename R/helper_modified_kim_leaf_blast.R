@@ -26,6 +26,9 @@
 #' @returns A [data.table::data.table] of disease intensity and infection
 #' sites. See [seir] for a full description of the column values.
 #'
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
+#'
 #' @examplesIf interactive()
 #'
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -160,6 +163,7 @@ modified_kim_leaf_blast <- function(wth, emergence) {
     a = 1L,
     Sx = 90000L,
     RRS = 0.005,
-    RRG = 0.1
+    RRG = 0.1,
+    ...
   )
 }
