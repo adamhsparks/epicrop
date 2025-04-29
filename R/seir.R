@@ -193,26 +193,25 @@
 
 seir <-
   function(
-    wth,
-    emergence,
-    onset,
-    duration,
-    rhlim,
-    rainlim,
-    simple_wetness = TRUE,
-    H0,
-    I0,
-    RcA,
-    RcT,
-    RcW = NULL,
-    RcOpt,
-    p,
-    i,
-    Sx,
-    a,
-    RRS,
-    RRG
-  ) {
+      wth,
+      emergence,
+      onset,
+      duration,
+      rhlim,
+      rainlim,
+      simple_wetness = TRUE,
+      H0,
+      I0,
+      RcA,
+      RcT,
+      RcW = NULL,
+      RcOpt,
+      p,
+      i,
+      Sx,
+      a,
+      RRS,
+      RRG) {
     if (a < 1L) {
       cli::cli_abort(
         "{.var a} cannot be set to less than 1. Valid aggregation values for
@@ -272,11 +271,11 @@ seir <-
     # Create output vars
     cofr <-
       rc <-
-        latency <- infectious <- intensity <- rsenesced <-
-          rgrowth <-
-            rtransfer <- infection <- diseased <- senesced <- removed <-
-              now_infectious <- now_latent <- sites <- total_sites <-
-                vector(mode = "double", length = duration)
+      latency <- infectious <- intensity <- rsenesced <-
+      rgrowth <-
+      rtransfer <- infection <- diseased <- senesced <- removed <-
+      now_infectious <- now_latent <- sites <- total_sites <-
+      vector(mode = "double", length = duration)
 
     if (simple_wetness) {
       Rc_wet <- vector(mode = "double", length = length(wth_rhum))
@@ -361,7 +360,7 @@ seir <-
     } # end loop
 
     simday <- seq_len(duration)
-    AUDPC <- .calculate_audpc(intensity)
+    audpc <- .calculate_audpc(intensity)
 
     # Create output object ----
     out <-
@@ -380,7 +379,7 @@ seir <-
           "rsenesced" = rsenesced,
           "diseased" = diseased,
           "intensity" = intensity,
-          "AUDPC" = rep_len(AUDPC, duration)
+          "AUDPC" = rep_len(audpc, duration)
         )
       )
 
