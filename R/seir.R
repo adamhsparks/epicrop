@@ -212,61 +212,30 @@ seir <-
       a,
       RRS,
       RRG) {
-    if (a < 1L) {
-      cli::cli_abort(
-        "{.var a} cannot be set to less than 1. Valid aggregation values for
-        {.var a} are from 1 to > 1."
-      )
-    }
+    # remove fn, `wth` and `simple_wetness` args from the passed_args
+    rlang::check_required(c(
+      wth,
+      emergence,
+      onset,
+      duration,
+      rhlim,
+      rainlim,
+      simple_wetness,
+      H0,
+      I0,
+      RcA,
+      RcT,
+      RcOpt,
+      p,
+      i,
+      Sx,
+      a,
+      RRS,
+      RRG
+    ))
 
-    if (H0 < 0L) {
-      cli::cli_abort(
-        "{.var H0} cannot be < 0, check your initial number of healthy sites."
-      )
-    }
-
-    if (I0 < 0L) {
-      cli::cli_abort(
-        "{.var I0} cannot be < 0, check your initial number of infective sites."
-      )
-    }
-
-    if (duration < 80L) {
-      cli::cli_message(
-        "{.var duration} is < 80 days, is this intended?"
-      )
-    }
-    max_rca_day <- max(RcA[, 1])
-
-    if (max_rca_day > duration) {
-      cli::cli_warning(
-        "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
-          {. var duration}, {{duration}} days.  A truncated matrix of values
-          will be used that stops at {.var duration} days."
-      )
-    }
-
-    if (max(RcA[, 1] < duration)) {
-      cli::cli_abort(
-        c(
-          i = "{.var RcA} has a duration, {{RcA[, 1]}} that is less than
-          {. var duration}, {{duration}} days.",
-          x = "Please provide a matrix of values that aligns with
-          {.var duration}."
-        )
-      )
-    }
-
-    if (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth))) {
-      cli::cli_abort(
-        c(
-          i = "You have set {.var simple_wetness} to {.code TRUE}
-               but you do not have TMIN and TMAX in your weather data.",
-          x = "Please set {.var simple_wetness} to {.code FALSE} or provide
-               TMIN and TMAX in your {.var wth} data."
-        )
-      )
-    }
+    passed_args <- as.character(match.call())[-c(1)]
+    .check_inputs(passed_args)
 
     # Set and check dates ----
     emergence <- as.Date(emergence)
