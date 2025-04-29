@@ -82,6 +82,9 @@ moisture on the leaf surface and the second being the modifier (bounded by
 
 \item{RRG}{numeric,  must be >0.}
 }
+\value{
+Nothing, called for its side-effects to check user input values.
+}
 \description{
 Sanity checks for user inputs to \link{seir} to ensure that they will work.
 }

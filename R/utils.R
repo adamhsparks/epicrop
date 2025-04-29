@@ -42,6 +42,8 @@
 #' @param RRS numeric, must be >0.
 #' @param RRG numeric,  must be >0.
 #'
+#' @returns Nothing, called for its side-effects to check user input values.
+#'
 #' @dev
 #'
 .check_inputs <- function(
