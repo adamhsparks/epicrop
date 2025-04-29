@@ -118,11 +118,12 @@ plot(x = mk_lb$dates, y = mk_lb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{
-Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015). Predicting
-potential epidemics of rice leaf blast and sheath blight in South Korea under
-the RCP 4.5 and RCP 8.5 climate change scenarios using a rice disease
-epidemiology  model, EPIRICE. Agricultural and forest meteorology, 203,
-191-207. ' \doi{10.1016/j.agrformet.2015.01.011}
+Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015). Predicting potential
+epidemics of rice leaf blast and sheath blight in South Korea under the RCP
+4.5 and RCP 8.5 climate change scenarios using a rice disease epidemiology
+model, EPIRICE. Agricultural and forest meteorology, 203, 191-207.
+\doi{10.1016/j.agrformet.2015.01.011}
+
 El Refaei, M.I., 1977. Epidemiology of rice blast disease in the tropics with
 special reference to the leaf wetness in relation to disease  development.
 PhD Thesis, Indian Agricultural Research Institute, New Delhi, India. 195 p.
