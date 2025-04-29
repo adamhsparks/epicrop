@@ -64,7 +64,7 @@ with the following field names.\tabular{rl}{
 \item{RcT}{numeric matrix  with the first column being the temperature
 and the second column being the modfier (bounded by 0 and 1).}
 
-\item{RcW}{numeric matrix  with the first column being the hours of free
+\item{RcW}{numeric matrix with the first column being the hours of free
 moisture on the leaf surface and the second being the modifier (bounded by
 0 and 1).}
 
