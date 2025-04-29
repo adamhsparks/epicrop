@@ -27,8 +27,8 @@
 )
 }
 \arguments{
-\item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or
-\code{\link[=format_wth]{format_wth()}} containing weather on a daily time-step containing data
+\item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \link{get_wth} or
+\link{format_wth} containing weather on a daily time-step containing data
 with the following field names.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr

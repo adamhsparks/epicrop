@@ -2,8 +2,8 @@
 #'
 #' Sanity checks for user inputs to [seir] to ensure that they will work.
 
-#' @param wth a `data.frame` of class `epicrop.wth` from either [get_wth()] or
-#'  [format_wth()] containing weather on a daily time-step containing data
+#' @param wth a `data.frame` of class `epicrop.wth` from either [get_wth] or
+#'  [format_wth] containing weather on a daily time-step containing data
 #' with the following field names.
 #'
 #'   **Field Name** | **Value**
