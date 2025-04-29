@@ -16,11 +16,7 @@
 #' Kim (personal communication). The age effect increases until max tillering
 #' and decreases after heading stage. The optimum temperature is from 23--27 ˚C.
 #'
-#' @note Adapted from Kim *et al.* by Adam H. Sparks, Curtin University,
-#' Bentley, WA, AU, with assistance from Kwang-Hyung Kim, APEC Climate Center,
-#' 12 Centum7-ro, Haeundae-gu, Busan 612-020, South Korea.
-#' Original model development: Serge Savary & Rene Pangga (IRRI). #' Original \R
-#' implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario (IRRI).
+#' @inheritSection modified_kim_leaf_blast Function Provenance and Modifications
 #'
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
@@ -30,6 +26,27 @@
 #' @inherit bacterial_blight
 #' @inheritSection seir TMIN/TMAX Details
 #' @inheritSection seir LAT/LON Details
+#'
+#' @section Modifications to Kim _et al._ 2015:
+#' The original code for this function from Kim _et al. 2015 had an incorrect
+#' relative rate of growth (RRG) value. The original code had the following
+#' values:
+#' * Days: `c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)`
+#' * Modifier: `c(0.12, 0.12, 0.11, 0.11, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09,
+#'                0.05, 0.01, 0.0001)`
+#' Note that there are 13 values in the vectors, this will not run as [seir]
+#' expects 12 values. The last value, `0.0001`, is not used in \pkg{epicrop}.
+#'  The original code for this function also had an incorrect matrix for the
+#' relative rate of physiological growth modifier, `RRG` or `RRPhysioloGrowth`
+#' in Kim _et al._ 2015. The original
+#' matrix had the following values:
+#' * Hours: `c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L`
+#' * Modifier: c(0.15, 0.21, 0.11, 0.0001, 0.0001, 0.001, 0.005, 0.005, 0.005,
+#'               0.005, 0.005, 0.005, 0.005))
+#' \pkg{epicrop} uses the following values:
+#' * Hours: `c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L`
+#' * Modifier: c(0.15, 0.21, 0.11, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001,
+#'               0.0001, 0.0001, 0.0001, 0.0001)
 #'
 #' @returns A [data.table::data.table] of disease intensity and infection
 #' sites. See [seir] for a full description of the column values.
@@ -115,7 +132,10 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
       c(12L, 15L, 18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L),
       c(0, 0.1, 0.8, 1, 1, 1, 0.2, .01, 0.01, 0)
     ),
-    RcW = cbind(c(0:10L), c(0, 0.24, 0.41, 0.68, 0.94, 0.97, 1, 1, 1, 1, 1)),
+    RcW = cbind(
+      c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L),
+      c(0, 0.24, 0.41, 0.68, 0.94, 0.97, 1, 1, 1, 1, 1)
+    ),
     RcOpt = 0.58,
     p = 4L,
     i = 65L,
@@ -128,7 +148,6 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
         0.15,
         0.21,
         0.11,
-        0.0001,
         0.0001,
         0.0001,
         0.0001,

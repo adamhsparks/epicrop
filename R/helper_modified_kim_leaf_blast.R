@@ -10,8 +10,18 @@
 #' The model represents site size as 44
 #'  \ifelse{html}{\out{mm<sup>2</sup>}}{\eqn{mm^2}} of a rice plant's leaf.
 #'
-#' @note This model is a modified version of the Kim *et al.* (2015) model,
-#' which
+#' @section Function Provenance and Modifications:
+#' This function is adapted from Kim *et al.* by Adam H. Sparks, Curtin
+#' University, with assistance from Kwang-Hyung Kim, APEC Climate Center,
+#' 12 Centum7-ro, Haeundae-gu, Busan 612-020, South Korea.
+#' Original model development: Serge Savary & Rene Pangga (IRRI).
+#' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
+#' Aunario (IRRI).  While the paper by Kim _et al._ 2015 indicates that the leaf
+#' wetness duration changed with time rather than being 0 or 1 as in Savary
+#' _et al._ 2012, the original code available does not implement this.
+#' \pkg{epicrop} offers the option to do this by setting
+#' `simple_wetness = FALSE`, but the results may differ from the published
+#' values if this is used.
 #'
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
@@ -24,6 +34,17 @@
 #' @inherit bacterial_blight
 #' @inheritSection seir TMIN/TMAX Details
 #' @inheritSection seir LAT/LON Details
+#'
+#' @note
+#' The original code for this function from Kim _et al. 2015 had an incorrect
+#' matrix for the `RcW` modifier. The original code had the following values:
+#' * Hours: `c(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L)`
+#' * Modifier: `c(0, 0.24, 0.41, 0.68, 0.94, 0.97, 1, 1, 1, 1 ,1)`
+#' These have been corrected to:
+#' * Hours: `c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L)`
+#' * Modifier: `c(0, 0.24, 0.41, 0.68, 0.94, 0.97, 1, 1, 1, 1, 1)`
+#' providing modifiers for hours 4-24, inclusive rather than stopping at 10
+#' hours.
 #'
 #' @returns A [data.table::data.table] of disease intensity and infection
 #' sites. See [seir] for a full description of the column values.
