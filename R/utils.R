@@ -92,6 +92,13 @@
     )
   }
 
+  if (isFALSE(.is_boolean(passed_args$simple_wetness))) {
+    cli::cli_abort(
+      message = "{.var simple_wetness} must be a Boolean value.",
+      call = rlang::caller_env()
+    )
+  }
+
   if (!inherits("epicrop.wth", wth)) {
     cli::cli_abort(
       message = "{.var wth} must be an object of {.class epicrop.wth}.  You can
@@ -172,4 +179,23 @@
       call = rlang::caller_env()
     )
   }
+}
+
+
+#' Boolean
+#'
+#' Checks if provided object is a Boolean i.e. a length-one logical vector.
+#' @param x an object to check.
+#' @returns a logical value indicating whether provided object is a `Boolean`.
+#' @examples
+#' is_boolean(TRUE) # [1] TRUE
+#' # the following will work on most systems, unless you have tweaked global Rprofile
+#' .is_boolean(T) # [1] TRUE
+#' .is_boolean(1) # [1] FALSE
+#' @note Taken from
+#'  <https://github.com/Rapporter/rapportools/blob/master/R/utils.R>
+#'
+#' @dev
+.is_boolean <- function(x) {
+  is.logical(x) && length(x) == 1
 }
