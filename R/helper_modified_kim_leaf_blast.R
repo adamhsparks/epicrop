@@ -135,11 +135,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
         85L,
         90L,
         95L,
-        100L,
-        105L,
-        110L,
-        115L,
-        120L
+        100L
       ),
       c(
         1,
@@ -161,10 +157,6 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
         0.02,
         0.02,
         0.02,
-        0.01,
-        0.01,
-        0.01,
-        0.01,
         0.01,
         0.01
       )
