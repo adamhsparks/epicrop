@@ -80,7 +80,7 @@ moisture on the leaf surface and the second being the modifier (bounded by
 
 \item{RRS}{numeric, must be >0.}
 
-\item{RRG}{numeric,  must be >0.}
+\item{RRG}{numeric, must be >0.}
 }
 \value{
 Nothing, called for its side-effects to check user input values.

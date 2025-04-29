@@ -66,29 +66,28 @@
     a,
     RRS,
     RRG) {
-  passed_args <- as.list(match.call())[-c(1, 8)]
+  passed_args <- as.list(match.call())[-c(1:2, 8)]
   passed_args$RcA <- eval(passed_args$RcA)
   passed_args$RcT <- eval(passed_args$RcT)
-
-  if ("RcW" %in"% names(passed_args)) {
+  if ("RcW" %in% names(passed_args)) {
     passed_args$RcW <- eval(passed_args$RcW)
   }
 
-  non_numeric <- passed_args[which(is.na(as.numeric(as.character(
-    passed_args
-  ))))]
-
-  if (length(non_numeric > 0)) {
+  non_numeric <- passed_args[which(!is.numeric(passed_args))]
+  if (length(non_numeric) > 0) {
     cli::cli_abort(
-      c(x = "{.var {{non_numeric}}} must be a numeric value.")
+      c(
+        "{.var { names(non_numeric) }} has a value of {.code { non_numeric }} and
+        must be a numeric value."
+      )
     )
   }
 
   less_than_zero <- passed_args[passed_args < 0]
-
   if (length(less_than_zero > 0)) {
     cli::cli_abort(
-      message = "{.var {{names(less_than_zero}}} must be positive.",
+      message = "{.var { names(less_than_zero) }} has a value of {.code less_than_zero}
+      and must be a positive value.",
       call = rlang::caller_env()
     )
   }
@@ -96,8 +95,8 @@
   if (!inherits("epicrop.wth", wth)) {
     cli::cli_abort(
       message = "{.var wth} must be an object of {.class epicrop.wth}.  You can
-       create your {.var wth} object using either, {.fn get_wth} to fetch weather
-       data from the NASA POWER API or format your own with {.fn format_wth}.",
+         create your {.var wth} object using either, {.fn get_wth} to fetch weather
+         data from the NASA POWER API or format your own with {.fn format_wth}.",
       call = rlang::caller_env()
     )
   }
@@ -105,7 +104,7 @@
   if (a < 1L) {
     cli::cli_abort(
       "{.var a} cannot be set to less than 1. Valid aggregation values for
-         {.var a} are from 1 to > 1.",
+           {.var a} are from 1 to > 1.",
       call = rlang::caller_env()
     )
   }
@@ -120,7 +119,7 @@
   if (rhlim > 100) {
     cli::cli_abort(
       "The value for {.var rhlim}, {{rhlim}}, is invalid. Valid values are any
-        value between or equal to 0 to 100.",
+          value between or equal to 0 to 100.",
       call = rlang::caller_env()
     )
   }
@@ -131,8 +130,8 @@
   if (max_rca_day > duration) {
     cli::cli_warning(
       "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
-        {. var duration}, {{duration}} days.  A truncated matrix of values
-        will be used that stops at {.var duration} days ({{duration}}).",
+          {. var duration}, {{duration}} days.  A truncated matrix of values
+          will be used that stops at {.var duration} days ({{duration}}).",
       call = rlang::caller_env()
     )
   }
@@ -140,8 +139,8 @@
   if (max_rca_day < duration) {
     cli::cli_abort(
       "{.var RcA} has a duration, {{max_rca_day}} that is less than
-        {. var duration}, {{duration}} days. Please provide a matrix of values
-        that aligns with {.var duration}.",
+          {. var duration}, {{duration}} days. Please provide a matrix of values
+          that aligns with {.var duration}.",
       call = rlang::caller_env()
     )
   }
@@ -149,8 +148,8 @@
   if (max_rrg_day > duration) {
     cli::cli_warning(
       "{.var RRG} has a duration, {{max_rrg_day}}, that is greater than
-           {. var duration}, {{duration}} days.  A truncated matrix of values
-           will be used that stops at {.var duration} days ({{duration}}).",
+             {. var duration}, {{duration}} days.  A truncated matrix of values
+             will be used that stops at {.var duration} days ({{duration}}).",
       call = rlang::caller_env()
     )
   }
@@ -158,8 +157,8 @@
   if (max_rrg_day < duration) {
     cli::cli_abort(
       "{.var RRG} has a duration, {{max_rrg_day}} that is less than
-         {. var duration}, {{duration}} days. Please provide a matrix of value
-         that aligns with {.var duration}.",
+           {. var duration}, {{duration}} days. Please provide a matrix of value
+           that aligns with {.var duration}.",
       call = rlang::caller_env()
     )
   }
@@ -167,9 +166,9 @@
   if (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth))) {
     cli::cli_abort(
       "You have set {.var simple_wetness} to {.code TRUE} but you do not have
-        'TMIN' and 'TMAX' columns in your weather data. Please set
-        {.var simple_wetness} to {.code FALSE} or provide 'TMIN' and 'TMAX'
-        columns in your {.var wth} data.",
+          'TMIN' and 'TMAX' columns in your weather data. Please set
+          {.var simple_wetness} to {.code FALSE} or provide 'TMIN' and 'TMAX'
+          columns in your {.var wth} data.",
       call = rlang::caller_env()
     )
   }
