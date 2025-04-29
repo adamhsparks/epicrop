@@ -77,8 +77,8 @@
   if (length(non_numeric) > 0) {
     cli::cli_abort(
       c(
-        "{.var { names(non_numeric) }} has a value of {.code { non_numeric }} and
-        must be a numeric value."
+        "{.var { names(non_numeric) }} has a value of {.code { non_numeric }}
+        and must be a numeric value."
       )
     )
   }
@@ -86,24 +86,25 @@
   less_than_zero <- passed_args[passed_args < 0]
   if (length(less_than_zero > 0)) {
     cli::cli_abort(
-      message = "{.var { names(less_than_zero) }} has a value of {.code less_than_zero}
-      and must be a positive value.",
+      message = "{.var { names(less_than_zero) }} has a value of
+      {.code less_than_zero} and must be a positive value.",
       call = rlang::caller_env()
     )
   }
 
   if (isFALSE(.is_boolean(passed_args$simple_wetness))) {
     cli::cli_abort(
-      message = "{.var simple_wetness} must be a Boolean value.",
+      message = "{.var simple_wetness} must be a Boolean ({.code TRUE/FALSE})
+      value.",
       call = rlang::caller_env()
     )
   }
 
   if (!inherits("epicrop.wth", wth)) {
     cli::cli_abort(
-      message = "{.var wth} must be an object of {.class epicrop.wth}.  You can
-         create your {.var wth} object using either, {.fn get_wth} to fetch weather
-         data from the NASA POWER API or format your own with {.fn format_wth}.",
+      "{.var wth} must be an object of {.class epicrop.wth}.  You can create
+      your {.var wth} object using either, {.fn get_wth} to fetch weather
+      data from the NASA POWER API or format your own with {.fn format_wth}.",
       call = rlang::caller_env()
     )
   }
@@ -189,10 +190,10 @@
 #' @returns a logical value indicating whether provided object is a `Boolean`.
 #' @examples
 #' is_boolean(TRUE) # [1] TRUE
-#' # the following will work on most systems, unless you have tweaked global Rprofile
+#' # the following will work on most systems, unless you have tweaked .Rprofile
 #' .is_boolean(T) # [1] TRUE
 #' .is_boolean(1) # [1] FALSE
-#' @note Taken from
+#' @source
 #'  <https://github.com/Rapporter/rapportools/blob/master/R/utils.R>
 #'
 #' @dev
