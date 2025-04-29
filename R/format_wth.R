@@ -105,7 +105,7 @@ format_wth <- function(
     lat,
     lon) {
   rlang::check_required(c(wth, date, temp, rhum, rain))
-  passed_args <- as.character(match.call())[-c(1:2)] # remove fn & `wth` fm args
+  passed_args <- as.character(match.call())[-c(1:2)] # remove fn & `wth` args
   if (any(passed_args %notin% names(wth))) {
     not_in <- passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
