@@ -125,8 +125,8 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
     H0 = 90L,
     I0 = 1L,
     RcA = cbind(
-      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
-      c(0.43, 0.5, 0.73, 0.81, 0.94, 1, 1, 1, 1, 1, 0.8, 0.7, 0.5)
+      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L),
+      c(0.43, 0.5, 0.73, 0.81, 0.94, 1, 1, 1, 1, 1, 0.8)
     ),
     RcT = cbind(
       c(12L, 15L, 18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L),
@@ -143,13 +143,11 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
     a = 2.8,
     RRS = 0.005,
     RRG = cbind(
-      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
+      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L),
       c(
         0.15,
         0.21,
         0.11,
-        0.0001,
-        0.0001,
         0.0001,
         0.0001,
         0.0001,
