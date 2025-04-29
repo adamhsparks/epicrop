@@ -40,7 +40,7 @@
 #' @param Sx integer, must be >0.
 #' @param a numeric, 1 to >1
 #' @param RRS numeric, must be >0.
-#' @param RRG numeric,  must be >0.
+#' @param RRG numeric, must be >0.
 #'
 #' @returns Nothing, called for its side-effects to check user input values.
 #'
@@ -66,9 +66,13 @@
     a,
     RRS,
     RRG) {
-  # remove fn, `wth` and `simple_wetness` args from the passed_args, only want
-  # the args that are numeric here.
-  passed_args <- as.character(match.call())[-c(1:2, 8)]
+  passed_args <- as.list(match.call())[-c(1, 8)]
+  passed_args$RcA <- eval(passed_args$RcA)
+  passed_args$RcT <- eval(passed_args$RcT)
+
+  if ("RcW" %in"% names(passed_args)) {
+    passed_args$RcW <- eval(passed_args$RcW)
+  }
 
   non_numeric <- passed_args[which(is.na(as.numeric(as.character(
     passed_args
@@ -92,8 +96,8 @@
   if (!inherits("epicrop.wth", wth)) {
     cli::cli_abort(
       message = "{.var wth} must be an object of {.class epicrop.wth}.  You can
-      create your {.var wth} object using either, {.fn get_wth} to fetch weather
-      data from the NASA POWER API or format your own with {.fn format_wth}.",
+       create your {.var wth} object using either, {.fn get_wth} to fetch weather
+       data from the NASA POWER API or format your own with {.fn format_wth}.",
       call = rlang::caller_env()
     )
   }
@@ -101,7 +105,7 @@
   if (a < 1L) {
     cli::cli_abort(
       "{.var a} cannot be set to less than 1. Valid aggregation values for
-        {.var a} are from 1 to > 1.",
+         {.var a} are from 1 to > 1.",
       call = rlang::caller_env()
     )
   }
@@ -116,7 +120,7 @@
   if (rhlim > 100) {
     cli::cli_abort(
       "The value for {.var rhlim}, {{rhlim}}, is invalid. Valid values are any
-       value between or equal to 0 to 100.",
+        value between or equal to 0 to 100.",
       call = rlang::caller_env()
     )
   }
@@ -127,8 +131,8 @@
   if (max_rca_day > duration) {
     cli::cli_warning(
       "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
-       {. var duration}, {{duration}} days.  A truncated matrix of values
-       will be used that stops at {.var duration} days ({{duration}}).",
+        {. var duration}, {{duration}} days.  A truncated matrix of values
+        will be used that stops at {.var duration} days ({{duration}}).",
       call = rlang::caller_env()
     )
   }
@@ -136,8 +140,8 @@
   if (max_rca_day < duration) {
     cli::cli_abort(
       "{.var RcA} has a duration, {{max_rca_day}} that is less than
-       {. var duration}, {{duration}} days. Please provide a matrix of values
-       that aligns with {.var duration}.",
+        {. var duration}, {{duration}} days. Please provide a matrix of values
+        that aligns with {.var duration}.",
       call = rlang::caller_env()
     )
   }
@@ -145,8 +149,8 @@
   if (max_rrg_day > duration) {
     cli::cli_warning(
       "{.var RRG} has a duration, {{max_rrg_day}}, that is greater than
-          {. var duration}, {{duration}} days.  A truncated matrix of values
-          will be used that stops at {.var duration} days ({{duration}}).",
+           {. var duration}, {{duration}} days.  A truncated matrix of values
+           will be used that stops at {.var duration} days ({{duration}}).",
       call = rlang::caller_env()
     )
   }
@@ -154,8 +158,8 @@
   if (max_rrg_day < duration) {
     cli::cli_abort(
       "{.var RRG} has a duration, {{max_rrg_day}} that is less than
-        {. var duration}, {{duration}} days. Please provide a matrix of value
-        that aligns with {.var duration}.",
+         {. var duration}, {{duration}} days. Please provide a matrix of value
+         that aligns with {.var duration}.",
       call = rlang::caller_env()
     )
   }
@@ -163,9 +167,9 @@
   if (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth))) {
     cli::cli_abort(
       "You have set {.var simple_wetness} to {.code TRUE} but you do not have
-       'TMIN' and 'TMAX' columns in your weather data. Please set
-       {.var simple_wetness} to {.code FALSE} or provide 'TMIN' and 'TMAX'
-       columns in your {.var wth} data.",
+        'TMIN' and 'TMAX' columns in your weather data. Please set
+        {.var simple_wetness} to {.code FALSE} or provide 'TMIN' and 'TMAX'
+        columns in your {.var wth} data.",
       call = rlang::caller_env()
     )
   }
