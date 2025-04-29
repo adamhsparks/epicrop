@@ -62,7 +62,12 @@
 #' @author Kwang-Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,
 #' Jorrel Khalil Aunario, and Adam H. Sparks
 #'
-#' @references Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015). Predicting
+#' @source
+#' Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+#' \doi{doi.org/10.6084/m9.figshare.1515884.v1}
+#'
+#' @references
+#' Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015). Predicting
 #' potential epidemics of rice leaf blast and sheath blight in South Korea under
 #' the RCP 4.5 and RCP 8.5 climate change scenarios using a rice disease
 #' epidemiology  model, EPIRICE. Agricultural and forest meteorology, 203,

@@ -4,6 +4,10 @@
 \alias{modified_kim_leaf_blast}
 \alias{mk_lb}
 \title{Predict Rice Leaf Blast Intensity Using Modified Kim Model}
+\source{
+Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+\doi{doi.org/10.6084/m9.figshare.1515884.v1}
+}
 \usage{
 modified_kim_leaf_blast(wth, emergence, ...)
 

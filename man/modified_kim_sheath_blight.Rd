@@ -4,6 +4,10 @@
 \alias{modified_kim_sheath_blight}
 \alias{mk_sb}
 \title{Predict Rice Sheath Blight Intensity Using a Modified Kim Model}
+\source{
+Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+\doi{doi.org/10.6084/m9.figshare.1515884.v1}
+}
 \usage{
 modified_kim_sheath_blight(wth, emergence, ...)
 
