@@ -80,6 +80,15 @@
     )
   }
 
+  less_than_zero <- passed_args[passed_args < 0]
+
+  if (length(less_than_zero > 0)) {
+    cli::cli_abort(
+      message = "{.var {{names(less_than_zero}}} must be positive.",
+      call = rlang::caller_env()
+    )
+  }
+
   if (!inherits("epicrop.wth", wth)) {
     cli::cli_abort(
       message = "{.var wth} must be an object of {.class epicrop.wth}.  You can
