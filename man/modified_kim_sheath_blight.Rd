@@ -51,16 +51,57 @@ Kim (personal communication). The age effect increases until max tillering
 and decreases after heading stage. The optimum temperature is from 23--27 ˚C.
 }
 \note{
-Adapted from Kim \emph{et al.} by Adam H. Sparks, Curtin University,
-Bentley, WA, AU, with assistance from Kwang-Hyung Kim, APEC Climate Center,
-12 Centum7-ro, Haeundae-gu, Busan 612-020, South Korea.
-Original model development: Serge Savary & Rene Pangga (IRRI). #' Original \R
-implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario (IRRI).
-
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These
 columns are provided by default when using \link{get_wth}.
 }
+\section{Modifications to Kim \emph{et al.} 2015}{
+
+The original code for this function from Kim _et al. 2015 had an incorrect
+relative rate of growth (RRG) value. The original code had the following
+values:
+\itemize{
+\item Days: \code{c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)}
+\item Modifier: \code{c(0.12, 0.12, 0.11, 0.11, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09, 0.05, 0.01, 0.0001)}
+Note that there are 13 values in the vectors, this will not run as \link{seir}
+expects 12 values. The last value, \code{0.0001}, is not used in \pkg{epicrop}.
+The original code for this function also had an incorrect matrix for the
+relative rate of physiological growth modifier, \code{RRG} or \code{RRPhysioloGrowth}
+in Kim \emph{et al.} 2015. The original
+matrix had the following values:
+\item Hours: \verb{c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L}
+\item Modifier: c(0.15, 0.21, 0.11, 0.0001, 0.0001, 0.001, 0.005, 0.005, 0.005,
+0.005, 0.005, 0.005, 0.005))
+\pkg{epicrop} uses the following values:
+\item Hours: \verb{c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L}
+\item Modifier: c(0.15, 0.21, 0.11, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001,
+0.0001, 0.0001, 0.0001, 0.0001)
+}
+}
+
+\section{Function Provenance and Modifications}{
+
+This function is adapted from Kim \emph{et al.} by Adam H. Sparks, Curtin
+University, with assistance from Kwang-Hyung Kim, APEC Climate Center,
+12 Centum7-ro, Haeundae-gu, Busan 612-020, South Korea.
+Original model development: Serge Savary & Rene Pangga (IRRI).
+Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
+Aunario (IRRI).  While the paper by Kim \emph{et al.} 2015 indicates that the leaf
+wetness duration changed with time rather than being 0 or 1 as in Savary
+\emph{et al.} 2012, the original code available does not implement this.
+\pkg{epicrop} offers the option to do this by setting
+\code{simple_wetness = FALSE}, but the results may differ from the published
+values if this is used.
+
+If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using \link{get_wth}.
+
+The optimum temperature for leaf blast as presented in Table 2 of
+Savary \emph{et al.} 2012 has a typo. The optimal value should be 20 °C, not
+25 °C as shown. The correct value, 20 °C, is used in this implementation.
+}
+
 \section{TMIN/TMAX Details}{
 
 
