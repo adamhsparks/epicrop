@@ -21,7 +21,7 @@
 #' @param emergence character
 #' @param onset numeric, must be >0.
 #' @param emergence integer, must be >0.
-#' @param duration integer ideally >8 and < 150 but may vary.
+#' @param duration integer ideally >=80 and <150 but may vary.
 #' @param rhlim numeric bounded by 0 and 100.
 #' @param rainlim numeric must be >0.
 #' @param simple_wetness `Boolean` value

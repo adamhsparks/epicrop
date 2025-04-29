@@ -46,7 +46,7 @@ with the following field names.\tabular{rl}{
 
 \item{onset}{numeric, must be >0.}
 
-\item{duration}{integer ideally >8 and < 150 but may vary.}
+\item{duration}{integer ideally >=80 and <150 but may vary.}
 
 \item{rhlim}{numeric bounded by 0 and 100.}
 
