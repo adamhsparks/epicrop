@@ -142,3 +142,11 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
     )
   )
 }
+
+#' @rdname modified_kim_sheath_blight
+#' @examplesIf interactive()
+#' # use shorthand function
+#' mk_sb <- mk_sb(wth, emergence = "2000-07-01")
+#' plot(x = mk_sb$dates, y = mk_sb$intensity, type = "l")
+#' @export
+mk_sb <- modified_kim_sheath_blight

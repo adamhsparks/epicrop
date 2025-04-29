@@ -165,3 +165,12 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
     RRG = 0.1
   )
 }
+
+
+#' @rdname modified_kim_leaf_blast
+#' @examplesIf interactive()
+#' # use shorthand function
+#' mk_lb <- mk_lb(wth, emergence = "2000-07-01")
+#' plot(x = mk_lb$dates, y = mk_lb$intensity, type = "l")
+#' @export
+mk_lb <- modified_kim_leaf_blast
