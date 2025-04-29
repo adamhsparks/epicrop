@@ -221,7 +221,7 @@ seir <-
 
     if (H0 < 0L) {
       cli::cli_abort(
-        "{.var H0} ffnnot be < 0, check your initial number of healthy sites."
+        "{.var H0} cannot be < 0, check your initial number of healthy sites."
       )
     }
 
