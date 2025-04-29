@@ -231,6 +231,32 @@ seir <-
       )
     }
 
+    if (duration < 80L) {
+      cli::cli_message(
+        "{.var duration} is < 80 days, is this intended?"
+      )
+    }
+    max_rca_day <- max(RcA[, 1])
+
+    if (max_rca_day > duration) {
+      cli::cli_warning(
+        "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
+          {. var duration}, {{duration}} days.  A truncated matrix of values
+          will be used that stops at {.var duration} days."
+      )
+    }
+
+    if (max(RcA[, 1] < duration)) {
+      cli::cli_abort(
+        c(
+          i = "{.var RcA} has a duration, {{RcA[, 1]}} that is less than
+          {. var duration}, {{duration}} days.",
+          x = "Please provide a matrix of values that aligns with
+          {.var duration}."
+        )
+      )
+    }
+
     if (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth))) {
       cli::cli_abort(
         c(
