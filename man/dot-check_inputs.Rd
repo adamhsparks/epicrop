@@ -42,41 +42,45 @@ with the following field names.\tabular{rl}{
    \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
 }}
 
-\item{emergence}{integer}
+\item{emergence}{integer, must be >0.}
 
-\item{onset}{numeric}
+\item{onset}{numeric, must be >0.}
 
-\item{duration}{integer}
+\item{duration}{integer ideally >8 and < 150 but may vary.}
 
-\item{rhlim}{numeric}
+\item{rhlim}{numeric bounded by 0 and 100.}
 
-\item{rainlim}{numeric}
+\item{rainlim}{numeric must be >0.}
 
 \item{simple_wetness}{\code{Boolean} value}
 
-\item{H0}{numeric}
+\item{H0}{numeric, must be >0.}
 
-\item{I0}{numeric}
+\item{I0}{numeric, must be >0.}
 
-\item{RcA}{numeric matrix}
+\item{RcA}{numeric matrix with the first column being the crop age in days
+(1 to \code{duration}) and the second being the  modifier (bounded by 0 and 1).}
 
-\item{RcT}{numeric matrix}
+\item{RcT}{numeric matrix  with the first column being the temperature
+and the second column being the modfier (bounded by 0 and 1).}
 
-\item{RcW}{numeric matrix}
+\item{RcW}{numeric matrix  with the first column being the hours of free
+moisture on the leaf surface and the second being the modifier (bounded by
+0 and 1).}
 
-\item{RcOpt}{numeric}
+\item{RcOpt}{numeric, must be >0.}
 
-\item{p}{integer}
+\item{p}{integer, must be >0.}
 
-\item{i}{integer}
+\item{i}{integer, must be >0.}
 
-\item{Sx}{integer}
+\item{Sx}{integer, must be >0.}
 
-\item{a}{numeric}
+\item{a}{numeric, 1 to >1}
 
-\item{RRS}{numeric}
+\item{RRS}{numeric, must be >0.}
 
-\item{RRG}{numeric}
+\item{RRG}{numeric,  must be >0.}
 }
 \description{
 Sanity checks for user inputs to \link{seir} to ensure that they will work.

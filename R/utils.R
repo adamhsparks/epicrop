@@ -19,24 +19,28 @@
 #'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
 #' @param emergence character
-#' @param onset numeric
-#' @param emergence integer
-#' @param duration integer
-#' @param rhlim numeric
-#' @param rainlim numeric
+#' @param onset numeric, must be >0.
+#' @param emergence integer, must be >0.
+#' @param duration integer ideally >8 and < 150 but may vary.
+#' @param rhlim numeric bounded by 0 and 100.
+#' @param rainlim numeric must be >0.
 #' @param simple_wetness `Boolean` value
-#' @param H0 numeric
-#' @param I0 numeric
-#' @param RcA numeric matrix
-#' @param RcT numeric matrix
-#' @param RcW numeric matrix
-#' @param RcOpt numeric
-#' @param i integer
-#' @param p integer
-#' @param Sx integer
-#' @param a numeric
-#' @param RRS numeric
-#' @param RRG numeric
+#' @param H0 numeric, must be >0.
+#' @param I0 numeric, must be >0.
+#' @param RcA numeric matrix with the first column being the crop age in days
+#'  (1 to `duration`) and the second being the  modifier (bounded by 0 and 1).
+#' @param RcT numeric matrix  with the first column being the temperature
+#'  and the second column being the modfier (bounded by 0 and 1).
+#' @param RcW numeric matrix  with the first column being the hours of free
+#'  moisture on the leaf surface and the second being the modifier (bounded by
+#'  0 and 1).
+#' @param RcOpt numeric, must be >0.
+#' @param i integer, must be >0.
+#' @param p integer, must be >0.
+#' @param Sx integer, must be >0.
+#' @param a numeric, 1 to >1
+#' @param RRS numeric, must be >0.
+#' @param RRG numeric,  must be >0.
 #'
 #' @dev
 #'
