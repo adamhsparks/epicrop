@@ -127,17 +127,7 @@
     )
   }
 
-  if (rainlim <= 0) {
-    cli::cli_abort(
-      c(
-        "The value for {.var rainlim}, {{rainlim}}, is invalid. Valid values are
-        any value greater than 0."
-      ),
-      call = rlang::caller_env()
-    )
-  }
-
-  if ((rhlim < 0) || (rhlim > 100)) {
+  if (rhlim > 100) {
     cli::cli_abort(
       "The value for {.var rhlim}, {{rhlim}}, is invalid. Valid values are any
        value between or equal to 0 to 100.",
