@@ -2,9 +2,12 @@
 % Please edit documentation in R/helper_modified_kim_leaf_blast.R
 \name{modified_kim_leaf_blast}
 \alias{modified_kim_leaf_blast}
+\alias{mk_lb}
 \title{Predict Rice Leaf Blast Intensity Using Modified Kim Model}
 \usage{
 modified_kim_leaf_blast(wth, emergence, ...)
+
+mk_lb(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
@@ -79,6 +82,11 @@ wth <- get_wth(
 )
 lb <- leaf_blast(wth, emergence = "2000-07-01")
 plot(x = lb$dates, y = lb$intensity, type = "l")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# use shorthand function
+mk_lb <- mk_lb(wth, emergence = "2000-07-01")
+plot(x = mk_lb$dates, y = mk_lb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 }
 \references{

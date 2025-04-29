@@ -238,5 +238,5 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com} from original by
-Robert J. Hijmans, Rene Pangga and Jorell Aunario.
+Robert J. Hijmans, Rene Pangga and Jorrel Aunario.
 }
