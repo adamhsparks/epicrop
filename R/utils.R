@@ -106,20 +106,6 @@
     )
   }
 
-  if (H0 < 0L) {
-    cli::cli_abort(
-      "{.var H0} cannot be < 0, check your initial number of healthy sites.",
-      call = rlang::caller_env()
-    )
-  }
-
-  if (I0 < 0L) {
-    cli::cli_abort(
-      "{.var I0} cannot be < 0, check your initial number of infective sites.",
-      call = rlang::caller_env()
-    )
-  }
-
   if (duration < 80L) {
     cli::cli_message(
       "{.var duration} is < 80 days, is this intended?",
