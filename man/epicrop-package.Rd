@@ -37,6 +37,10 @@ Other contributors:
   \item Aji Sukarta \email{aji.ixb@gmail.com} (Helped fix bug related to SEIR model and establishment
  date) [contributor]
   \item Emerson Del Ponte \email{delponte@ufv.br} (\href{https://orcid.org/0000-0003-4398-409X}{ORCID}) (Suggested fixes for several typos in the documentation) [contributor]
+  \item Aleksandar Blagotić \email{alex@rapporter.net} (Author of the CRAN package 'rapportools', from which
+ the '.is_boolean()' was taken.) [contributor]
+  \item Gergely Daróczi \email{daroczig@rapporter.net} (Author of the CRAN package 'rapportools', from which
+ the '.is_boolean()' was taken.) [contributor]
 }
 
 }

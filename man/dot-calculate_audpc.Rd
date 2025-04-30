@@ -7,13 +7,13 @@
 .calculate_audpc(intensity)
 }
 \arguments{
-\item{intensity}{A \code{vector} of disease intensity from \code{seir()}.}
+\item{intensity}{A \code{vector} of disease intensity from \link{seir}.}
 }
 \value{
 A \code{numeric} value as \code{double}.
 }
 \description{
-This function is used to return the AUDPC in the output of seir().  Not to be
+This function is used to return the AUDPC in the output of \link{seir}.  Not to be
 used alone as it assumes that there is always only one day between
 observations so it takes shortcuts in the calculation of the values.
 }
