@@ -13,7 +13,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width = 7, fig.height = 7)
+knitr::opts_chunk$set(fig.width = 7L, fig.height = 7L)
 
 suggested_packages <- c("ggplot2", "tidyr")
 
@@ -44,7 +44,7 @@ If you are interested in modelling other pathosystems, please refer to Savary _e
 Load the library.
 
 ```{r epicrop}
-library("epicrop")
+library(epicrop)
 ```
 
 ### Get weather data
@@ -82,8 +82,8 @@ summary(bb_wet)
 The data are in a wide format by default and need to be converted to long format for use in {ggplot2} if you wish to plot more than one variable at a time.
 
 ```{r ggplot2}
-library("ggplot2")
-library("tidyr")
+library(ggplot2)
+library(tidyr)
 ```
 
 ### Wet season sites
