@@ -78,10 +78,8 @@
   )]
   if (length(non_numeric) > 0L) {
     cli::cli_abort(
-      c(
-        "{.var { names(non_numeric) }} has a value of {.code { non_numeric }}
+      "{.var { names(non_numeric) }} has a value of {.code { non_numeric }}
          and must be a numeric value."
-      )
     )
   }
 
