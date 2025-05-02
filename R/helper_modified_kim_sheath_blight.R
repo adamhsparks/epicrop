@@ -132,7 +132,7 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
     ),
     RcT = cbind(
       c(12L, 15L, 18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L),
-      c(0, 0.1, 0.8, 1, 1, 1, 0.2, .01, 0.01, 0)
+      c(0, 0.1, 0.8, 1, 1, 1, 0.2, 0.01, 0.01, 0)
     ),
     RcW = cbind(
       c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L),
