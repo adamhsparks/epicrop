@@ -34,12 +34,6 @@
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
 #'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
 #'  _et al._ 2012 used `5`.
-#' @param simple_wetness `Boolean` value, if `TRUE` the function will use a
-#'  simple calculation of leaf wetness based on the daily `rhlim` and `rainlim`
-#'  values. If `FALSE` the function will use a more complex calculation of leaf
-#'  wetness based on the `wth` data and will calculate the leaf wetness value
-#'  for each hour of the day and use `RcW` to determine the effect of leaf
-#'  wetness on the infection rate.
 #' @param H0 initial number of plant's healthy sites (integer).  Described in
 #'  Table 1 of Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (integer).  Described in Table 1
@@ -53,10 +47,9 @@
 #'  removals) for temperature as a numeric two-column matrix with the first
 #'  column being temperature in ˚C and the second the modifier (bounded by 0 and
 #'  1).  Described in Tables 1 and 2 of Savary _et al._ 2012.
-#' @param RcW modifier for _Rc_ to calculate leaf wetness effect, 1 if wet, 0
-#'  otherwise. This is a numeric two-column matrix with the first column being
-#'  hours (1 to 24) and the second the modifier (bounded by 0 and 1).
-#'  Described in Tables 1 and 2  of Savary _et al._ 2012.
+#' @param RcW modifier for _Rc_ to calculate leaf wetness effect from 1 if wet
+#'  to 0 if dry.  This is a numeric two-column matrix with the first column
+#'  being hours (1 to 24) and the second the modifier (bounded by 0 and 1).
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012.  This value can be modified
 #'  to reflect crop cultivar resistance ratings as well, see Kim _et al._ 2015
@@ -74,6 +67,12 @@
 #'  Table 1 of Savary _et al._ 2012.
 #' @param RRG relative rate of growth (numeric).  Described in Table 1 of Savary
 #'  _et al._ 2012.
+#' @param simple_wetness `Boolean` value, if `TRUE` the function will use a
+#'  simple calculation of leaf wetness based on the daily `rhlim` and `rainlim`
+#'  values. If `FALSE` the function will use a more complex calculation of leaf
+#'  wetness based on the `wth` data and will calculate the leaf wetness value
+#'  for each hour of the day and use `RcW` to determine the effect of leaf
+#'  wetness on the infection rate.
 #'
 #' @references
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
@@ -193,25 +192,26 @@
 
 seir <-
   function(
-      wth,
-      emergence,
-      onset,
-      duration,
-      rhlim,
-      rainlim,
-      simple_wetness = TRUE,
-      H0,
-      I0,
-      RcA,
-      RcT,
-      RcW = NULL,
-      RcOpt,
-      p,
-      i,
-      Sx,
-      a,
-      RRS,
-      RRG) {
+    wth,
+    emergence,
+    onset,
+    duration,
+    rhlim,
+    rainlim,
+    H0,
+    I0,
+    RcA,
+    RcT,
+    RcW,
+    RcOpt,
+    p,
+    i,
+    Sx,
+    a,
+    RRS,
+    RRG,
+    simple_wetness = TRUE
+  ) {
     # remove fn, `wth` and `simple_wetness` args from the passed_args
     rlang::check_required(c(
       wth,
@@ -234,17 +234,17 @@ seir <-
       RRG
     ))
 
-    passed_args <- as.character(match.call())[-c(1)]
+    passed_args <- as.character(match.call())[-1L]
     .check_inputs(passed_args)
 
     # Set and check dates ----
     emergence <- as.Date(emergence)
-    harvest <- emergence + sum(duration, -1)
+    harvest <- emergence + sum(duration, -1L)
     dates <- seq(from = emergence, to = harvest, by = "day")
 
     # check that the dates align
     if (
-      !(emergence >= wth[1, YYYYMMDD]) ||
+      (emergence < wth[1L, YYYYMMDD]) ||
         (max(dates) > max(wth[, YYYYMMDD]))
     ) {
       cli::cli_abort(
@@ -254,9 +254,9 @@ seir <-
 
     # subset weather data where date is greater than emergence minus one and
     # less than duration
-    if (dim(wth)[1] > duration) {
+    if (dim(wth)[1L] > duration) {
       wth <-
-        wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1))]
+        wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1L))]
     }
 
     # Create vectors for referencing ----
@@ -266,15 +266,15 @@ seir <-
     # Create output vars
     cofr <-
       rc <-
-      latency <- infectious <- intensity <- rsenesced <-
-      rgrowth <-
-      rtransfer <- infection <- diseased <- senesced <- removed <-
-      now_infectious <- now_latent <- sites <- total_sites <-
-      vector(mode = "double", length = duration)
+        latency <- infectious <- intensity <- rsenesced <-
+          rgrowth <-
+            rtransfer <- infection <- diseased <- senesced <- removed <-
+              now_infectious <- now_latent <- sites <- total_sites <-
+                vector(mode = "double", length = duration)
 
     if (simple_wetness) {
       Rc_wet <- vector(mode = "double", length = length(wth_rhum))
-      Rc_wet[wth_rhum >= rhlim | wth_rain >= rainlim] <- 1
+      Rc_wet[wth_rhum >= rhlim | wth_rain >= rainlim] <- 1L
     } else {
       w <- .calculate_leaf_wetness(
         wth,
@@ -286,13 +286,13 @@ seir <-
     }
 
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
-    Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0:duration)
+    Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0L:duration)
 
     # Calculate state values -----
-    for (d in 1:duration) {
-      d_1 <- sum(d, -1)
+    for (d in 1L:duration) {
+      d_1 <- sum(d, -1L)
 
-      if (d == 1) {
+      if (d == 1L) {
         # start crop growth
         sites[d] <- H0
         rsenesced[d] <- RRS * sites[d]
@@ -303,9 +303,9 @@ seir <-
           # so until `d > i`, `removed_today` will always be equal to "0" since
           # the disease has not had time to completely transit the infectious
           # period as specified by parameter `i` - AHS
-          removed_today <- infectious[infday + 1]
+          removed_today <- infectious[infday + 1L]
         } else {
-          removed_today <- 0
+          removed_today <- 0L
         }
 
         sites[[d]] <-
@@ -315,12 +315,12 @@ seir <-
 
         latency[[d]] <- infection[d_1]
         latday <- sum(d, -p)
-        latday <- max(1, latday)
+        latday <- max(1L, latday)
         now_latent[[d]] <- sum(latency[latday:d])
 
         infectious[[d]] <- rtransfer[d_1]
         infday <- sum(d, -i)
-        infday <- max(1, infday)
+        infday <- max(1L, infday)
         now_infectious[[d]] <- sum(infectious[infday:d])
       }
 
@@ -330,7 +330,7 @@ seir <-
 
       removed[[d]] <- sum(sum(infectious), -now_infectious[d])
 
-      cofr[[d]] <- 1 - diseased[d] / sum(sites[d], diseased[d])
+      cofr[[d]] <- 1L - diseased[d] / sum(sites[d], diseased[d])
 
       if (d == onset) {
         # initialisation of the disease
@@ -338,18 +338,18 @@ seir <-
       } else if (d > onset) {
         infection[[d]] <- now_infectious[d] * rc[d] * (cofr[d]^a)
       } else {
-        infection[[d]] <- 0
+        infection[[d]] <- 0L
       }
 
       if (d >= p) {
         rtransfer[[d]] <- latency[latday]
       } else {
-        rtransfer[[d]] <- 0
+        rtransfer[[d]] <- 0L
       }
 
       total_sites[[d]] <- sum(diseased[d], sites[d])
 
-      rgrowth[[d]] <- RRG * sites[d] * sum(1, -(total_sites[d] / Sx))
+      rgrowth[[d]] <- RRG * sites[d] * sum(1L, -(total_sites[d] / Sx))
       intensity[[d]] <- sum(diseased[d], -removed[d]) /
         sum(total_sites[d], -removed[d])
     } # end loop
@@ -362,7 +362,7 @@ seir <-
       setDT(
         list(
           "simday" = simday,
-          "dates" = dates[1:d],
+          "dates" = dates[1L:d],
           "sites" = sites,
           "latent" = now_latent,
           "infectious" = now_infectious,
@@ -405,11 +405,11 @@ seir <-
 
 .fn_Rc <- function(.Rc, .xout) {
   stats::approx(
-    x = .Rc[, 1],
-    y = .Rc[, 2],
+    x = .Rc[, 1L],
+    y = .Rc[, 2L],
     method = "linear",
     xout = .xout,
-    yleft = 0,
-    yright = 0
+    yleft = 0L,
+    yright = 0L
   )$y
 }

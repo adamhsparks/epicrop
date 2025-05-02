@@ -24,7 +24,6 @@
 #' @param duration integer ideally >=80 and <150 but may vary.
 #' @param rhlim numeric bounded by 0 and 100.
 #' @param rainlim numeric must be >0.
-#' @param simple_wetness `Boolean` value
 #' @param H0 numeric, must be >0.
 #' @param I0 numeric, must be >0.
 #' @param RcA numeric matrix with the first column being the crop age in days
@@ -41,6 +40,7 @@
 #' @param a numeric, 1 to >1
 #' @param RRS numeric, must be >0.
 #' @param RRG numeric, must be >0.
+#' @param simple_wetness `Boolean` value
 #'
 #' @returns Nothing, called for its side-effects to check user input values.
 #'
@@ -53,7 +53,6 @@
   duration,
   rhlim,
   rainlim,
-  simple_wetness = TRUE,
   H0,
   I0,
   RcA,
@@ -65,7 +64,8 @@
   Sx,
   a,
   RRS,
-  RRG
+  RRG,
+  simple_wetness
 ) {
   passed_args <- as.list(match.call())[-c(1L, 2L, 8L)]
   passed_args$RcA <- eval(passed_args$RcA)
