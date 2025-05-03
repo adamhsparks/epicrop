@@ -396,10 +396,10 @@ seir <-
 #' @param .xout a value for `x`, either a temperature, age or RHUM modifier
 #'  value.
 #'
-#' @returns A numeric value for modifying a growth curve in `seir()`
+#' @returns A numeric value for modifying a growth curve in [seir].
 #'
 #' @note This is a faster (and more simple) function that does what the original
-#'  `afgen()` from \pkg{cropsim} does.
+#'  \pkg{cropsim} `afgen()` does.
 #'
 #' @dev
 

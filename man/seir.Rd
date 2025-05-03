@@ -11,19 +11,19 @@ seir(
   duration,
   rhlim,
   rainlim,
-  simple_wetness = TRUE,
   H0,
   I0,
   RcA,
   RcT,
-  RcW = NULL,
+  RcW,
   RcOpt,
   p,
   i,
   Sx,
   a,
   RRS,
-  RRG
+  RRG,
+  simple_wetness = TRUE
 )
 }
 \arguments{
@@ -61,13 +61,6 @@ wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savar
 wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
 \emph{et al.} 2012 used \code{5}.}
 
-\item{simple_wetness}{\code{Boolean} value, if \code{TRUE} the function will use a
-simple calculation of leaf wetness based on the daily \code{rhlim} and \code{rainlim}
-values. If \code{FALSE} the function will use a more complex calculation of leaf
-wetness based on the \code{wth} data and will calculate the leaf wetness value
-for each hour of the day and use \code{RcW} to determine the effect of leaf
-wetness on the infection rate.}
-
 \item{H0}{initial number of plant's healthy sites (integer).  Described in
 Table 1 of Savary \emph{et al.} 2012.}
 
@@ -85,10 +78,9 @@ removals) for temperature as a numeric two-column matrix with the first
 column being temperature in ˚C and the second the modifier (bounded by 0 and
 1).  Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
 
-\item{RcW}{modifier for \emph{Rc} to calculate leaf wetness effect, 1 if wet, 0
-otherwise. This is a numeric two-column matrix with the first column being
-hours (1 to 24) and the second the modifier (bounded by 0 and 1).
-Described in Tables 1 and 2  of Savary \emph{et al.} 2012.}
+\item{RcW}{modifier for \emph{Rc} to calculate leaf wetness effect from 1 if wet
+to 0 if dry.  This is a numeric two-column matrix with the first column
+being hours (1 to 24) and the second the modifier (bounded by 0 and 1).}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Described in Table 1 of Savary \emph{et al.} 2012.  This value can be modified
@@ -113,6 +105,13 @@ Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
 \emph{et al.} 2012.}
+
+\item{simple_wetness}{\code{Boolean} value, if \code{TRUE} the function will use a
+simple calculation of leaf wetness based on the daily \code{rhlim} and \code{rainlim}
+values. If \code{FALSE} the function will use a more complex calculation of leaf
+wetness based on the \code{wth} data and will calculate the leaf wetness value
+for each hour of the day and use \code{RcW} to determine the effect of leaf
+wetness on the infection rate.}
 }
 \value{
 A \link[data.table:data.table]{data.table::data.table} object containing the following columns:

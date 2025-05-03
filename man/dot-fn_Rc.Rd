@@ -14,13 +14,13 @@ age, \code{RcA}, or RHUM, \code{RcRH}.}
 value.}
 }
 \value{
-A numeric value for modifying a growth curve in \code{seir()}
+A numeric value for modifying a growth curve in \link{seir}.
 }
 \description{
 Use approx() to Return a Modifier Value From an RcA or RcT Curve
 }
 \note{
 This is a faster (and more simple) function that does what the original
-\code{afgen()} from \pkg{cropsim} does.
+\pkg{cropsim} \code{afgen()} does.
 }
 \keyword{internal}

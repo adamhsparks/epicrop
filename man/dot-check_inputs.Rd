@@ -11,7 +11,6 @@
   duration,
   rhlim,
   rainlim,
-  simple_wetness = TRUE,
   H0,
   I0,
   RcA,
@@ -23,7 +22,8 @@
   Sx,
   a,
   RRS,
-  RRG
+  RRG,
+  simple_wetness
 )
 }
 \arguments{
@@ -52,8 +52,6 @@ with the following field names.\tabular{rl}{
 
 \item{rainlim}{numeric must be >0.}
 
-\item{simple_wetness}{\code{Boolean} value}
-
 \item{H0}{numeric, must be >0.}
 
 \item{I0}{numeric, must be >0.}
@@ -81,6 +79,8 @@ moisture on the leaf surface and the second being the modifier (bounded by
 \item{RRS}{numeric, must be >0.}
 
 \item{RRG}{numeric, must be >0.}
+
+\item{simple_wetness}{\code{Boolean} value}
 }
 \value{
 Nothing, called for its side-effects to check user input values.
