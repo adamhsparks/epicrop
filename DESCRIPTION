@@ -45,6 +45,7 @@ Depends:
 Imports:
     cli,
     data.table,
+    lubridate,
     nasapower (>= 4.0),
     rlang,
     stats
