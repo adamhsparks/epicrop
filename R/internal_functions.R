@@ -12,15 +12,15 @@
   function(
     seir_passed_args
   ) {
-    RcA <- eval(passed_args$RcA)
-    RcT <- eval(passed_args$RcT)
-    if (!is.null(passed_args$RcW)) {
-      RcW <- eval(passed_args$RcW)
+    RcA <- eval(seir_passed_args$RcA)
+    RcT <- eval(seir_passed_args$RcT)
+    if (!is.null(seir_passed_args$RcW)) {
+      RcW <- eval(seir_passed_args$RcW)
     }
 
     numeric_args <- c(
       within(
-        passed_args,
+        seir_passed_args,
         rm("wth", "RcA", "RcT", "RcW", "simple_wetness")
       ),
       RcA,

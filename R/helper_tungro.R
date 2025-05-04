@@ -107,9 +107,9 @@ tungro <- function(wth, emergence, ...) {
       Sx = 100L,
       a = 1L,
       RRS = 0.01,
-      RRG = 0.1
-    ),
-    simple_wetness = TRUE,
-    RcW = 1L,
+      RRG = 0.1,
+      simple_wetness = TRUE,
+      RcW = 1L,
+    )
   )
 }

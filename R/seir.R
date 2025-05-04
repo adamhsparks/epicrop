@@ -237,7 +237,7 @@ seir <-
     ))
 
     passed_args <- as.list(match.call())[-1L]
-    .check_inputs(passed_args)
+    .check_inputs(seir_passed_args = passed_args)
 
     # Set and check dates ----
     emergence <- as.Date(emergence)
