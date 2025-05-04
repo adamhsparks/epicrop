@@ -95,31 +95,30 @@
 #' @autoglobal
 #' @export
 format_wth <- function(
-    wth,
-    date,
-    temp,
-    rhum,
-    rain,
-    tmin,
-    tmax,
-    lat,
-    lon) {
+  wth,
+  date,
+  temp,
+  rhum,
+  rain,
+  tmin,
+  tmax,
+  lat,
+  lon
+) {
   rlang::check_required(c(wth, date, temp, rhum, rain))
   passed_args <- as.character(match.call())[-c(1:2)] # remove fn & `wth` args
   if (any(passed_args %notin% names(wth))) {
     not_in <- passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
-      c(
-        "The following columns that you have provided are not in {.var wth}:
+      "The following columns that you have provided are not in {.var wth}:
         {.var {not_in}}."
-      )
     )
   }
 
   if (inherits(wth, "data.frame")) {
     setDT(wth)
 
-    if (length(passed_args) == 8) {
+    if (length(passed_args) == 8L) {
       old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
       new_names <- c(
         "YYYYMMDD",
@@ -135,6 +134,7 @@ format_wth <- function(
       # select only the columns that are needed
       wth <- wth[, new_names, with = FALSE]
     } else {
+      q
       old_names <- c(date, temp, rhum, rain)
 
       new_names <- c(
