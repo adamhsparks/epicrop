@@ -12,16 +12,26 @@
   function(
     seir_passed_args
   ) {
+    wth <- seir_passed_args$wth
+    simple_wetness <- seir_passed_args$simple_wetness
     RcA <- eval(seir_passed_args$RcA)
     RcT <- eval(seir_passed_args$RcT)
     if (!is.null(seir_passed_args$RcW)) {
       RcW <- eval(seir_passed_args$RcW)
     }
 
+    if (!is.Date(emergence)) {
+      cli::cli_abort(
+        "{.var { Date } has a value of {.code { Date }}
+            and must be a date object.",
+        call = rlang::caller_env()
+      )
+    }
+
     numeric_args <- c(
       within(
         seir_passed_args,
-        rm("wth", "RcA", "RcT", "RcW", "simple_wetness")
+        rm("wth", "emergence", "RcA", "RcT", "RcW", "simple_wetness")
       ),
       RcA,
       RcT,
@@ -163,4 +173,48 @@
 #' @dev
 .is_boolean <- function(x) {
   is.logical(x) && length(x) == 1L
+}
+
+#' Check User Input Dates for Validity
+#'
+#' @param x User entered date value
+#' @returns Validated date string as a `POSIXct` object.
+#' @note This was taken from \CRANpkg{nasapower}.
+#' @examples
+#' .check_date("2024-01-01")
+#' @author Adam H. Sparks \email{adamhsparks@@curtin.edu.au}
+#' @autoglobal
+#' @dev
+.check_date <- function(x) {
+  if (length(x) > 1L) {
+    cli::cli_alert_warning(
+      "Only one day is used for emergence. Only the first value will be used."
+    )
+    x <- x[[1L]]
+  }
+
+  if (lubridate::is.POSIXct(x) || lubridate::is.Date(x)) {
+    tz <- lubridate::tz(x)
+  } else {
+    tz <- Sys.timezone()
+  }
+
+  tryCatch(
+    x <- lubridate::parse_date_time(
+      x,
+      c(
+        "Ymd",
+        "dmY",
+        "BdY",
+        "Bdy"
+      ),
+      tz = tz
+    ),
+    warning = function(c) {
+      cli::cli_abort(
+        "{ x } is not in a valid date format. Please enter a valid date format."
+      )
+    }
+  )
+  return(x)
 }
