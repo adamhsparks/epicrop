@@ -41,7 +41,8 @@ test_that(".check_inputs() stops if values aren't numeric", {
       Sx = 800L,
       a = 2.8,
       RRS = 0.005,
-      RRG = 0.2
+      RRG = 0.2,
+      simple_wetness = TRUE
     ),
     regexp = "`emergence` has a value of `emergence` and must be a numeric value."
   )
@@ -91,7 +92,8 @@ test_that(".check_inputs() stops if values are <0", {
       Sx = 800L,
       a = 2.8,
       RRS = 0.005,
-      RRG = 0.2
+      RRG = 0.2,
+      simple_wetness = TRUE
     )
   )
 })
