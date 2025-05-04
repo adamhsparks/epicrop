@@ -236,7 +236,9 @@ seir <-
       RRG
     ))
 
-    passed_args <- as.list(match.call())[-1L]
+    call <- sys.call()
+    call[[1]] <- as.name('list')
+    passed_args <- eval.parent(call)
     .check_inputs(seir_passed_args = passed_args)
 
     # Set and check dates ----
