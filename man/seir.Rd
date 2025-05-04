@@ -15,7 +15,6 @@ seir(
   I0,
   RcA,
   RcT,
-  RcW,
   RcOpt,
   p,
   i,
@@ -23,13 +22,14 @@ seir(
   a,
   RRS,
   RRG,
-  simple_wetness = TRUE
+  RcW,
+  simple_wetness
 )
 }
 \arguments{
 \item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or
-\code{\link[=format_wth]{format_wth()}} containing weather on a daily time-step containing data
-with the following field names.\tabular{rl}{
+\code{\link[=format_wth]{format_wth()}} containing weather on a daily time-step with the following
+field names:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
@@ -78,10 +78,6 @@ removals) for temperature as a numeric two-column matrix with the first
 column being temperature in ˚C and the second the modifier (bounded by 0 and
 1).  Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
 
-\item{RcW}{modifier for \emph{Rc} to calculate leaf wetness effect from 1 if wet
-to 0 if dry.  This is a numeric two-column matrix with the first column
-being hours (1 to 24) and the second the modifier (bounded by 0 and 1).}
-
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Described in Table 1 of Savary \emph{et al.} 2012.  This value can be modified
 to reflect crop cultivar resistance ratings as well, see Kim \emph{et al.} 2015
@@ -105,6 +101,12 @@ Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
 \emph{et al.} 2012.}
+
+\item{RcW}{an optional modifier for \emph{Rc} to calculate leaf wetness effect
+from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
+first column being hours (1 to 24) and the second the modifier (bounded by 0
+and 1).  Only used when \code{simple_wetness == TRUE}, if it is provided and
+\code{simple_wetness == FALSE}, these values will be ignored.}
 
 \item{simple_wetness}{\code{Boolean} value, if \code{TRUE} the function will use a
 simple calculation of leaf wetness based on the daily \code{rhlim} and \code{rainlim}
@@ -205,6 +207,8 @@ emergence <- "2000-07-15"
   Sx = 100000,
   RRS = 0.01,
   RRG = 0.1
+  simple_wetness = TRUE,
+  RcW = NULL
 ))
 \dontshow{\}) # examplesIf}
 }

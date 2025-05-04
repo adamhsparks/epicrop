@@ -4,83 +4,10 @@
 \alias{.check_inputs}
 \title{Utility Function to Check User Inputs for seir()}
 \usage{
-.check_inputs(
-  wth,
-  emergence,
-  onset,
-  duration,
-  rhlim,
-  rainlim,
-  H0,
-  I0,
-  RcA,
-  RcT,
-  RcW,
-  RcOpt,
-  p,
-  i,
-  Sx,
-  a,
-  RRS,
-  RRG,
-  simple_wetness
-)
+.check_inputs(seir_passed_args)
 }
 \arguments{
-\item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \link{get_wth} or
-\link{format_wth} containing weather on a daily time-step containing data
-with the following field names.\tabular{rl}{
-   \strong{Field Name} \tab \strong{Value} \cr
-   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
-   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
-   \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
-   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (°C), see TMIN/TMAX Details \cr
-   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (°C), see TMIN/TMAX Details \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Details \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
-}}
-
-\item{emergence}{integer, must be >0.}
-
-\item{onset}{numeric, must be >0.}
-
-\item{duration}{integer ideally >=80 and <150 but may vary.}
-
-\item{rhlim}{numeric bounded by 0 and 100.}
-
-\item{rainlim}{numeric must be >0.}
-
-\item{H0}{numeric, must be >0.}
-
-\item{I0}{numeric, must be >0.}
-
-\item{RcA}{numeric matrix with the first column being the crop age in days
-(1 to \code{duration}) and the second being the  modifier (bounded by 0 and 1).}
-
-\item{RcT}{numeric matrix  with the first column being the temperature
-and the second column being the modfier (bounded by 0 and 1).}
-
-\item{RcW}{numeric matrix with the first column being the hours of free
-moisture on the leaf surface and the second being the modifier (bounded by
-0 and 1).}
-
-\item{RcOpt}{numeric, must be >0.}
-
-\item{p}{integer, must be >0.}
-
-\item{i}{integer, must be >0.}
-
-\item{Sx}{integer, must be >0.}
-
-\item{a}{numeric, 1 to >1}
-
-\item{RRS}{numeric, must be >0.}
-
-\item{RRG}{numeric, must be >0.}
-
-\item{simple_wetness}{\code{Boolean} value}
+\item{seir_passed_args}{a \code{list} of values passed to \link{seir}}
 }
 \value{
 Nothing, called for its side-effects to check user input values.
