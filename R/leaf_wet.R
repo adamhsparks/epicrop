@@ -32,10 +32,11 @@
 #'  \email{adamhsparks@@gmail.com}
 
 .calculate_leaf_wetness <- function(
-    weighted_wetness = FALSE,
-    wth,
-    rhlim,
-    rainlim) {
+  weighted_wetness = FALSE,
+  wth,
+  rhlim,
+  rainlim
+) {
   rh <- wth$RHUM
   prec <- wth$RAIN
   tmin <- wth$TMIN
@@ -53,9 +54,9 @@
     lw <- unlist(lapply(w, sum))
   }
 
-  prec[is.na(prec)] <- 0
-  prhrs <- pmin(12, prec / rainlim)
-  return(lw + (1 - lw / 24) * prhrs)
+  prec[is.na(prec)] <- 0.0
+  prhrs <- pmin(12.0, prec / rainlim)
+  return(lw + (1.0 - lw / 24.0) * prhrs)
 }
 
 #' Calculate hourly relative humidity for a given day
@@ -92,7 +93,7 @@
   rh_hr <- vector(mode = "list", length = length(doy))
   names(rh_hr) <- doy
   for (i in seq_along(doy)) {
-    vp <- .saturated_vapour_pressure(tmp[[i]]) * rh[[i]] / 100
+    vp <- .saturated_vapour_pressure(tmp[[i]]) * rh[[i]] / 100.0
     hrtemp <- .diurnal_temp(
       lat = lat[[i]],
       doy = doy[[i]],
@@ -100,8 +101,8 @@
       tmax = tmax[[i]]
     )
     es <- .saturated_vapour_pressure(hrtemp)
-    rh_hr[[i]] <- 100 * vp / es
-    rh_hr[[i]] <- pmin(100, pmax(0, rh_hr[[i]]))
+    rh_hr[[i]] <- 100.0 * vp / es
+    rh_hr[[i]] <- pmin(100.0, pmax(0.0, rh_hr[[i]]))
   }
   return(rh_hr)
 }
@@ -135,38 +136,38 @@
 #' @dev
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
   dayl <- mapply(FUN = .day_length, lat = lat, doy = doy)
-  nightl <- 24 - dayl
+  nightl <- 24.0 - dayl
   sandhya <- 0.5 * dayl
-  sunris <- 12 - sandhya
-  sunset <- 12 + sandhya
-  dt <- t(cbind(dayl, nightl, sunris, sunset, tmin, tmax))
+  sunris <- 12.0 - sandhya
+  sunset <- 12.0 + sandhya
+  daytime <- t(cbind(dayl, nightl, sunris, sunset, tmin, tmax))
 
   .hourly_t <- function(x) {
-    hr_temp <- vector(mode = "numeric", length = 24)
-    for (hr in 1:24) {
+    hr_temp <- vector(mode = "numeric", length = 24.0)
+    for (hr in 1.0:24.0) {
       # period a: dhour between midnight and sunrise;
       if (hr < x["sunris"]) {
         tsunst <-
           x["tmin"] +
           (x["tmax"] - x["tmin"]) *
             sin(
-              pi * (x["dayl"] / (x["dayl"] + 3))
+              pi * (x["dayl"] / (x["dayl"] + 3.0))
             )
         hr_temp[[hr]] <-
           (x["tmin"] -
-            tsunst * exp(-x["nightl"] / 4L) +
+            tsunst * exp(-x["nightl"] / 4.0) +
             (tsunst - x["tmin"]) *
               exp(
-                -(hr + 24 - x["sunset"]) / 4L
+                -(hr + 24 - x["sunset"]) / 4.0
               )) /
-            (1L - exp(-x["nightl"] / 4L))
+          (1.0 - exp(-x["nightl"] / 4.0))
       } else if (hr < x["sunset"]) {
         # period b: dhour between time of sunrise and sunset
         hr_temp[[hr]] <-
           x["tmin"] +
           (x["tmax"] - x["tmin"]) *
             sin(
-              pi * (hr - x["sunris"]) / (x["dayl"] + 3L)
+              pi * (hr - x["sunris"]) / (x["dayl"] + 3.0)
             )
       } else {
         #  period c: dhour between sunset and midnight;
@@ -174,19 +175,19 @@
           x["tmin"] +
           (x["tmax"] - x["tmin"]) *
             sin(
-              pi * (x["dayl"] / (x["dayl"] + 3L))
+              pi * (x["dayl"] / (x["dayl"] + 3.0))
             )
         hr_temp[[hr]] <-
           (x["tmin"] -
-            tsunst * exp(-x["nightl"] / 4L) +
-            (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4L)) /
-            (1L - exp(-x["nightl"] / 4L))
+            tsunst * exp(-x["nightl"] / 4.0) +
+            (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4.0)) /
+          (1.0 - exp(-x["nightl"] / 4.0))
       }
     }
     return(hr_temp)
   }
 
-  x <- as.vector(apply(X = dt, MARGIN = 2, FUN = .hourly_t))
+  x <- as.vector(apply(X = daytime, MARGIN = 2L, FUN = .hourly_t))
   return(x)
 }
 
@@ -214,14 +215,15 @@
 #'
 #' @dev
 .day_length <- function(lat, doy) {
-  doy <- (doy - 1) %% 365 + 1
+  doy <- (doy - 1.0) %% 365.0 + 1.0
 
   p <- asin(
-    0.39795 * cos(0.2163108 + 2 * atan(0.9671396 * tan(0.00860 * (doy - 186))))
+    0.39795 *
+      cos(0.2163108 + 2.0 * atan(0.9671396 * tan(0.00860 * (doy - 186.0))))
   )
-  a <- (sin(0.8333 * pi / 180) + sin(lat * pi / 180) * sin(p)) /
-    (cos(lat * pi / 180) * cos(p))
-  a <- pmin(pmax(a, -1), 1)
+  a <- (sin(0.8333 * pi / 180.0) + sin(lat * pi / 180.0) * sin(p)) /
+    (cos(lat * pi / 180.0) * cos(p))
+  a <- pmin(pmax(a, -1.0), 1.0)
   return(24 - 7.639437 * acos(a)) # where 7.6397437 = 24 / pi
 }
 
@@ -257,9 +259,9 @@
 #'
 .calc_weighted_hr_wet <- function(rh, rhlim) {
   w <- rh
-  x <- (rh - 80) / (rhlim - 80)
-  w[rh >= rhlim] <- 1
+  x <- (rh - 80.0) / (rhlim - 80.0)
+  w[rh >= rhlim] <- 1.0
   w[rh < rhlim] <- x[rh < rhlim]
-  w[rh < 80] <- 0
+  w[rh < 80.0] <- 0.0
   return(w)
 }
