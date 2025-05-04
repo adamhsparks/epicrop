@@ -20,13 +20,7 @@
       RcW <- eval(seir_passed_args$RcW)
     }
 
-    if (!is.Date(emergence)) {
-      cli::cli_abort(
-        "{.var { Date } has a value of {.code { Date }}
-            and must be a date object.",
-        call = rlang::caller_env()
-      )
-    }
+    .check_date(x = emergence)
 
     numeric_args <- c(
       within(
