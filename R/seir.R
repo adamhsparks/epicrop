@@ -5,8 +5,8 @@
 #'  proper values it can be used with other pathosystems as well.
 #'
 #' @param wth a `data.frame` of class `epicrop.wth` from either [get_wth()] or
-#'  [format_wth()] containing weather on a daily time-step containing data
-#' with the following field names.
+#'  [format_wth()] containing weather on a daily time-step with the following
+#'  field names:
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
@@ -47,9 +47,6 @@
 #'  removals) for temperature as a numeric two-column matrix with the first
 #'  column being temperature in ˚C and the second the modifier (bounded by 0 and
 #'  1).  Described in Tables 1 and 2 of Savary _et al._ 2012.
-#' @param RcW modifier for _Rc_ to calculate leaf wetness effect from 1 if wet
-#'  to 0 if dry.  This is a numeric two-column matrix with the first column
-#'  being hours (1 to 24) and the second the modifier (bounded by 0 and 1).
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012.  This value can be modified
 #'  to reflect crop cultivar resistance ratings as well, see Kim _et al._ 2015
@@ -73,6 +70,11 @@
 #'  wetness based on the `wth` data and will calculate the leaf wetness value
 #'  for each hour of the day and use `RcW` to determine the effect of leaf
 #'  wetness on the infection rate.
+#' @param RcW an optional modifier for _Rc_ to calculate leaf wetness effect
+#'  from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
+#'  first column being hours (1 to 24) and the second the modifier (bounded by 0
+#'  and 1).  Only used when `simple_wetness == TRUE`, if it is provided and
+#'  `simple_wetness == FALSE`, these values will be ignored.
 #'
 #' @references
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
@@ -127,6 +129,8 @@
 #'   Sx = 100000,
 #'   RRS = 0.01,
 #'   RRG = 0.1
+#'   simple_wetness = TRUE,
+#'   RcW = NULL
 #' ))
 #'
 #' @section _a_ -- Aggregation Details:
@@ -202,7 +206,6 @@ seir <-
     I0,
     RcA,
     RcT,
-    RcW,
     RcOpt,
     p,
     i,
@@ -210,9 +213,9 @@ seir <-
     a,
     RRS,
     RRG,
-    simple_wetness = TRUE
+    RcW,
+    simple_wetness
   ) {
-    # remove fn, `wth` and `simple_wetness` args from the passed_args
     rlang::check_required(c(
       wth,
       emergence,
@@ -220,7 +223,6 @@ seir <-
       duration,
       rhlim,
       rainlim,
-      simple_wetness,
       H0,
       I0,
       RcA,
@@ -234,7 +236,7 @@ seir <-
       RRG
     ))
 
-    passed_args <- as.character(match.call())[-1L]
+    passed_args <- as.list(match.call())[-1L]
     .check_inputs(passed_args)
 
     # Set and check dates ----
@@ -386,8 +388,6 @@ seir <-
 
     out[]
   }
-
-# .fn_Rc() ----
 
 #' Use approx() to Return a Modifier Value From an RcA or RcT Curve
 #'
