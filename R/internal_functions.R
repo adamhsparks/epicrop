@@ -87,7 +87,7 @@
       )
     }
 
-    if (seir_passed_args$rhlim > 100L) {
+    if (seir_passed_args$rhlim > 100.0) {
       cli::cli_abort(
         "The value for {.var rhlim}, {{rhlim}}, is invalid. Valid values are any
                value between or equal to 0 to 100.",
