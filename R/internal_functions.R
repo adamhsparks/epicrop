@@ -13,6 +13,7 @@
     seir_passed_args
   ) {
     wth <- seir_passed_args$wth
+    emergence <- seir_passed_args$emergence
     simple_wetness <- seir_passed_args$simple_wetness
     RcA <- eval(seir_passed_args$RcA)
     RcT <- eval(seir_passed_args$RcT)
@@ -54,10 +55,7 @@
       )
     }
 
-    if (
-      exists(simple_wetness) &&
-        (isFALSE(.is_boolean(simple_wetness)))
-    ) {
+    if (isFALSE(.is_boolean(simple_wetness))) {
       cli::cli_abort(
         message = "{.var simple_wetness} must be a Boolean ({.code TRUE/FALSE})
            value.",
@@ -65,7 +63,7 @@
       )
     }
 
-    if (!inherits("epicrop.wth", wth)) {
+    if (!inherits(wth, "epicrop.wth")) {
       cli::cli_abort(
         "{.var wth} must be an object of {.class epicrop.wth}.  You can create
            your {.var wth} object using either, {.fn get_wth} to fetch weather
@@ -74,7 +72,7 @@
       )
     }
 
-    if (a < 1L) {
+    if (seir_passed_args$a < 1L) {
       cli::cli_abort(
         "{.var a} cannot be set to less than 1. Valid aggregation values for
                 {.var a} are from 1 to > 1.",
@@ -82,14 +80,14 @@
       )
     }
 
-    if (duration < 80L) {
+    if (seir_passed_args$duration < 80L) {
       cli::cli_alert_danger(
         "{.var duration} is < 80 days, is this intended?",
         call = rlang::caller_env()
       )
     }
 
-    if (rhlim > 100L) {
+    if (seir_passed_args$rhlim > 100L) {
       cli::cli_abort(
         "The value for {.var rhlim}, {{rhlim}}, is invalid. Valid values are any
                value between or equal to 0 to 100.",
@@ -98,9 +96,8 @@
     }
 
     max_rca_day <- max(RcA[, 1L])
-    max_rrg_day <- max(RRG[, 1L])
 
-    if (max_rca_day > duration) {
+    if (max_rca_day > seir_passed_args$duration) {
       cli::cli_alert_info(
         "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
            {. var duration}, {{duration}} days.  A truncated matrix of values
@@ -109,7 +106,7 @@
       )
     }
 
-    if (max_rca_day < duration) {
+    if (max_rca_day < seir_passed_args$duration) {
       cli::cli_abort(
         "{.var RcA} has a duration, {{max_rca_day}} that is less than
            {. var duration}, {{duration}} days. Please provide a matrix of values
@@ -118,28 +115,7 @@
       )
     }
 
-    if (max_rrg_day > duration) {
-      cli::cli_alert_info(
-        "{.var RRG} has a duration, {{max_rrg_day}}, that is greater than
-           {. var duration}, {{duration}} days.  A truncated matrix of values
-           will be used that stops at {.var duration} days ({{duration}}).",
-        call = rlang::caller_env()
-      )
-    }
-
-    if (max_rrg_day < duration) {
-      cli::cli_abort(
-        "{.var RRG} has a duration, {{max_rrg_day}} that is less than
-           {. var duration}, {{duration}} days. Please provide a matrix of value
-           that aligns with {.var duration}.",
-        call = rlang::caller_env()
-      )
-    }
-
-    if (
-      exists(simple_wetness) &&
-        (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth)))
-    ) {
+    if (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth))) {
       cli::cli_abort(
         "You have set {.var simple_wetness} to {.code TRUE} but you do not have
            'TMIN' and 'TMAX' columns in your weather data. Please set
