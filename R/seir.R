@@ -237,7 +237,7 @@ seir <-
     ))
 
     call <- sys.call()
-    call[[1]] <- as.name('list')
+    call[[1L]] <- as.name('list')
     passed_args <- eval.parent(call)
     .check_inputs(seir_passed_args = passed_args)
 
