@@ -236,9 +236,9 @@ seir <-
       RRG
     ))
 
-    call <- sys.call()
-    call[[1L]] <- as.name('list')
-    passed_args <- eval.parent(call)
+    called <- sys.call()
+    called[[1L]] <- as.name("list")
+    passed_args <- eval.parent(called)
     .check_inputs(seir_passed_args = passed_args)
 
     # Set and check dates ----
@@ -288,7 +288,15 @@ seir <-
       )
       Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
     }
-
+    # The Modified Kim functions require matrices of RRG whereas the original is
+    # a single value, so this handles that by creating a vector of either
+    # values that vary by date or a vector of length 0-duration for the single
+    # given value
+    if (length(RRG) > 1L) {
+      RRG <- .fn_Rc(.Rc = RRG, .xout = 0L:duration)
+    } else {
+      RRG <- .fn_Rc(.Rc = rep(RRG, duration), .xout = 0L:duration)
+    }
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0L:duration)
 
@@ -353,7 +361,7 @@ seir <-
 
       total_sites[[d]] <- sum(diseased[d], sites[d])
 
-      rgrowth[[d]] <- RRG * sites[d] * sum(1L, -(total_sites[d] / Sx))
+      rgrowth[[d]] <- RRG[d] * sites[d] * sum(1L, -(total_sites[d] / Sx))
       intensity[[d]] <- sum(diseased[d], -removed[d]) /
         sum(total_sites[d], -removed[d])
     } # end loop
