@@ -14,12 +14,16 @@
   ) {
     wth <- seir_passed_args$wth
     emergence <- seir_passed_args$emergence
-    simple_wetness <- seir_passed_args$simple_wetness
     RcA <- eval(seir_passed_args$RcA)
     RcT <- eval(seir_passed_args$RcT)
+    # if RcW exists take that value, otherwise, set it to a numeric value such
+    # that it won't trigger an error and we can check all other values
     if (!is.null(seir_passed_args$RcW)) {
       RcW <- eval(seir_passed_args$RcW)
+    } else {
+      RcW <- 1L
     }
+    simple_wetness <- seir_passed_args$simple_wetness
 
     .check_date(x = emergence)
 
