@@ -27,7 +27,7 @@ test_that("Values are as expected", {
   expect_is(lb, c("data.table", "data.frame"))
   expect_identical(nrow(lb), 100L)
 
-  expect_identical(lb[[1L, "sites"]], 600L)
+  expect_identical(lb[[1L, "sites"]], 600.0)
   expect_equal(lb[[100L, "sites"]], 85301.36, tolerance = 0.1)
 
   expect_equal(lb[[1L, "latent"]], 0.0, tolerance = 0.1)
