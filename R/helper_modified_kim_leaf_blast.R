@@ -168,7 +168,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
     ),
     RcT = cbind(
       c(9L, 12L, 15L, 18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L),
-      c(0.0, 0.4, 0.72, 0.88, 1.0, 0.9, 0.45, 0.2, 0.05, 0.01, 0.0),
+      c(0.0, 0.4, 0.72, 0.88, 1.0, 0.9, 0.45, 0.2, 0.05, 0.01, 0.0)
     ),
     RcOpt = 0.86,
     p = 4L,
@@ -177,11 +177,11 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
     Sx = 90000L,
     RRS = 0.005,
     RRG = 0.1,
-    simple_wetness = TRUE,
     RcW = cbind(
       c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L),
       c(0.0, 0.24, 0.41, 0.68, 0.94, 0.97, 1.0, 1.0, 1.0, 1.0, 1.0)
-    )
+    ),
+    simple_wetness = TRUE
   )
 }
 
