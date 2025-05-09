@@ -1,3 +1,8 @@
+RcA <-
+  cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
+RcT <-
+  cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
+
 test_that("seir() stops if dates do not align", {
   # wth data starts in 2000
   expect_error(
@@ -18,16 +23,13 @@ test_that("seir() stops if dates do not align", {
       a = 1,
       Sx = 100000,
       RRS = 0.01,
-      RRG = 0.1
+      RRG = 0.1,
+      RcW = NULL,
+      simple_wetness = TRUE
     ),
     regexp = "Incomplete weather data or dates do not align"
   )
 })
-
-RcA <-
-  cbind(0:6 * 20, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
-RcT <-
-  cbind(15 + (0:5) * 5, c(0, 0.06, 1.0, 0.85, 0.16, 0))
 
 test_that("seir() stops if `a` < 1", {
   expect_error(
@@ -48,7 +50,9 @@ test_that("seir() stops if `a` < 1", {
       a = 0.9,
       Sx = 100000,
       RRS = 0.01,
-      RRG = 0.1
+      RRG = 0.1,
+      RcW = NULL,
+      simple_wetness = TRUE
     )
   )
 })
@@ -72,7 +76,9 @@ test_that("seir() stops if `H0` < 0", {
       a = 1,
       Sx = 100000,
       RRS = 0.01,
-      RRG = 0.1
+      RRG = 0.1,
+      RcW = NULL,
+      simple_wetness = TRUE
     )
   )
 })
@@ -96,7 +102,9 @@ test_that("seir() stops if `I0` < 0", {
       a = 1,
       Sx = 100000,
       RRS = 0.01,
-      RRG = 0.1
+      RRG = 0.1,
+      RcW = NULL,
+      simple_wetness = TRUE
     )
   )
 })
@@ -121,7 +129,9 @@ wth <-
         a = 1,
         Sx = 100000,
         RRS = 0.01,
-        RRG = 0.1
+        RRG = 0.1,
+        RcW = NULL,
+        simple_wetness = TRUE
       )
     )
   })
