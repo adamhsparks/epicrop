@@ -26,8 +26,3 @@ reference:
     contents:
       - get_wth
       - format_wth
-  - title: Internal Functions
-    desc: |
-      Documentation for developers to refer to regarding internal functions that perform checks and other operations that are not exported
-    contents:
-      - starts_with("dot_")
