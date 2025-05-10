@@ -92,7 +92,7 @@ wth
 Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.
 
 ```{r example}
-bb_sim <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
 
 bb_sim
 ```
