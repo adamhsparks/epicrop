@@ -56,7 +56,6 @@ Suggests:
     ggrepel,
     ggspatial,
     knitr,
-    lubridate,
     microbenchmark,
     pander,
     purrr,
