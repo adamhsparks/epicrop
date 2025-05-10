@@ -2,7 +2,7 @@
 % Please edit documentation in R/format_wth.R
 \name{format_wth}
 \alias{format_wth}
-\title{Format weather data for use}
+\title{Format Weather Data for Use in epicrop}
 \usage{
 format_wth(wth, date, temp, rhum, rain, tmin, tmax, lat, lon)
 }

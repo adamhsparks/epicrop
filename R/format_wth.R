@@ -1,4 +1,4 @@
-#' Format weather data for use
+#' Format Weather Data for Use in epicrop
 #'
 #' Formats an existing [data.frame] of weather data for use in \pkg{cropsim}.
 #'  Only the data necessary for use in the model is returned and the columns
