@@ -7,7 +7,7 @@
 format_wth(wth, date, temp, rhum, rain, tmin, tmax, lat, lon)
 }
 \arguments{
-\item{wth}{A \link{data.frame} object containing the weather data for use.}
+\item{wth}{A \link{data.frame} object containing the weather data for formatting.}
 
 \item{date}{The column name indicating the field containing the date values.}
 
@@ -33,8 +33,8 @@ the observation data (optional).}
 the observation data (optional).}
 }
 \value{
-A \code{epicrop.wth}, a data frame based on a \link[data.table:data.table]{data.table::data.table},'
-suitable for use in \pkg{epicrop}.
+An \code{epicrop.wth} object, a data frame compatible with a
+\link[data.table:data.table]{data.table::data.table}, suitable for use in \pkg{epicrop}.
 }
 \description{
 Formats an existing \link{data.frame} of weather data for use in \pkg{cropsim}.
@@ -49,7 +49,7 @@ Weather data must be a daily time-step and contain the following values,
 \item full date including year, month and day,
 \item average daily temperature,
 \item average daily relative humidity,
-\item total daily rainfall,
+\item total daily rainfall
 }
 }
 

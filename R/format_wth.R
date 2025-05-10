@@ -4,7 +4,7 @@
 #'  Only the data necessary for use in the model is returned and the columns
 #'  are renamed to values expected by the model.
 #'
-#' @param wth A [data.frame] object containing the weather data for use.
+#' @param wth A [data.frame] object containing the weather data for formatting.
 #' @param date The column name indicating the field containing the date values.
 #' @param temp The column name indicating the field containing the average daily
 #'  temperature values.
@@ -30,7 +30,7 @@
 #' * full date including year, month and day,
 #' * average daily temperature,
 #' * average daily relative humidity,
-#' * total daily rainfall,
+#' * total daily rainfall
 #'
 #' ## Optional values
 #'
@@ -57,8 +57,8 @@
 #' *Values marked with "*" are optional and not necessary to run the model
 #'   when using default settings.
 #'
-#' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table],'
-#'  suitable for use in \pkg{epicrop}.
+#' @returns An `epicrop.wth` object, a data frame compatible with a
+#'  [data.table::data.table], suitable for use in \pkg{epicrop}.
 #' @examples
 #' # Get weather data from the POWER API, using the `get_wth()` function,
 #' # this is for example purposes only as it is NOT necessary to reformat
