@@ -39,7 +39,9 @@ An \code{epicrop.wth} object, a data frame compatible with a
 \description{
 Formats an existing \link{data.frame} of weather data for use in \pkg{cropsim}.
 Only the data necessary for use in the model is returned and the columns
-are renamed to values expected by the model.
+are renamed to values expected by the model.  The data are assumed to be on
+a daily time-step. For converting sub-daily weather data to daily, see
+\code{\link[cropgrowdays:daily_mean]{cropgrowdays::daily_mean()}}.
 }
 \details{
 \subsection{Required values}{

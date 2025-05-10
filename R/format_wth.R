@@ -2,7 +2,9 @@
 #'
 #' Formats an existing [data.frame] of weather data for use in \pkg{cropsim}.
 #'  Only the data necessary for use in the model is returned and the columns
-#'  are renamed to values expected by the model.
+#'  are renamed to values expected by the model.  The data are assumed to be on
+#'  a daily time-step. For converting sub-daily weather data to daily, see
+#'  [cropgrowdays::daily_mean()].
 #'
 #' @param wth A [data.frame] object containing the weather data for formatting.
 #' @param date The column name indicating the field containing the date values.

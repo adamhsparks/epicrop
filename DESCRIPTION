@@ -51,6 +51,7 @@ Imports:
     rlang,
     stats
 Suggests:
+    cropgrowdays,
     dplyr,
     furrr,
     ggplot2,
