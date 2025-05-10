@@ -81,8 +81,8 @@ wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-06-30", "2000-12-31")
 )
-bb <- bacterial_blight(wth, emergence = "2000-07-01")
-plot(x = bb$dates, y = bb$intensity, type = "l")
+bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
+plot(x = bb_sim$dates, y = bb_sim$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # use shorthand function

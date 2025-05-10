@@ -57,8 +57,8 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' mk_sb <- modified_kim_sheath_blight(wth, emergence = "2000-07-01")
-#' plot(x = mk_sb$dates, y = mk_sb$intensity, type = "l")
+#' sb_sim <- modified_kim_sheath_blight(wth, emergence = "2000-07-01")
+#' plot(x = sb_sim$dates, y = sb_sim$intensity, type = "l")
 #'
 #' @author Kwang-Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,
 #' Jorrel Khalil Aunario, and Adam H. Sparks

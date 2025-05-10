@@ -82,8 +82,8 @@ wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-06-30", "2000-12-31")
 )
-sb <- sheath_blight(wth, emergence = "2000-07-01")
-plot(x = sb$dates, y = sb$intensity, type = "l")
+sb_sim <- sheath_blight(wth, emergence = "2000-07-01")
+plot(x = sb_sim$dates, y = sb_sim$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # use shorthand function

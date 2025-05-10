@@ -86,8 +86,8 @@ wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-06-30", "2000-12-31")
 )
-bs <- brown_spot(wth, emergence = "2000-07-01")
-plot(x = bs$dates, y = bs$intensity, type = "l")
+bs_sim <- brown_spot(wth, emergence = "2000-07-01")
+plot(x = bs_sim$dates, y = bs_sim$intensity, type = "l")
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # use shorthand function

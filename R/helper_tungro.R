@@ -37,8 +37,8 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' tg <- tungro(wth, emergence = "2000-07-01")
-#' plot(x = tg$dates, y = tg$intensity, type = "l")
+#' tg_sim <- tungro(wth, emergence = "2000-07-01")
+#' plot(x = tg_sim$dates, y = tg_sim$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
 #' and Adam H. Sparks
