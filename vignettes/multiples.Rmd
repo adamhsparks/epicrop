@@ -49,14 +49,6 @@ You could also use R's base `lapply()` here as well if you prefer.
 ``` r
 library("epicrop")
 library("purrr")
-#> 
-#> Attaching package: 'purrr'
-#> The following object is masked from 'package:epicrop':
-#> 
-#>     transpose
-#> The following object is masked from 'package:testthat':
-#> 
-#>     is_null
 
 seasons_wth <-
   map(
@@ -126,7 +118,7 @@ ggplot(seasons,
   theme_classic()
 ```
 
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
+![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/graph_seasons-1.png)
 
 ### Simulating multiple seasons with {furrr} using parallel processing
 
@@ -393,7 +385,7 @@ ggplot(data = multi_dates,
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](stem-plot-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/stem-plot-1.png)
 
 ### Using {furrr} to run multiple establishment dates in parallel
 
@@ -504,7 +496,7 @@ future_map2(
   theme_classic()
 ```
 
-![plot of chunk create-data.frames-parallel](create-data.frames-parallel-1.png)
+![plot of chunk create-data.frames-parallel](figure/create-data.frames-parallel-1.png)
 
 ## Multiple locations
 
@@ -586,7 +578,7 @@ map(
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](figure/run-multi-loc-1.png)
 
 ## Benchmarking sequential versus parallel methods
 
@@ -623,12 +615,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr      min        lq      mean    median        uq      max neval
-#>  sequential  63.8614  66.65122  69.99759  68.69507  70.84552 143.9901   100
-#>    parallel 155.1646 158.46859 163.31608 160.52445 167.14724 188.8329   100
+#>        expr       min        lq      mean    median        uq      max neval
+#>  sequential  42.98227  44.96892  48.23181  45.79958  47.52308 110.9572   100
+#>    parallel 156.56510 160.51689 169.12610 163.36319 177.03739 206.6873   100
 
 autoplot(mbm) +
   theme_classic()
 ```
 
-![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
+![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](figure/benchmark-1.png)
