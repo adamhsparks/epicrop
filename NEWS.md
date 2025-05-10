@@ -2,15 +2,40 @@
 
 ## Major Changes
 
+- Version now 1.0.0.9000, almost ready for first major release
+
 - `SEIR()` is now `seir()`
 
-- Helper functions no longer are named `predict_`..., just the disease name is used.
+- All helper functions drop the `predict_` prefix for simplicity, _e.g._, `predict_bacterial_blight()` becomes just `bacterial_blight()`
 
 - Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.
 
 - Adds the RcRH parameter to `seir()` to calculate the relative humidity correction factor for the disease progress curve as published in Savary _et al._ 2012.
 
 - Adds the RcRH parameter to all helper functions.
+
+## New Functionality
+
+- Adds functions from Kim et al. 2015 for:
+
+  - Leaf blast in South Korean varieties
+  - Sheath blight in South Korean varieties
+
+- Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using `.fn_Rc()` as already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`
+
+- Adds functionality to use a matrix in `RRG` and modify it with `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim et al. 2015 (though not implemented in Kim et al. 2015)
+
+- Allow pass through of more arguments from helper functions to `seir()` via `...` argument
+
+- Strict checking of user-inputs with informative messages now provided if inputs are invalid
+
+## Minor Changes
+
+- Improvements to the documentation
+
+- Spelling corrections
+
+- Code linting
 
 # epicrop 0.0.3
 
