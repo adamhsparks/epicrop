@@ -13,7 +13,7 @@
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^precompile\.R$
-^epicrop\.Rmd\.orig$
+^.*\.Rmd\.orig$
 ^doc$
 ^Meta$
 ^epicrop.code-workspace$
@@ -22,7 +22,6 @@
 ^pkgdown$
 ^LICENSE\.md$
 ^air\.toml$
-
 
 # flir files
 ^flir$
