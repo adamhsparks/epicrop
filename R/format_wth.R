@@ -51,10 +51,10 @@
 #'   _TMAX*_     | Daily maximum temperature (˚C)
 #'   _RHUM_     | Mean daily relative humidity (%)
 #'   _RAIN_     | Mean daily rainfall (mm)
-#'   _LAT*_      | Latitude of area of interest
-#'   _LON*_      | Longitude of area of interest.
+#'   _LAT\*_      | Latitude of area of interest
+#'   _LON\*_      | Longitude of area of interest.
 #'
-#' *Values marked with "*" are optional and not necessary to run the model
+#' \*Values marked with "*" are optional and not necessary to run the model
 #'   when using default settings.
 #'
 #' @returns An `epicrop.wth` object, a data frame compatible with a

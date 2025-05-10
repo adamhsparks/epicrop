@@ -70,13 +70,13 @@ them.
    \emph{TMAX*} \tab Daily maximum temperature (˚C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{LAT*} \tab Latitude of area of interest \cr
-   \emph{LON*} \tab Longitude of area of interest. \cr
+   \emph{LAT\*} \tab Latitude of area of interest \cr
+   \emph{LON\*} \tab Longitude of area of interest. \cr
 }
 
 }
 
-\emph{Values marked with "}" are optional and not necessary to run the model
+\\emph{Values marked with "}" are optional and not necessary to run the model
 when using default settings.
 }
 }
