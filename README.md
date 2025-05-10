@@ -103,59 +103,11 @@ Once you have the weather data, run the model for any of the five rice diseases 
 
 
 ``` r
-bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+bb_sim <- predict_bacterial_blight(wth, emergence = "2000-07-01")
 #> Error in predict_bacterial_blight(wth, emergence = "2000-07-01"): could not find function "predict_bacterial_blight"
 
-bb
-#> function(wth, emergence, ...) {
-#>   return(
-#>     seir(
-#>       wth = wth,
-#>       emergence = emergence,
-#>       onset = 20L,
-#>       duration = 120L,
-#>       rhlim = 90L,
-#>       rainlim = 5L,
-#>       H0 = 100L,
-#>       I0 = 1L,
-#>       RcA = cbind(
-#>         c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
-#>         c(
-#>           1.0,
-#>           1.0,
-#>           1.0,
-#>           0.9,
-#>           0.62,
-#>           0.43,
-#>           0.42,
-#>           0.42,
-#>           0.41,
-#>           0.41,
-#>           0.41,
-#>           0.41,
-#>           0.41
-#>         )
-#>       ),
-#>       RcT = cbind(
-#>         c(16L, 19L, 22L, 25L, 28L, 31L, 34L, 37L, 40L),
-#>         c(0.0, 0.29, 0.44, 0.90, 0.90, 1.0, 0.88, 0.01, 0.0)
-#>       ),
-#>       RcOpt = 0.87,
-#>       p = 5L,
-#>       i = 30L,
-#>       Sx = 3200L,
-#>       a = 4L,
-#>       RRS = 0.01,
-#>       RRG = 0.1,
-#>       simple_wetness = TRUE,
-#>       RcW = cbind(
-#>         c(2L, 3L, 6L, 9L, 12L, 15L, 18L, 21L, 24L),
-#>         c(0.0, 0.67, 0.81, 0.84, 0.87, 0.91, 0.94, 0.97, 1.0)
-#>       )
-#>     )
-#>   )
-#> }
-#> <environment: namespace:epicrop>
+bb_sim
+#> Error: object 'bb_sim' not found
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -165,7 +117,7 @@ Lastly, you can visualise the result of the model run.
 library(ggplot2)
 
 ggplot(
-  data = bb,
+  data = bb_sim,
   aes(
     x = dates,
     y = intensity
@@ -178,9 +130,7 @@ ggplot(
   geom_line() +
   geom_point() +
   theme_classic()
-#> Error in `ggplot()`:
-#> ! `data` cannot be a function.
-#> ℹ Have you misspelled the `data` argument in `ggplot()`
+#> Error: object 'bb_sim' not found
 ```
 
 # Meta
