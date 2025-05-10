@@ -71,6 +71,7 @@ map(
                            box.padding = 1,
                            size = 3) +
   theme(
+    legend.position = "inside",
     legend.position.inside = c(0.025, 0.025),
     legend.justification = c("left", "bottom"),
     legend.box.just = "right",

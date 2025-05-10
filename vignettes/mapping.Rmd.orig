@@ -53,7 +53,7 @@ The map will show a point, with the size relative to the AUDPC value for that lo
 
 The [{ggspatial}](https://paleolimbot.github.io/ggspatial/) package is used to provide a base layer of countries using [Open Street Map](https://www.openstreetmap.org/) map baselayer data and labelling capabilities.
 
-```{r map-AUDPC, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.", message = FALSE, fig.width = 7}
+```{r map-AUDPC, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.", message = FALSE, fig.height = 7}
 library(epicrop)
 library(purrr)
 library(dplyr)
@@ -94,6 +94,7 @@ map(
                            box.padding = 1,
                            size = 3) +
   theme(
+    legend.position = "inside",
     legend.position.inside = c(0.025, 0.025),
     legend.justification = c("left", "bottom"),
     legend.box.just = "right",
