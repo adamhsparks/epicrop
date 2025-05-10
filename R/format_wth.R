@@ -47,15 +47,12 @@
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_      | Consecutive day of year, commonly called "Julian date"
 #'   _TEMP_     | Mean daily temperature (°C)
-#'   _TMIN\*_     | Daily minimum temperature (˚C)
-#'   _TMAX\*_     | Daily maximum temperature (˚C)
+#'   _TMIN_     | Daily minimum temperature (˚C)
+#'   _TMAX_     | Daily maximum temperature (˚C)
 #'   _RHUM_     | Mean daily relative humidity (%)
 #'   _RAIN_     | Mean daily rainfall (mm)
-#'   _LAT\*_      | Latitude of area of interest
-#'   _LON\*_      | Longitude of area of interest.
-#'
-#' \*Values marked with "*" are optional and not necessary to run the model
-#'   when using default settings.
+#'   _LAT_      | Latitude of area of interest
+#'   _LON_      | Longitude of area of interest.
 #'
 #' @returns An `epicrop.wth` object, a data frame compatible with a
 #'  [data.table::data.table], suitable for use in \pkg{epicrop}.
