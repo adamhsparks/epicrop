@@ -16,9 +16,8 @@ reference:
       - modified_kim_leaf_blast
       - modified_kim_sheath_blight
   - title: SEIR
-  - subtitle: The main function that drives {epicrop}
     desc: |
-      A susceptible-exposed-infectious-removed (SEIR) model
+      A susceptible-exposed-infectious-removed (SEIR) model and the main function that drives {epicrop}
     contents: seir
   - title: Weather Data
     desc: |
