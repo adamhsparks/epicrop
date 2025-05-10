@@ -37,4 +37,5 @@
 ^man/dot-day_length\.Rd$
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-check_threshold\.Rd$
+^man/dot-calculate_weighted_hr_wet\.Rd$
 ^man/dot-fn_Rc\.Rd$
