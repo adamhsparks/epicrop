@@ -72,8 +72,8 @@ With the vector of establishment dates, `seasons`, use `purrr::map()` to fetch a
 You could also use R's base `lapply()` here as well if you prefer.
 
 ```{r get-seasons}
-library("epicrop")
-library("purrr")
+library(epicrop)
+library(purrr)
 
 seasons_wth <-
   map(
@@ -93,9 +93,9 @@ This behaviour would be the same as if you used R's base `lapply()` here as well
 Add a column to specify the season, in this case we only have wet seasons for two years, but if you have multiple seasons per year, you can still use this template, _e.g._, for multiple seasons in one year, use `lubridate::ymd()`.
 
 ```{r run-predict, message=FALSE}
-library("dplyr")
-library("lubridate")
-library("pander")
+library(dplyr)
+library(lubridate)
+library(pander)
 
 seasons <- map_df(
   .x = seasons_wth,
@@ -116,7 +116,7 @@ pander(seasons)
 A simple bar chart created using _ggplot2_ is an effective way to visualise the difference between the two seasons.
 
 ```{r graph_seasons, fig.cap="Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."}
-library("ggplot2")
+library(ggplot2)
 ggplot(seasons,
        aes(y = as.factor(season),
            x = AUDPC)) +
@@ -141,11 +141,11 @@ In this case, while this code runs, you can benchmark it and see that this is no
 An example benchmarking different methods is provided here.
 
 ```{r parallel-seasons}
-library("epicrop")
-library("furrr")
-library("dplyr")
-library("lubridate")
-library("pander")
+library(epicrop)
+library(furrr)
+library(dplyr)
+library(lubridate)
+library(pander)
 
 # Respect the API server and use 1 core
 plan(multisession, workers = 1)
@@ -197,13 +197,13 @@ Using `purrr::map2` allows for using two variables, one for weather data, `wth`,
 This returns a list of data, but using `dplyr::bind_rows(.id = "emergence")` creates a data frame with a column of emergence/establishment dates that can be used for grouping the data for further analysis or visualisation.
 
 ```{r multiple-establishment}
-library("epicrop")
-library("purrr")
-library("dplyr")
-library("lubridate")
-library("pander")
-library("furrr")
-library("tidyr")
+library(epicrop)
+library(purrr)
+library(dplyr)
+library(lubridate)
+library(pander)
+library(furrr)
+library(tidyr)
 
 years <- as.character(2001:2010)
 month_day <- c("-06-01", "-06-14", "-06-30")
@@ -269,7 +269,7 @@ Using `ggplot2::geom_segment()` and `ggplot2::geom_point()` we can maximise the 
 Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are necessary since we're using `ggplot2::geom_segment()`.
 
 ```{r stem-plot, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."}
-library("ggplot2")
+library(ggplot2)
 ggplot(data = multi_dates,
        aes(
          x = AUDPC,
@@ -293,13 +293,13 @@ These are easily identified by the `future_` prefix on each of the functions whe
 In this example rather than printing the whole table, the data are piped directly into the `ggplot2::ggplot()` function for creating a figure that again, is the same as the previous example, but run in parallel using {furrr}.
 
 ```{r parallel-establishment, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."}
-library("furrr")
-library("purrr")
-library("tidyr")
-library("dplyr")
-library("ggplot2")
-library("lubridate")
-library("epicrop")
+library(furrr)
+library(purrr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(epicrop)
 
 plan(multisession, workers = 1)
 
@@ -393,8 +393,8 @@ With the list of locations, `locations`, use `purrr::map()` to fetch all of the 
 You could also use R's base `lapply()` here as well if you prefer.
 
 ```{r get-locations}
-library("epicrop")
-library("purrr")
+library(epicrop)
+library(purrr)
 
 locations_wth <-
   map(
@@ -411,9 +411,9 @@ This behaviour would be the same as if you used R's base `lapply()` here as well
 The process for using {furrr} won't be shown here, but to implement several locations or year locations and planting date simulations in parallel would be as shown above.
 
 ```{r run-multi-loc, fig.cap="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines."}
-library("dplyr")
-library("lubridate")
-library("ggplot2")
+library(dplyr)
+library(lubridate)
+library(ggplot2)
 
 map(
   .x = locations_wth,
@@ -447,7 +447,7 @@ Greater gains in efficiency will be realised with more dates, locations, etc. wh
 
 ```{r benchmark, message=FALSE, warning=FALSE, fig.cap="Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines"}
 
-library("microbenchmark")
+library(microbenchmark)
 
 plan(multisession, workers = 4)
 

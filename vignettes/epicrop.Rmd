@@ -129,6 +129,14 @@ The data are in a wide format by default and need to be converted to long format
 
 ``` r
 library(ggplot2)
+```
+
+```
+## Want to understand how all the pieces fit together? Read R for Data
+## Science: https://r4ds.hadley.nz/
+```
+
+``` r
 library(tidyr)
 ```
 

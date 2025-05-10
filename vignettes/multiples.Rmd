@@ -47,8 +47,8 @@ You could also use R's base `lapply()` here as well if you prefer.
 
 
 ``` r
-library("epicrop")
-library("purrr")
+library(epicrop)
+library(purrr)
 
 seasons_wth <-
   map(
@@ -73,9 +73,9 @@ Add a column to specify the season, in this case we only have wet seasons for tw
 
 
 ``` r
-library("dplyr")
-library("lubridate")
-library("pander")
+library(dplyr)
+library(lubridate)
+library(pander)
 
 seasons <- map_df(
   .x = seasons_wth,
@@ -108,7 +108,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 
 
 ``` r
-library("ggplot2")
+library(ggplot2)
 ggplot(seasons,
        aes(y = as.factor(season),
            x = AUDPC)) +
@@ -118,7 +118,7 @@ ggplot(seasons,
   theme_classic()
 ```
 
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/graph_seasons-1.png)
+![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
 ### Simulating multiple seasons with {furrr} using parallel processing
 
@@ -136,12 +136,12 @@ An example benchmarking different methods is provided here.
 
 
 ``` r
-library("epicrop")
-library("furrr")
+library(epicrop)
+library(furrr)
 #> Loading required package: future
-library("dplyr")
-library("lubridate")
-library("pander")
+library(dplyr)
+library(lubridate)
+library(pander)
 
 # Respect the API server and use 1 core
 plan(multisession, workers = 1)
@@ -209,13 +209,13 @@ This returns a list of data, but using `dplyr::bind_rows(.id = "emergence")` cre
 
 
 ``` r
-library("epicrop")
-library("purrr")
-library("dplyr")
-library("lubridate")
-library("pander")
-library("furrr")
-library("tidyr")
+library(epicrop)
+library(purrr)
+library(dplyr)
+library(lubridate)
+library(pander)
+library(furrr)
+library(tidyr)
 
 years <- as.character(2001:2010)
 month_day <- c("-06-01", "-06-14", "-06-30")
@@ -369,7 +369,7 @@ Note the additional `ggplot2::aes()` parameters here, `xend` and `yend` are nece
 
 
 ``` r
-library("ggplot2")
+library(ggplot2)
 ggplot(data = multi_dates,
        aes(
          x = AUDPC,
@@ -385,7 +385,7 @@ ggplot(data = multi_dates,
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/stem-plot-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](stem-plot-1.png)
 
 ### Using {furrr} to run multiple establishment dates in parallel
 
@@ -396,13 +396,13 @@ In this example rather than printing the whole table, the data are piped directl
 
 
 ``` r
-library("furrr")
-library("purrr")
-library("tidyr")
-library("dplyr")
-library("ggplot2")
-library("lubridate")
-library("epicrop")
+library(furrr)
+library(purrr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(epicrop)
 
 plan(multisession, workers = 1)
 
@@ -496,7 +496,7 @@ future_map2(
   theme_classic()
 ```
 
-![plot of chunk create-data.frames-parallel](figure/create-data.frames-parallel-1.png)
+![plot of chunk create-data.frames-parallel](create-data.frames-parallel-1.png)
 
 ## Multiple locations
 
@@ -522,8 +522,8 @@ You could also use R's base `lapply()` here as well if you prefer.
 
 
 ``` r
-library("epicrop")
-library("purrr")
+library(epicrop)
+library(purrr)
 
 locations_wth <-
   map(
@@ -551,9 +551,9 @@ The process for using {furrr} won't be shown here, but to implement several loca
 
 
 ``` r
-library("dplyr")
-library("lubridate")
-library("ggplot2")
+library(dplyr)
+library(lubridate)
+library(ggplot2)
 
 map(
   .x = locations_wth,
@@ -578,7 +578,7 @@ map(
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](figure/run-multi-loc-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
 
 ## Benchmarking sequential versus parallel methods
 
@@ -590,7 +590,7 @@ Greater gains in efficiency will be realised with more dates, locations, etc. wh
 
 ``` r
 
-library("microbenchmark")
+library(microbenchmark)
 
 plan(multisession, workers = 4)
 
@@ -615,12 +615,15 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr       min        lq      mean    median        uq      max neval
-#>  sequential  42.98227  44.96892  48.23181  45.79958  47.52308 110.9572   100
-#>    parallel 156.56510 160.51689 169.12610 163.36319 177.03739 206.6873   100
+#>        expr       min        lq      mean    median        uq      max
+#>  sequential  62.96948  65.68454  69.69972  67.78184  70.98451 130.0225
+#>    parallel 171.19702 173.15421 178.76247 175.07035 180.64963 231.1932
+#>  neval
+#>    100
+#>    100
 
 autoplot(mbm) +
   theme_classic()
 ```
 
-![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](figure/benchmark-1.png)
+![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
