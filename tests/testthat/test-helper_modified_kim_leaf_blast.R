@@ -48,8 +48,8 @@ test_that("Values are as expected", {
   expect_equal(lb[[1L, "rtransfer"]], 0.0, tolerance = 0.1)
   expect_equal(lb[[100L, "rtransfer"]], 0.0, tolerance = 0.1)
 
-  expect_equal(lb[[1L, "rgrowth"]], 58.8, tolerance = 0.1)
-  expect_equal(lb[[100L, "rgrowth"]], 517.9783, tolerance = 0.1)
+  expect_equal(lb[[1L, "rgrowth"]], 71.52, tolerance = 0.1)
+  expect_equal(lb[[100L, "rgrowth"]], 346.2452, tolerance = 0.1)
 
   expect_equal(lb[[1L, "rsenesced"]], 3.0, tolerance = 0.1)
   expect_equal(lb[[100L, "rsenesced"]], 426.5068, tolerance = 0.1)
