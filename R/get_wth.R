@@ -135,7 +135,7 @@ get_wth <- function(lonlat, dates, duration) {
 #' setnames(
 #'   wth,
 #'   old = c(
-#'     "T2M", ,
+#'     "T2M",
 #'     "T2M_MIN",
 #'     "T2M_MAX",
 #'     "PRECTOTCORR",
@@ -149,21 +149,6 @@ get_wth <- function(lonlat, dates, duration) {
 #'     "RHUM"
 #'   )
 #' )
-#' setcolorder(
-#'   wth,
-#'   c(
-#'     "YYYYMMDD",
-#'     "DOY",
-#'     "TEMP",
-#'     "TMIN",
-#'     "TMAX",
-#'     "RHUM",
-#'     "RAIN",
-#'     "LAT",
-#'     "LON"
-#'   )
-#' )
-#' setnames(wth,
 #' .check_na(wth)
 #' @dev
 

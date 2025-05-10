@@ -40,7 +40,7 @@ wth[, c("YEAR", "MM", "DD") := NULL][]
 setnames(
   wth,
   old = c(
-    "T2M", ,
+    "T2M",
     "T2M_MIN",
     "T2M_MAX",
     "PRECTOTCORR",
@@ -54,21 +54,6 @@ setnames(
     "RHUM"
   )
 )
-setcolorder(
-  wth,
-  c(
-    "YYYYMMDD",
-    "DOY",
-    "TEMP",
-    "TMIN",
-    "TMAX",
-    "RHUM",
-    "RAIN",
-    "LAT",
-    "LON"
-  )
-)
-setnames(wth,
 .check_na(wth)
 }
 \keyword{internal}
