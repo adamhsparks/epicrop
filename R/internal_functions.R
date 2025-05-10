@@ -122,8 +122,8 @@
     if (max_rca_day < seir_passed_args$duration) {
       cli::cli_abort(
         "{.var RcA} has a duration, {{max_rca_day}} that is less than
-           {. var duration}, {{duration}} days. Please provide a matrix of values
-           that aligns with {.var duration}.",
+           {. var duration}, {{duration}} days. Please provide a matrix of
+            values that aligns with {.var duration}.",
         call = rlang::caller_env()
       )
     }
