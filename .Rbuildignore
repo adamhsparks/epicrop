@@ -36,4 +36,5 @@
 ^man/dot-diurnal_temp\.Rd$
 ^man/dot-day_length\.Rd$
 ^man/dot-saturated_vapour_pressure\.Rd$
+^man/dot-check_threshold\.Rd$
 ^man/dot-fn_Rc\.Rd$
