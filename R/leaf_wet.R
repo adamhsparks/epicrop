@@ -270,7 +270,7 @@
 #' .calc_weighted_hr_wet(rh = 86, rhlim = 95)
 #' @dev
 #'
-.calc_weighted_hr_wet <- function(rh, rhlim) {
+.calculate_weighted_hr_wet <- function(rh, rhlim) {
   w <- rh
   x <- (rh - 80.0) / (rhlim - 80.0)
   w[rh >= rhlim] <- 1.0
