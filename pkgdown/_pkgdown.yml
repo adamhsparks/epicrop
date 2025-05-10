@@ -1,0 +1,33 @@
+template:
+  bootstrap: 5
+  params:
+    bootswatch: journal
+url: https://adamhsparks.codeberg.page/epicrop/
+reference:
+  - title: Helper Functions for Disease Simulations
+    desc: |
+      Run the model using pre-defined functions as defined in Savary _et al._ 2012 and Kim et al. 2015
+    contents:
+      - bacterial_blight
+      - brown_spot
+      - leaf_blast
+      - sheath_blight
+      - tungro
+      - modified_kim_leaf_blast
+      - modified_kim_sheath_blight
+  - title: SEIR
+  - subtitle: The main function that drives {epicrop}
+    desc: |
+      A susceptible-exposed-infectious-removed (SEIR) model
+    contents: seir
+  - title: Weather Data
+    desc: |
+      Functions for fetching and formatting weather data for use in {epicrop}
+    contents:
+      - get_wth
+      - format_wth
+  - title: Internal Functions
+    desc: |
+      Documentation for developers to refer to regarding internal functions that perform checks and other operations that are not exported
+    contents:
+      - starts_with("dot_")

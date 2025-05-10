@@ -1,5 +1,0 @@
-template:
-  bootstrap: 5
-  params:
-    bootswatch: journal
-url: https://adamhsparks.codeberg.page/epicrop/
