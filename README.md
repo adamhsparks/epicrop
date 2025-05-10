@@ -27,6 +27,21 @@ Alternatively, you can supply your own weather data for any time period as long 
 {epicrop} is not yet on CRAN.
 You can install it this way.
 
+The preferred method is using {remotes} for simplicity.
+
+```r 
+if (!require("remotes")) {
+  install.packages("remotes")
+}
+remotes::install_git("https://codeberg.org/adamhsparks/epicrop.git",
+                      dependencies = TRUE,
+                      build_manual = TRUE,
+                      build_vignettes = TRUE)
+```
+
+However, if you prefer to use {pak} you can do it this way.
+It may be faster to install and for Linux users, it can often help by installing system-level packages necessary to build some of the dependencies.
+
 
 ``` r
 o <- options() # capture default options
@@ -54,7 +69,7 @@ Using it you can fetch weather data for any place in the world from 1983 to near
 
 
 ``` r
-library("epicrop")
+library(epicrop)
 
 # Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI
 # Zeigler Experiment Station
@@ -147,7 +162,7 @@ Lastly, you can visualise the result of the model run.
 
 
 ``` r
-library("ggplot2")
+library(ggplot2)
 
 ggplot(
   data = bb,
