@@ -138,6 +138,7 @@ An example benchmarking different methods is provided here.
 ``` r
 library(epicrop)
 library(furrr)
+#> Loading required package: future
 library(dplyr)
 library(lubridate)
 library(pander)
@@ -253,11 +254,14 @@ seasons_wth <- map_dfr(
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
-#> Error in `map()`:
-#> ℹ In index: 7.
-#> Caused by error in `.send_query()`:
-#> ! HTTP (502) - Invalid responses from another server/proxy. Internal
-#>   server error
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
@@ -272,10 +276,6 @@ wth <-
       .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
                       YYYYMMDD <= .x + 120)) |>
   setNames(emergence_dates)
-#> Error in `map()`:
-#> ℹ In index: 1.
-#> Caused by error in `.f()`:
-#> ! object 'YYYYMMDD' not found
 
 multi_dates <- map2(
   .x = wth,
@@ -448,11 +448,12 @@ seasons_wth <-
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
-#> Error:
-#> ℹ In index: 8.
-#> Caused by error in `.send_query()`:
-#> ! HTTP (502) - Invalid responses from another server/proxy. Internal
-#>   server error
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 ```
 
 Once we have all the weather, create a list of weather `data.frames` for each establishment date.
@@ -469,10 +470,6 @@ wth <-
              .f = ~ subset(.y, YYYYMMDD >= .x &
                           YYYYMMDD <= .x + 120)) |>
   setNames(emergence_dates)
-#> Error:
-#> ℹ In index: 1.
-#> Caused by error in `...furrr_fn()`:
-#> ! object 'YYYYMMDD' not found
 
 future_map2(
   .x = wth,
@@ -618,9 +615,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr       min       lq      mean    median        uq       max neval
-#>  sequential  61.06675  64.3110  68.76338  68.63361  72.07659  92.56094   100
-#>    parallel 168.45293 172.8033 176.58290 174.78665 176.80137 205.40016   100
+#>        expr       min        lq      mean    median        uq      max neval
+#>  sequential  62.26871  65.68719  69.19407  67.64563  69.77159 126.5968   100
+#>    parallel 170.82588 173.78147 179.05445 175.92219 182.01774 217.4298   100
 
 autoplot(mbm) +
   theme_classic()
