@@ -50,7 +50,7 @@
   if (isFALSE(weighted_wetness)) {
     lw <- unlist(lapply(X = rh_hr, FUN = .check_threshold, rhlim = rhlim))
   } else {
-    w <- lapply(X = rh, FUN = .calc_weighted_hr_wet, rhlim = rhlim)
+    w <- lapply(X = rh, FUN = .calculate_weighted_hr_wet, rhlim = rhlim)
     lw <- unlist(lapply(X = w, FUN = sum))
   }
 
