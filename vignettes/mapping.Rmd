@@ -52,6 +52,12 @@ locations_wth <-
     dates = "2000-06-30",
     duration = 120
   )
+#> Error in `map()`:
+#> ℹ In index: 2.
+#> ℹ With name: Red River.
+#> Caused by error in `.send_query()`:
+#> ! HTTP (502) - Invalid responses from another server/proxy. Internal
+#>   server error
 
 # `map()` from purrr is not to be confused with the actual map we are creating
 map(
@@ -93,4 +99,4 @@ map(
   coord_sf(crs = 4326)
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.](figure/map-AUDPC-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.](map-AUDPC-1.png)

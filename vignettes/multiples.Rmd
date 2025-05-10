@@ -118,7 +118,7 @@ ggplot(seasons,
   theme_classic()
 ```
 
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/graph_seasons-1.png)
+![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
 ### Simulating multiple seasons with {furrr} using parallel processing
 
@@ -138,7 +138,6 @@ An example benchmarking different methods is provided here.
 ``` r
 library(epicrop)
 library(furrr)
-#> Loading required package: future
 library(dplyr)
 library(lubridate)
 library(pander)
@@ -254,14 +253,11 @@ seasons_wth <- map_dfr(
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
+#> Error in `map()`:
+#> ℹ In index: 7.
+#> Caused by error in `.send_query()`:
+#> ! HTTP (502) - Invalid responses from another server/proxy. Internal
+#>   server error
 
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
@@ -276,6 +272,10 @@ wth <-
       .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
                       YYYYMMDD <= .x + 120)) |>
   setNames(emergence_dates)
+#> Error in `map()`:
+#> ℹ In index: 1.
+#> Caused by error in `.f()`:
+#> ! object 'YYYYMMDD' not found
 
 multi_dates <- map2(
   .x = wth,
@@ -385,7 +385,7 @@ ggplot(data = multi_dates,
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/stem-plot-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](stem-plot-1.png)
 
 ### Using {furrr} to run multiple establishment dates in parallel
 
@@ -448,12 +448,11 @@ seasons_wth <-
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
 #> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
+#> Error:
+#> ℹ In index: 8.
+#> Caused by error in `.send_query()`:
+#> ! HTTP (502) - Invalid responses from another server/proxy. Internal
+#>   server error
 ```
 
 Once we have all the weather, create a list of weather `data.frames` for each establishment date.
@@ -470,6 +469,10 @@ wth <-
              .f = ~ subset(.y, YYYYMMDD >= .x &
                           YYYYMMDD <= .x + 120)) |>
   setNames(emergence_dates)
+#> Error:
+#> ℹ In index: 1.
+#> Caused by error in `...furrr_fn()`:
+#> ! object 'YYYYMMDD' not found
 
 future_map2(
   .x = wth,
@@ -496,7 +499,7 @@ future_map2(
   theme_classic()
 ```
 
-![plot of chunk create-data.frames-parallel](figure/create-data.frames-parallel-1.png)
+![plot of chunk create-data.frames-parallel](create-data.frames-parallel-1.png)
 
 ## Multiple locations
 
@@ -578,7 +581,7 @@ map(
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](figure/run-multi-loc-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
 
 ## Benchmarking sequential versus parallel methods
 
@@ -615,12 +618,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr       min        lq      mean    median       uq       max neval
-#>  sequential  60.32342  64.09395  66.98868  66.84373  69.2246  84.27653   100
-#>    parallel 169.64283 173.03285 176.95856 174.17274 176.6349 211.91088   100
+#>        expr       min       lq      mean    median        uq       max neval
+#>  sequential  61.06675  64.3110  68.76338  68.63361  72.07659  92.56094   100
+#>    parallel 168.45293 172.8033 176.58290 174.78665 176.80137 205.40016   100
 
 autoplot(mbm) +
   theme_classic()
 ```
 
-![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](figure/benchmark-1.png)
+![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)

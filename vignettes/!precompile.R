@@ -40,7 +40,7 @@ multiples_replace <- readLines("vignettes/multiples.Rmd")
 multiples_replace <- gsub("\\(figure/", "\\(", multiples_replace)
 
 multiples_file_con <- file("vignettes/multiples.Rmd")
-writeLines(multifles_replace, multiples_file_con)
+writeLines(multiples_replace, multiples_file_con)
 close(multiples_file_con)
 
 ## mapping vignette
