@@ -1,9 +1,10 @@
 #' Predict Rice Sheath Blight Intensity
 #'
-#' A dynamic mechanistic simulation of sheath blight disease of rice, causal
-#' agent _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather
-#' data, which can easily be accessed using[get_wth()] to download weather data
-#' from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+#' A helper function to provide sensible defaults for a dynamic mechanistic
+#' simulation of sheath blight disease of rice, causal agent _Rhizoctonia
+#' solani_ AG1-1A Kühn. The model is driven by daily weather data, which can
+#' easily be accessed using [get_wth] to download weather data from
+#' \acronym{NASA} \acronym{POWER}.
 #'
 #'
 #' @details
@@ -12,7 +13,7 @@
 #' Default values for this disease model are derived from Table 2 (Savary *et
 #' al.* 2012).
 #'
-#' [predict_sb()] is a shorthand alias for [predict_sheath_blight()].
+#' [sb] is a shorthand alias for [sheath_blight].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -23,12 +24,14 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
 #'
-#' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [SEIR()] for a full description of the column values.
+#' @returns A [data.table::data.table] of disease intensity and infection
+#' sites. See [seir] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -36,7 +39,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' sb <- predict_sheath_blight(wth, emergence = "2000-07-01")
+#' sb <- sheath_blight(wth, emergence = "2000-07-01")
 #' plot(x = sb$dates, y = sb$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
@@ -49,7 +52,7 @@
 #'
 #' Gross, M.K., Santini, J.B., Tikhonova, I. and Latin, R. 1998. The influence
 #' of temperature and leaf wetness duration on infection of perennial ryegrass
-#' by _Rhizoctonia solani_. Plant Disease 82:1012-1016. DOI:
+#' by _Rhizoctonia solani_. Plant Disease 82:1012-1016.
 #' \doi{10.1094/PDIS.1998.82.9.1012}.
 #'
 #' Hashiba, T. and Ijiri, T., 1989. Estimation of yield loss and computerized
@@ -59,16 +62,16 @@
 #' Research Series (Japan) No. 22 pp. 163-171.
 #'
 #' Savary, S., Willocquet, L., Teng, P.S., 1997. Modelling sheath blight
-#' epidemics on rice tillers. Agricultural Systems 55:359-384. DOI:
+#' epidemics on rice tillers. Agricultural Systems 55:359-384.
 #' \doi{10.1016/S0308-521X(97)00014-0}.
 #'
 #' Savary, S., Castilla, N.P., Willocquet, L. 2001. Analysis of the spatio-
 #' temporal structure of rice sheath blight epidemics in a farmer's field.
-#' Plant Pathology 50:53-68. DOI: \doi{10.1046/j.1365-3059.2001.00531.x}.
+#' Plant Pathology 50:53-68. \doi{10.1046/j.1365-3059.2001.00531.x}.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,
-#' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 #' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' Sharma, N.R., Teng, P.S., Olivares, F.M., 1990. Effect of rice growth stage
@@ -79,15 +82,15 @@
 #' _Rhizoctonia solani_, the causal organism of rice sheath blight. National
 #' Science Council Monthly, ROC 7:1208-1219.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [seir]
 #'
 #' @export
-predict_sheath_blight <- function(wth, emergence) {
+sheath_blight <- function(wth, emergence, ...) {
   return(
-    SEIR(
+    seir(
       wth = wth,
       emergence = emergence,
       onset = 30L,
@@ -116,7 +119,7 @@ predict_sheath_blight <- function(wth, emergence) {
       ),
       RcT = cbind(
         c(12L, 16L, 20L, 24L, 28L, 32L, 36L, 40L),
-        c(0, 0.42, 0.94, 0.94, 1.0, 0.85, 0.64, 0)
+        c(0.0, 0.42, 0.94, 0.94, 1.0, 0.85, 0.64, 0.0)
       ),
       RcOpt = 0.46,
       p = 3L,
@@ -124,15 +127,20 @@ predict_sheath_blight <- function(wth, emergence) {
       Sx = 800L,
       a = 2.8,
       RRS = 0.005,
-      RRG = 0.2
+      RRG = 0.2,
+      simple_wetness = TRUE,
+      RcW = cbind(
+        c(8L, 9L, 12L, 15L, 18L, 21L, 24L),
+        c(0.0, 0.24, 0.41, 0.68, 0.94, 0.97, 1.0)
+      )
     )
   )
 }
 
-#' @rdname predict_sheath_blight
+#' @rdname sheath_blight
 #' @examplesIf interactive()
 #' # use shorthand function
-#' sb <- predict_sb(wth, emergence = "2000-07-01")
+#' sb <- sb(wth, emergence = "2000-07-01")
 #' plot(x = sb$dates, y = sb$intensity, type = "l")
 #' @export
-predict_sb <- predict_sheath_blight
+sb <- sheath_blight

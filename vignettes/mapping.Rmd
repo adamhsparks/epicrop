@@ -56,7 +56,7 @@ locations_wth <-
 # `map()` from purrr is not to be confused with the actual map we are creating
 map(
   .x = locations_wth,
-  .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
                                   wth = .x)
 ) |>
   bind_rows(.id = "location") |>
@@ -91,6 +91,12 @@ map(
   ylim(c(0, 25)) +
   xlim(c(75, 127)) +
   coord_sf(crs = 4326)
+#> Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2
+#> 3.5.0.
+#> ℹ Please use the `legend.position.inside` argument of `theme()` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 #> Error in `annotation_map_tile()`:
 #> ! Problem while converting geom to grob.
 #> ℹ Error occurred in the 1st layer.

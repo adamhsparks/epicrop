@@ -1,10 +1,10 @@
 #' Predict Rice Tungro Disease Incidence
 #'
-#' A dynamic mechanistic simulation of tungro disease of rice, causal agents
-#' _Rice Tungro Spherical Virus_ and _Rice Tungro Bacilliform Virus_.
-#' The model is driven by daily weather data, which can easily be accessed using
-#'[get_wth()] to download weather data from \acronym{NASA} \acronym{POWER} using
-#'\CRANpkg{nasapower}.
+#' A helper function to provide sensible defaults for a dynamic mechanistic
+#' simulation of tungro disease of rice, causal agents _Rice Tungro Spherical
+#' Virus_ and _Rice Tungro Bacilliform Virus_.  The model is driven by daily
+#' weather data, which can easily be accessed using [get_wth] to download
+#' weather data from \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
 #'
 #' @details
 #' The model represents site size as 1 rice plant.
@@ -21,12 +21,14 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
 #'
-#' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites.  See [SEIR()] for a full description of the column values.
+#' @returns A [data.table::data.table] of disease intensity and infection
+#' sites.  See [seir] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -35,7 +37,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' tg <- predict_tungro(wth, emergence = "2000-07-01")
+#' tg <- tungro(wth, emergence = "2000-07-01")
 #' plot(x = tg$dates, y = tg$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
@@ -53,23 +55,23 @@
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
 #' Modeling and mapping potential epidemics of rice diseases globally. Crop
-#' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 #' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' Tiongco, E.R., Cabunagan, R.C., Flores, Z.M., Hibino, H., and Koganezawa, H.,
 #' 1993. Serological monitoring of rice tungro disease development in the field:
-#' its implication in disease management. Plant Disease 77:877-882. DOI:
+#' its implication in disease management. Plant Disease 77:877-882.
 #' \doi{10.1094/PD-77-0877}.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [seir]
 #'
 #' @export
-predict_tungro <- function(wth, emergence) {
+tungro <- function(wth, emergence, ...) {
   return(
-    SEIR(
+    seir(
       wth = wth,
       emergence = emergence,
       onset = 25L,
@@ -80,12 +82,12 @@ predict_tungro <- function(wth, emergence) {
       I0 = 1L,
       RcA = cbind(
         c(0L, 15L, 30L, 45L, 60L, 75L, 90L, 105L, 120L),
-        c(1.0, 1.0, 0.98, 0.73, 0.51, 0.34, 0, 0, 0)
+        c(1.0, 1.0, 0.98, 0.73, 0.51, 0.34, 0.0, 0.0, 0.0)
       ),
       RcT = cbind(
         c(
-          9,
-          10,
+          9.0,
+          10.0,
           13.1111,
           16.2222,
           19.3333,
@@ -95,9 +97,9 @@ predict_tungro <- function(wth, emergence) {
           31.7777,
           34.8888,
           37.9999,
-          40
+          40.0
         ),
-        c(0, 0.13, 0.65, 0.75, 0.83, 0.89, 0.93, 0.97, 1.0, 0.96, 0.93, 0)
+        c(0.0, 0.13, 0.65, 0.75, 0.83, 0.89, 0.93, 0.97, 1.0, 0.96, 0.93, 0.0)
       ),
       RcOpt = 0.18,
       p = 6L,
@@ -105,7 +107,9 @@ predict_tungro <- function(wth, emergence) {
       Sx = 100L,
       a = 1L,
       RRS = 0.01,
-      RRG = 0.1
+      RRG = 0.1,
+      simple_wetness = TRUE,
+      RcW = 1L
     )
   )
 }

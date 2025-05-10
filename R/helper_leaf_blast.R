@@ -1,9 +1,10 @@
 #' Predict Rice Leaf Blast Intensity
 #'
-#' A dynamic mechanistic simulation of leaf blast disease of rice, causal agent
-#' _Magnaporthe oryzae_. The model is driven by daily weather data, which can
-#' easily be accessed using[get_wth()] to download weather data from
-#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+#' A helper function to provide sensible defaults for a dynamic mechanistic
+#' simulation of leaf blast disease of rice, causal agent _Magnaporthe oryzae_.
+#' The model is driven by daily weather data, which can easily be accessed using
+#' [get_wth()] to download weather data from \acronym{NASA} \acronym{POWER}
+#' using \CRANpkg{nasapower}.
 #'
 #' @details
 #' The model represents site size as 45
@@ -12,7 +13,7 @@
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'
-#' [predict_lb()] is a shorthand alias for [predict_leaf_blast()].
+#' [lb()] is a shorthand alias for [leaf_blast()].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -28,10 +29,12 @@
 #' Savary _et al._ 2012 has a typo. The optimal value should be 20 °C, not
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
 #'
 #' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [SEIR()] for a full description of the column values.
+#' sites. See [seir()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -40,7 +43,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' lb <- predict_leaf_blast(wth, emergence = "2000-07-01")
+#' lb <- leaf_blast(wth, emergence = "2000-07-01")
 #' plot(x = lb$dates, y = lb$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario,
@@ -57,34 +60,34 @@
 #' Improvement, Department of Agriculture and Forestry, Japan No. 105, 145p.
 #'
 #' Hwang, B.K., Koh, Y.J., Chung, H.S., 1987. Effects of adult-plant resistance
-#' on blast severity and yield of rice. Plant Disease 71:1035-1038. DOI:
+#' on blast severity and yield of rice. Plant Disease 71:1035-1038.
 #' \doi{10.1094/PD-71-1035}.
 #'
 #' Kato, H. and Kozaka, T., 1974. Effect of temperature on lesion enlargement
 #' and sporulation of _Pyricularia oryzae_ in rice leaves. Phytopathology
-#' 64:828-830. DOI: \doi{10.1094/Phyto-64-828}.
+#' 64:828-830. \doi{10.1094/Phyto-64-828}.
 #'
 #' Wei-Hong, L. 1996. Simulation and measurement of leaf wetness formation in
-#' paddy rice crops. PhD Thesis, Wageningen Agricultural University, 87 p.
+#' paddy rice crops. PhD Thesis, Wageningen Agricultural University, 87p.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
 #' Modeling and mapping potential epidemics of rice diseases globally. Crop
-#' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' Protection, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 #' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
 #' _Pyricularia oryzae_ Cav. in upland rice varieties. PhD Thesis, University of
 #' the Philippines at Los Baños, 82 p.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [seir()]
 #'
 #' @export
-predict_leaf_blast <- function(wth, emergence) {
+leaf_blast <- function(wth, emergence, ...) {
   return(
-    SEIR(
+    seir(
       wth = wth,
       emergence = emergence,
       onset = 15L,
@@ -122,9 +125,9 @@ predict_leaf_blast <- function(wth, emergence) {
           120L
         ),
         c(
-          1,
-          1,
-          1,
+          1.0,
+          1.0,
+          1.0,
           0.9,
           0.8,
           0.7,
@@ -151,7 +154,7 @@ predict_leaf_blast <- function(wth, emergence) {
       ),
       RcT = cbind(
         c(10L, 15L, 20L, 25L, 30L, 35L, 40L, 45L),
-        c(0, 0.5, 1, 0.6, 0.2, 0.05, 0.01, 0)
+        c(0.0, 0.5, 1.0, 0.6, 0.2, 0.05, 0.01, 0.0)
       ),
       RcOpt = 1.14,
       p = 5L,
@@ -159,15 +162,20 @@ predict_leaf_blast <- function(wth, emergence) {
       a = 1L,
       Sx = 30000L,
       RRS = 0.01,
-      RRG = 0.1
+      RRG = 0.1,
+      simple_wetness = TRUE,
+      RcW = cbind(
+        c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L),
+        c(0.0, 0.02, 0.09, 0.19, 0.29, 0.43, 0.54, 0.63, 0.77, 0.88, 1.0)
+      )
     )
   )
 }
 
-#' @rdname predict_leaf_blast
+#' @rdname leaf_blast
 #' @examplesIf interactive()
 #' # use shorthand function
-#' lb <- predict_lb(wth, emergence = "2000-07-01")
+#' lb <- lb(wth, emergence = "2000-07-01")
 #' plot(x = lb$dates, y = lb$intensity, type = "l")
 #' @export
-predict_lb <- predict_leaf_blast
+lb <- leaf_blast

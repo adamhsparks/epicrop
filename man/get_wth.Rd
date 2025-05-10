@@ -15,17 +15,19 @@ entered as x, y coordinates.}
 \item{duration}{A numeric value indicating how many days a single
 growing season being simulated is to be.  If this is used, only the start
 date will be used and the end date will be ignored if supplied.  This must
-match the \code{duration} parameter value passed along to \link{SEIR} or any of the
+match the \code{duration} parameter value passed along to \link{seir} or any of the
 \code{predict} family of functions.}
 }
 \value{
-A \link[data.table:data.table]{data.table::data.table} object of weather data, dates and
-geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
-with the following columns:\tabular{rl}{
+A \code{epicrop.wth}, a data frame based on a \link[data.table:data.table]{data.table::data.table},
+object suitable for use in \pkg{epicrop} containing weather data, dates and
+geolocation information (LAT/LON values) with the following columns:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
    \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{TMIN} \tab Daily minimum temperature (˚C) \cr
+   \emph{TMAX} \tab Daily maximum temperature (˚C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
    \emph{LAT} \tab Latitude of area of interest \cr
@@ -37,7 +39,7 @@ This function is a wrapper for the \link[nasapower:get_power]{nasapower::get_pow
 parameters suitable for use in \pkg{epicrop}.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
 # get weather for IRRI Zeigler Experiment Station in wet season 2000 from the
 # default NASA POWER data.

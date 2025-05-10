@@ -6,7 +6,7 @@ output: github_document
 
 
 
-# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model <img src="man/figures/logo.png" align="right"/>
+# {epicrop} Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (seir()) Model <img src="man/figures/logo.png" align="right"/>
 
 <!-- badges: start -->
 
@@ -15,7 +15,7 @@ output: github_document
 <!-- badges: end -->
 
 A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use.
-This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic seir() model (Zadoks 1971) function, `seir()()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
 
@@ -63,21 +63,23 @@ wth <- get_wth(
   dates = "2000-07-01",
   duration = 120
 )
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 
 wth
-#>        YYYYMMDD   DOY  TEMP  RHUM  RAIN     LAT      LON
-#>          <Date> <int> <num> <num> <num>   <num>    <num>
-#>   1: 2000-07-01   183 25.29 92.20 23.12 14.6774 121.2556
-#>   2: 2000-07-02   184 26.13 86.01 17.34 14.6774 121.2556
-#>   3: 2000-07-03   185 25.50 94.16 29.08 14.6774 121.2556
-#>   4: 2000-07-04   186 25.81 92.42 13.01 14.6774 121.2556
-#>   5: 2000-07-05   187 25.97 92.34 32.20 14.6774 121.2556
-#>  ---                                                    
-#> 117: 2000-10-25   299 25.82 89.76 12.04 14.6774 121.2556
-#> 118: 2000-10-26   300 25.44 94.93 13.03 14.6774 121.2556
-#> 119: 2000-10-27   301 25.74 91.43 11.54 14.6774 121.2556
-#> 120: 2000-10-28   302 25.44 91.90 74.20 14.6774 121.2556
-#> 121: 2000-10-29   303 24.97 94.15 29.11 14.6774 121.2556
+#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON
+#>          <Date> <int> <num> <num> <num> <num> <num>   <num>    <num>
+#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556
+#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556
+#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556
+#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556
+#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556
+#>  ---                                                                
+#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556
+#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556
+#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556
+#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556
+#> 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556
 ```
 
 ## Modelling bacterial blight disease intensity
@@ -87,8 +89,10 @@ Once you have the weather data, run the model for any of the five rice diseases 
 
 ``` r
 bb <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+#> Error in predict_bacterial_blight(wth, emergence = "2000-07-01"): could not find function "predict_bacterial_blight"
 
 bb
+<<<<<<< HEAD
 #>      simday      dates     sites    latent infectious  removed    senesced  rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat      lon
 #>       <int>     <Date>     <num>     <num>      <num>    <num>       <num>    <num>     <num>    <num>     <num>    <num>     <num>    <num>   <num>    <num>
 #>   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.53946 14.6774 121.2556
@@ -102,6 +106,24 @@ bb
 #> 118:    118 2000-10-26 1369.3763  72.41827   946.9419 288.4890 2190.645270 20.80752  25.36284 22.37109 48.983870 1307.849 0.4267361 12.53946 14.6774 121.2556
 #> 119:    119 2000-10-27 1321.9560  67.86296   937.0147 323.7791 2239.629140 18.61122  23.85609 22.69581 50.488000 1328.657 0.4318648 12.53946 14.6774 121.2556
 #> 120:    120 2000-10-28 1275.5526  62.61810   923.6023 361.0475 2290.117140 16.58631   0.00000 23.00696 47.881728 1347.268 0.4360386 12.53946 14.6774 121.2556
+=======
+#> function (wth, emergence) 
+#> {
+#>     return(seir(wth = wth, emergence = emergence, onset = 20L, 
+#>         duration = 120L, rhlim = 90L, rainlim = 5L, H0 = 100L, 
+#>         I0 = 1L, RcA = cbind(c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 
+#>             70L, 80L, 90L, 100L, 110L, 120L), c(1, 1, 1, 0.9, 
+#>             0.62, 0.43, 0.42, 0.42, 0.41, 0.41, 0.41, 0.41, 0.41)), 
+#>         RcT = cbind(c(16L, 19L, 22L, 25L, 28L, 31L, 34L, 37L, 
+#>             40L), c(0, 0.29, 0.44, 0.9, 0.9, 1, 0.88, 0.01, 0)), 
+#>         RcW = cbind(c(2L, 3L, 6L, 9L, 12L, 15L, 18L, 21L, 24L), 
+#>             c(0, 0.67, 0.81, 0.84, 0.87, 0.91, 0.94, 0.97, 1)), 
+#>         RcOpt = 0.87, p = 5L, i = 30L, Sx = 3200L, a = 4L, RRS = 0.01, 
+#>         RRG = 0.1))
+#> }
+#> <bytecode: 0x12fb5ec38>
+#> <environment: namespace:epicrop>
+>>>>>>> modified_kim
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -124,12 +146,10 @@ ggplot(
   geom_line() +
   geom_point() +
   theme_classic()
+#> Error in `ggplot()`:
+#> ! `data` cannot be a function.
+#> ℹ Have you misspelled the `data` argument in `ggplot()`
 ```
-
-<div class="figure">
-<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
-<p class="caption">Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
-</div>
 
 # Meta
 

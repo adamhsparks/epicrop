@@ -2,7 +2,7 @@ Type: Package
 Package: epicrop
 Title: Simulation Modelling of Crop Diseases Using a
     Susceptible-Exposed-Infectious-Removed (SEIR) Model
-Version: 0.0.3
+Version: 1.0.0.9000
 Authors@R: c(
     person("Adam H.", "Sparks", , "adamhsparks@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-0061-8359")),
@@ -14,10 +14,16 @@ Authors@R: c(
            comment = "Model conception, development in Stella and original R\n           implementation"),
     person("Jorrel", "Aunario", , "j.aunario@irri.org", role = c("aut", "trl"),
            comment = "Original R implementation"),
+    person("Kwang-Hyung", "Kim", , "sospicy77@gmail.com", role = "aut",
+           comment = "Contributed code for modified Kim leaf blast and sheath blight functions."),
     person("Aji", "Sukarta", , "aji.ixb@gmail.com", role = "ctb",
            comment = "Helped fix bug related to SEIR model and establishment\n           date"),
     person("Emerson", "Del Ponte", , "delponte@ufv.br", role = "ctb",
-           comment = c("Suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X"))
+           comment = c("Suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X")),
+    person("Aleksandar", "Blagotić", , "alex@rapporter.net", role = "ctb",
+           comment = "Author of the CRAN package 'rapportools', from which\n             the '.is_boolean()' was taken."),
+    person("Gergely", "Daróczi", , "daroczig@rapporter.net", role = "ctb",
+           comment = "Author of the CRAN package 'rapportools', from which\n             the '.is_boolean()' was taken.")
   )
 Description: Generic simulation modelling of crop diseases using a
     Susceptible-Exposed-Infectious-Removed ('SEIR') model.  This type of
@@ -39,7 +45,9 @@ Depends:
 Imports:
     cli,
     data.table,
+    lubridate,
     nasapower (>= 4.0),
+    rlang,
     stats
 Suggests:
     dplyr,
@@ -69,7 +77,7 @@ Language: en-US
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet", "devtag::dev_roclet"))
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.2.9000
 X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease,
     model, seir, agricultural-modelling, agricultural-modeling,

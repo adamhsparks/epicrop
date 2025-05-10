@@ -26,5 +26,14 @@
 
 # flir files
 ^flir$
-^man/dot-fn_Rc\.Rd$
+^man/dot-calculate_audpc\.Rd$
 ^man/dot-check_na\.Rd$
+^man/dot-check_inputs\.Rd$
+^man/dot-is_boolean\.Rd$
+^man/dot-check_date\.Rd$
+^man/dot-calculate_leaf_wetness\.Rd$
+^man/dot-diurnal_rh\.Rd$
+^man/dot-diurnal_temp\.Rd$
+^man/dot-day_length\.Rd$
+^man/dot-saturated_vapour_pressure\.Rd$
+^man/dot-fn_Rc\.Rd$

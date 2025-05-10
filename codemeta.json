@@ -8,13 +8,13 @@
   "codeRepository": "https://codeberg.org/adamhsparks/epicrop",
   "issueTracker": "https://codeberg.org/adamhsparks/epicrop/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.0.3",
+  "version": "1.0.0.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
+  "runtimePlatform": "R version 4.5.0 (2025-04-11)",
   "author": [
     {
       "@type": "Person",
@@ -48,6 +48,12 @@
       "givenName": "Jorrel",
       "familyName": "Aunario",
       "email": "j.aunario@irri.org"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Kwang-Hyung",
+      "familyName": "Kim",
+      "email": "sospicy77@gmail.com"
     }
   ],
   "contributor": [
@@ -63,6 +69,18 @@
       "familyName": "Del Ponte",
       "email": "delponte@ufv.br",
       "@id": "https://orcid.org/0000-0003-4398-409X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Aleksandar",
+      "familyName": "Blagotić",
+      "email": "alex@rapporter.net"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Gergely",
+      "familyName": "Daróczi",
+      "email": "daroczig@rapporter.net"
     },
     {
       "@type": "Person",
@@ -297,6 +315,18 @@
     },
     "2": {
       "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
       "provider": {
@@ -307,7 +337,19 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=data.table"
     },
-    "3": {
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "lubridate",
+      "name": "lubridate",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lubridate"
+    },
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "nasapower",
       "name": "nasapower",
@@ -320,7 +362,19 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=nasapower"
     },
-    "4": {
+    "6": {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
@@ -329,7 +383,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
-  "fileSize": "617.391KB",
+  "fileSize": "692.895KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -363,7 +417,7 @@
       "name": "{epicrop}: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
       "identifier": "10.5281/zenodo.5070395",
       "url": "https://codeberg.org/adamhsparks/epicrop",
-      "description": "R package version 0.0.3",
+      "description": "R package version 1.0.0.9000",
       "@id": "https://doi.org/10.5281/zenodo.5070395",
       "sameAs": "https://doi.org/10.5281/zenodo.5070395"
     }

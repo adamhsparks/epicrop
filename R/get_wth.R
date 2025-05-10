@@ -9,18 +9,20 @@
 #' @param duration A numeric value indicating how many days a single
 #'  growing season being simulated is to be.  If this is used, only the start
 #'  date will be used and the end date will be ignored if supplied.  This must
-#'  match the `duration` parameter value passed along to [SEIR] or any of the
+#'  match the `duration` parameter value passed along to [seir] or any of the
 #'  `predict` family of functions.
 #'
-#' @returns A [data.table::data.table] object of weather data, dates and
-#'  geolocation information (LAT/LON values) suitable for use in \pkg{epicrop}
-#'  with the following columns:
+#' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table],
+#'  object suitable for use in \pkg{epicrop} containing weather data, dates and
+#'  geolocation information (LAT/LON values) with the following columns:
 #'
 #'   **Field Name** | **Value**
 #'   --------------:|:----------
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_      | Consecutive day of year, commonly called "Julian date"
 #'   _TEMP_     | Mean daily temperature (°C)
+#'   _TMIN_     | Daily minimum temperature (˚C)
+#'   _TMAX_     | Daily maximum temperature (˚C)
 #'   _RHUM_     | Mean daily relative humidity (%)
 #'   _RAIN_     | Mean daily rainfall (mm)
 #'   _LAT_      | Latitude of area of interest
@@ -50,8 +52,7 @@
 
 get_wth <- function(lonlat, dates, duration) {
   if (!missing(duration)) {
-    dates[2] <-
-      as.character(as.Date(as.Date(dates[1]) + (duration)))
+    dates[2L] <- as.character(as.Date(as.Date(dates[1L]) + (duration)))
   }
 
   wth <- setDT(
@@ -61,6 +62,8 @@ get_wth <- function(lonlat, dates, duration) {
       community = "AG",
       pars = c(
         "T2M",
+        "T2M_MIN",
+        "T2M_MAX",
         "RH2M",
         "PRECTOTCORR"
       ),
@@ -72,11 +75,15 @@ get_wth <- function(lonlat, dates, duration) {
     wth,
     old = c(
       "T2M",
+      "T2M_MIN",
+      "T2M_MAX",
       "PRECTOTCORR",
       "RH2M"
     ),
     new = c(
       "TEMP",
+      "TMIN",
+      "TMAX",
       "RAIN",
       "RHUM"
     )
@@ -87,6 +94,8 @@ get_wth <- function(lonlat, dates, duration) {
       "YYYYMMDD",
       "DOY",
       "TEMP",
+      "TMIN",
+      "TMAX",
       "RHUM",
       "RAIN",
       "LAT",
@@ -94,16 +103,17 @@ get_wth <- function(lonlat, dates, duration) {
     )
   )
   .check_na(.wth = wth)
+  class(wth) <- union("epicrop.wth", class(wth))
   return(wth)
 }
 
 #' Check POWER data for any missing values
-#' @param .wth A data.frame object from [nasapower::get_power()] with weather
+#' @param .wth A data.frame object from [nasapower::get_power] with weather
 #'  data for checking
 #' Checks the data returned from the POWER dataset and informs the user if
-#' missing values are found. It does not do anything other than emitting am
+#' missing values are found. It does not do anything other than emitting a
 #' message about missing data.
-#' @returns NULL
+#' @returns Called for its side-effects, an invisible `NULL`.
 #' @examples
 #' wth <- setDT(
 #'   nasapower::get_power(
@@ -112,23 +122,61 @@ get_wth <- function(lonlat, dates, duration) {
 #'     community = "AG",
 #'     pars = c(
 #'       "T2M",
+#'       "T2M_MIN",
+#'       "T2M_MAX",
 #'       "RH2M",
 #'       "PRECTOTCORR"
 #'     ),
 #'     temporal_api = "DAILY"
 #'   )
 #' )
+#'
+#' wth[, c("YEAR", "MM", "DD") := NULL][]
+#' setnames(
+#'   wth,
+#'   old = c(
+#'     "T2M", ,
+#'     "T2M_MIN",
+#'     "T2M_MAX",
+#'     "PRECTOTCORR",
+#'     "RH2M"
+#'   ),
+#'   new = c(
+#'     "TEMP",
+#'     "TMIN",
+#'     "TMAX",
+#'     "RAIN",
+#'     "RHUM"
+#'   )
+#' )
+#' setcolorder(
+#'   wth,
+#'   c(
+#'     "YYYYMMDD",
+#'     "DOY",
+#'     "TEMP",
+#'     "TMIN",
+#'     "TMAX",
+#'     "RHUM",
+#'     "RAIN",
+#'     "LAT",
+#'     "LON"
+#'   )
+#' )
+#' setnames(wth,
 #' .check_na(wth)
 #' @dev
 
 .check_na <- function(.wth) {
-  if (anyNA(.wth[, c("TEMP", "RHUM", "RAIN")])) {
-    message(
-      "The weather data have missing values in your request.\n",
-      "This can cause errors when running the model.\n",
-      "You should inspect the weather data carefully and either fill missing\n",
-      "or try again to download to see if that provides a complete set of data."
+  if (anyNA(.wth[, c("TEMP", "TMIN", "TMAX", "RHUM", "RAIN")])) {
+    cli::cli_alert(
+      c(
+        i = "The weather data have missing values in your request.",
+        x = "This can cause errors when running the model.
+      You should inspect the weather data carefully and either fill missing
+      or try again to download to see if that provides a complete set of data."
+      )
     )
-    return(NULL)
+    return(invisible(NULL))
   }
 }

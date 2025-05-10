@@ -1,9 +1,9 @@
 #' Predict Rice Brown Spot Intensity
 #'
-#' A dynamic mechanistic simulation of rice brown spot, causal agent
-#' _Cochliobolus miyabeanus_. The model is driven by daily weather data, which
-#' can easily be accessed using[get_wth()] to download weather data from
-#' \acronym{NASA} \acronym{POWER} using \CRANpkg{nasapower}.
+#' A helper function to provide sensible defaults for a dynamic mechanistic
+#' simulation of rice brown spot, causal agent _Cochliobolus miyabeanus_. The
+#' model is driven by daily weather data, which can easily be accessed using
+#' [get_wth] to download weather data from \acronym{NASA} \acronym{POWER}.
 #'
 #' @details
 #' The model represents site size as 10
@@ -12,7 +12,7 @@
 #' Default values for this disease model are derived from Table 2 (Savary
 #' _et al._ 2012).
 #'
-#' [predict_bs()] is a shorthand alias for [predict_brown_spot()].
+#' [bs] is a shorthand alias for [brown_spot].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -23,16 +23,18 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth()].
+#' columns are provided by default when using [get_wth].
 #'
 #' @note The optimum temperature for brown spot as presented in Table 2 of
 #' Savary _et al._ 2012 has a typo. The optimal value should be 25 °C, not
 #' 20 °C as shown. The correct value, 25 °C, is used in this implementation.
 #'
-#' @inherit predict_bacterial_blight
+#' @inherit bacterial_blight
+#' @inheritSection seir TMIN/TMAX Details
+#' @inheritSection seir LAT/LON Details
 #'
-#' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [SEIR()] for a full description of the column values.
+#' @returns A [data.table::data.table] of disease intensity and infection
+#' sites. See [seir] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -40,7 +42,7 @@
 #'   lonlat = c(121.25562, 14.6774),
 #'   dates = c("2000-06-30", "2000-12-31")
 #' )
-#' bs <- predict_brown_spot(wth, emergence = "2000-07-01")
+#' bs <- brown_spot(wth, emergence = "2000-07-01")
 #' plot(x = bs$dates, y = bs$intensity, type = "l")
 #'
 #' @author Serge Savary, Ireneo Pangga, Robert Hijmans, Jorrel Khalil Aunario
@@ -50,7 +52,7 @@
 #'
 #' Levy, Y. and Cohen, Y., 1980. Sporulation of _Helminthosporium turcicum_ on
 #' sweet corn: Effects of temperature and dew period. Canadian Journal of Plant
-#' Pathology 2:65-69. DOI: \doi{10.1080/07060668009501440}.
+#' Pathology 2:65-69. \doi{10.1080/07060668009501440}.
 #'
 #' Luo Wei-Hong, 1996. Simulation and measurement of leaf wetness formation in
 #' paddy rice crops. PhD, Wageningen Agricultural University, 87 p.
@@ -65,22 +67,22 @@
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
 #' and mapping potential epidemics of rice diseases globally. Crop Protection,
-#' Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
+#' Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 #' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' Waggoner. P.E., Horsfall, J.G., and Lukens, R.J. 1972. EPIMAY. A Simulator of
 #' Southern Corn Leaf Blight. Bulletin of the Connecticut Experiment Station,
-#' New Haven, 85 p.
+#' New Haven, 85p.
 #'
-#' @family predict functions
+#' @family helper functions
 #'
 #' @seealso
-#' [SEIR()]
+#' [seir]
 #'
 #' @export
-predict_brown_spot <- function(wth, emergence) {
+brown_spot <- function(wth, emergence, ...) {
   return(
-    SEIR(
+    seir(
       wth = wth,
       emergence = emergence,
       onset = 20L,
@@ -95,7 +97,7 @@ predict_brown_spot <- function(wth, emergence) {
       ),
       RcT = cbind(
         c(15L, 20L, 25L, 30L, 35L, 40L),
-        c(0, 0.06, 1.0, 0.85, 0.16, 0)
+        c(0.0, 0.06, 1.0, 0.85, 0.16, 0.0)
       ),
       RcOpt = 0.61,
       p = 6L,
@@ -103,15 +105,20 @@ predict_brown_spot <- function(wth, emergence) {
       a = 1L,
       Sx = 100000L,
       RRS = 0.01,
-      RRG = 0.1
+      RRG = 0.1,
+      simple_wetness = TRUE,
+      RcW = cbind(
+        c(0L, 3L, 6L, 9L, 12L, 15L, 18L, 21L, 24L),
+        c(0.0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0)
+      )
     )
   )
 }
 
-#' @rdname predict_brown_spot
+#' @rdname brown_spot
 #' @examplesIf interactive()
 #' # use shorthand function
-#' bs <- predict_bs(wth, emergence = "2000-07-01")
+#' bs <- bs(wth, emergence = "2000-07-01")
 #' plot(x = bs$dates, y = bs$intensity, type = "l")
 #' @export
-predict_bs <- predict_brown_spot
+bs <- brown_spot

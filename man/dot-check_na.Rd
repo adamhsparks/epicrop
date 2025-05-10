@@ -7,11 +7,14 @@
 .check_na(.wth)
 }
 \arguments{
-\item{.wth}{A data.frame object from \code{\link[nasapower:get_power]{nasapower::get_power()}} with weather
+\item{.wth}{A data.frame object from \link[nasapower:get_power]{nasapower::get_power} with weather
 data for checking
 Checks the data returned from the POWER dataset and informs the user if
-missing values are found. It does not do anything other than emitting am
+missing values are found. It does not do anything other than emitting a
 message about missing data.}
+}
+\value{
+Called for its side-effects, an invisible \code{NULL}.
 }
 \description{
 Check POWER data for any missing values
@@ -24,12 +27,48 @@ wth <- setDT(
     community = "AG",
     pars = c(
       "T2M",
+      "T2M_MIN",
+      "T2M_MAX",
       "RH2M",
       "PRECTOTCORR"
     ),
     temporal_api = "DAILY"
   )
 )
+
+wth[, c("YEAR", "MM", "DD") := NULL][]
+setnames(
+  wth,
+  old = c(
+    "T2M", ,
+    "T2M_MIN",
+    "T2M_MAX",
+    "PRECTOTCORR",
+    "RH2M"
+  ),
+  new = c(
+    "TEMP",
+    "TMIN",
+    "TMAX",
+    "RAIN",
+    "RHUM"
+  )
+)
+setcolorder(
+  wth,
+  c(
+    "YYYYMMDD",
+    "DOY",
+    "TEMP",
+    "TMIN",
+    "TMAX",
+    "RHUM",
+    "RAIN",
+    "LAT",
+    "LON"
+  )
+)
+setnames(wth,
 .check_na(wth)
 }
 \keyword{internal}

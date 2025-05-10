@@ -49,6 +49,14 @@ You could also use R's base `lapply()` here as well if you prefer.
 ``` r
 library("epicrop")
 library("purrr")
+#> 
+#> Attaching package: 'purrr'
+#> The following object is masked from 'package:epicrop':
+#> 
+#>     transpose
+#> The following object is masked from 'package:testthat':
+#> 
+#>     is_null
 
 seasons_wth <-
   map(
@@ -57,11 +65,15 @@ seasons_wth <-
     lonlat = c(121.255669, 14.16742),
     duration = 120
   )
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 ```
 
 ### Using {purrr} to simplify the simulation of multiple seasons
 
-Now that we have a list of weather data for two seasons we will use `purrr::map_df()` now to run `predict_bacterial_blight()` for two seasons and create a single data frame of the two seasons.
+Now that we have a list of weather data for two seasons we will use `purrr::map_df()` now to run `bacterial_blight()` for two seasons and create a single data frame of the two seasons.
 Using `purrr::map()` as above would return a list of two data frames, if you wish.
 This behaviour would be the same as if you used R's base `lapply()` here as well.
 
@@ -75,7 +87,7 @@ library("pander")
 
 seasons <- map_df(
   .x = seasons_wth,
-  .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
                                   wth = .x)
 ) |>
   mutate(season = case_when(year(dates) == 2000 ~ 2000,
@@ -134,6 +146,7 @@ An example benchmarking different methods is provided here.
 ``` r
 library("epicrop")
 library("furrr")
+#> Loading required package: future
 library("dplyr")
 library("lubridate")
 library("pander")
@@ -151,16 +164,20 @@ seasons_wth <-
     duration = 120,
     .options = furrr_options(seed = NULL)
   )
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 
 # for local processing use 2 cores, this will assign one to each year, if you
 # have more years and more cores, e.g., an HPC, explore using more resources
 
 plan(multisession, workers = 2)
 
-# run predict_bacterial_blight() over the data frames of weather
+# run bacterial_blight() over the data frames of weather
 future_map_dfr(
   .x = seasons_wth,
-  .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
                                   wth = .x),
   .options = furrr_options(seed = NULL)
 ) |>
@@ -193,7 +210,7 @@ To simulate multiple establishment dates and across multiple years at the same t
 
 Simplifying the weather data, we will only use the first date of each year and fetch weather data using the `duration` option, specifying 180 days.
 This gives six months of data and extends to the end and a bit beyond the last growing season of the final establishment date, "01-31".
-`predict_bacterial_blight()` will take the full six months of weather data and subset for the respective growing seasons, selecting only the necessary weather data.
+`bacterial_blight()` will take the full six months of weather data and subset for the respective growing seasons, selecting only the necessary weather data.
 
 Using `purrr::map2` allows for using two variables, one for weather data, `wth`, and one for the emergence/establishment dates, `emergence_dates`.
 This returns a list of data, but using `dplyr::bind_rows(.id = "emergence")` creates a data frame with a column of emergence/establishment dates that can be used for grouping the data for further analysis or visualisation.
@@ -233,6 +250,26 @@ seasons_wth <- map_dfr(
   duration = 180
 ) |>
   mutate(YYYYMMDD = as_date(YYYYMMDD))
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
@@ -251,7 +288,7 @@ wth <-
 multi_dates <- map2(
   .x = wth,
   .y = emergence_dates,
-  .f = ~ predict_bacterial_blight(emergence = .y,
+  .f = ~ bacterial_blight(emergence = .y,
                                   wth = .x)
 ) |>
   bind_rows(.id = "emergence") |>
@@ -276,7 +313,7 @@ pander(multi_dates)
 
  10.58   2002-06-14 
 
- 12.31   2002-06-30 
+ 12.25   2002-06-30 
 
  10.28   2003-06-01 
 
@@ -290,13 +327,13 @@ pander(multi_dates)
 
  10.31   2004-06-30 
 
- 14.43   2005-06-01 
+ 13.93   2005-06-01 
 
- 13.97   2005-06-14 
+ 13.41   2005-06-14 
 
  15.25   2005-06-30 
 
- 15.21   2006-06-01 
+ 15.22   2006-06-01 
 
  14.16   2006-06-14 
 
@@ -314,15 +351,15 @@ pander(multi_dates)
 
  10.38   2008-06-30 
 
- 4.916   2009-06-01 
+ 4.917   2009-06-01 
 
  9.179   2009-06-14 
 
- 6.91    2009-06-30 
+ 6.911   2009-06-30 
 
  14.08   2010-06-01 
 
- 16.45   2010-06-14 
+ 16.44   2010-06-14 
 
  16.13   2010-06-30 
 --------------------
@@ -405,6 +442,26 @@ seasons_wth <-
     .options = furrr_options(seed = NULL)
   ) |>
   mutate(YYYYMMDD = as_date(YYYYMMDD))
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 ```
 
 Once we have all the weather, create a list of weather `data.frames` for each establishment date.
@@ -425,7 +482,7 @@ wth <-
 future_map2(
   .x = wth,
   .y = emergence_dates,
-  .f = ~ predict_bacterial_blight(emergence = .y,
+  .f = ~ bacterial_blight(emergence = .y,
                                   wth = .x),
   .options = furrr_options(seed = NULL)
 ) |>
@@ -483,6 +540,16 @@ locations_wth <-
     dates = "2000-06-30",
     duration = 120
   )
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 ```
 
 ### Simulating multiple locations with {purrr}
@@ -498,7 +565,7 @@ library("ggplot2")
 
 map(
   .x = locations_wth,
-  .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
                                   wth = .x)
 ) |>
   bind_rows(.id = "location") |>
@@ -539,14 +606,14 @@ mbm <- microbenchmark(
   sequential = map2(
     .x = wth,
     .y = emergence_dates,
-    .f = ~ predict_bacterial_blight(emergence = .y,
+    .f = ~ bacterial_blight(emergence = .y,
                                     wth = .x)
   ) |>
     bind_rows(.id = "emergence"),
   parallel = future_map2(
     .x = wth,
     .y = emergence_dates,
-    .f = ~ predict_bacterial_blight(emergence = .y,
+    .f = ~ bacterial_blight(emergence = .y,
                                     wth = .x),
     .options = furrr_options(seed = NULL)
   ) |>
@@ -556,9 +623,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr      min       lq     mean   median        uq       max neval cld
-#>  sequential 47.57136 53.30816 55.21092 54.65694  56.15348  71.51696   100  a 
-#>    parallel 82.19385 85.69098 98.08625 90.86654 100.31386 464.95562   100   b
+#>        expr      min        lq      mean    median        uq      max neval
+#>  sequential  63.8614  66.65122  69.99759  68.69507  70.84552 143.9901   100
+#>    parallel 155.1646 158.46859 163.31608 160.52445 167.14724 188.8329   100
 
 autoplot(mbm) +
   theme_classic()
