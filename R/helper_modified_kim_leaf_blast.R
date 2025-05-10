@@ -115,7 +115,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
     wth = wth,
     emergence = emergence,
     onset = 15L,
-    duration = 77L,
+    duration = 100L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 600L,
