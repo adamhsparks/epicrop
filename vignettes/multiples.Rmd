@@ -118,7 +118,7 @@ ggplot(seasons,
   theme_classic()
 ```
 
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
+![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/graph_seasons-1.png)
 
 ### Simulating multiple seasons with {furrr} using parallel processing
 
@@ -385,7 +385,7 @@ ggplot(data = multi_dates,
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](stem-plot-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/stem-plot-1.png)
 
 ### Using {furrr} to run multiple establishment dates in parallel
 
@@ -496,7 +496,7 @@ future_map2(
   theme_classic()
 ```
 
-![plot of chunk create-data.frames-parallel](create-data.frames-parallel-1.png)
+![plot of chunk create-data.frames-parallel](figure/create-data.frames-parallel-1.png)
 
 ## Multiple locations
 
@@ -578,7 +578,7 @@ map(
   theme_classic()
 ```
 
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](figure/run-multi-loc-1.png)
 
 ## Benchmarking sequential versus parallel methods
 
@@ -615,15 +615,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr       min        lq      mean    median        uq      max
-#>  sequential  62.96948  65.68454  69.69972  67.78184  70.98451 130.0225
-#>    parallel 171.19702 173.15421 178.76247 175.07035 180.64963 231.1932
-#>  neval
-#>    100
-#>    100
+#>        expr       min        lq      mean    median       uq       max neval
+#>  sequential  60.32342  64.09395  66.98868  66.84373  69.2246  84.27653   100
+#>    parallel 169.64283 173.03285 176.95856 174.17274 176.6349 211.91088   100
 
 autoplot(mbm) +
   theme_classic()
 ```
 
-![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](benchmark-1.png)
+![Microbenchmark results comparing sequential and parallel processing methods simulating three different establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines](figure/benchmark-1.png)
