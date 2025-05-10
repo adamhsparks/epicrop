@@ -8,4 +8,4 @@ docs/
 *.code-workspace
 /doc/
 /Meta/
-^rosm\.cache$
+^#\s*rosm\\.cache$
