@@ -129,6 +129,14 @@ The data are in a wide format by default and need to be converted to long format
 
 ``` r
 library(ggplot2)
+```
+
+```
+## Want to understand how all the pieces fit together? Read R for Data
+## Science: https://r4ds.hadley.nz/
+```
+
+``` r
 library(tidyr)
 ```
 
@@ -277,4 +285,3 @@ Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the ex
 Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
 Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Adam Sparks (2020). _nasapower: NASA-POWER Data from R_. R package version 3.0.1, URL: <https://CRAN.R-project.org/package=nasapower>.
