@@ -105,7 +105,7 @@ format_wth <- function(
   lon
 ) {
   rlang::check_required(c(wth, date, temp, rhum, rain))
-  passed_args <- as.character(match.call())[-c(1:2)] # remove fn & `wth` args
+  passed_args <- as.character(match.call())[-c(1L:2L)] # remove fn & `wth` args
   if (any(passed_args %notin% names(wth))) {
     not_in <- passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
@@ -116,6 +116,16 @@ format_wth <- function(
 
   if (inherits(wth, "data.frame")) {
     setDT(wth)
+
+    unique_dates <- length(unique(as.Date(wth$date)))
+    nrows <- nrow(wth)
+
+    if (unique_dates != nrows) {
+      cli::cli_abort(
+        "Please check that the values in {.var wth} are on a daily time-step.
+        And that there are no missing values."
+      )
+    }
 
     if (length(passed_args) == 8L) {
       old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
