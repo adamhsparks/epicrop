@@ -93,7 +93,7 @@
       )
     }
 
-    if (seir_passed_args$duration < 80L) {
+    if (seir_passed_args$duration < 50.0) {
       cli::cli_alert_danger(
         "{.var duration} is < 80 days, is this intended?",
         call = rlang::caller_env()
