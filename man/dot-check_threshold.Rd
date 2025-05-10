@@ -15,3 +15,7 @@ data.}
 \description{
 Check if the relative humidity is above the threshold
 }
+\examples{
+.check_threshold(rh_hr = rep(95, 24), rhlim = 95)
+}
+\keyword{internal}

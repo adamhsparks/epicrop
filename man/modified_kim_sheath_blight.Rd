@@ -129,7 +129,7 @@ wth <- get_wth(
   dates = c("2000-05-01", "2000-09-01")
 )
 
-# use 25 May as transplanting date (emergence) as in Kim et al. 2015
+# use 25 May as transplanting date (`emergence`) as in Kim et al. 2015
 sb_sim <- modified_kim_sheath_blight(wth, emergence = "2000-05-25")
 plot(x = sb_sim$dates, y = sb_sim$intensity, type = "l")
 \dontshow{\}) # examplesIf}
