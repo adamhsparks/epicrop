@@ -1,5 +1,3 @@
-withr::local_options(list(scipen = 999L))
-
 load(system.file(file = "wth_test_data.Rdata", package = "epicrop"))
 
 wth_formatted <-
