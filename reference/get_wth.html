@@ -9,7 +9,7 @@ parameters suitable for use in epicrop."><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">epicrop</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,15 +66,15 @@ entered as x, y coordinates.</p></dd>
 <dd><p>A numeric value indicating how many days a single
 growing season being simulated is to be.  If this is used, only the start
 date will be used and the end date will be ignored if supplied.  This must
-match the <code>duration</code> parameter value passed along to <a href="SEIR.html">SEIR</a> or any of the
+match the <code>duration</code> parameter value passed along to <a href="seir.html">seir</a> or any of the
 <code>predict</code> family of functions.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table</a> object of weather data, dates and
-geolocation information (LAT/LON values) suitable for use in <span class="pkg">epicrop</span>
-with the following columns:</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>LAT</em></td><td>Latitude of area of interest</td></tr><tr><td><em>LON</em></td><td>Longitude of area of interest.</td></tr></table></div>
+    <p>A <code>epicrop.wth</code>, a data frame based on a <a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table</a>,
+object suitable for use in <span class="pkg">epicrop</span> containing weather data, dates and
+geolocation information (LAT/LON values) with the following columns:</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr><tr><td><em>TMIN</em></td><td>Daily minimum temperature (˚C)</td></tr><tr><td><em>TMAX</em></td><td>Daily maximum temperature (˚C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>LAT</em></td><td>Latitude of area of interest</td></tr><tr><td><em>LON</em></td><td>Longitude of area of interest.</td></tr></table></div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Adam H. Sparks, <a href="mailto:adamhsparks@gmail.com">adamhsparks@gmail.com</a></p>
@@ -89,6 +89,8 @@ with the following columns:</p><table class="table table"><tr><td><strong>Field 
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># get 120 days of weather for IRRI Zeigler Experiment Station in wet season</span></span></span>
 <span class="r-in"><span><span class="co"># 2000 by specifying the duration but not the end-date and specifying to use</span></span></span>
@@ -98,6 +100,8 @@ with the following columns:</p><table class="table table"><tr><td><strong>Field 
 <span class="r-in"><span>  dates <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span></span>
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -105,7 +109,7 @@ with the following columns:</p><table class="table table"><tr><td><strong>Field 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario.</p>
+  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario, Kwang-Hyung Kim.</p>
 </div>
 
 <div class="pkgdown-footer-right">

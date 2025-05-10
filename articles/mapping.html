@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">epicrop</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,17 +118,17 @@ data and labelling capabilities.</p>
 <span><span class="co"># `map()` from purrr is not to be confused with the actual map we are creating</span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
 <span>  .x <span class="op">=</span> <span class="va">locations_wth</span>,</span>
-<span>  .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.x</span><span class="op">$</span><span class="va">YYYYMMDD</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  .f <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="../reference/bacterial_blight.html">bacterial_blight</a></span><span class="op">(</span>emergence <span class="op">=</span> <span class="va">.x</span><span class="op">$</span><span class="va">YYYYMMDD</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>                                  wth <span class="op">=</span> <span class="va">.x</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span>.id <span class="op">=</span> <span class="st">"location"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">AUDPC</span>, <span class="va">location</span>, <span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">annotation_map_tile</span><span class="op">(</span>type <span class="op">=</span> <span class="st">"cartolight"</span>,</span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_map_tile.html" class="external-link">annotation_map_tile</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"cartolight"</span>,</span>
 <span>                      zoomin <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_spatial_point</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">AUDPC</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_spatial_label_repel</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">location</span>,</span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html" class="external-link">geom_spatial_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">AUDPC</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html" class="external-link">geom_spatial_label_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">location</span>,</span>
 <span>                                             <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">AUDPC</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>                                             sep <span class="op">=</span> <span class="st">", "</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                           box.padding <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -153,6 +153,12 @@ data and labelling capabilities.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">127</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2</span></span>
+<span><span class="co">#&gt; 3.5.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use the `legend.position.inside` argument of `theme()` instead.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span><span class="co">#&gt; generated.</span></span>
 <span><span class="co">#&gt; Error in `annotation_map_tile()`:</span></span>
 <span><span class="co">#&gt; ! Problem while converting geom to grob.</span></span>
 <span><span class="co">#&gt; ℹ Error occurred in the 1st layer.</span></span>
@@ -166,7 +172,7 @@ data and labelling capabilities.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario.</p>
+  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario, Kwang-Hyung Kim.</p>
 </div>
 
 <div class="pkgdown-footer-right">

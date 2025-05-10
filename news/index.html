@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">epicrop</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,9 +37,39 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.9000" id="epicrop-109000">epicrop 1.0.9000<a class="anchor" aria-label="anchor" href="#epicrop-109000"></a></h2>
+<div class="section level3">
+<h3 id="major-changes-1-0-9000">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-9000"></a></h3>
+<ul><li><p>Version now 1.0.0.9000, almost ready for first major release</p></li>
+<li><p><code>SEIR()</code> is now <code><a href="../reference/seir.html">seir()</a></code></p></li>
+<li><p>All helper functions drop the <code>predict_</code> prefix for simplicity, <em>e.g.</em>, <code>predict_bacterial_blight()</code> becomes just <code><a href="../reference/bacterial_blight.html">bacterial_blight()</a></code></p></li>
+<li><p>Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.</p></li>
+<li><p>Adds the RcRH parameter to <code><a href="../reference/seir.html">seir()</a></code> to calculate the relative humidity correction factor for the disease progress curve as published in Savary <em>et al.</em> 2012.</p></li>
+<li><p>Adds the RcRH parameter to all helper functions.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-functionality-1-0-9000">New Functionality<a class="anchor" aria-label="anchor" href="#new-functionality-1-0-9000"></a></h3>
+<ul><li>
+<p>Adds functions from Kim et al. 2015 for:</p>
+<ul><li>Leaf blast in South Korean varieties</li>
+<li>Sheath blight in South Korean varieties</li>
+</ul></li>
+<li><p>Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code><a href="../reference/dot-fn_Rc.html">.fn_Rc()</a></code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code><a href="../reference/seir.html">seir()</a></code></p></li>
+<li><p>Adds functionality to use a matrix in <code>RRG</code> and modify it with <code>.fn_Rc</code> over time as with <code>RcA</code> and <code>RcT</code> as found in Kim et al. 2015 (though not implemented in Kim et al. 2015)</p></li>
+<li><p>Allow pass through of more arguments from helper functions to <code><a href="../reference/seir.html">seir()</a></code> via <code>...</code> argument</p></li>
+<li><p>Strict checking of user-inputs with informative messages now provided if inputs are invalid</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-changes-1-0-9000">Minor Changes<a class="anchor" aria-label="anchor" href="#minor-changes-1-0-9000"></a></h3>
+<ul><li><p>Improvements to the documentation</p></li>
+<li><p>Spelling corrections</p></li>
+<li><p>Code linting</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.3" id="epicrop-003">epicrop 0.0.3<a class="anchor" aria-label="anchor" href="#epicrop-003"></a></h2>
 <div class="section level3">
-<h3 id="major-changes-0-0-3">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-3"></a></h3>
+<h3 id="minor-changes-0-0-3">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-0-3"></a></h3>
 <ul><li>Extend the RcA curve for bacterial blight, the original version of EPIRICE had <code>...0.43, 0.41, 0.42, 0.41</code>, previous versions of {epicrop} had <code>...0.43, 0.41, 0.41, 0.41</code>, now we have <code>...0.43, 0.42, 0.42, 0.41...</code>.</li>
 </ul></div>
 <div class="section level3">
@@ -92,16 +122,16 @@
 <li>
 <p>Adds shorthand versions of functions for:</p>
 <ul><li>
-<code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> &gt; <code><a href="../reference/predict_bacterial_blight.html">predict_bb()</a></code>
+<code>predict_bacterial_blight()</code> &gt; <code>predict_bb()</code>
 </li>
 <li>
-<code><a href="../reference/predict_brown_spot.html">predict_brown_spot()</a></code> &gt; <code><a href="../reference/predict_brown_spot.html">predict_bs()</a></code>
+<code>predict_brown_spot()</code> &gt; <code>predict_bs()</code>
 </li>
 <li>
-<code><a href="../reference/predict_leaf_blast.html">predict_leaf_blast()</a></code> &gt; <code><a href="../reference/predict_leaf_blast.html">predict_lb()</a></code>
+<code>predict_leaf_blast()</code> &gt; <code>predict_lb()</code>
 </li>
 <li>
-<code><a href="../reference/predict_sheath_blight.html">predict_sheath_blight()</a></code> &gt; <code><a href="../reference/predict_sheath_blight.html">predict_sb()</a></code>
+<code>predict_sheath_blight()</code> &gt; <code>predict_sb()</code>
 </li>
 </ul></li>
 </ul></div>
@@ -116,7 +146,7 @@
 <h3 id="minor-changes-0-0-0-9014">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-0-0-9014"></a></h3>
 <ul><li><p>Check user inputs for <code>H0</code> and <code>I0</code> to ensure that they are &gt;= 0.</p></li>
 <li><p>100% complete test coverage.</p></li>
-<li><p>The final <code>data.frame</code> created from vectors of state values in <code><a href="../reference/SEIR.html">SEIR()</a></code> is simplified into one step, creating a named <code>data.table</code> rather than create a <code>data.table</code> and then naming cols.</p></li>
+<li><p>The final <code>data.frame</code> created from vectors of state values in <code>SEIR()</code> is simplified into one step, creating a named <code>data.table</code> rather than create a <code>data.table</code> and then naming cols.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -124,7 +154,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-0-0-9013">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-0-9013"></a></h3>
 <ul><li><p>Fixes a bug introduced into SEIR() with the last round of bug fixes. The calculations for latent and infectious sites were still calculating for the next, not current, day in the <code>for()</code> loop.</p></li>
-<li><p>Corrects values in the example for <code><a href="../reference/SEIR.html">SEIR()</a></code> to run the model for brown spot.</p></li>
+<li><p>Corrects values in the example for <code>SEIR()</code> to run the model for brown spot.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-changes-0-0-0-9013">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-0-0-9013"></a></h3>
@@ -136,16 +166,16 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9012" id="epicrop-0009012">epicrop 0.0.0.9012<a class="anchor" aria-label="anchor" href="#epicrop-0009012"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-0-9012">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-0-9012"></a></h3>
-<ul><li>Fixes bug in <code><a href="../reference/SEIR.html">SEIR()</a></code> where <code>Rc</code> value was calculated incorrectly that was introduced with commit <a href="https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287" class="external-link uri">https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287</a>. See Lines 124:126 that were changed to Lines 118:120 where</li>
+<ul><li>Fixes bug in <code>SEIR()</code> where <code>Rc</code> value was calculated incorrectly that was introduced with commit <a href="https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287" class="external-link uri">https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287</a>. See Lines 124:126 that were changed to Lines 118:120 where</li>
 </ul><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Rc</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">baseRc</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">ageRc</span>, <span class="va">day</span><span class="op">)</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">tmpRc</span>, <span class="va">wthsub</span><span class="op">$</span><span class="va">tavg</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">RHCoef</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <p>should have been</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Rc</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">baseRc</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">ageRc</span>, <span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">AFGen</span><span class="op">(</span><span class="va">tmpRc</span>, <span class="va">wthsub</span><span class="op">$</span><span class="va">tavg</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">RHCoef</span><span class="op">[</span><span class="va">day</span><span class="op">+</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
 <p>to calculate the basic infection rate, <code>Rc</code>, for <code>day + 1</code>. Commit: <a href="https://codeberg.org/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47" class="external-link">248df5512b5897e950dd58a0a8b3fd57922add47</a>.</p>
-<ul><li>Fixes typos in <code>RcA</code> values for <code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> and <code><a href="../reference/predict_sheath_blight.html">predict_sheath_blight()</a></code>.
-<ul><li>In <code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit <a href="https://codeberg.org/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335" class="external-link">8b2c36b61d4f949385dcac4c03ff435b8400e335</a>.</li>
-<li>In <code><a href="../reference/predict_sheath_blight.html">predict_sheath_blight()</a></code> the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: <a href="https://codeberg.org/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80" class="external-link">69b89ce24dd41c16d4627225c028355f76a64b80</a>.</li>
+<ul><li>Fixes typos in <code>RcA</code> values for <code>predict_bacterial_blight()</code> and <code>predict_sheath_blight()</code>.
+<ul><li>In <code>predict_bacterial_blight()</code> the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit <a href="https://codeberg.org/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335" class="external-link">8b2c36b61d4f949385dcac4c03ff435b8400e335</a>.</li>
+<li>In <code>predict_sheath_blight()</code> the seventh entry was improperly encoded as 0.83, it has been corrected to 0.84, Commit: <a href="https://codeberg.org/adamhsparks/epicrop/commit/69b89ce24dd41c16d4627225c028355f76a64b80" class="external-link">69b89ce24dd41c16d4627225c028355f76a64b80</a>.</li>
 </ul></li>
 </ul></div>
 <div class="section level3">
@@ -179,8 +209,8 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9010" id="epicrop-0009010">epicrop 0.0.0.9010<a class="anchor" aria-label="anchor" href="#epicrop-0009010"></a></h2>
 <div class="section level3">
 <h3 id="major-changes-0-0-0-9010">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-0-9010"></a></h3>
-<ul><li><p><strong>BREAKING CHANGE</strong> <code>intensity</code> column, in <code><a href="../reference/SEIR.html">SEIR()</a></code> is now a proportion, <em>i.e.</em> values range between 0 - 1. If you wish to have the same values as previously reported, <code>df$intensity*100</code> will give you these values.</p></li>
-<li><p><strong>BREAKING CHANGE</strong> Removes column, <code>severity</code>, in <code><a href="../reference/SEIR.html">SEIR()</a></code> output.</p></li>
+<ul><li><p><strong>BREAKING CHANGE</strong> <code>intensity</code> column, in <code>SEIR()</code> is now a proportion, <em>i.e.</em> values range between 0 - 1. If you wish to have the same values as previously reported, <code>df$intensity*100</code> will give you these values.</p></li>
+<li><p><strong>BREAKING CHANGE</strong> Removes column, <code>severity</code>, in <code>SEIR()</code> output.</p></li>
 <li><p>Adds a new vignette illustrating how to run multiple simulations and use parallel processing to reduce run time for these simulations.</p></li>
 </ul></div>
 </div>
@@ -189,7 +219,7 @@
 <div class="section level3">
 <h3 id="major-changes-0-0-0-9009">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-0-9009"></a></h3>
 <ul><li>
-<strong>BREAKING CHANGE</strong> Add a new column to <code><a href="../reference/SEIR.html">SEIR()</a></code> output, <code>severity</code>, not to be confused with the previous column called <code>severity</code> (now called <code>intensity</code>), which represents the cumulative proportion of diseased sites on day “x” expressed as, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow></mfrac><mo>×</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">\frac{diseased\ sites}{total\ sites}\times100</annotation></semantics></math>.</li>
+<strong>BREAKING CHANGE</strong> Add a new column to <code>SEIR()</code> output, <code>severity</code>, not to be confused with the previous column called <code>severity</code> (now called <code>intensity</code>), which represents the cumulative proportion of diseased sites on day “x” expressed as, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow><mrow><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi></mrow></mfrac><mo>×</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">\frac{diseased\ sites}{total\ sites}\times100</annotation></semantics></math>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-changes-0-0-0-9009">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-0-0-9009"></a></h3>
@@ -201,7 +231,7 @@
 <div class="section level3">
 <h3 id="major-changes-0-0-0-9008">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-0-9008"></a></h3>
 <ul><li><ul><li>
-<strong>BREAKING CHANGE</strong> The <code>severity</code> output column from <code><a href="../reference/SEIR.html">SEIR()</a></code> has been renamed as <code>intensity</code> to follow the nomenclature of Savary <em>et al.</em> 2012. This column represents the proportion of actively diseased sites on day “x” expressed as, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="true" form="prefix">(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo>−</mo><mi>r</mi><mi>e</mi><mi>m</mi><mi>o</mi><mi>v</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo>−</mo><mi>r</mi><mi>e</mi><mi>m</mi><mi>o</mi><mi>v</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo stretchy="true" form="postfix">)</mo></mrow></mfrac><mo>×</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100</annotation></semantics></math>.</li>
+<strong>BREAKING CHANGE</strong> The <code>severity</code> output column from <code>SEIR()</code> has been renamed as <code>intensity</code> to follow the nomenclature of Savary <em>et al.</em> 2012. This column represents the proportion of actively diseased sites on day “x” expressed as, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo>−</mo><mi>r</mi><mi>e</mi><mi>m</mi><mi>o</mi><mi>v</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mi>o</mi><mi>t</mi><mi>a</mi><mi>l</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo>−</mo><mi>r</mi><mi>e</mi><mi>m</mi><mi>o</mi><mi>v</mi><mi>e</mi><mi>d</mi><mspace width="0.222em"></mspace><mi>s</mi><mi>i</mi><mi>t</mi><mi>e</mi><mi>s</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>×</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100</annotation></semantics></math>.</li>
 </ul></li>
 </ul></div>
 </div>
@@ -210,8 +240,8 @@
 <div class="section level3">
 <h3 id="minor-changes-0-0-0-9007">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-0-0-9007"></a></h3>
 <ul><li><p>Only include Lat/Lon values if the <code>wth</code> object provides them.</p></li>
-<li><p>Better documentation about the Lat/Lon values in the output of <code><a href="../reference/SEIR.html">SEIR()</a></code></p></li>
-<li><p>Parameters for <code><a href="../reference/predict_bacterial_blight.html">predict_bacterial_blight()</a></code> are used as basis for all of the other <code>predict_*()</code> family of functions.</p></li>
+<li><p>Better documentation about the Lat/Lon values in the output of <code>SEIR()</code></p></li>
+<li><p>Parameters for <code>predict_bacterial_blight()</code> are used as basis for all of the other <code>predict_*()</code> family of functions.</p></li>
 <li><p>Add DOI to CITATION and DESCRIPTION files.</p></li>
 <li><p>Add Lifecycle and DOI badges to README files.</p></li>
 </ul></div>
@@ -220,7 +250,7 @@
 <h2 class="pkg-version" data-toc-text="0.0.0.9006" id="epicrop-0009006">epicrop 0.0.0.9006<a class="anchor" aria-label="anchor" href="#epicrop-0009006"></a></h2>
 <div class="section level3">
 <h3 id="minor-changes-0-0-0-9006">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-0-0-9006"></a></h3>
-<ul><li><p>Optimise <code><a href="../reference/SEIR.html">SEIR()</a></code> internal functionality.</p></li>
+<ul><li><p>Optimise <code>SEIR()</code> internal functionality.</p></li>
 <li><p>Minor improvements to documentation.</p></li>
 <li><p>Polish NEWS.md.</p></li>
 </ul></div>
@@ -233,19 +263,19 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-0-9005">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-0-9005"></a></h3>
-<ul><li>Convert <code>wth</code> (weather input object) to a <code>data.table</code> type object internally if it is not already one. Prior, if the object was not a <code>data.table</code>, <code><a href="../reference/SEIR.html">SEIR()</a></code> would fail with a message that the dates did not align. This should fix that issue and any <code>data.frame</code> type object including a <code>tibble</code> can be provided now. Thanks to Jean Fabrice Adanve for helping me find this bug.</li>
+<ul><li>Convert <code>wth</code> (weather input object) to a <code>data.table</code> type object internally if it is not already one. Prior, if the object was not a <code>data.table</code>, <code>SEIR()</code> would fail with a message that the dates did not align. This should fix that issue and any <code>data.frame</code> type object including a <code>tibble</code> can be provided now. Thanks to Jean Fabrice Adanve for helping me find this bug.</li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9004" id="epicrop-0009004">epicrop 0.0.0.9004<a class="anchor" aria-label="anchor" href="#epicrop-0009004"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-0-9004">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-0-9004"></a></h3>
-<ul><li><p>Fixes bug where the relative humidity checks in <code><a href="../reference/SEIR.html">SEIR()</a></code> only checked if the daily RH value was equal to (<code>==</code>) not equal to or greater than (<code>&gt;=</code>) the set parameter for <code>rhlim</code> (default is 90%).</p></li>
-<li><p>Example for <code><a href="../reference/SEIR.html">SEIR()</a></code> in {roxygen} section now works properly when executed by the user.</p></li>
+<ul><li><p>Fixes bug where the relative humidity checks in <code>SEIR()</code> only checked if the daily RH value was equal to (<code>==</code>) not equal to or greater than (<code>&gt;=</code>) the set parameter for <code>rhlim</code> (default is 90%).</p></li>
+<li><p>Example for <code>SEIR()</code> in {roxygen} section now works properly when executed by the user.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="major-changes-0-0-0-9004">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-0-9004"></a></h3>
-<ul><li><p>Any default parameter values are moved from <code><a href="../reference/SEIR.html">SEIR()</a></code> to the <code>predict_()</code> functions themselves, so any calls directly to <code><a href="../reference/SEIR.html">SEIR()</a></code> must specify all parameters.</p></li>
+<ul><li><p>Any default parameter values are moved from <code>SEIR()</code> to the <code>predict_()</code> functions themselves, so any calls directly to <code>SEIR()</code> must specify all parameters.</p></li>
 <li><p>Deleted <code>inst/alt_versions/tungrov2.R</code> file.</p></li>
 <li><p>Deleted <code>inst/workflows/spatsim.R</code> file.</p></li>
 </ul></div>
@@ -254,13 +284,13 @@
 <ul><li><p>Edit documentation for better clarity</p></li>
 <li><p>Better commenting in code for self and others’ reference</p></li>
 <li>
-<p><code><a href="../reference/SEIR.html">SEIR()</a></code> is simplified and further optimised</p>
+<p><code>SEIR()</code> is simplified and further optimised</p>
 <ul><li>In some cases in the <code>for()</code> loop, the value of <code>day + 1</code> was repeatedly calculated and assigned to a new object. This has been corrected with a single object, <code>d1</code> being created at the beginning of each loop instance.</li>
 <li>In some cases where RH, TEMP or RAIN are repeatedly checked against, vectors of these three values are created outside the loop to save time when checking or extracting values.</li>
 <li>Redundant code and other unused objects are cleaned up and removed.</li>
 </ul></li>
 <li><p>Standardise library loading calls to use standard evaluation in documentation.</p></li>
-<li><p>Standardise italics to use “_” rather than “*“.</p></li>
+<li><p>Standardise italics to use “_” rather than “*”.</p></li>
 <li><p>Use <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">ggplot2::theme_classic()</a></code> for example figures in README and {epicrop} vignette.</p></li>
 </ul></div>
 </div>
@@ -273,7 +303,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario.</p>
+  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario, Kwang-Hyung Kim.</p>
 </div>
 
 <div class="pkgdown-footer-right">

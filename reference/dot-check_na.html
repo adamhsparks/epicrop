@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">epicrop</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,40 +51,28 @@
 
 
 <dl><dt id="arg--wth">.wth<a class="anchor" aria-label="anchor" href="#arg--wth"></a></dt>
-<dd><p>A data.frame object from <code><a href="https://docs.ropensci.org/nasapower/reference/get_power.html" class="external-link">nasapower::get_power()</a></code> with weather
+<dd><p>A data.frame object from <a href="https://docs.ropensci.org/nasapower/reference/get_power.html" class="external-link">nasapower::get_power</a> with weather
 data for checking
 Checks the data returned from the POWER dataset and informs the user if
-missing values are found. It does not do anything other than emitting am
+missing values are found. It does not do anything other than emitting a
 message about missing data.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>Called for its side-effects, an invisible <code>NULL</code>.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu">setDT</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu">nasapower</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/nasapower/reference/get_power.html" class="external-link">get_power</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    dates <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span></span>
-<span class="r-in"><span>    community <span class="op">=</span> <span class="st">"AG"</span>,</span></span>
-<span class="r-in"><span>    pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="st">"T2M"</span>,</span></span>
-<span class="r-in"><span>      <span class="st">"RH2M"</span>,</span></span>
-<span class="r-in"><span>      <span class="st">"PRECTOTCORR"</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span>,</span></span>
-<span class="r-in"><span>    temporal_api <span class="op">=</span> <span class="st">"DAILY"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in setDT(nasapower::get_power(lonlat = c(121.25562, 14.6774), dates = "2000-06-30",     community = "AG", pars = c("T2M", "RH2M", "PRECTOTCORR"),     temporal_api = "DAILY")):</span> could not find function "setDT"</span>
-<span class="r-in"><span><span class="fu">.check_na</span><span class="op">(</span><span class="va">wth</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .check_na(wth):</span> could not find function ".check_na"</span>
-</code></pre></div>
+
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario.</p>
+  <p>Developed by Adam H. Sparks, Robert Hijmans, Serge Savary, Ireno Pangga, Jorrel Aunario, Kwang-Hyung Kim.</p>
 </div>
 
 <div class="pkgdown-footer-right">
