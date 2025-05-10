@@ -292,10 +292,10 @@ seir <-
     # a single value, so this handles that by creating a vector of either
     # values that vary by date or a vector of length 0-duration for the single
     # given value
-    if (length(RRG) > 1L) {
+    if (length(RRG) > 1.0) {
       RRG <- .fn_Rc(.Rc = RRG, .xout = 0L:duration)
     } else {
-      RRG <- .fn_Rc(.Rc = rep(RRG, duration), .xout = 0L:duration)
+      RRG <- rep(RRG, duration)
     }
     Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
     Rc_age <- .fn_Rc(.Rc = RcA, .xout = 0L:duration)
