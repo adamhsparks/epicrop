@@ -114,6 +114,12 @@ data and labelling capabilities.</p>
 <span>    dates <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span>
 <span>    duration <span class="op">=</span> <span class="fl">120</span></span>
 <span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Error in `map()`:</span></span>
+<span><span class="co">#&gt; ℹ In index: 2.</span></span>
+<span><span class="co">#&gt; ℹ With name: Red River.</span></span>
+<span><span class="co">#&gt; Caused by error in `.send_query()`:</span></span>
+<span><span class="co">#&gt; ! HTTP (502) - Invalid responses from another server/proxy. Internal</span></span>
+<span><span class="co">#&gt;   server error</span></span>
 <span></span>
 <span><span class="co"># `map()` from purrr is not to be confused with the actual map we are creating</span></span>
 <span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
@@ -154,7 +160,7 @@ data and labelling capabilities.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">127</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
-<img src="figure/map-AUDPC-1.png" alt="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors."><div class="figcaption">Rice bacterial blight area under the disease
+<img src="map-AUDPC-1.png" alt="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors."><div class="figcaption">Rice bacterial blight area under the disease
 progress curve (AUDPC) values for an establishment date of June 30, 2000
 at five locations, Mekong River Delta and Red River Delta in Vietnam;
 Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the
