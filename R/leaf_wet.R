@@ -260,13 +260,15 @@
 #' Calculates the weighted hourly leaf wetness value
 #'
 #' @note This functionality is just a placeholder for future possible work.
-#' This particular function is set up but not exposed to users and thus not
-#' documented in the {pkgdown} site via an `@dev` tag
+#' This particular function is set up but not exposed to users and so there is
+#' no `@dev` tag for it yet.
 #'
 #' @param rh A numeric vector of relative humidity values.
 #' @param rhlim The relative humidity threshold to check against.
-#' @keywords Internal
-#' @noRd
+#'
+#' @examples
+#' .calc_weighted_hr_wet(rh = 86, rhlim = 95)
+#' @dev
 #'
 .calc_weighted_hr_wet <- function(rh, rhlim) {
   w <- rh
