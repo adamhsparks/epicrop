@@ -32,7 +32,7 @@ knitr::opts_chunk$set(eval = all(
 ## Introduction to {epicrop}
 
 {epicrop} provides an R package of the 'EPIRICE' model as described in Savary _et al._ 2012.
-Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`predict_bacterial_blight()`); brown spot (`predict_brown_spot()`); leaf blast (`predict_leaf_blast()`); sheath blight (`predict_sheath_blight()`) and tungro (`predict_tungro()`) are provided.
+Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`bacterial_blight()`); brown spot (`brown_spot()`); leaf blast (`leaf_blast()`); sheath blight (`sheath_blight()`) and tungro (`tungro()`) are provided.
 The model uses daily weather data to estimate disease intensity.
 A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
 
@@ -64,13 +64,13 @@ wth
 
 ### Predict bacterial blight
 
-All of the `predict_()` family of functions work in exactly the same manner.
+All of the `()` family of functions work in exactly the same manner.
 You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease intensity over the season and other values associated with the model.
 See the help file for `SEIR()` for more on the values returned.
 
-```{r predict_bb}
+```{r bb}
 # Predict bacterial blight intensity for the year 2000 wet season at IRRI
-bb_wet <- predict_bacterial_blight(wth, emergence = "2000-07-01")
+bb_wet <- bacterial_blight(wth, emergence = "2000-07-01")
 ```
 
 ```{r bb_wet}
@@ -135,7 +135,7 @@ You can find the value in the `AUDPC` column.
 We can compare the dry season with the wet season by looking at the AUDPC values for both seasons.
 
 ```{r dry_summary}
-bb_dry <- predict_bacterial_blight(wth = wth, emergence = "2000-01-05")
+bb_dry <- bacterial_blight(wth = wth, emergence = "2000-01-05")
 summary(bb_dry)
 ```
 

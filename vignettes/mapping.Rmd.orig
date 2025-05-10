@@ -79,7 +79,7 @@ locations_wth <-
 # `map()` from purrr is not to be confused with the actual map we are creating
 map(
   .x = locations_wth,
-  .f = ~ predict_bacterial_blight(emergence = .x$YYYYMMDD[1],
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
                                   wth = .x)
 ) |>
   bind_rows(.id = "location") |>
