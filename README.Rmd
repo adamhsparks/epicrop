@@ -63,7 +63,8 @@ if (!require("pak")) {
   )
 }
 
-pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop")
+pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop",
+                 dependencies = TRUE)
 
 options(o) # reset options
 ```

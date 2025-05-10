@@ -57,7 +57,8 @@ if (!require("pak")) {
   )
 }
 
-pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop")
+pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop",
+                 dependencies = TRUE)
 
 options(o) # reset options
 ```
@@ -152,8 +153,6 @@ Lastly, you can visualise the result of the model run.
 
 ``` r
 library(ggplot2)
-#> Want to understand how all the pieces fit together? Read R for Data
-#> Science: https://r4ds.hadley.nz/
 
 ggplot(
   data = bb_sim,
