@@ -169,7 +169,7 @@ columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # get weather for IRRI Zeigler Experiment Station in wet season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),

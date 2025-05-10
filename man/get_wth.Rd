@@ -39,7 +39,7 @@ This function is a wrapper for the \link[nasapower:get_power]{nasapower::get_pow
 parameters suitable for use in \pkg{epicrop}.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
 # get weather for IRRI Zeigler Experiment Station in wet season 2000 from the
 # default NASA POWER data.

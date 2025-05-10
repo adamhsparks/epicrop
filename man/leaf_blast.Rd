@@ -81,7 +81,7 @@ columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
 # get weather for IRRI Zeigler Experiment Station in wet season 2000
 wth <- get_wth(
@@ -91,7 +91,7 @@ wth <- get_wth(
 lb <- leaf_blast(wth, emergence = "2000-07-01")
 plot(x = lb$dates, y = lb$intensity, type = "l")
 \dontshow{\}) # examplesIf}
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # use shorthand function
 lb <- lb(wth, emergence = "2000-07-01")
 plot(x = lb$dates, y = lb$intensity, type = "l")

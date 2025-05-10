@@ -18,7 +18,7 @@ used alone as it assumes that there is always only one day between
 observations so it takes shortcuts in the calculation of the values.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # get weather for IRRI Zeigler Experiment Station in wet season 2000
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
