@@ -1,3 +1,5 @@
+withr::local_options(list(scipen = 999L))
+
 RcA <-
   cbind(0L:6L * 20L, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0))
 RcT <-
@@ -135,3 +137,4 @@ wth <-
       )
     )
   })
+withr::deferred_clear()

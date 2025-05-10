@@ -20,9 +20,9 @@ test_that("Supplying the season overrides an end-date value", {
     wth_season <- get_wth(
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-05-15"),
-      duration = 2
+      duration = 2.0
     )
-    expect_equal(nrow(wth_season), 3)
+    expect_identical(nrow(wth_season), 3L)
   })
 })
 
@@ -31,7 +31,7 @@ test_that("Any NA values in the POWER data will emit a message", {
   expect_message(.check_na(
     .wth = data.frame(
       "YYYYMMDD" = as.Date("2015-01-15"),
-      "DOY" = 15,
+      "DOY" = 15.0,
       "TEMP" = 26.05,
       "TMIN" = 25.1,
       "TMAX" = 27.0,

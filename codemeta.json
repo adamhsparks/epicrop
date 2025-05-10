@@ -186,18 +186,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "lubridate",
-      "name": "lubridate",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=lubridate"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "microbenchmark",
       "name": "microbenchmark",
       "provider": {
@@ -304,6 +292,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=vcr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "withr",
+      "name": "withr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=withr"
     }
   ],
   "softwareRequirements": {
@@ -383,7 +383,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
-  "fileSize": "696.105KB",
+  "fileSize": "694.985KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

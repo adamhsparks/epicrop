@@ -1,3 +1,5 @@
+withr::local_options(list(scipen = 999L))
+
 test_that("Values are as expected", {
   # wth_formatted is loaded in setup-testdata.R
   tungro <- tungro(wth_formatted, emergence = "2000-07-01")
@@ -63,3 +65,5 @@ test_that("Values are as expected", {
   expect_equal(tungro[[1L, "lat"]], 14.6774, tolerance = 0.01)
   expect_equal(tungro[[1L, "lon"]], 121.2556, tolerance = 0.01)
 })
+
+withr::deferred_clear()

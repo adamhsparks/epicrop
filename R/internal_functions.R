@@ -18,10 +18,10 @@
     RcT <- eval(seir_passed_args$RcT)
 
     # if RRG is a matrix, we need to evaluate it first
-    if (length(RRG) > 1.0) {
-      RRG <- eval(seir_passed_args$RRG)
-    } else {
+    if (length(seir_passed_args$RRG) == 1.0) {
       RRG <- seir_passed_args$RRG
+    } else {
+      RRG <- eval(seir_passed_args$RRG)
     }
 
     # if RcW exists take that value, otherwise, set it to a numeric value such

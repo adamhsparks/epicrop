@@ -1,3 +1,5 @@
+withr::local_options(list(scipen = 999L))
+
 test_that("Values are as expected", {
   # wth_formatted is loaded in setup-testdata.R
   bs <- brown_spot(wth_formatted, emergence = "2000-07-01")
@@ -25,41 +27,43 @@ test_that("Values are as expected", {
   )
 
   expect_is(bs, c("data.table", "data.frame"))
-  expect_equal(nrow(bs), 120)
+  expect_identical(nrow(bs), 120L)
 
-  expect_equal(bs[[1, "sites"]], 600)
-  expect_equal(bs[[120, "sites"]], 84949.3, tolerance = 0.1)
+  expect_equal(bs[[1L, "sites"]], 600.0)
+  expect_equal(bs[[120L, "sites"]], 84949.3, tolerance = 0.1)
 
-  expect_equal(bs[[1, "latent"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "latent"]], 1670, tolerance = 0.1)
+  expect_equal(bs[[1L, "latent"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "latent"]], 1670.0, tolerance = 0.1)
 
-  expect_equal(bs[[1, "infectious"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "infectious"]], 1183, tolerance = 0.1)
+  expect_equal(bs[[1L, "infectious"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "infectious"]], 1183.0, tolerance = 0.1)
 
-  expect_equal(bs[[1, "removed"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "removed"]], 97.8, tolerance = 0.1)
+  expect_equal(bs[[1L, "removed"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "removed"]], 97.8, tolerance = 0.1)
 
-  expect_equal(bs[[1, "senesced"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "senesced"]], 55963.4, tolerance = 0.1)
+  expect_equal(bs[[1L, "senesced"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "senesced"]], 55963.4, tolerance = 0.1)
 
-  expect_equal(bs[[1, "rateinf"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "rateinf"]], 679, tolerance = 0.1)
+  expect_equal(bs[[1L, "rateinf"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "rateinf"]], 679.0, tolerance = 0.1)
 
-  expect_equal(bs[[1, "rtransfer"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "rtransfer"]], 189, tolerance = 0.1)
+  expect_equal(bs[[1L, "rtransfer"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "rtransfer"]], 189.0, tolerance = 0.1)
 
-  expect_equal(bs[[1, "rgrowth"]], 59.6, tolerance = 0.1)
-  expect_equal(bs[[120, "rgrowth"]], 877.2, tolerance = 0.1)
+  expect_equal(bs[[1L, "rgrowth"]], 59.6, tolerance = 0.1)
+  expect_equal(bs[[120L, "rgrowth"]], 877.2, tolerance = 0.1)
 
-  expect_equal(bs[[1, "rsenesced"]], 6, tolerance = 0.1)
-  expect_equal(bs[[120, "rsenesced"]], 887.3, tolerance = 0.1)
+  expect_equal(bs[[1L, "rsenesced"]], 6.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "rsenesced"]], 887.3, tolerance = 0.1)
 
-  expect_equal(bs[[1, "diseased"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "diseased"]], 2951, tolerance = 0.1)
+  expect_equal(bs[[1L, "diseased"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "diseased"]], 2951.0, tolerance = 0.1)
 
-  expect_equal(bs[[1, "intensity"]], 0, tolerance = 0.1)
-  expect_equal(bs[[120, "intensity"]], 0.03, tolerance = 0.01)
+  expect_equal(bs[[1L, "intensity"]], 0.0, tolerance = 0.1)
+  expect_equal(bs[[120L, "intensity"]], 0.03, tolerance = 0.01)
 
-  expect_equal(bs[[1, "lat"]], 14.6774, tolerance = 0.01)
-  expect_equal(bs[[1, "lon"]], 121.2556, tolerance = 0.01)
+  expect_equal(bs[[1L, "lat"]], 14.6774, tolerance = 0.01)
+  expect_equal(bs[[1L, "lon"]], 121.2556, tolerance = 0.01)
 })
+
+withr::deferred_clear()

@@ -239,7 +239,7 @@ seir <-
     called <- sys.call()
     called[[1L]] <- as.name("list")
     passed_args <- eval.parent(called)
-    .check_inputs(seir_passed_args = passed_args)
+    .check_inputs(seir_passed_args = passed_args) # see internal_functions.R
 
     # Set and check dates ----
     emergence <- as.Date(emergence)

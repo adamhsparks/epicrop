@@ -64,7 +64,8 @@ Suggests:
     spelling,
     testthat,
     tidyr,
-    vcr (>= 0.6.0)
+    vcr (>= 0.6.0),
+    withr
 VignetteBuilder: 
     knitr
 ByteCompile: TRUE
