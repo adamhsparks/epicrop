@@ -48,10 +48,10 @@
   rh <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
 
   if (isFALSE(weighted_wetness)) {
-    lw <- unlist(lapply(rh_hr, .check_threshold, rhlim = rhlim))
+    lw <- unlist(lapply(X = rh_hr, FUN = .check_threshold, rhlim = rhlim))
   } else {
-    w <- lapply(rh, .calc_weighted_hr_wet, rhlim = rhlim)
-    lw <- unlist(lapply(w, sum))
+    w <- lapply(X = rh, FUN = .calc_weighted_hr_wet, rhlim = rhlim)
+    lw <- unlist(lapply(X = w, FUN = sum))
   }
 
   prec[is.na(prec)] <- 0.0
@@ -249,13 +249,24 @@
 #' @param rh_hr A list of 24 relative humidity values for every DOY in the
 #'  data.
 #' @param rhlim The relative humidity threshold to check against.
+#'
+#' @examples
+#' .check_threshold(rh_hr = rep(95, 24), rhlim = 95)
+#' @dev
 .check_threshold <- function(rh_hr, rhlim) {
-  return(sum(rh_hr > rhlim))
+  return(sum(rh_hr >= rhlim))
 }
 
 #' Calculates the weighted hourly leaf wetness value
+#'
+#' @note This functionality is just a placeholder for future possible work.
+#' This particular function is set up but not exposed to users and thus not
+#' documented in the {pkgdown} site via an `@dev` tag
+#'
 #' @param rh A numeric vector of relative humidity values.
 #' @param rhlim The relative humidity threshold to check against.
+#' @keywords Internal
+#' @noRd
 #'
 .calc_weighted_hr_wet <- function(rh, rhlim) {
   w <- rh
