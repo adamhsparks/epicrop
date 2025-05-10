@@ -16,6 +16,14 @@
     emergence <- seir_passed_args$emergence
     RcA <- eval(seir_passed_args$RcA)
     RcT <- eval(seir_passed_args$RcT)
+
+    # if RRG is a matrix, we need to evaluate it first
+    if (length(RRG) > 1.0) {
+      RRG <- eval(seir_passed_args$RRG)
+    } else {
+      RRG <- seir_passed_args$RRG
+    }
+
     # if RcW exists take that value, otherwise, set it to a numeric value such
     # that it won't trigger an error and we can check all other values
     if (!is.null(seir_passed_args$RcW)) {
@@ -30,10 +38,11 @@
     numeric_args <- c(
       within(
         seir_passed_args,
-        rm("wth", "emergence", "RcA", "RcT", "RcW", "simple_wetness")
+        rm("wth", "emergence", "RcA", "RcT", "RRG", "RcW", "simple_wetness")
       ),
       RcA,
       RcT,
+      RRG,
       RcW
     )
 
