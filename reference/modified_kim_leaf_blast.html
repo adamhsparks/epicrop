@@ -200,18 +200,21 @@ Jorrel Khalil Aunario, and Adam H. Sparks</p>
 <span class="r-in"><span><span class="co"># get weather for IRRI Zeigler Experiment Station in wet season 2000</span></span></span>
 <span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span>, <span class="st">"2000-12-31"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-05-01"</span>, <span class="st">"2000-09-01"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
-<span class="r-in"><span><span class="va">lb_sim</span> <span class="op">&lt;-</span> <span class="fu">modified_kim_leaf_blast</span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use 25 May as transplanting date (`emergence`) as in Kim et al. 2015</span></span></span>
+<span class="r-in"><span><span class="va">lb_sim</span> <span class="op">&lt;-</span> <span class="fu">modified_kim_leaf_blast</span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-05-25"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cli::cli_alert_danger("{.var duration} is &lt; 80 days, is this intended?",     call = rlang::caller_env()):</span> unused argument (call = rlang::caller_env())</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lb_sim</span><span class="op">$</span><span class="va">dates</span>, y <span class="op">=</span> <span class="va">lb_sim</span><span class="op">$</span><span class="va">intensity</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="modified_kim_leaf_blast-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'lb_sim' not found</span>
 <span class="r-in"><span><span class="co"># use shorthand function</span></span></span>
 <span class="r-in"><span><span class="va">mk_lb</span> <span class="op">&lt;-</span> <span class="fu">mk_lb</span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mk_lb(wth, emergence = "2000-07-01"):</span> could not find function "mk_lb"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in cli::cli_alert_danger("{.var duration} is &lt; 80 days, is this intended?",     call = rlang::caller_env()):</span> unused argument (call = rlang::caller_env())</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mk_lb</span><span class="op">$</span><span class="va">dates</span>, y <span class="op">=</span> <span class="va">mk_lb</span><span class="op">$</span><span class="va">intensity</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'mk_lb' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mk_lb$dates:</span> object of type 'closure' is not subsettable</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
