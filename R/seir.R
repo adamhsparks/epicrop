@@ -128,7 +128,7 @@
 #'   a = 1,
 #'   Sx = 100000,
 #'   RRS = 0.01,
-#'   RRG = 0.1
+#'   RRG = 0.1,
 #'   simple_wetness = TRUE,
 #'   RcW = NULL
 #' ))
