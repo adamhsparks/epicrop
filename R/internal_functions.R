@@ -34,6 +34,7 @@
     simple_wetness <- seir_passed_args$simple_wetness
 
     .check_date(x = emergence)
+    .check_emergence_date(x = emergence)
 
     numeric_args <- c(
       within(
@@ -169,13 +170,6 @@
 #' @autoglobal
 #' @dev
 .check_date <- function(x) {
-  if (length(x) > 1L) {
-    cli::cli_alert_warning(
-      "Only one day is used for emergence. Only the first value will be used."
-    )
-    x <- x[[1L]]
-  }
-
   if (lubridate::is.POSIXct(x) || lubridate::is.Date(x)) {
     tz <- lubridate::tz(x)
   } else {
@@ -200,4 +194,24 @@
     }
   )
   return(x)
+}
+
+#' Ensure that the establishment date is a single value
+#'
+#' @param x a date object
+#'
+#' @returns Nothing, called for its side-effects of checking the user-input
+#' date.
+#'
+#' @examples
+#' .check_establishment_date(x = "2000-01-01")
+#' @dev
+
+.check_emergence_date <- function(x) {
+  if (length(x) > 1L) {
+    cli::cli_alert_warning(
+      "Only one day is used for emergence. Only the first value will be used."
+    )
+    x <- x[[1L]]
+  }
 }
