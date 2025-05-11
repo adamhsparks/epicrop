@@ -114,7 +114,7 @@
     if (max_rca_day > seir_passed_args$duration) {
       cli::cli_alert_info(
         "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
-           {. var duration}, {{duration}} days.  A truncated matrix of values
+           {.var duration}, {{duration}} days.  A truncated matrix of values
            will be used that stops at {.var duration} days ({{duration}}).",
         call = rlang::caller_env()
       )
@@ -123,13 +123,15 @@
     if (max_rca_day < seir_passed_args$duration) {
       cli::cli_abort(
         "{.var RcA} has a duration, {{max_rca_day}} that is less than
-           {. var duration}, {{duration}} days. Please provide a matrix of
+           {.var duration}, {{duration}} days. Please provide a matrix of
             values that aligns with {.var duration}.",
         call = rlang::caller_env()
       )
     }
 
-    if (isFALSE(simple_wetness) && (c("TMIN", "TMAX") %notin% names(wth))) {
+    if (
+      isFALSE(simple_wetness) && (any(c("TMIN", "TMAX") %notin% names(wth)))
+    ) {
       cli::cli_abort(
         "You have set {.var simple_wetness} to {.code TRUE} but you do not have
            'TMIN' and 'TMAX' columns in your weather data. Please set
