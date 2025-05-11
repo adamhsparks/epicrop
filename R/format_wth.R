@@ -115,15 +115,16 @@ format_wth <- function(
   }
 
   if (inherits(wth, "data.frame")) {
-    setDT(wth)
+    wth <- data.table(wth)
 
-    unique_dates <- length(unique(as.Date(wth$date)))
+    dates <- .check_date(wth[[date]])
+    unique_dates <- length(unique(dates))
+    diff_dates <- diff(dates)
     nrows <- nrow(wth)
 
-    if (unique_dates != nrows) {
+    if (unique_dates != nrows || diff_dates != 1L) {
       cli::cli_abort(
-        "Please check that the values in {.var wth} are on a daily time-step.
-        And that there are no missing values."
+        "Please check that the values in {.var wth} are on a daily time-step."
       )
     }
 
