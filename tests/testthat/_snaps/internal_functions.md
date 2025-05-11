@@ -22,3 +22,43 @@
       Error:
       ! `wth` must be an object of epicrop.wth.  You can create your `wth` object using either, `get_wth()` to fetch weather data from the NASA POWER API or format your own with `format_wth()`.
 
+# Failure if `duration` is <50
+
+    Code
+      .check_inputs(var_args)
+    Condition
+      Error in `cli::cli_alert_danger()`:
+      ! unused argument (call = rlang::caller_env())
+
+# Failure if `rhlim` is >100
+
+    Code
+      .check_inputs(var_args)
+    Condition
+      Error:
+      ! The value for `rhlim`, {rhlim}, is invalid. Valid values are any value between or equal to 0 to 100.
+
+# Warning if `duration` is > max RcA days
+
+    Code
+      .check_inputs(var_args)
+    Condition
+      Error:
+      ! `RcA` has a duration, {max_rca_day} that is less than `duration`, {duration} days. Please provide a matrix of values that aligns with `duration`.
+
+# Warning if `duration` is < max RcA days
+
+    Code
+      .check_inputs(var_args)
+    Condition
+      Error in `cli::cli_alert_info()`:
+      ! unused argument (call = rlang::caller_env())
+
+# Failure if TMIN/TMAX not supplied with `simple_wetness = FALSE`
+
+    Code
+      .check_inputs(var_args)
+    Condition
+      Error:
+      ! You have set `simple_wetness` to `TRUE` but you do not have 'TMIN' and 'TMAX' columns in your weather data. Please set `simple_wetness` to `FALSE` or provide 'TMIN' and 'TMAX' columns in your `wth` data.
+

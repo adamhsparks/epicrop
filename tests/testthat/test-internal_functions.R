@@ -81,7 +81,6 @@ test_that("Formatting fails if weather are not daily values", {
   rm(var_args)
 })
 
-
 test_that("Failure if `wth` is not of class `epicrop.wth`", {
   var_args <- list(
     "wth" = wth,
@@ -110,4 +109,159 @@ test_that("Failure if `wth` is not of class `epicrop.wth`", {
     error = TRUE
   )
   rm(var_args)
+})
+
+
+test_that("Failure if `duration` is <50", {
+  var_args <- list(
+    "wth" = wth_formatted,
+    "emergence" = "1999-07-01",
+    "onset" = 20,
+    "duration" = 45,
+    "rhlim" = 90,
+    "rainlim" = 5,
+    "RcA" = RcA,
+    "RcT" = RcT,
+    "I0" = 1,
+    "Rcopt" = 0.61,
+    "p" = 6,
+    "i" = 19,
+    "H0" = 600,
+    "a" = 1,
+    "Sx" = 100000,
+    "RRS" = 0.01,
+    "RRG" = 0.1,
+    "RcW" = NULL,
+    "simple_wetness" = TRUE
+  )
+
+  expect_snapshot(
+    .check_inputs(var_args),
+    error = TRUE
+  )
+  rm(var_args)
+})
+
+
+test_that("Failure if `rhlim` is >100", {
+  var_args <- list(
+    "wth" = wth_formatted,
+    "emergence" = "1999-07-01",
+    "onset" = 20,
+    "duration" = 120,
+    "rhlim" = 190,
+    "rainlim" = 5,
+    "RcA" = RcA,
+    "RcT" = RcT,
+    "I0" = 1,
+    "Rcopt" = 0.61,
+    "p" = 6,
+    "i" = 19,
+    "H0" = 600,
+    "a" = 1,
+    "Sx" = 100000,
+    "RRS" = 0.01,
+    "RRG" = 0.1,
+    "RcW" = NULL,
+    "simple_wetness" = TRUE
+  )
+
+  expect_snapshot(
+    .check_inputs(var_args),
+    error = TRUE
+  )
+  rm(var_args)
+})
+
+test_that("Warning if `duration` is > max RcA days", {
+  var_args <- list(
+    "wth" = wth_formatted,
+    "emergence" = "1999-07-01",
+    "onset" = 20,
+    "duration" = 140,
+    "rhlim" = 90,
+    "rainlim" = 5,
+    "RcA" = RcA,
+    "RcT" = RcT,
+    "I0" = 1,
+    "Rcopt" = 0.61,
+    "p" = 6,
+    "i" = 19,
+    "H0" = 600,
+    "a" = 1,
+    "Sx" = 100000,
+    "RRS" = 0.01,
+    "RRG" = 0.1,
+    "RcW" = NULL,
+    "simple_wetness" = TRUE
+  )
+
+  expect_snapshot(
+    .check_inputs(var_args),
+    error = TRUE
+  )
+  rm(var_args)
+})
+
+
+test_that("Warning if `duration` is < max RcA days", {
+  var_args <- list(
+    "wth" = wth_formatted,
+    "emergence" = "1999-07-01",
+    "onset" = 20,
+    "duration" = 100,
+    "rhlim" = 90,
+    "rainlim" = 5,
+    "RcA" = RcA,
+    "RcT" = RcT,
+    "I0" = 1,
+    "Rcopt" = 0.61,
+    "p" = 6,
+    "i" = 19,
+    "H0" = 600,
+    "a" = 1,
+    "Sx" = 100000,
+    "RRS" = 0.01,
+    "RRG" = 0.1,
+    "RcW" = NULL,
+    "simple_wetness" = TRUE
+  )
+
+  expect_snapshot(
+    .check_inputs(var_args),
+    error = TRUE
+  )
+  rm(var_args)
+})
+
+
+test_that("Failure if TMIN/TMAX not supplied with `simple_wetness = FALSE`", {
+  wth2 <- wth_formatted[, -c("TMIN", "TMAX")]
+  var_args <- list(
+    "wth" = wth2,
+    "emergence" = "1999-07-01",
+    "onset" = 20,
+    "duration" = 120,
+    "rhlim" = 90,
+    "rainlim" = 5,
+    "RcA" = RcA,
+    "RcT" = RcT,
+    "I0" = 1,
+    "Rcopt" = 0.61,
+    "p" = 6,
+    "i" = 19,
+    "H0" = 600,
+    "a" = 1,
+    "Sx" = 100000,
+    "RRS" = 0.01,
+    "RRG" = 0.1,
+    "RcW" = NULL,
+    "simple_wetness" = FALSE
+  )
+
+  expect_snapshot(
+    .check_inputs(var_args),
+    error = TRUE
+  )
+  rm(wth2, var_args)
 })
