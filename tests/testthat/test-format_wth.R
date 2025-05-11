@@ -35,3 +35,19 @@ test_that("Formatting fails if weather are not daily values", {
     )
   )
 })
+
+test_that("Formatting weather fails if cols are not provided", {
+  expect_error(
+    format_wth(
+      wth = 1:20,
+      date = "YYYYMMDD",
+      temp = "T2M",
+      rhum = "RH2M",
+      rain = "PRECTOTCORR",
+      tmin = "T2M_MIN",
+      tmax = "T2M_MAX",
+      lat = "LAT",
+      lon = "LON"
+    )
+  )
+})

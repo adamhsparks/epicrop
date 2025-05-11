@@ -114,55 +114,51 @@ format_wth <- function(
     )
   }
 
-  if (inherits(wth, "data.frame")) {
-    wth <- data.table(wth)
+  wth <- data.table(wth)
 
-    dates <- .check_date(wth[[date]])
-    unique_dates <- length(unique(dates))
-    diff_dates <- diff(dates)
-    nrows <- nrow(wth)
+  dates <- .check_date(wth[[date]])
+  unique_dates <- length(unique(dates))
+  diff_dates <- diff(dates)
+  nrows <- nrow(wth)
 
-    if (unique_dates != nrows || diff_dates != 1L) {
-      cli::cli_abort(
-        "Please check that the values in {.var wth} are on a daily time-step."
-      )
-    }
+  if ((unique_dates != nrows) || (any(as.numeric(diff_dates) != 1.0))) {
+    cli::cli_abort(
+      "Please check that the values in {.var wth} are on a daily time-step."
+    )
+  }
 
-    if (length(passed_args) == 8L) {
-      old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
-      new_names <- c(
-        "YYYYMMDD",
-        "TEMP",
-        "TMIN",
-        "TMAX",
-        "RHUM",
-        "RAIN",
-        "LAT",
-        "LON"
-      )
-      setnames(wth, old = old_names, new = new_names)
-      # select only the columns that are needed
-      wth <- wth[, new_names, with = FALSE]
-    } else {
-      q
-      old_names <- c(date, temp, rhum, rain)
-
-      new_names <- c(
-        "YYYYMMDD",
-        "TEMP",
-        "RHUM",
-        "RAIN"
-      )
-      setnames(
-        wth,
-        old = old_names,
-        new = new_names
-      )
-      # select only the columns that are needed
-      wth <- wth[, new_names, with = FALSE]
-    }
+  if (length(passed_args) == 8L) {
+    old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
+    new_names <- c(
+      "YYYYMMDD",
+      "TEMP",
+      "TMIN",
+      "TMAX",
+      "RHUM",
+      "RAIN",
+      "LAT",
+      "LON"
+    )
+    setnames(wth, old = old_names, new = new_names)
+    # select only the columns that are needed
+    wth <- wth[, new_names, with = FALSE]
   } else {
-    cli::cli_abort("{.var wth} must be a data.frame.")
+    q
+    old_names <- c(date, temp, rhum, rain)
+
+    new_names <- c(
+      "YYYYMMDD",
+      "TEMP",
+      "RHUM",
+      "RAIN"
+    )
+    setnames(
+      wth,
+      old = old_names,
+      new = new_names
+    )
+    # select only the columns that are needed
+    wth <- wth[, new_names, with = FALSE]
   }
 
   # Add the Julian day of year
