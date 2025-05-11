@@ -109,6 +109,7 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 
 ``` r
 library(ggplot2)
+#> Learn more about the underlying theory at https://ggplot2-book.org/
 ggplot(seasons,
        aes(y = as.factor(season),
            x = AUDPC)) +
@@ -599,14 +600,14 @@ mbm <- microbenchmark(
     .x = wth,
     .y = emergence_dates,
     .f = ~ bacterial_blight(emergence = .y,
-                                    wth = .x)
+                            wth = .x)
   ) |>
     bind_rows(.id = "emergence"),
   parallel = future_map2(
     .x = wth,
     .y = emergence_dates,
     .f = ~ bacterial_blight(emergence = .y,
-                                    wth = .x),
+                            wth = .x),
     .options = furrr_options(seed = NULL)
   ) |>
     bind_rows(.id = "emergence"),
@@ -616,8 +617,8 @@ mbm <- microbenchmark(
 mbm
 #> Unit: milliseconds
 #>        expr       min        lq      mean    median        uq      max neval
-#>  sequential  62.26871  65.68719  69.19407  67.64563  69.77159 126.5968   100
-#>    parallel 170.82588 173.78147 179.05445 175.92219 182.01774 217.4298   100
+#>  sequential  65.36552  67.64861  71.11857  69.72772  71.63731 122.4087   100
+#>    parallel 177.63840 181.73166 185.47845 183.40686 186.50072 210.3575   100
 
 autoplot(mbm) +
   theme_classic()

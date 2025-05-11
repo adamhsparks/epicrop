@@ -456,14 +456,14 @@ mbm <- microbenchmark(
     .x = wth,
     .y = emergence_dates,
     .f = ~ bacterial_blight(emergence = .y,
-                                    wth = .x)
+                            wth = .x)
   ) |>
     bind_rows(.id = "emergence"),
   parallel = future_map2(
     .x = wth,
     .y = emergence_dates,
     .f = ~ bacterial_blight(emergence = .y,
-                                    wth = .x),
+                            wth = .x),
     .options = furrr_options(seed = NULL)
   ) |>
     bind_rows(.id = "emergence"),
