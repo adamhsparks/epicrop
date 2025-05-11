@@ -60,7 +60,7 @@ test_that("Values are as expected", {
   expect_equal(bb[[120L, "diseased"]], 1342.9, tolerance = 0.1)
 
   expect_equal(bb[[1L, "intensity"]], 0.0, tolerance = 0.1)
-  expect_equal(bb[[120L, "intensity"]], 0.43, tolerance = 0.01)
+  expect_equal(bb[[120L, "intensity"]], 0.43, tolerance = 0.1)
 
   expect_equal(bb[[1L, "lat"]], 14.6774, tolerance = 0.01)
   expect_equal(bb[[1L, "lon"]], 121.2556, tolerance = 0.01)

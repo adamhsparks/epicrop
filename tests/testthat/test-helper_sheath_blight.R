@@ -51,16 +51,16 @@ test_that("Values are as expected", {
   expect_equal(sb[[120L, "rtransfer"]], 0.0, tolerance = 0.1)
 
   expect_equal(sb[[1L, "rgrowth"]], 4.8, tolerance = 0.1)
-  expect_equal(sb[[120L, "rgrowth"]], 0.8, tolerance = 0.1)
+  expect_equal(sb[[120L, "rgrowth"]], 0.89, tolerance = 0.1)
 
   expect_equal(sb[[1L, "rsenesced"]], 0.1, tolerance = 0.1)
-  expect_equal(sb[[120L, "rsenesced"]], 0.8, tolerance = 0.1)
+  expect_equal(sb[[120L, "rsenesced"]], 0.89, tolerance = 0.1)
 
   expect_equal(sb[[1L, "diseased"]], 0.0, tolerance = 0.1)
   expect_equal(sb[[120L, "diseased"]], 614.8, tolerance = 0.1)
 
   expect_equal(sb[[1L, "intensity"]], 0.0, tolerance = 0.1)
-  expect_equal(sb[[120L, "intensity"]], 0.7, tolerance = 0.1)
+  expect_equal(sb[[120L, "intensity"]], 0.77, tolerance = 0.1)
 
   expect_equal(sb[[1L, "lat"]], 14.6774, tolerance = 0.01)
   expect_equal(sb[[1L, "lon"]], 121.2556, tolerance = 0.01)

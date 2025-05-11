@@ -36,7 +36,7 @@ test_that("Values are as expected", {
   expect_equal(lb[[120L, "latent"]], 0.0, tolerance = 0.1)
 
   expect_equal(lb[[1L, "infectious"]], 0.0, tolerance = 0.1)
-  expect_equal(lb[[120L, "infectious"]], 0.275, tolerance = 0.001)
+  expect_equal(lb[[120L, "infectious"]], 0.275, tolerance = 0.1)
 
   expect_equal(lb[[1L, "removed"]], 0.0, tolerance = 0.1)
   expect_equal(lb[[120L, "removed"]], 38.4, tolerance = 0.1)

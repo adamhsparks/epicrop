@@ -74,6 +74,7 @@ ByteCompile: TRUE
 Config/Needs/build: moodymudskipper/devtag
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 NeedsCompilation: no
