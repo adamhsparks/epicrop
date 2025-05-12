@@ -27,8 +27,8 @@
     Code
       .check_inputs(var_args)
     Condition
-      Error in `cli::cli_alert_danger()`:
-      ! unused argument (call = rlang::caller_env())
+      Error:
+      ! `duration` is < 50 days, is this intended?
 
 # Failure if `rhlim` is >100
 
@@ -44,7 +44,7 @@
       .check_inputs(var_args)
     Condition
       Error:
-      ! `RcA` has a duration, {max_rca_day} that is less than `duration`, {duration} days. Please provide a matrix of values that aligns with `duration`.
+      ! `RcA` has a duration, 120, that is less than `duration`, 140 days. Please provide a matrix of values that aligns with `duration`.
 
 # Failure if TMIN/TMAX not supplied with `simple_wetness = FALSE`
 

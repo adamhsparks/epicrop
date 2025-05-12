@@ -96,8 +96,8 @@
     }
 
     if (seir_passed_args$duration < 50.0) {
-      cli::cli_alert_danger(
-        "{.var duration} is < 80 days, is this intended?",
+      cli::cli_abort(
+        "{.var duration} is < 50 days, is this intended?",
         call = rlang::caller_env()
       )
     }
@@ -113,18 +113,19 @@
     max_rca_day <- max(RcA[, 1L])
 
     if (max_rca_day > seir_passed_args$duration) {
-      cli::cli_alert_info(
-        "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
-           {.var duration}, {{duration}} days.  A truncated matrix of values
-           will be used that stops at {.var duration} days ({{duration}})."
+      cli::cli_warn(
+        "{.var RcA} has a duration, {max_rca_day}, that is greater than
+         {.var duration}, {seir_passed_args$duration} days.  A truncated
+         matrix of values will be used that stops at {.var duration} days
+         ({seir_passed_args$duration})."
       )
     }
 
     if (max_rca_day < seir_passed_args$duration) {
       cli::cli_abort(
-        "{.var RcA} has a duration, {{max_rca_day}} that is less than
-           {.var duration}, {{duration}} days. Please provide a matrix of
-            values that aligns with {.var duration}.",
+        "{.var RcA} has a duration, {max_rca_day}, that is less than
+        {.var duration}, {seir_passed_args$duration} days. Please provide a
+        matrix of values that aligns with {.var duration}.",
         call = rlang::caller_env()
       )
     }
