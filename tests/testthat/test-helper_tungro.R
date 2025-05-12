@@ -26,7 +26,7 @@ test_that("Values are as expected", {
     )
   )
 
-  expect_is(tungro, c("data.table", "data.frame"))
+  expect_s3_class(tungro, c("data.table", "data.frame"))
   expect_identical(nrow(tungro), 120L)
 
   expect_equal(tungro[[1L, "sites"]], 100.0, tolerance = 0.1)

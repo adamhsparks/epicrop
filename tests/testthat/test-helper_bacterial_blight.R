@@ -26,7 +26,7 @@ test_that("Values are as expected", {
     )
   )
 
-  expect_is(bb, c("data.table", "data.frame"))
+  expect_s3_class(bb, c("data.table", "data.frame"))
   expect_identical(nrow(bb), 120L)
 
   expect_equal(bb[[1L, "sites"]], 100.0)
