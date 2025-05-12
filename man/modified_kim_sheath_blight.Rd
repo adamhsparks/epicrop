@@ -5,8 +5,8 @@
 \alias{mk_sb}
 \title{Predict Rice Sheath Blight Intensity Using a Modified Kim Model}
 \source{
-Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
-\doi{doi.org/10.6084/m9.figshare.1515884.v1}
+Kim, Kwang-Hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+\doi{10.6084/m9.figshare.1515884.v1}
 }
 \usage{
 modified_kim_sheath_blight(wth, emergence, ...)
@@ -59,20 +59,17 @@ If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will 
 in the output for mapping purposes. Both values must be present. These
 columns are provided by default when using \link{get_wth}.
 }
-\section{Modifications to Kim \emph{et al.} 2015}{
+\section{Function Provenence and Modifications to Kim \emph{et al.} 2015}{
 
-The original code for this function from Kim _et al. 2015 had an incorrect
-relative rate of growth (RRG) value. The original code had the following
-values:
-\itemize{
-\item Days: \code{c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)}
-\item Modifier: \code{c(0.12, 0.12, 0.11, 0.11, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09, 0.05, 0.01, 0.0001)}
-Note that there are 13 values in the vectors, this will not run as \link{seir}
-expects 12 values. The last value, \code{0.0001}, is not used in \pkg{epicrop}.
+The original code for this function from Kim _et al. 2015 set up 120 day
+growing season vector for \code{RRG}. The paper used an 85 day \code{duration}, this
+function has been modified to use an \code{RRG} suitable for 85 days.
+
 The original code for this function also had an incorrect matrix for the
 relative rate of physiological growth modifier, \code{RRG} or \code{RRPhysioloGrowth}
 in Kim \emph{et al.} 2015. The original
 matrix had the following values:
+\itemize{
 \item Hours: \verb{c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L}
 \item Modifier: c(0.15, 0.21, 0.11, 0.0001, 0.0001, 0.001, 0.005, 0.005, 0.005,
 0.005, 0.005, 0.005, 0.005))
@@ -95,7 +92,10 @@ wetness duration changed with time rather than being 0 or 1 as in Savary
 \emph{et al.} 2012, the original code available does not implement this.
 \pkg{epicrop} offers the option to do this by setting
 \code{simple_wetness = FALSE}, but the results may differ from the published
-values if this is used.
+values if this is used.  Further changes were made to the length of the
+growing season where the example code ran for 100 days, the paper ran for 77.
+This function has been written to match the paper's 77 day growing season
+duration and RcA and RRG have been modified accordingly.
 
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These

@@ -5,8 +5,8 @@
 \alias{mk_lb}
 \title{Predict Rice Leaf Blast Intensity Using Modified Kim Model}
 \source{
-Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
-\doi{doi.org/10.6084/m9.figshare.1515884.v1}
+Kim, Kwang-Hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+\doi{10.6084/m9.figshare.1515884.v1}
 }
 \usage{
 modified_kim_leaf_blast(wth, emergence, ...)
@@ -74,7 +74,10 @@ wetness duration changed with time rather than being 0 or 1 as in Savary
 \emph{et al.} 2012, the original code available does not implement this.
 \pkg{epicrop} offers the option to do this by setting
 \code{simple_wetness = FALSE}, but the results may differ from the published
-values if this is used.
+values if this is used.  Further changes were made to the length of the
+growing season where the example code ran for 100 days, the paper ran for 77.
+This function has been written to match the paper's 77 day growing season
+duration and RcA and RRG have been modified accordingly.
 
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These
