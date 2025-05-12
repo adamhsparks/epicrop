@@ -115,8 +115,7 @@
       cli::cli_alert_info(
         "{.var RcA} has a duration, {{max_rca_day}}, that is greater than
            {.var duration}, {{duration}} days.  A truncated matrix of values
-           will be used that stops at {.var duration} days ({{duration}}).",
-        call = rlang::caller_env()
+           will be used that stops at {.var duration} days ({{duration}})."
       )
     }
 
