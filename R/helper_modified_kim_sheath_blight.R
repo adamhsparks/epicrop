@@ -27,16 +27,12 @@
 #' @inheritSection seir TMIN/TMAX Details
 #' @inheritSection seir LAT/LON Details
 #'
-#' @section Modifications to Kim _et al._ 2015:
-#' The original code for this function from Kim _et al. 2015 had an incorrect
-#' relative rate of growth (RRG) value. The original code had the following
-#' values:
-#' * Days: `c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)`
-#' * Modifier: `c(0.12, 0.12, 0.11, 0.11, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09,
-#'                0.05, 0.01, 0.0001)`
-#' Note that there are 13 values in the vectors, this will not run as [seir]
-#' expects 12 values. The last value, `0.0001`, is not used in \pkg{epicrop}.
-#'  The original code for this function also had an incorrect matrix for the
+#' @section Function Provenence and Modifications to Kim _et al._ 2015:
+#' The original code for this function from Kim _et al. 2015 set up 120 day
+#' growing season vector for `RRG`. The paper used an 85 day `duration`, this
+#' function has been modified to use an `RRG` suitable for 85 days.
+#'
+#' The original code for this function also had an incorrect matrix for the
 #' relative rate of physiological growth modifier, `RRG` or `RRPhysioloGrowth`
 #' in Kim _et al._ 2015. The original
 #' matrix had the following values:
@@ -65,8 +61,8 @@
 #' @author Kwang-Hyung Kim, Serge Savary, Ireneo Pangga, Robert Hijmans,
 #' Jorrel Khalil Aunario, and Adam H. Sparks
 #'
-#' @source Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
-#' \doi{doi.org/10.6084/m9.figshare.1515884.v1}
+#' @source Kim, Kwang-Hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+#' \doi{10.6084/m9.figshare.1515884.v1}
 #'
 #' @references
 #' Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015). Predicting potential
@@ -123,14 +119,14 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
     wth = wth,
     emergence = emergence,
     onset = 30L,
-    duration = 100L,
+    duration = 88L,
     rhlim = 95L,
     rainlim = 5L,
     H0 = 90L,
     I0 = 1L,
     RcA = cbind(
-      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L),
-      c(0.43, 0.5, 0.73, 0.81, 0.94, 1.0, 1.0, 1.0, 1.0, 1.0, 0.8)
+      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 88L),
+      c(0.43, 0.5, 0.73, 0.81, 0.94, 1.0, 1.0, 1.0, 1.0, 1.0)
     ),
     RcT = cbind(
       c(12L, 15L, 18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L),
@@ -143,12 +139,11 @@ modified_kim_sheath_blight <- function(wth, emergence, ...) {
     a = 2.8,
     RRS = 0.005,
     RRG = cbind(
-      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L),
+      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 88L),
       c(
         0.15,
         0.21,
         0.11,
-        0.0001,
         0.0001,
         0.0001,
         0.0001,
