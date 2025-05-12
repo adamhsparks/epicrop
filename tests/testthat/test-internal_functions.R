@@ -197,7 +197,8 @@ test_that("Warning if `duration` is > max RcA days", {
   )
 
   expect_snapshot(
-    .check_inputs(var_args)
+    .check_inputs(var_args),
+    error = TRUE
   )
   rm(var_args)
 })
@@ -226,9 +227,8 @@ test_that("Warning if `duration` is < max RcA days", {
     "simple_wetness" = TRUE
   )
 
-  expect_snapshot(
-    .check_inputs(var_args),
-    error = TRUE
+  expect_warning(
+    .check_inputs(var_args)
   )
   rm(var_args)
 })
