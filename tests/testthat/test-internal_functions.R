@@ -265,3 +265,17 @@ test_that("Failure if TMIN/TMAX not supplied with `simple_wetness = FALSE`", {
   )
   rm(wth2, var_args)
 })
+
+# .check_date()
+
+test_that("Failure if object should be date but cannot be formatted as such", {
+  expect_snapshot(.check_date(x = "string"), error = TRUE)
+})
+
+# .check_establishment
+
+test_that("Vectors of establishment dates only use the first", {
+  expect_snapshot(
+    .check_emergence_date(x = c("2000-06-01", "2000-06-02"))
+  )
+})
