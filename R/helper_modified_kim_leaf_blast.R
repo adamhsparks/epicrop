@@ -21,7 +21,10 @@
 #' _et al._ 2012, the original code available does not implement this.
 #' \pkg{epicrop} offers the option to do this by setting
 #' `simple_wetness = FALSE`, but the results may differ from the published
-#' values if this is used.
+#' values if this is used.  Further changes were made to the length of the
+#' growing season where the example code ran for 100 days, the paper ran for 77.
+#' This function has been written to match the paper's 77 day growing season
+#' duration and RcA and RRG have been modified accordingly.
 #'
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
@@ -65,8 +68,8 @@
 #' Jorrel Khalil Aunario, and Adam H. Sparks
 #'
 #' @source
-#' Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
-#' \doi{doi.org/10.6084/m9.figshare.1515884.v1}
+#' Kim, Kwang-Hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+#' \doi{10.6084/m9.figshare.1515884.v1}
 #'
 #' @references
 #' Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015). Predicting potential
@@ -115,7 +118,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
     wth = wth,
     emergence = emergence,
     onset = 15L,
-    duration = 100L,
+    duration = 77L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 600L,
@@ -137,12 +140,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
         60L,
         65L,
         70L,
-        75L,
-        80L,
-        85L,
-        90L,
-        95L,
-        100L
+        77L
       ),
       c(
         1.0,
@@ -160,12 +158,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
         0.1,
         0.05,
         0.03,
-        0.03,
-        0.02,
-        0.02,
-        0.02,
-        0.01,
-        0.01
+        0.03
       )
     ),
     RcT = cbind(
@@ -179,7 +172,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
     Sx = 90000L,
     RRS = 0.005,
     RRG = cbind(
-      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L),
+      c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 77L),
       c(
         0.12,
         0.12,
@@ -189,9 +182,7 @@ modified_kim_leaf_blast <- function(wth, emergence, ...) {
         0.09,
         0.09,
         0.09,
-        0.09,
-        0.09,
-        0.05
+        0.09
       )
     ),
     RcW = cbind(
