@@ -46,14 +46,6 @@
       Error:
       ! `RcA` has a duration, {max_rca_day} that is less than `duration`, {duration} days. Please provide a matrix of values that aligns with `duration`.
 
-# Warning if `duration` is < max RcA days
-
-    Code
-      .check_inputs(var_args)
-    Condition
-      Error in `cli::cli_alert_info()`:
-      ! unused argument (call = rlang::caller_env())
-
 # Failure if TMIN/TMAX not supplied with `simple_wetness = FALSE`
 
     Code

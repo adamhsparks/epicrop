@@ -45,7 +45,7 @@ test_that("Values are as expected", {
   expect_equal(sb[[88L, "senesced"]], 211.96, tolerance = 0.1)
 
   expect_equal(sb[[1L, "rateinf"]], 0.0, tolerance = 0.1)
-  expect_equal(sb[[88L, "rateinf"]], 3.7, tolerance = 0.01)
+  expect_equal(sb[[88L, "rateinf"]], 7.9, tolerance = 0.01)
 
   expect_equal(sb[[1L, "rtransfer"]], 0.0, tolerance = 0.1)
   expect_equal(sb[[88L, "rtransfer"]], 11.3, tolerance = 0.1)

@@ -197,8 +197,7 @@ test_that("Warning if `duration` is > max RcA days", {
   )
 
   expect_snapshot(
-    .check_inputs(var_args),
-    error = TRUE
+    .check_inputs(var_args)
   )
   rm(var_args)
 })
