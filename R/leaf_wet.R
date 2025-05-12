@@ -25,7 +25,7 @@
 #'   boundary, _i.e._, `rhlim` will be set to 1 and anything > `rhlim` will be
 #'   set to 0. For the `rainlim`, anything > `rainlim` will be set to 1.
 #'
-#' @returns A numeric vector of leaf wetness values for use with `Rc_wet`.
+#' @returns A numeric vector of daily leaf wetness values for use with `Rc_wet`.
 #' @dev
 #' @autoglobal
 #' @author Robert J. Hijmans with modifications by Adam H. Sparks,
@@ -45,7 +45,7 @@
   lat <- wth$LAT
   doy <- wth$DOY
 
-  rh <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
+  rh_hr <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
 
   if (isFALSE(weighted_wetness)) {
     lw <- unlist(lapply(X = rh_hr, FUN = .check_threshold, rhlim = rhlim))

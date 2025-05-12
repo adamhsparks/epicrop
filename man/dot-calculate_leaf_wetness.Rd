@@ -28,7 +28,7 @@ boundary, \emph{i.e.}, \code{rhlim} will be set to 1 and anything > \code{rhlim}
 set to 0. For the \code{rainlim}, anything > \code{rainlim} will be set to 1.}
 }
 \value{
-A numeric vector of leaf wetness values for use with \code{Rc_wet}.
+A numeric vector of daily leaf wetness values for use with \code{Rc_wet}.
 }
 \description{
 Calculate a leaf wetness value between \code{0} and \code{1} based on the relative

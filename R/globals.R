@@ -2,7 +2,6 @@
 
 utils::globalVariables(c(
   "DOY", # <format_wth>
-  "rh_hr", # <.calculate_leaf_wetness>
   "YYYYMMDD", # <seir>
   "lat", # <seir>
   "LAT", # <seir>
