@@ -81,7 +81,8 @@
       cli::cli_abort(
         "{.var wth} must be an object of {.class epicrop.wth}.  You can create
            your {.var wth} object using either, {.fn get_wth} to fetch weather
-           data from the NASA POWER API or format your own with {.fn format_wth}.",
+           data from the NASA POWER API or format your own with
+           {.fn format_wth}.",
         call = rlang::caller_env()
       )
     }
