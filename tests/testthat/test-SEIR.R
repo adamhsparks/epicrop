@@ -137,7 +137,7 @@ test_that("seir() converts wth to a data.table object if it is not already", {
   )
 })
 
-test_that("`seir()` switches to the complex leaf wetness calculation", {
+test_that("`seir()` fails when `RcW` is not a matrix for complex leaf wetness calculation", {
   expect_snapshot(
     seir(
       wth = wth_formatted,
@@ -163,5 +163,6 @@ test_that("`seir()` switches to the complex leaf wetness calculation", {
     error = TRUE
   )
 })
+
 
 withr::deferred_clear()
