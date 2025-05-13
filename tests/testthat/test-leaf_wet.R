@@ -47,3 +47,15 @@ test_that("Values decrease as limits increase w/ no weights", {
 test_that("weighted_wetness returns plausible values", {
   expect_length(weighted_default, 185L)
 })
+
+test_that("weighted_wetness stops if `rhlim < 80`", {
+  expect_snapshot(
+    .calculate_leaf_wetness(
+      weighted_wetness = TRUE,
+      wth = wth_formatted,
+      rhlim = 70.0,
+      rainlim = 5.0
+    ),
+    error = TRUE
+  )
+})
