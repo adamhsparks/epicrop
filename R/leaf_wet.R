@@ -50,7 +50,7 @@
   if (isFALSE(weighted_wetness)) {
     lw <- unlist(lapply(X = rh_hr, FUN = .check_threshold, rhlim = rhlim))
   } else {
-    w <- lapply(X = rh, FUN = .calculate_weighted_hr_wet, rhlim = rhlim)
+    w <- lapply(X = rh_hr, FUN = .calculate_weighted_hr_wet, rhlim = rhlim)
     lw <- unlist(lapply(X = w, FUN = sum))
   }
 
@@ -260,17 +260,27 @@
 #' Calculates the weighted hourly leaf wetness value
 #'
 #' @note This functionality is just a placeholder for future possible work.
-#' This particular function is set up but not exposed to users and so there is
-#' no `@dev` tag for it yet.
+#' This particular function is set up but not exposed to users yet.
 #'
 #' @param rh A numeric vector of relative humidity values.
-#' @param rhlim The relative humidity threshold to check against.
+#' @param rhlim The relative humidity threshold to check against between `80` &
+#'  `100`.
 #'
 #' @examples
-#' .calc_weighted_hr_wet(rh = 86, rhlim = 95)
+#' .calculate_weighted_hr_wet(rh = 86, rhlim = 95)
+#'
+#' @returns A `vector` of weighted values between 0 and 1 depending on the
+#' `rhlim`
+#'
 #' @dev
 #'
 .calculate_weighted_hr_wet <- function(rh, rhlim) {
+  if (rhlim < 80) {
+    cli::cli_abort(
+      "You have set your {.var rhlim} below 80%. This value must be between `80`
+      and `100` to properly work with weighted hourly leaf wetness."
+    )
+  }
   w <- rh
   x <- (rh - 80.0) / (rhlim - 80.0)
   w[rh >= rhlim] <- 1.0
