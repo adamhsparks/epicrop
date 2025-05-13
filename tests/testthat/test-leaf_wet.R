@@ -19,6 +19,13 @@ no_weight_high_limit <- .calculate_leaf_wetness(
   rainlim = 10.0
 )
 
+weighted_default <- .calculate_leaf_wetness(
+  weighted_wetness = TRUE,
+  wth = wth_formatted,
+  rhlim = 90.0,
+  rainlim = 5.0
+)
+
 test_that("a vector of daily summed hourly values is returned w/ no weights", {
   expect_length(no_weight_default, 185L)
   expect_equal(no_weight_default[[1L]], 13.101, tolerance = 0.1)
