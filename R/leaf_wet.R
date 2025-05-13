@@ -275,7 +275,7 @@
 #' @dev
 #'
 .calculate_weighted_hr_wet <- function(rh, rhlim) {
-  if (rhlim < 80) {
+  if (rhlim < 80.0) {
     cli::cli_abort(
       "You have set your {.var rhlim} below 80%. This value must be between `80`
       and `100` to properly work with weighted hourly leaf wetness.",
