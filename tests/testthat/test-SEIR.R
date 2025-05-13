@@ -165,4 +165,33 @@ test_that("`seir()` fails when `RcW` is not a matrix for complex leaf wetness ca
 })
 
 
+test_that("`seir()` switches to complex leaf wetness calculation", {
+  expect_snapshot(
+    seir(
+      wth = wth_formatted,
+      emergence = "2000-07-01",
+      onset = 20.0,
+      duration = 120.0,
+      rhlim = 90.0,
+      rainlim = 5.0,
+      RcA = RcA,
+      RcT = RcT,
+      I0 = 1.0,
+      RcOpt = 0.61,
+      p = 6.0,
+      i = 19.0,
+      H0 = 600.0,
+      a = 1.0,
+      Sx = 100000.0,
+      RRS = 0.01,
+      RRG = 0.1,
+      RcW = cbind(
+        c(4L, 6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L),
+        c(0.0, 0.24, 0.41, 0.68, 0.94, 0.97, 1.0, 1.0, 1.0, 1.0, 1.0)
+      ),
+      simple_wetness = FALSE
+    )
+  )
+})
+
 withr::deferred_clear()
