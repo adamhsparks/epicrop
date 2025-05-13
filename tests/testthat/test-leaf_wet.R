@@ -43,3 +43,7 @@ test_that("Values decrease as limits increase w/ no weights", {
   expect_equal(no_weight_high_limit[[1L]], 9.688125, tolerance = 0.1)
   expect_gt(no_weight_default[[1L]], no_weight_high_limit[[1L]])
 })
+
+test_that("weighted_wetness returns plausible values", {
+  expect_length(weighted_default, 185L)
+})
