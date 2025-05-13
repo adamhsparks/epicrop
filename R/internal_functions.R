@@ -141,6 +141,14 @@
         call = rlang::caller_env()
       )
     }
+
+    if (isFALSE(simple_wetness) && (RcW == 1L)) {
+      cli::cli_abort(
+        "You have set {.var simple_wetness} to {.code TRUE} but you have not
+        provided a matrix of weighted values for {.var RcW}",
+        call = rlang::caller_env()
+      )
+    }
   }
 
 
