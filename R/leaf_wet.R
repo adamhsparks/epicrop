@@ -278,7 +278,8 @@
   if (rhlim < 80) {
     cli::cli_abort(
       "You have set your {.var rhlim} below 80%. This value must be between `80`
-      and `100` to properly work with weighted hourly leaf wetness."
+      and `100` to properly work with weighted hourly leaf wetness.",
+      call = rlang::caller_env()
     )
   }
   w <- rh
