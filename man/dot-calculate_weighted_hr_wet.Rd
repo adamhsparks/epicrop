@@ -9,17 +9,22 @@
 \arguments{
 \item{rh}{A numeric vector of relative humidity values.}
 
-\item{rhlim}{The relative humidity threshold to check against.}
+\item{rhlim}{The relative humidity threshold to check against between \code{80} &
+\code{100}.}
+}
+\value{
+A \code{vector} of weighted values between 0 and 1 depending on the
+\code{rhlim}
 }
 \description{
 Calculates the weighted hourly leaf wetness value
 }
 \note{
 This functionality is just a placeholder for future possible work.
-This particular function is set up but not exposed to users and so there is
-no \verb{@dev} tag for it yet.
+This particular function is set up but not exposed to users yet.
 }
 \examples{
-.calc_weighted_hr_wet(rh = 86, rhlim = 95)
+.calculate_weighted_hr_wet(rh = 86, rhlim = 95)
+
 }
 \keyword{internal}
