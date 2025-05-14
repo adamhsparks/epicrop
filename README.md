@@ -218,9 +218,8 @@ By contributing to this project, you agree to abide by its terms.
 Brun François, David Makowski, Daniel Wallach, and James W Jones.
 (2018).
 ZeBook: Working with Dynamic Models for Agriculture and Environment.
-doi:[10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) 
+DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) 
 R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
-
 
 Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
 (2009).
