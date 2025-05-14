@@ -208,6 +208,12 @@ ggplot(
 Please note that the epicrop project is released with a [Contributor Code of Conduct](https://codeberg.org/adamhsparks/epicrop/src/branch/main/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
 
+## Other Implementations in R
+
+ - The EPIRICE model was originally written in R as a part of the [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) package (Himans et al. 2009).
+
+ - The EPIRICE model is also available from CRAN in the [{ZeBook}](https://cran.r-project.org/web/packages/ZeBook/index.html) package to accompany, "Working with dynamic crop models : methods, tools and examples for agriculture and environment" (Wallach _et al._ 2018).
+
 # References
 
 Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
@@ -234,3 +240,6 @@ Jan C. Zadoks.
 Systems Analysis and the Dynamics of Epidemics.
 *Phytopathology* 61:600.
 DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+
+Wallach, Daniel,  David Makowski, James W. Jones, and François Brun.
+_Working with dynamic crop models: methods, tools and examples for agriculture and environment_. Academic Press, 2018.
