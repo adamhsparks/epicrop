@@ -227,7 +227,8 @@ Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
 Simulation modeling of crops and their diseases.
 R package version 0.2-6.
 
-Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.(2012).
+Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.
+(2012).
 Modeling and mapping potential epidemics of rice diseases globally.
 *Crop Protection*, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
@@ -237,7 +238,8 @@ Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rus
 *European Journal of Plant Pathology* 142, no. 4:771–90.
 DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
-Adam Sparks (2018).
+Adam Sparks.
+(2018).
 nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R.
 *Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
