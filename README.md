@@ -210,9 +210,9 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Other Implementations in R
 
- - The EPIRICE model was originally written in R as a part of the [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) package (Himans et al. 2009).
+ - The EPIRICE model was originally written in R as a part of the [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) package (Himans _et al._ 2009).
 
- - The EPIRICE model is also available from CRAN in the [{ZeBook}](https://cran.r-project.org/web/packages/ZeBook/index.html) package (Brun et al. 2018) to accompany, "Working with dynamic crop models : methods, tools and examples for agriculture and environment" (Wallach _et al._ 2018).
+ - The EPIRICE model is also available from CRAN in the [{ZeBook}](https://cran.r-project.org/web/packages/ZeBook/index.html) package (Brun _et al._ 2018) to accompany, "Working with dynamic crop models : methods, tools and examples for agriculture and environment" (Wallach _et al._ 2018).
 
 # References
 Brun François, David Makowski, Daniel Wallach, and James W Jones.
