@@ -59,7 +59,7 @@ If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will 
 in the output for mapping purposes. Both values must be present. These
 columns are provided by default when using \link{get_wth}.
 }
-\section{Function Provenence and Modifications to Kim \emph{et al.} 2015}{
+\section{Function Provenance and Modifications to Kim \emph{et al.} 2015}{
 
 The original code for this function from Kim _et al. 2015 set up 120 day
 growing season vector for \code{RRG}. The paper used an 85 day \code{duration}, this

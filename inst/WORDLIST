@@ -34,7 +34,6 @@ Elazegui
 Esker
 Eskridge
 Fabrice
-Finney
 Forsythe
 François
 Ganguly
@@ -71,6 +70,7 @@ Lifecycle
 Lukens
 Luo
 Magnaporthe
+Makowski
 Medalla
 Microbenchmark
 Modelling
@@ -109,7 +109,6 @@ Schoolfield
 Septoria
 Serological
 ShB
-Shaner
 Sharma
 Silwal
 Sporulation
@@ -130,11 +129,13 @@ Tungro
 Visualising
 Wageningen
 Waggoner
+Wallach
 Willocquet
 Xanthomonas
 YYYYMMDD
 Yamada
 Zadoks
+ZeBook
 Zeigler
 agrformet
 al
@@ -161,7 +162,6 @@ geolocation
 ggplot
 ggspatial
 gu
-hyung
 infective
 inoculum
 joss
@@ -211,4 +211,3 @@ virescens
 visualisation
 visualise
 wth
-zenodo
