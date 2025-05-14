@@ -222,6 +222,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "prettymapr",
+      "name": "prettymapr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=prettymapr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "purrr",
       "name": "purrr",
       "provider": {
@@ -395,7 +407,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
-  "fileSize": "657.82KB",
+  "fileSize": "821.59KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
