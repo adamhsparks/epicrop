@@ -187,7 +187,8 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 100.00%
+#> epicrop Coverage: 98.84%
+#> R/internal_functions.R: 92.86%
 #> R/calculate_audpc.R: 100.00%
 #> R/format_wth.R: 100.00%
 #> R/get_wth.R: 100.00%
@@ -198,7 +199,6 @@ ggplot(
 #> R/helper_modified_kim_sheath_blight.R: 100.00%
 #> R/helper_sheath_blight.R: 100.00%
 #> R/helper_tungro.R: 100.00%
-#> R/internal_functions.R: 100.00%
 #> R/leaf_wet.R: 100.00%
 #> R/seir.R: 100.00%
 ```
@@ -248,14 +248,6 @@ Systems Analysis and the Dynamics of Epidemics.
 *Phytopathology* 61:600.
 DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
-<<<<<<< HEAD
-Wallach, Daniel,  David Makowski, James W. Jones, and François Brun.
-(2018).
-||||||| parent of 3e518a5d (remove extra space)
-Wallach, Daniel,  David Makowski, James W. Jones, and François Brun.
-(2018)
-=======
 Wallach, Daniel, David Makowski, James W. Jones, and François Brun.
 (2018)
->>>>>>> 3e518a5d (remove extra space)
 _Working with dynamic crop models: methods, tools and examples for agriculture and environment_. Academic Press.
