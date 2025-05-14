@@ -10,7 +10,7 @@ output: github_document
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 100%](https://img.shields.io/badge/code_coverage-100%25-green)](#Code-Coverage)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 100%](https://img.shields.io/badge/code_coverage-100%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
@@ -187,7 +187,20 @@ ggplot(
 
 
 ```
-#> Error in loadNamespace(x): there is no package called 'codecov'
+#> epicrop Coverage: 100.00%
+#> R/calculate_audpc.R: 100.00%
+#> R/format_wth.R: 100.00%
+#> R/get_wth.R: 100.00%
+#> R/helper_bacterial_blight.R: 100.00%
+#> R/helper_brown_spot.R: 100.00%
+#> R/helper_leaf_blast.R: 100.00%
+#> R/helper_modified_kim_leaf_blast.R: 100.00%
+#> R/helper_modified_kim_sheath_blight.R: 100.00%
+#> R/helper_sheath_blight.R: 100.00%
+#> R/helper_tungro.R: 100.00%
+#> R/internal_functions.R: 100.00%
+#> R/leaf_wet.R: 100.00%
+#> R/seir.R: 100.00%
 ```
 
 ## Code of Conduct
