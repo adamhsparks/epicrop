@@ -144,45 +144,19 @@
 <code class="sourceCode R"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bacterial_blight.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bb_sim</span></span>
-<span><span class="co">#&gt;      simday      dates     sites    latent infectious  removed    senesced</span></span>
-<span><span class="co">#&gt;       &lt;int&gt;     &lt;Date&gt;     &lt;num&gt;     &lt;num&gt;      &lt;num&gt;    &lt;num&gt;       &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000</span></span>
-<span><span class="co">#&gt;   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000</span></span>
-<span><span class="co">#&gt;   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875</span></span>
-<span><span class="co">#&gt;   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877</span></span>
-<span><span class="co">#&gt;   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811</span></span>
-<span><span class="co">#&gt;  ---                                                                      </span></span>
-<span><span class="co">#&gt; 116:    116 2000-10-24 1442.4836 105.87923   954.9354 223.8352 2097.385647</span></span>
-<span><span class="co">#&gt; 117:    117 2000-10-25 1418.0978  76.02332   953.5148 255.1118 2143.087067</span></span>
-<span><span class="co">#&gt; 118:    118 2000-10-26 1369.3763  72.41827   946.9419 288.4890 2190.645270</span></span>
-<span><span class="co">#&gt; 119:    119 2000-10-27 1321.9560  67.86296   937.0147 323.7791 2239.629140</span></span>
-<span><span class="co">#&gt; 120:    120 2000-10-28 1275.5526  62.61810   923.6023 361.0475 2290.117140</span></span>
-<span><span class="co">#&gt;       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat</span></span>
-<span><span class="co">#&gt;         &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;   &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.53946 14.6774</span></span>
-<span><span class="co">#&gt;   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.53946 14.6774</span></span>
-<span><span class="co">#&gt;   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.53946 14.6774</span></span>
-<span><span class="co">#&gt;   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 12.53946 14.6774</span></span>
-<span><span class="co">#&gt;   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 12.53946 14.6774</span></span>
-<span><span class="co">#&gt;  ---                                                                          </span></span>
-<span><span class="co">#&gt; 116:  0.00000  29.85591 21.31570 45.701419 1284.650 0.4237668 12.53946 14.6774</span></span>
-<span><span class="co">#&gt; 117: 23.19935  26.80440 22.03601 47.558203 1284.650 0.4206255 12.53946 14.6774</span></span>
-<span><span class="co">#&gt; 118: 20.80752  25.36284 22.37109 48.983870 1307.849 0.4267361 12.53946 14.6774</span></span>
-<span><span class="co">#&gt; 119: 18.61122  23.85609 22.69581 50.488000 1328.657 0.4318648 12.53946 14.6774</span></span>
-<span><span class="co">#&gt; 120: 16.58631   0.00000 23.00696 47.881728 1347.268 0.4360386 12.53946 14.6774</span></span>
-<span><span class="co">#&gt;           lon</span></span>
-<span><span class="co">#&gt;         &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1: 121.2556</span></span>
-<span><span class="co">#&gt;   2: 121.2556</span></span>
-<span><span class="co">#&gt;   3: 121.2556</span></span>
-<span><span class="co">#&gt;   4: 121.2556</span></span>
-<span><span class="co">#&gt;   5: 121.2556</span></span>
-<span><span class="co">#&gt;  ---         </span></span>
-<span><span class="co">#&gt; 116: 121.2556</span></span>
-<span><span class="co">#&gt; 117: 121.2556</span></span>
-<span><span class="co">#&gt; 118: 121.2556</span></span>
-<span><span class="co">#&gt; 119: 121.2556</span></span>
-<span><span class="co">#&gt; 120: 121.2556</span></span></code></pre></div>
+<span><span class="co">#&gt;      simday      dates     sites    latent infectious  removed    senesced  rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat      lon</span></span>
+<span><span class="co">#&gt;       &lt;int&gt;     &lt;Date&gt;     &lt;num&gt;     &lt;num&gt;      &lt;num&gt;    &lt;num&gt;       &lt;num&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;  ---                                                                                                                                                         </span></span>
+<span><span class="co">#&gt; 116:    116 2000-10-24 1442.4836 105.87923   954.9354 223.8352 2097.385647  0.00000  29.85591 21.31570 45.701419 1284.650 0.4237668 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 117:    117 2000-10-25 1418.0978  76.02332   953.5148 255.1118 2143.087067 23.19935  26.80440 22.03601 47.558203 1284.650 0.4206255 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 118:    118 2000-10-26 1369.3763  72.41827   946.9419 288.4890 2190.645270 20.80752  25.36284 22.37109 48.983870 1307.849 0.4267361 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 119:    119 2000-10-27 1321.9560  67.86296   937.0147 323.7791 2239.629140 18.61122  23.85609 22.69581 50.488000 1328.657 0.4318648 12.53946 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 120:    120 2000-10-28 1275.5526  62.61810   923.6023 361.0475 2290.117140 16.58631   0.00000 23.00696 47.881728 1347.268 0.4360386 12.53946 14.6774 121.2556</span></span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -243,7 +217,7 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <h2 id="other-implementations-in-r">Other Implementations in R<a class="anchor" aria-label="anchor" href="#other-implementations-in-r"></a>
 </h2>
 <ul>
-<li><p>The EPIRICE model was originally written in R as a part of the <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> package (Himans <em>et al.</em> 2009).</p></li>
+<li><p>The EPIRICE model was originally written in R as a part of the <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> package (Hijmans <em>et al.</em> 2009).</p></li>
 <li><p>The EPIRICE model is also available from CRAN in the <a href="https://cran.r-project.org/web/packages/ZeBook/index.html" class="external-link">{ZeBook}</a> package (Brun <em>et al.</em> 2018) to accompany, “Working with dynamic crop models : methods, tools and examples for agriculture and environment” (Wallach <em>et al.</em> 2018).</p></li>
 </ul>
 </div>
