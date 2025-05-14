@@ -109,7 +109,6 @@ A simple bar chart created using _ggplot2_ is an effective way to visualise the 
 
 ``` r
 library(ggplot2)
-#> Learn more about the underlying theory at https://ggplot2-book.org/
 ggplot(seasons,
        aes(y = as.factor(season),
            x = AUDPC)) +
@@ -139,7 +138,6 @@ An example benchmarking different methods is provided here.
 ``` r
 library(epicrop)
 library(furrr)
-#> Loading required package: future
 library(dplyr)
 library(lubridate)
 library(pander)
@@ -617,8 +615,8 @@ mbm <- microbenchmark(
 mbm
 #> Unit: milliseconds
 #>        expr       min        lq      mean    median        uq      max neval
-#>  sequential  65.36552  67.64861  71.11857  69.72772  71.63731 122.4087   100
-#>    parallel 177.63840 181.73166 185.47845 183.40686 186.50072 210.3575   100
+#>  sequential  48.84063  54.58804  56.58199  56.73184  58.60821  72.9531   100
+#>    parallel 230.22910 242.71590 246.76291 244.92863 250.13005 322.7914   100
 
 autoplot(mbm) +
   theme_classic()

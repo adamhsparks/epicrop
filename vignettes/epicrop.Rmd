@@ -4,6 +4,7 @@ author: Adam H. Sparks
 output:
   rmarkdown::html_document:
     theme: journal
+bibliography: references.bib 
 vignette: >
   %\VignetteIndexEntry{epicrop}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,13 +19,13 @@ vignette: >
 
 ## Introduction to {epicrop}
 
-{epicrop} provides an R package of the 'EPIRICE' model as described in Savary _et al._ 2012.
-Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`bacterial_blight()`); brown spot (`brown_spot()`); leaf blast (`leaf_blast()`); sheath blight (`sheath_blight()`) and tungro (`tungro()`) are provided.
+{epicrop} provides an R package of the 'EPIRICE' model as described in [@Savary2012].
+Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`bacterial_blight()`); brown spot (`brown_spot()`); leaf blast (`leaf_blast()`); sheath blight (`sheath_blight()`) and tungro (`tungro()`) and two modifed by Kim _et al._ [-@Kim2015], (`modified_kim_leaf_blast()` and `helper_modified_kim_sheath_blight()`), are provided.
 The model uses daily weather data to estimate disease intensity.
-A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018, Sparks 2020) and predict disease intensity of five rice diseases using a generic SEIR model (Zadoks 1971) function, `SEIR()`.
+A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package [@Sparks2018] and predict disease intensity of five rice diseases using a generic SEIR model [@Zadoks1971] function, `seir()`.
 
-Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `SEIR()` function.
-If you are interested in modelling other pathosystems, please refer to Savary _et al._ 2012 for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
+Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `seir()` function.
+If you are interested in modelling other pathosystems, please refer to Savary _et al._ [-@Savary2013] for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
 
 ### Getting started
 
@@ -38,7 +39,7 @@ library(epicrop)
 ### Get weather data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
-See the help file for `naspower::get_power()` for more details of this functionality and details on the data (Sparks 2018, Sparks 2020).
+See the help file for `naspower::get_power()` for more details of this functionality and details on the data [@Sparks2018].
 
 
 ``` r
@@ -76,9 +77,9 @@ wth
 
 ### Predict bacterial blight
 
-All of the `()` family of functions work in exactly the same manner.
+All of the helper family of functions work in exactly the same manner.
 You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease intensity over the season and other values associated with the model.
-See the help file for `SEIR()` for more on the values returned.
+See the help file for `seir()` for more on the values returned.
 
 
 ``` r
@@ -181,7 +182,7 @@ ggplot(data = bb_wet,
 
 ## Comparing epidemics
 
-The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) (Shaner and Finney 1977).
+The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) [@Shaner1977].
 The AUDPC value for a given simulated season is returned as a part of the output from any of the disease simulations offered in {epicrop}.
 You can find the value in the `AUDPC` column.
 We can compare the dry season with the wet season by looking at the AUDPC values for both seasons.
@@ -269,11 +270,4 @@ Checking the data and referring to the curves, the wet season intensity reaches 
 So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.
 
 # References
-
-Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
-
-Gregory Shaner and R. E. Finney. "The effect of nitrogen fertilization on the expression of slow-mildewing resistance in Knox wheat. *Phytopathology* Volume 67.8, 1977, Pages 1051-1056.
-
-Adam Sparks (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data
-Client for R. Journal of Open Source Software, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
