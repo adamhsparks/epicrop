@@ -149,6 +149,23 @@
         call = rlang::caller_env()
       )
     }
+
+    if (length(RcW) > 1L) {
+      if ((max(RcW[, 1L]) > 24L) || min(RcW[, 1L] < 1)) {
+        cli::cli_abort(
+          "The hourly values for {.var RcW} should be between 1 and
+                       24. Please provide a matrix with hour values between 1
+                       and 24, inclusive."
+        )
+      }
+      if ((max(RcW[, 2L]) > 1L) || min(RcW[, 2L] < 0L)) {
+        cli::cli_abort(
+          "The value for {.var RcW} should be >= 0 and <= 1. Please provide a
+        matrix of modifier values that are between 0 and 1.",
+          call = rlang::caller_env()
+        )
+      }
+    }
   }
 
 
