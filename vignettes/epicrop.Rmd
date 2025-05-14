@@ -25,7 +25,7 @@ The model uses daily weather data to estimate disease intensity.
 A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package [@Sparks2018] and predict disease intensity of five rice diseases using a generic SEIR model [@Zadoks1971] function, `seir()`.
 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `seir()` function.
-If you are interested in modelling other pathosystems, please refer to Savary _et al._ [-@Savary2013] for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
+If you are interested in modelling other pathosystems, please refer to [-@Savary2012] for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
 
 ### Getting started
 
