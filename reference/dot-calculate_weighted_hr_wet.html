@@ -55,20 +55,26 @@
 
 
 <dt id="arg-rhlim">rhlim<a class="anchor" aria-label="anchor" href="#arg-rhlim"></a></dt>
-<dd><p>The relative humidity threshold to check against.</p></dd>
+<dd><p>The relative humidity threshold to check against between <code>80</code> &amp;
+<code>100</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A <code>vector</code> of weighted values between 0 and 1 depending on the
+<code>rhlim</code></p>
+    </div>
+    <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>This functionality is just a placeholder for future possible work.
-This particular function is set up but not exposed to users and so there is
-no <code>@dev</code> tag for it yet.</p>
+This particular function is set up but not exposed to users yet.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">.calc_weighted_hr_wet</span><span class="op">(</span>rh <span class="op">=</span> <span class="fl">86</span>, rhlim <span class="op">=</span> <span class="fl">95</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calc_weighted_hr_wet(rh = 86, rhlim = 95):</span> could not find function ".calc_weighted_hr_wet"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">.calculate_weighted_hr_wet</span><span class="op">(</span>rh <span class="op">=</span> <span class="fl">86</span>, rhlim <span class="op">=</span> <span class="fl">95</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_weighted_hr_wet(rh = 86, rhlim = 95):</span> could not find function ".calculate_weighted_hr_wet"</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -62,8 +62,8 @@ easily be accessed using <a href="get_wth.html">get_wth</a> to download weather 
 
     <div class="section level2">
     <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
-    <p>Kim, Kwang-hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
-<a href="https://doi.org/doi.org/10.6084/m9.figshare.1515884.v1" class="external-link">doi:doi.org/10.6084/m9.figshare.1515884.v1</a></p>
+    <p>Kim, Kwang-Hyung (2015). Modified EPIRICE Ref.. figshare. Dataset.
+<a href="https://doi.org/10.6084/m9.figshare.1515884.v1" class="external-link">doi:10.6084/m9.figshare.1515884.v1</a></p>
     </div>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
@@ -119,7 +119,10 @@ wetness duration changed with time rather than being 0 or 1 as in Savary
 <em>et al.</em> 2012, the original code available does not implement this.
 <span class="pkg">epicrop</span> offers the option to do this by setting
 <code>simple_wetness = FALSE</code>, but the results may differ from the published
-values if this is used.</p>
+values if this is used.  Further changes were made to the length of the
+growing season where the example code ran for 100 days, the paper ran for 77.
+This function has been written to match the paper's 77 day growing season
+duration and RcA and RRG have been modified accordingly.</p>
 <p>If the <code>wth</code> object provides <em>LAT</em> and <em>LON</em> columns, these will be included
 in the output for mapping purposes. Both values must be present. These
 columns are provided by default when using <a href="get_wth.html">get_wth</a>.</p>
@@ -207,13 +210,14 @@ Jorrel Khalil Aunario, and Adam H. Sparks</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># use 25 May as transplanting date (`emergence`) as in Kim et al. 2015</span></span></span>
 <span class="r-in"><span><span class="va">lb_sim</span> <span class="op">&lt;-</span> <span class="fu">modified_kim_leaf_blast</span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-05-25"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, onset = 15L, duration = 120L,     rhlim = 90L, rainlim = 5L, H0 = 600L, I0 = 1L, RcA = cbind(c(0L,         5L, 10L, 15L, 20L, 25L, 30L, 35L, 40L, 45L, 50L, 55L,         60L, 65L, 70L, 75L, 80L, 85L, 90L, 95L, 100L, 105L, 110L,         115L, 120L), c(1, 1, 1, 1, 1, 1, 1, 1, 1, 0.4, 0.3, 0.1,         0.1, 0.05, 0.03, 0.03, 0.02, 0.02, 0.02, 0.01, 0.01,         0.01, 0.01, 0.01, 0.01)), RcT = cbind(c(9L, 12L, 15L,         18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L), c(0, 0.4, 0.72,         0.88, 1, 0.9, 0.45, 0.2, 0.05, 0.01, 0)), RcW = cbind(c(4L,         6L, 8L, 10L, 12L, 14L, 16L, 18L, 20L, 22L, 24L), c(0,         0.24, 0.41, 0.68, 0.94, 0.97, 1, 1, 1, 1, 1)), RcOpt = 0.86,     p = 4L, i = 20L, a = 1L, Sx = 90000L, RRS = 0.005, RRG = 0.1):</span> Incomplete weather data or dates do not align.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lb_sim</span><span class="op">$</span><span class="va">dates</span>, y <span class="op">=</span> <span class="va">lb_sim</span><span class="op">$</span><span class="va">intensity</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="modified_kim_leaf_blast-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'lb_sim' not found</span>
 <span class="r-in"><span><span class="co"># use shorthand function</span></span></span>
 <span class="r-in"><span><span class="va">mk_lb</span> <span class="op">&lt;-</span> <span class="fu">mk_lb</span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, onset = 15L, duration = 100L,     rhlim = 90L, rainlim = 5L, H0 = 600L, I0 = 1L, RcA = cbind(c(0L,         5L, 10L, 15L, 20L, 25L, 30L, 35L, 40L, 45L, 50L, 55L,         60L, 65L, 70L, 75L, 80L, 85L, 90L, 95L, 100L), c(1, 1,         1, 1, 1, 1, 1, 1, 1, 0.4, 0.3, 0.1, 0.1, 0.05, 0.03,         0.03, 0.02, 0.02, 0.02, 0.01, 0.01)), RcT = cbind(c(9L,         12L, 15L, 18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L), c(0,         0.4, 0.72, 0.88, 1, 0.9, 0.45, 0.2, 0.05, 0.01, 0)),     RcOpt = 0.86, p = 4L, i = 20L, a = 1L, Sx = 90000L, RRS = 0.005,     RRG = cbind(c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L,         90L, 100L), c(0.12, 0.12, 0.11, 0.11, 0.09, 0.09, 0.09,         0.09, 0.09, 0.09, 0.05)), RcW = cbind(c(4L, 6L, 8L, 10L,         12L, 14L, 16L, 18L, 20L, 22L, 24L), c(0, 0.24, 0.41,         0.68, 0.94, 0.97, 1, 1, 1, 1, 1)), simple_wetness = TRUE):</span> Incomplete weather data or dates do not align.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mk_lb(wth, emergence = "2000-07-01"):</span> could not find function "mk_lb"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mk_lb</span><span class="op">$</span><span class="va">dates</span>, y <span class="op">=</span> <span class="va">mk_lb</span><span class="op">$</span><span class="va">intensity</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mk_lb$dates:</span> object of type 'closure' is not subsettable</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'mk_lb' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
