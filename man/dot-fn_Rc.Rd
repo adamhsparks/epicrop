@@ -8,10 +8,10 @@
 }
 \arguments{
 \item{.Rc}{A matrix describing a growth curve for either temperature, \code{RcT},
-age, \code{RcA}, or RHUM, \code{RcRH}.}
+age, \code{RcA}, or relative humidity, \code{RcRH}.}
 
-\item{.xout}{a value for \code{x}, either a temperature, age or RHUM modifier
-value.}
+\item{.xout}{a value for \code{x}, either a temperature, age or relative
+humidity modifier value.}
 }
 \value{
 A numeric value for modifying a growth curve in \link{seir}.
@@ -22,5 +22,11 @@ Use approx() to Return a Modifier Value From an RcA or RcT Curve
 \note{
 This is a faster (and more simple) function that does what the original
 \pkg{cropsim} \code{afgen()} does.
+
+The original implementation of this function comes from \CRANpkg{ZeBook} and
+was adapted for use in \pkg{epicrop} by Adam H. Sparks.
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }
 \keyword{internal}

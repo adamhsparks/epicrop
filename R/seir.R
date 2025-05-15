@@ -402,14 +402,20 @@ seir <-
 #' Use approx() to Return a Modifier Value From an RcA or RcT Curve
 #'
 #' @param .Rc A matrix describing a growth curve for either temperature, `RcT`,
-#'  age, `RcA`, or RHUM, `RcRH`.
-#' @param .xout a value for `x`, either a temperature, age or RHUM modifier
-#'  value.
+#'  age, `RcA`, or relative humidity, `RcRH`.
+#' @param .xout a value for `x`, either a temperature, age or relative
+#'  humidity modifier value.
 #'
 #' @returns A numeric value for modifying a growth curve in [seir].
 #'
 #' @note This is a faster (and more simple) function that does what the original
 #'  \pkg{cropsim} `afgen()` does.
+#'
+#' @note
+#' The original implementation of this function comes from \CRANpkg{ZeBook} and
+#'  was adapted for use in \pkg{epicrop} by Adam H. Sparks.
+#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
 #' @dev
 
