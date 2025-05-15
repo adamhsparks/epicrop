@@ -178,6 +178,14 @@ Systems Analysis and the Dynamics of Epidemics.
 *Phytopathology* 61:600.
 DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
+<<<<<<< HEAD
 Wallach, Daniel,  David Makowski, James W. Jones, and François Brun.
 (2018).
+||||||| parent of 3e518a5d (remove extra space)
+Wallach, Daniel,  David Makowski, James W. Jones, and François Brun.
+(2018)
+=======
+Wallach, Daniel, David Makowski, James W. Jones, and François Brun.
+(2018)
+>>>>>>> 3e518a5d (remove extra space)
 _Working with dynamic crop models: methods, tools and examples for agriculture and environment_. Academic Press.
