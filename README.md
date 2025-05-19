@@ -42,6 +42,8 @@ remotes::install_git("https://codeberg.org/adamhsparks/epicrop.git",
 However, if you prefer to use {pak} you can do it this way.
 It may be faster to install and for Linux users, it can often help by installing system-level packages necessary to build some of the dependencies.
 
+_Note_: If you are a Windows user, you may need to install [RTools](https://cran.r-project.org/bin/windows/Rtools/)
+
 
 ``` r
 o <- options() # capture default options
