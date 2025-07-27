@@ -55,27 +55,27 @@ hourly rh values.</p>
 
 
 <dl><dt id="arg-rh">rh<a class="anchor" aria-label="anchor" href="#arg-rh"></a></dt>
-<dd><p>Mean daily relative humidity as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code></p></dd>
+<dd><p>Mean daily relative humidity as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code>.</p></dd>
 
 
 <dt id="arg-tmin">tmin<a class="anchor" aria-label="anchor" href="#arg-tmin"></a></dt>
-<dd><p>Minimum temperature as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code></p></dd>
+<dd><p>Minimum temperature as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code>.</p></dd>
 
 
 <dt id="arg-tmax">tmax<a class="anchor" aria-label="anchor" href="#arg-tmax"></a></dt>
-<dd><p>Maximum temperature as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code></p></dd>
+<dd><p>Maximum temperature as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code>.</p></dd>
 
 
 <dt id="arg-tmp">tmp<a class="anchor" aria-label="anchor" href="#arg-tmp"></a></dt>
-<dd><p>Mean daily temperature as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code></p></dd>
+<dd><p>Mean daily temperature as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code>.</p></dd>
 
 
 <dt id="arg-lat">lat<a class="anchor" aria-label="anchor" href="#arg-lat"></a></dt>
-<dd><p>Latitude provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code></p></dd>
+<dd><p>Latitude provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code>.</p></dd>
 
 
 <dt id="arg-doy">doy<a class="anchor" aria-label="anchor" href="#arg-doy"></a></dt>
-<dd><p>Sequential day of year as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code></p></dd>
+<dd><p>Sequential day of year as provided by <code>wth</code> via <code><a href="seir.html">seir()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -89,8 +89,6 @@ hourly rh values.</p>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2000-06-30"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> No encoding supplied: defaulting to UTF-8.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">.diurnal_rh</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  rh <span class="op">=</span> <span class="va">wth</span><span class="op">[</span>, <span class="va">RHUM</span><span class="op">]</span>,</span></span>
@@ -100,7 +98,12 @@ hourly rh values.</p>
 <span class="r-in"><span>  doy <span class="op">=</span> <span class="va">wth</span><span class="op">[</span>, <span class="va">DOY</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>  lat <span class="op">=</span> <span class="va">wth</span><span class="op">[</span>, <span class="va">LAT</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .diurnal_rh(rh = wth[, RHUM], tmin = wth[, TMIN], tmax = wth[,     TMAX], tmp = wth[, TEMP], doy = wth[, DOY], lat = wth[, LAT]):</span> could not find function ".diurnal_rh"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`182`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 100.00000 100.00000 100.00000 100.00000 100.00000 100.00000  94.58384</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  89.21482  84.67398  81.01595  78.26627  76.43329  75.51746  75.51746</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15]  76.43329  78.26627  81.01595  84.67398  88.79249  92.15830  94.87917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22]  97.06086  98.79907 100.00000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -113,7 +116,7 @@ hourly rh values.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
