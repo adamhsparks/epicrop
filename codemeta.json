@@ -102,6 +102,40 @@
       "email": "j.aunario@irri.org"
     }
   ],
+  "copyrightHolder": [
+    {
+      "@type": "Person",
+      "givenName": "Robert",
+      "familyName": "Hijmans",
+      "email": "robert.hijmans@gmail.com",
+      "@id": "https://orcid.org/0000-0001-5872-2872"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Serge",
+      "familyName": "Savary",
+      "email": "serge.savary@toulouse.inra.fr",
+      "@id": "https://orcid.org/0000-0002-6867-180X"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Ireno",
+      "familyName": "Pangga",
+      "email": "ibpangga@yahoo.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Jorrel",
+      "familyName": "Aunario",
+      "email": "j.aunario@irri.org"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Kwang-Hyung",
+      "familyName": "Kim",
+      "email": "sospicy77@gmail.com"
+    }
+  ],
   "maintainer": [
     {
       "@type": "Person",
@@ -407,7 +441,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
-  "fileSize": "819.027KB",
+  "fileSize": "820.464KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
