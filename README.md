@@ -27,42 +27,10 @@ Alternatively, you can supply your own weather data for any time period as long 
 {epicrop} is not yet on CRAN.
 You can install it this way.
 
-The preferred method is using {remotes} for simplicity.
-
 ```r 
-if (!require("remotes")) {
-  install.packages("remotes")
-}
-remotes::install_git("https://codeberg.org/adamhsparks/epicrop.git",
-                      dependencies = TRUE,
-                      build_manual = TRUE,
-                      build_vignettes = TRUE)
-```
-
-However, if you prefer to use {pak} you can do it this way.
-It may be faster to install and for Linux users, it can often help by installing system-level packages necessary to build some of the dependencies.
-
-_Note_: If you are a Windows user, you may need to install [RTools](https://cran.r-project.org/bin/windows/Rtools/)
-
-
-``` r
-o <- options() # capture default options
-
-options(pkg.build_vignettes = TRUE)
-
-if (!require("pak")) {
-  install.packages("pak",
-    repos = sprintf(
-      "https://r-lib.github.io/p/pak/stable/%s/%s/%s",
-      .Platform$pkgType, R.Version()$os, R.Version()$arch
-    )
-  )
-}
-
-pak::pkg_install("git::https://codeberg.org/adamhsparks/epicrop",
-                 dependencies = TRUE)
-
-options(o) # reset options
+install.packages("epicrop",
+  repos = c("https://adamhsparks.r-universe.dev",
+            "https://cloud.r-project.org"))
 ```
 
 ## Get weather data
@@ -81,8 +49,6 @@ wth <- get_wth(
   dates = "2000-07-01",
   duration = 120
 )
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
 
 wth
 #>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON
