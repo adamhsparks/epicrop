@@ -374,20 +374,20 @@ seir <-
     out <-
       setDT(
         list(
-          "simday" = simday,
-          "dates" = dates[1L:d],
-          "sites" = sites,
-          "latent" = now_latent,
-          "infectious" = now_infectious,
-          "removed" = removed,
-          "senesced" = senesced,
-          "rateinf" = infection,
-          "rtransfer" = rtransfer,
-          "rgrowth" = rgrowth,
-          "rsenesced" = rsenesced,
-          "diseased" = diseased,
-          "intensity" = intensity,
-          "AUDPC" = rep_len(audpc, duration)
+          simday = simday,
+          dates = dates[1L:d],
+          sites = sites,
+          latent = now_latent,
+          infectious = now_infectious,
+          removed = removed,
+          senesced = senesced,
+          rateinf = infection,
+          rtransfer = rtransfer,
+          rgrowth = rgrowth,
+          rsenesced = rsenesced,
+          diseased = diseased,
+          intensity = intensity,
+          AUDPC = rep_len(audpc, duration)
         )
       )
 
