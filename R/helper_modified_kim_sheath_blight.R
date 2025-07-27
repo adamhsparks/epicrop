@@ -1,6 +1,6 @@
 #' Predict Rice Sheath Blight Intensity Using a Modified Kim Model
 #'
-#' A helper function to provide values used by Kim _et al. 2015 for a dynamic
+#' A helper function to provide values used by Kim *et al.* 2015 for a dynamic
 #' mechanistic simulation of sheath blight disease of rice, causal agent
 #' _Rhizoctonia solani_ AG1-1A Kühn. The model is driven by daily weather data,
 #' which can easily be accessed using [get_wth] to download weather data from
@@ -44,8 +44,8 @@
 #' * Modifier: c(0.15, 0.21, 0.11, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001,
 #'               0.0001, 0.0001, 0.0001, 0.0001)
 #'
-#' @returns A [data.table::data.table] of disease intensity and infection
-#' sites. See [seir] for a full description of the column values.
+#' @returns A [data.table::data.table()] of disease intensity and infection
+#' sites. See [seir()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -111,7 +111,7 @@
 #' @family helper functions
 #'
 #' @seealso
-#' [seir]
+#' [seir()]
 #'
 #' @export
 modified_kim_sheath_blight <- function(wth, emergence, ...) {

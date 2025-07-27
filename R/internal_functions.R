@@ -1,8 +1,7 @@
 #' Utility Function to Check User Inputs for seir()
 #'
-#' Sanity checks for user inputs to [seir] to ensure that they will work.
-
-#' @param seir_passed_args a `list` of values passed to [seir]
+#' Sanity checks for user inputs to [seir()] to ensure that they will work.
+#' @param seir_passed_args a `list` of values passed to [seir()]
 #'
 #' @returns Nothing, called for its side-effects to check user input values.
 #'
@@ -171,7 +170,7 @@
 
 #' Boolean
 #'
-#' Checks if provided object is a Boolean i.e. a length-one logical vector.
+#' Checks if provided object is a Boolean, _i.e._ a length-one logical vector.
 #' @param x an object to check.
 #' @returns a logical value indicating whether provided object is a `Boolean`.
 #' @examples

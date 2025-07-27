@@ -3,7 +3,7 @@
 #' A helper function to provide sensible defaults for a dynamic mechanistic
 #' simulation of sheath blight disease of rice, causal agent _Rhizoctonia
 #' solani_ AG1-1A Kühn. The model is driven by daily weather data, which can
-#' easily be accessed using [get_wth] to download weather data from
+#' easily be accessed using [get_wth()] to download weather data from
 #' \acronym{NASA} \acronym{POWER}.
 #'
 #'
@@ -13,7 +13,7 @@
 #' Default values for this disease model are derived from Table 2 (Savary *et
 #' al.* 2012).
 #'
-#' [sb] is a shorthand alias for [sheath_blight].
+#' [sb()] is a shorthand alias for [sheath_blight()].
 #'
 #' @note Adapted from \pkg{cropsim} package version 0.2.0-5 by Adam H. Sparks,
 #' Department of Primary Industries and Regional Development, WA, AU.
@@ -24,14 +24,14 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth].
+#' columns are provided by default when using [get_wth()].
 #'
 #' @inherit bacterial_blight
 #' @inheritSection seir TMIN/TMAX Details
 #' @inheritSection seir LAT/LON Details
 #'
-#' @returns A [data.table::data.table] of disease intensity and infection
-#' sites. See [seir] for a full description of the column values.
+#' @returns A [data.table::data.table()] of disease intensity and infection
+#' sites. See [seir()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -85,7 +85,7 @@
 #' @family helper functions
 #'
 #' @seealso
-#' [seir]
+#' [seir()]
 #'
 #' @export
 sheath_blight <- function(wth, emergence, ...) {

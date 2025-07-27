@@ -24,12 +24,12 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R implementation) [translator]
-  \item Serge Savary \email{serge.savary@toulouse.inra.fr} (\href{https://orcid.org/0000-0002-6867-180X}{ORCID}) (Model conception and development in Stella) [conceptor]
+  \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R implementation) [translator, copyright holder]
+  \item Serge Savary \email{serge.savary@toulouse.inra.fr} (\href{https://orcid.org/0000-0002-6867-180X}{ORCID}) (Model conception and development in Stella) [conceptor, copyright holder]
   \item Ireno Pangga \email{ibpangga@yahoo.com} (Model conception, development in Stella and original R
- implementation) [translator]
-  \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator]
-  \item Kwang-Hyung Kim \email{sospicy77@gmail.com} (Contributed code for modified Kim leaf blast and sheath blight functions.)
+ implementation) [translator, copyright holder]
+  \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator, copyright holder]
+  \item Kwang-Hyung Kim \email{sospicy77@gmail.com} (Contributed code for modified Kim leaf blast and sheath blight functions.) [copyright holder]
 }
 
 Other contributors:

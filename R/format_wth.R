@@ -1,12 +1,13 @@
 #' Format Weather Data for Use in epicrop
 #'
-#' Formats an existing [data.frame] of weather data for use in \pkg{cropsim}.
+#' Formats an existing [data.frame()] of weather data for use in \pkg{epicrop}.
 #'  Only the data necessary for use in the model is returned and the columns
 #'  are renamed to values expected by the model.  The data are assumed to be on
 #'  a daily time-step. For converting sub-daily weather data to daily, see
 #'  [cropgrowdays::daily_mean()].
 #'
-#' @param wth A [data.frame] object containing the weather data for formatting.
+#' @param wth A [data.frame()] object containing the weather data for
+#' formatting.
 #' @param date The column name indicating the field containing the date values.
 #' @param temp The column name indicating the field containing the average daily
 #'  temperature values.
@@ -57,7 +58,7 @@
 #'   _LON_      | Longitude of area of interest.
 #'
 #' @returns An `epicrop.wth` object, a data frame compatible with a
-#'  [data.table::data.table], suitable for use in \pkg{epicrop}.
+#'  [data.table::data.table()], suitable for use in \pkg{epicrop}.
 #' @examples
 #' # Get weather data from the POWER API, using the `get_wth()` function,
 #' # this is for example purposes only as it is NOT necessary to reformat

@@ -7,7 +7,8 @@
 format_wth(wth, date, temp, rhum, rain, tmin, tmax, lat, lon)
 }
 \arguments{
-\item{wth}{A \link{data.frame} object containing the weather data for formatting.}
+\item{wth}{A \code{\link[=data.frame]{data.frame()}} object containing the weather data for
+formatting.}
 
 \item{date}{The column name indicating the field containing the date values.}
 
@@ -34,10 +35,10 @@ the observation data (optional).}
 }
 \value{
 An \code{epicrop.wth} object, a data frame compatible with a
-\link[data.table:data.table]{data.table::data.table}, suitable for use in \pkg{epicrop}.
+\code{\link[data.table:data.table]{data.table::data.table()}}, suitable for use in \pkg{epicrop}.
 }
 \description{
-Formats an existing \link{data.frame} of weather data for use in \pkg{cropsim}.
+Formats an existing \code{\link[=data.frame]{data.frame()}} of weather data for use in \pkg{epicrop}.
 Only the data necessary for use in the model is returned and the columns
 are renamed to values expected by the model.  The data are assumed to be on
 a daily time-step. For converting sub-daily weather data to daily, see

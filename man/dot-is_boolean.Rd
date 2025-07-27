@@ -16,7 +16,7 @@
 a logical value indicating whether provided object is a \code{Boolean}.
 }
 \description{
-Checks if provided object is a Boolean i.e. a length-one logical vector.
+Checks if provided object is a Boolean, \emph{i.e.} a length-one logical vector.
 }
 \examples{
 is_boolean(TRUE) # [1] TRUE

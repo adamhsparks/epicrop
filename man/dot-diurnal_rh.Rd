@@ -7,17 +7,17 @@
 .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
 }
 \arguments{
-\item{rh}{Mean daily relative humidity as provided by \code{wth} via \code{seir()}}
+\item{rh}{Mean daily relative humidity as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 
-\item{tmin}{Minimum temperature as provided by \code{wth} via \code{seir()}}
+\item{tmin}{Minimum temperature as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 
-\item{tmax}{Maximum temperature as provided by \code{wth} via \code{seir()}}
+\item{tmax}{Maximum temperature as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 
-\item{tmp}{Mean daily temperature as provided by \code{wth} via \code{seir()}}
+\item{tmp}{Mean daily temperature as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 
-\item{lat}{Latitude provided by \code{wth} via \code{seir()}}
+\item{lat}{Latitude provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 
-\item{doy}{Sequential day of year as provided by \code{wth} via \code{seir()}}
+\item{doy}{Sequential day of year as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 }
 \value{
 A numeric vector of relative humidity values over 24 hrs.

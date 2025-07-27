@@ -15,11 +15,11 @@ entered as x, y coordinates.}
 \item{duration}{A numeric value indicating how many days a single
 growing season being simulated is to be.  If this is used, only the start
 date will be used and the end date will be ignored if supplied.  This must
-match the \code{duration} parameter value passed along to \link{seir} or any of the
+match the \code{duration} parameter value passed along to \code{\link[=seir]{seir()}} or any of the
 \code{predict} family of functions.}
 }
 \value{
-A \code{epicrop.wth}, a data frame based on a \link[data.table:data.table]{data.table::data.table},
+A \code{epicrop.wth}, a data frame based on a \code{\link[data.table:data.table]{data.table::data.table()}},
 object suitable for use in \pkg{epicrop} containing weather data, dates and
 geolocation information (LAT/LON values) with the following columns:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
@@ -35,7 +35,7 @@ geolocation information (LAT/LON values) with the following columns:\tabular{rl}
 }
 }
 \description{
-This function is a wrapper for the \link[nasapower:get_power]{nasapower::get_power} with predefined
+This function is a wrapper for the \code{\link[nasapower:get_power]{nasapower::get_power()}} with predefined
 parameters suitable for use in \pkg{epicrop}.
 }
 \examples{

@@ -159,18 +159,19 @@
 #'
 #' @seealso
 #' `seir()` is called by the following specific disease modelling functions:
-#' * [bacterial_blight],
-#' * [brown_spot],
-#' * [leaf_blast],
-#' * [sheath_blight],
-#' * [tungro],
-#' * [modified_kim_leaf_blast], and,
-#' * [modified_kim_sheath_blight].
+#' * [bacterial_blight()],
+#' * [brown_spot()],
+#' * [leaf_blast()],
+#' * [sheath_blight()],
+#' * [tungro()],
+#' * [modified_kim_leaf_blast()], and,
+#' * [modified_kim_sheath_blight()].
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com} from original by
 #'   Robert J. Hijmans, Rene Pangga and Jorrel Aunario.
 #'
-#' @returns A [data.table::data.table] object containing the following columns:
+#' @returns A [data.table::data.table()] object containing the following
+#' columns:
 #'
 #' \describe{
 #'   \item{simday}{Zero indexed day of simulation that was run}

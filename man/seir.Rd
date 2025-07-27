@@ -116,7 +116,8 @@ for each hour of the day and use \code{RcW} to determine the effect of leaf
 wetness on the infection rate.}
 }
 \value{
-A \link[data.table:data.table]{data.table::data.table} object containing the following columns:
+A \code{\link[data.table:data.table]{data.table::data.table()}} object containing the following
+columns:
 
 \describe{
 \item{simday}{Zero indexed day of simulation that was run}
@@ -230,13 +231,13 @@ Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 \seealso{
 \code{seir()} is called by the following specific disease modelling functions:
 \itemize{
-\item \link{bacterial_blight},
-\item \link{brown_spot},
-\item \link{leaf_blast},
-\item \link{sheath_blight},
-\item \link{tungro},
-\item \link{modified_kim_leaf_blast}, and,
-\item \link{modified_kim_sheath_blight}.
+\item \code{\link[=bacterial_blight]{bacterial_blight()}},
+\item \code{\link[=brown_spot]{brown_spot()}},
+\item \code{\link[=leaf_blast]{leaf_blast()}},
+\item \code{\link[=sheath_blight]{sheath_blight()}},
+\item \code{\link[=tungro]{tungro()}},
+\item \code{\link[=modified_kim_leaf_blast]{modified_kim_leaf_blast()}}, and,
+\item \code{\link[=modified_kim_sheath_blight]{modified_kim_sheath_blight()}}.
 }
 }
 \author{

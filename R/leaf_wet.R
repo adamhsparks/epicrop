@@ -64,12 +64,12 @@
 #' Uses mean rh, doy, location (lat), mean tmp, tmin and tmax to calculate
 #'  hourly rh values.
 #'
-#' @param rh Mean daily relative humidity as provided by `wth` via `seir()`
-#' @param tmin Minimum temperature as provided by `wth` via `seir()`
-#' @param tmax Maximum temperature as provided by `wth` via `seir()`
-#' @param tmp Mean daily temperature as provided by `wth` via `seir()`
-#' @param doy Sequential day of year as provided by `wth` via `seir()`
-#' @param lat Latitude provided by `wth` via `seir()`
+#' @param rh Mean daily relative humidity as provided by `wth` via [seir()].
+#' @param tmin Minimum temperature as provided by `wth` via [seir()].
+#' @param tmax Maximum temperature as provided by `wth` via [seir()].
+#' @param tmp Mean daily temperature as provided by `wth` via [seir()].
+#' @param doy Sequential day of year as provided by `wth` via [seir()].
+#' @param lat Latitude provided by `wth` via [seir()].
 #'
 #' @examples
 #' wth <- get_wth(

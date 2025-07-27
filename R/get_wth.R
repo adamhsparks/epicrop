@@ -1,6 +1,6 @@
 #' Get Weather Data for Modelling Disease
 #'
-#' This function is a wrapper for the [nasapower::get_power] with predefined
+#' This function is a wrapper for the [nasapower::get_power()] with predefined
 #'  parameters suitable for use in \pkg{epicrop}.
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
@@ -9,10 +9,10 @@
 #' @param duration A numeric value indicating how many days a single
 #'  growing season being simulated is to be.  If this is used, only the start
 #'  date will be used and the end date will be ignored if supplied.  This must
-#'  match the `duration` parameter value passed along to [seir] or any of the
+#'  match the `duration` parameter value passed along to [seir()] or any of the
 #'  `predict` family of functions.
 #'
-#' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table],
+#' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table()],
 #'  object suitable for use in \pkg{epicrop} containing weather data, dates and
 #'  geolocation information (LAT/LON values) with the following columns:
 #'

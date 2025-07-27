@@ -15,8 +15,8 @@ mk_lb(wth, emergence, ...)
 }
 \arguments{
 \item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} data from \link{get_wth}, but any \link[base:data.frame]{base::data.frame} object
-that has been formatted using \link{format_wth} will have the following properly
+\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any \code{\link[base:data.frame]{base::data.frame()}} object
+that has been formatted using \code{\link[=format_wth]{format_wth()}} will have the following properly
 named columns and will work.\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
@@ -32,17 +32,17 @@ named columns and will work.\tabular{rl}{
 
 \item{emergence}{Expected date of crop emergence}
 
-\item{...}{Additional arguments passed to \link{seir}.}
+\item{...}{Additional arguments passed to \code{\link[=seir]{seir()}}.}
 }
 \value{
-A \link[data.table:data.table]{data.table::data.table} of disease intensity and infection
-sites. See \link{seir} for a full description of the column values.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites. See \code{\link[=seir]{seir()}} for a full description of the column values.
 }
 \description{
 A helper function to provide values used by Kim _et al. 2015 for a dynamic
 mechanistic simulation of leaf blast disease of rice, causal agent
 \emph{Magnaporthe oryzae}. The model is driven by daily weather data, which can
-easily be accessed using \link{get_wth} to download weather data from
+easily be accessed using \code{\link[=get_wth]{get_wth()}} to download weather data from
 \acronym{NASA} \acronym{POWER}.
 }
 \details{
@@ -159,7 +159,7 @@ Torres, C.Q., 1986. Effect of plant age on the expression of resistance to
 the Philippines at Los Baños, 82 p.
 }
 \seealso{
-\link{seir}
+\code{\link[=seir]{seir()}}
 
 Other helper functions: 
 \code{\link{bacterial_blight}()},

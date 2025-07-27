@@ -3,7 +3,7 @@
 #' A helper function to provide sensible defaults for a dynamic mechanistic
 #' simulation of rice brown spot, causal agent _Cochliobolus miyabeanus_. The
 #' model is driven by daily weather data, which can easily be accessed using
-#' [get_wth] to download weather data from \acronym{NASA} \acronym{POWER}.
+#' [get_wth()] to download weather data from \acronym{NASA} \acronym{POWER}.
 #'
 #' @details
 #' The model represents site size as 10
@@ -23,7 +23,7 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth].
+#' columns are provided by default when using [get_wth()].
 #'
 #' @note The optimum temperature for brown spot as presented in Table 2 of
 #' Savary _et al._ 2012 has a typo. The optimal value should be 25 °C, not
@@ -33,8 +33,8 @@
 #' @inheritSection seir TMIN/TMAX Details
 #' @inheritSection seir LAT/LON Details
 #'
-#' @returns A [data.table::data.table] of disease intensity and infection
-#' sites. See [seir] for a full description of the column values.
+#' @returns A [data.table::data.table()] of disease intensity and infection
+#' sites. See [seir()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -77,7 +77,7 @@
 #' @family helper functions
 #'
 #' @seealso
-#' [seir]
+#' [seir()]
 #'
 #' @export
 brown_spot <- function(wth, emergence, ...) {

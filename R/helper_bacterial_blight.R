@@ -2,7 +2,7 @@
 #'
 #' A dynamic mechanistic simulation of bacterial blight disease of rice,
 #' causal agent _Xanthomonas oryzae_ pv. _oryzae_.  The model is driven by daily
-#' weather data, which can easily be accessed using [get_wth] to download
+#' weather data, which can easily be accessed using [get_wth()] to download
 #' weather data from \acronym{NASA} \acronym{POWER}.
 #'
 #' @details
@@ -22,11 +22,11 @@
 #' @note
 #' If the `wth` object provides _LAT_ and _LON_ columns, these will be included
 #' in the output for mapping purposes. Both values must be present. These
-#' columns are provided by default when using [get_wth].
+#' columns are provided by default when using [get_wth()].
 #'
 #' @param wth Weather data with a daily time-step, normally \acronym{NASA}
-#' \acronym{POWER} data from [get_wth], but any [base::data.frame] object
-#' that has been formatted using [format_wth] will have the following properly
+#' \acronym{POWER} data from [get_wth()], but any [base::data.frame()] object
+#' that has been formatted using [format_wth()] will have the following properly
 #' named columns and will work.
 #'
 #'   **Field Name** | **Value**
@@ -42,13 +42,13 @@
 #'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
 #' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments passed to [seir].
+#' @param ... Additional arguments passed to [seir()].
 #'
 #' @inheritSection seir TMIN/TMAX Details
 #' @inheritSection seir LAT/LON Details
 #'
-#' @returns A [data.table::data.table] of disease intensity and infection
-#' sites. See [seir] for a full description of the column values.
+#' @returns A [data.table::data.table()] of disease intensity and infection
+#' sites. See [seir()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -93,7 +93,7 @@
 #' @family helper functions
 #'
 #' @seealso
-#' [seir]
+#' [seir()]
 #'
 #' @export
 bacterial_blight <- function(wth, emergence, ...) {

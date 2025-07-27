@@ -7,12 +7,12 @@
 .check_inputs(seir_passed_args)
 }
 \arguments{
-\item{seir_passed_args}{a \code{list} of values passed to \link{seir}}
+\item{seir_passed_args}{a \code{list} of values passed to \code{\link[=seir]{seir()}}}
 }
 \value{
 Nothing, called for its side-effects to check user input values.
 }
 \description{
-Sanity checks for user inputs to \link{seir} to ensure that they will work.
+Sanity checks for user inputs to \code{\link[=seir]{seir()}} to ensure that they will work.
 }
 \keyword{internal}
