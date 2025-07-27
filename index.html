@@ -76,40 +76,15 @@
 </h1>
 <p>You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using <code><a href="reference/get_wth.html">get_wth()</a></code> to fetch data from the <a href="https://power.larc.nasa.gov" class="external-link">NASA POWER web API</a>. Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.</p>
 <p>{epicrop} is not yet on CRAN. You can install it this way.</p>
-<p>The preferred method is using {remotes} for simplicity.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_git.html" class="external-link">install_git</a></span><span class="op">(</span><span class="st">"https://codeberg.org/adamhsparks/epicrop.git"</span>,</span>
-<span>                      dependencies <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                      build_manual <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                      build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>However, if you prefer to use {pak} you can do it this way. It may be faster to install and for Linux users, it can often help by installing system-level packages necessary to build some of the dependencies.</p>
-<p><em>Note</em>: If you are a Windows user, you may need to install <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">RTools</a></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># capture default options</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>pkg.build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://pak.r-lib.org/" class="external-link">"pak"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span>,</span>
-<span>    repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span></span>
-<span>      <span class="st">"https://r-lib.github.io/p/pak/stable/%s/%s/%s"</span>,</span>
-<span>      <span class="va">.Platform</span><span class="op">$</span><span class="va">pkgType</span>, <span class="fu"><a href="https://rdrr.io/r/base/Version.html" class="external-link">R.Version</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">os</span>, <span class="fu"><a href="https://rdrr.io/r/base/Version.html" class="external-link">R.Version</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">arch</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"git::https://codeberg.org/adamhsparks/epicrop"</span>,</span>
-<span>                 dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">o</span><span class="op">)</span> <span class="co"># reset options</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"epicrop"</span>,</span>
+<span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://adamhsparks.r-universe.dev"</span>,</span>
+<span>            <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="get-weather-data">Get weather data<a class="anchor" aria-label="anchor" href="#get-weather-data"></a>
 </h2>
 <p>First you need to provide weather data for the model; {epicrop} provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. Using it you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://codeberg.org/adamhsparks/epicrop" class="external-link">epicrop</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI</span></span>
@@ -119,8 +94,6 @@
 <span>  dates <span class="op">=</span> <span class="st">"2000-07-01"</span>,</span>
 <span>  duration <span class="op">=</span> <span class="fl">120</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></span>
-<span><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></span>
 <span></span>
 <span><span class="va">wth</span></span>
 <span><span class="co">#&gt;        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON</span></span>
@@ -141,7 +114,7 @@
 <h2 id="modelling-bacterial-blight-disease-intensity">Modelling bacterial blight disease intensity<a class="anchor" aria-label="anchor" href="#modelling-bacterial-blight-disease-intensity"></a>
 </h2>
 <p>Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bacterial_blight.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bb_sim</span></span>
@@ -185,7 +158,7 @@
 <span><span class="co">#&gt; 119: 121.2556</span></span>
 <span><span class="co">#&gt; 120: 121.2556</span></span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
