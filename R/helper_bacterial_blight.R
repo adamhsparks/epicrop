@@ -138,8 +138,8 @@ bacterial_blight <- function(wth, emergence, ...) {
       RRG = 0.1,
       simple_wetness = TRUE,
       RcW = cbind(
-        c(2L, 3L, 6L, 9L, 12L, 15L, 18L, 21L, 24L),
-        c(0.0, 0.67, 0.81, 0.84, 0.87, 0.91, 0.94, 0.97, 1.0)
+        c(0L, 2L, 3L, 6L, 9L, 12L, 15L, 18L, 21L, 24L),
+        c(0.0, 0.0, 0.67, 0.81, 0.84, 0.87, 0.91, 0.94, 0.97, 1.0)
       )
     )
   )

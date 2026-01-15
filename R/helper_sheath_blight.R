@@ -130,8 +130,8 @@ sheath_blight <- function(wth, emergence, ...) {
       RRG = 0.2,
       simple_wetness = TRUE,
       RcW = cbind(
-        c(8L, 9L, 12L, 15L, 18L, 21L, 24L),
-        c(0.0, 0.24, 0.41, 0.68, 0.94, 0.97, 1.0)
+        c(0L, 8L, 9L, 12L, 15L, 18L, 21L, 24L),
+        c(0.0, 0.0, 0.24, 0.41, 0.68, 0.94, 0.97, 1.0)
       )
     )
   )
