@@ -25,18 +25,19 @@
 #'   boundary, _i.e._, `rhlim` will be set to 1 and anything > `rhlim` will be
 #'   set to 0. For the `rainlim`, anything > `rainlim` will be set to 1.
 #'
-#' @returns A numeric vector of hourly leaf wetness values for use with
-#'   `Rc_wet`.
+#' @returns A numeric vector of hourly leaf wetness values over one day. Use
+#'   with `RcW` (hours -> 0–1) to obtain the wetness multiplier for infection.
+#'
 #' @dev
 #' @autoglobal
 #' @author Robert J. Hijmans with modifications by Adam H. Sparks,
 #'  \email{adamhsparks@@gmail.com}
 
 .calculate_leaf_wetness <- function(
-  weighted_wetness = FALSE,
   wth,
   rhlim,
-  rainlim
+  rainlim,
+  weighted_wetness = FALSE
 ) {
   rh <- wth$RHUM
   prec <- wth$RAIN
@@ -45,6 +46,15 @@
   tmp <- wth$TEMP
   lat <- wth$LAT
   doy <- wth$DOY
+
+  if (!all(c("TMIN", "TMAX") %in% names(wth))) {
+    # strict-hours fallback: wet all day (24h) if threshold met else 0h
+    return(data.table::ifelse(
+      wth$RHUM >= rhlim | wth$RAIN >= rainlim,
+      24.0,
+      0.0
+    ))
+  }
 
   rh_hr <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
 
@@ -80,6 +90,7 @@
 #' @param tmp Mean daily temperature as provided by `wth` via [seir()].
 #' @param doy Sequential day of year as provided by `wth` via [seir()].
 #' @param lat Latitude provided by `wth` via [seir()].
+#' @param yyyymmdd Date as YYYY-MM-DD as provided by `wth` via [seir()].
 #'
 #' @examples
 #' wth <- get_wth(
@@ -94,21 +105,23 @@
 #'   tmp = wth[, TEMP],
 #'   doy = wth[, DOY],
 #'   lat = wth[, LAT]
+#'   yyyymmdd = wth[, YYYYMMDD]
 #' )
 #'
 #' @returns A numeric vector of relative humidity values over 24 hrs.
 #'
 #' @dev
-.diurnal_rh <- function(rh, tmin, tmax, tmp, lat, doy) {
-  rh_hr <- vector(mode = "list", length = length(doy))
-  names(rh_hr) <- doy
-  for (i in seq_along(doy)) {
+.diurnal_rh <- function(rh, tmin, tmax, tmp, lat, doy, yyyymmdd) {
+  rh_hr <- vector(mode = "list", length = length(yyyymmdd))
+  names(rh_hr) <- yyyymmdd
+  for (i in yyyymmdd) {
     vp <- .saturated_vapour_pressure(tmp[[i]]) * rh[[i]] / 100.0
     hrtemp <- .diurnal_temp(
       lat = lat[[i]],
       doy = doy[[i]],
       tmin = tmin[[i]],
-      tmax = tmax[[i]]
+      tmax = tmax[[i]],
+      yyyymmdd = yyyymmdd[[i]]
     )
     es <- .saturated_vapour_pressure(hrtemp)
     rh_hr[[i]] <- 100.0 * vp / es
