@@ -55,8 +55,17 @@
   }
 
   prec[is.na(prec)] <- 0.0
-  prhrs <- pmin(12.0, prec / rainlim)
-  return(lw + (1.0 - lw / 24.0) * prhrs)
+  rainlim <- max(rainlim, .Machine$double.eps)
+
+  # rain wet-hours: 0..24 hours, scaled by precipitation relative to rainlim
+  wet_rain_hours <- 24.0 * pmin(1.0, prec / rainlim)
+
+  # combine without double-counting: rain mainly wets the remaining dry fraction
+  wet_total <- lw + (1.0 - lw / 24.0) * wet_rain_hours
+
+  # strict contract enforcement: 0..24 wet hours
+  wet_total <- pmin(24.0, pmax(0.0, wet_total))
+  return(wet_total)
 }
 
 #' Calculate hourly relative humidity for a given day
