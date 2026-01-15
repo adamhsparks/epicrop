@@ -426,7 +426,7 @@ seir <-
     y = .Rc[, 2L],
     method = "linear",
     xout = .xout,
-    yleft = 0L,
-    yright = 0L
+    yleft = .Rc[1L, 2L],
+    yright = .Rc[nrow(.Rc), 2L]
   )$y
 }
