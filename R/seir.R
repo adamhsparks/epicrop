@@ -70,11 +70,11 @@
 #'  wetness based on the `wth` data and will calculate the leaf wetness value
 #'  for each hour of the day and use `RcW` to determine the effect of leaf
 #'  wetness on the infection rate.
-#' @param RcW an optional modifier for _Rc_ to calculate leaf wetness effect
+#' @param RcW Optional modifier for _Rc_ to calculate leaf wetness effect
 #'  from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
 #'  first column being hours (1 to 24) and the second the modifier (bounded by 0
-#'  and 1).  Only used when `simple_wetness == TRUE`, if it is provided and
-#'  `simple_wetness == FALSE`, these values will be ignored.
+#'  and 1).  Used when `simple_wetness == FALSE` (hourly/derived wetness)., if
+#'   it is provided and `simple_wetness == TRUE`, these values will be ignored.
 #'
 #' @references
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
@@ -278,17 +278,21 @@ seir <-
                 vector(mode = "double", length = duration)
 
     if (simple_wetness) {
-      Rc_wet <- vector(mode = "double", length = length(wth_rhum))
-      Rc_wet[wth_rhum >= rhlim | wth_rain >= rainlim] <- 1L
+      wet_hours <- data.table::fifelse(
+        wth_rhum >= rhlim | wth_rain >= rainlim,
+        24L,
+        0L
+      )
     } else {
-      w <- .calculate_leaf_wetness(
-        wth,
+      wet_hours <- .calculate_leaf_wetness(
+        wth = wth,
         rhlim = rhlim,
         rainlim = rainlim,
         weighted_wetness = FALSE
       )
-      Rc_wet <- .fn_Rc(.Rc = RcW, .xout = w)
     }
+    Rc_wet <- .fn_Rc(.Rc = RcW, .xout = wet_hours)
+
     # The Modified Kim functions require matrices of RRG whereas the original is
     # a single value, so this handles that by creating a vector of either
     # values that vary by date or a vector of length 0-duration for the single
