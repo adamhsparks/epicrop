@@ -25,7 +25,8 @@
 #'   boundary, _i.e._, `rhlim` will be set to 1 and anything > `rhlim` will be
 #'   set to 0. For the `rainlim`, anything > `rainlim` will be set to 1.
 #'
-#' @returns A numeric vector of daily leaf wetness values for use with `Rc_wet`.
+#' @returns A numeric vector of hourly leaf wetness values for use with
+#'   `Rc_wet`.
 #' @dev
 #' @autoglobal
 #' @author Robert J. Hijmans with modifications by Adam H. Sparks,
@@ -58,7 +59,7 @@
   rainlim <- max(rainlim, .Machine$double.eps)
 
   # rain wet-hours: 0..24 hours, scaled by precipitation relative to rainlim
-  wet_rain_hours <- 24.0 * pmin(1.0, prec / rainlim)
+  wet_rain_hours <- pmin(24.0, prec / rainlim)
 
   # combine without double-counting: rain mainly wets the remaining dry fraction
   wet_total <- lw + (1.0 - lw / 24.0) * wet_rain_hours
