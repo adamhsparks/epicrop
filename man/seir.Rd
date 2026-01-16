@@ -102,11 +102,11 @@ Table 1 of Savary \emph{et al.} 2012.}
 \item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
 \emph{et al.} 2012.}
 
-\item{RcW}{an optional modifier for \emph{Rc} to calculate leaf wetness effect
+\item{RcW}{Optional modifier for \emph{Rc} to calculate leaf wetness effect
 from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
 first column being hours (1 to 24) and the second the modifier (bounded by 0
-and 1).  Only used when \code{simple_wetness == TRUE}, if it is provided and
-\code{simple_wetness == FALSE}, these values will be ignored.}
+and 1).  Used when \code{simple_wetness == FALSE} (hourly/derived wetness)., if
+it is provided and \code{simple_wetness == TRUE}, these values will be ignored.}
 
 \item{simple_wetness}{\code{Boolean} value, if \code{TRUE} the function will use a
 simple calculation of leaf wetness based on the daily \code{rhlim} and \code{rainlim}

@@ -4,15 +4,9 @@
 \alias{.calculate_leaf_wetness}
 \title{Calculate leaf wetness based on relative humidity}
 \usage{
-.calculate_leaf_wetness(weighted_wetness = FALSE, wth, rhlim, rainlim)
+.calculate_leaf_wetness(wth, rhlim, rainlim, weighted_wetness = FALSE)
 }
 \arguments{
-\item{weighted_wetness}{A \code{Boolean} value indicating whether to use simple
-leaf wetness calculation, \code{FALSE}, or a more complex calculation, \code{TRUE},
-that weights the leaf wetness value based on the relative humidity for each
-hour between RH \code{rhlim} and 80\%, \eqn{(rh - 80) / (rhlim - 80)}. Defaults to
-\code{FALSE}, using the hourly \code{rhlim} value to return a 0 or 1 value.}
-
 \item{wth}{Weather data in the proper format.}
 
 \item{rhlim}{Relative humidity threshold (\%) to determine if there is free
@@ -26,10 +20,16 @@ or lower boundaries, \emph{i.e.}, \code{rhlim} will be set to 1 and 80\% will be
 to 0. For the simple calculation, \code{rhlim} is included in the upper
 boundary, \emph{i.e.}, \code{rhlim} will be set to 1 and anything > \code{rhlim} will be
 set to 0. For the \code{rainlim}, anything > \code{rainlim} will be set to 1.}
+
+\item{weighted_wetness}{A \code{Boolean} value indicating whether to use simple
+leaf wetness calculation, \code{FALSE}, or a more complex calculation, \code{TRUE},
+that weights the leaf wetness value based on the relative humidity for each
+hour between RH \code{rhlim} and 80\%, \eqn{(rh - 80) / (rhlim - 80)}. Defaults to
+\code{FALSE}, using the hourly \code{rhlim} value to return a 0 or 1 value.}
 }
 \value{
-A numeric vector of hourly leaf wetness values for use with
-\code{Rc_wet}.
+A numeric vector of hourly leaf wetness values over one day. Use
+with \code{RcW} (hours -> 0–1) to obtain the wetness multiplier for infection.
 }
 \description{
 Calculate a leaf wetness value between \code{0} and \code{1} based on the relative

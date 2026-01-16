@@ -4,7 +4,7 @@
 \alias{.diurnal_rh}
 \title{Calculate hourly relative humidity for a given day}
 \usage{
-.diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
+.diurnal_rh(rh, tmin, tmax, tmp, lat, doy, yyyymmdd)
 }
 \arguments{
 \item{rh}{Mean daily relative humidity as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
@@ -18,6 +18,8 @@
 \item{lat}{Latitude provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 
 \item{doy}{Sequential day of year as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
+
+\item{yyyymmdd}{Date (YYYY-MM-DD) as provided by \code{wth} via \code{\link[=seir]{seir()}}.}
 }
 \value{
 A numeric vector of relative humidity values over 24 hrs.
@@ -33,12 +35,13 @@ wth <- get_wth(
 )
 
 .diurnal_rh(
-  rh = wth[, RHUM],
-  tmin = wth[, TMIN],
-  tmax = wth[, TMAX],
-  tmp = wth[, TEMP],
-  doy = wth[, DOY],
-  lat = wth[, LAT]
+  rh = RHUM,
+  tmin = TMIN,
+  tmax = TMAX,
+  tmp = TEMP,
+  doy = DOY,
+  lat = LAT
+  yyyymmdd = YYYYMMDD
 )
 
 }
