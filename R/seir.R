@@ -264,14 +264,6 @@ seir <-
         wth[YYYYMMDD %between% c(emergence, emergence + sum(duration, -1L))]
     }
 
-    # Create vectors for referencing ----
-    wth_rhum <- wth$RH2M
-
-    # the model can feasibly be used with just RH and no rainfall
-    #   this accounts for that by creating a vector of 0s when there is no rain
-    wth_rain <- wth$RAIN
-    wth_rain <- ifelse(is.null(wth_rain), rep(0L, length(wth_rhum)), wth_rain)
-
     # Create output vars
     cofr <-
       rc <-
@@ -281,11 +273,21 @@ seir <-
               now_infectious <- now_latent <- sites <- total_sites <-
                 vector(mode = "double", length = duration)
 
-    if (simple_wetness) {
+    # Create vectors for referencing ----
+    wth_rhum <- wth$RHUM
+    wth_rain <- wth$RAIN
+    if (is.null(wth_rain)) {
+      wth_rain <- rep(0, length(wth_rhum))
+    } # allow RH-only runs
+
+    # Wetness (strict 0–24 wet-hours contract) ----
+    if (
+      simple_wetness || !all(c("TMIN", "TMAX", "LAT", "DOY") %in% names(wth))
+    ) {
       wet_hours <- data.table::fifelse(
         wth_rhum >= rhlim | wth_rain >= rainlim,
-        24L,
-        0L
+        24,
+        0
       )
     } else {
       wet_hours <- .calculate_leaf_wetness(
@@ -294,8 +296,17 @@ seir <-
         rainlim = rainlim,
         weighted_wetness = FALSE
       )
+      # wetness function already caps to [0,24], this is redundant but safe:
+      wet_hours <- pmin(24, pmax(0, wet_hours))
     }
-    Rc_wet <- .fn_Rc(.Rc = RcW, .xout = wet_hours)
+
+    # Map wet-hours -> RcW multiplier ----
+    if (is.null(RcW)) {
+      # default: linear 0..24 -> 0..1 (so 0h=0, 24h=1)
+      Rc_wet <- wet_hours / 24
+    } else {
+      Rc_wet <- .fn_Rc(.Rc = RcW, .xout = wet_hours)
+    }
 
     # The Modified Kim functions require matrices of RRG whereas the original is
     # a single value, so this handles that by creating a vector of either

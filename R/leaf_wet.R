@@ -48,9 +48,32 @@
   doy <- wth$DOY
   yyyymmdd <- wth$YYYYMMDD
 
+  n <- nrow(wth)
+
+  # robust column extraction
+  tmp <- wth$TEMP
+  if (is.null(tmp)) {
+    tmp <- wth$T2M
+  } # if raw POWER naming slips through
+  if (is.null(tmp) && !is.null(tmin) && !is.null(tmax)) {
+    tmp <- (tmin + tmax) / 2
+  }
+
+  # ensure vectors are the right length
+  if (is.null(tmp) || length(tmp) != n) {
+    cli::cli_abort(
+      "TEMP is missing or wrong length. Provide TEMP or TMIN/TMAX to derive TEMP."
+    )
+  }
+  if (length(rh) != n || length(doy) != n || length(lat) != n) {
+    cli::cli_abort(
+      "Weather columns have inconsistent lengths (RHUM/DOY/LAT/TEMP)."
+    )
+  }
+
   if (!all(c("TMIN", "TMAX") %in% names(wth))) {
     # strict-hours fallback: wet all day (24h) if threshold met else 0h
-    return(data.table::ifelse(
+    return(data.table::fifelse(
       wth$RHUM >= rhlim | wth$RAIN >= rainlim,
       24L,
       0L
@@ -113,21 +136,20 @@
 #'
 #' @dev
 .diurnal_rh <- function(rh, tmin, tmax, tmp, lat, doy, yyyymmdd) {
-  rh_hr <- vector(mode = "list", length = length(yyyymmdd))
-  names(rh_hr) <- yyyymmdd
-  for (i in yyyymmdd) {
+  rh_hr <- setNames(vector("list", length(yyyymmdd)), yyyymmdd)
+
+  for (i in seq_along(yyyymmdd)) {
     vp <- .saturated_vapour_pressure(tmp[[i]]) * rh[[i]] / 100.0
     hrtemp <- .diurnal_temp(
       lat = lat[[i]],
       doy = doy[[i]],
       tmin = tmin[[i]],
-      tmax = tmax[[i]],
-      yyyymmdd = yyyymmdd[[i]]
+      tmax = tmax[[i]]
     )
     es <- .saturated_vapour_pressure(hrtemp)
-    rh_hr[[i]] <- 100.0 * vp / es
-    rh_hr[[i]] <- pmin(100.0, pmax(0.0, rh_hr[[i]]))
+    rh_hr[[i]] <- pmin(100.0, pmax(0.0, 100.0 * vp / es))
   }
+
   return(rh_hr)
 }
 
