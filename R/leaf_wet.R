@@ -46,17 +46,18 @@
   tmp <- wth$TEMP
   lat <- wth$LAT
   doy <- wth$DOY
+  yyyymmdd <- wth$YYYYMMDD
 
   if (!all(c("TMIN", "TMAX") %in% names(wth))) {
     # strict-hours fallback: wet all day (24h) if threshold met else 0h
     return(data.table::ifelse(
       wth$RHUM >= rhlim | wth$RAIN >= rainlim,
-      24.0,
-      0.0
+      24L,
+      0L
     ))
   }
 
-  rh_hr <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
+  rh_hr <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy, yyyymmdd)
 
   if (isFALSE(weighted_wetness)) {
     lw <- unlist(lapply(X = rh_hr, FUN = .check_threshold, rhlim = rhlim))
@@ -90,7 +91,7 @@
 #' @param tmp Mean daily temperature as provided by `wth` via [seir()].
 #' @param doy Sequential day of year as provided by `wth` via [seir()].
 #' @param lat Latitude provided by `wth` via [seir()].
-#' @param yyyymmdd Date as YYYY-MM-DD as provided by `wth` via [seir()].
+#' @param yyyymmdd Date (YYYY-MM-DD) as provided by `wth` via [seir()].
 #'
 #' @examples
 #' wth <- get_wth(
@@ -99,13 +100,13 @@
 #' )
 #'
 #' .diurnal_rh(
-#'   rh = wth[, RHUM],
-#'   tmin = wth[, TMIN],
-#'   tmax = wth[, TMAX],
-#'   tmp = wth[, TEMP],
-#'   doy = wth[, DOY],
-#'   lat = wth[, LAT]
-#'   yyyymmdd = wth[, YYYYMMDD]
+#'   rh = RHUM,
+#'   tmin = TMIN,
+#'   tmax = TMAX,
+#'   tmp = TEMP,
+#'   doy = DOY,
+#'   lat = LAT
+#'   yyyymmdd = YYYYMMDD
 #' )
 #'
 #' @returns A numeric vector of relative humidity values over 24 hrs.
