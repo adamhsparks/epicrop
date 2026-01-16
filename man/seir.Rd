@@ -22,12 +22,12 @@ seir(
   a,
   RRS,
   RRG,
-  RcW,
-  simple_wetness
+  RcW = NULL,
+  simple_wetness = TRUE
 )
 }
 \arguments{
-\item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or
+\item{wth}{a \code{data.frame} of class \verb{epicrop. wth} from either \code{\link[=get_wth]{get_wth()}} or
 \code{\link[=format_wth]{format_wth()}} containing weather on a daily time-step with the following
 field names:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
@@ -44,14 +44,14 @@ field names:\tabular{rl}{
 
 \item{emergence}{expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+_et al. _ 2012.}
 
 \item{onset}{expected number of days until the onset of disease after
 emergence date (day, integer).  Described in Table 1 of Savary \emph{et al.}
 2012.}
 
-\item{duration}{simulation duration \emph{i.e.}, growing season length (day,
-integer).  Described in Table 1 of Savary \emph{et al.} 2012.}
+\item{duration}{simulation duration \emph{i. e.}, growing season length (day,
+integer).  Described in Table 1 of Savary _et al. _ 2012.}
 
 \item{rhlim}{relative humidity value threshold to decide whether leaves are
 wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
@@ -80,7 +80,7 @@ column being temperature in ˚C and the second the modifier (bounded by 0 and
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Described in Table 1 of Savary \emph{et al.} 2012.  This value can be modified
-to reflect crop cultivar resistance ratings as well, see Kim \emph{et al.} 2015
+to reflect crop cultivar resistance ratings as well, see Kim _et al. _ 2015
 for more details.}
 
 \item{p}{duration of latent period (day, integer).  Described in Table 1 of
@@ -97,43 +97,45 @@ Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et
 2015.  See further details in \strong{\emph{a} - Aggregation} section.}
 
 \item{RRS}{relative rate of physiological senescence (numeric).  Described in
-Table 1 of Savary \emph{et al.} 2012.}
+Table 1 of Savary _et al. _ 2012.}
 
 \item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
 \emph{et al.} 2012.}
 
 \item{RcW}{Optional modifier for \emph{Rc} to calculate leaf wetness effect
-from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
+from 1 if wet to 0 if dry.   This is a numeric two-column matrix with the
 first column being hours (1 to 24) and the second the modifier (bounded by 0
-and 1).  Used when \code{simple_wetness == FALSE} (hourly/derived wetness)., if
-it is provided and \code{simple_wetness == TRUE}, these values will be ignored.}
+and 1).  Used when \code{simple_wetness = FALSE} (hourly/derived wetness). If
+\code{NULL} (default), a linear relationship is used where 0 hours wet = 0 and
+24 hours wet = 1. Ignored if \code{simple_wetness = TRUE}.}
 
-\item{simple_wetness}{\code{Boolean} value, if \code{TRUE} the function will use a
-simple calculation of leaf wetness based on the daily \code{rhlim} and \code{rainlim}
-values. If \code{FALSE} the function will use a more complex calculation of leaf
-wetness based on the \code{wth} data and will calculate the leaf wetness value
-for each hour of the day and use \code{RcW} to determine the effect of leaf
-wetness on the infection rate.}
+\item{simple_wetness}{Logical. If \code{TRUE} (default), the function uses a
+simple calculation of leaf wetness based on daily \code{rhlim} and \code{rainlim}
+values (wetness is either 0 or 24 hours). If \code{FALSE}, the function uses a
+more complex calculation of leaf wetness based on hourly temperature and
+humidity patterns derived from daily TMIN/TMAX values, requiring additional
+weather data columns (TMIN, TMAX, LAT, DOY), and applies \code{RcW} to determine
+the effect of leaf wetness duration on the infection rate.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} object containing the following
 columns:
 
 \describe{
-\item{simday}{Zero indexed day of simulation that was run}
+\item{simday}{Day of simulation (1-indexed, where 1 is the emergence date)}
 \item{dates}{Date of simulation}
-\item{sites}{Total number of sites present on day "x"}
+\item{sites}{Total number of healthy sites present on day "x"}
 \item{latent}{Number of latent sites present on day "x"}
 \item{infectious}{Number of infectious sites present on day "x"}
 \item{removed}{Number of removed sites present on day "x"}
 \item{senesced}{Number of senesced sites present on day "x"}
-\item{ratinf}{Rate of infection}
+\item{rateinf}{Rate of infection (new infections on day "x")}
 \item{rtransfer}{Rate of transfer from latent to infectious sites}
 \item{rgrowth}{Rate of growth of healthy sites}
 \item{rsenesced}{Rate of senescence of healthy sites}
 \item{diseased}{Number of diseased (latent + infectious + removed) sites on day "x"}
-\item{intensity}{Proportion of diseased (latent + infectious + removed) sites per total sites not including removed sites on day "x"}
-\item{AUDPC}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
+\item{intensity}{Proportion of diseased sites (latent + infectious) per total living sites (excludes removed and senesced) on day "x"}
+\item{AUDPC}{Area under the disease progress curve (AUDPC) for the simulation}
 \item{lat}{Latitude value if provided by the \code{wth} object}
 \item{lon}{Longitude value if provided by the \code{wth} object}
 }
@@ -150,7 +152,7 @@ When \emph{a} is set to \code{1} the assumption is that that there is no disease
 aggregation with new infections occurring at random among the healthy sites.
 When \emph{a} is greater than \code{1} there is aggregation in the disease occurrence,
 the pathogen is unable to access the entire population of healthy sites,
-which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
+which results in disease aggregation.  Refer to Savary _et al. _ (2012) for
 greater detail.
 }
 
@@ -158,14 +160,18 @@ greater detail.
 
 
 If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
-TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1 for the whole day.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
+\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
+24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
+\code{RcW} to calculate a value between 0 and 1 for the whole day.   When
+\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
+to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
 }
 
 \section{LAT/LON Details}{
 
 
 If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
-in the output for mapping purposes. Both values must be present. These
+in the output for mapping purposes.  Both values must be present.  These
 columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 
@@ -190,41 +196,39 @@ RcT <-
   )
 emergence <- "2000-07-15"
 
-(seir(
+seir(
   wth = wth,
   emergence = emergence,
   onset = 20,
   duration = 120,
   rhlim = 90,
   rainlim = 5,
+  H0 = 600,
+  I0 = 1,
   RcA = RcA,
   RcT = RcT,
   RcOpt = 0.61,
   p = 6,
   i = 19,
-  H0 = 600,
-  I0 = 1,
-  a = 1,
   Sx = 100000,
+  a = 1,
   RRS = 0.01,
-  RRG = 0.1,
-  simple_wetness = TRUE,
-  RcW = NULL
-))
+  RRG = 0.1
+)
 \dontshow{\}) # examplesIf}
 }
 \references{
-Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
-Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-Disease Progress over Time. \emph{The Plant Health Instructor}.
+Sparks, A. H., P.D. Esker, M.  Bates, W.  Dall' Acqua, Z. Guo, V. Segovia, S.D.
+Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in R:
+Disease Progress over Time.  \emph{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
 
-Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
-Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+Madden, L.  V., G. Hughes, and F. van den Bosch.  2007. The Study of Plant
+Disease Epidemics.  American Phytopathological Society, St. Paul, MN.
 \doi{10.1094/9780890545058}.
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
+J.  Modeling and mapping potential epidemics of rice diseases globally.  \emph{Crop
 Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 \doi{10.1016/j.cropro.2011.11.009}.
 }

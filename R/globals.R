@@ -3,9 +3,5 @@
 utils::globalVariables(c(
   "DOY", # <format_wth>
   "YYYYMMDD", # <seir>
-  "lat", # <seir>
-  "LAT", # <seir>
-  "lon", # <seir>
-  "LON", # <seir>
   NULL
 ))

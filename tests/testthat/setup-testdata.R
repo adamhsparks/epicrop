@@ -1,4 +1,4 @@
-load(system.file(file = "wth_test_data.Rdata", package = "epicrop"))
+load(test_path(file = "fixtures", "wth_test_data.Rdata"))
 
 wth_formatted <-
   format_wth(

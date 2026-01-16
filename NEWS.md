@@ -4,9 +4,11 @@
 
 - Version now 1.0.0.9000, almost ready for first major release
 
-- `SEIR()` is now `seir()`
+- Uses {Rcpp} for speed improvements in `seir()` function's efficiency (it's faster now!).
 
-- All helper functions drop the `predict_` prefix for simplicity, _e.g._, `predict_bacterial_blight()` becomes just `bacterial_blight()`
+- `SEIR()` is now `seir()`.
+
+- All helper functions drop the `predict_` prefix for simplicity, _e.g._, `predict_bacterial_blight()` becomes just `bacterial_blight()`.
 
 - Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.
 

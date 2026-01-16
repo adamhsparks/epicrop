@@ -44,6 +44,7 @@ BugReports: https://codeberg.org/adamhsparks/epicrop/issues
 Depends:
     R (>= 4.1.0)
 Imports:
+    Rcpp,
     cli,
     data.table,
     lubridate,
@@ -69,6 +70,8 @@ Suggests:
     tidyr,
     vcr (>= 0.6.0),
     withr
+LinkingTo:
+    Rcpp
 VignetteBuilder: 
     knitr
 ByteCompile: TRUE

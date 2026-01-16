@@ -4,7 +4,8 @@
       .check_inputs(var_args)
     Condition
       Error:
-      ! `onset` has a value of `twenty` and must be a numeric value.
+      ! `onset` has a value of
+      `twenty` and must be a numeric value.
 
 # Formatting fails if weather are not daily values
 
@@ -12,7 +13,8 @@
       .check_inputs(var_args)
     Condition
       Error:
-      ! `simple_wetness` must be a Boolean (`TRUE/FALSE`) value.
+      ! `simple_wetness` must be a Boolean
+      (`TRUE/FALSE`) value.
 
 # Failure if `wth` is not of class `epicrop.wth`
 
@@ -20,7 +22,10 @@
       .check_inputs(var_args)
     Condition
       Error:
-      ! `wth` must be an object of epicrop.wth.  You can create your `wth` object using either, `get_wth()` to fetch weather data from the NASA POWER API or format your own with `format_wth()`.
+      ! `wth` must be an object of epicrop.wth.
+      You can create your `wth` object using either
+      `get_wth()` to fetch weather data from the NASA POWER API
+      or format your own with `format_wth()`.
 
 # Failure if `duration` is <50
 
@@ -36,7 +41,9 @@
       .check_inputs(var_args)
     Condition
       Error:
-      ! The value for `rhlim`, {rhlim}, is invalid. Valid values are any value between or equal to 0 to 100.
+      ! The value for `rhlim`, 190,
+      is invalid. Valid values are any value between or equal
+      to 0 to 100.
 
 # Warning if `duration` is > max RcA days
 
@@ -44,7 +51,10 @@
       .check_inputs(var_args)
     Condition
       Error:
-      ! `RcA` has a duration, 120, that is less than `duration`, 140 days. Please provide a matrix of values that aligns with `duration`.
+      ! `RcA` has a duration, 120, that is less
+      than `duration`, 140 days.
+      Please provide a matrix of values that aligns with
+      `duration`.
 
 # Failure if TMIN/TMAX not supplied with `simple_wetness = FALSE`
 
@@ -52,7 +62,10 @@
       .check_inputs(var_args)
     Condition
       Error:
-      ! You have set `simple_wetness` to `TRUE` but you do not have 'TMIN' and 'TMAX' columns in your weather data. Please set `simple_wetness` to `FALSE` or provide 'TMIN' and 'TMAX' columns in your `wth` data.
+      ! You have set `simple_wetness` to `FALSE` but
+      you do not have 'TMIN' and 'TMAX' columns in your weather
+      data.  Please set `simple_wetness` to `TRUE` or
+      provide 'TMIN' and 'TMAX' columns in your `wth` data.
 
 # Failure if object should be date but cannot be formatted as such
 

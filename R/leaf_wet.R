@@ -1,37 +1,30 @@
-#' Calculate leaf wetness based on relative humidity
+#' Calculate leaf wetness duration (wet-hours) from relative humidity and rainfall
 #'
-#' Calculate a leaf wetness value between `0` and `1` based on the relative
-#'  humidity and rainfall values in the weather data. The simple calculation
-#'  uses only the relative humidity and rainfall threshold to set the value to 0
-#'  or 1 based on the threshold values. While the complex calculation uses a
-#'  formula to calculate a more nuanced value for leaf wetness between `0` and
-#'  `1` using a scaled value of relative humidity where values > rhlim == 1,
-#'  < 95% & > 80% == (rh - 80) / 15) or < 80%  == 0.
+#' Calculates daily leaf wetness duration as wet-hours from 0 to 24 using
+#' relative humidity and rainfall. The wet-hours output can then be mapped to an
+#' infection-rate multiplier from 0 to 1 using an RcW curve (hours -> 0 to 1).
 #'
-#' @param weighted_wetness A `Boolean` value indicating whether to use simple
-#'  leaf wetness calculation, `FALSE`, or a more complex calculation, `TRUE`,
-#'  that weights the leaf wetness value based on the relative humidity for each
-#'  hour between RH `rhlim` and 80%, \eqn{(rh - 80) / (rhlim - 80)}. Defaults to
-#'  `FALSE`, using the hourly `rhlim` value to return a 0 or 1 value.
+#' Two modes are supported:
+#' * Unweighted (default): counts the number of hourly RH values >= rhlim
+#'   (0 to 24 wet-hours).
+#' * Weighted (weighted_wetness = TRUE): converts each hourly RH value to a
+#'   wetness weight from 0 to 1 (0 below 80%, 1 at/above rhlim) and sums weights
+#'   across 24 hours (0 to 24 wet-hours).
+#'
+#' Rainfall contributes additional wet-hours proportional to RAIN / rainlim,
+#' capped at 24, and combined without double-counting by scaling to the
+#' remaining dry fraction of the day. If TMIN/TMAX are missing, the function
+#' falls back to a binary wetness day (0 or 24 wet-hours) based on rhlim/rainlim
+#' thresholds.
+#'
 #' @param wth Weather data in the proper format.
-#' @param rhlim Relative humidity threshold (%) to determine if there is free
-#'  water on the leaf surface.
-#' @param rainlim Rainfall threshold (mm) to determine if there is free water
-#'  on the leaf surface.
-#'
-#'  @note For the complex calculation, the boundaries are included in the upper
-#'   or lower boundaries, _i.e._, `rhlim` will be set to 1 and 80% will be set
-#'   to 0. For the simple calculation, `rhlim` is included in the upper
-#'   boundary, _i.e._, `rhlim` will be set to 1 and anything > `rhlim` will be
-#'   set to 0. For the `rainlim`, anything > `rainlim` will be set to 1.
-#'
-#' @returns A numeric vector of hourly leaf wetness values over one day. Use
-#'   with `RcW` (hours -> 0–1) to obtain the wetness multiplier for infection.
-#'
-#' @dev
-#' @autoglobal
-#' @author Robert J. Hijmans with modifications by Adam H. Sparks,
-#'  \email{adamhsparks@@gmail.com}
+#' @param rhlim Relative humidity threshold (%) used to determine wetness.
+#' @param rainlim Rainfall scaling threshold (mm per wet-hour equivalent).
+#' @param weighted_wetness If TRUE, compute weighted hourly wetness (0 to 24);
+#'   if FALSE, count hours where hourly RH >= rhlim (0 to 24).
+#' @returns A numeric vector of daily wet-hours from 0 to 24, length nrow(wth).
+#'   Use with RcW (hours -> 0 to 1) to obtain the wetness multiplier for
+#'   infection.
 
 .calculate_leaf_wetness <- function(
   wth,
@@ -39,70 +32,85 @@
   rainlim,
   weighted_wetness = FALSE
 ) {
-  rh <- wth$RHUM
-  prec <- wth$RAIN
-  tmin <- wth$TMIN
-  tmax <- wth$TMAX
-  tmp <- wth$TEMP
-  lat <- wth$LAT
-  doy <- wth$DOY
-  yyyymmdd <- wth$YYYYMMDD
-
   n <- nrow(wth)
 
-  # robust column extraction
+  rh <- wth$RHUM
+  if (is.null(rh) || length(rh) != n) {
+    cli::cli_abort("RHUM is missing or wrong length.")
+  }
+
+  doy <- wth$DOY
+  if (is.null(doy) || length(doy) != n) {
+    cli::cli_abort("DOY is missing or wrong length.")
+  }
+
+  # Always make rainfall a usable vector (RH-only runs supported)
+  prec <- wth$RAIN
+  if (is.null(prec)) {
+    prec <- rep(0, n)
+  }
+  prec[is.na(prec)] <- 0
+
+  rainlim <- max(rainlim, .Machine$double.eps)
+
+  # If TMIN/TMAX are missing, we cannot do diurnal RH: strict-hours fallback
+  if (!all(c("TMIN", "TMAX") %in% names(wth))) {
+    return(data.table::fifelse(rh >= rhlim | prec >= rainlim, 24L, 0L))
+  }
+
+  # TEMP robust extraction (only needed for diurnal calc)
+  tmin <- wth$TMIN
+  tmax <- wth$TMAX
+
   tmp <- wth$TEMP
   if (is.null(tmp)) {
     tmp <- wth$T2M
-  } # if raw POWER naming slips through
-  if (is.null(tmp) && !is.null(tmin) && !is.null(tmax)) {
+  }
+  if (is.null(tmp)) {
     tmp <- (tmin + tmax) / 2
   }
-
-  # ensure vectors are the right length
   if (is.null(tmp) || length(tmp) != n) {
     cli::cli_abort(
-      "TEMP is missing or wrong length. Provide TEMP or TMIN/TMAX to derive TEMP."
-    )
-  }
-  if (length(rh) != n || length(doy) != n || length(lat) != n) {
-    cli::cli_abort(
-      "Weather columns have inconsistent lengths (RHUM/DOY/LAT/TEMP)."
+      "TEMP is missing or wrong length (cannot derive from TMIN/TMAX)."
     )
   }
 
-  if (!all(c("TMIN", "TMAX") %in% names(wth))) {
-    # strict-hours fallback: wet all day (24h) if threshold met else 0h
-    return(data.table::fifelse(
-      wth$RHUM >= rhlim | wth$RAIN >= rainlim,
-      24L,
-      0L
-    ))
+  # LAT required only for diurnal calc
+  lat <- wth$LAT
+  if (is.null(lat)) {
+    cli::cli_abort("LAT is required for hourly wetness calculation.")
+  }
+  if (length(lat) == 1) {
+    lat <- rep(lat, n)
+  }
+  if (length(lat) != n) {
+    cli::cli_abort("LAT has wrong length.")
+  }
+
+  yyyymmdd <- wth$YYYYMMDD
+  if (is.null(yyyymmdd)) {
+    yyyymmdd <- seq_len(n)
   }
 
   rh_hr <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy, yyyymmdd)
 
   if (isFALSE(weighted_wetness)) {
-    lw <- unlist(lapply(X = rh_hr, FUN = .check_threshold, rhlim = rhlim))
+    lw <- unlist(lapply(rh_hr, .check_threshold, rhlim = rhlim))
   } else {
-    w <- lapply(X = rh_hr, FUN = .calculate_weighted_hr_wet, rhlim = rhlim)
-    lw <- unlist(lapply(X = w, FUN = sum))
+    w <- lapply(rh_hr, .calculate_weighted_hr_wet, rhlim = rhlim)
+    lw <- unlist(lapply(w, sum))
   }
 
-  prec[is.na(prec)] <- 0.0
-  rainlim <- max(rainlim, .Machine$double.eps)
-
-  # rain wet-hours: 0..24 hours, scaled by precipitation relative to rainlim
+  # rain wet-hours (0..24), scaled by precip/rainlim
   wet_rain_hours <- pmin(24.0, prec / rainlim)
 
-  # combine without double-counting: rain mainly wets the remaining dry fraction
+  # combine without double counting
   wet_total <- lw + (1.0 - lw / 24.0) * wet_rain_hours
 
-  # strict contract enforcement: 0..24 wet hours
+  # strict contract enforcement: 0..24
   wet_total <- pmin(24.0, pmax(0.0, wet_total))
-  return(wet_total)
+  wet_total
 }
-
 #' Calculate hourly relative humidity for a given day
 #'
 #' Uses mean rh, doy, location (lat), mean tmp, tmin and tmax to calculate

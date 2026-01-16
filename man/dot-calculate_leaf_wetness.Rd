@@ -2,46 +2,43 @@
 % Please edit documentation in R/leaf_wet.R
 \name{.calculate_leaf_wetness}
 \alias{.calculate_leaf_wetness}
-\title{Calculate leaf wetness based on relative humidity}
+\title{Calculate leaf wetness duration (wet-hours) from relative humidity and rainfall}
 \usage{
 .calculate_leaf_wetness(wth, rhlim, rainlim, weighted_wetness = FALSE)
 }
 \arguments{
 \item{wth}{Weather data in the proper format.}
 
-\item{rhlim}{Relative humidity threshold (\%) to determine if there is free
-water on the leaf surface.}
+\item{rhlim}{Relative humidity threshold (\%) used to determine wetness.}
 
-\item{rainlim}{Rainfall threshold (mm) to determine if there is free water
-on the leaf surface.
+\item{rainlim}{Rainfall scaling threshold (mm per wet-hour equivalent).}
 
-@note For the complex calculation, the boundaries are included in the upper
-or lower boundaries, \emph{i.e.}, \code{rhlim} will be set to 1 and 80\% will be set
-to 0. For the simple calculation, \code{rhlim} is included in the upper
-boundary, \emph{i.e.}, \code{rhlim} will be set to 1 and anything > \code{rhlim} will be
-set to 0. For the \code{rainlim}, anything > \code{rainlim} will be set to 1.}
-
-\item{weighted_wetness}{A \code{Boolean} value indicating whether to use simple
-leaf wetness calculation, \code{FALSE}, or a more complex calculation, \code{TRUE},
-that weights the leaf wetness value based on the relative humidity for each
-hour between RH \code{rhlim} and 80\%, \eqn{(rh - 80) / (rhlim - 80)}. Defaults to
-\code{FALSE}, using the hourly \code{rhlim} value to return a 0 or 1 value.}
+\item{weighted_wetness}{If TRUE, compute weighted hourly wetness (0 to 24);
+if FALSE, count hours where hourly RH >= rhlim (0 to 24).}
 }
 \value{
-A numeric vector of hourly leaf wetness values over one day. Use
-with \code{RcW} (hours -> 0–1) to obtain the wetness multiplier for infection.
+A numeric vector of daily wet-hours from 0 to 24, length nrow(wth).
+Use with RcW (hours -> 0 to 1) to obtain the wetness multiplier for
+infection.
 }
 \description{
-Calculate a leaf wetness value between \code{0} and \code{1} based on the relative
-humidity and rainfall values in the weather data. The simple calculation
-uses only the relative humidity and rainfall threshold to set the value to 0
-or 1 based on the threshold values. While the complex calculation uses a
-formula to calculate a more nuanced value for leaf wetness between \code{0} and
-\code{1} using a scaled value of relative humidity where values > rhlim == 1,
-< 95\% & > 80\% == (rh - 80) / 15) or < 80\%  == 0.
+Calculates daily leaf wetness duration as wet-hours from 0 to 24 using
+relative humidity and rainfall. The wet-hours output can then be mapped to an
+infection-rate multiplier from 0 to 1 using an RcW curve (hours -> 0 to 1).
 }
-\author{
-Robert J. Hijmans with modifications by Adam H. Sparks,
-\email{adamhsparks@gmail.com}
+\details{
+Two modes are supported:
+\itemize{
+\item Unweighted (default): counts the number of hourly RH values >= rhlim
+(0 to 24 wet-hours).
+\item Weighted (weighted_wetness = TRUE): converts each hourly RH value to a
+wetness weight from 0 to 1 (0 below 80\%, 1 at/above rhlim) and sums weights
+across 24 hours (0 to 24 wet-hours).
 }
-\keyword{internal}
+
+Rainfall contributes additional wet-hours proportional to RAIN / rainlim,
+capped at 24, and combined without double-counting by scaling to the
+remaining dry fraction of the day. If TMIN/TMAX are missing, the function
+falls back to a binary wetness day (0 or 24 wet-hours) based on rhlim/rainlim
+thresholds.
+}

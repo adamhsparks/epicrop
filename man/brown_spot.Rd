@@ -68,14 +68,18 @@ Savary \emph{et al.} 2012 has a typo. The optimal value should be 25 °C, not
 
 
 If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
-TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1 for the whole day.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
+\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
+24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
+\code{RcW} to calculate a value between 0 and 1 for the whole day.   When
+\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
+to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
 }
 
 \section{LAT/LON Details}{
 
 
 If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
-in the output for mapping purposes. Both values must be present. These
+in the output for mapping purposes.  Both values must be present.  These
 columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 

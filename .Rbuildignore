@@ -22,16 +22,30 @@
 ^pkgdown$
 ^LICENSE\.md$
 ^air\.toml$
+^\.woodpecker$
 
 # flir files
 ^flir$
+
 ^man/dot-calculate_audpc\.Rd$
 ^man/dot-check_na\.Rd$
 ^man/dot-check_inputs\.Rd$
+^man/dot-eval_RRG\.Rd$
+^man/dot-eval_RcW\.Rd$
+^man/dot-check_scalar_params\.Rd$
+^man/dot-check_non_negative_params\.Rd$
+^man/dot-check_matrix_params\.Rd$
+^man/dot-check_boolean_params\.Rd$
+^man/dot-check_weather_data\.Rd$
+^man/dot-check_parameter_constraints\.Rd$
+^man/dot-check_RcA_duration\.Rd$
+^man/dot-check_wetness_params\.Rd$
+^man/dot-check_RcW_matrix\.Rd$
+^man/dot-check_RcW_hours\.Rd$
+^man/dot-check_RcW_modifiers\.Rd$
 ^man/dot-is_boolean\.Rd$
 ^man/dot-check_date\.Rd$
 ^man/dot-check_emergence_date\.Rd$
-^man/dot-calculate_leaf_wetness\.Rd$
 ^man/dot-diurnal_rh\.Rd$
 ^man/dot-diurnal_temp\.Rd$
 ^man/dot-day_length\.Rd$
