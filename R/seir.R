@@ -265,8 +265,12 @@ seir <-
     }
 
     # Create vectors for referencing ----
+    wth_rhum <- wth$RH2M
+
+    # the model can feasibly be used with just RH and no rainfall
+    #   this accounts for that by creating a vector of 0s when there is no rain
     wth_rain <- wth$RAIN
-    wth_rhum <- wth$RHUM
+    wth_rain <- ifelse(is.null(wth_rain), rep(0L, length(wth_rhum)), wth_rain)
 
     # Create output vars
     cofr <-
