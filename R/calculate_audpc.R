@@ -26,7 +26,7 @@
 #'
 #' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
 #' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
-#' \doi{https://doi.org/10.1094/9780890545058}.
+#' \doi{doi.org/10.1094/9780890545058}.
 #'
 #' @keywords internal
 #' @dev
