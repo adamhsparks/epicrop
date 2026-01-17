@@ -5,10 +5,9 @@
 .DS_Store
 inst/doc
 docs/
-*.code-workspace
 /doc/
 /Meta/
 rosm.cache/
 cache/
-src/RcppExports.o
-src/epicrop.so
+*.o
+*.so
