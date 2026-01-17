@@ -112,6 +112,8 @@
   wet_total <- pmin(24.0, pmax(0.0, wet_total))
   wet_total
 }
+
+
 #' Calculate hourly relative humidity for a given day
 #'
 #' Uses mean rh, doy, location (lat), mean tmp, tmin and tmax to calculate
@@ -145,7 +147,7 @@
 #'
 #' @dev
 .diurnal_rh <- function(rh, tmin, tmax, tmp, lat, doy, yyyymmdd) {
-  rh_hr <- setNames(vector("list", length(yyyymmdd)), yyyymmdd)
+  rh_hr <- stats::setNames(vector("list", length(yyyymmdd)), yyyymmdd)
 
   for (i in seq_along(yyyymmdd)) {
     vp <- .saturated_vapour_pressure(tmp[[i]]) * rh[[i]] / 100.0
