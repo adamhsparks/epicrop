@@ -12,7 +12,9 @@ bacterial blight, brown spot, leaf blast, sheath blight and tungro.
 Specific functions are provided to simulate all of these diseases with a
 generic 'SEIR' model function that is suitable for parameterising for
 use with other pathosystems as demonstrated in Savary et al. 2012 and
-Kim et al. 2015 \<10.1016/j.agrformet.2015.01.011\>.
+Kim et al. 2015
+[doi:10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
+.
 
 ## See also
 

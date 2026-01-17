@@ -105,7 +105,7 @@ seir(
 
   modifier for *Rc* (the basic infection rate corrected for removals)
   for temperature as a numeric two-column matrix with the first column
-  being temperature in ˚C and the second the modifier (bounded by 0 and
+  being temperature in °C and the second the modifier (bounded by 0 and
   1). Described in Tables 1 and 2 of Savary *et al.* 2012.
 
 - RcOpt:

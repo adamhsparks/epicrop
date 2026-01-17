@@ -102,8 +102,8 @@ without them.
   | *YYYYMMDD*     | Date as Year Month Day (ISO8601)                       |
   | *DOY*          | Consecutive day of year, commonly called "Julian date" |
   | *TEMP*         | Mean daily temperature (°C)                            |
-  | *TMIN*         | Daily minimum temperature (˚C)                         |
-  | *TMAX*         | Daily maximum temperature (˚C)                         |
+  | *TMIN*         | Daily minimum temperature (°C)                         |
+  | *TMAX*         | Daily maximum temperature (°C)                         |
   | *RHUM*         | Mean daily relative humidity (%)                       |
   | *RAIN*         | Mean daily rainfall (mm)                               |
   | *LAT*          | Latitude of area of interest                           |
