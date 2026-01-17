@@ -16,7 +16,9 @@
 #' 12 Centum7-ro, Haeundae-gu, Busan 612-020, South Korea.
 #' Original model development: Serge Savary & Rene Pangga (IRRI).
 #' Original \R implementation by Robert J. Hijmans, Rene Pangga, & Jorrel
-#' Aunario (IRRI).  While the paper by Kim _et al._ 2015 indicates that the leaf
+#' Aunario (IRRI).
+#'
+#'While the paper by Kim _et al._ 2015 indicates that the leaf
 #' wetness duration changed with time rather than being 0 or 1 as in Savary
 #' _et al._ 2012, the original code available does not implement this.
 #' \pkg{epicrop} offers the option to do this by setting
