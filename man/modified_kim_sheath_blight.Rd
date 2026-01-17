@@ -101,7 +101,7 @@ duration and RcA and RRG have been modified accordingly.
 
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
 in the output for mapping purposes. Both values must be present. These
-columns are provided by default when using \link{get_wth}.
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 
 The optimum temperature for leaf blast as presented in Table 2 of
 Savary \emph{et al.} 2012 has a typo. The optimal value should be 20 °C, not
