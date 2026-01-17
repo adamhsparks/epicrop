@@ -46,6 +46,7 @@
 ^man/dot-is_boolean\.Rd$
 ^man/dot-check_date\.Rd$
 ^man/dot-check_emergence_date\.Rd$
+^man/dot-calculate_leaf_wetness\.Rd$
 ^man/dot-diurnal_rh\.Rd$
 ^man/dot-diurnal_temp\.Rd$
 ^man/dot-day_length\.Rd$

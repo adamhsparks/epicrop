@@ -42,3 +42,4 @@ remaining dry fraction of the day. If TMIN/TMAX are missing, the function
 falls back to a binary wetness day (0 or 24 wet-hours) based on rhlim/rainlim
 thresholds.
 }
+\keyword{internal}

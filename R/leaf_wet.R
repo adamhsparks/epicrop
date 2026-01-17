@@ -25,6 +25,7 @@
 #' @returns A numeric vector of daily wet-hours from 0 to 24, length nrow(wth).
 #'   Use with RcW (hours -> 0 to 1) to obtain the wetness multiplier for
 #'   infection.
+#' @dev
 
 .calculate_leaf_wetness <- function(
   wth,
