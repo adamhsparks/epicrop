@@ -557,9 +557,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr      min       lq     mean   median       uq      max neval
-#>  sequential 39.94167 41.55504 44.21094 44.79334 46.61493 54.99424   100
-#>    parallel 28.62718 29.62230 31.34680 30.96900 31.65686 49.30705   100
+#>        expr      min       lq     mean   median       uq       max neval
+#>  sequential 40.86208 42.05124 44.30440 42.82774 47.16890  58.11537   100
+#>    parallel 28.89938 29.91147 33.07326 31.14583 32.18154 128.10110   100
 
 autoplot(mbm) +
   theme_classic()
