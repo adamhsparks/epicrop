@@ -106,11 +106,14 @@ format_wth <- function(
   lon
 ) {
   rlang::check_required(c(wth, date, temp, rhum, rain))
-  passed_args <- as.character(match.call())[-c(1L:2L)] # remove fn & `wth` args
+
+  # Get all provided arguments (excluding wth)
+  passed_args <- as.character(match.call())[-c(1L:2L)]
+
   if (any(passed_args %notin% names(wth))) {
     not_in <- passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
-      "The following columns that you have provided are not in {.var wth}:
+      "The following columns that you have provided are not in {.var wth}: 
         {.var {not_in}}."
     )
   }
@@ -127,41 +130,32 @@ format_wth <- function(
       "Please check that the values in {.var wth} are on a daily time-step."
     )
   }
+  # Build list of columns to rename based on what was provided
+  old_names <- c(date, temp, rhum, rain)
+  new_names <- c("YYYYMMDD", "TEMP", "RHUM", "RAIN")
 
-  if (length(passed_args) == 8L) {
-    old_names <- c(date, temp, tmin, tmax, rhum, rain, lat, lon)
-    new_names <- c(
-      "YYYYMMDD",
-      "TEMP",
-      "TMIN",
-      "TMAX",
-      "RHUM",
-      "RAIN",
-      "LAT",
-      "LON"
-    )
-    setnames(wth, old = old_names, new = new_names)
-    # select only the columns that are needed
-    wth <- wth[, new_names, with = FALSE]
-  } else {
-    old_names <- c(date, temp, rhum, rain)
-
-    new_names <- c(
-      "YYYYMMDD",
-      "TEMP",
-      "RHUM",
-      "RAIN"
-    )
-    setnames(
-      wth,
-      old = old_names,
-      new = new_names
-    )
-    # select only the columns that are needed
-    wth <- wth[, new_names, with = FALSE]
+  # Add optional columns if provided
+  if (!missing(tmin)) {
+    old_names <- c(old_names, tmin)
+    new_names <- c(new_names, "TMIN")
+  }
+  if (!missing(tmax)) {
+    old_names <- c(old_names, tmax)
+    new_names <- c(new_names, "TMAX")
+  }
+  if (!missing(lat)) {
+    old_names <- c(old_names, lat)
+    new_names <- c(new_names, "LAT")
+  }
+  if (!missing(lon)) {
+    old_names <- c(old_names, lon)
+    new_names <- c(new_names, "LON")
   }
 
-  # Add the Julian day of year
+  setnames(wth, old = old_names, new = new_names)
+  wth <- wth[, new_names, with = FALSE]
+
+  # Add DOY
   wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
 
   setcolorder(
