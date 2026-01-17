@@ -108,7 +108,6 @@ tungro <- function(wth, emergence, ...) {
       a = 1L,
       RRS = 0.01,
       RRG = 0.1,
-      RcW = cbind(c(0L, 24L), c(0L, 1L)),
       simple_wetness = TRUE
     )
   )

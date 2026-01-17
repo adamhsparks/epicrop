@@ -106,11 +106,7 @@ brown_spot <- function(wth, emergence, ...) {
       Sx = 100000L,
       RRS = 0.01,
       RRG = 0.1,
-      simple_wetness = TRUE,
-      RcW = cbind(
-        c(0L, 3L, 6L, 9L, 12L, 15L, 18L, 21L, 24L),
-        c(0.0, 0.12, 0.20, 0.38, 0.46, 0.60, 0.73, 0.87, 1.0)
-      )
+      simple_wetness = TRUE
     )
   )
 }
