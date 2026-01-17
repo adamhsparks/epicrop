@@ -65,7 +65,8 @@ wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savar
 Table 1 of Savary \emph{et al.} 2012.}
 
 \item{I0}{initial number of infective sites (integer).  Described in Table 1
-of Savary \emph{et al.} 2012.}
+of Savary \emph{et al.} 2012. I0 is injected as new infections on the onset
+(become infectious after \code{p} days).}
 
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for crop age as a numeric two-column matrix with the first column

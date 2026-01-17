@@ -37,7 +37,8 @@
 #' @param H0 initial number of plant's healthy sites (integer).  Described in
 #'  Table 1 of Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (integer).  Described in Table 1
-#'  of Savary _et al._ 2012.
+#'  of Savary _et al._ 2012. I0 is injected as new infections on the onset
+#'  (become infectious after `p` days).
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for crop age as a numeric two-column matrix with the first column
 #'  being the crop age in days (1 to `duration`) and the second being the

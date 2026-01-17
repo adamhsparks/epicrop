@@ -29,8 +29,8 @@
 #'
 #' @section Function Provenance and Modifications to Kim _et al._ 2015:
 #' The original code for this function from Kim _et al. 2015 set up 120 day
-#' growing season vector for `RRG`. The paper used an 85 day `duration`, this
-#' function has been modified to use an `RRG` suitable for 85 days.
+#' growing season vector for `RRG`. The paper used an 88 day `duration`, this
+#' function has been modified to use an `RRG` suitable for 88 days.
 #'
 #' The original code for this function also had an incorrect matrix for the
 #' relative rate of physiological growth modifier, `RRG` or `RRPhysioloGrowth`

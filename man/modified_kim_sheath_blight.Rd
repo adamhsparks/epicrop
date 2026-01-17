@@ -62,8 +62,8 @@ columns are provided by default when using \link{get_wth}.
 \section{Function Provenance and Modifications to Kim \emph{et al.} 2015}{
 
 The original code for this function from Kim _et al. 2015 set up 120 day
-growing season vector for \code{RRG}. The paper used an 85 day \code{duration}, this
-function has been modified to use an \code{RRG} suitable for 85 days.
+growing season vector for \code{RRG}. The paper used an 88 day \code{duration}, this
+function has been modified to use an \code{RRG} suitable for 88 days.
 
 The original code for this function also had an incorrect matrix for the
 relative rate of physiological growth modifier, \code{RRG} or \code{RRPhysioloGrowth}
