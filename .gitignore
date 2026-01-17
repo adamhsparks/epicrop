@@ -9,5 +9,5 @@ docs/
 /Meta/
 rosm.cache/
 cache/
-*.o
-*.so
+src/*.o
+src/*.so
