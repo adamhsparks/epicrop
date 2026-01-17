@@ -90,7 +90,8 @@ seir(
 - I0:
 
   initial number of infective sites (integer). Described in Table 1 of
-  Savary *et al.* 2012.
+  Savary *et al.* 2012. I0 is injected as new infections on the onset
+  (become infectious after `p` days).
 
 - RcA:
 

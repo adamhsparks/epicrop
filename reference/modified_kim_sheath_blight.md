@@ -82,9 +82,9 @@ present. These columns are provided by default when using
 ## Function Provenance and Modifications to Kim *et al.* 2015
 
 The original code for this function from Kim \_et al. 2015 set up 120
-day growing season vector for `RRG`. The paper used an 85 day
+day growing season vector for `RRG`. The paper used an 88 day
 `duration`, this function has been modified to use an `RRG` suitable for
-85 days.
+88 days.
 
 The original code for this function also had an incorrect matrix for the
 relative rate of physiological growth modifier, `RRG` or
@@ -108,20 +108,22 @@ University, with assistance from Kwang-Hyung Kim, APEC Climate Center,
 12 Centum7-ro, Haeundae-gu, Busan 612-020, South Korea. Original model
 development: Serge Savary & Rene Pangga (IRRI). Original R
 implementation by Robert J. Hijmans, Rene Pangga, & Jorrel Aunario
-(IRRI). While the paper by Kim *et al.* 2015 indicates that the leaf
-wetness duration changed with time rather than being 0 or 1 as in Savary
-*et al.* 2012, the original code available does not implement this.
-epicrop offers the option to do this by setting
-`simple_wetness = FALSE`, but the results may differ from the published
-values if this is used. Further changes were made to the length of the
-growing season where the example code ran for 100 days, the paper ran
-for 77. This function has been written to match the paper's 77 day
-growing season duration and RcA and RRG have been modified accordingly.
+(IRRI).
+
+While the paper by Kim *et al.* 2015 indicates that the leaf wetness
+duration changed with time rather than being 0 or 1 as in Savary *et
+al.* 2012, the original code available does not implement this. epicrop
+offers the option to do this by setting `simple_wetness = FALSE`, but
+the results may differ from the published values if this is used.
+Further changes were made to the length of the growing season where the
+example code ran for 100 days, the paper ran for 77. This function has
+been written to match the paper's 77 day growing season duration and RcA
+and RRG have been modified accordingly.
 
 If the `wth` object provides *LAT* and *LON* columns, these will be
 included in the output for mapping purposes. Both values must be
 present. These columns are provided by default when using
-[get_wth](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
 
 The optimum temperature for leaf blast as presented in Table 2 of Savary
 *et al.* 2012 has a typo. The optimal value should be 20 °C, not 25 °C
