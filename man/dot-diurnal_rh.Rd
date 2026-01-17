@@ -39,8 +39,8 @@ wth <- get_wth(
   tmin = wth$TMIN,
   tmax = wth$TMAX,
   tmp = wth$TEMP,
+  lat = wth$LAT,
   doy = wth$DOY,
-  lat = wth$LAT
   yyyymmdd = wth$YYYYMMDD
 )
 

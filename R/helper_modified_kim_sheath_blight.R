@@ -14,7 +14,7 @@
 #' starts with a high growth rate followed by a rapid decline after the max
 #' tillering stage, based on observed tiller numbers in Korean rice varieties,
 #' Kim (personal communication). The age effect increases until max tillering
-#' and decreases after heading stage. The optimum temperature is from 23--27 ˚C.
+#' and decreases after heading stage. The optimum temperature is from 23--27 °C.
 #'
 #' @inheritSection modified_kim_leaf_blast Function Provenance and Modifications
 #'

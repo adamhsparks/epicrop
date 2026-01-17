@@ -76,7 +76,7 @@ modifier (bounded by 0 and 1).  Described in Tables 1 and 2 of Savary
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature as a numeric two-column matrix with the first
-column being temperature in ˚C and the second the modifier (bounded by 0 and
+column being temperature in °C and the second the modifier (bounded by 0 and
 1).  Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).

@@ -46,7 +46,7 @@
 #'  _et al._ 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature as a numeric two-column matrix with the first
-#'  column being temperature in ˚C and the second the modifier (bounded by 0 and
+#'  column being temperature in °C and the second the modifier (bounded by 0 and
 #'  1).  Described in Tables 1 and 2 of Savary _et al._ 2012.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012.  This value can be modified

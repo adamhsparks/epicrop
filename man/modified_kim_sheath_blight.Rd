@@ -52,7 +52,7 @@ This model is a modified version of the Kim \emph{et al.} (2015) model, which
 starts with a high growth rate followed by a rapid decline after the max
 tillering stage, based on observed tiller numbers in Korean rice varieties,
 Kim (personal communication). The age effect increases until max tillering
-and decreases after heading stage. The optimum temperature is from 23--27 ˚C.
+and decreases after heading stage. The optimum temperature is from 23--27 °C.
 }
 \note{
 If the \code{wth} object provides \emph{LAT} and \emph{LON} columns, these will be included
