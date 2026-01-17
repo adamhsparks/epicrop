@@ -144,7 +144,6 @@ format_wth <- function(
     # select only the columns that are needed
     wth <- wth[, new_names, with = FALSE]
   } else {
-    q
     old_names <- c(date, temp, rhum, rain)
 
     new_names <- c(
