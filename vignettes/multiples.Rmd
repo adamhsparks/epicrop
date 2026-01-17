@@ -57,10 +57,6 @@ seasons_wth <-
     lonlat = c(121.255669, 14.16742),
     duration = 120
   )
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
 ```
 
 ### Using {purrr} to simplify the simulation of multiple seasons
@@ -95,9 +91,9 @@ pander(seasons)
 ----------------
  AUDPC   season 
 ------- --------
- 11.25    2000  
+ 12.51    2000  
 
- 6.022    2001  
+ 7.022    2001  
 ----------------
 
 
@@ -138,6 +134,7 @@ An example benchmarking different methods is provided here.
 ``` r
 library(epicrop)
 library(furrr)
+#> Loading required package: future
 library(dplyr)
 library(lubridate)
 library(pander)
@@ -155,10 +152,6 @@ seasons_wth <-
     duration = 120,
     .options = furrr_options(seed = NULL)
   )
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
 
 # for local processing use 2 cores, this will assign one to each year, if you
 # have more years and more cores, e.g., an HPC, explore using more resources
@@ -184,9 +177,9 @@ future_map_dfr(
 ----------------
  AUDPC   season 
 ------- --------
- 11.25    2000  
+ 12.51    2000  
 
- 6.022    2001  
+ 7.022    2001  
 ----------------
 
 
@@ -241,26 +234,6 @@ seasons_wth <- map_dfr(
   duration = 180
 ) |>
   mutate(YYYYMMDD = as_date(YYYYMMDD))
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
 
 # Now use 4 cores for the local processing
 plan(multisession, workers = 4)
@@ -294,65 +267,65 @@ pander(multi_dates)
 --------------------
  AUDPC   emergence  
 ------- ------------
- 11.9    2001-06-01 
+ 13.81   2001-06-01 
 
- 7.111   2001-06-14 
+ 8.992   2001-06-14 
 
- 6.022   2001-06-30 
+ 7.022   2001-06-30 
 
- 12.59   2002-06-01 
+ 14.61   2002-06-01 
 
- 10.58   2002-06-14 
+  13     2002-06-14 
 
- 12.25   2002-06-30 
+ 14.78   2002-06-30 
 
- 10.28   2003-06-01 
+ 13.21   2003-06-01 
 
- 10.7    2003-06-14 
+ 13.94   2003-06-14 
 
- 15.41   2003-06-30 
+ 16.85   2003-06-30 
 
- 10.44   2004-06-01 
+ 12.65   2004-06-01 
 
- 13.45   2004-06-14 
+ 14.08   2004-06-14 
 
- 10.31   2004-06-30 
+ 12.06   2004-06-30 
 
- 13.93   2005-06-01 
+ 15.76   2005-06-01 
 
- 13.41   2005-06-14 
+ 15.33   2005-06-14 
 
- 15.25   2005-06-30 
+ 16.62   2005-06-30 
 
- 15.22   2006-06-01 
+ 16.14   2006-06-01 
 
- 14.16   2006-06-14 
+ 15.39   2006-06-14 
 
- 12.74   2006-06-30 
+ 14.39   2006-06-30 
 
- 7.917   2007-06-01 
+ 9.258   2007-06-01 
 
- 7.269   2007-06-14 
+ 7.597   2007-06-14 
 
- 11.02   2007-06-30 
+ 11.78   2007-06-30 
 
- 9.418   2008-06-01 
+ 10.59   2008-06-01 
 
- 9.072   2008-06-14 
+ 10.6    2008-06-14 
 
- 10.38   2008-06-30 
+ 12.99   2008-06-30 
 
- 4.917   2009-06-01 
+ 5.962   2009-06-01 
 
- 9.179   2009-06-14 
+ 11.13   2009-06-14 
 
- 6.911   2009-06-30 
+ 9.008   2009-06-30 
 
- 14.08   2010-06-01 
+ 14.84   2010-06-01 
 
- 16.44   2010-06-14 
+ 17.4    2010-06-14 
 
- 16.13   2010-06-30 
+ 17.26   2010-06-30 
 --------------------
 
 
@@ -433,26 +406,6 @@ seasons_wth <-
     .options = furrr_options(seed = NULL)
   ) |>
   mutate(YYYYMMDD = as_date(YYYYMMDD))
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
 ```
 
 Once we have all the weather, create a list of weather `data.frames` for each establishment date.
@@ -531,16 +484,6 @@ locations_wth <-
     dates = "2000-06-30",
     duration = 120
   )
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
-#> No encoding supplied: defaulting to UTF-8.
 ```
 
 ### Simulating multiple locations with {purrr}
@@ -614,9 +557,9 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr       min        lq      mean    median        uq       max neval
-#>  sequential  47.06866  50.55653  54.12912  52.07023  57.30681  71.20413   100
-#>    parallel 229.02592 241.50166 245.45066 243.49016 246.69370 408.28969   100
+#>        expr      min       lq     mean   median       uq      max neval
+#>  sequential 39.94167 41.55504 44.21094 44.79334 46.61493 54.99424   100
+#>    parallel 28.62718 29.62230 31.34680 30.96900 31.65686 49.30705   100
 
 autoplot(mbm) +
   theme_classic()

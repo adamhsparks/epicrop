@@ -2,6 +2,7 @@
 library(knitr)
 library(here)
 library(devtools)
+install() # ensure we're using latest version of epicrop
 
 # epicrop vignette
 knit(input = "vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.Rmd")
