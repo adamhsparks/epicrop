@@ -452,8 +452,8 @@
     "SystemRequirements": null
   },
   "applicationCategory": "Tools",
-  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model"],
-  "fileSize": "2367.928KB",
+  "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
+  "fileSize": "2363.428KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
