@@ -10,3 +10,5 @@ docs/
 /Meta/
 rosm.cache/
 cache/
+src/RcppExports.o
+src/epicrop.so
