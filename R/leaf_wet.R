@@ -132,13 +132,13 @@
 #' )
 #'
 #' .diurnal_rh(
-#'   rh = RHUM,
-#'   tmin = TMIN,
-#'   tmax = TMAX,
-#'   tmp = TEMP,
-#'   doy = DOY,
-#'   lat = LAT
-#'   yyyymmdd = YYYYMMDD
+#'   rh = wth$RHUM,
+#'   tmin = wth$TMIN,
+#'   tmax = wth$TMAX,
+#'   tmp = wth$TEMP,
+#'   doy = wth$DOY,
+#'   lat = wth$LAT
+#'   yyyymmdd = wth$YYYYMMDD
 #' )
 #'
 #' @returns A numeric vector of relative humidity values over 24 hrs.
@@ -182,10 +182,10 @@
 #' )
 #'
 #' .diurnal_temp(
-#'   lat = wth[, LAT],
-#'   doy = wth[, DOY],
-#'   tmin = wth[, TMIN],
-#'   tmax = wth[, TMAX]
+#'   lat = wth$LAT,
+#'   doy = wth$DOY,
+#'   tmin = wth$TMIN,
+#'   tmax = wth$TMAX
 #' )
 #'
 #' @dev

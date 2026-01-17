@@ -31,10 +31,10 @@ wth <- get_wth(
 )
 
 .diurnal_temp(
-  lat = wth[, LAT],
-  doy = wth[, DOY],
-  tmin = wth[, TMIN],
-  tmax = wth[, TMAX]
+  lat = wth$LAT,
+  doy = wth$DOY,
+  tmin = wth$TMIN,
+  tmax = wth$TMAX
 )
 
 }

@@ -35,13 +35,13 @@ wth <- get_wth(
 )
 
 .diurnal_rh(
-  rh = RHUM,
-  tmin = TMIN,
-  tmax = TMAX,
-  tmp = TEMP,
-  doy = DOY,
-  lat = LAT
-  yyyymmdd = YYYYMMDD
+  rh = wth$RHUM,
+  tmin = wth$TMIN,
+  tmax = wth$TMAX,
+  tmp = wth$TEMP,
+  doy = wth$DOY,
+  lat = wth$LAT
+  yyyymmdd = wth$YYYYMMDD
 )
 
 }
