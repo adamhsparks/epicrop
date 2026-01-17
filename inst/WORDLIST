@@ -99,6 +99,7 @@ RcA
 RcRH
 RcT
 RcW
+Rcpp
 Refaei
 Rhizoctonia
 Rykiel
@@ -132,6 +133,7 @@ Waggoner
 Wallach
 Willocquet
 Xanthomonas
+YYYY
 YYYYMMDD
 Yamada
 Zadoks
@@ -139,6 +141,7 @@ ZeBook
 Zeigler
 agrformet
 al
+args
 baselayer
 behaviour
 benchmarking
@@ -174,6 +177,7 @@ microbenchmark
 miyabeanus
 modelling
 nasapower
+nrow
 optimise
 optimised
 oryzae
