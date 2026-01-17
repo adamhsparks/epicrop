@@ -33,3 +33,10 @@ test_that("Values are as expected", {
 
   expect_snapshot_value(mk_lb_snap, style = "json2")
 })
+
+test_that("mk_lb() alias works identically", {
+  full <- modified_kim_leaf_blast(wth_formatted, emergence = "2000-07-01")
+  alias <- mk_lb(wth_formatted, emergence = "2000-07-01")
+
+  expect_identical(full, alias)
+})

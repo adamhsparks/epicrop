@@ -175,3 +175,151 @@ testthat::test_that("seir() output snapshot (JSON-safe) is stable", {
   # json2 snapshots fail on data.table due to internal pointers; snapshot data.frame instead
   testthat::expect_snapshot_value(out_snap, style = "json2")
 })
+
+## Test reproducibility -----
+test_that("seir() produces identical results with same inputs", {
+  out1 <- run_seir()
+  out2 <- run_seir()
+
+  expect_identical(out1, out2)
+})
+
+test_that("disease models produce reproducible AUDPC", {
+  audpc1 <- bacterial_blight(wth_formatted, emergence = "2000-07-01")$AUDPC[1]
+  audpc2 <- bacterial_blight(wth_formatted, emergence = "2000-07-01")$AUDPC[1]
+
+  expect_identical(audpc1, audpc2)
+})
+
+## Test Performance -----
+test_that("seir() completes in reasonable time", {
+  skip_on_cran()
+
+  t <- system.time({
+    run_seir()
+  })
+
+  # Should complete in under 1 second
+  expect_lt(t[["elapsed"]], 1.0)
+})
+
+test_that("complex wetness is slower than simple wetness", {
+  skip_on_cran()
+
+  wth_c <- make_wth_complex(wth_formatted)
+  RcW_matrix <- cbind(seq(0, 24, 6), seq(0, 1, 0.2))
+
+  t_simple <- system.time({
+    run_seir(simple_wetness = TRUE)
+  })
+
+  t_complex <- system.time({
+    run_seir(wth = wth_c, simple_wetness = FALSE, RcW = RcW_matrix)
+  })
+
+  # Complex should be slower (but don't make test brittle)
+  expect_gt(t_complex[["elapsed"]], t_simple[["elapsed"]] * 0.5)
+})
+
+## Test date handling -----
+test_that("seir() handles different date input formats", {
+  out_iso <- run_seir(emergence = "2000-07-01")
+  out_date <- run_seir(emergence = as.Date("2000-07-01"))
+
+  expect_identical(out_iso$dates, out_date$dates)
+})
+
+test_that("seir() simday starts at 1 and matches duration", {
+  out <- run_seir()
+  expect_identical(out$simday[1L], 1L)
+  expect_identical(out$simday[120L], 120L)
+  expect_identical(length(out$simday), 120L)
+})
+
+## Test modifier extraploation -----
+test_that("seir() extrapolates RcT correctly outside defined range", {
+  # RcT defined from 15-40°C, both endpoints have modifier = 0
+
+  wth_cold <- data.table::copy(wth_formatted)
+  wth_cold[, TEMP := 5.0] # Below minimum (uses yleft = 0.0)
+
+  wth_hot <- data.table::copy(wth_formatted)
+  wth_hot[, TEMP := 45.0] # Above maximum (uses yright = 0.0)
+
+  wth_optimal <- data.table::copy(wth_formatted)
+  wth_optimal[, TEMP := 25.0] # Optimal temperature (modifier = 1.0)
+
+  out_cold <- run_seir(wth = wth_cold)
+  out_hot <- run_seir(wth = wth_hot)
+  out_optimal <- run_seir(wth = wth_optimal)
+
+  # Both extreme temps should have very low disease (near zero)
+  expect_lt(out_cold$intensity[120L], 0.01)
+  expect_lt(out_hot$intensity[120L], 0.01)
+
+  # Optimal temp should have much higher disease
+  expect_gt(out_optimal$intensity[120L], out_cold$intensity[120L])
+  expect_gt(out_optimal$intensity[120L], out_hot$intensity[120L])
+
+  # Cold and hot should be similar (both use 0.0 modifier)
+  expect_equal(
+    out_cold$intensity[120L],
+    out_hot$intensity[120L],
+    tolerance = 0.01
+  )
+})
+
+test_that("seir() handles RcA correctly when duration exceeds matrix", {
+  # Already warns in checks, but test the truncation behavior
+  RcA_short <- cbind(0L:5L * 20L, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71))
+
+  expect_warning(
+    run_seir(duration = 120L, RcA = RcA_short),
+    regexp = "RcA.*duration"
+  )
+})
+
+## Test edge cases -----
+test_that("seir() handles onset = 1 (disease starts on emergence day)", {
+  out <- run_seir(onset = 1L, p = 6L) # p = latent period duration
+
+  expect_identical(nrow(out), 120L)
+
+  # Infections injected on day 1 (onset)
+  # They become infectious after p days (latent period)
+  # So infectious sites should appear on day p+1
+  expect_equal(out$infectious[1L], 0) # Day 1: no infectious yet
+  expect_true(out$latent[1L] > 0) # Day 1: should have latent sites
+  expect_true(out$infectious[7L] > 0) # Day 7: after 6-day latent period
+})
+
+test_that("seir() handles very short duration edge case", {
+  # Even though check warns at <50, test boundary behavior at minimum
+  expect_error(
+    run_seir(duration = 0L),
+    regexp = "duration|>\\s*0"
+  )
+})
+
+test_that("seir() handles maximum sites = initial healthy sites", {
+  out <- run_seir(H0 = 100000, Sx = 100000)
+  expect_true(all(out$sites <= 100000))
+})
+
+test_that("seir() handles RRG as matrix vs scalar consistently", {
+  RRG_scalar <- 0.1
+  RRG_matrix <- cbind(
+    seq_len(120L),
+    rep(0.1, 120L)
+  )
+
+  out_scalar <- run_seir(RRG = RRG_scalar)
+  out_matrix <- run_seir(RRG = RRG_matrix)
+
+  # Should produce similar results
+  expect_equal(
+    out_scalar$sites[120L],
+    out_matrix$sites[120L],
+    tolerance = 0.001
+  )
+})

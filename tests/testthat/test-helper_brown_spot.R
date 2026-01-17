@@ -33,3 +33,10 @@ test_that("Values are as expected", {
 
   expect_snapshot_value(bs_snap, style = "json2")
 })
+
+test_that("bs() alias works identically", {
+  full <- brown_spot(wth_formatted, emergence = "2000-07-01")
+  alias <- bs(wth_formatted, emergence = "2000-07-01")
+
+  expect_identical(full, alias)
+})

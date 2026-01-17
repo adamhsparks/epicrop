@@ -33,3 +33,10 @@ test_that("Values are as expected", {
 
   expect_snapshot_value(sb_snap, style = "json2")
 })
+
+test_that("sb() alias works identically", {
+  full <- sheath_blight(wth_formatted, emergence = "2000-07-01")
+  alias <- sb(wth_formatted, emergence = "2000-07-01")
+
+  expect_identical(full, alias)
+})

@@ -93,3 +93,49 @@ test_that("format_wth() works with only 4 inputs", {
     )
   )
 })
+
+test_that("get_wth() handles duration parameter correctly", {
+  skip_if_offline()
+  vcr::use_cassette("get_wth_duration_calc", {
+    wth_duration <- get_wth(
+      lonlat = c(151.81, -27.48),
+      dates = "2015-01-15", # Only start date
+      duration = 10L
+    )
+
+    expect_identical(nrow(wth_duration), 11L) # duration + 1
+  })
+})
+
+test_that("get_wth() handles boundary coordinates", {
+  skip_if_offline()
+
+  # Equator
+  vcr::use_cassette("get_wth_equator", {
+    wth_eq <- get_wth(
+      lonlat = c(0, 0),
+      dates = c("2015-01-15", "2015-01-16")
+    )
+    expect_s3_class(wth_eq, "epicrop.wth")
+  })
+
+  # High latitude
+  vcr::use_cassette("get_wth_arctic", {
+    wth_arctic <- get_wth(
+      lonlat = c(0, 70),
+      dates = c("2015-06-15", "2015-06-16")
+    )
+    expect_s3_class(wth_arctic, "epicrop.wth")
+  })
+})
+
+test_that("get_wth() validates date formats", {
+  skip_if_offline()
+
+  expect_error(
+    get_wth(
+      lonlat = c(151.81, -27.48),
+      dates = c("not-a-date", "2015-01-16")
+    )
+  )
+})

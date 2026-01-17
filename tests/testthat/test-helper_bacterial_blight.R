@@ -33,3 +33,10 @@ test_that("Values are as expected", {
 
   expect_snapshot_value(bb_snap, style = "json2")
 })
+
+test_that("bb() alias works identically", {
+  full <- bacterial_blight(wth_formatted, emergence = "2000-07-01")
+  alias <- bb(wth_formatted, emergence = "2000-07-01")
+
+  expect_identical(full, alias)
+})

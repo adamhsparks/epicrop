@@ -34,3 +34,10 @@ test_that("Values are as expected", {
 
   expect_snapshot_value(mk_sb_snap, style = "json2")
 })
+
+test_that("mk_sb() alias works identically", {
+  full <- modified_kim_sheath_blight(wth_formatted, emergence = "2000-07-01")
+  alias <- mk_sb(wth_formatted, emergence = "2000-07-01")
+
+  expect_identical(full, alias)
+})
