@@ -1,0 +1,610 @@
+# Multiple Simulations
+
+You may wish to compare the effects of different establishment dates,
+different seasons or different locations on disease levels. This
+vignette details how you can automate several runs of {epicrop} in R and
+visualise them. Examples are given that show how to run the process
+sequentially and in parallel, decreasing the runtime necessary and how
+to benchmark your processes to help optimise your workflow.
+
+## Multiple seasons
+
+### Fetching NASA POWER data for multiple seasons
+
+Start by creating a list of the dates representing the seasons that you
+want to simulate. In this case, since we specify the duration of the
+season, there is no need to explicitly state the end-date, that will
+automatically be determined by
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
+with the `duration` argument that we pass along in the
+[`purrr::map()`](https://purrr.tidyverse.org/reference/map.html). You
+can use as many start dates, representing as many seasons as you desire,
+but for the purposes of speed in this vignette, only two will be used.
+
+``` r
+
+years <- 2000:2001
+seasons <- paste0(years, "-06-30")
+```
+
+Next use
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
+to fetch the weather data from the [POWER
+API](https://power.larc.nasa.gov). In this example we will use the IRRI
+Zeigler Experiment Station coordinates as shown in the example for
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
+With the vector of establishment dates, `seasons`, use
+[`purrr::map()`](https://purrr.tidyverse.org/reference/map.html) to
+fetch all of the seasons with one function. You could also use R’s base
+[`lapply()`](https://rdrr.io/r/base/lapply.html) here as well if you
+prefer.
+
+``` r
+
+library(epicrop)
+library(purrr)
+
+seasons_wth <-
+  map(
+    .x = seasons,
+    .f = get_wth,
+    lonlat = c(121.255669, 14.16742),
+    duration = 120
+  )
+```
+
+### Using {purrr} to simplify the simulation of multiple seasons
+
+Now that we have a list of weather data for two seasons we will use
+[`purrr::map_df()`](https://purrr.tidyverse.org/reference/map_dfr.html)
+now to run
+[`bacterial_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/bacterial_blight.md)
+for two seasons and create a single data frame of the two seasons. Using
+[`purrr::map()`](https://purrr.tidyverse.org/reference/map.html) as
+above would return a list of two data frames, if you wish. This
+behaviour would be the same as if you used R’s base
+[`lapply()`](https://rdrr.io/r/base/lapply.html) here as well.
+
+Add a column to specify the season, in this case we only have wet
+seasons for two years, but if you have multiple seasons per year, you
+can still use this template, *e.g.*, for multiple seasons in one year,
+use
+[`lubridate::ymd()`](https://lubridate.tidyverse.org/reference/ymd.html).
+
+``` r
+
+library(dplyr)
+library(lubridate)
+library(pander)
+
+seasons <- map_df(
+  .x = seasons_wth,
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
+                                  wth = .x)
+) |>
+  mutate(season = case_when(year(dates) == 2000 ~ 2000,
+                            year(dates) == 2001 ~ 2001)) |>
+  group_by(season) |>
+  relocate(season, AUDPC) |>
+  distinct(AUDPC, season)
+
+pander(seasons)
+```
+
+| AUDPC | season |
+|:-----:|:------:|
+| 12.51 |  2000  |
+| 7.022 |  2001  |
+
+### Visualising differences in AUDPC between seasons
+
+A simple bar chart created using *ggplot2* is an effective way to
+visualise the difference between the two seasons.
+
+``` r
+
+library(ggplot2)
+ggplot(seasons,
+       aes(y = as.factor(season),
+           x = AUDPC)) +
+  geom_col(width = 0.5,
+           orientation = "y") +
+  ylab("Season") +
+  theme_classic()
+```
+
+![Bacterial blight area under the disease progress curve (AUDPC) for the
+2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
+Calabarzon, Philippines.](graph_seasons-1.png)
+
+Bacterial blight area under the disease progress curve (AUDPC) for the
+2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
+Calabarzon, Philippines.
+
+### Simulating multiple seasons with {furrr} using parallel processing
+
+Using {furrr}, we can do the same thing in parallel to reduce the
+runtime, especially if you have several seasons.
+
+#### A note on the use of parallel processing
+
+Use parallel processing with caution. {epicrop} is highly optimised for
+speed (as much as pure R can be). For small runs, *e.g.* one or two
+seasons or locations, this is will not reduce the time and may increase
+the run time due to overhead setting up and running the parallel
+processing. Best guess is that unless you have \> 40 or 50 seasons or
+locations or some combinations thereof; to run the processes in parallel
+will not be any benefit.
+
+In this case, while this code runs, you can benchmark it and see that
+this is no faster and in some cases, slower than running the code
+sequentially. An example benchmarking different methods is provided
+here.
+
+``` r
+
+library(epicrop)
+library(furrr)
+#> Loading required package: future
+library(dplyr)
+library(lubridate)
+library(pander)
+
+# Respect the API server and use 1 core
+plan(multisession, workers = 1)
+
+years <- 2000:2001
+seasons <- paste0(years, "-06-30")
+seasons_wth <-
+  future_map(
+    .x = seasons,
+    .f = get_wth,
+    lonlat = c(121.255669, 14.16742),
+    duration = 120,
+    .options = furrr_options(seed = NULL)
+  )
+
+# for local processing use 2 cores, this will assign one to each year, if you
+# have more years and more cores, e.g., an HPC, explore using more resources
+
+plan(multisession, workers = 2)
+
+# run bacterial_blight() over the data frames of weather
+future_map_dfr(
+  .x = seasons_wth,
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
+                                  wth = .x),
+  .options = furrr_options(seed = NULL)
+) |>
+  mutate(season = case_when(year(dates) == 2000 ~ 2000,
+                            year(dates) == 2001 ~ 2001)) |>
+  group_by(season) |>
+  relocate(season, AUDPC) |>
+  distinct(AUDPC, season) |>
+  pander()
+```
+
+| AUDPC | season |
+|:-----:|:------:|
+| 12.51 |  2000  |
+| 7.022 |  2001  |
+
+We can see here that the AUDPC values match using both processing
+methods.
+
+## Multiple establishment dates
+
+### Using {purrr} to simulate multiple establishment dates
+
+To simulate multiple establishment dates and across multiple years at
+the same time we can use `purrr::expand_grid()` to create a vector of
+all year and month-day combinations that we wish to simulate.
+
+Simplifying the weather data, we will only use the first date of each
+year and fetch weather data using the `duration` option, specifying 180
+days. This gives six months of data and extends to the end and a bit
+beyond the last growing season of the final establishment date, “01-31”.
+[`bacterial_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/bacterial_blight.md)
+will take the full six months of weather data and subset for the
+respective growing seasons, selecting only the necessary weather data.
+
+Using [`purrr::map2`](https://purrr.tidyverse.org/reference/map2.html)
+allows for using two variables, one for weather data, `wth`, and one for
+the emergence/establishment dates, `emergence_dates`. This returns a
+list of data, but using `dplyr::bind_rows(.id = "emergence")` creates a
+data frame with a column of emergence/establishment dates that can be
+used for grouping the data for further analysis or visualisation.
+
+``` r
+
+library(epicrop)
+library(purrr)
+library(dplyr)
+library(lubridate)
+library(pander)
+library(furrr)
+library(tidyr)
+
+years <- as.character(2001:2010)
+month_day <- c("-06-01", "-06-14", "-06-30")
+emergence_dates <-
+  expand_grid(years, month_day) |>
+  unite("emergence_dates", years:month_day, sep = "") |>
+  pull(emergence_dates) |>
+  sort() |>
+  as_date()
+
+# Respect the API server and use 1 core
+plan(multisession, workers = 1)
+
+# create a vector of dates for weather data.
+# Only take the earliest establishment date, then extend the duration out past
+# 120 days from final establishment date.
+# Here just taking 180 days, 6 months, works well.
+wth_start_dates <- paste0(years, month_day[1])
+
+seasons_wth <- map_dfr(
+  .x = wth_start_dates,
+  .f = get_wth,
+  lonlat = c(121.255669, 14.16742),
+  duration = 180
+) |>
+  mutate(YYYYMMDD = as_date(YYYYMMDD))
+
+# Now use 4 cores for the local processing
+plan(multisession, workers = 4)
+
+# Once we have all the weather, create a list of weather data.frames for each
+# establishment date
+# Create time intervals to subset the weather data, creating a list new
+# data.frames for each establishment date.
+
+wth <-
+  map(.x = emergence_dates,
+      .f = ~ subset(seasons_wth, YYYYMMDD >= .x &
+                      YYYYMMDD <= .x + 120)) |>
+  setNames(emergence_dates)
+
+multi_dates <- map2(
+  .x = wth,
+  .y = emergence_dates,
+  .f = ~ bacterial_blight(emergence = .y,
+                                  wth = .x)
+) |>
+  bind_rows(.id = "emergence") |>
+  group_by(emergence) |>
+  relocate(emergence, AUDPC) |>
+  distinct(AUDPC, emergence)
+
+pander(multi_dates)
+```
+
+| AUDPC | emergence  |
+|:-----:|:----------:|
+| 13.81 | 2001-06-01 |
+| 8.992 | 2001-06-14 |
+| 7.022 | 2001-06-30 |
+| 14.61 | 2002-06-01 |
+|  13   | 2002-06-14 |
+| 14.78 | 2002-06-30 |
+| 13.21 | 2003-06-01 |
+| 13.94 | 2003-06-14 |
+| 16.85 | 2003-06-30 |
+| 12.65 | 2004-06-01 |
+| 14.08 | 2004-06-14 |
+| 12.06 | 2004-06-30 |
+| 15.76 | 2005-06-01 |
+| 15.33 | 2005-06-14 |
+| 16.62 | 2005-06-30 |
+| 16.14 | 2006-06-01 |
+| 15.39 | 2006-06-14 |
+| 14.39 | 2006-06-30 |
+| 9.258 | 2007-06-01 |
+| 7.597 | 2007-06-14 |
+| 11.78 | 2007-06-30 |
+| 10.59 | 2008-06-01 |
+| 10.6  | 2008-06-14 |
+| 12.99 | 2008-06-30 |
+| 5.962 | 2009-06-01 |
+| 11.13 | 2009-06-14 |
+| 9.008 | 2009-06-30 |
+| 14.84 | 2010-06-01 |
+| 17.4  | 2010-06-14 |
+| 17.26 | 2010-06-30 |
+
+That’s a bit long and there’s lots of values to digest here.
+
+### Visualising multiple establishment dates using a stem plot
+
+A bar chart as with the previous example works, but it can be simplified
+and made more clear using a stem plot created with *ggplot2*. Using
+[`ggplot2::geom_segment()`](https://ggplot2.tidyverse.org/reference/geom_segment.html)
+and
+[`ggplot2::geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+we can maximise the ink to information ratio and create an easy to view
+and interpret graph of these data.
+
+Note the additional
+[`ggplot2::aes()`](https://ggplot2.tidyverse.org/reference/aes.html)
+parameters here, `xend` and `yend` are necessary since we’re using
+[`ggplot2::geom_segment()`](https://ggplot2.tidyverse.org/reference/geom_segment.html).
+
+``` r
+
+library(ggplot2)
+ggplot(data = multi_dates,
+       aes(
+         x = AUDPC,
+         xend = 0,
+         y = as.factor(emergence),
+         yend = as.factor(emergence)
+       )) +
+  geom_segment() +
+  geom_point() +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
+  scale_y_discrete(limits = rev) +
+  ylab("Establishment Date") +
+  theme_classic()
+```
+
+![Rice bacterial blight area under the disease progress curve (AUDPC)
+values for three establishment dates over ten years at the IRRI Zeigler
+Experiment Station in Calabarzon, Philippines.](stem-plot-1.png)
+
+Rice bacterial blight area under the disease progress curve (AUDPC)
+values for three establishment dates over ten years at the IRRI Zeigler
+Experiment Station in Calabarzon, Philippines.
+
+### Using {furrr} to run multiple establishment dates in parallel
+
+To run the previous example in parallel, substitute {furrr} equivalent
+functions for the {purrr} functions used above. These are easily
+identified by the `future_` prefix on each of the functions where they
+are used.
+
+In this example rather than printing the whole table, the data are piped
+directly into the
+[`ggplot2::ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)
+function for creating a figure that again, is the same as the previous
+example, but run in parallel using {furrr}.
+
+``` r
+
+library(furrr)
+library(purrr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(epicrop)
+
+plan(multisession, workers = 1)
+
+years <- 2001:2010
+month_day <- c("06-01", "06-14", "06-30")
+start_dates <- list(years, month_day, sep = "-")
+
+emergence_dates <-
+  tidyr::expand_grid(!!!start_dates) |>
+  pmap_chr(paste) |>
+  sort() |>
+  as_date()
+```
+
+Now, create a vector of dates for weather data. Only take the earliest
+establishment date, then extend the duration out past 120 days from
+final establishment date. Here just taking 180 days, 6 months, works
+well.
+
+``` r
+
+wth_start_dates <- paste(years, month_day[1], sep = "-")
+
+seasons_wth <-
+  future_map_dfr(
+    .x = wth_start_dates,
+    .f = get_wth,
+    lonlat = c(121.255669, 14.16742),
+    duration = 190,
+    .options = furrr_options(seed = NULL)
+  ) |>
+  mutate(YYYYMMDD = as_date(YYYYMMDD))
+```
+
+Once we have all the weather, create a list of weather `data.frames` for
+each establishment date. Create time intervals to subset the weather
+data, creating a list new `data.frames` for each establishment date.
+
+``` r
+
+# Now use 4 cores for the local processing
+plan(multisession, workers = 4)
+
+wth <-
+  future_map(.x = emergence_dates,
+             .y = seasons_wth,
+             .f = ~ subset(.y, YYYYMMDD >= .x &
+                          YYYYMMDD <= .x + 120)) |>
+  setNames(emergence_dates)
+
+future_map2(
+  .x = wth,
+  .y = emergence_dates,
+  .f = ~ bacterial_blight(emergence = .y,
+                                  wth = .x),
+  .options = furrr_options(seed = NULL)
+) |>
+  bind_rows(.id = "emergence") |>
+  group_by(emergence) |>
+  relocate(emergence, AUDPC) |>
+  distinct(AUDPC, emergence) |>
+  ggplot(aes(
+    x = AUDPC,
+    xend = 0,
+    y = as.factor(emergence),
+    yend = as.factor(emergence)
+  )) +
+  geom_segment() +
+  geom_point() +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
+  scale_y_discrete(limits = rev) +
+  ylab("Establishment Date") +
+  theme_classic()
+```
+
+![plot of chunk
+create-data.frames-parallel](create-data.frames-parallel-1.png)
+
+plot of chunk create-data.frames-parallel
+
+## Multiple locations
+
+### Using {purrr} to simulate multiple locations
+
+Multiple locations will look much like the previous example for multiple
+seasons (years) but a vector of latitude and longitude values are
+provided to
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
+In this example we will fetch data for the Mekong River Delta and Red
+River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva
+Ecija, in the Philippines for the wet season (second half of the year)
+in 2000.
+
+``` r
+
+locations <- list(
+  "Mekong River" = c(105.5943, 10.0634),
+  "Red River" = c(105.9700, 20.9034),
+  "Prachin Buri" = c(101.6601, 14.0421),
+  "Chennai" = c(80.2707, 13.0827),
+  "Neuva Ecija" = c(121.1113, 15.5784)
+)
+```
+
+Next use
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
+to fetch the weather data from the [POWER
+API](https://power.larc.nasa.gov). With the list of locations,
+`locations`, use
+[`purrr::map()`](https://purrr.tidyverse.org/reference/map.html) to
+fetch all of the locations with one function. You could also use R’s
+base [`lapply()`](https://rdrr.io/r/base/lapply.html) here as well if
+you prefer.
+
+``` r
+
+library(epicrop)
+library(purrr)
+
+locations_wth <-
+  map(
+    .x = locations,
+    .f = get_wth,
+    dates = "2000-06-30",
+    duration = 120
+  )
+```
+
+### Simulating multiple locations with {purrr}
+
+This behaviour would be the same as if you used R’s base
+[`lapply()`](https://rdrr.io/r/base/lapply.html) here as well. The
+process for using {furrr} won’t be shown here, but to implement several
+locations or year locations and planting date simulations in parallel
+would be as shown above.
+
+``` r
+
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+
+map(
+  .x = locations_wth,
+  .f = ~ bacterial_blight(emergence = .x$YYYYMMDD[1],
+                                  wth = .x)
+) |>
+  bind_rows(.id = "location") |>
+  group_by(location) |>
+  relocate(location, AUDPC) |>
+  distinct(AUDPC, location) |>
+  ggplot(aes(
+    x = AUDPC,
+    xend = 0,
+    y = as.factor(location),
+    yend = as.factor(location)
+  )) +
+  geom_segment() +
+  geom_point() +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.1))) +
+  scale_y_discrete(limits = rev) +
+  ylab("Location") +
+  theme_classic()
+```
+
+![Rice bacterial blight area under the disease progress curve (AUDPC)
+values for an establishment date of June 30, 2000 at five locations,
+Mekong River Delta and Red River Delta in Vietnam; Prachin Buri,
+Thailand; Chennai, India and Nueva Ecija, in the
+Philippines.](run-multi-loc-1.png)
+
+Rice bacterial blight area under the disease progress curve (AUDPC)
+values for an establishment date of June 30, 2000 at five locations,
+Mekong River Delta and Red River Delta in Vietnam; Prachin Buri,
+Thailand; Chennai, India and Nueva Ecija, in the Philippines.
+
+## Benchmarking sequential versus parallel methods
+
+It is possible to measure the effect of running the simulations in
+parallel as compared to sequentially using the {microbenchmark} package.
+Here an example of how to use benchmarking is shown using the second set
+of examples showing how to simulate multiple establishment dates with
+the already created objects from those examples.
+
+Greater gains in efficiency will be realised with more dates, locations,
+etc. when running in parallel than sequentially.
+
+``` r
+
+
+library(microbenchmark)
+
+plan(multisession, workers = 4)
+
+mbm <- microbenchmark(
+  sequential = map2(
+    .x = wth,
+    .y = emergence_dates,
+    .f = ~ bacterial_blight(emergence = .y,
+                            wth = .x)
+  ) |>
+    bind_rows(.id = "emergence"),
+  parallel = future_map2(
+    .x = wth,
+    .y = emergence_dates,
+    .f = ~ bacterial_blight(emergence = .y,
+                            wth = .x),
+    .options = furrr_options(seed = NULL)
+  ) |>
+    bind_rows(.id = "emergence"),
+  times = 100L
+)
+
+mbm
+#> Unit: milliseconds
+#>        expr      min       lq     mean   median       uq      max neval
+#>  sequential 39.94167 41.55504 44.21094 44.79334 46.61493 54.99424   100
+#>    parallel 28.62718 29.62230 31.34680 30.96900 31.65686 49.30705   100
+
+autoplot(mbm) +
+  theme_classic()
+```
+
+![Microbenchmark results comparing sequential and parallel processing
+methods simulating three different establishment dates over ten years at
+the IRRI Zeigler Experiment Station in Calabarzon,
+Philippines](benchmark-1.png)
+
+Microbenchmark results comparing sequential and parallel processing
+methods simulating three different establishment dates over ten years at
+the IRRI Zeigler Experiment Station in Calabarzon, Philippines

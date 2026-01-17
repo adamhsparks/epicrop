@@ -42,8 +42,9 @@
 <div class="section level3">
 <h3 id="major-changes-1-0-9000">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-9000"></a></h3>
 <ul><li><p>Version now 1.0.0.9000, almost ready for first major release</p></li>
-<li><p><code>SEIR()</code> is now <code><a href="../reference/seir.html">seir()</a></code></p></li>
-<li><p>All helper functions drop the <code>predict_</code> prefix for simplicity, <em>e.g.</em>, <code>predict_bacterial_blight()</code> becomes just <code><a href="../reference/bacterial_blight.html">bacterial_blight()</a></code></p></li>
+<li><p>Uses {Rcpp} for speed improvements in <code><a href="../reference/seir.html">seir()</a></code> function’s efficiency (it’s faster now!).</p></li>
+<li><p><code>SEIR()</code> is now <code><a href="../reference/seir.html">seir()</a></code>.</p></li>
+<li><p>All helper functions drop the <code>predict_</code> prefix for simplicity, <em>e.g.</em>, <code>predict_bacterial_blight()</code> becomes just <code><a href="../reference/bacterial_blight.html">bacterial_blight()</a></code>.</p></li>
 <li><p>Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.</p></li>
 <li><p>Adds the RcRH parameter to <code><a href="../reference/seir.html">seir()</a></code> to calculate the relative humidity correction factor for the disease progress curve as published in Savary <em>et al.</em> 2012.</p></li>
 <li><p>Adds the RcRH parameter to all helper functions.</p></li>
@@ -308,7 +309,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

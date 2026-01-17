@@ -68,8 +68,8 @@ proper values it can be used with other pathosystems as well.</p>
 <span>  <span class="va">a</span>,</span>
 <span>  <span class="va">RRS</span>,</span>
 <span>  <span class="va">RRG</span>,</span>
-<span>  <span class="va">RcW</span>,</span>
-<span>  <span class="va">simple_wetness</span></span>
+<span>  RcW <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  simple_wetness <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,7 +78,7 @@ proper values it can be used with other pathosystems as well.</p>
 
 
 <dl><dt id="arg-wth">wth<a class="anchor" aria-label="anchor" href="#arg-wth"></a></dt>
-<dd><p>a <code>data.frame</code> of class <code>epicrop.wth</code> from either <code><a href="get_wth.html">get_wth()</a></code> or
+<dd><p>a <code>data.frame</code> of class <code>epicrop. wth</code> from either <code><a href="get_wth.html">get_wth()</a></code> or
 <code><a href="format_wth.html">format_wth()</a></code> containing weather on a daily time-step with the following
 field names:</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>TMIN</em></td><td><strong>Optional</strong> Minimum daily temperature (°C), see TMIN/TMAX Details</td></tr><tr><td><em>TMAX</em></td><td><strong>Optional</strong> Maximum daily temperature (°C), see TMIN/TMAX Details</td></tr><tr><td><em>LAT</em></td><td><strong>Optional</strong> latitude of weather observation, see LAT/LON Details</td></tr><tr><td><em>LON</em></td><td><strong>Optional</strong> longitude of weather observation, see LAT/LON Details</td></tr></table></dd>
 
@@ -86,7 +86,7 @@ field names:</p><table class="table table"><tr><td><strong>Field Name</strong></
 <dt id="arg-emergence">emergence<a class="anchor" aria-label="anchor" href="#arg-emergence"></a></dt>
 <dd><p>expected date of plant emergence (or transplanting for rice)
 entered in <code>YYYY-MM-DD</code> format (character).  Described in Table 1 of Savary
-<em>et al.</em> 2012.</p></dd>
+_et al. _ 2012.</p></dd>
 
 
 <dt id="arg-onset">onset<a class="anchor" aria-label="anchor" href="#arg-onset"></a></dt>
@@ -96,8 +96,8 @@ emergence date (day, integer).  Described in Table 1 of Savary <em>et al.</em>
 
 
 <dt id="arg-duration">duration<a class="anchor" aria-label="anchor" href="#arg-duration"></a></dt>
-<dd><p>simulation duration <em>i.e.</em>, growing season length (day,
-integer).  Described in Table 1 of Savary <em>et al.</em> 2012.</p></dd>
+<dd><p>simulation duration <em>i. e.</em>, growing season length (day,
+integer).  Described in Table 1 of Savary _et al. _ 2012.</p></dd>
 
 
 <dt id="arg-rhlim">rhlim<a class="anchor" aria-label="anchor" href="#arg-rhlim"></a></dt>
@@ -140,7 +140,7 @@ column being temperature in ˚C and the second the modifier (bounded by 0 and
 <dt id="arg-rcopt">RcOpt<a class="anchor" aria-label="anchor" href="#arg-rcopt"></a></dt>
 <dd><p>potential basic infection rate corrected for removals (numeric).
 Described in Table 1 of Savary <em>et al.</em> 2012.  This value can be modified
-to reflect crop cultivar resistance ratings as well, see Kim <em>et al.</em> 2015
+to reflect crop cultivar resistance ratings as well, see Kim _et al. _ 2015
 for more details.</p></dd>
 
 
@@ -167,7 +167,7 @@ Described in Table 1 of Savary <em>et al.</em> 2012 and Table 1 of Savary <em>et
 
 <dt id="arg-rrs">RRS<a class="anchor" aria-label="anchor" href="#arg-rrs"></a></dt>
 <dd><p>relative rate of physiological senescence (numeric).  Described in
-Table 1 of Savary <em>et al.</em> 2012.</p></dd>
+Table 1 of Savary _et al. _ 2012.</p></dd>
 
 
 <dt id="arg-rrg">RRG<a class="anchor" aria-label="anchor" href="#arg-rrg"></a></dt>
@@ -176,20 +176,22 @@ Table 1 of Savary <em>et al.</em> 2012.</p></dd>
 
 
 <dt id="arg-rcw">RcW<a class="anchor" aria-label="anchor" href="#arg-rcw"></a></dt>
-<dd><p>an optional modifier for <em>Rc</em> to calculate leaf wetness effect
-from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
+<dd><p>Optional modifier for <em>Rc</em> to calculate leaf wetness effect
+from 1 if wet to 0 if dry.   This is a numeric two-column matrix with the
 first column being hours (1 to 24) and the second the modifier (bounded by 0
-and 1).  Only used when <code>simple_wetness == TRUE</code>, if it is provided and
-<code>simple_wetness == FALSE</code>, these values will be ignored.</p></dd>
+and 1).  Used when <code>simple_wetness = FALSE</code> (hourly/derived wetness). If
+<code>NULL</code> (default), a linear relationship is used where 0 hours wet = 0 and
+24 hours wet = 1. Ignored if <code>simple_wetness = TRUE</code>.</p></dd>
 
 
 <dt id="arg-simple-wetness">simple_wetness<a class="anchor" aria-label="anchor" href="#arg-simple-wetness"></a></dt>
-<dd><p><code>Boolean</code> value, if <code>TRUE</code> the function will use a
-simple calculation of leaf wetness based on the daily <code>rhlim</code> and <code>rainlim</code>
-values. If <code>FALSE</code> the function will use a more complex calculation of leaf
-wetness based on the <code>wth</code> data and will calculate the leaf wetness value
-for each hour of the day and use <code>RcW</code> to determine the effect of leaf
-wetness on the infection rate.</p></dd>
+<dd><p>Logical. If <code>TRUE</code> (default), the function uses a
+simple calculation of leaf wetness based on daily <code>rhlim</code> and <code>rainlim</code>
+values (wetness is either 0 or 24 hours). If <code>FALSE</code>, the function uses a
+more complex calculation of leaf wetness based on hourly temperature and
+humidity patterns derived from daily TMIN/TMAX values, requiring additional
+weather data columns (TMIN, TMAX, LAT, DOY), and applies <code>RcW</code> to determine
+the effect of leaf wetness duration on the infection rate.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -197,13 +199,13 @@ wetness on the infection rate.</p></dd>
     <p>A <code><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table()</a></code> object containing the following
 columns:</p>
 <dl><dt>simday</dt>
-<dd><p>Zero indexed day of simulation that was run</p></dd>
+<dd><p>Day of simulation (1-indexed, where 1 is the emergence date)</p></dd>
 
 <dt>dates</dt>
 <dd><p>Date of simulation</p></dd>
 
 <dt>sites</dt>
-<dd><p>Total number of sites present on day "x"</p></dd>
+<dd><p>Total number of healthy sites present on day "x"</p></dd>
 
 <dt>latent</dt>
 <dd><p>Number of latent sites present on day "x"</p></dd>
@@ -217,8 +219,8 @@ columns:</p>
 <dt>senesced</dt>
 <dd><p>Number of senesced sites present on day "x"</p></dd>
 
-<dt>ratinf</dt>
-<dd><p>Rate of infection</p></dd>
+<dt>rateinf</dt>
+<dd><p>Rate of infection (new infections on day "x")</p></dd>
 
 <dt>rtransfer</dt>
 <dd><p>Rate of transfer from latent to infectious sites</p></dd>
@@ -233,10 +235,10 @@ columns:</p>
 <dd><p>Number of diseased (latent + infectious + removed) sites on day "x"</p></dd>
 
 <dt>intensity</dt>
-<dd><p>Proportion of diseased (latent + infectious + removed) sites per total sites not including removed sites on day "x"</p></dd>
+<dd><p>Proportion of diseased sites (latent + infectious) per total living sites (excludes removed and senesced) on day "x"</p></dd>
 
 <dt>AUDPC</dt>
-<dd><p>Area under the disease progress curve <acronym>AUDPC</acronym> for the simulation</p></dd>
+<dd><p>Area under the disease progress curve (AUDPC) for the simulation</p></dd>
 
 <dt>lat</dt>
 <dd><p>Latitude value if provided by the <code>wth</code> object</p></dd>
@@ -255,7 +257,7 @@ columns:</p>
 aggregation with new infections occurring at random among the healthy sites.
 When <em>a</em> is greater than <code>1</code> there is aggregation in the disease occurrence,
 the pathogen is unable to access the entire population of healthy sites,
-which results in disease aggregation. Refer to Savary <em>et al.</em> (2012) for
+which results in disease aggregation.  Refer to Savary _et al. _ (2012) for
 greater detail.</p>
     </div>
     <div class="section level2">
@@ -264,7 +266,11 @@ greater detail.</p>
 
 
 <p>If <code>simple_wetness</code> is set to <code>FALSE</code>, the function will use the <code>TMIN</code> and
-TMAX<code>columns in the</code>wth<code>object to calculate the leaf wetness value for 24 hours of the day using the</code>rhlim<code>and</code>rainlim<code>values and then uses</code>RcW<code>to calculate a value between 0 and 1 for the whole day.  When</code>simple_wetness<code>is set to</code>TRUE<code>, the function only sets the leaf wetness to 0 or 1 for the day based on the </code>rhlim<code>and</code>rainlim` values.</p>
+<code>TMAX</code> columns in the <code>wth</code> object to calculate the leaf wetness value for
+24 hours of the day using the <code>rhlim</code> and <code>rainlim</code> values and then uses
+<code>RcW</code> to calculate a value between 0 and 1 for the whole day.   When
+<code>simple_wetness</code> is set to <code>TRUE</code>, the function only sets the leaf wetness
+to 0 or 1 for the day based on the <code>rhlim</code> and <code>rainlim</code> values.</p>
     </div>
     <div class="section level2">
     <h2 id="lat-lon-details">LAT/LON Details<a class="anchor" aria-label="anchor" href="#lat-lon-details"></a></h2>
@@ -272,22 +278,22 @@ TMAX<code>columns in the</code>wth<code>object to calculate the leaf wetness val
 
 
 <p>If the <code>wth</code> object provides <code>LAT</code> and <code>LON</code> columns, these will be included
-in the output for mapping purposes. Both values must be present. These
+in the output for mapping purposes.  Both values must be present.  These
 columns are provided by default when using <code><a href="get_wth.html">get_wth()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
-Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-Disease Progress over Time. <em>The Plant Health Instructor</em>.
+    <p>Sparks, A. H., P.D. Esker, M.  Bates, W.  Dall' Acqua, Z. Guo, V. Segovia, S.D.
+Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in R:
+Disease Progress over Time.  <em>The Plant Health Instructor</em>.
 <a href="https://doi.org/10.1094/PHI-A-2008-0129-02" class="external-link">doi:10.1094/PHI-A-2008-0129-02</a>
 .</p>
-<p>Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
-Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+<p>Madden, L.  V., G. Hughes, and F. van den Bosch.  2007. The Study of Plant
+Disease Epidemics.  American Phytopathological Society, St. Paul, MN.
 <a href="https://doi.org/10.1094/9780890545058" class="external-link">doi:10.1094/9780890545058</a>
 .</p>
 <p>Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-J. Modeling and mapping potential epidemics of rice diseases globally. <em>Crop
+J.  Modeling and mapping potential epidemics of rice diseases globally.  <em>Crop
 Protection</em>, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 <a href="https://doi.org/10.1016/j.cropro.2011.11.009" class="external-link">doi:10.1016/j.cropro.2011.11.009</a>
 .</p>
@@ -330,66 +336,27 @@ Robert J. Hijmans, Rene Pangga and Jorrel Aunario.</p>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="st">"2000-07-15"</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="fu">seir</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">seir</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  wth <span class="op">=</span> <span class="va">wth</span>,</span></span>
 <span class="r-in"><span>  emergence <span class="op">=</span> <span class="va">emergence</span>,</span></span>
 <span class="r-in"><span>  onset <span class="op">=</span> <span class="fl">20</span>,</span></span>
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120</span>,</span></span>
 <span class="r-in"><span>  rhlim <span class="op">=</span> <span class="fl">90</span>,</span></span>
 <span class="r-in"><span>  rainlim <span class="op">=</span> <span class="fl">5</span>,</span></span>
+<span class="r-in"><span>  H0 <span class="op">=</span> <span class="fl">600</span>,</span></span>
+<span class="r-in"><span>  I0 <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>  RcA <span class="op">=</span> <span class="va">RcA</span>,</span></span>
 <span class="r-in"><span>  RcT <span class="op">=</span> <span class="va">RcT</span>,</span></span>
 <span class="r-in"><span>  RcOpt <span class="op">=</span> <span class="fl">0.61</span>,</span></span>
 <span class="r-in"><span>  p <span class="op">=</span> <span class="fl">6</span>,</span></span>
 <span class="r-in"><span>  i <span class="op">=</span> <span class="fl">19</span>,</span></span>
-<span class="r-in"><span>  H0 <span class="op">=</span> <span class="fl">600</span>,</span></span>
-<span class="r-in"><span>  I0 <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>  Sx <span class="op">=</span> <span class="fl">100000</span>,</span></span>
+<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>  RRS <span class="op">=</span> <span class="fl">0.01</span>,</span></span>
-<span class="r-in"><span>  RRG <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
-<span class="r-in"><span>  simple_wetness <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>  RcW <span class="op">=</span> <span class="cn">NULL</span></span></span>
-<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      simday      dates      sites   latent infectious  removed    senesced</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;Date&gt;      &lt;num&gt;    &lt;num&gt;      &lt;num&gt;    &lt;num&gt;       &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:      1 2000-07-15   600.0000    0.000      0.000   0.0000     0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:      2 2000-07-16   653.6400    0.000      0.000   0.0000     6.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:      3 2000-07-17   712.0404    0.000      0.000   0.0000    12.53640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:      4 2000-07-18   775.6170    0.000      0.000   0.0000    19.65680</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:      5 2000-07-19   844.8209    0.000      0.000   0.0000    27.41297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 116:    116 2000-11-07 84936.1503 2396.758   1923.856 193.6086 51458.59847</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117:    117 2000-11-08 84982.8335 2095.723   2224.891 193.6086 52307.95998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 118:    118 2000-11-09 83854.9572 3266.341   2224.891 193.6086 53157.78831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 119:    119 2000-11-10 82653.3965 4141.364   2516.371 230.4324 54033.16175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 120:    120 2000-11-11 81283.5572 5044.205   2948.347 266.8889 54896.15221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       rateinf rtransfer   rgrowth  rsenesced diseased  intensity     AUDPC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;     &lt;num&gt;     &lt;num&gt;      &lt;num&gt;    &lt;num&gt;      &lt;num&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:    0.000    0.0000  59.64000   6.000000    0.000 0.00000000 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:    0.000    0.0000  64.93675   6.536400    0.000 0.00000000 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:    0.000    0.0000  70.69703   7.120404    0.000 0.00000000 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:    0.000    0.0000  76.96012   7.756170    0.000 0.00000000 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:    0.000    0.0000  83.76837   8.448209    0.000 0.00000000 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 116:    0.000  301.0350 896.04470 849.361503 4514.223 0.04840657 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117: 1170.618    0.0000 892.56992 849.828335 4514.223 0.04838127 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 118: 1203.327  328.3038 877.13981 875.373444 5684.841 0.06146017 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 119: 1371.274  468.4328 864.42524 862.990455 6888.168 0.07454541 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 120: 1601.204  583.5952 849.98224 855.611813 8259.442 0.08952622 0.6722434</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          lat      lon</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;    &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 116: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 118: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 119: 14.6774 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 120: 14.6774 121.2556</span>
+<span class="r-in"><span>  RRG <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, onset = 20, duration = 120,     rhlim = 90, rainlim = 5, H0 = 600, I0 = 1, RcA = RcA, RcT = RcT,     RcOpt = 0.61, p = 6, i = 19, Sx = 100000, a = 1, RRS = 0.01,     RRG = 0.1):</span> `simple_wetness` must be a Boolean</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> (`TRUE/FALSE`) value.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -401,7 +368,7 @@ Robert J. Hijmans, Rene Pangga and Jorrel Aunario.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
