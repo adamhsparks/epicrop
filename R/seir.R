@@ -297,7 +297,7 @@ seir <- function(
 
   # Prepare modifier vectors (all must be length = duration)
   Rc_temp <- .fn_Rc(.Rc = RcT, .xout = wth$TEMP)
-  Rc_age <- .fn_Rc(.Rc = RcA, .xout = seq.int(duration - 1))
+  Rc_age <- .fn_Rc(.Rc = RcA, .xout = seq.int(0, duration - 1))
 
   # Handle RRG (can be scalar or matrix)
   if (length(RRG) == 1L) {
