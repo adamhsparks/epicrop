@@ -1,6 +1,3 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -75,45 +72,45 @@ Once you have the weather data, run the model for any of the five rice diseases 
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
 
 bb_sim
-#>      simday      dates     sites    latent infectious  removed    senesced
-#>       <int>     <Date>     <num>     <num>      <num>    <num>       <num>
-#>   1:      1 2000-07-01  100.0000   0.00000     0.0000   0.0000    0.000000
-#>   2:      2 2000-07-02  108.6875   0.00000     0.0000   0.0000    1.000000
-#>   3:      3 2000-07-03  118.1002   0.00000     0.0000   0.0000    2.086875
-#>   4:      4 2000-07-04  128.2934   0.00000     0.0000   0.0000    3.267877
-#>   5:      5 2000-07-05  139.3254   0.00000     0.0000   0.0000    4.550811
-#>  ---                                                                      
-#> 116:    116 2000-10-24 1442.4836 105.87923   954.9354 223.8352 2097.385647
-#> 117:    117 2000-10-25 1418.0978  76.02332   953.5148 255.1118 2143.087067
-#> 118:    118 2000-10-26 1369.3763  72.41827   946.9419 288.4890 2190.645270
-#> 119:    119 2000-10-27 1321.9560  67.86296   937.0147 323.7791 2239.629140
-#> 120:    120 2000-10-28 1275.5526  62.61810   923.6023 361.0475 2290.117140
-#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC     lat
-#>         <num>     <num>    <num>     <num>    <num>     <num>    <num>   <num>
-#>   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 12.53946 14.6774
-#>   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 12.53946 14.6774
-#>   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 12.53946 14.6774
-#>   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 12.53946 14.6774
-#>   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 12.53946 14.6774
-#>  ---                                                                          
-#> 116:  0.00000  29.85591 21.31570 45.701419 1284.650 0.4237668 12.53946 14.6774
-#> 117: 23.19935  26.80440 22.03601 47.558203 1284.650 0.4206255 12.53946 14.6774
-#> 118: 20.80752  25.36284 22.37109 48.983870 1307.849 0.4267361 12.53946 14.6774
-#> 119: 18.61122  23.85609 22.69581 50.488000 1328.657 0.4318648 12.53946 14.6774
-#> 120: 16.58631   0.00000 23.00696 47.881728 1347.268 0.4360386 12.53946 14.6774
-#>           lon
-#>         <num>
-#>   1: 121.2556
-#>   2: 121.2556
-#>   3: 121.2556
-#>   4: 121.2556
-#>   5: 121.2556
-#>  ---         
-#> 116: 121.2556
-#> 117: 121.2556
-#> 118: 121.2556
-#> 119: 121.2556
-#> 120: 121.2556
+#>      simday      dates     sites   latent infectious  removed    senesced
+#>       <int>     <Date>     <num>    <num>      <num>    <num>       <num>
+#>   1:      1 2000-07-01  108.6875  0.00000     0.0000   0.0000    1.000000
+#>   2:      2 2000-07-02  118.1002  0.00000     0.0000   0.0000    2.086875
+#>   3:      3 2000-07-03  128.2934  0.00000     0.0000   0.0000    3.267877
+#>   4:      4 2000-07-04  139.3254  0.00000     0.0000   0.0000    4.550811
+#>   5:      5 2000-07-05  151.2581  0.00000     0.0000   0.0000    5.944065
+#>  ---                                                                     
+#> 116:    116 2000-10-24 1591.0429 47.53770   899.1008 500.0978 1829.910875
+#> 117:    117 2000-10-25 1586.3432 45.31540   878.0311 545.1096 1845.821305
+#> 118:    118 2000-10-26 1584.2026 42.21794   860.3615 586.3748 1861.684737
+#> 119:    119 2000-10-27 1584.1651 61.72225   816.7307 630.0056 1877.526763
+#> 120:    120 2000-10-28 1586.7759 79.77394   771.2554 675.4809 1893.368413
+#>       rateinf rtransfer  rgrowth rsenesced diseased intensity    AUDPC
+#>         <num>     <num>    <num>     <num>    <num>     <num>    <num>
+#>   1:  0.00000   0.00000  9.68750  1.000000    0.000 0.0000000 14.91121
+#>   2:  0.00000   0.00000 10.49959  1.086875    0.000 0.0000000 14.91121
+#>   3:  0.00000   0.00000 11.37416  1.181002    0.000 0.0000000 14.91121
+#>   4:  0.00000   0.00000 12.31499  1.282934    0.000 0.0000000 14.91121
+#>   5:  0.00000   0.00000 13.32593  1.393254    0.000 0.0000000 14.91121
+#>  ---                                                                  
+#> 116:  0.00000  24.20829 30.95883 15.758425 1446.736 0.3730328 14.91121
+#> 117: 21.71985  23.94215 32.93054 15.910429 1468.456 0.3679126 14.91121
+#> 118: 20.49809  23.59555 34.22091 15.863432 1488.954 0.3629508 14.91121
+#> 119: 19.50431   0.00000 35.30880 15.842026 1508.459 0.3567151 14.91121
+#> 120: 18.05169   0.00000 36.50421 15.841651 1526.510 0.3490965 14.91121
+#>          lat      lon
+#>        <num>    <num>
+#>   1: 14.6774 121.2556
+#>   2: 14.6774 121.2556
+#>   3: 14.6774 121.2556
+#>   4: 14.6774 121.2556
+#>   5: 14.6774 121.2556
+#>  ---                 
+#> 116: 14.6774 121.2556
+#> 117: 14.6774 121.2556
+#> 118: 14.6774 121.2556
+#> 119: 14.6774 121.2556
+#> 120: 14.6774 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -121,6 +118,8 @@ Lastly, you can visualise the result of the model run.
 
 ``` r
 library(ggplot2)
+#> Use suppressPackageStartupMessages() to eliminate package startup
+#> messages
 
 ggplot(
   data = bb_sim,
@@ -155,8 +154,11 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 98.84%
-#> R/internal_functions.R: 92.86%
+#> epicrop Coverage: 91.37%
+#> R/internal_functions.R: 78.87%
+#> R/seir.R: 84.25%
+#> R/leaf_wet.R: 89.84%
+#> src/seir_core.cpp: 95.19%
 #> R/calculate_audpc.R: 100.00%
 #> R/format_wth.R: 100.00%
 #> R/get_wth.R: 100.00%
@@ -167,8 +169,6 @@ ggplot(
 #> R/helper_modified_kim_sheath_blight.R: 100.00%
 #> R/helper_sheath_blight.R: 100.00%
 #> R/helper_tungro.R: 100.00%
-#> R/leaf_wet.R: 100.00%
-#> R/seir.R: 100.00%
 ```
 
 ## Code of Conduct
@@ -180,7 +180,7 @@ By contributing to this project, you agree to abide by its terms.
 
  - The EPIRICE model was originally written in R as a part of the [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) package (Hijmans _et al._ 2009).
 
- - The EPIRICE model is also available from CRAN in the [{ZeBook}](https://cran.r-project.org/web/packages/ZeBook/index.html) package (Brun _et al._ 2018) to accompany, "Working with dynamic crop models : methods, tools and examples for agriculture and environment" (Wallach _et al._ 2018).
+ - The EPIRICE model is also available from CRAN in the [{ZeBook}](https://cran.r-project.org/package=ZeBook) package (Brun _et al._ 2018) to accompany, "Working with dynamic crop models: methods, tools and examples for agriculture and environment" (Wallach _et al._ 2018).
 
 # References
 Brun François, David Makowski, Daniel Wallach, and James W Jones.
