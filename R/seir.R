@@ -364,7 +364,7 @@ seir <- function(
     )]
   }
 
-  return(out)
+  return(out[])
 }
 #' Use approx() to Return a Modifier Value From an RcA or RcT Curve
 #'
