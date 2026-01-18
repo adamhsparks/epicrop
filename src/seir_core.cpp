@@ -1,171 +1,199 @@
+// [[Rcpp::depends(Rcpp)]]
 #include <Rcpp.h>
 using namespace Rcpp;
-// SEIR core simulator - called by seir() wrapper function
-// This is an internal function not intended for direct use
+
+// Constants
+const double EPSILON = 1e-15;
+
+// Fractional back-reference with proper bounds checking
+inline double backref(const NumericVector& hist, int d, double delay) {
+  if (delay <= 0.0) return 0.0;
+  
+  const double exact_day = (double)d - delay;
+  if (exact_day < 0.0) return 0.0;
+  
+  const int j_lo = (int)std::floor(exact_day);
+  const int j_hi = (int)std::ceil(exact_day);
+  
+  if (j_lo < 0 || j_hi >= d) return 0.0;
+  
+  const double frac = exact_day - (double)j_lo;
+  
+  double v = (1.0 - frac) * hist[j_lo];
+  if (j_hi != j_lo && j_hi < d) {
+    v += frac * hist[j_hi];
+  }
+  
+  return std::max(0.0, v);
+}
+
 // [[Rcpp::export]]
-Rcpp::List seir_core_cpp(const NumericVector& Rc_age,
-                         const NumericVector& Rc_temp,
-                         const NumericVector& Rc_wet,
-                         const NumericVector& RRG,
-                         const double RcOpt,
-                         const int onset,
-                         const int duration,
-                         const int p,
-                         const int i,
-                         const double H0,
-                         const double I0,
-                         const double Sx,
-                         const double a,
-                         const double RRS) {
+Rcpp::List epicrop_core_cpp(const NumericVector& Rc,
+                            const NumericVector& RRLEX,
+                            const NumericVector& RRG,
+                            const NumericVector& RRS,
+                            const NumericVector& p_days,
+                            const NumericVector& i_days,
+                            const NumericVector& agg,
+                            const NumericVector& Iprim,
+                            const double H0,
+                            const double SMax,
+                            const int steps_per_day = 1) {
 
-  // Constants
-  const double EPSILON = 1e-12;
-
+  const int n = Rc.size();
+  
   // Input validation
-  if (duration <= 0) stop("duration must be > 0");
-  if (Rc_age.size() < duration || Rc_temp. size() < duration || 
-      Rc_wet.size() < duration || RRG.size() < duration) {
-    stop("Rc_age, Rc_temp, Rc_wet, and RRG must be length >= duration");
+  if (RRLEX.size() != n || RRG.size() != n || RRS.size() != n ||
+      p_days.size() != n || i_days.size() != n || agg.size() != n ||
+      Iprim.size() != n) {
+    stop("All daily input vectors must have the same length.");
   }
-  if (onset < 0 || onset >= duration) stop("onset must be in [0, duration-1]");
-  if (p < 0 || i < 0) stop("p and i must be >= 0");
-  if (H0 < 0.0 || I0 < 0.0) stop("H0 and I0 must be >= 0");
-  if (Sx <= 0.0) stop("Sx must be > 0");
-  if (RcOpt < 0.0) stop("RcOpt must be >= 0");
-  if (a < 0.0) stop("aggregation coefficient 'a' must be >= 0");
-  if (RRS < 0.0) stop("RRS must be >= 0");
-
-  // Output vectors (Savary names)
-  NumericVector rc(duration), cofr(duration);
-  NumericVector sites(duration), latency(duration), infectious(duration), 
-                removed(duration), senesced(duration);
-  NumericVector infection(duration), rtransfer(duration), rgrowth(duration), 
-                rsenesced(duration);
-  NumericVector diseased(duration), total_sites(duration), intensity(duration);
-
-  // State variables (stocks)
-  double H_prev = H0;
-  double L_prev = 0.0;
-  double I_prev = 0.0;
-  double R_prev = 0.0;
-  double Sen_prev = 0.0;
-
-  // Main simulation loop (0-indexed:  d = 0 is day 1, d = 1 is day 2, etc.)
-  for (int d = 0; d < duration; ++d) {
-
-    // Calculate total sites (including removed for cofr calculation)
-    double total_prev = H_prev + L_prev + I_prev + R_prev;
-    if (total_prev <= 0.0) total_prev = EPSILON;
-
-    // Correction factor (proportion of healthy sites)
-    cofr[d] = H_prev / total_prev;
-    // Ensure cofr is in valid range [0, 1]
-    if (cofr[d] < 0.0) cofr[d] = 0.0;
-    if (cofr[d] > 1.0) cofr[d] = 1.0;
-
-    // Daily infection rate modifier
-    rc[d] = RcOpt * Rc_age[d] * Rc_temp[d] * Rc_wet[d];
-
-    // Growth and physiological senescence of healthy sites
-    double alive_prev = H_prev + L_prev + I_prev;
-    // Ensure growth is non-negative (logistic growth with carrying capacity)
-    rgrowth[d] = RRG[d] * H_prev * std::max(0.0, 1.0 - (alive_prev / Sx));
-    rsenesced[d] = RRS * H_prev;
-
-    // New infections (H -> L) with onset day semantics
-    double inf;
-    if (d < onset) {
-      inf = 0.0;
-    } else if (d == onset) {
-      inf = I0;  // Initial infection introduced on onset day
-    } else {
-      // Optimize pow() for common values of aggregation coefficient
-      double cofr_powered;
-      if (a == 0.0) {
-        cofr_powered = 1.0;
-      } else if (a == 1.0) {
-        cofr_powered = cofr[d];
-      } else if (a == 2.0) {
-        cofr_powered = cofr[d] * cofr[d];
-      } else {
-        cofr_powered = std::pow(cofr[d], a);
-      }
-      inf = I_prev * rc[d] * cofr_powered;
-    }
-    inf = std:: max(0.0, inf);  // Ensure non-negative
-    infection[d] = inf;
-
-    // Transfers from latent to infectious (L -> I) after p days
-    double tr = 0.0;
-    if (p > 0) {
-      if (d >= p) tr = infection[d - p];
-    } else {
-      // p == 0 => immediate transfer same day
-      tr = infection[d];
-    }
-    tr = std::max(0.0, tr);
-    rtransfer[d] = tr;
-
-    // Removals after i days in infectious state (I -> R)
-    double removed_today = 0.0;
-    if (i > 0) {
-      if (d >= i) removed_today = rtransfer[d - i];
-    } else {
-      // i == 0 => immediate removal same day
-      removed_today = rtransfer[d];
-    }
-    removed_today = std::max(0.0, removed_today);
-
-    // Update state variables (end-of-day stocks)
-    double H = H_prev + rgrowth[d] - inf - rsenesced[d];
-    double L = L_prev + inf - tr;
-    double I = I_prev + tr - removed_today;
-    double R = R_prev + removed_today;
-    double Sen = Sen_prev + rsenesced[d];
-
-    // Ensure non-negative states (numerical safety)
-    H = std::max(0.0, H);
-    L = std::max(0.0, L);
-    I = std::max(0.0, I);
-    R = std::max(0.0, R);
-    Sen = std::max(0.0, Sen);
-
-    // Store state variables (Savary names)
-    sites[d] = H;
-    latency[d] = L;
-    infectious[d] = I;
-    removed[d] = R;
-    senesced[d] = Sen;
-
-    // Derived outputs
-    diseased[d] = L + I + R;
-    total_sites[d] = H + L + I + R;
-
-    double denom_alive = H + L + I;
-    intensity[d] = (denom_alive > EPSILON) ? ((L + I) / denom_alive) : 0.0;
-
-    // Advance to next time step
-    H_prev = H;
-    L_prev = L;
-    I_prev = I;
-    R_prev = R;
-    Sen_prev = Sen;
+  if (SMax <= 0.0) stop("SMax must be > 0.");
+  if (steps_per_day < 1) stop("steps_per_day must be >= 1.");
+  if ((steps_per_day & (steps_per_day - 1)) != 0) {
+    Rcpp::warning("steps_per_day should be a power of 2 for best accuracy.");
   }
 
-  return List::create(
-    _["rc"] = rc,
-    _["cofr"] = cofr,
-    _["sites"] = sites,
-    _["latency"] = latency,
+  // Output vectors
+  NumericVector sites(n), latent(n), infectious(n), removed(n), senesced(n);
+  NumericVector rateinf(n), rlex(n), rtransfer(n), rremoved(n), rgrowth(n), rsenesced(n);
+  NumericVector diseased(n), intensity(n), cofr(n);
+
+  // Delay histories
+  NumericVector RI_hist(n);
+  NumericVector BecInf_hist(n);
+
+  // State variables
+  double HS_prev = std::max(0.0, H0);
+  double LAT_prev = 0.0;
+  double INF_prev = 0.0;
+  double REM_prev = 0.0;
+  double SEN_prev = 0.0;
+
+  const double dt = 1.0 / (double)steps_per_day;
+
+  for (int d = 0; d < n; ++d) {
+
+    // Cache daily parameters (ONCE per day)
+    const double a_d = std::max(1.0, (double)agg[d]);
+    const double Rc_d = std::max(0.0, (double)Rc[d]);
+    const double rrlex_d = std::max(0.0, (double)RRLEX[d]);
+    const double rrs_d = std:: max(0.0, (double)RRS[d]);
+    const double rrg_d = std::max(0.0, (double)RRG[d]);
+    const double p_d = std::max(0.0, (double)p_days[d]);
+    const double i_d = std::max(0.0, (double)i_days[d]);
+    const double Iprim_d = std::max(0.0, (double)Iprim[d]);
+
+    // Pre-compute daily delays (ONCE per day)
+    const double RT_day = backref(RI_hist, d, p_d);
+    const double RREM_day = backref(BecInf_hist, d, i_d);
+
+    // Daily accumulators
+    double RI_today = 0.0;
+    double RLEX_today = 0.0;
+    double RT_today = 0.0;
+    double RREM_today = 0.0;
+    double RG_today = 0.0;
+    double RSN_today = 0.0;
+
+    for (int s = 0; s < steps_per_day; ++s) {
+
+      // COFR calculation
+      double total_prev = HS_prev + LAT_prev + INF_prev + REM_prev;
+      if (total_prev < EPSILON) total_prev = EPSILON;
+      double cofr_d = 1.0 - ((LAT_prev + INF_prev + REM_prev) / total_prev);
+      cofr_d = std::max(0.0, std::min(1.0, cofr_d));
+
+      // Aggregation power
+      double cofr_pow;
+      if (a_d == 1.0)      cofr_pow = cofr_d;
+      else if (a_d == 2.0) cofr_pow = cofr_d * cofr_d;
+      else if (a_d == 3.0) cofr_pow = cofr_d * cofr_d * cofr_d;
+      else                 cofr_pow = std::pow(cofr_d, a_d);
+
+      // Flows (distributed over sub-steps)
+      double ri_prim = Iprim_d * dt;
+      double ri_sec = INF_prev * Rc_d * cofr_pow * dt;
+      double ri_step = ri_prim + ri_sec;
+      
+      double rlex_step = rrlex_d * INF_prev * cofr_d * dt;
+      double rt_step = RT_day * dt;
+      double rrem_step = RREM_day * dt;
+      double rsn_step = rrs_d * HS_prev * dt;
+      double rg_step = rrg_d * HS_prev * (1.0 - (total_prev / SMax)) * dt;
+
+      // Flow limiting (priority order:  RLEX > RI > RSN)
+      double HS_avail = HS_prev + rg_step;
+      if (HS_avail < 0.0) HS_avail = 0.0;
+      
+      rlex_step = std::min(rlex_step, HS_avail);
+      HS_avail -= rlex_step;
+      
+      ri_step = std::min(ri_step, HS_avail);
+      HS_avail -= ri_step;
+      
+      rsn_step = std:: min(rsn_step, HS_avail);
+      
+      double INF_avail = INF_prev + rt_step + rlex_step;
+      if (INF_avail < 0.0) INF_avail = 0.0;
+      rrem_step = std::min(rrem_step, INF_avail);
+
+      // State updates
+      HS_prev  = HS_prev + rg_step - ri_step - rlex_step - rsn_step;
+      LAT_prev = LAT_prev + ri_step - rt_step;
+      INF_prev = INF_prev + rt_step + rlex_step - rrem_step;
+      REM_prev = REM_prev + rrem_step;
+      SEN_prev = SEN_prev + rsn_step;
+
+      // Accumulate daily totals
+      RI_today   += ri_step;
+      RLEX_today += rlex_step;
+      RT_today   += rt_step;
+      RREM_today += rrem_step;
+      RG_today   += rg_step;
+      RSN_today  += rsn_step;
+    }
+
+    // Store daily outputs
+    sites[d]     = HS_prev;
+    latent[d]    = LAT_prev;
+    infectious[d] = INF_prev;
+    removed[d]   = REM_prev;
+    senesced[d]  = SEN_prev;
+
+    rateinf[d]   = RI_today;
+    rlex[d]      = RLEX_today;
+    rtransfer[d] = RT_today;
+    rremoved[d]  = RREM_today;
+    rgrowth[d]   = RG_today;
+    rsenesced[d] = RSN_today;
+
+    diseased[d] = latent[d] + infectious[d] + removed[d];
+    double denom_alive = sites[d] + latent[d] + infectious[d];
+    intensity[d] = (denom_alive > EPSILON) ? ((latent[d] + infectious[d]) / denom_alive) : 0.0;
+    
+    double total_cur = sites[d] + latent[d] + infectious[d] + removed[d];
+    cofr[d] = (total_cur > EPSILON) ? (1.0 - (diseased[d] / total_cur)) : 0.0;
+
+    // Update histories
+    RI_hist[d] = rateinf[d];
+    BecInf_hist[d] = rtransfer[d] + rlex[d];
+  }
+
+  return Rcpp:: List::create(
+    _["sites"]      = sites,
+    _["latent"]     = latent,
     _["infectious"] = infectious,
-    _["removed"] = removed,
-    _["senesced"] = senesced,
-    _["infection"] = infection,
-    _["rtransfer"] = rtransfer,
-    _["rgrowth"] = rgrowth,
-    _["rsenesced"] = rsenesced,
-    _["diseased"] = diseased,
-    _["total_sites"] = total_sites,
-    _["intensity"] = intensity
+    _["removed"]    = removed,
+    _["senesced"]   = senesced,
+    _["rateinf"]    = rateinf,
+    _["rlex"]       = rlex,
+    _["rtransfer"]  = rtransfer,
+    _["rremoved"]   = rremoved,
+    _["rgrowth"]    = rgrowth,
+    _["rsenesced"]  = rsenesced,
+    _["diseased"]   = diseased,
+    _["intensity"]  = intensity,
+    _["cofr"]       = cofr
   );
 }
