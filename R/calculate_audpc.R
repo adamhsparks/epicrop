@@ -19,7 +19,7 @@
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @references
-#' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+#' Sparks, A.H., P.D. Esker, M.  Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 #' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
 #' Disease Progress over Time. _The Plant Health Instructor_.
 #' \doi{10.1094/PHI-A-2008-0129-02}.
@@ -32,12 +32,12 @@
 #' @dev
 
 .calculate_audpc <- function(intensity) {
-  n <- sum(length(intensity), -1L)
-  meanvec <- vector(mode = "double", length = n)
+  n <- length(intensity)
 
-  for (i in 1L:n) {
-    meanvec[[i]] <- sum(c(intensity[i], intensity[sum(i, 1L)])) / 2L
+  if (n < 2L) {
+    return(0L)
   }
 
-  return(sum(meanvec))
+  # Trapezoidal rule:  AUDPC = sum of (y[i] + y[i+1]) / 2 for all intervals
+  sum((intensity[-1L] + intensity[-n]) / 2)
 }
