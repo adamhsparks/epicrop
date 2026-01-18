@@ -23,10 +23,8 @@ lr(wth, emergence, ...)
 e.g., \code{steps_per_day = 2}, or to override defaults (see Details).}
 }
 \value{
-A \code{data.table} containing daily states, flows, diagnostics, and
-\code{AUDPC_trapz} (attribute). Key columns: \code{sites}, \code{latent}, \code{infectious},
-\code{removed}, \code{senesced}, \code{rateinf}, \code{rlex}, \code{rtransfer}, \code{rremoved},
-\code{rgrowth}, \code{rsenesced}, \code{diseased}, \code{intensity}, plus diagnostics if enabled.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites. See \code{\link[=epicrop_sim]{epicrop_sim()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of leaf/brown rust (\emph{Puccinia triticina})
@@ -65,20 +63,30 @@ You can override any default by supplying named arguments in \code{...} that are
 recognized by \code{\link[=epicrop_sim]{epicrop_sim()}}—for example different \code{RcA}/\code{RcT} tables,
 a custom senescence function \code{RRS}, or \code{start = list(mode="heat_sum", ...)}.
 }
+\section{TMIN/TMAX Details}{
+
+\link{... keep existing section ...}
+}
+
+\section{LAT/LON Details}{
+
+\link{... keep existing section ...}
+}
+
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Example (emergence-mode start)
-# wth <- get_wth(lonlat = c(121.8919, -33.8611),
-#                dates = c("2021-06-01","2021-12-31"))
-# lr <- predict_leaf_rust(wth, emergence = "2021-07-01")
-# plot(lr$dates, lr$intensity, type = "l",
-#      ylab = "Disease intensity", xlab = "Date")
+wth <- get_wth(lonlat = c(121.8919, -33.8611),
+               dates = c("2021-06-01","2021-12-31"))
+lr <- predict_leaf_rust(wth, emergence = "2021-07-01")
+plot(lr$dates, lr$intensity, type = "l",
+     ylab = "Disease intensity", xlab = "Date")
 
 # Example (heat-sum start, EPIWHEAT-style initialization)
-# lr_hs <- predict_leaf_rust(
-#   wth, emergence = NULL,
-#   start = list(mode = "heat_sum", base_temp = 0, heat_sum_threshold = 200)
-# )
+lr_hs <- predict_leaf_rust(
+  wth, emergence = NULL,
+  start = list(mode = "heat_sum", base_temp = 0, heat_sum_threshold = 200)
+)
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # use shorthand function

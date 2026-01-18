@@ -17,14 +17,11 @@ stb(wth, emergence, ...)
 \item{emergence}{Character date \code{"YYYY-MM-DD"} for expected crop emergence.}
 
 \item{...}{Optional advanced arguments forwarded to \code{\link[=epicrop_sim]{epicrop_sim()}},
-e.g., \code{steps_per_day = 2}, or to override defaults (see Details).}
+\strong{e.g.}, \code{steps_per_day = 2}, or to override defaults (see Details).}
 }
 \value{
-A \code{data.table} containing daily states, flows, diagnostics, and
-\code{AUDPC_trapz} as an attribute. Key columns: \code{sites}, \code{latent},
-\code{infectious}, \code{removed}, \code{senesced}, \code{rateinf}, \code{rlex}, \code{rtransfer},
-\code{rremoved}, \code{rgrowth}, \code{rsenesced}, \code{diseased}, \code{intensity},
-plus diagnostics if enabled.
+A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
+sites. See \code{\link[=epicrop_sim]{epicrop_sim()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of Septoria tritici blotch intensity in wheat
@@ -64,6 +61,16 @@ You may override any default by supplying named arguments in \code{...} that are
 recognized by \code{\link[=epicrop_sim]{epicrop_sim()}}—for example a different \code{RcA}/\code{RcT} table,
 a custom senescence function \code{RRS}, or \code{start = list(mode="heat_sum", ...)}.
 }
+\section{TMIN/TMAX Details}{
+
+\link{... keep existing section ...}
+}
+
+\section{LAT/LON Details}{
+
+\link{... keep existing section ...}
+}
+
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Example (emergence-mode start)
