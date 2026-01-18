@@ -41,10 +41,11 @@
 #' recognized by [epicrop_sim()]—for example different `RcA`/`RcT` tables,
 #' a custom senescence function `RRS`, or `start = list(mode="heat_sum", ...)`.
 #'
-#' @return A `data.table` containing daily states, flows, diagnostics, and
-#'         `AUDPC_trapz` (attribute). Key columns: `sites`, `latent`, `infectious`,
-#'         `removed`, `senesced`, `rateinf`, `rlex`, `rtransfer`, `rremoved`,
-#'         `rgrowth`, `rsenesced`, `diseased`, `intensity`, plus diagnostics if enabled.
+#' @inheritSection epicrop_sim TMIN/TMAX Details
+#' @inheritSection epicrop_sim LAT/LON Details
+#'
+#' @returns A [data.table::data.table()] of disease intensity and infection
+#' sites. See [epicrop_sim()] for a full description of the column values.
 #'
 #' @references
 #' Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
@@ -54,17 +55,17 @@
 #'
 #' @examplesIf interactive()
 #' # Example (emergence-mode start)
-#' # wth <- get_wth(lonlat = c(121.8919, -33.8611),
-#' #                dates = c("2021-06-01","2021-12-31"))
-#' # lr <- predict_leaf_rust(wth, emergence = "2021-07-01")
-#' # plot(lr$dates, lr$intensity, type = "l",
-#' #      ylab = "Disease intensity", xlab = "Date")
+#' wth <- get_wth(lonlat = c(121.8919, -33.8611),
+#'                dates = c("2021-06-01","2021-12-31"))
+#' lr <- predict_leaf_rust(wth, emergence = "2021-07-01")
+#' plot(lr$dates, lr$intensity, type = "l",
+#'      ylab = "Disease intensity", xlab = "Date")
 #'
 #' # Example (heat-sum start, EPIWHEAT-style initialization)
-#' # lr_hs <- predict_leaf_rust(
-#' #   wth, emergence = NULL,
-#' #   start = list(mode = "heat_sum", base_temp = 0, heat_sum_threshold = 200)
-#' # )
+#' lr_hs <- predict_leaf_rust(
+#'   wth, emergence = NULL,
+#'   start = list(mode = "heat_sum", base_temp = 0, heat_sum_threshold = 200)
+#' )
 #'
 #' @export
 leaf_rust <- function(wth, emergence, ...) {

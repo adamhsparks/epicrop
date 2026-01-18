@@ -18,7 +18,7 @@
 #'   `LON`.
 #' @param emergence Character date `"YYYY-MM-DD"` for expected crop emergence.
 #' @param ... Optional advanced arguments forwarded to [epicrop_sim()],
-#'   e.g., `steps_per_day = 2`, or to override defaults (see Details).
+#'   **e.g.**, `steps_per_day = 2`, or to override defaults (see Details).
 #'
 #' @details
 #' **Defaults (Savary et al., 2015)**:
@@ -42,11 +42,11 @@
 #' recognized by [epicrop_sim()]—for example a different `RcA`/`RcT` table,
 #' a custom senescence function `RRS`, or `start = list(mode="heat_sum", ...)`.
 #'
-#' @return A `data.table` containing daily states, flows, diagnostics, and
-#'         `AUDPC_trapz` as an attribute. Key columns: `sites`, `latent`,
-#'         `infectious`, `removed`, `senesced`, `rateinf`, `rlex`, `rtransfer`,
-#'         `rremoved`, `rgrowth`, `rsenesced`, `diseased`, `intensity`,
-#'         plus diagnostics if enabled.
+#' @inheritSection epicrop_sim TMIN/TMAX Details
+#' @inheritSection epicrop_sim LAT/LON Details
+#'
+#' @returns A [data.table::data.table()] of disease intensity and infection
+#' sites. See [epicrop_sim()] for a full description of the column values.
 #'
 #' @references
 #' Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
@@ -89,7 +89,6 @@ s_tritici_blotch <- function(wth, emergence, ...) {
     seq(0.003, 0.020, length.out = length(dvs))
   }
 
-  # --- Call the unified simulator with EPIWHEAT defaults for STB ---
   epicrop_sim(
     wth = wth,
     start = list(mode = "emergence", emergence = emergence),
@@ -114,7 +113,6 @@ s_tritici_blotch <- function(wth, emergence, ...) {
     ...
   )
 }
-
 
 #' @rdname s_tritici_blotch
 #' @examplesIf interactive()
