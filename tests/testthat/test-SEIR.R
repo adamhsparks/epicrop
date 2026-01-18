@@ -203,18 +203,26 @@ test_that("seir() completes in reasonable time", {
   expect_lt(t[["elapsed"]], 1.0)
 })
 
+
 test_that("complex wetness is slower than simple wetness", {
   skip_on_cran()
 
   wth_c <- make_wth_complex(wth_formatted)
-  RcW_matrix <- cbind(seq(0, 24, 6), seq(0, 1, 0.2))
+  RcW_matrix <- cbind(
+    seq(0, 24, by = 6), # 0, 6, 12, 18, 24 (5 elements)
+    seq(0, 1, length.out = 5) # 0.00, 0.25, 0.50, 0.75, 1.00 (5 elements)
+  )
 
   t_simple <- system.time({
-    run_seir(simple_wetness = TRUE)
+    suppressWarnings(run_seir(simple_wetness = TRUE))
   })
 
   t_complex <- system.time({
-    run_seir(wth = wth_c, simple_wetness = FALSE, RcW = RcW_matrix)
+    suppressWarnings(run_seir(
+      wth = wth_c,
+      simple_wetness = FALSE,
+      RcW = RcW_matrix
+    ))
   })
 
   # Complex should be slower (but don't make test brittle)
@@ -273,7 +281,7 @@ test_that("seir() handles RcA correctly when duration exceeds matrix", {
   # Already warns in checks, but test the truncation behavior
   RcA_short <- cbind(0L:5L * 20L, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71))
 
-  expect_warning(
+  expect_error(
     run_seir(duration = 120L, RcA = RcA_short),
     regexp = "RcA.*duration"
   )
