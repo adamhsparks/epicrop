@@ -3,7 +3,7 @@
 
 
 
-# Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (seir()) Model <img src="man/figures/logo.png" align="right"/>
+# Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model <img src="man/figures/logo.png" align="right"/>
 
 <!-- badges: start -->
 
