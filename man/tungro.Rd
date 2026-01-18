@@ -25,11 +25,11 @@ named columns and will work.\tabular{rl}{
 
 \item{emergence}{Expected date of crop emergence}
 
-\item{...}{Additional arguments passed to \code{\link[=seir]{seir()}}.}
+\item{...}{Additional arguments passed to \code{\link[=epicrop_sim]{epicrop_sim()}}.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
-sites.  See \code{\link[=seir]{seir()}} for a full description of the column values.
+sites.  See \code{\link[=epicrop_sim]{epicrop_sim()}} for a full description of the column values.
 }
 \description{
 A helper function to provide sensible defaults for a dynamic mechanistic
@@ -108,7 +108,7 @@ its implication in disease management. Plant Disease 77:877-882.
 \doi{10.1094/PD-77-0877}.
 }
 \seealso{
-\code{\link[=seir]{seir()}}
+\code{\link[=epicrop_sim]{epicrop_sim()}}
 
 Other helper functions: 
 \code{\link{bacterial_blight}()},

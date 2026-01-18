@@ -119,13 +119,13 @@
 #' Uses mean rh, doy, location (lat), mean tmp, tmin and tmax to calculate
 #'  hourly rh values.
 #'
-#' @param rh Mean daily relative humidity as provided by `wth` via [seir()].
-#' @param tmin Minimum temperature as provided by `wth` via [seir()].
-#' @param tmax Maximum temperature as provided by `wth` via [seir()].
-#' @param tmp Mean daily temperature as provided by `wth` via [seir()].
-#' @param doy Sequential day of year as provided by `wth` via [seir()].
-#' @param lat Latitude provided by `wth` via [seir()].
-#' @param yyyymmdd Date (YYYY-MM-DD) as provided by `wth` via [seir()].
+#' @param rh Mean daily relative humidity as provided by `wth` via [epicrop_sim()].
+#' @param tmin Minimum temperature as provided by `wth` via [epicrop_sim()].
+#' @param tmax Maximum temperature as provided by `wth` via [epicrop_sim()].
+#' @param tmp Mean daily temperature as provided by `wth` via [epicrop_sim()].
+#' @param doy Sequential day of year as provided by `wth` via [epicrop_sim()].
+#' @param lat Latitude provided by `wth` via [epicrop_sim()].
+#' @param yyyymmdd Date (YYYY-MM-DD) as provided by `wth` via [epicrop_sim()].
 #'
 #' @examples
 #' wth <- get_wth(
@@ -168,11 +168,11 @@
 #'
 #' Uses doy, location (lat) and TMIN and TMAX to calculate hourly temperatures.
 #'
-#' @param lat Latitude as provided by `wth` via `seir()`
-#' @param doy Sequential day of year as provided by `wth` via `seir()`
-#' @param tmin Minimum temperature as provided by `wth` via `seir()`
-#' @param tmax Maximum temperature as provided by `wth` via `seir()`
-#' @param dayl Daylight hours as provided by `wth` via `seir()`
+#' @param lat Latitude as provided by `wth` via `epicrop_sim()`
+#' @param doy Sequential day of year as provided by `wth` via `epicrop_sim()`
+#' @param tmin Minimum temperature as provided by `wth` via `epicrop_sim()`
+#' @param tmax Maximum temperature as provided by `wth` via `epicrop_sim()`
+#' @param dayl Daylight hours as provided by `wth` via `epicrop_sim()`
 #'
 #' @returns A numeric vector of hourly temperature values for the duration of
 #'  `wth` data
@@ -250,9 +250,9 @@
 
 #' Calculate day length for a given latitude on a given date
 #'
-#' @param lat Latitude as provided by `wth` via `seir()`
+#' @param lat Latitude as provided by `wth` via `epicrop_sim()`
 #' @param doy Sequential day of year (Julian date) as provided by `wth` via
-#'  `seir()`
+#'  `epicrop_sim()`
 #'
 #' @examples
 #' wth <- get_wth(
@@ -286,7 +286,7 @@
 
 #' Calculate saturated vapour pressure, es
 #'
-#' @param tmp Mean temperature as provided by `wth` via `seir()`
+#' @param tmp Mean temperature as provided by `wth` via `epicrop_sim()`
 #'
 #' @returns Single double precision value of es as kilopascals
 #'

@@ -7,13 +7,13 @@
 .calculate_audpc(intensity)
 }
 \arguments{
-\item{intensity}{A \code{vector} of disease intensity from \code{\link[=seir]{seir()}}.}
+\item{intensity}{A \code{vector} of disease intensity from \code{\link[=epicrop_sim]{epicrop_sim()}}.}
 }
 \value{
 A \code{numeric} value as \code{double}.
 }
 \description{
-This function is used to return the AUDPC in the output of \code{\link[=seir]{seir()}}.  Not to
+This function is used to return the AUDPC in the output of \code{\link[=epicrop_sim]{epicrop_sim()}}.  Not to
 be used alone as it assumes that there is always only one day between
 observations so it takes shortcuts in the calculation of the values.
 }
@@ -29,7 +29,7 @@ bb <- bacterial_blight(wth, emergence = "2000-07-01")
 \dontshow{\}) # examplesIf}
 }
 \references{
-Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+Sparks, A.H., P.D. Esker, M.  Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
 Disease Progress over Time. \emph{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
@@ -41,5 +41,4 @@ Disease Epidemics. American Phytopathological Society, St. Paul, MN.
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}
 }
-\keyword{internal}
 \keyword{internal}

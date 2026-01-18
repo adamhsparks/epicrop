@@ -4,7 +4,7 @@
 \name{epicrop-package}
 \alias{epicrop}
 \alias{epicrop-package}
-\title{epicrop: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model}
+\title{keywords @internal}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
@@ -44,4 +44,3 @@ Other contributors:
 }
 
 }
-\keyword{internal}

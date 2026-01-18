@@ -2,17 +2,17 @@
 % Please edit documentation in R/internal_functions.R
 \name{.check_inputs}
 \alias{.check_inputs}
-\title{Utility Function to Check User Inputs for seir()}
+\title{Utility Function to Check User Inputs for epicrop_sim()}
 \usage{
 .check_inputs(seir_passed_args)
 }
 \arguments{
-\item{seir_passed_args}{a \code{list} of values passed to \code{\link[=seir]{seir()}}}
+\item{seir_passed_args}{a \code{list} of values passed to \code{\link[=epicrop_sim]{epicrop_sim()}}}
 }
 \value{
 Nothing, called for its side-effects to check user input values.
 }
 \description{
-Sanity checks for user inputs to \code{\link[=seir]{seir()}} to ensure that they will work.
+Sanity checks for user inputs to \code{\link[=epicrop_sim]{epicrop_sim()}} to ensure that they will work.
 }
 \keyword{internal}

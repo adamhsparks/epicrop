@@ -14,7 +14,8 @@
 #'   - Logistic host growth and age-increasing physiological senescence.
 #'
 #' @param wth A `data.frame` or `data.table` with at least:
-#'   `YYYYMMDD` (Date), `TEMP` (°C), `RAIN` (mm). Optional: `RHUM` (%), `LAT`, `LON`.
+#'   `YYYYMMDD` (Date), `TEMP` (°C), `RAIN` (mm). Optional: `RHUM` (%), `LAT`,
+#'   `LON`.
 #' @param emergence Character date `"YYYY-MM-DD"` for expected crop emergence.
 #' @param ... Optional advanced arguments forwarded to [epicrop_sim()],
 #'   e.g., `steps_per_day = 2`, or to override defaults (see Details).
@@ -24,13 +25,15 @@
 #' \itemize{
 #'   \item \strong{Timing}: onset = 20 d after emergence, duration = 120 d
 #'   \item \strong{Epidemiology}: RcOpt = 1.472; p = 7; i = 31; a = 1; RRLEX = 0
-#'   \item \strong{Host}: SMax ≈ 750000; RRG = 0.10; physiological RRS increases with age
-#'   \item \strong{Moisture}: RcW preset = "const1" (wetness does not affect infection)
+#'   \item \strong{Host}: SMax ≈ 750000; RRG = 0.10; physiological RRS increases
+#'   with age
+#'   \item \strong{Moisture}: RcW preset = "const1" (wetness does not affect
+#'   infection)
 #' }
 #'
 #' **Modifiers used here**:
 #' \itemize{
-#'   \item RcA(DVS): slightly decreasing with development stage (DVS ∈ [0,2])
+#'   \item RcA(DVS): slightly decreasing with development stage (DVS ∈ \[0, 2\])
 #'   \item RcT(T): optimum ≈15 °C, tapering on both sides
 #' }
 #'
@@ -45,9 +48,9 @@
 #'
 #' @references
 #' Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
-#' Modelling and mapping potential epidemics of wheat diseases—examples on leaf rust
-#' and Septoria tritici blotch using EPIWHEAT. \emph{Eur. J. Plant Pathol.}, 142:771–790.
-#' https://doi.org/10.1007/s10658-015-0650-7
+#' Modelling and mapping potential epidemics of wheat diseases—examples on leaf
+#' rust and Septoria tritici blotch using EPIWHEAT. \emph{Eur. J.
+#' Plant Pathol.}, 142:771–790. https://doi.org/10.1007/s10658-015-0650-7
 #'
 #' @examplesIf interactive()
 #' # Example (emergence-mode start)
@@ -64,7 +67,7 @@
 #' # )
 #'
 #' @export
-predict_leaf_rust <- function(wth, emergence, ...) {
+leaf_rust <- function(wth, emergence, ...) {
   # --- Age modifier RcA as a function of development stage (DVS ∈ [0,2]) ---
   # Slight decrease with age (matches EPIWHEAT narrative for BR)
   RcA_BR_DVS <- cbind(
@@ -109,3 +112,20 @@ predict_leaf_rust <- function(wth, emergence, ...) {
     ...
   )
 }
+
+#' @rdname leaf_rust
+#' @examplesIf interactive()
+#' # use shorthand function
+#' br <- brown_rust(wth, emergence = "2000-07-01")
+#' plot(x = br$dates, y = br$intensity, type = "l")
+#' @export
+brown_rust <- leaf_rust # alias
+
+
+#' @rdname leaf_rust
+#' @examplesIf interactive()
+#' # use shorthand function
+#' br <- lr(wth, emergence = "2000-07-01")
+#' plot(x = lr$dates, y = lr$intensity, type = "l")
+#' @export
+lr <- leaf_rust # alias

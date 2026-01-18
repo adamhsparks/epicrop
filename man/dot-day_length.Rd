@@ -7,10 +7,10 @@
 .day_length(lat, doy)
 }
 \arguments{
-\item{lat}{Latitude as provided by \code{wth} via \code{seir()}}
+\item{lat}{Latitude as provided by \code{wth} via \code{epicrop_sim()}}
 
 \item{doy}{Sequential day of year (Julian date) as provided by \code{wth} via
-\code{seir()}}
+\code{epicrop_sim()}}
 }
 \value{
 A numeric vector of daylight hours based on latitude and date

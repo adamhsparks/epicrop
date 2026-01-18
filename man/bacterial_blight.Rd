@@ -28,11 +28,11 @@ named columns and will work.\tabular{rl}{
 
 \item{emergence}{Expected date of crop emergence}
 
-\item{...}{Additional arguments passed to \code{\link[=seir]{seir()}}.}
+\item{...}{Additional arguments passed to \code{\link[=epicrop_sim]{epicrop_sim()}}.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
-sites. See \code{\link[=seir]{seir()}} for a full description of the column values.
+sites. See \code{\link[=epicrop_sim]{epicrop_sim()}} for a full description of the column values.
 }
 \description{
 A dynamic mechanistic simulation of bacterial blight disease of rice,
@@ -124,7 +124,7 @@ Volume 34, 2012, Pages 6-17, ISSN 0261-2194 DOI:
 \doi{10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
-\code{\link[=seir]{seir()}}
+\code{\link[=epicrop_sim]{epicrop_sim()}}
 
 Other helper functions: 
 \code{\link{brown_spot}()},

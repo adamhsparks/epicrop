@@ -42,13 +42,13 @@
 #'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
 #' @param emergence Expected date of crop emergence
-#' @param ... Additional arguments passed to [seir()].
+#' @param ... Additional arguments passed to [epicrop_sim()].
 #'
-#' @inheritSection seir TMIN/TMAX Details
-#' @inheritSection seir LAT/LON Details
+#' @inheritSection epicrop_sim  TMIN/TMAX Details
+#' @inheritSection epicrop_sim  LAT/LON Details
 #'
 #' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [seir()] for a full description of the column values.
+#' sites. See [epicrop_sim()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #' # get weather for IRRI Zeigler Experiment Station in wet season 2000
@@ -93,12 +93,12 @@
 #' @family helper functions
 #'
 #' @seealso
-#' [seir()]
+#' [epicrop_sim()]
 #'
 #' @export
 bacterial_blight <- function(wth, emergence, ...) {
   return(
-    seir(
+    epicrop_sim(
       wth = wth,
       emergence = emergence,
       onset = 20L,

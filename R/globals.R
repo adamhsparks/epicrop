@@ -2,6 +2,8 @@
 
 utils::globalVariables(c(
   "DOY", # <format_wth>
-  "YYYYMMDD", # <seir>
+  "RHUM", # <.validate_weather_data>
+  "RAIN", # <.check_weather_nas>
+  "YYYYMMDD", # <.run_window_emergence>
   NULL
 ))

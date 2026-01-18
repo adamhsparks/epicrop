@@ -111,7 +111,7 @@
 #'   )
 #' emergence <- "2000-07-15"
 #'
-#' seir(
+#' epicrop_sim(
 #'   wth = wth,
 #'   emergence = emergence,
 #'   onset = 20,
@@ -156,7 +156,7 @@
 #' columns are provided by default when using [get_wth()].
 #'
 #' @seealso
-#' `seir()` is called by the following specific disease modelling functions:
+#' `epicrop_sim()` is called by the following specific disease modelling functions:
 #' * [bacterial_blight()],
 #' * [brown_spot()],
 #' * [leaf_blast()],

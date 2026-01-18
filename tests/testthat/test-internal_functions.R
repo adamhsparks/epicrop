@@ -538,10 +538,10 @@ test_that("validation handles data.frame weather without epicrop.wth class", {
   )
 })
 
-test_that("validation catches missing required arguments in seir()", {
+test_that("validation catches missing required arguments in epicrop_sim()", {
   # Test missing wth - need to provide simple_wetness explicitly
   expect_error(
-    seir(
+    epicrop_sim(
       # missing wth
       emergence = "2000-07-01",
       onset = 20L,
@@ -565,7 +565,7 @@ test_that("validation catches missing required arguments in seir()", {
 
   # Test missing emergence
   expect_error(
-    seir(
+    epicrop_sim(
       wth = wth_formatted,
       # missing emergence
       onset = 20L,
@@ -588,7 +588,7 @@ test_that("validation catches missing required arguments in seir()", {
 
   # Test missing RcA
   expect_error(
-    seir(
+    epicrop_sim(
       wth = wth_formatted,
       emergence = "2000-07-01",
       onset = 20L,
@@ -610,10 +610,10 @@ test_that("validation catches missing required arguments in seir()", {
   )
 })
 
-test_that("validation catches missing required arguments in seir()", {
+test_that("validation catches missing required arguments in epicrop_sim()", {
   # Test missing wth - validation checks class before rlang::check_required
   expect_error(
-    seir(
+    epicrop_sim(
       # missing wth
       emergence = "2000-07-01",
       onset = 20L,
@@ -637,7 +637,7 @@ test_that("validation catches missing required arguments in seir()", {
 
   # Test missing emergence
   expect_error(
-    seir(
+    epicrop_sim(
       wth = wth_formatted,
       # missing emergence
       onset = 20L,
@@ -660,7 +660,7 @@ test_that("validation catches missing required arguments in seir()", {
 
   # Test missing RcT (RcA validation happens first if RcA is missing)
   expect_error(
-    seir(
+    epicrop_sim(
       wth = wth_formatted,
       emergence = "2000-07-01",
       onset = 20L,
@@ -683,7 +683,7 @@ test_that("validation catches missing required arguments in seir()", {
 
   # Test missing onset
   expect_error(
-    seir(
+    epicrop_sim(
       wth = wth_formatted,
       emergence = "2000-07-01",
       # missing onset
@@ -737,14 +737,14 @@ test_that("validation handles edge case: rhlim = 100", {
 })
 
 test_that("validation handles emergence date outside weather data range", {
-  # This is tested in seir() itself, not .check_inputs
+  # This is tested in epicrop_sim() itself, not .check_inputs
   # But we can verify the date checking works
   var_args <- make_valid_args(emergence = "1999-01-01")
 
   # . check_inputs validates the date format, not the range
   expect_no_error(.check_inputs(var_args))
 
-  # But seir() should catch it
+  # But epicrop_sim() should catch it
   expect_error(
     do.call(seir, var_args),
     regexp = "Incomplete weather|dates.*align"

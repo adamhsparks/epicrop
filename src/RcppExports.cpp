@@ -10,33 +10,30 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// seir_core_cpp
-Rcpp::List seir_core_cpp(const NumericVector& Rc_age, const NumericVector& Rc_temp, const NumericVector& Rc_wet, const NumericVector& RRG, const double RcOpt, const int onset, const int duration, const int p, const int i, const double H0, const double I0, const double Sx, const double a, const double RRS);
-RcppExport SEXP _epicrop_seir_core_cpp(SEXP Rc_ageSEXP, SEXP Rc_tempSEXP, SEXP Rc_wetSEXP, SEXP RRGSEXP, SEXP RcOptSEXP, SEXP onsetSEXP, SEXP durationSEXP, SEXP pSEXP, SEXP iSEXP, SEXP H0SEXP, SEXP I0SEXP, SEXP SxSEXP, SEXP aSEXP, SEXP RRSSEXP) {
+// epicrop_core_cpp
+Rcpp::List epicrop_core_cpp(const NumericVector& Rc, const NumericVector& RRLEX, const NumericVector& RRG, const NumericVector& RRS, const NumericVector& p_days, const NumericVector& i_days, const NumericVector& agg, const NumericVector& Iprim, const double H0, const double SMax, const int steps_per_day);
+RcppExport SEXP _epicrop_epicrop_core_cpp(SEXP RcSEXP, SEXP RRLEXSEXP, SEXP RRGSEXP, SEXP RRSSEXP, SEXP p_daysSEXP, SEXP i_daysSEXP, SEXP aggSEXP, SEXP IprimSEXP, SEXP H0SEXP, SEXP SMaxSEXP, SEXP steps_per_daySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type Rc_age(Rc_ageSEXP);
-    Rcpp::traits::input_parameter< const NumericVector& >::type Rc_temp(Rc_tempSEXP);
-    Rcpp::traits::input_parameter< const NumericVector& >::type Rc_wet(Rc_wetSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type Rc(RcSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type RRLEX(RRLEXSEXP);
     Rcpp::traits::input_parameter< const NumericVector& >::type RRG(RRGSEXP);
-    Rcpp::traits::input_parameter< const double >::type RcOpt(RcOptSEXP);
-    Rcpp::traits::input_parameter< const int >::type onset(onsetSEXP);
-    Rcpp::traits::input_parameter< const int >::type duration(durationSEXP);
-    Rcpp::traits::input_parameter< const int >::type p(pSEXP);
-    Rcpp::traits::input_parameter< const int >::type i(iSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type RRS(RRSSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type p_days(p_daysSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type i_days(i_daysSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type agg(aggSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type Iprim(IprimSEXP);
     Rcpp::traits::input_parameter< const double >::type H0(H0SEXP);
-    Rcpp::traits::input_parameter< const double >::type I0(I0SEXP);
-    Rcpp::traits::input_parameter< const double >::type Sx(SxSEXP);
-    Rcpp::traits::input_parameter< const double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< const double >::type RRS(RRSSEXP);
-    rcpp_result_gen = Rcpp::wrap(seir_core_cpp(Rc_age, Rc_temp, Rc_wet, RRG, RcOpt, onset, duration, p, i, H0, I0, Sx, a, RRS));
+    Rcpp::traits::input_parameter< const double >::type SMax(SMaxSEXP);
+    Rcpp::traits::input_parameter< const int >::type steps_per_day(steps_per_daySEXP);
+    rcpp_result_gen = Rcpp::wrap(epicrop_core_cpp(Rc, RRLEX, RRG, RRS, p_days, i_days, agg, Iprim, H0, SMax, steps_per_day));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_epicrop_seir_core_cpp", (DL_FUNC) &_epicrop_seir_core_cpp, 14},
+    {"_epicrop_epicrop_core_cpp", (DL_FUNC) &_epicrop_epicrop_core_cpp, 11},
     {NULL, NULL, 0}
 };
 

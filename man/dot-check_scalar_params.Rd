@@ -7,7 +7,7 @@
 .check_scalar_params(seir_passed_args, RRG)
 }
 \arguments{
-\item{seir_passed_args}{List of arguments passed to seir()}
+\item{seir_passed_args}{List of arguments passed to epicrop_sim()}
 
 \item{RRG}{Evaluated RRG parameter}
 }

@@ -1,7 +1,7 @@
-#' Utility Function to Check User Inputs for seir()
+#' Utility Function to Check User Inputs for epicrop_sim()
 #'
-#' Sanity checks for user inputs to [seir()] to ensure that they will work.
-#' @param seir_passed_args a `list` of values passed to [seir()]
+#' Sanity checks for user inputs to [epicrop_sim()] to ensure that they will work.
+#' @param seir_passed_args a `list` of values passed to [epicrop_sim()]
 #'
 #' @returns Nothing, called for its side-effects to check user input values.
 #'
@@ -73,7 +73,7 @@
 
 #' Check Scalar Numeric Parameters
 #'
-#' @param seir_passed_args List of arguments passed to seir()
+#' @param seir_passed_args List of arguments passed to epicrop_sim()
 #' @param RRG Evaluated RRG parameter
 #' @returns Nothing, called for side effects
 #' @dev
@@ -233,7 +233,7 @@
 
 #' Check Parameter Constraints
 #'
-#' @param seir_passed_args List of arguments passed to seir()
+#' @param seir_passed_args List of arguments passed to epicrop_sim()
 #' @param RcA Age modifier matrix
 #' @returns Nothing, called for side effects
 #' @dev

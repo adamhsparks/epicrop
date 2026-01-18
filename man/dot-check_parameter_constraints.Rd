@@ -7,7 +7,7 @@
 .check_parameter_constraints(seir_passed_args, RcA)
 }
 \arguments{
-\item{seir_passed_args}{List of arguments passed to seir()}
+\item{seir_passed_args}{List of arguments passed to epicrop_sim()}
 
 \item{RcA}{Age modifier matrix}
 }

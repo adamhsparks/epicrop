@@ -7,15 +7,15 @@
 .diurnal_temp(lat, doy, tmin, tmax)
 }
 \arguments{
-\item{lat}{Latitude as provided by \code{wth} via \code{seir()}}
+\item{lat}{Latitude as provided by \code{wth} via \code{epicrop_sim()}}
 
-\item{doy}{Sequential day of year as provided by \code{wth} via \code{seir()}}
+\item{doy}{Sequential day of year as provided by \code{wth} via \code{epicrop_sim()}}
 
-\item{tmin}{Minimum temperature as provided by \code{wth} via \code{seir()}}
+\item{tmin}{Minimum temperature as provided by \code{wth} via \code{epicrop_sim()}}
 
-\item{tmax}{Maximum temperature as provided by \code{wth} via \code{seir()}}
+\item{tmax}{Maximum temperature as provided by \code{wth} via \code{epicrop_sim()}}
 
-\item{dayl}{Daylight hours as provided by \code{wth} via \code{seir()}}
+\item{dayl}{Daylight hours as provided by \code{wth} via \code{epicrop_sim()}}
 }
 \value{
 A numeric vector of hourly temperature values for the duration of

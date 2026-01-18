@@ -30,7 +30,7 @@ run_seir <- function(...) {
 }
 
 # --- Helper: ensure complex wetness branch can actually run ---
-# seir() switches to simple wetness if required fields are missing.
+# epicrop_sim() switches to simple wetness if required fields are missing.
 # This makes a weather object with the required columns.
 make_wth_complex <- function(wth) {
   w <- data.table::as.data.table(data.table::copy(wth))
@@ -79,57 +79,57 @@ snapshot_df <- function(dt, digits = 4L) {
 # Tests
 # -------------------------------------------------------------------------
 
-testthat::test_that("seir() stops if dates do not align", {
+testthat::test_that("epicrop_sim() stops if dates do not align", {
   testthat::expect_error(
-    run_seir(emergence = "1999-07-01"),
+    run_epicrop_sim(emergence = "1999-07-01"),
     regexp = "Incomplete weather data or dates do not align"
   )
 })
 
-testthat::test_that("seir() stops if `a` < 1", {
+testthat::test_that("epicrop_sim() stops if `a` < 1", {
   testthat::expect_error(
-    run_seir(a = 0.9),
+    run_epicrop_sim(a = 0.9),
     regexp = "a|aggregation|>=\\s*1"
   )
 })
 
-testthat::test_that("seir() stops if `H0` < 0", {
+testthat::test_that("epicrop_sim() stops if `H0` < 0", {
   testthat::expect_error(
-    run_seir(H0 = -1),
+    run_epicrop_sim(H0 = -1),
     regexp = "H0|healthy|>=\\s*0"
   )
 })
 
-testthat::test_that("seir() stops if `I0` < 0", {
+testthat::test_that("epicrop_sim() stops if `I0` < 0", {
   testthat::expect_error(
-    run_seir(I0 = -1),
+    run_epicrop_sim(I0 = -1),
     regexp = "I0|infect|>=\\s*0"
   )
 })
 
-testthat::test_that("seir() accepts data.frame weather and returns a data.table", {
+testthat::test_that("epicrop_sim() accepts data.frame weather and returns a data.table", {
   wth_df <- as.data.frame(wth_formatted)
-  out <- run_seir(wth = wth_df)
+  out <- run_epicrop_sim(wth = wth_df)
 
   testthat::expect_s3_class(out, c("data.table", "data.frame"))
   testthat::expect_identical(nrow(out), base_args$duration)
 })
 
-testthat::test_that("seir() errors when complex wetness requested and RcW is not a matrix", {
+testthat::test_that("epicrop_sim() errors when complex wetness requested and RcW is not a matrix", {
   wth_c <- make_wth_complex(wth_formatted)
 
   testthat::expect_error(
-    run_seir(wth = wth_c, simple_wetness = FALSE, RcW = 1),
+    run_epicrop_sim(wth = wth_c, simple_wetness = FALSE, RcW = 1),
     regexp = "RcW|matrix"
   )
 
   testthat::expect_error(
-    run_seir(wth = wth_c, simple_wetness = FALSE, RcW = list(1, 2)),
+    run_epicrop_sim(wth = wth_c, simple_wetness = FALSE, RcW = list(1, 2)),
     regexp = "RcW|matrix"
   )
 })
 
-test_that("seir() uses complex wetness when requested and changes outcomes vs simple mode", {
+test_that("epicrop_sim() uses complex wetness when requested and changes outcomes vs simple mode", {
   withr::local_options(list(scipen = 999L))
 
   # Define RcW matrix for complex wetness
@@ -141,8 +141,8 @@ test_that("seir() uses complex wetness when requested and changes outcomes vs si
   # Get weather data with TMIN/TMAX for complex wetness
   wth_c <- wth_formatted # Assuming this has TMIN/TMAX
 
-  out_simple <- run_seir(wth = wth_c, simple_wetness = TRUE)
-  out_complex <- run_seir(
+  out_simple <- run_epicrop_sim(wth = wth_c, simple_wetness = TRUE)
+  out_complex <- run_epicrop_sim(
     wth = wth_c,
     simple_wetness = FALSE,
     RcW = RcW_matrix
@@ -167,9 +167,9 @@ test_that("seir() uses complex wetness when requested and changes outcomes vs si
   )
 })
 
-testthat::test_that("seir() output snapshot (JSON-safe) is stable", {
+testthat::test_that("epicrop_sim() output snapshot (JSON-safe) is stable", {
   # snapshot a representative run; use data.frame + stable dates + rounded numerics
-  out <- run_seir()
+  out <- run_epicrop_sim()
   out_snap <- snapshot_df(out, digits = 4L)
 
   # json2 snapshots fail on data.table due to internal pointers; snapshot data.frame instead
@@ -177,9 +177,9 @@ testthat::test_that("seir() output snapshot (JSON-safe) is stable", {
 })
 
 ## Test reproducibility -----
-test_that("seir() produces identical results with same inputs", {
-  out1 <- run_seir()
-  out2 <- run_seir()
+test_that("epicrop_sim() produces identical results with same inputs", {
+  out1 <- run_epicrop_sim()
+  out2 <- run_epicrop_sim()
 
   expect_identical(out1, out2)
 })
@@ -192,11 +192,11 @@ test_that("disease models produce reproducible AUDPC", {
 })
 
 ## Test Performance -----
-test_that("seir() completes in reasonable time", {
+test_that("epicrop_sim() completes in reasonable time", {
   skip_on_cran()
 
   t <- system.time({
-    run_seir()
+    run_epicrop_sim()
   })
 
   # Should complete in under 1 second
@@ -214,11 +214,11 @@ test_that("complex wetness is slower than simple wetness", {
   )
 
   t_simple <- system.time({
-    suppressWarnings(run_seir(simple_wetness = TRUE))
+    suppressWarnings(run_epicrop_sim(simple_wetness = TRUE))
   })
 
   t_complex <- system.time({
-    suppressWarnings(run_seir(
+    suppressWarnings(run_epicrop_sim(
       wth = wth_c,
       simple_wetness = FALSE,
       RcW = RcW_matrix
@@ -230,22 +230,22 @@ test_that("complex wetness is slower than simple wetness", {
 })
 
 ## Test date handling -----
-test_that("seir() handles different date input formats", {
-  out_iso <- run_seir(emergence = "2000-07-01")
-  out_date <- run_seir(emergence = as.Date("2000-07-01"))
+test_that("epicrop_sim() handles different date input formats", {
+  out_iso <- run_epicrop_sim(emergence = "2000-07-01")
+  out_date <- run_epicrop_sim(emergence = as.Date("2000-07-01"))
 
   expect_identical(out_iso$dates, out_date$dates)
 })
 
-test_that("seir() simday starts at 1 and matches duration", {
-  out <- run_seir()
+test_that("epicrop_sim() simday starts at 1 and matches duration", {
+  out <- run_epicrop_sim()
   expect_identical(out$simday[1L], 1L)
   expect_identical(out$simday[120L], 120L)
   expect_length(out$simday, 120L)
 })
 
 ## Test modifier extraploation -----
-test_that("seir() extrapolates RcT correctly outside defined range", {
+test_that("epicrop_sim() extrapolates RcT correctly outside defined range", {
   # RcT defined from 15-40°C, both endpoints have modifier = 0
 
   wth_cold <- data.table::copy(wth_formatted)
@@ -257,9 +257,9 @@ test_that("seir() extrapolates RcT correctly outside defined range", {
   wth_optimal <- data.table::copy(wth_formatted)
   wth_optimal[, TEMP := 25.0] # Optimal temperature (modifier = 1.0)
 
-  out_cold <- run_seir(wth = wth_cold)
-  out_hot <- run_seir(wth = wth_hot)
-  out_optimal <- run_seir(wth = wth_optimal)
+  out_cold <- run_epicrop_sim(wth = wth_cold)
+  out_hot <- run_epicrop_sim(wth = wth_hot)
+  out_optimal <- run_epicrop_sim(wth = wth_optimal)
 
   # Both extreme temps should have very low disease (near zero)
   expect_lt(out_cold$intensity[120L], 0.01)
@@ -277,19 +277,19 @@ test_that("seir() extrapolates RcT correctly outside defined range", {
   )
 })
 
-test_that("seir() handles RcA correctly when duration exceeds matrix", {
+test_that("epicrop_sim() handles RcA correctly when duration exceeds matrix", {
   # Already warns in checks, but test the truncation behavior
   RcA_short <- cbind(0L:5L * 20L, c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71))
 
   expect_error(
-    run_seir(duration = 120L, RcA = RcA_short),
+    run_epicrop_sim(duration = 120L, RcA = RcA_short),
     regexp = "RcA.*duration"
   )
 })
 
 ## Test edge cases -----
-test_that("seir() handles onset = 1 (disease starts on emergence day)", {
-  out <- run_seir(onset = 1L, p = 6L) # p = latent period duration
+test_that("epicrop_sim() handles onset = 1 (disease starts on emergence day)", {
+  out <- run_epicrop_sim(onset = 1L, p = 6L) # p = latent period duration
 
   expect_identical(nrow(out), 120L)
 
@@ -301,28 +301,28 @@ test_that("seir() handles onset = 1 (disease starts on emergence day)", {
   expect_gt(out$infectious[7L], 0) # Day 7: after 6-day latent period
 })
 
-test_that("seir() handles very short duration edge case", {
+test_that("epicrop_sim() handles very short duration edge case", {
   # Even though check warns at <50, test boundary behavior at minimum
   expect_error(
-    run_seir(duration = 0L),
+    run_epicrop_sim(duration = 0L),
     regexp = "duration|>\\s*0"
   )
 })
 
-test_that("seir() handles maximum sites = initial healthy sites", {
-  out <- run_seir(H0 = 100000, Sx = 100000)
+test_that("epicrop_sim() handles maximum sites = initial healthy sites", {
+  out <- run_epicrop_sim(H0 = 100000, Sx = 100000)
   expect_true(all(out$sites <= 100000))
 })
 
-test_that("seir() handles RRG as matrix vs scalar consistently", {
+test_that("epicrop_sim() handles RRG as matrix vs scalar consistently", {
   RRG_scalar <- 0.1
   RRG_matrix <- cbind(
     seq_len(120L),
     rep(0.1, 120L)
   )
 
-  out_scalar <- run_seir(RRG = RRG_scalar)
-  out_matrix <- run_seir(RRG = RRG_matrix)
+  out_scalar <- run_epicrop_sim(RRG = RRG_scalar)
+  out_matrix <- run_epicrop_sim(RRG = RRG_matrix)
 
   # Should produce similar results
   expect_equal(

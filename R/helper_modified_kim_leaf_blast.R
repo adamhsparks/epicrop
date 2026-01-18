@@ -37,8 +37,8 @@
 #' 25 °C as shown. The correct value, 20 °C, is used in this implementation.
 #'
 #' @inherit bacterial_blight
-#' @inheritSection seir TMIN/TMAX Details
-#' @inheritSection seir LAT/LON Details
+#' @inheritSection epicrop_sim  TMIN/TMAX Details
+#' @inheritSection epicrop_sim  LAT/LON Details
 #'
 #' @note
 #' The original code for this function from Kim _et al. 2015 had an incorrect
@@ -52,7 +52,7 @@
 #' hours.
 #'
 #' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites. See [seir()] for a full description of the column values.
+#' sites. See [epicrop_sim()] for a full description of the column values.
 #'
 #' @examplesIf interactive()
 #'
@@ -112,11 +112,11 @@
 #' @family helper functions
 #'
 #' @seealso
-#' [seir()]
+#' [epicrop_sim()]
 #'
 #' @export
 modified_kim_leaf_blast <- function(wth, emergence, ...) {
-  seir(
+  epicrop_sim(
     wth = wth,
     emergence = emergence,
     onset = 15L,

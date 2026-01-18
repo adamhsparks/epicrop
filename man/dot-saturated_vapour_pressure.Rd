@@ -7,7 +7,7 @@
 .saturated_vapour_pressure(tmp)
 }
 \arguments{
-\item{tmp}{Mean temperature as provided by \code{wth} via \code{seir()}}
+\item{tmp}{Mean temperature as provided by \code{wth} via \code{epicrop_sim()}}
 }
 \value{
 Single double precision value of es as kilopascals
