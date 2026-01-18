@@ -117,7 +117,7 @@ test_that(".calculate_leaf_wetness() handles NA rainfall gracefully", {
   )
 
   expect_length(result, nrow(wth_na_rain))
-  expect_false(any(is.na(result)))
+  expect_false(anyNA(result))
 })
 
 test_that(".calculate_leaf_wetness() enforces 0-24 hour bounds", {
@@ -193,8 +193,8 @@ test_that(".diurnal_temp() produces 24 hourly values", {
   )
 
   expect_length(temps, 24L)
-  expect_true(min(temps) >= 22.0)
-  expect_true(max(temps) <= 32.0)
+  expect_gte(min(temps), 22.0)
+  expect_lte(max(temps), 32.0)
 })
 
 test_that(".diurnal_rh() produces list of 24-hour vectors", {
@@ -237,6 +237,6 @@ test_that(".check_threshold() counts hours correctly", {
   rh_all_high <- rep(95, 24)
   rh_half_high <- c(rep(95, 12), rep(85, 12))
 
-  expect_equal(.check_threshold(rh_all_high, rhlim = 90), 24)
-  expect_equal(.check_threshold(rh_half_high, rhlim = 90), 12)
+  expect_identical(.check_threshold(rh_all_high, rhlim = 90), 24L)
+  expect_identical(.check_threshold(rh_half_high, rhlim = 90), 12L)
 })

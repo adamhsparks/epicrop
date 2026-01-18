@@ -1,5 +1,5 @@
 # weather formatting
-test_that("Weather data is formated as expected", {
+test_that("Weather data is formatted as expected", {
   expect_no_condition(
     format_wth(
       wth = wth,
@@ -164,7 +164,7 @@ test_that("format_wth() preserves data integrity", {
     lon = "LON"
   )
 
-  expect_equal(out$TEMP, wth$T2M)
-  expect_equal(out$RHUM, wth$RH2M)
-  expect_equal(out$RAIN, wth$PRECTOTCORR)
+  expect_identical(out$TEMP, wth$T2M)
+  expect_identical(out$RHUM, wth$RH2M)
+  expect_identical(out$RAIN, wth$PRECTOTCORR)
 })

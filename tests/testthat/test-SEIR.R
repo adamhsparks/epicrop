@@ -157,8 +157,8 @@ test_that("seir() uses complex wetness when requested and changes outcomes vs si
   )
 
   # Test that complex wetness produces valid results
-  expect_true(out_complex$intensity[120L] >= 0)
-  expect_true(out_complex$intensity[120L] <= 1)
+  expect_gte(out_complex$intensity[120L], 0)
+  expect_lte(out_complex$intensity[120L], 1)
 
   # Use snapshot for the actual value
   expect_snapshot_value(
@@ -241,7 +241,7 @@ test_that("seir() simday starts at 1 and matches duration", {
   out <- run_seir()
   expect_identical(out$simday[1L], 1L)
   expect_identical(out$simday[120L], 120L)
-  expect_identical(length(out$simday), 120L)
+  expect_length(out$simday, 120L)
 })
 
 ## Test modifier extraploation -----
@@ -296,9 +296,9 @@ test_that("seir() handles onset = 1 (disease starts on emergence day)", {
   # Infections injected on day 1 (onset)
   # They become infectious after p days (latent period)
   # So infectious sites should appear on day p+1
-  expect_equal(out$infectious[1L], 0) # Day 1: no infectious yet
-  expect_true(out$latent[1L] > 0) # Day 1: should have latent sites
-  expect_true(out$infectious[7L] > 0) # Day 7: after 6-day latent period
+  expect_identical(out$infectious[1L], 0) # Day 1: no infectious yet
+  expect_gt(out$latent[1L], 0) # Day 1: should have latent sites
+  expect_gt(out$infectious[7L], 0) # Day 7: after 6-day latent period
 })
 
 test_that("seir() handles very short duration edge case", {

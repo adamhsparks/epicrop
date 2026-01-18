@@ -343,7 +343,7 @@ test_that("validation handles missing weather columns for complex wetness", {
   # Verify TMIN/TMAX are NOT in this weather object
   expect_false("TMIN" %in% names(wth_no_temp))
   expect_false("TMAX" %in% names(wth_no_temp))
-  expect_true("epicrop.wth" %in% class(wth_no_temp))
+  expect_true(inherits(wth_no_temp, "epicrop.wth"))
 
   # Build var_args manually
   var_args <- list(
