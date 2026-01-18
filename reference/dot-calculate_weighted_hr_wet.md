@@ -31,5 +31,5 @@ particular function is set up but not exposed to users yet.
 
 ``` r
 .calculate_weighted_hr_wet(rh = 86, rhlim = 95)
-#> Error in .calculate_weighted_hr_wet(rh = 86, rhlim = 95): could not find function ".calculate_weighted_hr_wet"
+#> [1] 0.4
 ```
