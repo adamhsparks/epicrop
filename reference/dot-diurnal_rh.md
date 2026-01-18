@@ -51,3 +51,21 @@ hourly rh values.
 A numeric vector of relative humidity values over 24 hrs.
 
 ## Examples
+
+``` r
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-06-30")
+)
+
+.diurnal_rh(
+  rh = wth$RHUM,
+  tmin = wth$TMIN,
+  tmax = wth$TMAX,
+  tmp = wth$TEMP,
+  lat = wth$LAT,
+  doy = wth$DOY,
+  yyyymmdd = wth$YYYYMMDD
+)
+#> Error in .diurnal_rh(rh = wth$RHUM, tmin = wth$TMIN, tmax = wth$TMAX,     tmp = wth$TEMP, lat = wth$LAT, doy = wth$DOY, yyyymmdd = wth$YYYYMMDD): could not find function ".diurnal_rh"
+```

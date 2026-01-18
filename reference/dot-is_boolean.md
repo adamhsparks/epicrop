@@ -30,7 +30,7 @@ is_boolean(TRUE) # [1] TRUE
 #> Error in is_boolean(TRUE): could not find function "is_boolean"
 # the following will work on most systems, unless you have tweaked .Rprofile
 .is_boolean(T) # [1] TRUE
-#> [1] TRUE
+#> Error in .is_boolean(T): could not find function ".is_boolean"
 .is_boolean(1) # [1] FALSE
-#> [1] FALSE
+#> Error in .is_boolean(1): could not find function ".is_boolean"
 ```
