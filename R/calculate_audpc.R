@@ -28,7 +28,7 @@
 #' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
 #' \doi{doi.org/10.1094/9780890545058}.
 #'
-#' @keywords internal
+#' @dev
 #' @dev
 
 .calculate_audpc <- function(intensity) {

@@ -1,4 +1,4 @@
-#' @keywords internal
+#' keywords @internal
 "_PACKAGE"
 
 #' @useDynLib epicrop, .registration = TRUE
