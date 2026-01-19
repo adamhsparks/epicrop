@@ -83,20 +83,14 @@ seasons <- map_df(
   group_by(season) |>
   relocate(season, AUDPC) |>
   distinct(AUDPC, season)
+#> Error in `relocate()`:
+#> ! Can't select columns that don't exist.
+#> ✖ Column `AUDPC` doesn't exist.
 
 pander(seasons)
 ```
 
-
-----------------
- AUDPC   season 
-------- --------
- 12.51    2000  
-
- 7.022    2001  
-----------------
-
-
+_2000-06-30_ and _2001-06-30_
 
 ### Visualising differences in AUDPC between seasons
 
@@ -112,9 +106,13 @@ ggplot(seasons,
            orientation = "y") +
   ylab("Season") +
   theme_classic()
+#> Error in `fortify()`:
+#> ! `data` must be a <data.frame>, or an object coercible by
+#>   `fortify()`, or a valid <data.frame>-like object coercible by
+#>   `as.data.frame()`.
+#> Caused by error in `check_data_frame_like()`:
+#> ! `dim(data)` must return an <integer> of length 2.
 ```
-
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
 ### Simulating multiple seasons with {furrr} using parallel processing
 
@@ -135,6 +133,11 @@ An example benchmarking different methods is provided here.
 library(epicrop)
 library(furrr)
 #> Loading required package: future
+#> 
+#> Attaching package: 'future'
+#> The following object is masked from 'package:covr':
+#> 
+#>     value
 library(dplyr)
 library(lubridate)
 library(pander)
@@ -171,18 +174,16 @@ future_map_dfr(
   relocate(season, AUDPC) |>
   distinct(AUDPC, season) |>
   pander()
+#> Emergence date: 2000-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2001-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Error in `relocate()`:
+#> ! Can't select columns that don't exist.
+#> ✖ Column `AUDPC` doesn't exist.
+#> Error in `if (tail(stdout, 1) == "") ...`:
+#> ! argument is of length zero
 ```
-
-
-----------------
- AUDPC   season 
-------- --------
- 12.51    2000  
-
- 7.022    2001  
-----------------
-
-
 
 We can see here that the AUDPC values match using both processing methods.
 
@@ -259,76 +260,76 @@ multi_dates <- map2(
   group_by(emergence) |>
   relocate(emergence, AUDPC) |>
   distinct(AUDPC, emergence)
+#> Emergence date: 2001-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2001-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2001-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2002-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2002-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2002-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2003-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2003-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2003-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2004-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2004-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2004-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2005-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2005-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2005-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2006-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2006-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2006-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2007-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2007-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2007-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2008-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2008-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2008-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2009-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2009-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2009-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2010-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2010-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2010-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Error in `relocate()`:
+#> ! Can't select columns that don't exist.
+#> ✖ Column `AUDPC` doesn't exist.
 
 pander(multi_dates)
+#> Error:
+#> ! object 'multi_dates' not found
+#> Error in `if (tail(stdout, 1) == "") ...`:
+#> ! argument is of length zero
 ```
-
-
---------------------
- AUDPC   emergence  
-------- ------------
- 13.81   2001-06-01 
-
- 8.992   2001-06-14 
-
- 7.022   2001-06-30 
-
- 14.61   2002-06-01 
-
-  13     2002-06-14 
-
- 14.78   2002-06-30 
-
- 13.21   2003-06-01 
-
- 13.94   2003-06-14 
-
- 16.85   2003-06-30 
-
- 12.65   2004-06-01 
-
- 14.08   2004-06-14 
-
- 12.06   2004-06-30 
-
- 15.76   2005-06-01 
-
- 15.33   2005-06-14 
-
- 16.62   2005-06-30 
-
- 16.14   2006-06-01 
-
- 15.39   2006-06-14 
-
- 14.39   2006-06-30 
-
- 9.258   2007-06-01 
-
- 7.597   2007-06-14 
-
- 11.78   2007-06-30 
-
- 10.59   2008-06-01 
-
- 10.6    2008-06-14 
-
- 12.99   2008-06-30 
-
- 5.962   2009-06-01 
-
- 11.13   2009-06-14 
-
- 9.008   2009-06-30 
-
- 14.84   2010-06-01 
-
- 17.4    2010-06-14 
-
- 17.26   2010-06-30 
---------------------
-
-
 
 That's a bit long and there's lots of values to digest here.
 
@@ -355,9 +356,9 @@ ggplot(data = multi_dates,
   scale_y_discrete(limits = rev) +
   ylab("Establishment Date") +
   theme_classic()
+#> Error:
+#> ! object 'multi_dates' not found
 ```
-
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for three establishment dates over ten years at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](stem-plot-1.png)
 
 ### Using {furrr} to run multiple establishment dates in parallel
 
@@ -446,9 +447,70 @@ future_map2(
   scale_y_discrete(limits = rev) +
   ylab("Establishment Date") +
   theme_classic()
+#> Emergence date: 2001-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2001-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2001-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2002-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2002-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2002-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2003-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2003-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2003-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2004-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2004-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2004-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2005-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2005-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2005-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2006-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2006-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2006-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2007-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2007-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2007-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2008-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2008-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2008-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2009-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2009-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2009-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2010-06-01
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2010-06-14
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2010-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Error in `relocate()`:
+#> ! Can't select columns that don't exist.
+#> ✖ Column `AUDPC` doesn't exist.
 ```
-
-![plot of chunk create-data.frames-parallel](create-data.frames-parallel-1.png)
 
 ## Multiple locations
 
@@ -518,9 +580,20 @@ map(
   scale_y_discrete(limits = rev) +
   ylab("Location") +
   theme_classic()
+#> Emergence date: 2000-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2000-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2000-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2000-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Emergence date: 2000-06-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
+#> Error in `relocate()`:
+#> ! Can't select columns that don't exist.
+#> ✖ Column `AUDPC` doesn't exist.
 ```
-
-![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines.](run-multi-loc-1.png)
 
 ## Benchmarking sequential versus parallel methods
 
@@ -557,9 +630,12 @@ mbm <- microbenchmark(
 
 mbm
 #> Unit: milliseconds
-#>        expr      min       lq     mean   median       uq       max neval
-#>  sequential 40.86208 42.05124 44.30440 42.82774 47.16890  58.11537   100
-#>    parallel 28.89938 29.91147 33.07326 31.14583 32.18154 128.10110   100
+#>        expr      min       lq     mean   median       uq      max neval
+#>  sequential 296.2579 304.6144 311.8081 308.8752 312.4756 425.0338   100
+#>    parallel 109.7121 127.6577 131.9711 130.6708 133.5991 231.6494   100
+#>  cld
+#>   a 
+#>    b
 
 autoplot(mbm) +
   theme_classic()
