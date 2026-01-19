@@ -16,19 +16,23 @@
 #' @section Available Models:
 #'
 #' **Rice Diseases (Savary et al. 2012)**:
-#' * [bacterial_blight()] / [bb()] - Bacterial blight (*Xanthomonas oryzae* pv.  *oryzae*)
+#' * [bacterial_blight()] / [bb()] - Bacterial blight (*Xanthomonas oryzae* pv.
+#'    *oryzae*)
 #' * [brown_spot()] / [bs()] - Brown spot (*Cochliobolus miyabeanus*)
 #' * [leaf_blast()] / [lb()] - Leaf blast (*Magnaporthe oryzae*)
 #' * [sheath_blight()] / [sb()] - Sheath blight (*Rhizoctonia solani*)
-#' * [tungro()] / [tg()] - Tungro (viral disease)
+#' * [tungro()] / [tg()] - Tungro (*Rice Tungro Spherical Virus* and
+#'  *Rice Tungro Bacilliform Virus*)
 #'
 #' **Rice Diseases (Kim et al. 2015)**:
 #' * [modified_kim_leaf_blast()] / [mk_lb()] - Modified leaf blast model
 #' * [modified_kim_sheath_blight()] / [mk_sb()] - Modified sheath blight model
 #'
 #' **Wheat Diseases (Savary et al. 2015)**:
-#' * [leaf_rust()] / [brown_rust()] / [lr()] - Leaf/brown rust (*Puccinia triticina*)
-#' * [s_tritici_blotch()] / [stb()] - Septoria tritici blotch
+#' * [leaf_rust()] / [brown_rust()] / [lr()] - Leaf/brown rust (*Puccinia
+#'    triticina*)
+#' * [s_tritici_blotch()] / [stb()] - Septoria tritici blotch (*Zymoseptoria
+#'    tritici*)
 #'
 #' @references
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. (2012).
@@ -36,8 +40,8 @@
 #' *Crop Protection*, 34: 6-17. \doi{10.1016/j.cropro.2011.11.009}
 #'
 #' Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
-#' Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
-#' *Agricultural and Forest Meteorology*, 203: 191-207.
+#' Predicting potential epidemics of rice leaf blast and sheath blight in South
+#'  Korea *Agricultural and Forest Meteorology*, 203: 191-207.
 #' \doi{10.1016/j.agrformet. 2015.01.011}
 #'
 #' Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).

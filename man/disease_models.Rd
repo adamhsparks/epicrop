@@ -83,11 +83,13 @@ simulations using \code{\link[=epicrop_sim]{epicrop_sim()}}.
 
 \strong{Rice Diseases (Savary et al. 2012)}:
 \itemize{
-\item \code{\link[=bacterial_blight]{bacterial_blight()}} / \code{\link[=bb]{bb()}} - Bacterial blight (\emph{Xanthomonas oryzae} pv.  \emph{oryzae})
+\item \code{\link[=bacterial_blight]{bacterial_blight()}} / \code{\link[=bb]{bb()}} - Bacterial blight (\emph{Xanthomonas oryzae} pv.
+\emph{oryzae})
 \item \code{\link[=brown_spot]{brown_spot()}} / \code{\link[=bs]{bs()}} - Brown spot (\emph{Cochliobolus miyabeanus})
 \item \code{\link[=leaf_blast]{leaf_blast()}} / \code{\link[=lb]{lb()}} - Leaf blast (\emph{Magnaporthe oryzae})
 \item \code{\link[=sheath_blight]{sheath_blight()}} / \code{\link[=sb]{sb()}} - Sheath blight (\emph{Rhizoctonia solani})
-\item \code{\link[=tungro]{tungro()}} / \code{\link[=tg]{tg()}} - Tungro (viral disease)
+\item \code{\link[=tungro]{tungro()}} / \code{\link[=tg]{tg()}} - Tungro (\emph{Rice Tungro Spherical Virus} and
+\emph{Rice Tungro Bacilliform Virus})
 }
 
 \strong{Rice Diseases (Kim et al. 2015)}:
@@ -98,8 +100,10 @@ simulations using \code{\link[=epicrop_sim]{epicrop_sim()}}.
 
 \strong{Wheat Diseases (Savary et al. 2015)}:
 \itemize{
-\item \code{\link[=leaf_rust]{leaf_rust()}} / \code{\link[=brown_rust]{brown_rust()}} / \code{\link[=lr]{lr()}} - Leaf/brown rust (\emph{Puccinia triticina})
-\item \code{\link[=s_tritici_blotch]{s_tritici_blotch()}} / \code{\link[=stb]{stb()}} - Septoria tritici blotch
+\item \code{\link[=leaf_rust]{leaf_rust()}} / \code{\link[=brown_rust]{brown_rust()}} / \code{\link[=lr]{lr()}} - Leaf/brown rust (\emph{Puccinia
+triticina})
+\item \code{\link[=s_tritici_blotch]{s_tritici_blotch()}} / \code{\link[=stb]{stb()}} - Septoria tritici blotch (\emph{Zymoseptoria
+tritici})
 }
 }
 
@@ -109,8 +113,8 @@ Modeling and mapping potential epidemics of rice diseases globally.
 \emph{Crop Protection}, 34: 6-17. \doi{10.1016/j.cropro.2011.11.009}
 
 Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
-Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
-\emph{Agricultural and Forest Meteorology}, 203: 191-207.
+Predicting potential epidemics of rice leaf blast and sheath blight in South
+Korea \emph{Agricultural and Forest Meteorology}, 203: 191-207.
 \doi{10.1016/j.agrformet. 2015.01.011}
 
 Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
