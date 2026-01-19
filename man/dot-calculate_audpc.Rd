@@ -13,9 +13,10 @@
 A \code{numeric} value as \code{double}.
 }
 \description{
-This function is used to return the AUDPC in the output of \code{\link[=epicrop_sim]{epicrop_sim()}}.  Not to
-be used alone as it assumes that there is always only one day between
-observations so it takes shortcuts in the calculation of the values.
+This function is used to return the AUDPC in the output of \code{\link[=epicrop_sim]{epicrop_sim()}}.
+This version is not to be used alone as it assumes that there is always only
+one day between observations so it takes shortcuts in the calculation of the
+values.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
