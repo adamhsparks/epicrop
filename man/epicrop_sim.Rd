@@ -209,26 +209,91 @@ initial sites (H0) plus cumulative growth minus cumulative senescence
 
 \section{\emph{a} -- Aggregation Details}{
 
-\link{... keep existing section ...}
+
+When \emph{a} is set to \code{1} the assumption is that that there is no disease
+aggregation with new infections occurring at random among the healthy sites.
+When \emph{a} is greater than \code{1} there is aggregation in the disease occurrence,
+the pathogen is unable to access the entire population of healthy sites,
+which results in disease aggregation. Refer to Savary _et al. _ (2012) for
+greater detail.
 }
 
 \section{TMIN/TMAX Details}{
 
-\link{... keep existing section ...}
+
+If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
+\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
+24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
+\code{RcW} to calculate a value between 0 and 1 for the whole day.  When
+\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
+to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
 }
 
 \section{LAT/LON Details}{
 
-\link{... keep existing section ...}
+
+If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
+'
 }
 
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-[...  keep all existing examples ...]
+# get weather for IRRI Zeigler Experiment Station in wet season 2000
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-06-30", "2000-12-31")
+)
+
+# provide suitable values for brown spot intensity
+RcA <-
+  cbind(
+    c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
+    c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0)
+  )
+RcT <-
+  cbind(
+    c(15L, 20L, 25L, 30L, 35L, 40L),
+    c(0, 0.06, 1.0, 0.85, 0.16, 0)
+  )
+emergence <- "2000-07-15"
+
+seir(
+  wth = wth,
+  emergence = emergence,
+  onset = 20,
+  duration = 120,
+  rhlim = 90,
+  rainlim = 5,
+  H0 = 600,
+  I0 = 1,
+  RcA = RcA,
+  RcT = RcT,
+  RcOpt = 0.61,
+  p = 6,
+  i = 19,
+  Sx = 100000,
+  a = 1,
+  RRS = 0.01,
+  RRG = 0.1
+)
 \dontshow{\}) # examplesIf}
 }
 \references{
-\link{...  keep all existing references ...}
+Sparks, A. H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in R:
+Disease Progress over Time. \emph{The Plant Health Instructor}.
+\doi{10.1094/PHI-A-2008-0129-02}.
+
+Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
+Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+\doi{10.1094/9780890545058}.
+
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
+Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+\doi{10.1016/j.cropro.2011.11.009}.
 }
 \seealso{
 \code{epicrop_sim()} is the core simulation engine called by disease-specific
@@ -246,6 +311,6 @@ helper functions:
 }
 }
 \author{
-Adam H.  Sparks, \email{adamhsparks@gmail.com} from original by
+Adam H. Sparks, \email{adamhsparks@gmail.com} from original by
 Robert J. Hijmans, Rene Pangga and Jorrel Aunario.
 }

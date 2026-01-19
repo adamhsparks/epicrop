@@ -7,22 +7,25 @@
 .interp(def, x)
 }
 \arguments{
-\item{def}{Parameter definition.  Can be:
+\item{def}{Parameter definition. Can be:
 \itemize{
 \item Scalar numeric:  Replicated to length of \code{x}
 \item Numeric vector: Must have same length as \code{x}
-\item Matrix/data. frame: 2-column table \link{x_values, y_values} for linear interpolation
+\item Matrix/data. frame: 2-column table [x_values, y_values] for linear
+interpolation
 \item Function:  Evaluated at each value of \code{x}
 }}
 
-\item{x}{Numeric vector of x-values at which to interpolate (e.g., days, temperatures, DVS).}
+\item{x}{Numeric vector of x-values at which to interpolate (e.g.,
+days, temperatures, DVS).}
 }
 \value{
-A numeric vector of length \code{length(x)} with interpolated/evaluated values.
+A numeric vector of length \code{length(x)} with interpolated/evaluated
+values.
 }
 \description{
 Interpolates or evaluates parameter definitions to produce a vector of daily
-values for use in the simulation.  Handles scalars, vectors, matrices, data
+values for use in the simulation. Handles scalars, vectors, matrices, data
 frames, and functions.
 }
 \details{

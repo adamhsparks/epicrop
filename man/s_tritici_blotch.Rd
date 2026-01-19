@@ -63,12 +63,22 @@ a custom senescence function \code{RRS}, or \code{start = list(mode="heat_sum", 
 }
 \section{TMIN/TMAX Details}{
 
-\link{... keep existing section ...}
+
+If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
+\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
+24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
+\code{RcW} to calculate a value between 0 and 1 for the whole day.  When
+\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
+to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
 }
 
 \section{LAT/LON Details}{
 
-\link{... keep existing section ...}
+
+If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
+in the output for mapping purposes. Both values must be present. These
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
+'
 }
 
 \examples{

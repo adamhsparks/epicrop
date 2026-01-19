@@ -15,17 +15,21 @@
 \item \code{mode}: "impulse", "uniform", "triangle", or "series"
 \item \code{I0}: Total inoculum amount
 \item \code{start_offset}: Day to start inoculation (defaults to \code{onset})
-\item \code{duration}: Number of days over which to distribute (for uniform/triangle)
-\item \code{series}: Custom daily inoculum vector (for series mode, must be length \code{duration})
+\item \code{duration}: Number of days over which to distribute (for
+uniform/triangle)
+\item \code{series}: Custom daily inoculum vector (for series mode, must be length
+\code{duration})
 }
 }}
 
-\item{onset}{Day of disease onset (used as default start_offset for simple mode).}
+\item{onset}{Day of disease onset (used as default start_offset for simple
+mode).}
 
 \item{duration}{Total number of simulation days.}
 }
 \value{
-A numeric vector of length \code{duration} with daily primary inoculum amounts.
+A numeric vector of length \code{duration} with daily primary inoculum
+amounts.
 }
 \description{
 Creates a vector of daily primary inoculum amounts for the simulation,
@@ -34,9 +38,11 @@ supporting both simple (single impulse) and advanced (distributed) modes.
 \details{
 \strong{Inoculum modes:}
 \itemize{
-\item \strong{impulse}: All inoculum applied on single day (start_offset)
-\item \strong{uniform}: Equal amounts each day for \code{duration} days starting at start_offset
-\item \strong{triangle}: Triangular distribution (ramping up then down) over \code{duration} days
+\item \strong{impulse}: All inoculum applied on single day (\code{start_offset})
+\item \strong{uniform}: Equal amounts each day for \code{duration} days starting at
+\code{start_offset}
+\item \strong{triangle}: Triangular distribution (ramping up then down) over
+\code{duration} days
 \item \strong{series}: Custom daily amounts provided by user
 }
 
@@ -45,7 +51,7 @@ The inoculum represents new infections introduced from outside the system
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-# Simple scalar:   impulse at onset
+# Simple scalar: impulse at onset
 inoc_simple <- epicrop:::.build_inoculum(
   I0 = 10,
   onset = 20,
@@ -94,6 +100,6 @@ inoc_series <- epicrop:::.build_inoculum(
 \dontshow{\}) # examplesIf}
 }
 \author{
-Adam H.  Sparks, \email{adamhsparks@gmail.com}
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }
 \keyword{internal}

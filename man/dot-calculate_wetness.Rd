@@ -14,12 +14,15 @@ TMIN, TMAX, LAT, DOY columns.}
 
 \item{rainlim}{Rainfall threshold (mm) for considering leaves wet.}
 
-\item{simple_wetness}{Logical.  If TRUE, uses binary wetness (0 or 1 per day).
-If FALSE, calculates hourly wetness duration (requires TMIN, TMAX, LAT, DOY).}
+\item{simple_wetness}{Logical. If `TRUE``, uses binary wetness (0 or 1 per
+day).
+If FALSE, calculates hourly wetness duration (requires TMIN, TMAX, LAT,
+DOY).}
 
-\item{RcW}{Optional 2-column matrix for mapping wet-hours to infection modifier.
-First column: wet-hours (0-24), second column: modifier (0-1).
-Only used when simple_wetness = FALSE.  If NULL, linear relationship is used.}
+\item{RcW}{Optional 2-column matrix for mapping wet-hours to infection
+modifier. First column: wet-hours (0-24), second column: modifier (0-1).
+Only used when \code{simple_wetness = FALSE}. If \code{NULL}, linear relationship
+is used.}
 }
 \value{
 A numeric vector of wetness modifiers (0 to 1), one per day in \code{w}.
@@ -85,6 +88,6 @@ wet_custom <- epicrop:::.calculate_wetness(
 \dontshow{\}) # examplesIf}
 }
 \author{
-Adam H.  Sparks, \email{adamhsparks@gmail.com}
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }
 \keyword{internal}

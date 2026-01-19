@@ -30,7 +30,7 @@ DVS (Development Stage) is calculated as:
 }
 
 This provides a physiologically realistic way to scale crop age effects,
-as opposed to simple calendar days.  DVS values:
+as opposed to simple calendar days. DVS values:
 \itemize{
 \item 0 = Emergence
 \item 1 = Anthesis/flowering

@@ -164,19 +164,84 @@
 #' (accounting for numerical precision).
 #'
 #' @references
-#' [...  keep all existing references ...]
+#' Sparks, A. H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+#' Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in R:
+#' Disease Progress over Time. *The Plant Health Instructor*.
+#' \doi{10.1094/PHI-A-2008-0129-02}.
+#'
+#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
+#' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+#' \doi{10.1094/9780890545058}.
+#'
+#' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
+#' Protection_, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+#' \doi{10.1016/j.cropro.2011.11.009}.
 #'
 #' @examplesIf interactive()
-#' [...  keep all existing examples ...]
+#' # get weather for IRRI Zeigler Experiment Station in wet season 2000
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
+#' )
+#'
+#' # provide suitable values for brown spot intensity
+#' RcA <-
+#'   cbind(
+#'     c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
+#'     c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0)
+#'   )
+#' RcT <-
+#'   cbind(
+#'     c(15L, 20L, 25L, 30L, 35L, 40L),
+#'     c(0, 0.06, 1.0, 0.85, 0.16, 0)
+#'   )
+#' emergence <- "2000-07-15"
+#'
+#' seir(
+#'   wth = wth,
+#'   emergence = emergence,
+#'   onset = 20,
+#'   duration = 120,
+#'   rhlim = 90,
+#'   rainlim = 5,
+#'   H0 = 600,
+#'   I0 = 1,
+#'   RcA = RcA,
+#'   RcT = RcT,
+#'   RcOpt = 0.61,
+#'   p = 6,
+#'   i = 19,
+#'   Sx = 100000,
+#'   a = 1,
+#'   RRS = 0.01,
+#'   RRG = 0.1
+#' )
 #'
 #' @section _a_ -- Aggregation Details:
-#' [... keep existing section ...]
+#'
+#' When _a_ is set to `1` the assumption is that that there is no disease
+#' aggregation with new infections occurring at random among the healthy sites.
+#' When _a_ is greater than `1` there is aggregation in the disease occurrence,
+#' the pathogen is unable to access the entire population of healthy sites,
+#' which results in disease aggregation. Refer to Savary _et al. _ (2012) for
+#' greater detail.
 #'
 #' @section TMIN/TMAX Details:
-#' [... keep existing section ...]
+#'
+#' If `simple_wetness` is set to `FALSE`, the function will use the `TMIN` and
+#'  `TMAX` columns in the `wth` object to calculate the leaf wetness value for
+#'  24 hours of the day using the `rhlim` and `rainlim` values and then uses
+#'  `RcW` to calculate a value between 0 and 1 for the whole day.  When
+#'  `simple_wetness` is set to `TRUE`, the function only sets the leaf wetness
+#'  to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
 #'
 #' @section LAT/LON Details:
-#' [... keep existing section ...]
+#'
+#' If the `wth` object provides `LAT` and `LON` columns, these will be included
+#' in the output for mapping purposes. Both values must be present. These
+#' columns are provided by default when using [get_wth()].
+#''
 #'
 #' @seealso
 #' `epicrop_sim()` is the core simulation engine called by disease-specific
@@ -191,7 +256,7 @@
 #' * [leaf_rust()], and
 #' * [s_tritici_blotch()].
 #'
-#' @author Adam H.  Sparks, \email{adamhsparks@@gmail.com} from original by
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com} from original by
 #'   Robert J. Hijmans, Rene Pangga and Jorrel Aunario.
 #'
 #' @autoglobal
@@ -380,8 +445,8 @@ prep_weather <- function(wth) {
 #' @param H0 Initial healthy sites (must be >= 0).
 #' @param steps_per_day Number of sub-daily time steps (must be >= 1).
 #'
-#' @returns Nothing, called for its side effects.  Aborts with cli error messages
-#'   if any parameter is invalid.  Warns if steps_per_day is not a power of 2.
+#' @returns Nothing, called for its side effects. Aborts with cli error messages
+#'   if any parameter is invalid. Warns if steps_per_day is not a power of 2.
 #'
 #' @details
 #' Valid parameter ranges:
@@ -412,7 +477,7 @@ prep_weather <- function(wth) {
 #' )
 #' }
 #'
-#' @author Adam H.  Sparks, \email{adamhsparks@@gmail.com}
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @dev
 .validate_params <- function(duration, RcOpt, Sx, H0, steps_per_day) {
@@ -580,7 +645,7 @@ prep_weather <- function(wth) {
 #' * DVS = min(2, 2 * GDD / gdd_to_maturity)
 #'
 #' This provides a physiologically realistic way to scale crop age effects,
-#' as opposed to simple calendar days.  DVS values:
+#' as opposed to simple calendar days. DVS values:
 #' * 0 = Emergence
 #' * 1 = Anthesis/flowering
 #' * 2 = Physiological maturity
@@ -614,17 +679,20 @@ prep_weather <- function(wth) {
 #' Interpolate Parameter Values
 #'
 #' Interpolates or evaluates parameter definitions to produce a vector of daily
-#' values for use in the simulation.  Handles scalars, vectors, matrices, data
+#' values for use in the simulation. Handles scalars, vectors, matrices, data
 #' frames, and functions.
 #'
-#' @param def Parameter definition.  Can be:
+#' @param def Parameter definition. Can be:
 #'   * Scalar numeric:  Replicated to length of `x`
 #'   * Numeric vector: Must have same length as `x`
-#'   * Matrix/data. frame: 2-column table [x_values, y_values] for linear interpolation
+#'   * Matrix/data. frame: 2-column table \[x_values, y_values\] for linear
+#'      interpolation
 #'   * Function:  Evaluated at each value of `x`
-#' @param x Numeric vector of x-values at which to interpolate (e.g., days, temperatures, DVS).
+#' @param x Numeric vector of x-values at which to interpolate (e.g.,
+#'     days, temperatures, DVS).
 #'
-#' @returns A numeric vector of length `length(x)` with interpolated/evaluated values.
+#' @returns A numeric vector of length `length(x)` with interpolated/evaluated
+#'    values.
 #'
 #' @details
 #' For tables/matrices:
@@ -726,11 +794,14 @@ prep_weather <- function(wth) {
 #'   TMIN, TMAX, LAT, DOY columns.
 #' @param rhlim Relative humidity threshold (%) for considering leaves wet.
 #' @param rainlim Rainfall threshold (mm) for considering leaves wet.
-#' @param simple_wetness Logical.  If TRUE, uses binary wetness (0 or 1 per day).
-#'   If FALSE, calculates hourly wetness duration (requires TMIN, TMAX, LAT, DOY).
-#' @param RcW Optional 2-column matrix for mapping wet-hours to infection modifier.
-#'   First column: wet-hours (0-24), second column: modifier (0-1).
-#'   Only used when simple_wetness = FALSE.  If NULL, linear relationship is used.
+#' @param simple_wetness Logical. If `TRUE``, uses binary wetness (0 or 1 per
+#'      day).
+#'   If FALSE, calculates hourly wetness duration (requires TMIN, TMAX, LAT,
+#'      DOY).
+#' @param RcW Optional 2-column matrix for mapping wet-hours to infection
+#'      modifier. First column: wet-hours (0-24), second column: modifier (0-1).
+#'      Only used when `simple_wetness = FALSE`. If `NULL`, linear relationship
+#'      is used.
 #'
 #' @returns A numeric vector of wetness modifiers (0 to 1), one per day in `w`.
 #'
@@ -783,7 +854,7 @@ prep_weather <- function(wth) {
 #'   RcW = RcW_curve
 #' )
 #'
-#' @author Adam H.  Sparks, \email{adamhsparks@@gmail.com}
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @dev
 .calculate_wetness <- function(w, rhlim, rainlim, simple_wetness, RcW) {
@@ -849,26 +920,32 @@ prep_weather <- function(wth) {
 #'     - `mode`: "impulse", "uniform", "triangle", or "series"
 #'     - `I0`: Total inoculum amount
 #'     - `start_offset`: Day to start inoculation (defaults to `onset`)
-#'     - `duration`: Number of days over which to distribute (for uniform/triangle)
-#'     - `series`: Custom daily inoculum vector (for series mode, must be length `duration`)
-#' @param onset Day of disease onset (used as default start_offset for simple mode).
+#'     - `duration`: Number of days over which to distribute (for
+#'        uniform/triangle)
+#'     - `series`: Custom daily inoculum vector (for series mode, must be length
+#'        `duration`)
+#' @param onset Day of disease onset (used as default start_offset for simple
+#'  mode).
 #' @param duration Total number of simulation days.
 #'
-#' @returns A numeric vector of length `duration` with daily primary inoculum amounts.
+#' @returns A numeric vector of length `duration` with daily primary inoculum
+#'  amounts.
 #'
 #' @details
 #' **Inoculum modes:**
 #'
-#' * **impulse**: All inoculum applied on single day (start_offset)
-#' * **uniform**: Equal amounts each day for `duration` days starting at start_offset
-#' * **triangle**: Triangular distribution (ramping up then down) over `duration` days
+#' * **impulse**: All inoculum applied on single day (`start_offset`)
+#' * **uniform**: Equal amounts each day for `duration` days starting at
+#'  `start_offset`
+#' * **triangle**: Triangular distribution (ramping up then down) over
+#'  `duration` days
 #' * **series**: Custom daily amounts provided by user
 #'
 #' The inoculum represents new infections introduced from outside the system
 #' (e.g., from neighboring fields, infected seed, or experimental inoculation).
 #'
 #' @examplesIf interactive()
-#' # Simple scalar:   impulse at onset
+#' # Simple scalar: impulse at onset
 #' inoc_simple <- epicrop:::.build_inoculum(
 #'   I0 = 10,
 #'   onset = 20,
@@ -915,7 +992,7 @@ prep_weather <- function(wth) {
 #'   duration = 120
 #' )
 #'
-#' @author Adam H.  Sparks, \email{adamhsparks@@gmail.com}
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @dev
 .build_inoculum <- function(I0, onset, duration) {
@@ -947,7 +1024,10 @@ prep_weather <- function(wth) {
   # Validate start_offset
   if (start_offset < 1 || start_offset > duration) {
     cli::cli_warn(c(
-      "!" = "{.var start_offset} = {.val {start_offset}} outside simulation window",
+      "!" = c(
+        "{.var start_offset} = {.val {start_offset}}",
+        "outside simulation window"
+      ),
       "i" = "No inoculum applied"
     ))
     return(numeric(duration))
@@ -968,7 +1048,10 @@ prep_weather <- function(wth) {
     if (length(idx) > 0) {
       Iprim[idx] <- I0$I0 / length(idx)
       cli::cli_inform(
-        "i" = "Inoculum: {.val {I0$I0}} uniform, days {.val {min(idx)}}-{.val {max(idx)}}"
+        "i" = c(
+          "Inoculum: {.val {I0$I0}} uniform, days",
+          "{.val {min(idx)}}-{.val {max(idx)}}"
+        )
       )
     }
   } else if (mode == "triangle") {
@@ -981,7 +1064,10 @@ prep_weather <- function(wth) {
       wts <- c(seq_len(half), rev(seq_len(length(idx) - half)))
       Iprim[idx] <- I0$I0 * (wts / sum(wts))
       cli::cli_inform(
-        "i" = "Inoculum: {.val {I0$I0}} triangular, days {.val {min(idx)}}-{.val {max(idx)}}"
+        "i" = c(
+          "Inoculum: {.val {I0$I0}} triangular",
+          "days {.val {min(idx)}}-{.val {max(idx)}}"
+        )
       )
     }
   } else if (mode == "series") {

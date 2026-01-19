@@ -18,8 +18,8 @@
 \item{steps_per_day}{Number of sub-daily time steps (must be >= 1).}
 }
 \value{
-Nothing, called for its side effects.  Aborts with cli error messages
-if any parameter is invalid.  Warns if steps_per_day is not a power of 2.
+Nothing, called for its side effects. Aborts with cli error messages
+if any parameter is invalid. Warns if steps_per_day is not a power of 2.
 }
 \description{
 Checks that all numerical simulation parameters are within valid ranges.
@@ -58,6 +58,6 @@ epicrop:::.validate_params(
 \dontshow{\}) # examplesIf}
 }
 \author{
-Adam H.  Sparks, \email{adamhsparks@gmail.com}
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }
 \keyword{internal}
