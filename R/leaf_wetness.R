@@ -55,12 +55,18 @@
 
   rh <- wth$RHUM
   if (is.null(rh) || length(rh) != n) {
-    cli::cli_abort("RHUM is missing or wrong length.")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "RHUM is missing or wrong length."
+    )
   }
 
   doy <- wth$DOY
   if (is.null(doy) || length(doy) != n) {
-    cli::cli_abort("DOY is missing or wrong length.")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "DOY is missing or wrong length."
+    )
   }
 
   # Always make rainfall a usable vector
@@ -90,6 +96,7 @@
   }
   if (is.null(tmp) || length(tmp) != n) {
     cli::cli_abort(
+      call = rlang::caller_env(),
       "TEMP is missing or wrong length (cannot derive from TMIN/TMAX)."
     )
   }
@@ -97,13 +104,19 @@
   # LAT required for diurnal calculation
   lat <- wth$LAT
   if (is.null(lat)) {
-    cli::cli_abort("LAT is required for hourly wetness calculation.")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "LAT is required for hourly wetness calculation."
+    )
   }
   if (length(lat) == 1) {
     lat <- rep(lat, n)
   }
   if (length(lat) != n) {
-    cli::cli_abort("LAT has wrong length.")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "LAT has wrong length."
+    )
   }
 
   yyyymmdd <- wth$YYYYMMDD

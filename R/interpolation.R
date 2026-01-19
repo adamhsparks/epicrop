@@ -35,10 +35,13 @@
         return(result)
       },
       error = function(e) {
-        cli::cli_abort(c(
-          "Function evaluation failed:",
-          "x" = conditionMessage(e)
-        ))
+        cli::cli_abort(
+          call = rlang::caller_env(),
+          c(
+            "Function evaluation failed:",
+            "x" = conditionMessage(e)
+          )
+        )
       }
     )
   }
@@ -46,16 +49,22 @@
   # Matrix or data.frame - lookup table with interpolation
   if (is.matrix(param) || is.data.frame(param)) {
     if (ncol(param) != 2L) {
-      cli::cli_abort(c(
-        "Matrix/data.frame must have exactly 2 columns",
-        "x" = "Got {ncol(param)} columns",
-        "i" = "Column 1 = age values, Column 2 = modifier values"
-      ))
+      cli::cli_abort(
+        call = rlang::caller_env(),
+        c(
+          "Matrix/data.frame must have exactly 2 columns",
+          "x" = "Got {ncol(param)} columns",
+          "i" = "Column 1 = age values, Column 2 = modifier values"
+        )
+      )
     }
 
     # Check that values are numeric
     if (!is.numeric(param[, 1]) || !is.numeric(param[, 2])) {
-      cli::cli_abort("Both columns of lookup table must be numeric")
+      cli::cli_abort(
+        call = rlang::caller_env(),
+        "Both columns of lookup table must be numeric"
+      )
     }
 
     # Linear interpolation with constant extrapolation
@@ -78,18 +87,24 @@
   # Vector - must match age_vec length
   if (is.vector(param) && !is.list(param) && length(param) > 1L) {
     if (length(param) != length(age_vec)) {
-      cli::cli_abort(c(
-        "Vector length mismatch:",
-        "x" = "Got {length(param)}, expected {length(age_vec)}"
-      ))
+      cli::cli_abort(
+        call = rlang::caller_env(),
+        c(
+          "Vector length mismatch:",
+          "x" = "Got {length(param)}, expected {length(age_vec)}"
+        )
+      )
     }
     return(param)
   }
 
   # Unsupported type
-  cli::cli_abort(c(
-    "Unsupported parameter type:",
-    "x" = "Got {class(param)[1]}",
-    "i" = "Must be scalar, vector, matrix, data.frame, or function"
-  ))
+  cli::cli_abort(
+    call = rlang::caller_env(),
+    c(
+      "Unsupported parameter type:",
+      "x" = "Got {class(param)[1]}",
+      "i" = "Must be scalar, vector, matrix, data.frame, or function"
+    )
+  )
 }

@@ -82,10 +82,13 @@
   missing <- setdiff(required, names(wth))
 
   if (length(missing) > 0) {
-    cli::cli_abort(c(
-      "Missing required columns in {.var wth}:",
-      "x" = "{.val {missing}}"
-    ))
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      c(
+        "Missing required columns in {.var wth}:",
+        "x" = "{.val {missing}}"
+      )
+    )
   }
 
   invisible(TRUE)
@@ -136,30 +139,52 @@
 
   # Check non-negative
   if (H0 < 0) {
-    cli::cli_abort("{.var H0} must be >= 0, got {.val {H0}}")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var H0} must be >= 0, got {.val {H0}}"
+    )
   }
   if (RcOpt < 0) {
-    cli::cli_abort("{.var RcOpt} must be >= 0, got {.val {RcOpt}}")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var RcOpt} must be >= 0, got {.val {RcOpt}}"
+    )
   }
   if (rhlim < 0 || rhlim > 100) {
-    cli::cli_abort("{.var rhlim} must be between 0 and 100, got {.val {rhlim}}")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var rhlim} must be between 0 and 100, got {.val {rhlim}}"
+    )
   }
   if (rainlim < 0) {
-    cli::cli_abort("{.var rainlim} must be >= 0, got {.val {rainlim}}")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var rainlim} must be >= 0, got {.val {rainlim}}"
+    )
   }
 
   # Check positive
   if (Sx <= 0) {
-    cli::cli_abort("{.var Sx} must be > 0, got {.val {Sx}}")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var Sx} must be > 0, got {.val {Sx}}"
+    )
   }
   if (duration <= 0) {
-    cli::cli_abort("{.var duration} must be > 0, got {.val {duration}}")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var duration} must be > 0, got {.val {duration}}"
+    )
   }
   if (onset < 1) {
-    cli::cli_abort("{.var onset} must be >= 1, got {.val {onset}}")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var onset} must be >= 1, got {.val {onset}}"
+    )
   }
   if (steps_per_day < 1) {
     cli::cli_abort(
+      call = rlang::caller_env(),
       "{.var steps_per_day} must be >= 1, got {.val {steps_per_day}}"
     )
   }
@@ -167,22 +192,26 @@
   # Check aggregation coefficient
   if (a < 1) {
     cli::cli_abort(
+      call = rlang::caller_env(),
       c(
         "{.var a} cannot be set to less than 1.",
         "Valid aggregation values for {.var a} are from 1 to > 1."
-      ),
-      call = rlang::caller_env()
+      )
     )
   }
 
   # Warn about duration
   if (duration < 50) {
-    cli::cli_warn("{.var duration} is < 50 days, is this intended?")
+    cli::cli_warn(
+      call = rlang::caller_env(),
+      "{.var duration} is < 50 days, is this intended?"
+    )
   }
 
   # Warn about steps_per_day
   if ((steps_per_day & (steps_per_day - 1)) != 0) {
     cli::cli_warn(c(
+      call = rlang::caller_env(),
       "!" = "{.var steps_per_day} should be power of 2 for best accuracy",
       "i" = "Got {.val {steps_per_day}}, consider {.val 1}, {.val 2}, {.val 4}, or {.val 8}"
     ))
@@ -198,13 +227,13 @@
   # Check TMIN/TMAX required for complex wetness
   if (isFALSE(simple_wetness) && any(c("TMIN", "TMAX") %notin% names(wth))) {
     cli::cli_abort(
+      call = rlang::caller_env(),
       c(
         "You have set {.var simple_wetness} to {.code FALSE} but ",
         "you do not have 'TMIN' and 'TMAX' columns in your weather ",
         "data. Please set {.var simple_wetness} to {.code TRUE} or ",
         "provide 'TMIN' and 'TMAX' columns in your {.var wth} data."
-      ),
-      call = rlang::caller_env()
+      )
     )
   }
 
@@ -222,21 +251,28 @@
 .validate_RcW_matrix <- function(RcW) {
   # Check that RcW is numeric
   if (!is.numeric(RcW)) {
-    cli::cli_abort("{.var RcW} must contain numeric values.")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var RcW} must contain numeric values."
+    )
   }
 
   # Check that RcW is a matrix with 2 columns
   if (!is.matrix(RcW) || ncol(RcW) != 2) {
-    cli::cli_abort(c(
-      "{.var RcW} must be a two-column matrix with the first ",
-      "column being hours (0 to 24) and the second column being ",
-      "modifier values (0 to 1)."
-    ))
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      c(
+        "{.var RcW} must be a two-column matrix with the first ",
+        "column being hours (0 to 24) and the second column being ",
+        "modifier values (0 to 1)."
+      )
+    )
   }
 
   # Check hour values are in valid range
   if ((max(RcW[, 1]) > 24) || (min(RcW[, 1]) < 0)) {
     cli::cli_abort(c(
+      call = rlang::caller_env(),
       "The hourly values for {.var RcW} should be between 0 ",
       "and 24. Please provide a matrix with hour values ",
       "between 0 and 24, inclusive."
@@ -246,6 +282,7 @@
   # Check modifier values are in valid range
   if ((max(RcW[, 2]) > 1) || (min(RcW[, 2]) < 0)) {
     cli::cli_abort(c(
+      call = rlang::caller_env(),
       "The modifier values for {.var RcW} should be >= 0 and ",
       "<= 1. Please provide a matrix of modifier values that ",
       "are between 0 and 1."
@@ -314,6 +351,7 @@
     ),
     warning = function(c) {
       cli::cli_abort(
+        call = rlang::caller_env(),
         "{x} is not in a valid date format. Please enter a valid date format."
       )
     }

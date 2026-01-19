@@ -365,17 +365,26 @@ epicrop_sim <- function(
   # Add RHUM if missing
   if (!"RHUM" %in% names(wth)) {
     wth[, RHUM := NA_real_]
-    cli::cli_inform("i" = "{.var RHUM} not found, using {.val NA}")
+    cli::cli_inform(
+      call = rlang::caller_env(),
+      c("i" = "{.var RHUM} not found, using {.val NA}")
+    )
   }
 
   # Check for NAs in temperature
   if (anyNA(wth$TEMP)) {
-    cli::cli_abort("{.var TEMP} contains {.val NA} values")
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      "{.var TEMP} contains {.val NA} values"
+    )
   }
 
   # Handle NAs in rainfall
   if (anyNA(wth$RAIN)) {
-    cli::cli_warn("{.var RAIN} contains {.val NA}, treating as 0")
+    cli::cli_warn(
+      call = rlang::caller_env(),
+      "{.var RAIN} contains {.val NA}, treating as 0"
+    )
     wth[is.na(RAIN), RAIN := 0]
   }
 
@@ -478,6 +487,7 @@ epicrop_sim <- function(
 
   if (length(em_date) > 1L) {
     cli::cli_warn(
+      call = rlang::caller_env(),
       "Only one day is used for emergence.  Only the first value will be used."
     )
     em_date <- em_date[[1L]]
@@ -499,13 +509,16 @@ epicrop_sim <- function(
   w <- wth[YYYYMMDD %in% dates]
 
   if (nrow(w) != duration) {
-    cli::cli_abort(c(
-      "Insufficient weather data for simulation window",
-      "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}",
-      "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}",
-      "i" = "Available:  {.val {min(wth$YYYYMMDD)}} to 
+    cli::cli_abort(
+      call = rlang::caller_env(),
+      c(
+        "Insufficient weather data for simulation window",
+        "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}",
+        "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}",
+        "i" = "Available:  {.val {min(wth$YYYYMMDD)}} to 
       {.val {max(wth$YYYYMMDD)}}"
-    ))
+      )
+    )
   }
 
   return(list(
@@ -709,10 +722,12 @@ epicrop_sim <- function(
     if (onset >= 1 && onset <= duration) {
       Iprim[onset] <- I0
       cli::cli_inform(
+        call = rlang::caller_env(),
         c("i" = "Inoculum: {.val {I0}} at day {.val {onset}} (impulse)")
       )
     } else {
       cli::cli_warn(c(
+        call = rlang::caller_env(),
         "!" = "{.var onset} = {.val {onset}} outside simulation window",
         "i" = "No inoculum applied"
       ))
@@ -730,6 +745,7 @@ epicrop_sim <- function(
   # Validate start_offset
   if (start_offset < 1 || start_offset > duration) {
     cli::cli_warn(c(
+      call = rlang::caller_env(),
       "!" = "{.var start_offset} = {.val {start_offset}}
       outside simulation window",
       "i" = "No inoculum applied"
@@ -742,6 +758,7 @@ epicrop_sim <- function(
   if (mode == "impulse") {
     Iprim[start_offset] <- I0$I0
     cli::cli_inform(
+      call = rlang::caller_env(),
       c("i" = "Inoculum: {.val {I0$I0}} at day {.val {start_offset}} (impulse)")
     )
   } else if (mode == "uniform") {
@@ -752,6 +769,7 @@ epicrop_sim <- function(
     if (length(idx) > 0) {
       Iprim[idx] <- I0$I0 / length(idx)
       cli::cli_inform(
+        call = rlang::caller_env(),
         c(
           "i" = "Inoculum:   {.val {I0$I0}} uniform, days
         {.val {min(idx)}}-{.val {max(idx)}}"
@@ -768,6 +786,7 @@ epicrop_sim <- function(
       wts <- c(seq_len(half), rev(seq_len(length(idx) - half)))
       Iprim[idx] <- I0$I0 * (wts / sum(wts))
       cli::cli_inform(
+        call = rlang::caller_env(),
         c(
           "i" = "Inoculum:   {.val {I0$I0}} triangular, days
         {.val {min(idx)}}-{.val {max(idx)}}"
@@ -777,6 +796,7 @@ epicrop_sim <- function(
   } else if (mode == "series") {
     if (is.null(I0$series)) {
       cli::cli_abort(c(
+        call = rlang::caller_env(),
         "{.var I0$series} required for series mode",
         "x" = "Got {.val NULL}"
       ))
@@ -784,6 +804,7 @@ epicrop_sim <- function(
 
     if (length(I0$series) != duration) {
       cli::cli_abort(c(
+        call = rlang::caller_env(),
         "{.var I0$series} length must equal {.var duration}",
         "x" = "Got {.val {length(I0$series)}}, expected {.val {duration}}"
       ))
@@ -792,6 +813,7 @@ epicrop_sim <- function(
     Iprim <- I0$series
     total <- sum(Iprim)
     cli::cli_inform(
+      call = rlang::caller_env(),
       c("i" = "Inoculum: custom series, total = {.val {round(total, 2)}}")
     )
   }

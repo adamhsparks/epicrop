@@ -180,6 +180,7 @@ format_wth <- function(wth, date, temp, rhum, rain, tmin, tmax, lat, lon) {
   if (any(passed_args %notin% names(wth))) {
     not_in <- passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
+      call = rlang::caller_env(),
       "The following columns that you have provided are not in {.var wth}:  
         {.var {not_in}}."
     )
@@ -194,6 +195,7 @@ format_wth <- function(wth, date, temp, rhum, rain, tmin, tmax, lat, lon) {
 
   if ((unique_dates != nrows) || (any(as.numeric(diff_dates) != 1.0))) {
     cli::cli_abort(
+      call = rlang::caller_env(),
       "Please check that the values in {.var wth} are on a daily time-step."
     )
   }
