@@ -15,4 +15,13 @@ A validated POSIXct date object.
 \description{
 Check and parse date
 }
+\examples{
+# passes
+.check_date("2023-10-15")
+
+# fails
+\dontrun{
+ .check_date("120-100-2023")
+}
+}
 \keyword{internal}
