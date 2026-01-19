@@ -23,9 +23,11 @@
 #' @param emergence Expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character) OR a list with:
 #'   * `mode`: "emergence" or "heat_sum"
-#'   * `emergence`: Date string (if mode = "emergence")
-#'   * `base_temp`: Base temperature for GDD calculation (if mode = "heat_sum")
-#'   * `heat_sum_threshold`: GDD threshold to trigger start (if mode = "heat_sum")
+#'   * `emergence`: Date string (if `mode = "emergence"`)
+#'   * `base_temp`: Base temperature for GDD calculation (if
+#'     `mode = "heat_sum"`)
+#'   * `heat_sum_threshold`: GDD threshold to trigger start (if
+#'      `mode = "heat_sum"`)
 #'
 #' @param onset expected number of days until the onset of disease after
 #'  emergence date (day, integer).  Described in Table 1 of Savary _et al._
@@ -107,16 +109,17 @@
 #'  `wth`) and applies `RcW` curve.
 #'
 #' @param age_driver Character. Use "day" (default, 0-indexed days from
-#'  emergence) or "dvs" (development stage 0-2) for age-based modifiers in `RcA`.
-#'  When "dvs", `thermal_time` parameter is required.
+#'  emergence) or "dvs" (development stage 0-2) for age-based modifiers in
+#'  `RcA`. When "dvs", `thermal_time` parameter is required.
 #'
-#' @param thermal_time List with `base_temp` (°C) and `gdd_to_maturity` (°C·days).
-#'  Only required when `age_driver = "dvs"`. Determines how growing degree days
-#'  are accumulated and converted to development stage (DVS).
+#' @param thermal_time List with `base_temp` (°C) and `gdd_to_maturity`
+#'  (°C·days).  Only required when `age_driver = "dvs"`. Determines how growing
+#'  degree days are accumulated and converted to development stage (DVS).
 #'
 #' @param steps_per_day Integer. Number of sub-daily time steps for numerical
 #'  integration. Default is 1 (daily steps). Values of 2, 4, or 8 can improve
-#'  accuracy for stiff systems at cost of computation time.  Should be a power of 2.
+#'  accuracy for stiff systems at cost of computation time.  Should be a power
+#'  of 2.
 #'
 #' @returns A [data.table::data.table()] object containing the following
 #' columns:
@@ -130,13 +133,18 @@
 #'   \item{removed}{Number of removed sites present on day "x"}
 #'   \item{senesced}{Number of senesced sites present on day "x"}
 #'   \item{rateinf}{Rate of infection (new infections on day "x")}
-#'   \item{rlex}{Rate of lesion expansion (healthy sites converted to infectious via direct expansion on day "x")}
-#'   \item{rtransfer}{Rate of transfer from latent to infectious sites on day "x"}
-#'   \item{rremoved}{Rate of removal from infectious to removed sites on day "x"}
+#'   \item{rlex}{Rate of lesion expansion (healthy sites converted to infectious
+#'    via direct expansion on day "x")}
+#'   \item{rtransfer}{Rate of transfer from latent to infectious sites on day
+#'    "x"}
+#'   \item{rremoved}{Rate of removal from infectious to removed sites on day
+#'    "x"}
 #'   \item{rgrowth}{Rate of growth of healthy sites on day "x"}
 #'   \item{rsenesced}{Rate of senescence of healthy sites on day "x"}
-#'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on day "x"}
-#'   \item{intensity}{Proportion of diseased sites (latent + infectious) per total living sites (excludes removed and senesced) on day "x"}
+#'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on
+#'    day "x"}
+#'   \item{intensity}{Proportion of diseased sites (latent + infectious) per
+#'    total living sites (excludes removed and senesced) on day "x"}
 #'   \item{lat}{Latitude value if provided by the `wth` object}
 #'   \item{lon}{Longitude value if provided by the `wth` object}
 #' }
