@@ -51,7 +51,7 @@
 #' Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
 #' Modelling and mapping potential epidemics of wheat diseases—examples on leaf
 #' rust and Septoria tritici blotch using EPIWHEAT. \emph{Eur. J.
-#' Plant Pathol.}, 142:771–790. https://doi.org/10.1007/s10658-015-0650-7
+#' Plant Pathol.}, 142:771–790. \doi{10.1007/s10658-015-0650-7}.
 #'
 #' @examplesIf interactive()
 #' # Example (emergence-mode start)
