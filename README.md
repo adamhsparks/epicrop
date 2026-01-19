@@ -7,7 +7,7 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 95.5%](https://img.shields.io/badge/code_coverage-95.5%25-green)](#code-coverage)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 93.9%](https://img.shields.io/badge/code_coverage-93.9%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
@@ -59,11 +59,11 @@ wth
 #>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556
 #>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556
 #>  ---                                                                
-#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556
 #> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556
 #> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556
 #> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556
 #> 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556
+#> 122: 2000-10-30   304 25.61 24.61 27.05 94.88 21.72 14.6774 121.2556
 ```
 
 ## Modelling bacterial blight disease intensity
@@ -74,11 +74,11 @@ Once you have the weather data, run the model for any of the five rice diseases 
 ``` r
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
 #> Emergence date: 2000-06-30
-#> Error in `.determine_run_window()` at epicrop/R/epicrop_sim.R:272:3:
+#> Error in `epicrop_sim()`:
 #> ! Insufficient weather data for simulation window
 #> ✖ Need 120 days, have 119
 #> ℹ Window: 2000-06-30 to 2000-10-27
-#> ℹ Available: 2000-07-01 to 2000-10-29
+#> ℹ Available: 2000-07-01 to 2000-10-30
 
 bb_sim
 #> Error:
@@ -121,10 +121,10 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 95.52%
-#> R/validation.R: 87.07%
-#> R/epicrop_sim.R: 90.56%
-#> R/leaf_wetness.R: 92.98%
+#> epicrop Coverage: 93.95%
+#> R/validation.R: 83.07%
+#> R/epicrop_sim.R: 88.63%
+#> R/leaf_wetness.R: 90.55%
 #> src/seir_core.cpp: 97.73%
 #> R/calculate_audpc.R: 100.00%
 #> R/disease_models.R: 100.00%
@@ -154,7 +154,7 @@ Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee.
 (2015).
 Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
 *Agricultural and Forest Meteorology*, 203: 191-207.
-DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011).
+DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
 
 Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
 **cropsim**.
