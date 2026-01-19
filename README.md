@@ -53,17 +53,17 @@ wth <- get_wth(
 wth
 #>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON
 #>          <Date> <int> <num> <num> <num> <num> <num>   <num>    <num>
-#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556
-#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556
-#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556
-#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556
-#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556
+#>   1: 2000-06-30   182 26.02 23.34 28.76 88.53 11.01 14.6774 121.2556
+#>   2: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556
+#>   3: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556
+#>   4: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556
+#>   5: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556
 #>  ---                                                                
-#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556
-#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556
-#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556
-#> 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556
-#> 122: 2000-10-30   304 25.61 24.61 27.05 94.88 21.72 14.6774 121.2556
+#> 118: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556
+#> 119: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556
+#> 120: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556
+#> 121: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556
+#> 122: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556
 ```
 
 ## Modelling bacterial blight disease intensity
@@ -74,15 +74,48 @@ Once you have the weather data, run the model for any of the five rice diseases 
 ``` r
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
 #> Emergence date: 2000-06-30
-#> Error in `epicrop_sim()`:
-#> ! Insufficient weather data for simulation window
-#> ✖ Need 120 days, have 119
-#> ℹ Window: 2000-06-30 to 2000-10-27
-#> ℹ Available: 2000-07-01 to 2000-10-30
+#> ℹ Inoculum: 1 at day 20 (impulse)
 
 bb_sim
-#> Error:
-#> ! object 'bb_sim' not found
+#>      simday      dates     sites   latent infectious  removed    senesced
+#>       <int>     <Date>     <num>    <num>      <num>    <num>       <num>
+#>   1:      1 2000-06-30  108.6875  0.00000     0.0000   0.0000    1.000000
+#>   2:      2 2000-07-01  118.1002  0.00000     0.0000   0.0000    2.086875
+#>   3:      3 2000-07-02  128.2934  0.00000     0.0000   0.0000    3.267877
+#>   4:      4 2000-07-03  139.3254  0.00000     0.0000   0.0000    4.550811
+#>   5:      5 2000-07-04  151.2581  0.00000     0.0000   0.0000    5.944065
+#>  ---                                                                     
+#> 116:    116 2000-10-23 1453.4937 66.62053   916.5275 435.9723 1837.520100
+#> 117:    117 2000-10-24 1453.8292 43.86453   891.1091 484.1467 1852.055037
+#> 118:    118 2000-10-25 1435.3902 40.40084   868.8771 528.6018 1866.593329
+#> 119:    119 2000-10-26 1418.3189 36.13249   849.7002 569.4202 1880.947231
+#> 120:    120 2000-10-27 1402.4149 52.32144   806.4095 612.7109 1895.130420
+#>       rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased
+#>         <num> <num>     <num>    <num>    <num>     <num>    <num>
+#>   1:  0.00000     0   0.00000  0.00000  9.68750  1.000000    0.000
+#>   2:  0.00000     0   0.00000  0.00000 10.49959  1.086875    0.000
+#>   3:  0.00000     0   0.00000  0.00000 11.37416  1.181002    0.000
+#>   4:  0.00000     0   0.00000  0.00000 12.31499  1.282934    0.000
+#>   5:  0.00000     0   0.00000  0.00000 13.32593  1.393254    0.000
+#>  ---                                                              
+#> 116:  0.00000     0  24.08819 46.61892 14.88278 14.531424 1419.120
+#> 117:  0.00000     0  22.75600 48.17443 14.87042 14.534937 1419.120
+#> 118: 18.75936     0  22.22305 44.45507 14.85861 14.538292 1437.880
+#> 119: 17.37313     0  21.64148 40.81840 14.65579 14.353902 1455.253
+#> 120: 16.18895     0   0.00000 43.29069 14.46810 14.183189 1471.442
+#>      intensity     lat      lon
+#>          <num>   <num>    <num>
+#>   1: 0.0000000 14.6774 121.2556
+#>   2: 0.0000000 14.6774 121.2556
+#>   3: 0.0000000 14.6774 121.2556
+#>   4: 0.0000000 14.6774 121.2556
+#>   5: 0.0000000 14.6774 121.2556
+#>  ---                           
+#> 116: 0.4034849 14.6774 121.2556
+#> 117: 0.3913984 14.6774 121.2556
+#> 118: 0.3878067 14.6774 121.2556
+#> 119: 0.3844507 14.6774 121.2556
+#> 120: 0.3797769 14.6774 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -90,6 +123,8 @@ Lastly, you can visualise the result of the model run.
 
 ``` r
 library(ggplot2)
+#> Posit Community (formerly RStudio Community) is a great place to
+#> get help: https://forum.posit.co/c/tidyverse
 
 ggplot(
   data = bb_sim,
@@ -105,9 +140,12 @@ ggplot(
   geom_line() +
   geom_point() +
   theme_classic()
-#> Error:
-#> ! object 'bb_sim' not found
 ```
+
+<div class="figure">
+<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
+<p class="caption">Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
+</div>
 
 # Meta
 
@@ -121,7 +159,7 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 93.87%
+#> epicrop Coverage: 93.88%
 #> R/calculate_audpc.R: 80.00%
 #> R/validation.R: 83.07%
 #> R/epicrop_sim.R: 88.63%

@@ -50,9 +50,12 @@
 #' @export
 get_wth <- function(lonlat, dates, duration) {
   if (!missing(duration)) {
-    dates[2L] <- as.character(as.Date(as.Date(dates[1L]) + (duration + 1)))
+    dates[2L] <- as.character(as.Date(as.Date(dates[1L]) + (duration)))
   }
 
+  # due to changes in the indexing, we need to add 1 to the dates to have a
+  # complete set of data for the requested period.
+  dates[1L] <- as.character(as.Date(dates[1L]) - 1L)
   wth <- data.table::setDT(
     nasapower::get_power(
       lonlat = lonlat,

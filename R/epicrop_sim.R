@@ -901,5 +901,5 @@ epicrop_sim <- function(
     c("epicrop.sim", "data.table", "data.frame")
   )
 
-  return(out)
+  return(out[])
 }
