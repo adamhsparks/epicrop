@@ -9,6 +9,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 
+library(covr)
 coverage <- percent_coverage(package_coverage())
 coverage <- round(coverage, 1)
 ```
@@ -123,6 +124,7 @@ DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook
 R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
 
 Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
+**cropsim**.
 (2009).
 Simulation modeling of crops and their diseases.
 R package version 0.2-6.
