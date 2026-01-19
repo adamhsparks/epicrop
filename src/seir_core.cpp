@@ -102,7 +102,7 @@ Rcpp::List epicrop_core_cpp(const NumericVector& Rc,
       double total_prev = HS_prev + LAT_prev + INF_prev + REM_prev;
       if (total_prev < EPSILON) total_prev = EPSILON;
       double cofr_d = 1.0 - ((LAT_prev + INF_prev + REM_prev) / total_prev);
-      cofr_d = std::max(0.0, std::min(1.0, cofr_d));
+      cofr_d = std:: max(0.0, std:: min(1.0, cofr_d));
 
       // Aggregation power
       double cofr_pow;
@@ -153,6 +153,13 @@ Rcpp::List epicrop_core_cpp(const NumericVector& Rc,
       RG_today   += rg_step;
       RSN_today  += rsn_step;
     }
+
+    // Bounds checking: floor at zero to prevent numerical precision issues
+    if (HS_prev < 0.0)  HS_prev = 0.0;
+    if (LAT_prev < 0.0) LAT_prev = 0.0;
+    if (INF_prev < 0.0) INF_prev = 0.0;
+    if (REM_prev < 0.0) REM_prev = 0.0;
+    if (SEN_prev < 0.0) SEN_prev = 0.0;
 
     // Store daily outputs
     sites[d]     = HS_prev;
