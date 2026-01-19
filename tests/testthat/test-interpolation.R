@@ -14,7 +14,7 @@ test_that(".interp handles vector input with matching length", {
 
   result <- epicrop:::.interp(param_vec, age_vec)
 
-  expect_equal(result, param_vec)
+  expect_identical(result, param_vec)
 })
 
 test_that(".interp rejects vector with mismatched length", {
@@ -259,6 +259,6 @@ test_that(".interp handles complex function", {
   expect_length(result, 5)
   expect_true(all(result >= 0))
   expect_true(all(result <= 1))
-  expect_true(result[3] > result[1]) # Peak at center
-  expect_true(result[3] > result[5])
+  expect_gt(result[3], result[1]) # Peak at center
+  expect_gt(result[3], result[5])
 })

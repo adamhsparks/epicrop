@@ -159,7 +159,7 @@ test_that("leaf wetness increases with rainfall (unweighted)", {
   res0 <- .call_lw(wth = w_no_rain, weighted = FALSE)
   res1 <- .call_lw(wth = w_rain, weighted = FALSE)
 
-  expect_true(mean(res1) >= mean(res0))
+  expect_gte(mean(res1), mean(res0))
 })
 
 test_that("leaf wetness is bounded at 24 hours under extreme conditions", {
@@ -202,8 +202,8 @@ test_that(".diurnal_temp returns 24-hour temperatures (single day) and supports 
   )
   expect_length(res1, 24)
   expect_true(all(res1 >= 20 & res1 <= 30))
-  expect_true(min(res1) >= 19.9)
-  expect_true(max(res1) <= 30.1)
+  expect_gte(min(res1), 19.9)
+  expect_lte(max(res1), 30.1)
 
   # Multiple days (3 x 24 = 72)
   res3 <- epicrop:::.diurnal_temp(
@@ -282,7 +282,7 @@ test_that(".check_threshold counts wet hours correctly across scenarios", {
   for (nm in names(scenarios)) {
     sc <- scenarios[[nm]]
     got <- epicrop:::.check_threshold(rh_hr = sc$rh, rhlim = 90)
-    expect_equal(got, sc$expect)
+    expect_identical(got, sc$expect)
   }
 })
 
@@ -296,14 +296,8 @@ test_that(".calculate_weighted_hr_wet returns values in [0,1], handles edge case
     epicrop:::.calculate_weighted_hr_wet(rh = 85, rhlim = 90),
     1
   )
-  expect_equal(
-    epicrop:::.calculate_weighted_hr_wet(rh = 95, rhlim = 90),
-    1
-  )
-  expect_equal(
-    epicrop:::.calculate_weighted_hr_wet(rh = 75, rhlim = 90),
-    0
-  )
+  expect_identical(epicrop:::.calculate_weighted_hr_wet(rh = 95, rhlim = 90), 1)
+  expect_identical(epicrop:::.calculate_weighted_hr_wet(rh = 75, rhlim = 90), 0)
 
   # Interpolation at midpoint (85 between 80 and 90)
   mid <- epicrop:::.calculate_weighted_hr_wet(rh = 85, rhlim = 90)
@@ -315,10 +309,10 @@ test_that(".calculate_weighted_hr_wet returns values in [0,1], handles edge case
   rh_values <- c(75, 85, 95, 100)
   v <- epicrop:::.calculate_weighted_hr_wet(rh = rh_values, rhlim = 90)
   expect_length(v, 4)
-  expect_equal(v[1], 0)
+  expect_identical(v[1], 0)
   expect_gt(v[2], 0)
-  expect_equal(v[3], 1)
-  expect_equal(v[4], 1)
+  expect_identical(v[3], 1)
+  expect_identical(v[4], 1)
 
   # Reject invalid thresholds
   expect_error(

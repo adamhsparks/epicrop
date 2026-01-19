@@ -217,7 +217,7 @@ testthat::test_that("AUDPC handles intensity values correctly", {
   # Intensity field sanity
   testthat::expect_true(all(result$intensity >= 0))
   testthat::expect_true(all(result$intensity <= 1))
-  testthat::expect_false(any(is.na(result$intensity)))
+  testthat::expect_false(anyNA(result$intensity))
 
   # AUDPC field sanity
   audpc <- .get_audpc(result)
