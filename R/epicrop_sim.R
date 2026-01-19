@@ -1,10 +1,11 @@
 #' Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework with Lesion Expansion
 #'
 #' This function is originally used by specific disease models in
-#'  \sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
-#'  proper values it can be used with other pathosystems as well.
+#'  \sQuote{EPIRICE} and \sQuote{EPIWHEAT} to model disease intensity of
+#'  several rice diseases and two wheat diseases respectively. Given proper
+#'  values it can be used with other pathosystems as well.
 #'
-#' @param wth a `data.frame` of class `epicrop. wth` from either [get_wth()] or
+#' @param wth a `data.frame` of class `epicrop.wth` from either [get_wth()] or
 #'  [format_wth()] containing weather on a daily time-step with the following
 #'  field names:
 #'
@@ -21,30 +22,24 @@
 #'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
 #' @param emergence Expected date of plant emergence (or transplanting for rice)
-#'  entered in `YYYY-MM-DD` format (character) OR a list with:
-#'   * `mode`: "emergence" or "heat_sum"
-#'   * `emergence`: Date string (if `mode = "emergence"`)
-#'   * `base_temp`: Base temperature for GDD calculation (if
-#'     `mode = "heat_sum"`)
-#'   * `heat_sum_threshold`: GDD threshold to trigger start (if
-#'      `mode = "heat_sum"`)
+#'  entered in `YYYY-MM-DD` format (character).
 #'
 #' @param onset expected number of days until the onset of disease after
-#'  emergence date (day, integer).  Described in Table 1 of Savary _et al._
+#'  emergence date (day, integer). Described in Table 1 of Savary _et al._
 #'  2012.
 #'
-#' @param duration simulation duration *i.e.*, growing season length (day,
-#'  integer).  Described in Table 1 of Savary _et al. _ 2012.
+#' @param duration simulation duration *i. e.*, growing season length (day,
+#'  integer). Described in Table 1 of Savary _et al. _ 2012.
 #'
 #' @param rhlim relative humidity value threshold to decide whether leaves are
-#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
+#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
 #'  _et al._ 2012 used `90`.
 #'
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
-#'  wet or not (numeric).  Described in Table 1 of Savary _et al._ 2012.  Savary
+#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
 #'  _et al._ 2012 used `5`.
 #'
-#' @param H0 initial number of plant's healthy sites (integer).  Described in
+#' @param H0 initial number of plant's healthy sites (integer). Described in
 #'  Table 1 of Savary _et al._ 2012.
 #'
 #' @param I0 initial number of infective sites (scalar integer) OR a list with:
@@ -59,16 +54,16 @@
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for crop age as a numeric two-column matrix with the first column
 #'  being the crop age in days (0 to `duration-1`) or DVS (0 to 2) and the
-#'  second being the modifier (bounded by 0 and 1).  Described in Tables 1 and 2
+#'  second being the modifier (bounded by 0 and 1). Described in Tables 1 and 2
 #'  of Savary _et al._ 2012.
 #'
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature as a numeric two-column matrix with the first
 #'  column being temperature in °C and the second the modifier (bounded by 0 and
-#'  1).  Described in Tables 1 and 2 of Savary _et al._ 2012.
+#'  1). Described in Tables 1 and 2 of Savary _et al._ 2012.
 #'
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
-#'  Described in Table 1 of Savary _et al._ 2012.  This value can be modified
+#'  Described in Table 1 of Savary _et al._ 2012. This value can be modified
 #'  to reflect crop cultivar resistance ratings as well, see Kim _et al. _ 2015
 #'  for more details.
 #'
@@ -76,35 +71,35 @@
 #'  Described in Table 1 of Savary _et al._ 2012.
 #'
 #' @param i duration of infectious period (day, integer or function of
-#'  temperature).  Described in Table 1 of Savary _et al._ 2012.
+#'  temperature). Described in Table 1 of Savary _et al._ 2012.
 #'
-#' @param Sx maximum number of sites (integer).  Described in Table 1 of Savary
+#' @param Sx maximum number of sites (integer). Described in Table 1 of Savary
 #'  _et al._ 2012.
 #'
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric or
-#'  function of DVS).  Described in Table 1 of Savary _et al._ 2012 and Table 1
-#'  of Savary _et al._ 2015.  See further details in **_a_ - Aggregation**
+#'  function of DVS). Described in Table 1 of Savary _et al._ 2012 and Table 1
+#'  of Savary _et al._ 2015. See further details in **_a_ - Aggregation**
 #'  section.
 #'
 #' @param RRS relative rate of physiological senescence (numeric, vector, or
-#'  function of DVS).  Described in Table 1 of Savary _et al._ 2012.
+#'  function of DVS). Described in Table 1 of Savary _et al._ 2012.
 #'
 #' @param RRG relative rate of growth (numeric, vector, or function of time).
 #'  Described in Table 1 of Savary _et al._ 2012.
 #'
 #' @param RcW Optional modifier for _Rc_ to calculate leaf wetness effect
-#'  from 1 if wet to 0 if dry.   This is a numeric two-column matrix with the
+#'  from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
 #'  first column being hours (0 to 24) and the second the modifier (bounded by 0
-#'  and 1).  Used when `simple_wetness = FALSE` (hourly/derived wetness). If
+#'  and 1). Used when `simple_wetness = FALSE` (hourly/derived wetness). If
 #'  `NULL` (default), a linear relationship is used where 0 hours wet = 0 and
 #'  24 hours wet = 1. Ignored if `simple_wetness = TRUE`.
 #'
 #' @param RRLEX Rate of lesion expansion (scalar, vector, or function). Allows
 #'  healthy sites to be directly converted to infectious sites without passing
-#'  through latent stage.  Set to 0 (default) for standard SEIR behavior.
+#'  through latent stage. Set to 0 (default) for standard SEIR behavior.
 #'
 #' @param simple_wetness Logical.  If `TRUE` (default), uses binary wetness
-#'  calculation (0 or 1) based on `rhlim` and `rainlim` thresholds.  If `FALSE`,
+#'  calculation (0 or 1) based on `rhlim` and `rainlim` thresholds. If `FALSE`,
 #'  uses hourly wetness duration calculation (requires TMIN, TMAX, LAT, DOY in
 #'  `wth`) and applies `RcW` curve.
 #'
@@ -113,7 +108,7 @@
 #'  `RcA`. When "dvs", `thermal_time` parameter is required.
 #'
 #' @param thermal_time List with `base_temp` (°C) and `gdd_to_maturity`
-#'  (°C·days).  Only required when `age_driver = "dvs"`. Determines how growing
+#'  (°C·days). Only required when `age_driver = "dvs"`. Determines how growing
 #'  degree days are accumulated and converted to development stage (DVS).
 #'
 #' @param steps_per_day Integer. Number of sub-daily time steps for numerical
@@ -172,59 +167,19 @@
 #' (accounting for numerical precision).
 #'
 #' @references
-#' Sparks, A. H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
-#' Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in R:
-#' Disease Progress over Time. *The Plant Health Instructor*.
+#' Sparks, A. H., P. D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia,
+#' S.D. Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in
+#' R: Disease Progress over Time. *The Plant Health Instructor*.
 #' \doi{10.1094/PHI-A-2008-0129-02}.
 #'
-#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
-#' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. *The Study of Plant
+#' Disease Epidemics*. American Phytopathological Society, St. Paul, MN.
 #' \doi{10.1094/9780890545058}.
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-#' J. Modeling and mapping potential epidemics of rice diseases globally. _Crop
-#' Protection_, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+#' J. Modeling and mapping potential epidemics of rice diseases globally.
+#' *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 #' \doi{10.1016/j.cropro.2011.11.009}.
-#'
-#' @examplesIf interactive()
-#' # get weather for IRRI Zeigler Experiment Station in wet season 2000
-#' wth <- get_wth(
-#'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-06-30", "2000-12-31")
-#' )
-#'
-#' # provide suitable values for brown spot intensity
-#' RcA <-
-#'   cbind(
-#'     c(0L, 20L, 40L, 60L, 80L, 100L, 120L),
-#'     c(0.35, 0.35, 0.35, 0.47, 0.59, 0.71, 1.0)
-#'   )
-#' RcT <-
-#'   cbind(
-#'     c(15L, 20L, 25L, 30L, 35L, 40L),
-#'     c(0, 0.06, 1.0, 0.85, 0.16, 0)
-#'   )
-#' emergence <- "2000-07-15"
-#'
-#' seir(
-#'   wth = wth,
-#'   emergence = emergence,
-#'   onset = 20,
-#'   duration = 120,
-#'   rhlim = 90,
-#'   rainlim = 5,
-#'   H0 = 600,
-#'   I0 = 1,
-#'   RcA = RcA,
-#'   RcT = RcT,
-#'   RcOpt = 0.61,
-#'   p = 6,
-#'   i = 19,
-#'   Sx = 100000,
-#'   a = 1,
-#'   RRS = 0.01,
-#'   RRG = 0.1
-#' )
 #'
 #' @section _a_ -- Aggregation Details:
 #'
@@ -232,7 +187,7 @@
 #' aggregation with new infections occurring at random among the healthy sites.
 #' When _a_ is greater than `1` there is aggregation in the disease occurrence,
 #' the pathogen is unable to access the entire population of healthy sites,
-#' which results in disease aggregation. Refer to Savary _et al. _ (2012) for
+#' which results in disease aggregation.  Refer to Savary _et al._ (2012) for
 #' greater detail.
 #'
 #' @section TMIN/TMAX Details:
@@ -240,20 +195,18 @@
 #' If `simple_wetness` is set to `FALSE`, the function will use the `TMIN` and
 #'  `TMAX` columns in the `wth` object to calculate the leaf wetness value for
 #'  24 hours of the day using the `rhlim` and `rainlim` values and then uses
-#'  `RcW` to calculate a value between 0 and 1 for the whole day.  When
+#'  `RcW` to calculate a value between 0 and 1 for the whole day. When
 #'  `simple_wetness` is set to `TRUE`, the function only sets the leaf wetness
 #'  to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
 #'
 #' @section LAT/LON Details:
 #'
 #' If the `wth` object provides `LAT` and `LON` columns, these will be included
-#' in the output for mapping purposes. Both values must be present. These
+#' in the output for mapping purposes.  Both values must be present.  These
 #' columns are provided by default when using [get_wth()].
-#''
 #'
 #' @seealso
-#' `epicrop_sim()` is the core simulation engine called by disease-specific
-#'  helper functions:
+#' Disease-specific helper functions:
 #' * [bacterial_blight()],
 #' * [brown_spot()],
 #' * [leaf_blast()],
@@ -271,156 +224,142 @@
 #' @export
 epicrop_sim <- function(
   wth,
-  start = list(
-    mode = "emergence",
-    emergence = NULL,
-    base_temp = 0,
-    heat_sum_threshold = 200
-  ),
-  run_days = 120L,
-  inoculum = list(
-    mode = "impulse",
-    I0 = 10,
-    start_offset = 20L,
-    duration = 1L,
-    series = NULL
-  ),
-  RcOpt,
+  emergence,
+  onset,
+  duration,
+  rhlim = 90,
+  rainlim = 5,
+  H0,
+  I0,
   RcA,
   RcT,
-  RcW = list(
-    mode = "simple",
-    rhlim = 90,
-    rainlim = 5,
-    weighted_wetness = FALSE,
-    curve = NULL
-  ),
-  RRLEX = 0,
+  RcOpt,
   p,
   i,
-  SMax,
+  Sx,
   a = 1,
-  RRG,
   RRS,
-  H0 = 250,
+  RRG,
+  RcW = NULL,
+  RRLEX = 0,
+  simple_wetness = TRUE,
+  age_driver = "day",
   thermal_time = list(base_temp = 0, gdd_to_maturity = 1100),
-  age_driver = "dvs",
-  steps_per_day = 1L,
-  return_diagnostics = TRUE
+  steps_per_day = 1L
 ) {
-  # Validate and prepare weather data
-  wth <- .validate_weather_data(wth, run_days)
-
-  # Validate all parameters
-  .validate_sim_parameters(
-    run_days,
-    RcOpt,
-    SMax,
-    H0,
-    steps_per_day,
-    start,
-    inoculum,
-    age_driver,
-    RcW
+  .validate_all_inputs(
+    wth = wth,
+    emergence = emergence,
+    onset = onset,
+    duration = duration,
+    rhlim = rhlim,
+    rainlim = rainlim,
+    H0 = H0,
+    I0 = I0,
+    RcOpt = RcOpt,
+    Sx = Sx,
+    a = a,
+    steps_per_day = steps_per_day,
+    simple_wetness = simple_wetness,
+    age_driver = age_driver,
+    RcW = RcW
   )
 
+  # Prepare weather data
+  wth <- .prepare_weather_data(wth, duration)
+
   # Determine simulation window
-  run_info <- .determine_run_window(wth, start, run_days)
+  run_info <- .determine_run_window(wth, emergence, duration)
   w <- run_info$wth_subset
 
-  # Calculate DVS
-  dvs <- .calculate_dvs(w, thermal_time)
+  # Calculate DVS if needed
+  if (age_driver == "dvs") {
+    dvs <- .calculate_dvs(w, thermal_time)
+    age_vec <- dvs
+  } else {
+    dvs <- NULL
+    age_vec <- seq(0, duration - 1)
+  }
 
-  # Prepare daily modifier inputs
+  # Prepare daily modifiers
   modifiers <- .prepare_modifiers(
-    w,
-    dvs,
-    run_days,
-    age_driver,
-    RcA,
-    RcT,
-    RcW,
-    RcOpt,
-    p,
-    i,
-    RRS,
-    a,
-    RRLEX,
-    RRG
+    w = w,
+    age_vec = age_vec,
+    duration = duration,
+    RcA = RcA,
+    RcT = RcT,
+    RcW = RcW,
+    RcOpt = RcOpt,
+    p = p,
+    i = i,
+    RRS = RRS,
+    a = a,
+    RRLEX = RRLEX,
+    RRG = RRG,
+    rhlim = rhlim,
+    rainlim = rainlim,
+    simple_wetness = simple_wetness
   )
 
   # Build inoculum schedule
-  Iprim <- .build_inoculum(inoculum, run_days)
+  Iprim <- .build_inoculum(I0, onset, duration)
 
   # Call C++ core
-  core <- .run_cpp_core(
-    modifiers,
-    Iprim,
-    H0,
-    SMax,
-    steps_per_day
+  core <- epicrop_core_cpp(
+    Rc = modifiers$Rc,
+    RRLEX = modifiers$RRLEX,
+    RRG = modifiers$RRG,
+    RRS = modifiers$RRS,
+    p_days = modifiers$p,
+    i_days = modifiers$i,
+    agg = modifiers$a,
+    Iprim = Iprim,
+    H0 = H0,
+    SMax = Sx,
+    steps_per_day = steps_per_day
   )
 
-  # Assemble and return output
-  .assemble_output(
-    core,
-    run_info$run_dates,
-    run_days,
-    modifiers,
-    dvs,
-    return_diagnostics,
-    wth
+  result <- .assemble_output(
+    core = core,
+    run_dates = run_info$run_dates,
+    duration = duration,
+    wth = wth
   )
+
+  return(result)
 }
 
-# ==== Helper Functions ====
-
-#' Prepare and Validate Weather Data
+#' Prepare weather data for simulation
 #'
-#' Converts weather data to data.table format, validates required columns,
-#' adds missing RHUM column if needed, checks for NA values, and orders by date.
+#' @description
+#' Validates and prepares weather data for use in disease simulation.  Ensures
+#' required columns exist, handles missing values appropriately, and orders
+#' data chronologically.
 #'
-#' @param wth A data.frame or data.table containing weather data with at least
-#'   YYYYMMDD, TEMP, and RAIN columns.
+#' @param wth A data.frame or data.table containing weather data with columns:
+#'   * `YYYYMMDD` - Date in YYYYMMDD format
+#'   * `TEMP` - Daily temperature (required, no NAs allowed)
+#'   * `RAIN` - Daily rainfall (NAs treated as 0)
+#'   * `RHUM` - Relative humidity (optional, NAs allowed)
+#' @param duration Integer.  Number of days for the simulation period.
 #'
-#' @returns A data.table with validated and ordered weather data.
+#' @return A data.tablewith validated and ordered weather data, ensuring
+#'   `RHUM` column exists (filled with NA if not provided).
 #'
 #' @details
-#' This function performs the following validations and transformations:
-#' * Converts to data.table if not already
-#' * Checks for required columns (YYYYMMDD, TEMP, RAIN)
-#' * Adds RHUM column with NA if missing
-#' * Checks TEMP for NA values (aborts if found)
-#' * Checks RAIN for NA values (warns and replaces with 0)
-#' * Orders data by YYYYMMDD
+#' The function performs the following operations:
+#' * Converts input to data.table if necessary
+#' * Adds `RHUM` column if missing (filled with NA)
+#' * Validates that `TEMP` contains no missing values
+#' * Replaces NA values in `RAIN` with 0 (assumes no rainfall)
+#' * Orders data by `YYYYMMDD` in ascending order
 #'
-#' @examplesIf interactive()
-#' wth <- data.frame(
-#'   YYYYMMDD = seq(as.Date("2000-01-01"), by = "day", length.out = 10),
-#'   TEMP = rnorm(10, 25, 3),
-#'   RAIN = rpois(10, 2)
-#' )
-#'
-#' wth_clean <- epicrop:::.prep_weather(wth)
-#' str(wth_clean)
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
-#' @autoglobal
 #' @dev
-prep_weather <- function(wth) {
-  if (!inherits(wth, "data.table")) {
+#' @autoglobal
+#'
+.prepare_weather_data <- function(wth, duration) {
+  if (!inherits(wth, "data. table")) {
     wth <- data.table::as.data.table(wth)
-  }
-
-  # Check required columns
-  required <- c("YYYYMMDD", "TEMP", "RAIN")
-  missing <- setdiff(required, names(wth))
-
-  if (length(missing) > 0) {
-    cli::cli_abort(c(
-      "Missing required columns in {.var wth}:",
-      "x" = "{.val {missing}}"
-    ))
   }
 
   # Add RHUM if missing
@@ -429,580 +368,262 @@ prep_weather <- function(wth) {
     cli::cli_inform("i" = "{.var RHUM} not found, using {.val NA}")
   }
 
-  # Check for NAs
+  # Check for NAs in temperature
   if (anyNA(wth$TEMP)) {
-    cli::cli_abort("{.var TEMP} contains {.val NA} values")
+    cli::cli_abort("{. var TEMP} contains {.val NA} values")
   }
 
+  # Handle NAs in rainfall
   if (anyNA(wth$RAIN)) {
     cli::cli_warn("{.var RAIN} contains {.val NA}, treating as 0")
     wth[is.na(RAIN), RAIN := 0]
   }
 
   data.table::setorderv(wth, "YYYYMMDD")
-  wth
+  return(wth)
 }
 
-#' Validate Simulation Parameters
+#' Determine simulation window from weather data
 #'
-#' Checks that all numerical simulation parameters are within valid ranges.
+#' @description
+#' Calculates the simulation date range based on emergence date and duration,
+#' then extracts the corresponding weather data subset.
 #'
-#' @param duration Simulation duration in days (must be > 0).
-#' @param RcOpt Optimal infection rate (must be >= 0).
-#' @param Sx Maximum number of sites (must be > 0).
-#' @param H0 Initial healthy sites (must be >= 0).
-#' @param steps_per_day Number of sub-daily time steps (must be >= 1).
+#' @param wth A data.table containing weather data with a `YYYYMMDD` column.
+#' @param emergence A Date object or date string indicating crop emergence date.
+#'   If multiple values provided, only the first is used.
+#' @param duration Integer. Number of days to simulate from emergence.
 #'
-#' @returns Nothing, called for its side effects. Aborts with cli error messages
-#'   if any parameter is invalid. Warns if steps_per_day is not a power of 2.
+#' @return A list with two elements:
+#'   * `wth_subset` - data.table containing weather data for the simulation
+#'      window
+#'   * `run_dates` - Date vector of all simulation dates
 #'
 #' @details
-#' Valid parameter ranges:
-#' * `duration`: Must be > 0
-#' * `RcOpt`: Must be >= 0
-#' * `Sx`: Must be > 0
-#' * `H0`: Must be >= 0
-#' * `steps_per_day`: Must be >= 1 (warns if not 1, 2, 4, or 8)
+#' The function validates that sufficient weather data exists for the entire
+#' simulation window.  If weather data is incomplete, an error is raised with
+#' diagnostic information about the gap.
 #'
-#' @examplesIf interactive()
-#' # Valid parameters
-#' epicrop:: :.validate_params(
-#'   duration = 120,
-#'   RcOpt = 0.61,
-#'   Sx = 100000,
-#'   H0 = 600,
-#'   steps_per_day = 1
-#' )
-#'
-#' # This would abort
-#' \dontrun{
-#' epicrop:::.validate_params(
-#'   duration = -10,  # Invalid:  must be > 0
-#'   RcOpt = 0.61,
-#'   Sx = 100000,
-#'   H0 = 600,
-#'   steps_per_day = 1
-#' )
-#' }
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
-#' @autoglobal
 #' @dev
-.validate_params <- function(duration, RcOpt, Sx, H0, steps_per_day) {
-  if (duration <= 0) {
-    cli::cli_abort("{.var duration} must be {.val > 0}, got {.val {duration}}")
-  }
-  if (RcOpt < 0) {
-    cli::cli_abort("{.var RcOpt} must be {.val >= 0}, got {.val {RcOpt}}")
-  }
-  if (Sx <= 0) {
-    cli::cli_abort("{.var Sx} must be {.val > 0}, got {.val {Sx}}")
-  }
-  if (H0 < 0) {
-    cli::cli_abort("{.var H0} must be {.val >= 0}, got {.val {H0}}")
-  }
-  if (steps_per_day < 1) {
-    cli::cli_abort(
-      "{.var steps_per_day} must be {.val >= 1}, got {.val {steps_per_day}}"
+#' @autoglobal
+#'
+.determine_run_window <- function(wth, emergence, duration) {
+  em_date <- .check_date(emergence)
+
+  if (length(em_date) > 1L) {
+    cli::cli_warn(
+      "Only one day is used for emergence.  Only the first value will be used."
     )
+    em_date <- em_date[[1L]]
   }
 
-  # Warn if not power of 2
-  if ((steps_per_day & (steps_per_day - 1)) != 0) {
-    cli::cli_warn(c(
-      "!" = "{.var steps_per_day} should be power of 2 for best accuracy",
-      "i" = "Got {.val {steps_per_day}}, consider {.val 1}, {.val 2}, {.val 4}, or {.val 8}"
-    ))
-  }
-}
+  dates <- seq(em_date, by = "day", length.out = duration)
 
-#' Get Simulation Window from Weather Data
-#'
-#' Extracts the appropriate subset of weather data for the simulation based on
-#' either a simple emergence date or advanced heat sum threshold.
-#'
-#' @param wth A data.table of weather data (already validated).
-#' @param emergence Either a date string ("YYYY-MM-DD") or a list with:
-#'   * `mode`: "emergence" or "heat_sum"
-#'   * `emergence`: Date string (if mode = "emergence")
-#'   * `base_temp`: Base temperature for GDD calculation (if mode = "heat_sum")
-#'   * `heat_sum_threshold`: GDD threshold to trigger start (if mode = "heat_sum")
-#' @param duration Number of days for the simulation.
-#'
-#' @returns A data.table subset of `wth` containing exactly `duration` rows
-#'   starting from the determined emergence date.
-#'
-#' @details
-#' Two modes are supported:
-#'
-#' **Simple mode** (emergence is a date string):
-#' * Uses the provided date as simulation start
-#' * Extracts `duration` consecutive days starting from that date
-#'
-#' **Heat sum mode** (emergence is a list with mode = "heat_sum"):
-#' * Calculates cumulative growing degree days (GDD)
-#' * Finds first day when GDD >= heat_sum_threshold
-#' * Extracts `duration` consecutive days starting from that day
-#'
-#' @examplesIf interactive()
-#' wth <- epicrop::get_wth(
-#'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-01-01", "2000-12-31")
-#' )
-#'
-#' # Simple emergence mode
-#' w_simple <- epicrop:::.get_simulation_window(
-#'   wth = wth,
-#'   emergence = "2000-07-15",
-#'   duration = 120
-#' )
-#' nrow(w_simple)  # 120
-#'
-#' # Heat sum mode
-#' w_heat <- epicrop:::.get_simulation_window(
-#'   wth = wth,
-#'   emergence = list(
-#'     mode = "heat_sum",
-#'     base_temp = 0,
-#'     heat_sum_threshold = 200
-#'   ),
-#'   duration = 120
-#' )
-#' nrow(w_heat)  # 120
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
-#' @autoglobal
-#' @dev
-.get_simulation_window <- function(wth, emergence, duration) {
-  # Simple mode: emergence is a date string
-  if (!is.list(emergence)) {
-    em_date <- as.Date(emergence)
-    dates <- seq(em_date, by = "day", length.out = duration)
-
-    cli::cli_inform("v" = "Emergence mode: starting {.val {em_date}}")
-
-    w <- wth[YYYYMMDD %in% dates]
-
-    if (nrow(w) != duration) {
-      cli::cli_abort(c(
-        "Insufficient weather data for simulation window",
-        "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}",
-        "i" = "Window:   {.val {min(dates)}} to {.val {max(dates)}}"
-      ))
-    }
-
-    return(w)
-  }
-
-  # Advanced mode: emergence is a list
-  mode <- match.arg(emergence$mode, c("emergence", "heat_sum"))
-
-  if (mode == "emergence") {
-    em_date <- as.Date(emergence$emergence)
-    dates <- seq(em_date, by = "day", length.out = duration)
-
-    cli::cli_inform("v" = "Emergence mode: starting {.val {em_date}}")
-  } else {
-    # Heat sum mode
-    wth[, gdd := cumsum(pmax(TEMP - emergence$base_temp, 0))]
-    srow <- which(wth$gdd >= emergence$heat_sum_threshold)[1]
-
-    if (is.na(srow)) {
-      cli::cli_abort(c(
-        "Heat sum threshold not reached in weather data",
-        "x" = "Need {.val {emergence$heat_sum_threshold}} °C·days",
-        "i" = "Maximum available:   {.val {max(wth$gdd, na.rm = TRUE)}}"
-      ))
-    }
-
-    dates <- wth$YYYYMMDD[srow + seq_len(duration) - 1L]
-
-    cli::cli_inform(c(
-      "v" = "Heat sum mode: starting row {.val {srow}}",
-      "i" = "Date:  {.val {wth$YYYYMMDD[srow]}}"
-    ))
-  }
+  cli::cli_inform("v" = "Emergence date:  {.val {em_date}}")
 
   w <- wth[YYYYMMDD %in% dates]
 
   if (nrow(w) != duration) {
     cli::cli_abort(c(
       "Insufficient weather data for simulation window",
-      "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}"
+      "x" = "Need {. val {duration}} days, have {.val {nrow(w)}}",
+      "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}"
     ))
   }
 
-  w
+  return(list(
+    wth_subset = w,
+    run_dates = dates
+  ))
 }
 
-#' Calculate Development Stage (DVS)
+#' Calculate development stage (DVS)
 #'
-#' Calculates the development stage of the crop from 0 (emergence) to 2
-#' (physiological maturity) based on cumulative growing degree days (GDD).
+#' @description
+#' Computes the crop development stage based on accumulated thermal time
+#' (growing degree days). DVS ranges from 0 (emergence) to 2 (physiological
+#' maturity).
 #'
-#' @param w A data.table of weather data with a TEMP column.
-#' @param thermal_time A list with:
-#'   * `base_temp`: Base temperature for GDD calculation (°C)
-#'   * `gdd_to_maturity`: Total GDD required to reach DVS = 2 (°C·days)
+#' @param w A data.table containing weather data with a `TEMP` column.
+#' @param thermal_time A list containing:
+#'   * `base_temp` - Base temperature for degree day calculation
+#'   * `gdd_to_maturity` - Total growing degree days required to reach maturity
 #'
-#' @returns A numeric vector of DVS values from 0 to 2, one per day in `w`.
+#' @return Numeric vector of daily DVS values, ranging from 0 to 2, where:
+#'   * 0 = emergence
+#'   * 1 = flowering/anthesis
+#'   * 2 = physiological maturity
 #'
 #' @details
-#' DVS (Development Stage) is calculated as:
-#' * GDD = cumsum(max(0, TEMP - base_temp))
-#' * DVS = min(2, 2 * GDD / gdd_to_maturity)
+#' Growing degree days (GDD) are calculated as the cumulative sum of daily
+#' thermal time, where daily thermal time = max(TEMP - base_temp, 0).
+#' DVS is then calculated as 2 * GDD / gdd_to_maturity, capped at 2.
 #'
-#' This provides a physiologically realistic way to scale crop age effects,
-#' as opposed to simple calendar days. DVS values:
-#' * 0 = Emergence
-#' * 1 = Anthesis/flowering
-#' * 2 = Physiological maturity
-#'
-#' @examplesIf interactive()
-#' wth <- epicrop::get_wth(
-#'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-07-01", "2000-10-31")
-#' )
-#'
-#' thermal_time <- list(
-#'   base_temp = 10,
-#'   gdd_to_maturity = 1100
-#' )
-#'
-#' dvs <- epicrop:::.calculate_dvs(wth, thermal_time)
-#'
-#' # Plot DVS over time
-#' plot(wth$YYYYMMDD, dvs, type = "l",
-#'      xlab = "Date", ylab = "DVS",
-#'      main = "Crop Development Stage")
-#' abline(h = c(0, 1, 2), lty = 2, col = "gray")
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @dev
+#' @autoglobal
+#'
 .calculate_dvs <- function(w, thermal_time) {
   gdd <- cumsum(pmax(w$TEMP - thermal_time$base_temp, 0))
-  pmin(2, 2 * gdd / thermal_time$gdd_to_maturity)
+  dvs <- pmin(2, 2 * gdd / thermal_time$gdd_to_maturity)
+  return(dvs)
 }
 
-#' Interpolate Parameter Values
+#' Prepare daily modifiers for simulation
 #'
-#' Interpolates or evaluates parameter definitions to produce a vector of daily
-#' values for use in the simulation. Handles scalars, vectors, matrices, data
-#' frames, and functions.
+#' @description
+#' Interpolates and calculates all daily modifier values needed for disease
+#' progression simulation, including age, temperature, wetness, and other
+#' crop-specific parameters.
 #'
-#' @param def Parameter definition. Can be:
-#'   * Scalar numeric:  Replicated to length of `x`
-#'   * Numeric vector: Must have same length as `x`
-#'   * Matrix/data. frame: 2-column table \[x_values, y_values\] for linear
-#'      interpolation
-#'   * Function:  Evaluated at each value of `x`
-#' @param x Numeric vector of x-values at which to interpolate (e.g.,
-#'     days, temperatures, DVS).
+#' @param w A data.tablecontaining weather data with `TEMP`, `RHUM`, and
+#'   `RAIN` columns.
+#' @param age_vec Numeric vector of crop ages (in days or physiological time).
+#' @param duration Integer. Total number of simulation days.
+#' @param RcA Numeric vector or data.frame defining the age correction factor.
+#' @param RcT Numeric vector or data.frame defining the temperature correction
+#'   factor.
+#' @param RcW Numeric vector, data.frame, or NULL defining the wetness
+#'   correction factor.  If NULL and not using simple_wetness, linear scaling is
+#'   applied.
+#' @param RcOpt Numeric scalar.  Optimal infection rate.
+#' @param p Numeric vector or data.frame defining the probability of
+#'   successful infection.
+#' @param i Numeric vector or data.frame defining the infection efficiency.
+#' @param RRS Numeric vector or data.frame defining the relative rate of
+#'   senescence.
+#' @param a Numeric vector or data.frame defining the aggregation parameter.
+#' @param RRLEX Numeric vector or data.frame defining the relative rate of
+#'   latent expansion.
+#' @param RRG Numeric vector or data.frame defining the relative rate of growth.
+#' @param rhlim Numeric scalar. Relative humidity threshold (%) for leaf
+#'  wetness.
+#' @param rainlim Numeric scalar.  Rainfall threshold (mm) for leaf wetness.
+#' @param simple_wetness Logical. If TRUE, use binary wetness (wet/dry). If
+#'   FALSE, calculate hourly leaf wetness duration.
 #'
-#' @returns A numeric vector of length `length(x)` with interpolated/evaluated
-#'    values.
-#'
-#' @details
-#' For tables/matrices:
-#' * First column is x-values (e.g., days, °C)
-#' * Second column is y-values (modifier from 0 to 1)
-#' * Linear interpolation between points
-#' * Values outside range use first/last y-value (no extrapolation)
-#'
-#' For functions:
-#' * Called with vector `x` as argument
-#' * Must return numeric vector of same length
-#' * Negative values are set to 0
-#'
-#' @examplesIf interactive()
-#' # Scalar
-#' epicrop:::.interp(0.1, 1: 10)  # rep(0.1, 10)
-#'
-#' # Vector
-#' epicrop:::.interp(seq(0, 1, length.out = 10), 1:10)
-#'
-#' # Matrix (temperature response)
-#' RcT <- cbind(
-#'   c(15, 20, 25, 30, 35, 40),
-#'   c(0, 0.5, 1.0, 0.8, 0.3, 0)
-#' )
-#' temps <- seq(10, 45, by = 1)
-#' response <- epicrop:::.interp(RcT, temps)
-#' plot(temps, response, type = "l",
-#'      xlab = "Temperature (°C)",
-#'      ylab = "Modifier")
-#'
-#' # Function
-#' quadratic <- function(x) x^2 / 100
-#' epicrop:::.interp(quadratic, 1:10)
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
-#' @autoglobal
-#' @dev
-.interp <- function(def, x) {
-  # Handle functions
-  if (is.function(def)) {
-    result <- tryCatch(
-      def(x),
-      error = function(e) {
-        cli::cli_abort(c(
-          "Function evaluation failed:",
-          "x" = conditionMessage(e)
-        ))
-      }
-    )
-    return(pmax(0, as.numeric(result)))
-  }
-
-  # Handle numeric scalars and vectors
-  if (is.numeric(def)) {
-    if (length(def) == 1) {
-      return(rep(def, length(x)))
-    }
-    if (length(def) == length(x)) {
-      return(as.numeric(def))
-    }
-    cli::cli_abort(c(
-      "Vector length mismatch:",
-      "x" = "Got {.val {length(def)}}, expected {.val {length(x)}}"
-    ))
-  }
-
-  # Handle tables/matrices
-  if (is.matrix(def) || is.data.frame(def)) {
-    if (ncol(def) != 2) {
-      cli::cli_abort(c(
-        "Table must have 2 columns:   [x, value]",
-        "x" = "Got {.val {ncol(def)}} columns"
-      ))
-    }
-
-    return(
-      stats::approx(
-        x = def[, 1],
-        y = def[, 2],
-        xout = x,
-        method = "linear",
-        yleft = def[1, 2],
-        yright = def[nrow(def), 2]
-      )$y
-    )
-  }
-
-  cli::cli_abort("Unsupported parameter type: {.cls {class(def)}}")
-}
-
-#' Calculate Wetness Modifier
-#'
-#' Calculates the daily wetness modifier (0 to 1) for infection rate based on
-#' relative humidity and rainfall, using either simple binary or complex hourly
-#' wetness calculation.
-#'
-#' @param w A data.table of weather data with RHUM, RAIN, and optionally
-#'   TMIN, TMAX, LAT, DOY columns.
-#' @param rhlim Relative humidity threshold (%) for considering leaves wet.
-#' @param rainlim Rainfall threshold (mm) for considering leaves wet.
-#' @param simple_wetness Logical. If `TRUE``, uses binary wetness (0 or 1 per
-#'      day).
-#'   If FALSE, calculates hourly wetness duration (requires TMIN, TMAX, LAT,
-#'      DOY).
-#' @param RcW Optional 2-column matrix for mapping wet-hours to infection
-#'      modifier. First column: wet-hours (0-24), second column: modifier (0-1).
-#'      Only used when `simple_wetness = FALSE`. If `NULL`, linear relationship
-#'      is used.
-#'
-#' @returns A numeric vector of wetness modifiers (0 to 1), one per day in `w`.
+#' @return A named list containing interpolated daily values:
+#'   * `Rc` - Combined correction factor (RcOpt * RcA * RcT * RcW)
+#'   * `RRLEX` - Relative rate of latent expansion
+#'   * `RRG` - Relative rate of growth
+#'   * `RRS` - Relative rate of senescence
+#'   * `p` - Probability of successful infection
+#'   * `i` - Infection efficiency
+#'   * `a` - Aggregation parameter
 #'
 #' @details
-#' **Simple mode** (simple_wetness = TRUE):
-#' * Returns 1 if RHUM >= rhlim OR RAIN >= rainlim
-#' * Returns 0 otherwise
+#' For simple wetness, a day is considered wet if either:
+#' * Relative humidity >= rhlim, OR
+#' * Rainfall >= rainlim
 #'
-#' **Complex mode** (simple_wetness = FALSE):
-#' * Calculates hourly relative humidity from diurnal temperature patterns
-#' * Counts wet-hours (0 to 24) based on hourly RH and rainfall
-#' * Maps wet-hours to infection modifier using RcW curve or linear relationship
+#' For complex wetness, hourly leaf wetness duration is calculated and either
+#' interpolated using RcW or linearly scaled (0-24 hours -> 0-1).
 #'
-#' @examplesIf interactive()
-#' wth <- epicrop::get_wth(
-#'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-07-01", "2000-07-31")
-#' )
-#'
-#' # Simple binary wetness
-#' wet_simple <- epicrop:::.calculate_wetness(
-#'   w = wth,
-#'   rhlim = 90,
-#'   rainlim = 5,
-#'   simple_wetness = TRUE,
-#'   RcW = NULL
-#' )
-#' table(wet_simple)  # 0s and 1s
-#'
-#' # Complex hourly wetness
-#' wet_complex <- epicrop:::.calculate_wetness(
-#'   w = wth,
-#'   rhlim = 90,
-#'   rainlim = 5,
-#'   simple_wetness = FALSE,
-#'   RcW = NULL  # Linear:  0 hours = 0, 24 hours = 1
-#' )
-#' summary(wet_complex)  # Continuous 0 to 1
-#'
-#' # With custom RcW curve
-#' RcW_curve <- cbind(
-#'   c(0, 4, 8, 12, 16, 20, 24),
-#'   c(0, 0, 0.2, 0.5, 0.8, 0.95, 1.0)
-#' )
-#' wet_custom <- epicrop:::.calculate_wetness(
-#'   w = wth,
-#'   rhlim = 90,
-#'   rainlim = 5,
-#'   simple_wetness = FALSE,
-#'   RcW = RcW_curve
-#' )
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
-#' @autoglobal
 #' @dev
-.calculate_wetness <- function(w, rhlim, rainlim, simple_wetness, RcW) {
+#' @autoglobal
+#'
+.prepare_modifiers <- function(
+  w,
+  age_vec,
+  duration,
+  RcA,
+  RcT,
+  RcW,
+  RcOpt,
+  p,
+  i,
+  RRS,
+  a,
+  RRLEX,
+  RRG,
+  rhlim,
+  rainlim,
+  simple_wetness
+) {
+  # Interpolate age modifier
+  RcA_daily <- .interp(RcA, age_vec)
+
+  # Interpolate temperature modifier
+  RcT_daily <- .interp(RcT, w$TEMP)
+
+  # Calculate wetness modifier
   if (simple_wetness) {
-    # Binary wetness:   0 or 1
+    # Binary wetness
     rhum_wet <- !is.na(w$RHUM) & (w$RHUM >= rhlim)
     rain_wet <- w$RAIN >= rainlim
-    return(as.numeric(rhum_wet | rain_wet))
+    RcW_daily <- as.numeric(rhum_wet | rain_wet)
+  } else {
+    # Complex wetness with hourly calculation
+    wet_hours <- .calculate_leaf_wetness(
+      wth = w,
+      rhlim = rhlim,
+      rainlim = rainlim,
+      weighted_wetness = FALSE
+    )
+
+    if (!is.null(RcW)) {
+      RcW_daily <- .interp(RcW, wet_hours)
+    } else {
+      # Linear:   0 hours = 0, 24 hours = 1
+      RcW_daily <- wet_hours / 24.0
+    }
   }
 
-  # Complex wetness requires additional columns
-  required <- c("TMIN", "TMAX", "LAT", "DOY")
-  missing <- setdiff(required, names(w))
+  # Combine into Rc
+  Rc_daily <- RcOpt * RcA_daily * RcT_daily * RcW_daily
 
-  if (length(missing) > 0) {
-    cli::cli_abort(c(
-      "Complex wetness requires additional columns:",
-      "x" = "Missing: {.val {missing}}",
-      "i" = "Use {.code simple_wetness = TRUE} or provide complete data"
-    ))
-  }
+  # Interpolate other parameters
+  p_daily <- .interp(p, seq_len(duration))
+  i_daily <- .interp(i, seq_len(duration))
+  RRS_daily <- .interp(RRS, age_vec)
+  a_daily <- .interp(a, age_vec)
+  RRLEX_daily <- .interp(RRLEX, seq_len(duration))
+  RRG_daily <- .interp(RRG, seq_len(duration))
 
-  # Calculate wet-hours (0 to 24)
-  wet_hours <- .calculate_leaf_wetness(
-    wth = w,
-    rhlim = rhlim,
-    rainlim = rainlim,
-    weighted_wetness = FALSE
-  )
-
-  # Map wet-hours to infection multiplier (0 to 1)
-  if (is.null(RcW)) {
-    # Linear:   0 hours = 0, 24 hours = 1
-    return(wet_hours / 24.0)
-  }
-
-  # Apply custom curve
-  if (!is.matrix(RcW) || ncol(RcW) != 2) {
-    cli::cli_abort(c(
-      "{.var RcW} must be a 2-column matrix:",
-      "x" = "Column 1: wet-hours (0-24), Column 2: multiplier (0-1)"
-    ))
-  }
-
-  stats::approx(
-    x = RcW[, 1],
-    y = RcW[, 2],
-    xout = wet_hours,
-    method = "linear",
-    yleft = 0,
-    yright = 1
-  )$y
+  return(list(
+    Rc = Rc_daily,
+    RRLEX = RRLEX_daily,
+    RRG = RRG_daily,
+    RRS = RRS_daily,
+    p = p_daily,
+    i = i_daily,
+    a = a_daily
+  ))
 }
 
-#' Build Inoculum Schedule
+#' Build inoculum schedule
 #'
-#' Creates a vector of daily primary inoculum amounts for the simulation,
-#' supporting both simple (single impulse) and advanced (distributed) modes.
+#' @description
+#' Creates a vector of daily inoculum values for the simulation period based
+#' on the specified inoculum mode and parameters.
 #'
-#' @param I0 Either:
-#'   * A scalar numeric: Applied as impulse at `onset` day
-#'   * A list with:
-#'     - `mode`: "impulse", "uniform", "triangle", or "series"
-#'     - `I0`: Total inoculum amount
-#'     - `start_offset`: Day to start inoculation (defaults to `onset`)
-#'     - `duration`: Number of days over which to distribute (for
-#'        uniform/triangle)
-#'     - `series`: Custom daily inoculum vector (for series mode, must be length
-#'        `duration`)
-#' @param onset Day of disease onset (used as default start_offset for simple
-#'  mode).
-#' @param duration Total number of simulation days.
+#' @param I0 Either a numeric scalar (simple impulse mode) or a list containing:
+#'   * `mode` - Character:  "impulse", "uniform", "triangle", or "series"
+#'   * `I0` - Numeric: total inoculum amount (not used for "series" mode)
+#'   * `start_offset` - Integer: day to begin inoculum (defaults to `onset`)
+#'   * `duration` - Integer: number of days for distribution (for "uniform" and
+#'     "triangle" modes)
+#'   * `series` - Numeric vector: custom daily inoculum values (for
+#'   "series" mode)
+#' @param onset Integer. Default day for inoculum introduction if `start_offset`
+#'   not specified in list mode.
+#' @param duration Integer. Total number of simulation days.
 #'
-#' @returns A numeric vector of length `duration` with daily primary inoculum
-#'  amounts.
+#' @return Numeric vector of length `duration` containing daily inoculum
+#' amounts.
 #'
 #' @details
 #' **Inoculum modes:**
+#' * **impulse**: All inoculum applied on a single day
+#' * **uniform**: Inoculum distributed evenly over specified duration
+#' * **triangle**: Inoculum distributed with triangular weighting (peak at
+#'                 midpoint)
+#' * **series**: Custom daily values provided by user
 #'
-#' * **impulse**: All inoculum applied on single day (`start_offset`)
-#' * **uniform**: Equal amounts each day for `duration` days starting at
-#'  `start_offset`
-#' * **triangle**: Triangular distribution (ramping up then down) over
-#'  `duration` days
-#' * **series**: Custom daily amounts provided by user
+#' If `start_offset` or `onset` falls outside \[1, duration\], a warning is
+#'  issued and no inoculum is applied (returns vector of zeros).
 #'
-#' The inoculum represents new infections introduced from outside the system
-#' (e.g., from neighboring fields, infected seed, or experimental inoculation).
-#'
-#' @examplesIf interactive()
-#' # Simple scalar: impulse at onset
-#' inoc_simple <- epicrop:::.build_inoculum(
-#'   I0 = 10,
-#'   onset = 20,
-#'   duration = 120
-#' )
-#' which(inoc_simple > 0)  # Day 20
-#'
-#' # Uniform distribution
-#' inoc_uniform <- epicrop:::.build_inoculum(
-#'   I0 = list(
-#'     mode = "uniform",
-#'     I0 = 100,
-#'     start_offset = 20,
-#'     duration = 5
-#'   ),
-#'   onset = 20,
-#'   duration = 120
-#' )
-#' inoc_uniform[18: 25]  # 20 per day for days 20-24
-#'
-#' # Triangle distribution
-#' inoc_tri <- epicrop:::.build_inoculum(
-#'   I0 = list(
-#'     mode = "triangle",
-#'     I0 = 100,
-#'     start_offset = 20,
-#'     duration = 7
-#'   ),
-#'   onset = 20,
-#'   duration = 120
-#' )
-#' plot(18:27, inoc_tri[18:27], type = "h",
-#'      xlab = "Day", ylab = "Inoculum",
-#'      main = "Triangular Inoculum")
-#'
-#' # Custom series
-#' custom_inoc <- c(1, 2, 5, 10, 5, 2, 1)
-#' inoc_series <- epicrop:::.build_inoculum(
-#'   I0 = list(
-#'     mode = "series",
-#'     series = c(rep(0, 19), custom_inoc, rep(0, 94))
-#'   ),
-#'   onset = 20,
-#'   duration = 120
-#' )
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
-#' @autoglobal
 #' @dev
+#' @autoglobal
 .build_inoculum <- function(I0, onset, duration) {
   # Simple mode: I0 is a scalar (impulse at onset)
   if (!is.list(I0)) {
@@ -1032,10 +653,8 @@ prep_weather <- function(wth) {
   # Validate start_offset
   if (start_offset < 1 || start_offset > duration) {
     cli::cli_warn(c(
-      "!" = c(
-        "{.var start_offset} = {.val {start_offset}}",
-        "outside simulation window"
-      ),
+      "!" = "{.var start_offset} = {.val {start_offset}}
+      outside simulation window",
       "i" = "No inoculum applied"
     ))
     return(numeric(duration))
@@ -1056,10 +675,8 @@ prep_weather <- function(wth) {
     if (length(idx) > 0) {
       Iprim[idx] <- I0$I0 / length(idx)
       cli::cli_inform(
-        "i" = c(
-          "Inoculum: {.val {I0$I0}} uniform, days",
-          "{.val {min(idx)}}-{.val {max(idx)}}"
-        )
+        "i" = "Inoculum:   {.val {I0$I0}} uniform, days
+        {.val {min(idx)}}-{.val {max(idx)}}"
       )
     }
   } else if (mode == "triangle") {
@@ -1072,10 +689,8 @@ prep_weather <- function(wth) {
       wts <- c(seq_len(half), rev(seq_len(length(idx) - half)))
       Iprim[idx] <- I0$I0 * (wts / sum(wts))
       cli::cli_inform(
-        "i" = c(
-          "Inoculum: {.val {I0$I0}} triangular",
-          "days {.val {min(idx)}}-{.val {max(idx)}}"
-        )
+        "i" = "Inoculum:   {.val {I0$I0}} triangular, days
+        {.val {min(idx)}}-{.val {max(idx)}}"
       )
     }
   } else if (mode == "series") {
@@ -1100,5 +715,88 @@ prep_weather <- function(wth) {
     )
   }
 
-  Iprim
+  return(Iprim)
+}
+
+#' Assemble output data. table
+#'
+#' @description
+#' Constructs the final simulation output data.table with all daily state
+#' variables, dates, and calculated summary statistics.
+#'
+#' @param core A list containing daily vectors of simulation state variables:
+#'   * `sites` - Number of infection sites
+#'   * `latent` - Latent (infected but not infectious) sites
+#'   * `infectious` - Infectious sites
+#'   * `removed` - Removed sites
+#'   * `senesced` - Senesced sites
+#'   * `rateinf` - Rate of infection
+#'   * `rlex` - Rate of latent expansion
+#'   * `rtransfer` - Rate of transfer (latent to infectious)
+#'   * `rremoved` - Rate of removal
+#'   * `rgrowth` - Rate of growth
+#'   * `rsenesced` - Rate of senescence
+#'   * `diseased` - Total diseased sites
+#'   * `intensity` - Disease intensity
+#' @param run_dates A Date vector of simulation dates.
+#' @param duration Integer. Number of simulation days.
+#' @param wth A data.table containing weather data with optional `LAT` and
+#'   `LON` columns for location coordinates.
+#'
+#' @return A data.tableof class `c("epicrop. sim", "data.table",
+#' "data.frame")`
+#'   containing:
+#'   * `simday` - Sequential day number (1 to duration)
+#'   * `dates` - Calendar dates
+#'   * All state variables from `core`
+#'   * `lat` and `lon` columns if available in weather data
+#'   * `AUDPC` attribute containing Area Under Disease Progress Curve
+#'
+#' @details
+#' The AUDPC (Area Under Disease Progress Curve) is calculated from disease
+#' intensity and stored as an attribute of the returned data.table.
+#'
+#' @dev
+#' @autoglobal
+#'
+.assemble_output <- function(core, run_dates, duration, wth) {
+  # Build output data.table
+  out <- data.table::data.table(
+    simday = seq_len(duration),
+    dates = run_dates,
+    sites = core$sites,
+    latent = core$latent,
+    infectious = core$infectious,
+    removed = core$removed,
+    senesced = core$senesced,
+    rateinf = core$rateinf,
+    rlex = core$rlex,
+    rtransfer = core$rtransfer,
+    rremoved = core$rremoved,
+    rgrowth = core$rgrowth,
+    rsenesced = core$rsenesced,
+    diseased = core$diseased,
+    intensity = core$intensity
+  )
+
+  # Add lat/lon if available
+  if ("LAT" %in% names(wth)) {
+    out[, lat := wth$LAT[1]]
+  }
+  if ("LON" %in% names(wth)) {
+    out[, lon := wth$LON[1]]
+  }
+
+  # Calculate AUDPC and attach as attribute
+  audpc_value <- .calculate_audpc(out$intensity)
+  data.table::setattr(out, "AUDPC", audpc_value)
+
+  # Set class
+  data.table::setattr(
+    out,
+    "class",
+    c("epicrop.sim", "data.table", "data.frame")
+  )
+
+  return(out)
 }

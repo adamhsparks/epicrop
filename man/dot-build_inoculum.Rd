@@ -2,104 +2,46 @@
 % Please edit documentation in R/epicrop_sim.R
 \name{.build_inoculum}
 \alias{.build_inoculum}
-\title{Build Inoculum Schedule}
+\title{Build inoculum schedule}
 \usage{
 .build_inoculum(I0, onset, duration)
 }
 \arguments{
-\item{I0}{Either:
+\item{I0}{Either a numeric scalar (simple impulse mode) or a list containing:
 \itemize{
-\item A scalar numeric: Applied as impulse at \code{onset} day
-\item A list with:
-\itemize{
-\item \code{mode}: "impulse", "uniform", "triangle", or "series"
-\item \code{I0}: Total inoculum amount
-\item \code{start_offset}: Day to start inoculation (defaults to \code{onset})
-\item \code{duration}: Number of days over which to distribute (for
-uniform/triangle)
-\item \code{series}: Custom daily inoculum vector (for series mode, must be length
-\code{duration})
-}
+\item \code{mode} - Character:  "impulse", "uniform", "triangle", or "series"
+\item \code{I0} - Numeric: total inoculum amount (not used for "series" mode)
+\item \code{start_offset} - Integer: day to begin inoculum (defaults to \code{onset})
+\item \code{duration} - Integer: number of days for distribution (for "uniform" and
+"triangle" modes)
+\item \code{series} - Numeric vector: custom daily inoculum values (for
+"series" mode)
 }}
 
-\item{onset}{Day of disease onset (used as default start_offset for simple
-mode).}
+\item{onset}{Integer. Default day for inoculum introduction if \code{start_offset}
+not specified in list mode.}
 
-\item{duration}{Total number of simulation days.}
+\item{duration}{Integer. Total number of simulation days.}
 }
 \value{
-A numeric vector of length \code{duration} with daily primary inoculum
+Numeric vector of length \code{duration} containing daily inoculum
 amounts.
 }
 \description{
-Creates a vector of daily primary inoculum amounts for the simulation,
-supporting both simple (single impulse) and advanced (distributed) modes.
+Creates a vector of daily inoculum values for the simulation period based
+on the specified inoculum mode and parameters.
 }
 \details{
 \strong{Inoculum modes:}
 \itemize{
-\item \strong{impulse}: All inoculum applied on single day (\code{start_offset})
-\item \strong{uniform}: Equal amounts each day for \code{duration} days starting at
-\code{start_offset}
-\item \strong{triangle}: Triangular distribution (ramping up then down) over
-\code{duration} days
-\item \strong{series}: Custom daily amounts provided by user
+\item \strong{impulse}: All inoculum applied on a single day
+\item \strong{uniform}: Inoculum distributed evenly over specified duration
+\item \strong{triangle}: Inoculum distributed with triangular weighting (peak at
+midpoint)
+\item \strong{series}: Custom daily values provided by user
 }
 
-The inoculum represents new infections introduced from outside the system
-(e.g., from neighboring fields, infected seed, or experimental inoculation).
-}
-\examples{
-\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-# Simple scalar: impulse at onset
-inoc_simple <- epicrop:::.build_inoculum(
-  I0 = 10,
-  onset = 20,
-  duration = 120
-)
-which(inoc_simple > 0)  # Day 20
-
-# Uniform distribution
-inoc_uniform <- epicrop:::.build_inoculum(
-  I0 = list(
-    mode = "uniform",
-    I0 = 100,
-    start_offset = 20,
-    duration = 5
-  ),
-  onset = 20,
-  duration = 120
-)
-inoc_uniform[18: 25]  # 20 per day for days 20-24
-
-# Triangle distribution
-inoc_tri <- epicrop:::.build_inoculum(
-  I0 = list(
-    mode = "triangle",
-    I0 = 100,
-    start_offset = 20,
-    duration = 7
-  ),
-  onset = 20,
-  duration = 120
-)
-plot(18:27, inoc_tri[18:27], type = "h",
-     xlab = "Day", ylab = "Inoculum",
-     main = "Triangular Inoculum")
-
-# Custom series
-custom_inoc <- c(1, 2, 5, 10, 5, 2, 1)
-inoc_series <- epicrop:::.build_inoculum(
-  I0 = list(
-    mode = "series",
-    series = c(rep(0, 19), custom_inoc, rep(0, 94))
-  ),
-  onset = 20,
-  duration = 120
-)
-\dontshow{\}) # examplesIf}
-}
-\author{
-Adam H. Sparks, \email{adamhsparks@gmail.com}
+If \code{start_offset} or \code{onset} falls outside [1, duration], a warning is
+issued and no inoculum is applied (returns vector of zeros).
 }
 \keyword{internal}

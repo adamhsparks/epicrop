@@ -2,63 +2,35 @@
 % Please edit documentation in R/epicrop_sim.R
 \name{.calculate_dvs}
 \alias{.calculate_dvs}
-\title{Calculate Development Stage (DVS)}
+\title{Calculate development stage (DVS)}
 \usage{
 .calculate_dvs(w, thermal_time)
 }
 \arguments{
-\item{w}{A data.table of weather data with a TEMP column.}
+\item{w}{A data.table containing weather data with a \code{TEMP} column.}
 
-\item{thermal_time}{A list with:
+\item{thermal_time}{A list containing:
 \itemize{
-\item \code{base_temp}: Base temperature for GDD calculation (°C)
-\item \code{gdd_to_maturity}: Total GDD required to reach DVS = 2 (°C·days)
+\item \code{base_temp} - Base temperature for degree day calculation
+\item \code{gdd_to_maturity} - Total growing degree days required to reach maturity
 }}
 }
 \value{
-A numeric vector of DVS values from 0 to 2, one per day in \code{w}.
+Numeric vector of daily DVS values, ranging from 0 to 2, where:
+\itemize{
+\item 0 = emergence
+\item 1 = flowering/anthesis
+\item 2 = physiological maturity
+}
 }
 \description{
-Calculates the development stage of the crop from 0 (emergence) to 2
-(physiological maturity) based on cumulative growing degree days (GDD).
+Computes the crop development stage based on accumulated thermal time
+(growing degree days). DVS ranges from 0 (emergence) to 2 (physiological
+maturity).
 }
 \details{
-DVS (Development Stage) is calculated as:
-\itemize{
-\item GDD = cumsum(max(0, TEMP - base_temp))
-\item DVS = min(2, 2 * GDD / gdd_to_maturity)
-}
-
-This provides a physiologically realistic way to scale crop age effects,
-as opposed to simple calendar days. DVS values:
-\itemize{
-\item 0 = Emergence
-\item 1 = Anthesis/flowering
-\item 2 = Physiological maturity
-}
-}
-\examples{
-\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-wth <- epicrop::get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-07-01", "2000-10-31")
-)
-
-thermal_time <- list(
-  base_temp = 10,
-  gdd_to_maturity = 1100
-)
-
-dvs <- epicrop:::.calculate_dvs(wth, thermal_time)
-
-# Plot DVS over time
-plot(wth$YYYYMMDD, dvs, type = "l",
-     xlab = "Date", ylab = "DVS",
-     main = "Crop Development Stage")
-abline(h = c(0, 1, 2), lty = 2, col = "gray")
-\dontshow{\}) # examplesIf}
-}
-\author{
-Adam H. Sparks, \email{adamhsparks@gmail.com}
+Growing degree days (GDD) are calculated as the cumulative sum of daily
+thermal time, where daily thermal time = max(TEMP - base_temp, 0).
+DVS is then calculated as 2 * GDD / gdd_to_maturity, capped at 2.
 }
 \keyword{internal}

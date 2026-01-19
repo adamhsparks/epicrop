@@ -1,7 +1,7 @@
 #' Calculate leaf wetness duration (wet-hours) from relative humidity and rainfall
 #'
 #' Calculates daily leaf wetness duration as wet-hours from 0 to 24 using
-#' relative humidity and rainfall. The wet-hours output can then be mapped to an
+#' relative humidity and rainfall.   The wet-hours output can then be mapped to an
 #' infection-rate multiplier from 0 to 1 using an RcW curve (hours -> 0 to 1).
 #'
 #' Two modes are supported:
@@ -13,7 +13,7 @@
 #'
 #' Rainfall contributes additional wet-hours proportional to RAIN / rainlim,
 #' capped at 24, and combined without double-counting by scaling to the
-#' remaining dry fraction of the day. If TMIN/TMAX are missing, the function
+#' remaining dry fraction of the day.  If TMIN/TMAX are missing, the function
 #' falls back to a binary wetness day (0 or 24 wet-hours) based on rhlim/rainlim
 #' thresholds.
 #'
@@ -22,11 +22,29 @@
 #' @param rainlim Rainfall scaling threshold (mm per wet-hour equivalent).
 #' @param weighted_wetness If TRUE, compute weighted hourly wetness (0 to 24);
 #'   if FALSE, count hours where hourly RH >= rhlim (0 to 24).
+#'
 #' @returns A numeric vector of daily wet-hours from 0 to 24, length nrow(wth).
 #'   Use with RcW (hours -> 0 to 1) to obtain the wetness multiplier for
 #'   infection.
+#'
+#' @examples
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-07-31")
+#' )
+#'
+#' # Simple binary wetness
+#' wet_simple <- .calculate_leaf_wetness(
+#'   wth = wth,
+#'   rhlim = 90,
+#'   rainlim = 5,
+#'   weighted_wetness = FALSE
+#' )
+#' summary(wet_simple)
+#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @dev
-
 .calculate_leaf_wetness <- function(
   wth,
   rhlim,
@@ -45,7 +63,7 @@
     cli::cli_abort("DOY is missing or wrong length.")
   }
 
-  # Always make rainfall a usable vector (RH-only runs supported)
+  # Always make rainfall a usable vector
   prec <- wth$RAIN
   if (is.null(prec)) {
     prec <- rep(0, n)
@@ -54,12 +72,12 @@
 
   rainlim <- max(rainlim, .Machine$double.eps)
 
-  # If TMIN/TMAX are missing, we cannot do diurnal RH: strict-hours fallback
+  # If TMIN/TMAX are missing, fallback to binary wetness
   if (!all(c("TMIN", "TMAX") %in% names(wth))) {
     return(data.table::fifelse(rh >= rhlim | prec >= rainlim, 24L, 0L))
   }
 
-  # TEMP robust extraction (only needed for diurnal calc)
+  # Extract temperature data
   tmin <- wth$TMIN
   tmax <- wth$TMAX
 
@@ -76,7 +94,7 @@
     )
   }
 
-  # LAT required only for diurnal calc
+  # LAT required for diurnal calculation
   lat <- wth$LAT
   if (is.null(lat)) {
     cli::cli_abort("LAT is required for hourly wetness calculation.")
@@ -93,8 +111,10 @@
     yyyymmdd <- seq_len(n)
   }
 
+  # Calculate hourly RH
   rh_hr <- .diurnal_rh(rh, tmin, tmax, tmp, lat, doy, yyyymmdd)
 
+  # Count wet hours
   if (isFALSE(weighted_wetness)) {
     lw <- unlist(lapply(rh_hr, .check_threshold, rhlim = rhlim))
   } else {
@@ -102,30 +122,31 @@
     lw <- unlist(lapply(w, sum))
   }
 
-  # rain wet-hours (0..24), scaled by precip/rainlim
+  # Add rain contribution
   wet_rain_hours <- pmin(24.0, prec / rainlim)
 
-  # combine without double counting
+  # Combine without double counting
   wet_total <- lw + (1.0 - lw / 24.0) * wet_rain_hours
 
-  # strict contract enforcement: 0..24
+  # Enforce 0-24 range
   wet_total <- pmin(24.0, pmax(0.0, wet_total))
-  wet_total
+  return(wet_total)
 }
-
 
 #' Calculate hourly relative humidity for a given day
 #'
 #' Uses mean rh, doy, location (lat), mean tmp, tmin and tmax to calculate
-#'  hourly rh values.
+#' hourly rh values.
 #'
 #' @param rh Mean daily relative humidity as provided by `wth` via [epicrop_sim()].
 #' @param tmin Minimum temperature as provided by `wth` via [epicrop_sim()].
 #' @param tmax Maximum temperature as provided by `wth` via [epicrop_sim()].
 #' @param tmp Mean daily temperature as provided by `wth` via [epicrop_sim()].
-#' @param doy Sequential day of year as provided by `wth` via [epicrop_sim()].
 #' @param lat Latitude provided by `wth` via [epicrop_sim()].
+#' @param doy Sequential day of year as provided by `wth` via [epicrop_sim()].
 #' @param yyyymmdd Date (YYYY-MM-DD) as provided by `wth` via [epicrop_sim()].
+#'
+#' @returns A numeric vector of relative humidity values over 24 hrs.
 #'
 #' @examples
 #' wth <- get_wth(
@@ -143,8 +164,8 @@
 #'   yyyymmdd = wth$YYYYMMDD
 #' )
 #'
-#' @returns A numeric vector of relative humidity values over 24 hrs.
-#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @dev
 .diurnal_rh <- function(rh, tmin, tmax, tmp, lat, doy, yyyymmdd) {
   rh_hr <- stats::setNames(vector("list", length(yyyymmdd)), yyyymmdd)
@@ -168,15 +189,14 @@
 #'
 #' Uses doy, location (lat) and TMIN and TMAX to calculate hourly temperatures.
 #'
-#' @param lat Latitude as provided by `wth` via `epicrop_sim()`
-#' @param doy Sequential day of year as provided by `wth` via `epicrop_sim()`
-#' @param tmin Minimum temperature as provided by `wth` via `epicrop_sim()`
-#' @param tmax Maximum temperature as provided by `wth` via `epicrop_sim()`
-#' @param dayl Daylight hours as provided by `wth` via `epicrop_sim()`
+#' @param lat Latitude as provided by `wth` via [epicrop_sim()].
+#' @param doy Sequential day of year as provided by `wth` via [epicrop_sim()].
+#' @param tmin Minimum temperature as provided by `wth` via [epicrop_sim()].
+#' @param tmax Maximum temperature as provided by `wth` via [epicrop_sim()].
 #'
 #' @returns A numeric vector of hourly temperature values for the duration of
-#'  `wth` data
-#' @author Robert J. Hijmans with modifications by Adam H. Sparks
+#'  `wth` data.
+#'
 #' @examples
 #' wth <- get_wth(
 #'   lonlat = c(121.25562, 14.6774),
@@ -190,6 +210,9 @@
 #'   tmax = wth$TMAX
 #' )
 #'
+#' @author Robert J. Hijmans with modifications by Adam H. Sparks,
+#'   \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @dev
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
   dayl <- mapply(FUN = .day_length, lat = lat, doy = doy)
@@ -202,42 +225,25 @@
   .hourly_t <- function(x) {
     hr_temp <- vector(mode = "numeric", length = 24.0)
     for (hr in 1.0:24.0) {
-      # period a: dhour between midnight and sunrise;
       if (hr < x["sunris"]) {
-        tsunst <-
-          x["tmin"] +
+        tsunst <- x["tmin"] +
           (x["tmax"] - x["tmin"]) *
-            sin(
-              pi * (x["dayl"] / (x["dayl"] + 3.0))
-            )
-        hr_temp[[hr]] <-
-          (x["tmin"] -
-            tsunst * exp(-x["nightl"] / 4.0) +
-            (tsunst - x["tmin"]) *
-              exp(
-                -(hr + 24 - x["sunset"]) / 4.0
-              )) /
+            sin(pi * (x["dayl"] / (x["dayl"] + 3.0)))
+        hr_temp[[hr]] <- (x["tmin"] -
+          tsunst * exp(-x["nightl"] / 4.0) +
+          (tsunst - x["tmin"]) * exp(-(hr + 24 - x["sunset"]) / 4.0)) /
           (1.0 - exp(-x["nightl"] / 4.0))
       } else if (hr < x["sunset"]) {
-        # period b: dhour between time of sunrise and sunset
-        hr_temp[[hr]] <-
-          x["tmin"] +
+        hr_temp[[hr]] <- x["tmin"] +
           (x["tmax"] - x["tmin"]) *
-            sin(
-              pi * (hr - x["sunris"]) / (x["dayl"] + 3.0)
-            )
+            sin(pi * (hr - x["sunris"]) / (x["dayl"] + 3.0))
       } else {
-        #  period c: dhour between sunset and midnight;
-        tsunst <-
-          x["tmin"] +
+        tsunst <- x["tmin"] +
           (x["tmax"] - x["tmin"]) *
-            sin(
-              pi * (x["dayl"] / (x["dayl"] + 3.0))
-            )
-        hr_temp[[hr]] <-
-          (x["tmin"] -
-            tsunst * exp(-x["nightl"] / 4.0) +
-            (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4.0)) /
+            sin(pi * (x["dayl"] / (x["dayl"] + 3.0)))
+        hr_temp[[hr]] <- (x["tmin"] -
+          tsunst * exp(-x["nightl"] / 4.0) +
+          (tsunst - x["tmin"]) * exp(-(hr - x["sunset"]) / 4.0)) /
           (1.0 - exp(-x["nightl"] / 4.0))
       }
     }
@@ -250,9 +256,11 @@
 
 #' Calculate day length for a given latitude on a given date
 #'
-#' @param lat Latitude as provided by `wth` via `epicrop_sim()`
+#' @param lat Latitude as provided by `wth` via [epicrop_sim()].
 #' @param doy Sequential day of year (Julian date) as provided by `wth` via
-#'  `epicrop_sim()`
+#'  [epicrop_sim()].
+#'
+#' @returns A numeric vector of daylight hours based on latitude and date.
 #'
 #' @examples
 #' wth <- get_wth(
@@ -261,15 +269,16 @@
 #' )
 #' .day_length(lat = wth[, LAT], doy = wth[, DOY])
 #'
-#' @author Robert J. Hijmans, modifications by Adam H. Sparks
+#' @author Robert J. Hijmans, modifications by Adam H. Sparks,
+#'   \email{adamhsparks@@gmail.com}
+#'
 #' @references
 #' William C. Forsythe and Edward J. Rykiel and Randal S. Stahl and Hsin-i Wu
-#' and Robert M. Schoolfield. Ecological Modeling, Volume 80 (1995) pp. 87-95,
+#' and Robert M. Schoolfield.  Ecological Modeling, Volume 80 (1995) pp.  87-95,
 #' "A Model Comparison for Day Length as a Function of Latitude and Day of the
 #' Year", \doi{10.1016/0304-3800(94)00034-F}
 #'
-#' @returns A numeric vector of daylight hours based on latitude and date
-#'
+#' @autoglobal
 #' @dev
 .day_length <- function(lat, doy) {
   doy <- (doy - 1.0) %% 365.0 + 1.0
@@ -286,29 +295,34 @@
 
 #' Calculate saturated vapour pressure, es
 #'
-#' @param tmp Mean temperature as provided by `wth` via `epicrop_sim()`
+#' @param tmp Mean temperature as provided by `wth` via [epicrop_sim()].
 #'
-#' @returns Single double precision value of es as kilopascals
+#' @returns Single double precision value of es as kilopascals.
 #'
-#' @references Alduchov and Eskridge 1995,
-#'  <doi:10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2>
-#'
-#' @author Adam H. Sparks
 #' @examples
 #' .saturated_vapour_pressure(0)
 #'
+#' @references Alduchov and Eskridge 1995,
+#'  \doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
+#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @dev
 .saturated_vapour_pressure <- function(tmp) {
   0.61094 * exp((17.625 * (tmp)) / ((tmp) + 243.04))
 }
 
 #' Check if the relative humidity is above the threshold
+#'
 #' @param rh_hr A list of 24 relative humidity values for every DOY in the
 #'  data.
 #' @param rhlim The relative humidity threshold to check against.
 #'
+#' @returns Integer count of hours where RH >= rhlim.
+#'
 #' @examples
 #' .check_threshold(rh_hr = rep(95, 24), rhlim = 95)
+#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @dev
 .check_threshold <- function(rh_hr, rhlim) {
   return(sum(rh_hr >= rhlim))
@@ -323,19 +337,20 @@
 #' @param rhlim The relative humidity threshold to check against between `80` &
 #'  `100`.
 #'
+#' @returns A `vector` of weighted values between 0 and 1 depending on the
+#' `rhlim`.
+#'
 #' @examples
 #' .calculate_weighted_hr_wet(rh = 86, rhlim = 95)
 #'
-#' @returns A `vector` of weighted values between 0 and 1 depending on the
-#' `rhlim`
-#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @dev
-#'
 .calculate_weighted_hr_wet <- function(rh, rhlim) {
   if (rhlim < 80.0) {
     cli::cli_abort(
-      "You have set your {.var rhlim} below 80%. This value must be between `80`
-      and `100` to properly work with weighted hourly leaf wetness.",
+      "You have set your {.var rhlim} below 80%.  This value must be between 80
+      and 100 to properly work with weighted hourly leaf wetness.",
       call = rlang::caller_env()
     )
   }
