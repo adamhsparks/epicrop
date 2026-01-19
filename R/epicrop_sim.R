@@ -358,7 +358,7 @@ epicrop_sim <- function(
 #' @autoglobal
 #'
 .prepare_weather_data <- function(wth, duration) {
-  if (!inherits(wth, "data. table")) {
+  if (!inherits(wth, "data.table")) {
     wth <- data.table::as.data.table(wth)
   }
 
@@ -370,7 +370,7 @@ epicrop_sim <- function(
 
   # Check for NAs in temperature
   if (anyNA(wth$TEMP)) {
-    cli::cli_abort("{. var TEMP} contains {.val NA} values")
+    cli::cli_abort("{.var TEMP} contains {.val NA} values")
   }
 
   # Handle NAs in rainfall
@@ -385,28 +385,94 @@ epicrop_sim <- function(
 
 #' Determine simulation window from weather data
 #'
-#' @description
-#' Calculates the simulation date range based on emergence date and duration,
-#' then extracts the corresponding weather data subset.
+#' Extracts the subset of weather data needed for the simulation based on the
+#' emergence date and simulation duration.  Validates that sufficient weather
+#' data is available for the requested time window.
 #'
-#' @param wth A data.table containing weather data with a `YYYYMMDD` column.
-#' @param emergence A Date object or date string indicating crop emergence date.
-#'   If multiple values provided, only the first is used.
-#' @param duration Integer. Number of days to simulate from emergence.
+#' @param wth A data.table containing weather data with daily time-step.   Must
+#'   have a column `YYYYMMDD` of class `Date` containing the date for each
+#'   observation.  This is typically an object of class `epicrop.wth` created
+#'   by [get_wth()] or [format_wth()].
+#' @param emergence Character string or Date object specifying the crop
+#'   emergence date in `YYYY-MM-DD` format.  If a vector is provided, only the
+#'   first element is used (with a warning).
+#' @param duration Integer specifying the number of days to simulate from the
+#'   emergence date.  Must be a positive integer, typically >= 50 days for
+#'   meaningful disease progression.
 #'
-#' @return A list with two elements:
-#'   * `wth_subset` - data.table containing weather data for the simulation
-#'      window
-#'   * `run_dates` - Date vector of all simulation dates
+#' @returns A list with two elements:
+#'   \describe{
+#'     \item{wth_subset}{A data.table subset of the input weather data
+#'       containing exactly `duration` rows, starting from the emergence date.
+#'       This is the weather data that will be used for the simulation.}
+#'     \item{run_dates}{A Date vector of length `duration` containing the
+#'       sequence of dates for the simulation window, starting from the
+#'       emergence date.}
+#'   }
 #'
 #' @details
-#' The function validates that sufficient weather data exists for the entire
-#' simulation window.  If weather data is incomplete, an error is raised with
-#' diagnostic information about the gap.
+#' This function performs several operations:
+#' \enumerate{
+#'   \item Converts the emergence date to Date class using [.check_date()]
+#'   \item Generates a sequence of dates from emergence to emergence +
+#'      duration - 1
+#'   \item Ensures the weather data's YYYYMMDD column is Date class for matching
+#'   \item Extracts rows from the weather data that match the simulation dates
+#'   \item Validates that the extracted data has exactly `duration` rows
+#' }
 #'
-#' @dev
+#' If multiple emergence dates are provided, only the first is used and a
+#' warning is issued.
+#'
+#' If insufficient weather data is available (the extracted subset has fewer
+#' than `duration` rows), an informative error is thrown showing:
+#' \itemize{
+#'   \item The requested number of days
+#'   \item The actual number of days available
+#'   \item The requested date window
+#'   \item The available date range in the weather data
+#' }
+#'
+#' @section Side Effects:
+#' \itemize{
+#'   \item Prints an informative message showing the emergence date
+#'   \item May modify the input `wth` data.table in place to convert YYYYMMDD
+#'     to Date class if it isn't already
+#' }
+#'
+#' @examples
+#' \dontrun{
+#' # This is an internal function not meant to be called directly
+#' wth <- get_wth(
+#'   lonlat = c(121.25562, 14.6774),
+#'   dates = c("2000-06-30", "2000-12-31")
+#' )
+#'
+#' # Extract 120-day window starting July 1
+#' run_info <- epicrop:::.determine_run_window(
+#'   wth = wth,
+#'   emergence = "2000-07-01",
+#'   duration = 120
+#' )
+#'
+#' # Check the results
+#' nrow(run_info$wth_subset)  # 120
+#' length(run_info$run_dates)  # 120
+#' range(run_info$run_dates)  # 2000-07-01 to 2000-10-28
+#' }
+#'
+#' @seealso
+#' \itemize{
+#'   \item [.check_date()] for date parsing and validation
+#'   \item [get_wth()] for fetching weather data from NASA POWER
+#'   \item [format_wth()] for formatting user-supplied weather data
+#'   \item [epicrop_sim()] which calls this function internally
+#' }
+#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
-#'
+#' @keywords internal
+#' @dev
 .determine_run_window <- function(wth, emergence, duration) {
   em_date <- .check_date(emergence)
 
@@ -417,17 +483,28 @@ epicrop_sim <- function(
     em_date <- em_date[[1L]]
   }
 
-  dates <- seq(em_date, by = "day", length.out = duration)
+  # Convert to Date for matching
+  em_date <- as.Date(em_date)
 
-  cli::cli_inform("v" = "Emergence date:  {.val {em_date}}")
+  # Generate sequence of dates from emergence for duration days
+  dates <- seq(from = em_date, by = "day", length.out = duration)
+
+  cli::cli_inform("Emergence date: {.val {em_date}}")
+
+  # Ensure YYYYMMDD is Date class for matching
+  if (!inherits(wth$YYYYMMDD, "Date")) {
+    wth[, YYYYMMDD := as.Date(YYYYMMDD)]
+  }
 
   w <- wth[YYYYMMDD %in% dates]
 
   if (nrow(w) != duration) {
     cli::cli_abort(c(
       "Insufficient weather data for simulation window",
-      "x" = "Need {. val {duration}} days, have {.val {nrow(w)}}",
-      "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}"
+      "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}",
+      "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}",
+      "i" = "Available:  {.val {min(wth$YYYYMMDD)}} to 
+      {.val {max(wth$YYYYMMDD)}}"
     ))
   }
 
@@ -632,7 +709,7 @@ epicrop_sim <- function(
     if (onset >= 1 && onset <= duration) {
       Iprim[onset] <- I0
       cli::cli_inform(
-        "i" = "Inoculum:  {.val {I0}} at day {.val {onset}} (impulse)"
+        c("i" = "Inoculum: {.val {I0}} at day {.val {onset}} (impulse)")
       )
     } else {
       cli::cli_warn(c(
@@ -665,7 +742,7 @@ epicrop_sim <- function(
   if (mode == "impulse") {
     Iprim[start_offset] <- I0$I0
     cli::cli_inform(
-      "i" = "Inoculum: {.val {I0$I0}} at day {.val {start_offset}} (impulse)"
+      c("i" = "Inoculum: {.val {I0$I0}} at day {.val {start_offset}} (impulse)")
     )
   } else if (mode == "uniform") {
     L <- max(1, I0$duration)
@@ -675,8 +752,10 @@ epicrop_sim <- function(
     if (length(idx) > 0) {
       Iprim[idx] <- I0$I0 / length(idx)
       cli::cli_inform(
-        "i" = "Inoculum:   {.val {I0$I0}} uniform, days
+        c(
+          "i" = "Inoculum:   {.val {I0$I0}} uniform, days
         {.val {min(idx)}}-{.val {max(idx)}}"
+        )
       )
     }
   } else if (mode == "triangle") {
@@ -689,8 +768,10 @@ epicrop_sim <- function(
       wts <- c(seq_len(half), rev(seq_len(length(idx) - half)))
       Iprim[idx] <- I0$I0 * (wts / sum(wts))
       cli::cli_inform(
-        "i" = "Inoculum:   {.val {I0$I0}} triangular, days
+        c(
+          "i" = "Inoculum:   {.val {I0$I0}} triangular, days
         {.val {min(idx)}}-{.val {max(idx)}}"
+        )
       )
     }
   } else if (mode == "series") {
@@ -711,14 +792,14 @@ epicrop_sim <- function(
     Iprim <- I0$series
     total <- sum(Iprim)
     cli::cli_inform(
-      "i" = "Inoculum: custom series, total = {.val {round(total, 2)}}"
+      c("i" = "Inoculum: custom series, total = {.val {round(total, 2)}}")
     )
   }
 
   return(Iprim)
 }
 
-#' Assemble output data. table
+#' Assemble output data.table
 #'
 #' @description
 #' Constructs the final simulation output data.table with all daily state
@@ -743,7 +824,7 @@ epicrop_sim <- function(
 #' @param wth A data.table containing weather data with optional `LAT` and
 #'   `LON` columns for location coordinates.
 #'
-#' @return A data.tableof class `c("epicrop. sim", "data.table",
+#' @return A data.tableof class `c("epicrop.sim", "data.table",
 #' "data.frame")`
 #'   containing:
 #'   * `simday` - Sequential day number (1 to duration)

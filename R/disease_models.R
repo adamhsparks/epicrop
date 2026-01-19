@@ -8,10 +8,10 @@
 #' \acronym{POWER} data from [get_wth()], but any [base::data.frame()] object
 #' that has been formatted using [format_wth()] will work.
 #' @param emergence Expected date of crop emergence in `YYYY-MM-DD` format.
-#' @param ...   Additional arguments passed to [epicrop_sim()].
+#' @param ... Additional arguments passed to [epicrop_sim()].
 #'
 #' @returns A [data.table::data.table()] of disease intensity and infection
-#' sites.  See [epicrop_sim()] for a full description of the column values.
+#' sites. See [epicrop_sim()] for a full description of the column values.
 #'
 #' @section Available Models:
 #'

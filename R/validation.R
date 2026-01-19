@@ -201,7 +201,7 @@
       c(
         "You have set {.var simple_wetness} to {.code FALSE} but ",
         "you do not have 'TMIN' and 'TMAX' columns in your weather ",
-        "data. Please set {.var simple_wetness} to {. code TRUE} or ",
+        "data. Please set {.var simple_wetness} to {.code TRUE} or ",
         "provide 'TMIN' and 'TMAX' columns in your {.var wth} data."
       ),
       call = rlang::caller_env()
@@ -210,8 +210,7 @@
 
   # Validate RcW when complex wetness is used
   if (isFALSE(simple_wetness) && !is.null(RcW)) {
-    .
-    validate_RcW_matrix(RcW)
+    .validate_RcW_matrix(RcW)
   }
 
   invisible(TRUE)
@@ -256,15 +255,50 @@
   invisible(TRUE)
 }
 
-#' Check if value is boolean
+#' Check if value is a single boolean
+#'
+#' @param x Value to check
+#' @returns TRUE if x is exactly TRUE or FALSE, FALSE otherwise (including NA)
+#'
+#' @details
+#' This function checks that a value is:
+#' \itemize{
+#'   \item Logical type
+#'   \item Length 1 (scalar)
+#'   \item Not NA
+#' }
+#'
+#' @examples
+#' \dontrun{
+#' . is_boolean(TRUE)           # TRUE
+#' .is_boolean(FALSE)          # TRUE
+#' .is_boolean(NA)             # FALSE
+#' .is_boolean(1)              # FALSE
+#' .is_boolean(c(TRUE, FALSE)) # FALSE
+#' }
+#'
+#' @autoglobal
+#' @keywords internal
 #' @noRd
 .is_boolean <- function(x) {
-  is.logical(x) && length(x) == 1L
+  is.logical(x) && length(x) == 1L && !is.na(x)
 }
 
 #' Check and parse date
+#'
+#' @param x a date input (character, Date, POSIXct).
+#'
+#' @examples
+#' # passes
+#' .check_date("2023-10-15")
+#'
+#' # fails
+#' \dontrun{
+#'  .check_date("120-100-2023")
+#' }
+#' @return A validated POSIXct date object.
+#' @dev
 #' @autoglobal
-#' @noRd
 .check_date <- function(x) {
   if (lubridate::is.POSIXct(x) || lubridate::is.Date(x)) {
     tz <- lubridate::tz(x)

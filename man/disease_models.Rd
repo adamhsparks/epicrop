@@ -72,7 +72,7 @@ that has been formatted using \code{\link[=format_wth]{format_wth()}} will work.
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
-sites.  See \code{\link[=epicrop_sim]{epicrop_sim()}} for a full description of the column values.
+sites. See \code{\link[=epicrop_sim]{epicrop_sim()}} for a full description of the column values.
 }
 \description{
 Helper functions that provide sensible defaults for disease-specific

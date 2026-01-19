@@ -29,7 +29,7 @@ Authors:
   \item Ireno Pangga \email{ibpangga@yahoo.com} (Model conception, development in Stella and original R
  implementation) [translator, copyright holder]
   \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator, copyright holder]
-  \item Kwang-Hyung Kim \email{sospicy77@gmail.com} (Contributed code for modified Kim leaf blast and sheath blight functions.) [copyright holder]
+  \item Kwang-Hyung Kim \email{sospicy77@gmail.com} (Contributed code for modified Kim leaf blast and sheath blight functions and feedback on the implementation.) [copyright holder]
 }
 
 Other contributors:
@@ -37,10 +37,6 @@ Other contributors:
   \item Aji Sukarta \email{aji.ixb@gmail.com} (Helped fix bug related to SEIR model and establishment
  date) [contributor]
   \item Emerson Del Ponte \email{delponte@ufv.br} (\href{https://orcid.org/0000-0003-4398-409X}{ORCID}) (Suggested fixes for several typos in the documentation) [contributor]
-  \item Aleksandar Blagotić \email{alex@rapporter.net} (Author of the CRAN package 'rapportools', from which
- the '.is_boolean()' was taken.) [contributor]
-  \item Gergely Daróczi \email{daroczig@rapporter.net} (Author of the CRAN package 'rapportools', from which
- the '.is_boolean()' was taken.) [contributor]
 }
 
 }

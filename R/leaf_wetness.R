@@ -1,7 +1,7 @@
 #' Calculate leaf wetness duration (wet-hours) from relative humidity and rainfall
 #'
 #' Calculates daily leaf wetness duration as wet-hours from 0 to 24 using
-#' relative humidity and rainfall.   The wet-hours output can then be mapped to an
+#' relative humidity and rainfall. The wet-hours output can then be mapped to an
 #' infection-rate multiplier from 0 to 1 using an RcW curve (hours -> 0 to 1).
 #'
 #' Two modes are supported:

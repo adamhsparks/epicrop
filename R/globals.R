@@ -7,7 +7,6 @@ utils::globalVariables(c(
   "lat", # <.assemble_output>
   "lon", # <.assemble_output>
   "DOY", # <format_wth>
-  ".", # <.validate_wetness_params>
   "DOY", # <format_wth>
   NULL
 ))

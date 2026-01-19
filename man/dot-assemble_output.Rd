@@ -2,7 +2,7 @@
 % Please edit documentation in R/epicrop_sim.R
 \name{.assemble_output}
 \alias{.assemble_output}
-\title{Assemble output data. table}
+\title{Assemble output data.table}
 \usage{
 .assemble_output(core, run_dates, duration, wth)
 }
@@ -32,7 +32,7 @@
 \code{LON} columns for location coordinates.}
 }
 \value{
-A data.tableof class \code{c("epicrop. sim", "data.table", "data.frame")}
+A data.tableof class \code{c("epicrop.sim", "data.table", "data.frame")}
 containing:
 \itemize{
 \item \code{simday} - Sequential day number (1 to duration)

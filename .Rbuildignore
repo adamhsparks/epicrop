@@ -35,6 +35,7 @@
 ^man/dot-build_inoculum\.Rd$
 ^man/dot-assemble_output\.Rd$
 ^man/dot-check_na\.Rd$
+^man/dot-interp\.Rd$
 ^man/dot-calculate_leaf_wetness\.Rd$
 ^man/dot-diurnal_rh\.Rd$
 ^man/dot-diurnal_temp\.Rd$
@@ -42,3 +43,4 @@
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-check_threshold\.Rd$
 ^man/dot-calculate_weighted_hr_wet\.Rd$
+^man/dot-check_date\.Rd$
