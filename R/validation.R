@@ -271,22 +271,26 @@
 
   # Check hour values are in valid range
   if ((max(RcW[, 1]) > 24) || (min(RcW[, 1]) < 0)) {
-    cli::cli_abort(c(
+    cli::cli_abort(
       call = rlang::caller_env(),
-      "The hourly values for {.var RcW} should be between 0 ",
-      "and 24. Please provide a matrix with hour values ",
-      "between 0 and 24, inclusive."
-    ))
+      c(
+        "The hourly values for {.var RcW} should be between 0 ",
+        "and 24. Please provide a matrix with hour values ",
+        "between 0 and 24, inclusive."
+      )
+    )
   }
 
   # Check modifier values are in valid range
   if ((max(RcW[, 2]) > 1) || (min(RcW[, 2]) < 0)) {
-    cli::cli_abort(c(
+    cli::cli_abort(
       call = rlang::caller_env(),
-      "The modifier values for {.var RcW} should be >= 0 and ",
-      "<= 1. Please provide a matrix of modifier values that ",
-      "are between 0 and 1."
-    ))
+      c(
+        "The modifier values for {.var RcW} should be >= 0 and ",
+        "<= 1. Please provide a matrix of modifier values that ",
+        "are between 0 and 1."
+      )
+    )
   }
 
   invisible(TRUE)
