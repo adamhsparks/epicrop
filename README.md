@@ -121,12 +121,12 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 93.95%
+#> epicrop Coverage: 93.87%
+#> R/calculate_audpc.R: 80.00%
 #> R/validation.R: 83.07%
 #> R/epicrop_sim.R: 88.63%
 #> R/leaf_wetness.R: 90.55%
 #> src/seir_core.cpp: 97.73%
-#> R/calculate_audpc.R: 100.00%
 #> R/disease_models.R: 100.00%
 #> R/interpolation.R: 100.00%
 #> R/weather.R: 100.00%

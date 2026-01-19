@@ -14,9 +14,8 @@ A \code{numeric} value as \code{double}.
 }
 \description{
 This function is used to return the AUDPC in the output of \code{\link[=epicrop_sim]{epicrop_sim()}}.
-This version is not to be used alone as it assumes that there is always only
-one day between observations so it takes shortcuts in the calculation of the
-values.
+Not to be used alone as it assumes that there is always only one day between
+observations so it takes shortcuts in the calculation of the values.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
@@ -30,13 +29,17 @@ bb <- bacterial_blight(wth, emergence = "2000-07-01")
 \dontshow{\}) # examplesIf}
 }
 \references{
-Sparks, A.H., P.D. Esker, M.  Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+Shaner G., and R.E. Finney, 1977. The effect of nitrogen fertilization on the
+expression of slow-mildewing resistance in Knox wheat. \strong{Phytopathology}
+67: 1051–1056.
+
+Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-Disease Progress over Time. \emph{The Plant Health Instructor}.
+Disease Progress over Time. \strong{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
 
-Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
-Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+Madden, L. V., G. Hughes, and F. van den Bosch. 2007. \strong{The Study of Plant
+Disease Epidemics}. American Phytopathological Society, St. Paul, MN.
 \doi{doi.org/10.1094/9780890545058}.
 }
 \author{
