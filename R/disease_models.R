@@ -35,7 +35,7 @@
 #' Modeling and mapping potential epidemics of rice diseases globally.
 #' *Crop Protection*, 34: 6-17. \doi{10.1016/j.cropro.2011.11.009}
 #'
-#' Kim, K.  H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
+#' Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
 #' Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
 #' *Agricultural and Forest Meteorology*, 203: 191-207.
 #' \doi{10.1016/j.agrformet. 2015.01.011}
