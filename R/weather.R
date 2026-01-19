@@ -50,7 +50,7 @@
 #' @export
 get_wth <- function(lonlat, dates, duration) {
   if (!missing(duration)) {
-    dates[2L] <- as.character(as.Date(as.Date(dates[1L]) + (duration)))
+    dates[2L] <- as.character(as.Date(as.Date(dates[1L]) + (duration + 1)))
   }
 
   wth <- data.table::setDT(
