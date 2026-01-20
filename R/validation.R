@@ -65,7 +65,7 @@
 #' @autoglobal
 #' @noRd
 .validate_weather <- function(wth) {
-  if (!inherits(wth, "epicrop.wth")) {
+  if (!rlang::inherits_any(wth, "epicrop.wth")) {
     cli::cli_abort(
       c(
         "{.var wth} must be an object of {.class epicrop.wth}.",
