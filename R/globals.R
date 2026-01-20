@@ -3,7 +3,6 @@
 utils::globalVariables(c(
   "RHUM", # <.prepare_weather_data>
   "RAIN", # <.prepare_weather_data>
-  "YYYYMMDD", # <.determine_run_window>
   "lat", # <.assemble_output>
   "lon", # <.assemble_output>
   "DOY", # <format_wth>
