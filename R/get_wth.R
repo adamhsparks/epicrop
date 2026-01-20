@@ -102,7 +102,7 @@ get_wth <- function(lonlat, dates, duration) {
       "LON"
     )
   )
-  if (!inherits(wth$YYYYMMDD, "IDate")) {
+  if (!rlang::inherits_any(wth$YYYYMMDD, "IDate")) {
     wth[, YYYYMMDD := as.IDate(as.character(YYYYMMDD), format = "%Y%m%d")]
   }
   data.table::setKey(wth, c("YYYYMMDD"))
