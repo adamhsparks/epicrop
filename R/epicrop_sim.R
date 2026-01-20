@@ -266,6 +266,7 @@ epicrop_sim <- function(
   )
 
   # Prepare weather data
+  wth <- data.table::copy(wth)
   wth <- .prepare_weather_data(wth, duration)
 
   # Determine simulation window
@@ -358,7 +359,7 @@ epicrop_sim <- function(
 #' @autoglobal
 #'
 .prepare_weather_data <- function(wth, duration) {
-  if (!inherits(wth, "data.table")) {
+  if (!rlang::inherits_any(wth, "data.table")) {
     wth <- data.table::as.data.table(wth)
   }
 
@@ -482,49 +483,40 @@ epicrop_sim <- function(
 #' @autoglobal
 #' @keywords internal
 #' @dev
+
 .determine_run_window <- function(wth, emergence, duration) {
   em_date <- .check_date(emergence)
-
   if (length(em_date) > 1L) {
     cli::cli_warn(
-      call = rlang::caller_env(),
       "Only one day is used for emergence.  Only the first value will be used."
     )
     em_date <- em_date[[1L]]
   }
-
-  # Convert to Date for matching
   em_date <- as.Date(em_date)
-
-  # Generate sequence of dates from emergence for duration days
   dates <- seq(from = em_date, by = "day", length.out = duration)
-
   cli::cli_inform("Emergence date: {.val {em_date}}")
 
+  # Convert a local view for matching without touching parent
+  col <- wth[["YYYYMMDD"]]
+
   # Ensure YYYYMMDD is Date class for matching
-  if (!inherits(wth$YYYYMMDD, "Date")) {
-    wth[, YYYYMMDD := as.Date(YYYYMMDD)]
+  if (!rlang::inherits_any(col, "Date")) {
+    col <- as.Date(col)
   }
 
-  w <- wth[YYYYMMDD %in% dates]
+  idx <- col %in% dates
+  w <- wth[idx]
 
   if (nrow(w) != duration) {
-    cli::cli_abort(
-      call = rlang::caller_env(),
-      c(
-        "Insufficient weather data for simulation window",
-        "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}",
-        "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}",
-        "i" = "Available:  {.val {min(wth$YYYYMMDD)}} to 
-      {.val {max(wth$YYYYMMDD)}}"
-      )
-    )
+    cli::cli_abort(c(
+      "Insufficient weather data for simulation window",
+      "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}",
+      "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}",
+      "i" = "Available:  {.val {min(col)}} to {.val {max(col)}}"
+    ))
   }
 
-  return(list(
-    wth_subset = w,
-    run_dates = dates
-  ))
+  return(list(wth_subset = w, run_dates = dates))
 }
 
 #' Calculate development stage (DVS)
