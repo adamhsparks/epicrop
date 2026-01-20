@@ -102,6 +102,10 @@ get_wth <- function(lonlat, dates, duration) {
       "LON"
     )
   )
+  if (!inherits(wth$YYYYMMDD, "IDate")) {
+    wth[, YYYYMMDD := as.IDate(as.character(YYYYMMDD), format = "%Y%m%d")]
+  }
+  data.table::setKey(wth, c("YYYYMMDD"))
   .check_na(.wth = wth)
   class(wth) <- union("epicrop.wth", class(wth))
   return(wth)
