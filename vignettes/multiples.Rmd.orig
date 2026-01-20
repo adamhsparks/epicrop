@@ -142,14 +142,6 @@ In this case, while this code runs, you can benchmark it and see that this is no
 An example benchmarking different methods is provided here.
 
 ```{r parallel-seasons}
-library(furrr)
-library(dplyr)
-library(lubridate)
-library(pander)
-
-# Respect the API server and use 1 core
-plan(multisession, workers = 1)
-
 years <- 2000:2001
 seasons <- paste0(years, "-06-30")
 seasons_wth <-
