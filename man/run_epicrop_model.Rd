@@ -95,9 +95,8 @@ run_epicrop_model(bacterial_blight,
                   mode = "none",
                   output = "audpc")
 
-# Parallel (futureverse) AUDPC for STB on 4 workers
-# requires {future} and {future.apply} packages to be installed
-run_epicrop_model(stb,
+# Parallel (futureverse) AUDPC for BB on 4 workers
+run_epicrop_model(bacterial_blight,
                   emergence,
                   wth_list,
                   window_days = 120L,
