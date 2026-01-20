@@ -158,16 +158,14 @@ ggplot(data = bb_dry,
   theme_classic()
 ```
 
-As the AUDPC value is found in the `AUDPC` column and is repeated for every row of the `data.table` so we only need to access the first row.
-We can easily do this by calling the column using the `$` operator and `[]` to select an index value, in this case the first row of the `data.table`.
-Optionally if you wished to used {dplyr} you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
+The AUDPC values can be viewed directly from the attributes of the `data.table` outputs above, but we can also create a small helper function to extract them.
 
 ```{r audpc}
 # Dry season
-bb_dry$AUDPC[1]
+get_audpc(bb_dry)
 
 # Wet season
-bb_wet$AUDPC[1]
+get_audpc(bb_wet)
 ```
 
 The AUDPC of the wet season is greater than that of the dry season.

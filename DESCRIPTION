@@ -59,6 +59,7 @@ Suggests:
     microbenchmark,
     pander,
     prettymapr,
+    purrr, 
     rmarkdown,
     roxyglobals,
     spelling,
