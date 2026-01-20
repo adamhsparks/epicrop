@@ -50,7 +50,8 @@ Imports:
 Suggests:
     cropgrowdays,
     dplyr,
-    furrr,
+    future,
+    future.apply,
     ggplot2,
     ggrepel,
     ggspatial,
@@ -58,7 +59,6 @@ Suggests:
     microbenchmark,
     pander,
     prettymapr,
-    purrr,
     rmarkdown,
     roxyglobals,
     spelling,
