@@ -487,20 +487,22 @@ epicrop_sim <- function(
 .determine_run_window <- function(wth, emergence, duration) {
   em_date <- .check_date(emergence)
   if (length(em_date) > 1L) {
+    # Use this function's environment (or omit `.envir` entirely)
     cli::cli_warn(
-      "Only one day is used for emergence.  Only the first value will be used."
+      "Only one day is used for emergence. Only the first value will be used."
     )
     em_date <- em_date[[1L]]
   }
   em_date <- as.Date(em_date)
   dates <- seq(from = em_date, by = "day", length.out = duration)
+
   cli::cli_inform("Emergence date: {.val {em_date}}")
 
   # Convert a local view for matching without touching parent
   col <- wth[["YYYYMMDD"]]
 
   # Ensure YYYYMMDD is Date class for matching
-  if (!rlang::inherits_any(col, "Date")) {
+  if (!inherits(col, "Date")) {
     col <- as.Date(col)
   }
 
@@ -512,11 +514,11 @@ epicrop_sim <- function(
       "Insufficient weather data for simulation window",
       "x" = "Need {.val {duration}} days, have {.val {nrow(w)}}",
       "i" = "Window: {.val {min(dates)}} to {.val {max(dates)}}",
-      "i" = "Available:  {.val {min(col)}} to {.val {max(col)}}"
+      "i" = "Available: {.val {min(col)}} to {.val {max(col)}}"
     ))
   }
 
-  return(list(wth_subset = w, run_dates = dates))
+  list(wth_subset = w, run_dates = dates)
 }
 
 #' Calculate development stage (DVS)
@@ -715,14 +717,19 @@ epicrop_sim <- function(
       Iprim[onset] <- I0
       cli::cli_inform(
         call = rlang::caller_env(),
-        c("i" = "Inoculum: {.val {I0}} at day {.val {onset}} (impulse)")
+        c("i" = "Inoculum: {.val {I0}} at day {.val {onset}} (impulse)"),
+
+        .envir = parent.frame()
       )
     } else {
-      cli::cli_warn(c(
-        call = rlang::caller_env(),
-        "!" = "{.var onset} = {.val {onset}} outside simulation window",
-        "i" = "No inoculum applied"
-      ))
+      cli::cli_warn(
+        c(
+          call = rlang::caller_env(),
+          "!" = "{.var onset} = {.val {onset}} outside simulation window",
+          "i" = "No inoculum applied"
+        ),
+        .envir = parent.frame()
+      )
     }
 
     return(Iprim)
@@ -736,12 +743,15 @@ epicrop_sim <- function(
 
   # Validate start_offset
   if (start_offset < 1 || start_offset > duration) {
-    cli::cli_warn(c(
-      call = rlang::caller_env(),
-      "!" = "{.var start_offset} = {.val {start_offset}}
+    cli::cli_warn(
+      c(
+        call = rlang::caller_env(),
+        "!" = "{.var start_offset} = {.val {start_offset}}
       outside simulation window",
-      "i" = "No inoculum applied"
-    ))
+        "i" = "No inoculum applied"
+      ),
+      .envir = parent.frame()
+    )
     return(numeric(duration))
   }
 
@@ -751,7 +761,10 @@ epicrop_sim <- function(
     Iprim[start_offset] <- I0$I0
     cli::cli_inform(
       call = rlang::caller_env(),
-      c("i" = "Inoculum: {.val {I0$I0}} at day {.val {start_offset}} (impulse)")
+      c(
+        "i" = "Inoculum: {.val {I0$I0}} at day {.val {start_offset}} (impulse)"
+      ),
+      .envir = parent.frame()
     )
   } else if (mode == "uniform") {
     L <- max(1, I0$duration)
@@ -765,7 +778,8 @@ epicrop_sim <- function(
         c(
           "i" = "Inoculum:   {.val {I0$I0}} uniform, days
         {.val {min(idx)}}-{.val {max(idx)}}"
-        )
+        ),
+        .envir = parent.frame()
       )
     }
   } else if (mode == "triangle") {
@@ -782,31 +796,39 @@ epicrop_sim <- function(
         c(
           "i" = "Inoculum:   {.val {I0$I0}} triangular, days
         {.val {min(idx)}}-{.val {max(idx)}}"
-        )
+        ),
+        .envir = parent.frame()
       )
     }
   } else if (mode == "series") {
     if (is.null(I0$series)) {
-      cli::cli_abort(c(
-        call = rlang::caller_env(),
-        "{.var I0$series} required for series mode",
-        "x" = "Got {.val NULL}"
-      ))
+      cli::cli_abort(
+        c(
+          call = rlang::caller_env(),
+          "{.var I0$series} required for series mode",
+          "x" = "Got {.val NULL}"
+        ),
+        .envir = parent.frame()
+      )
     }
 
     if (length(I0$series) != duration) {
-      cli::cli_abort(c(
-        call = rlang::caller_env(),
-        "{.var I0$series} length must equal {.var duration}",
-        "x" = "Got {.val {length(I0$series)}}, expected {.val {duration}}"
-      ))
+      cli::cli_abort(
+        c(
+          call = rlang::caller_env(),
+          "{.var I0$series} length must equal {.var duration}",
+          "x" = "Got {.val {length(I0$series)}}, expected {.val {duration}}"
+        ),
+        .envir = parent.frame()
+      )
     }
 
     Iprim <- I0$series
     total <- sum(Iprim)
     cli::cli_inform(
       call = rlang::caller_env(),
-      c("i" = "Inoculum: custom series, total = {.val {round(total, 2)}}")
+      c("i" = "Inoculum: custom series, total = {.val {round(total, 2)}}"),
+      .envir = parent.frame()
     )
   }
 
