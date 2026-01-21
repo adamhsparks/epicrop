@@ -50,122 +50,124 @@
 #' @autoglobal
 #' @export get_wth
 
-get_wth <- function(lonlat, dates, duration) {
-  if (!missing(duration)) {
-    dates[2L] <- as.character(as.Date(as.Date(dates[1L]) + (duration + 1)))
+get_wth <- function(lonlat, dates, duration = NULL) {
+  if (!is.numeric(lonlat) || length(lonlat) != 2L) {
+    cli::cli_abort(
+      "{.arg lonlat} must be numeric length-2: {.code c(lon, lat)}."
+    )
   }
 
-  wth <- setDT(
+  if (missing(dates) || length(dates) < 1L) {
+    cli::cli_abort(
+      "Provide {.arg dates} as \"YYYY-MM-DD\" (start) or c(start, end)."
+    )
+  }
+  start <- as.Date(dates[1L])
+  if (is.na(start)) {
+    cli::cli_abort("`dates[1]` must be an ISO date (\"YYYY-MM-DD\").")
+  }
+
+  if (!is.null(duration) && !missing(duration)) {
+    if (
+      !rlang::is_integerish(duration, n = 1, finite = TRUE) || duration <= 0L
+    ) {
+      cli::cli_abort(
+        "{.arg duration} must be a single positive integer (days)."
+      )
+    }
+    end <- start + (as.integer(duration) - 1L) # <-- inclusive window
+  } else if (length(dates) >= 2L) {
+    end <- as.Date(dates[2L])
+    if (is.na(end)) {
+      cli::cli_abort("`dates[2]` must be an ISO date (\"YYYY-MM-DD\").")
+    }
+  } else {
+    end <- start # single-day request
+  }
+
+  date_vec <- c(format(start, "%Y-%m-%d"), format(end, "%Y-%m-%d"))
+
+  wth <- data.table::setDT(
     nasapower::get_power(
       lonlat = lonlat,
-      dates = dates,
+      dates = date_vec,
       community = "AG",
-      pars = c(
-        "T2M",
-        "T2M_MIN",
-        "T2M_MAX",
-        "RH2M",
-        "PRECTOTCORR"
-      ),
+      pars = c("T2M", "T2M_MIN", "T2M_MAX", "RH2M", "PRECTOTCORR"),
       temporal_api = "DAILY"
     )
   )
-  wth[, c("YEAR", "MM", "DD") := NULL][]
-  setnames(
-    wth,
-    old = c(
-      "T2M",
-      "T2M_MIN",
-      "T2M_MAX",
-      "PRECTOTCORR",
-      "RH2M"
-    ),
-    new = c(
-      "TEMP",
-      "TMIN",
-      "TMAX",
-      "RAIN",
-      "RHUM"
-    )
-  )
-  setcolorder(
-    wth,
-    c(
-      "YYYYMMDD",
-      "DOY",
-      "TEMP",
-      "TMIN",
-      "TMAX",
-      "RHUM",
-      "RAIN",
-      "LAT",
-      "LON"
-    )
-  )
-  if (!rlang::inherits_any(wth$YYYYMMDD, "IDate")) {
-    wth[, YYYYMMDD := as.IDate(as.character(YYYYMMDD), format = "%Y%m%d")]
-  }
-  data.table::setKey(wth, c("YYYYMMDD"))
-  .check_na(.wth = wth)
-  class(wth) <- union("epicrop.wth", class(wth))
-  return(wth)
-}
 
-#' Check POWER data for any missing values
-#' @param .wth A data.frame object from [nasapower::get_power] with weather
-#'  data for checking
-#' Checks the data returned from the POWER dataset and informs the user if
-#' missing values are found. It does not do anything other than emitting a
-#' message about missing data.
-#' @returns Called for its side-effects, an invisible `NULL`.
-#' @examples
-#' wth <- setDT(
-#'   nasapower::get_power(
-#'     lonlat = c(121.25562, 14.6774),
-#'     dates = "2000-06-30",
-#'     community = "AG",
-#'     pars = c(
-#'       "T2M",
-#'       "T2M_MIN",
-#'       "T2M_MAX",
-#'       "RH2M",
-#'       "PRECTOTCORR"
-#'     ),
-#'     temporal_api = "DAILY"
-#'   )
-#' )
-#'
-#' wth[, c("YEAR", "MM", "DD") := NULL][]
-#' setnames(
-#'   wth,
-#'   old = c(
-#'     "T2M",
-#'     "T2M_MIN",
-#'     "T2M_MAX",
-#'     "PRECTOTCORR",
-#'     "RH2M"
-#'   ),
-#'   new = c(
-#'     "TEMP",
-#'     "TMIN",
-#'     "TMAX",
-#'     "RAIN",
-#'     "RHUM"
-#'   )
-#' )
-#' .check_na(wth)
-#' @dev
-
-.check_na <- function(.wth) {
-  if (anyNA(.wth[, c("TEMP", "TMIN", "TMAX", "RHUM", "RAIN")])) {
-    cli::cli_alert(
-      c(
-        i = "The weather data have missing values in your request.",
-        x = "This can cause errors when running the model.
-      You should inspect the weather data carefully and either fill missing
-      or try again to download to see if that provides a complete set of data."
+  if (!"YYYYMMDD" %in% names(wth)) {
+    if (all(c("YEAR", "MO", "DY") %in% names(wth))) {
+      wth[,
+        YYYYMMDD := data.table::as.IDate(sprintf(
+          "%04d-%02d-%02d",
+          YEAR,
+          MO,
+          DY
+        ))
+      ]
+    } else if (all(c("YEAR", "MM", "DD") %in% names(wth))) {
+      wth[,
+        YYYYMMDD := data.table::as.IDate(sprintf(
+          "%04d-%02d-%02d",
+          YEAR,
+          MM,
+          DD
+        ))
+      ]
+    } else {
+      cli::cli_abort(
+        "Could not find or construct {.field YYYYMMDD} in POWER response."
       )
-    )
-    return(invisible(NULL))
+    }
+  } else if (!rlang::inherits_any(wth$YYYYMMDD, "IDate")) {
+    # POWER sometimes returns integer YYYYMMDD; coerce explicitly
+    wth[,
+      YYYYMMDD := data.table::as.IDate(
+        as.character(YYYYMMDD),
+        format = "%Y%m%d"
+      )
+    ]
+    # If that failed (e.g., already "YYYY-MM-DD"), try plain coercion
+    if (anyNA(wth$YYYYMMDD)) {
+      wth[, YYYYMMDD := data.table::as.IDate(as.character(YYYYMMDD))]
+    }
   }
+
+  cols_drop <- intersect(c("YEAR", "MM", "MO", "DD", "DY"), names(wth))
+  if (length(cols_drop)) {
+    wth[, (cols_drop) := NULL]
+  }
+
+  rename_map <- c(
+    "T2M" = "TEMP",
+    "T2M_MIN" = "TMIN",
+    "T2M_MAX" = "TMAX",
+    "PRECTOTCORR" = "RAIN",
+    "RH2M" = "RHUM"
+  )
+  for (old in names(rename_map)) {
+    if (old %in% names(wth)) data.table::setnames(wth, old, rename_map[[old]])
+  }
+
+  target <- c(
+    "YYYYMMDD",
+    "DOY",
+    "TEMP",
+    "TMIN",
+    "TMAX",
+    "RHUM",
+    "RAIN",
+    "LAT",
+    "LON"
+  )
+  have <- intersect(target, names(wth))
+  data.table::setcolorder(wth, c(have, setdiff(names(wth), have)))
+
+  data.table::setkey(wth, "YYYYMMDD") # <-- fix: setkey (not setKey)
+  .check_na(wth)
+
+  class(wth) <- union("epicrop.wth", class(wth))
+  wth
 }
