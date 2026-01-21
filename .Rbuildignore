@@ -34,7 +34,6 @@
 ^man/dot-prepare_modifiers\.Rd$
 ^man/dot-build_inoculum\.Rd$
 ^man/dot-assemble_output\.Rd$
-^man/dot-check_na\.Rd$
 ^man/dot-interp\.Rd$
 ^man/dot-calculate_leaf_wetness\.Rd$
 ^man/dot-diurnal_rh\.Rd$
@@ -43,9 +42,9 @@
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-check_threshold\.Rd$
 ^man/dot-calculate_weighted_hr_wet\.Rd$
-^man/dot-normalize_chunk\.Rd$
 ^man/dot-make_slicer\.Rd$
 ^man/dot-make_runner\.Rd$
 ^man/dot-select_applier\.Rd$
 ^man/dot-assemble_results\.Rd$
+^man/dot-normalize_chunk\.Rd$
 ^man/dot-check_date\.Rd$
