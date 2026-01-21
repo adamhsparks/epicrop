@@ -1,8 +1,12 @@
 # vignettes that depend on Internet access need to be precompiled
 library(knitr)
-library(here)
 library(devtools)
+library(here)
+library(fs)
+
 install() # ensure we're using latest version of epicrop
+
+# --- knit and purl vignettes (inputs/outputs unchanged) ----------------------
 
 # epicrop vignette
 knit(input = "vignettes/epicrop.Rmd.orig", output = "vignettes/epicrop.Rmd")
@@ -16,46 +20,49 @@ purl("vignettes/multiples.Rmd.orig", output = "vignettes/multiples.R")
 knit(input = "vignettes/mapping.Rmd.orig", output = "vignettes/mapping.Rmd")
 purl("vignettes/mapping.Rmd.orig", output = "vignettes/mapping.R")
 
-# move image files
-figs <-
-  list.files(here("figure/"), pattern = ".png$", full.names = TRUE)
-file.copy(
-  from = figs,
-  to = paste0(here("vignettes/"), basename(figs)),
-  overwrite = TRUE
-)
-file.remove(figs)
-file.remove(here("figure"))
+# --- move figure image files into vignettes/ using fs ------------------------
 
-# remove file path such that vignettes will build with figures
-## epicrop vignette
-epicrop_replace <- readLines("vignettes/epicrop.Rmd")
-epicrop_replace <- gsub("\\(figure/", "\\(", epicrop_replace)
+fig_dir <- here::here("figure")
+vig_dir <- here::here("vignettes")
 
-epicrop_file_con <- file("vignettes/epicrop.Rmd")
-writeLines(epicrop_replace, epicrop_file_con)
-close(epicrop_file_con)
+# list .pngs in figure/
+figs <- dir_ls(fig_dir, glob = "*.png")
 
-## multiples vignette
-multiples_replace <- readLines("vignettes/multiples.Rmd")
-multiples_replace <- gsub("\\(figure/", "\\(", multiples_replace)
+# copy images to vignettes, then remove originals and the folder
+if (length(figs)) {
+  file_copy(
+    path = figs,
+    new_path = path(vig_dir, path_file(figs)),
+    overwrite = TRUE
+  )
+  file_delete(figs)
+}
+if (dir_exists(fig_dir)) {
+  dir_delete(fig_dir)
+}
 
-multiples_file_con <- file("vignettes/multiples.Rmd")
-writeLines(multiples_replace, multiples_file_con)
-close(multiples_file_con)
+# --- strip '(figure/...' from image paths in vignettes -----------------------
 
-## mapping vignette
-mapping_replace <- readLines("vignettes/mapping.Rmd")
-mapping_replace <- gsub("\\(figure/", "\\(", mapping_replace)
+# helper to replace in-place
+replace_figure_path <- function(path) {
+  x <- readLines(path, warn = FALSE)
+  x <- gsub("\\(figure/", "(", x)
+  writeLines(x, path)
+  invisible(path)
+}
 
-mapping_file_con <- file("vignettes/mapping.Rmd")
-writeLines(mapping_replace, mapping_file_con)
-close(mapping_file_con)
+replace_figure_path(path(vig_dir, "epicrop.Rmd"))
+replace_figure_path(path(vig_dir, "multiples.Rmd"))
+replace_figure_path(path(vig_dir, "mapping.Rmd"))
 
-# build vignettes
+# --- build vignettes ---------------------------------------------------------
+
 build_vignettes()
 
-# move resource files (images) to /doc
-resources <-
-  list.files(here("vignettes/"), pattern = ".png$", full.names = TRUE)
-file.copy(from = resources, to = here("doc"), overwrite = TRUE)
+# --- move resource files (images) to /doc using fs ---------------------------
+
+doc_dir <- here::here("doc")
+pngs_in_vig <- dir_ls(vig_dir, glob = "*.png")
+if (length(pngs_in_vig)) {
+  file_copy(path = pngs_in_vig, new_path = doc_dir, overwrite = TRUE)
+}
