@@ -9,7 +9,7 @@ run_epicrop_model(
   emergence_dates,
   wth_list,
   window_days = 120L,
-  mode = c("none", "future"),
+  mode = c("sequential", "future"),
   cores = NULL,
   chunk = c("auto", "none"),
   output = c("audpc", "full"),
@@ -31,10 +31,12 @@ year;
 \code{names(wth_list)} must be year strings (e.g., "2001"). \strong{Each table must
 have a keyed \code{date} column} (IDate/Date) as emitted by \code{\link[=get_wth]{get_wth()}}.}
 
-\item{window_days}{Integer. Days after emergence to include (default 120L).
-The slicer returns exactly \code{window_days} rows when data are available.}
+\item{window_days}{Integer. Days after emergence to include. The slicer
+returns exactly \code{window_days} rows when data are available.  This is
+necessary when the model run spans multiple years, otherwise it just
+passes through.}
 
-\item{mode}{Character. "none" for sequential (default) or "future" for
+\item{mode}{Character. "sequential" for sequential (default) or "future" for
 parallel.}
 
 \item{cores}{Integer. Number of workers when \code{mode = "future"}.
@@ -92,7 +94,6 @@ run_epicrop_model(bacterial_blight,
                   emergence,
                   wth_list,
                   window_days = 120L,
-                  mode = "none",
                   output = "audpc")
 
 # Parallel (futureverse) AUDPC for BB on 4 workers

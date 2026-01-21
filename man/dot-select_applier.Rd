@@ -5,7 +5,7 @@
 \title{Select sequential or futureverse parallel application strategy}
 \usage{
 .select_applier(
-  mode = c("none", "future"),
+  mode = c("sequential", "future"),
   cores = NULL,
   chunk = "auto",
   dt_threads = NULL,
@@ -13,7 +13,7 @@
 )
 }
 \arguments{
-\item{mode}{"none" or "future".}
+\item{mode}{"sequential" or "future".}
 
 \item{cores}{Integer worker count (only for future).}
 

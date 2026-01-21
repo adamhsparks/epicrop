@@ -7,7 +7,7 @@
 fetch_epicrop_weather_list(
   years,
   lonlat,
-  start_md,
+  start_date,
   duration,
   sleep_jitter = c(0, 0)
 )
@@ -15,14 +15,18 @@ fetch_epicrop_weather_list(
 \arguments{
 \item{years}{Integer vector of years to fetch.}
 
-\item{lonlat}{Numeric vector of length 2: c(longitude, latitude).}
+\item{lonlat}{Numeric vector of length 2: \code{c(lon, lat)} or a 2 column matrix
+named "lon" and "lat", respectively.  See examples.}
 
-\item{start_md}{Character string of month-day in "-MM-DD" format indicating
+\item{start_date}{Character string of month-day in "-MM-DD" format indicating
 the month and day to start fetching weather for each year.}
 
 \item{duration}{Integer. Number of days of weather data to fetch per season.}
 
-\item{sleep_jitter}{Numeric vector of length 2. Minimum and maximum seconds.}
+\item{sleep_jitter}{Numeric vector of length 2. Minimum and maximum seconds.
+Defaults to \code{c(0, 0)} (no sleep).  When set to positive values, a random
+value in this range is used to pause between requests to the
+\acronym{POWER} API.}
 }
 \description{
 Fetch per-year weather tables for use with epicrop models (polite to upstream APIs)
@@ -31,7 +35,7 @@ Fetch per-year weather tables for use with epicrop models (polite to upstream AP
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Minimal example: fetch two years at a given location
 yrs <- 2001:2002
-lonlat <- c(121.255669, 14.16742)    # (lon, lat)
+lonlat <- c(121.255669, 14.16742) # (lon, lat)
 
 # Start month-day and duration (days) per year
 wth_list <- fetch_epicrop_weather_list(
@@ -43,7 +47,25 @@ wth_list <- fetch_epicrop_weather_list(
 )
 
 em <- build_epicrop_emergence(yrs, "-06-01")
-run_epicrop_model(bacterial_blight, em, wth_list, output = "audpc")
+
+# using a matrix of multiple locations
+lonlat <- matrix(
+c(
+  115.8600, -31.9500,   # Perth
+  117.0000, -30.7500,   # Wheatbelt example
+  121.2556,  14.6774    # IRRI ZEIGLER
+),
+ncol = 2,
+byrow = TRUE,
+dimnames = list(NULL, c("lon", "lat"))
+)
+
+wth_list <- fetch_epicrop_weather_list(
+ years = 2020:2021,
+ lonlat = lonlat,
+ start_date = c("04-15", "05-01"),
+ duration = 120L
+ )
 \dontshow{\}) # examplesIf}
 }
 \seealso{
