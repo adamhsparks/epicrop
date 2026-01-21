@@ -15,9 +15,11 @@
 #'   year;
 #'   `names(wth_list)` must be year strings (e.g., "2001"). **Each table must
 #'   have a keyed `date` column** (IDate/Date) as emitted by [get_wth()].
-#' @param window_days Integer. Days after emergence to include (default 120L).
-#'   The slicer returns exactly `window_days` rows when data are available.
-#' @param mode Character. "none" for sequential (default) or "future" for
+#' @param window_days Integer. Days after emergence to include. The slicer
+#'    returns exactly `window_days` rows when data are available.  This is
+#'    necessary when the model run spans multiple years, otherwise it just
+#'    passes through.
+#' @param mode Character. "sequential" for sequential (default) or "future" for
 #'   parallel.
 #' @param cores Integer. Number of workers when `mode = "future"`.
 #'   Default: `max(1L, parallel::detectCores() - 1L)`.
@@ -60,7 +62,6 @@
 #'                   emergence,
 #'                   wth_list,
 #'                   window_days = 120L,
-#'                   mode = "none",
 #'                   output = "audpc")
 #'
 #' # Parallel (futureverse) AUDPC for BB on 4 workers
@@ -81,7 +82,7 @@ run_epicrop_model <- function(
   emergence_dates,
   wth_list,
   window_days = 120L,
-  mode = c("none", "future"),
+  mode = c("sequential", "future"),
   cores = NULL,
   chunk = c("auto", "none"), # also accepts numeric
   output = c("audpc", "full"),
@@ -114,11 +115,11 @@ run_epicrop_model <- function(
 
   # Threads policy (parent)
   if (mode == "future") {
-    data.table::setDTthreads(
+    data.table::setdtthreads(
       if (is.null(dt_threads)) 1L else as.integer(dt_threads)
     )
   } else if (!is.null(dt_threads)) {
-    data.table::setDTthreads(as.integer(dt_threads))
+    data.table::setdtthreads(as.integer(dt_threads))
   }
 
   wd <- as.integer(window_days)
@@ -301,7 +302,7 @@ run_epicrop_model <- function(
 
 
 #' Select sequential or futureverse parallel application strategy
-#' @param mode "none" or "future".
+#' @param mode "sequential" or "future".
 #' @param cores Integer worker count (only for future).
 #' @param chunk "auto", "none", or numeric chunk size (≈ elements per
 #'    scheduling unit).
@@ -311,7 +312,7 @@ run_epicrop_model <- function(
 #' @return A function(x, fun) applying `fun` over `x` (possibly in parallel).
 #' @dev
 .select_applier <- function(
-  mode = c("none", "future"),
+  mode = c("sequential", "future"),
   cores = NULL,
   chunk = "auto",
   dt_threads = NULL,
@@ -319,7 +320,7 @@ run_epicrop_model <- function(
 ) {
   mode <- match.arg(mode)
 
-  if (identical(mode, "none")) {
+  if (identical(mode, "sequential")) {
     # Sequential: set seed if provided; then plain lapply
     return(function(x, fun) {
       if (!is.null(seed)) {
@@ -372,7 +373,7 @@ run_epicrop_model <- function(
     future.apply::future_lapply(
       X = x,
       FUN = function(ed) {
-        data.table::setDTthreads(
+        data.table::setdtthreads(
           if (is.null(dt_threads)) 1L else as.integer(dt_threads)
         )
         fun(ed)
@@ -433,18 +434,22 @@ build_epicrop_emergence <- function(years, month_day) {
 #' Fetch per-year weather tables for use with epicrop models (polite to upstream APIs)
 #'
 #' @param years Integer vector of years to fetch.
-#' @param lonlat Numeric vector of length 2: c(longitude, latitude).
-#' @param start_md Character string of month-day in "-MM-DD" format indicating
+#' @param lonlat Numeric vector of length 2: `c(lon, lat)` or a 2 column matrix
+#'   named "lon" and "lat", respectively.  See examples.
+#' @param start_date Character string of month-day in "-MM-DD" format indicating
 #'   the month and day to start fetching weather for each year.
 #' @param duration Integer. Number of days of weather data to fetch per season.
 #' @param sleep_jitter Numeric vector of length 2. Minimum and maximum seconds.
+#'   Defaults to `c(0, 0)` (no sleep).  When set to positive values, a random
+#'   value in this range is used to pause between requests to the
+#'   \acronym{POWER} API.
 #'
 #' @seealso run_epicrop_model, build_epicrop_emergence
 #'
 #' @examplesIf interactive()
 #' # Minimal example: fetch two years at a given location
 #' yrs <- 2001:2002
-#' lonlat <- c(121.255669, 14.16742)    # (lon, lat)
+#' lonlat <- c(121.255669, 14.16742) # (lon, lat)
 #'
 #' # Start month-day and duration (days) per year
 #' wth_list <- fetch_epicrop_weather_list(
@@ -456,33 +461,89 @@ build_epicrop_emergence <- function(years, month_day) {
 #' )
 #'
 #' em <- build_epicrop_emergence(yrs, "-06-01")
-#' run_epicrop_model(bacterial_blight, em, wth_list, output = "audpc")
 #'
+#' # using a matrix of multiple locations
+#' lonlat <- matrix(
+#' c(
+#'   115.8600, -31.9500,   # Perth
+#'   117.0000, -30.7500,   # Wheatbelt example
+#'   121.2556,  14.6774    # IRRI ZEIGLER
+#' ),
+#' ncol = 2,
+#' byrow = TRUE,
+#' dimnames = list(NULL, c("lon", "lat"))
+#' )
+#'
+#' wth_list <- fetch_epicrop_weather_list(
+#'  years = 2020:2021,
+#'  lonlat = lonlat,
+#'  start_date = c("04-15", "05-01"),
+#'  duration = 120L
+#'  )
+#'
+#' @autoglobal
 #' @export
+
 fetch_epicrop_weather_list <- function(
   years,
   lonlat,
-  start_md,
+  start_date,
   duration,
   sleep_jitter = c(0, 0)
 ) {
-  if (substr(start_md, 1, 1) != "-") {
-    start_md <- sprintf("-%s", start_md)
+  # coerce lonlat to 2-col matrix [lon, lat]
+  if (is.numeric(lonlat) && length(lonlat) == 2L) {
+    lonlat <- matrix(lonlat, nrow = 1L, dimnames = list(NULL, c("lon", "lat")))
+  } else {
+    lonlat <- as.matrix(lonlat)
+    if (ncol(lonlat) != 2L) {
+      cli::cli_abort("{.var lonlat} must have 2 columns: lon, lat")
+    }
+    colnames(lonlat) <- c("lon", "lat")
   }
 
-  out <- lapply(years, function(y) {
-    res <- get_wth(
-      sprintf("%s%s", y, start_md),
-      lonlat = lonlat,
+  # normalise start_date to "-MM-DD"
+  start_date <- ifelse(
+    substr(start_date, 1L, 1L) == "-",
+    start_date,
+    paste0("-", start_date)
+  )
+
+  # fast Cartesian product
+  dt <- data.table::CJ(
+    year = as.integer(years),
+    md = start_date,
+    idx = seq_len(nrow(lonlat)),
+    sorted = FALSE
+  )
+  dt[, `:=`(lon = lonlat[idx, 1], lat = lonlat[idx, 2])]
+  dt[, full_date := paste0(year, md)]
+
+  n <- nrow(dt)
+  out <- vector("list", n)
+  nm <- sprintf("%s|%0.6f,%0.6f", dt$full_date, dt$lon, dt$lat)
+
+  for (i in seq_len(n)) {
+    ll <- c(dt$lon[i], dt$lat[i])
+    # IMPORTANT: match get_wth signature (lonlat, dates, duration)
+    out[[i]] <- get_wth(
+      lonlat = ll,
+      dates = dt$full_date[i],
       duration = duration
     )
-    if (length(sleep_jitter) >= 2 && sleep_jitter[2] > 0) {
-      Sys.sleep(stats::runif(1, sleep_jitter[1], sleep_jitter[2]))
-    }
-    res
-  })
 
-  names(out) <- as.character(years)
+    if (
+      length(sleep_jitter) >= 2L &&
+        is.finite(sleep_jitter[2]) &&
+        sleep_jitter[2] > 0
+    ) {
+      lo <- min(sleep_jitter[1], sleep_jitter[2])
+      hi <- max(sleep_jitter[1], sleep_jitter[2])
+      Sys.sleep(runif(1, lo, hi))
+    }
+  }
+
+  names(out) <- nm
   class(out) <- c("epicrop.wth.list", "list")
   out
 }
