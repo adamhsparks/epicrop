@@ -9,13 +9,12 @@ run_epicrop_model(
   emergence_dates,
   wth_list,
   window_days = 120L,
-  mode = c("sequential", "future"),
+  mode = "sequential",
   cores = NULL,
-  chunk = c("auto", "none"),
-  output = c("audpc", "full"),
+  chunk = "auto",
+  output = "audpc",
   strict = TRUE,
   dt_threads = NULL,
-  seed = NULL,
   ...
 )
 }
@@ -26,38 +25,32 @@ run_epicrop_model(
 \item{emergence_dates}{Vector of dates (character "YYYY-MM-DD", Date, or
 IDate).}
 
-\item{wth_list}{Named list of weather \link[data.table:data.table]{data.table::data.table}s with one per
-year;
-\code{names(wth_list)} must be year strings (e.g., "2001"). \strong{Each table must
-have a keyed \code{date} column} (IDate/Date) as emitted by \code{\link[=get_wth]{get_wth()}}.}
+\item{wth_list}{Named list of weather \link[data.table:data.table]{data.table::data.table}s with
+one per year; \code{names(wth_list)} must be year strings (\emph{e.g.}, "2001").
+Each table must have a \code{YYYYMMDD} column (Date/IDate/ISO/"YYYYMMDD").}
 
-\item{window_days}{Integer. Days after emergence to include. The slicer
-returns exactly \code{window_days} rows when data are available.  This is
-necessary when the model run spans multiple years, otherwise it just
-passes through.}
+\item{window_days}{Integer. Days after emergence to include (default 120L).
+The slicer returns exactly \code{window_days} rows when data are available.}
 
 \item{mode}{Character. "sequential" for sequential (default) or "future" for
-parallel.}
+parallel. Defaults to "sequential".}
 
 \item{cores}{Integer. Number of workers when \code{mode = "future"}.
 Default: \code{max(1L, parallel::detectCores() - 1L)}.}
 
 \item{chunk}{Either "auto", "none", or a positive integer chunk size
-for batching emergence dates per future. "auto" ~ 4 chunks/worker.}
+for batching emergence dates per future. "auto" ~ 4 chunks/worker. Defaults
+to "auto".}
 
 \item{output}{Character. "audpc" (compact summary using \code{\link[=get_audpc]{get_audpc()}})
-or "full" (return full model outputs per date, with \code{emergence} added).}
-
-\item{strict}{Logical. If TRUE (default), abort via \code{\link[cli:cli_abort]{cli::cli_abort()}} when
+or "full" (return full model outputs per date, with \code{emergence} added).
+Defaults to "audpc".
 required year weather is missing; if FALSE, skip that date with
 \code{\link[cli:cli_abort]{cli::cli_warn()}}.}
 
 \item{dt_threads}{Integer or NULL. \CRANpkg{data.table} threads per process.
 In parallel, this is set \strong{inside each worker} (default 1). In sequential,
 it is set in the main process if provided.}
-
-\item{seed}{\verb{NULL`` or integer. When supplied, makes results **fully reproducible** across sequential and future modes. In future mode, uses L'Ecuyer-CMRG with a deterministic per-emergence seed. Default: }NULL` (no
-seeding).}
 
 \item{...}{Additional arguments forwarded to \code{model_fun}.}
 }
@@ -96,8 +89,9 @@ run_epicrop_model(bacterial_blight,
                   window_days = 120L,
                   output = "audpc")
 
-# Parallel (futureverse) AUDPC for BB on 4 workers
-run_epicrop_model(bacterial_blight,
+# Parallel (futureverse) AUDPC for STB on 4 workers
+# requires {future} and {future.apply} packages to be installed
+run_epicrop_model(stb,
                   emergence,
                   wth_list,
                   window_days = 120L,

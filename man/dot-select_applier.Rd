@@ -2,33 +2,31 @@
 % Please edit documentation in R/run_epicrop_model.R
 \name{.select_applier}
 \alias{.select_applier}
-\title{Select sequential or futureverse parallel application strategy}
+\title{Select sequential or futureverse application strategy}
 \usage{
 .select_applier(
   mode = c("sequential", "future"),
   cores = NULL,
-  chunk = "auto",
-  dt_threads = NULL,
-  seed = NULL
+  chunk = c("auto", "none"),
+  dt_threads = NULL
 )
 }
 \arguments{
 \item{mode}{"sequential" or "future".}
 
-\item{cores}{Integer worker count (only for future).}
+\item{cores}{Integer worker count (future).}
 
-\item{chunk}{"auto", "none", or numeric chunk size (≈ elements per
-scheduling unit).}
+\item{chunk}{"auto", "none", or numeric (mapped to future.scheduling).}
 
-\item{dt_threads}{data.table threads per worker (default 1).}
-
-\item{seed}{\code{NULL} or integer. When set, results are reproducible across
-modes.}
+\item{dt_threads}{Integer data.table threads per worker (default 1 in
+parallel).}
 }
 \value{
-A function(x, fun) applying \code{fun} over \code{x} (possibly in parallel).
+function(x, fun) -> list of results
 }
 \description{
-Select sequential or futureverse parallel application strategy
+Applies \code{fun} over emergence dates either sequentially or via {future.apply}.
+In parallel, uses \code{future.seed = TRUE} to give each element a stable RNG
+stream.
 }
 \keyword{internal}

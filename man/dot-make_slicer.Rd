@@ -2,21 +2,25 @@
 % Please edit documentation in R/run_epicrop_model.R
 \name{.make_slicer}
 \alias{.make_slicer}
-\title{Create a cross‑year‑aware weather slicing function (uses YYYYMMDD IDate)}
+\title{Cross‑year weather slicer (assumes \code{epicrop.wth.list} contract)}
 \usage{
-.make_slicer(wth_list, window_days, strict)
+.make_slicer(wth_list, window_days, strict = TRUE)
 }
 \arguments{
-\item{wth_list}{Named per-year weather tables containing an \code{IDate} column named \code{YYYYMMDD}.}
+\item{wth_list}{An \code{epicrop.wth.list} (named by year strings).}
 
-\item{window_days}{Integer number of days to include from emergence.}
+\item{window_days}{Integer number of days after emergence to include
+(inclusive).}
 
-\item{strict}{Logical; error if missing year, else warn and skip.}
+\item{strict}{Logical; TRUE to abort on missing year/rows, FALSE to warn and
+skip. Defaults to \code{TRUE}.}
 }
 \value{
 A function(ed) -> data.table or NULL
 }
 \description{
-Create a cross‑year‑aware weather slicing function (uses YYYYMMDD IDate)
+Returns a function that slices per-year weather tables using the IDate column
+\code{YYYYMMDD}. No format parsing or coercion is performed—this trusts the S3
+class contract that tables are well-formed.
 }
 \keyword{internal}

@@ -2,17 +2,18 @@
 % Please edit documentation in R/run_epicrop_model.R
 \name{.normalize_chunk}
 \alias{.normalize_chunk}
-\title{Normalize the \code{chunk} option ("auto"/"none" or a positive integer)}
+\title{Normalize the \code{chunk} option}
 \usage{
 .normalize_chunk(chunk)
 }
 \arguments{
-\item{chunk}{Character or numeric. Accepted: "auto", "none", or >0 integer.}
+\item{chunk}{Character or numeric.}
 }
 \value{
-Either "auto", "none", or a scalar positive integer.
+"auto", "none", or integer > 0.
 }
 \description{
-Normalize the \code{chunk} option ("auto"/"none" or a positive integer)
+Accepts "auto"/"none" or a positive integer. Returns a scalar value suitable
+for mapping to scheduling behavior.
 }
 \keyword{internal}

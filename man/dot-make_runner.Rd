@@ -7,20 +7,22 @@
 .make_runner(model_fun, output, slicer, ..., window_days = NULL)
 }
 \arguments{
-\item{model_fun}{The epicrop model function to call.}
+\item{model_fun}{Epicrop model function to call.}
 
 \item{output}{"audpc" or "full".}
 
-\item{slicer}{A function that returns a weather slice for a given emergence date.}
+\item{slicer}{Slicer function producing a weather slice for an emergence
+date.}
 
 \item{...}{Extra args forwarded to \code{model_fun}.}
 
-\item{window_days}{Integer duration passed for clarity (optional usage).}
+\item{window_days}{Integer; passed for reference only.}
 }
 \value{
-A function(ed) -> data.table (AUDPC summary or full model output)
+A function(ed) -> data.table (summary or full)
 }
 \description{
-Create a per‑emergence model‑execution function
+Ensures we only auto‑inject \code{duration} when the user has \emph{not} supplied it
+(including unique partial matches or positional args).
 }
 \keyword{internal}

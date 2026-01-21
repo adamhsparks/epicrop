@@ -7,14 +7,15 @@
 .assemble_results(pieces, output)
 }
 \arguments{
-\item{pieces}{List of per-emergence outputs (summaries or full tables).}
+\item{pieces}{List of per-emergence outputs.}
 
 \item{output}{"audpc" or "full".}
 }
 \value{
-data.table with final results.
+data.table
 }
 \description{
-Assemble model outputs into final result tables
+Combines per-emergence outputs into the requested shape.
+For "audpc", returns unique rows by (emergence, AUDPC).
 }
 \keyword{internal}
