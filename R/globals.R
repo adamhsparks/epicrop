@@ -6,9 +6,11 @@ utils::globalVariables(c(
   "lat", # <.assemble_output>
   "lon", # <.assemble_output>
   "DOY", # <format_wth>
-  "idx", # <fetch_epicrop_weather_list>
-  "full_date", # <fetch_epicrop_weather_list>
-  "md", # <fetch_epicrop_weather_list>
+  "YYYYMMDD", # <.make_slicer>
+  "emergence", # <.make_runner>
+  "AUDPC", # <.make_runner>
+  "emergence", # <.assemble_results>
+  "AUDPC", # <.assemble_results>
   "DOY", # <format_wth>
   NULL
 ))
