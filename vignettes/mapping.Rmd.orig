@@ -90,7 +90,7 @@ ggplot(bb, aes(x = lon, y = lat)) +
   annotation_map_tile(type = "cartolight", zoomin = 0) +
   geom_spatial_point(aes(size = AUDPC)) +
   geom_spatial_label_repel(
-    aes(label = paste(site, round(AUDPC, 0), sep = ", ")),
+    aes(label = paste(location, round(AUDPC, 0), sep = ", ")),
     box.padding = 1,
     size = 3
   ) +
