@@ -4,7 +4,7 @@
 \alias{.make_slicer}
 \title{Cross‑year weather slicer (assumes \code{epicrop.wth.list} contract)}
 \usage{
-.make_slicer(wth_list, window_days, strict = TRUE)
+.make_slicer(wth_list, window_days)
 }
 \arguments{
 \item{wth_list}{An \code{epicrop.wth.list} (named by year strings).}

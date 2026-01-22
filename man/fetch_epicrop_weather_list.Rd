@@ -83,16 +83,15 @@ w2 <- fetch_epicrop_weather_list(
 
 # Multiple sites × multiple dates (cross mode), mixed inputs
 sites <- rbind(
-  c(121.255669, 14.16742),
-  c(120.985,    14.6042)
+  "IRRI_ZES" = c(121.255669, 14.16742),
+  "Metro_Manila" = c(120.985, 14.6042)
 )
 w3 <- fetch_epicrop_weather_list(
   lonlat     = sites,
   start_date = c("2000-06-30", "6-30"),
   duration   = 120L,
   years      = 2000:2001,
-  mode       = "cross",
-  site_names = c("IRRI_ZES", "MetroManila")
+  mode       = "cross"
 )
 \dontshow{\}) # examplesIf}
 }

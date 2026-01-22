@@ -13,7 +13,6 @@ run_epicrop_model(
   cores = NULL,
   chunk = "auto",
   output = "audpc",
-  strict = TRUE,
   dt_threads = NULL,
   ...
 )
