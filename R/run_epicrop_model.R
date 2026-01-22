@@ -82,28 +82,28 @@ run_epicrop_model <- function(
     !all(grepl("^\\d{4}$", rlang::names2(wth_list)))
 
   if (is_bundle) {
-    site_keys <- rlang::names2(wth_list)
-    site_labels <- sub("__.*$", "", site_keys)
-    site_labels[!nzchar(site_labels)] <- paste0(
-      "site",
+    location_keys <- rlang::names2(wth_list)
+    location_labels <- sub("__.*$", "", location_keys)
+    location_labels[!nzchar(location_labels)] <- paste0(
+      "location",
       sprintf("%02d", seq_along(wth_list))
     )
 
     pieces <- Map(
-      function(site_w, site_nm) {
+      function(location_w, location_nm) {
         ans <- run_epicrop_model(
           model_fun = model_fun,
           emergence_dates = emergence_dates,
-          wth_list = site_w,
+          wth_list = location_w,
           window_days = window_days,
           output = output,
           ...
         )
-        ans[, site := site_nm]
+        ans[, location := location_nm]
         ans
       },
       wth_list,
-      site_labels
+      location_labels
     )
 
     return(data.table::rbindlist(pieces, use.names = TRUE, fill = TRUE))
