@@ -26,7 +26,9 @@ for rice sheath blight and leaf blast.
 # Quick start
 
 You can easily simulate any of the five diseases for rice grown anywhere
-in the world for years from 1983 to near current using
+in the world, two for the Korean penninsula based on Kim *et al.* 2015
+or two for wheat in Europe based on Savary *et al.* 2015 for any years
+from 1983 to near current using
 [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
 to fetch data from the [NASA POWER web
 API](https://power.larc.nasa.gov). Alternatively, you can supply your
