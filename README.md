@@ -21,7 +21,7 @@ Additional models included for rice are adapted from Kim et al. (2015) for rice 
 
 # Quick start
 
-You can easily simulate any of the five diseases for rice grown anywhere in the world for years from 1983 to near current using `get_wth()` to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
+You can easily simulate any of the five diseases for rice grown anywhere in the world, two for the Korean penninsula based on Kim *et al.* 2015 or two for wheat in Europe based on Savary *et al.* 2015 for any years from 1983 to near current using `get_wth()` to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
 Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.
 
 {epicrop} is not yet on CRAN.
