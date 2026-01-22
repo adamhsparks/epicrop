@@ -20,16 +20,20 @@ Calculates the weighted hourly leaf wetness value
 
 ## Value
 
-A `vector` of weighted values between 0 and 1 depending on the `rhlim`
+A `vector` of weighted values between 0 and 1 depending on the `rhlim`.
 
 ## Note
 
 This functionality is just a placeholder for future possible work. This
 particular function is set up but not exposed to users yet.
 
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>
+
 ## Examples
 
 ``` r
 .calculate_weighted_hr_wet(rh = 86, rhlim = 95)
-#> Error in .calculate_weighted_hr_wet(rh = 86, rhlim = 95): could not find function ".calculate_weighted_hr_wet"
+#> [1] 0.4
 ```

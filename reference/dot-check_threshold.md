@@ -18,9 +18,17 @@ Check if the relative humidity is above the threshold
 
   The relative humidity threshold to check against.
 
+## Value
+
+Integer count of hours where RH \>= rhlim.
+
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>
+
 ## Examples
 
 ``` r
 .check_threshold(rh_hr = rep(95, 24), rhlim = 95)
-#> Error in .check_threshold(rh_hr = rep(95, 24), rhlim = 95): could not find function ".check_threshold"
+#> [1] 24
 ```

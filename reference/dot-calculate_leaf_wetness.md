@@ -52,3 +52,27 @@ rainlim, capped at 24, and combined without double-counting by scaling
 to the remaining dry fraction of the day. If TMIN/TMAX are missing, the
 function falls back to a binary wetness day (0 or 24 wet-hours) based on
 rhlim/rainlim thresholds.
+
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>
+
+## Examples
+
+``` r
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-06-30", "2000-07-31")
+)
+
+# Simple binary wetness
+wet_simple <- .calculate_leaf_wetness(
+  wth = wth,
+  rhlim = 90,
+  rainlim = 5,
+  weighted_wetness = FALSE
+)
+summary(wet_simple)
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>   4.708  11.028  14.107  13.254  15.844  18.433 
+```

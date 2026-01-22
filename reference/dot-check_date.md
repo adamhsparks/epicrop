@@ -1,6 +1,6 @@
-# Check User Input Dates for Validity
+# Check and parse date
 
-Check User Input Dates for Validity
+Check and parse date
 
 ## Usage
 
@@ -12,24 +12,21 @@ Check User Input Dates for Validity
 
 - x:
 
-  User entered date value
+  a date input (character, Date, POSIXct).
 
 ## Value
 
-Validated date string as a `POSIXct` object.
-
-## Note
-
-This was taken from
-[nasapower](https://CRAN.R-project.org/package=nasapower).
-
-## Author
-
-Adam H. Sparks <adamhsparks@curtin.edu.au>
+A validated POSIXct date object.
 
 ## Examples
 
 ``` r
-.check_date("2024-01-01")
-#> Error in .check_date("2024-01-01"): could not find function ".check_date"
+# passes
+.check_date("2023-10-15")
+#> [1] "2023-10-15 AWST"
+
+# fails
+if (FALSE) { # \dontrun{
+ .check_date("120-100-2023")
+} # }
 ```

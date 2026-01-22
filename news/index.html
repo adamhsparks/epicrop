@@ -42,11 +42,11 @@
 <div class="section level3">
 <h3 id="major-changes-1-0-9000">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-9000"></a></h3>
 <ul><li><p>Version now 1.0.0.9000, almost ready for first major release</p></li>
-<li><p>Uses {Rcpp} for speed improvements in <code><a href="../reference/seir.html">seir()</a></code> function’s efficiency (it’s faster now!).</p></li>
-<li><p><code>SEIR()</code> is now <code><a href="../reference/seir.html">seir()</a></code>.</p></li>
-<li><p>All helper functions drop the <code>predict_</code> prefix for simplicity, <em>e.g.</em>, <code>predict_bacterial_blight()</code> becomes just <code><a href="../reference/bacterial_blight.html">bacterial_blight()</a></code>.</p></li>
+<li><p>Uses {Rcpp} for speed improvements in <code>seir()</code> function’s efficiency (it’s faster now!).</p></li>
+<li><p><code>SEIR()</code> is now <code>seir()</code>.</p></li>
+<li><p>All helper functions drop the <code>predict_</code> prefix for simplicity, <em>e.g.</em>, <code>predict_bacterial_blight()</code> becomes just <code><a href="../reference/disease_models.html">bacterial_blight()</a></code>.</p></li>
 <li><p>Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.</p></li>
-<li><p>Adds the RcRH parameter to <code><a href="../reference/seir.html">seir()</a></code> to calculate the relative humidity correction factor for the disease progress curve as published in Savary <em>et al.</em> 2012.</p></li>
+<li><p>Adds the RcRH parameter to <code>seir()</code> to calculate the relative humidity correction factor for the disease progress curve as published in Savary <em>et al.</em> 2012.</p></li>
 <li><p>Adds the RcRH parameter to all helper functions.</p></li>
 </ul></div>
 <div class="section level3">
@@ -56,9 +56,9 @@
 <ul><li>Leaf blast in South Korean varieties</li>
 <li>Sheath blight in South Korean varieties</li>
 </ul></li>
-<li><p>Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code><a href="../reference/dot-fn_Rc.html">.fn_Rc()</a></code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code><a href="../reference/seir.html">seir()</a></code></p></li>
+<li><p>Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code>.fn_Rc()</code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code>seir()</code></p></li>
 <li><p>Adds functionality to use a matrix in <code>RRG</code> and modify it with <code>.fn_Rc</code> over time as with <code>RcA</code> and <code>RcT</code> as found in Kim et al. 2015 (though not implemented in Kim et al. 2015)</p></li>
-<li><p>Allow pass through of more arguments from helper functions to <code><a href="../reference/seir.html">seir()</a></code> via <code>...</code> argument</p></li>
+<li><p>Allow pass through of more arguments from helper functions to <code>seir()</code> via <code>...</code> argument</p></li>
 <li><p>Strict checking of user-inputs with informative messages now provided if inputs are invalid</p></li>
 </ul></div>
 <div class="section level3">

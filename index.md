@@ -3,19 +3,25 @@
 A fork of
 [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim)
 (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary
-*et al.* 2012) for rice diseases easier to use. This version provides
-easy to use functions to fetch weather data from NASA POWER, via the
+*et al.* 2012) for rice diseases easier to use and to implement the
+EPIWHEAT model in the same R package. This version provides easy to use
+functions to fetch weather data from NASA POWER, via the
 [{nasapower}](https://cran.r-project.org/package=nasapower) package
 (Sparks 2018) and predict disease intensity of five rice diseases using
 a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks
-1971) function,
-[`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
+1971) function, `seir()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details
 the model and results of its use to model global epidemics of rice
 diseases, was published in *Crop Protection* detailing global unmanaged
 disease risk of bacterial blight, brown spot, leaf blast, sheath blight
-and rice tungro, which are included in this package.
+and rice tungro, which are included in this package. The original
+EPIWHEAT manuscript, Savary *et al.* (2015), which details the model and
+results of its use to model potential epidemics of wheat diseases, leaf
+rust and Septoria tritici blotch, is also included in this package.
+
+Additional models included for rice are adapted from Kim et al. (2015)
+for rice sheath blight and leaf blast.
 
 # Quick start
 
@@ -171,21 +177,19 @@ Science Program.
 
 ## Code Coverage
 
-    #> epicrop Coverage: 96.47%
-    #> R/seir.R: 84.25%
-    #> R/leaf_wet.R: 92.97%
-    #> src/seir_core.cpp: 95.19%
-    #> R/internal_functions.R: 98.49%
-    #> R/calculate_audpc.R: 100.00%
-    #> R/format_wth.R: 100.00%
-    #> R/get_wth.R: 100.00%
-    #> R/helper_bacterial_blight.R: 100.00%
-    #> R/helper_brown_spot.R: 100.00%
-    #> R/helper_leaf_blast.R: 100.00%
-    #> R/helper_modified_kim_leaf_blast.R: 100.00%
-    #> R/helper_modified_kim_sheath_blight.R: 100.00%
-    #> R/helper_sheath_blight.R: 100.00%
-    #> R/helper_tungro.R: 100.00%
+    #> epicrop Coverage: 70.38%
+    #> R/audpc_dt.R: 0.00%
+    #> R/build_epicrop_emergence.R: 0.00%
+    #> R/fetch_epicrop_weather_list.R: 0.00%
+    #> R/run_epicrop_model.R: 0.00%
+    #> R/calculate_audpc.R: 80.00%
+    #> R/validation.R: 83.07%
+    #> R/epicrop_sim.R: 85.47%
+    #> R/leaf_wetness.R: 90.55%
+    #> src/seir_core.cpp: 97.73%
+    #> R/disease_models.R: 100.00%
+    #> R/interpolation.R: 100.00%
+    #> R/weather.R: 100.00%
 
 ## Code of Conduct
 
@@ -209,14 +213,19 @@ By contributing to this project, you agree to abide by its terms.
 # References
 
 Brun François, David Makowski, Daniel Wallach, and James W Jones.
-(2018). ZeBook: Working with Dynamic Models for Agriculture and
-Environment. DOI:
+(2018). *ZeBook: Working with Dynamic Models for Agriculture and
+Environment*. DOI:
 [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook)
 R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
 
-Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009).
-Simulation modeling of crops and their diseases. R package version
-0.2-6.
+Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015).
+Predicting potential epidemics of rice leaf blast and sheath blight in
+South Korea. *Agricultural and Forest Meteorology*, 203: 191-207. DOI:
+[10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
+
+Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
+**cropsim**. (2009). Simulation modeling of crops and their diseases. R
+package version 0.2-6.
 
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and
 Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice

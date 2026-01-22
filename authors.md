@@ -21,7 +21,7 @@
 
 - **Kwang-Hyung Kim**. Author, copyright holder.  
   Contributed code for modified Kim leaf blast and sheath blight
-  functions.
+  functions and feedback on the implementation.
 
 - **Aji Sukarta**. Contributor.  
   Helped fix bug related to SEIR model and establishment date
@@ -29,14 +29,6 @@
 - **Emerson Del Ponte**. Contributor.
   [](https://orcid.org/0000-0003-4398-409X)  
   Suggested fixes for several typos in the documentation
-
-- **Aleksandar Blagotić**. Contributor.  
-  Author of the CRAN package 'rapportools', from which the
-  '.is_boolean()' was taken.
-
-- **Gergely Daróczi**. Contributor.  
-  Author of the CRAN package 'rapportools', from which the
-  '.is_boolean()' was taken.
 
 ## Citation
 

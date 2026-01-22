@@ -34,7 +34,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Check if the relative humidity is above the threshold</h1>
-      <small class="dont-index">Source: <a href="https://codeberg.org/adamhsparks/epicrop/src/branch/HEAD/R/leaf_wet.R" class="external-link"><code>R/leaf_wet.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://codeberg.org/adamhsparks/epicrop/src/branch/HEAD/R/leaf_wetness.R" class="external-link"><code>R/leaf_wetness.R</code></a></small>
       <div class="d-none name"><code>dot-check_threshold.Rd</code></div>
     </div>
 
@@ -60,11 +60,20 @@ data.</p></dd>
 <dd><p>The relative humidity threshold to check against.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>Integer count of hours where RH &gt;= rhlim.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Adam H. Sparks, <a href="mailto:adamhsparks@gmail.com">adamhsparks@gmail.com</a></p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">.check_threshold</span><span class="op">(</span>rh_hr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">95</span>, <span class="fl">24</span><span class="op">)</span>, rhlim <span class="op">=</span> <span class="fl">95</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .check_threshold(rh_hr = rep(95, 24), rhlim = 95):</span> could not find function ".check_threshold"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

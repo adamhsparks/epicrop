@@ -68,8 +68,9 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code><a href="reference/seir.html">seir()</a></code>.</p>
-<p>The original EPIRICE manuscript, Savary <em>et al.</em> (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in <em>Crop Protection</em> detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.</p>
+<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code>seir()</code>.</p>
+<p>The original EPIRICE manuscript, Savary <em>et al.</em> (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in <em>Crop Protection</em> detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package. The original EPIWHEAT manuscript, Savary <em>et al.</em> (2015), which details the model and results of its use to model potential epidemics of wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.</p>
+<p>Additional models included for rice are adapted from Kim et al. (2015) for rice sheath blight and leaf blast.</p>
 </div>
 <div class="section level1">
 <h1 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -115,7 +116,7 @@
 </h2>
 <p>Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bacterial_blight.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bb_sim</span></span>
 <span><span class="co">#&gt;      simday      dates     sites   latent infectious  removed    senesced</span></span>
@@ -193,21 +194,19 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <div class="section level2">
 <h2 id="code-coverage">Code Coverage<a class="anchor" aria-label="anchor" href="#code-coverage"></a>
 </h2>
-<pre><code><span><span class="co">#&gt; epicrop Coverage: 96.47%</span></span>
-<span><span class="co">#&gt; R/seir.R: 84.25%</span></span>
-<span><span class="co">#&gt; R/leaf_wet.R: 92.97%</span></span>
-<span><span class="co">#&gt; src/seir_core.cpp: 95.19%</span></span>
-<span><span class="co">#&gt; R/internal_functions.R: 98.49%</span></span>
-<span><span class="co">#&gt; R/calculate_audpc.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/format_wth.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/get_wth.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/helper_bacterial_blight.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/helper_brown_spot.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/helper_leaf_blast.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/helper_modified_kim_leaf_blast.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/helper_modified_kim_sheath_blight.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/helper_sheath_blight.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/helper_tungro.R: 100.00%</span></span></code></pre>
+<pre><code><span><span class="co">#&gt; epicrop Coverage: 70.38%</span></span>
+<span><span class="co">#&gt; R/audpc_dt.R: 0.00%</span></span>
+<span><span class="co">#&gt; R/build_epicrop_emergence.R: 0.00%</span></span>
+<span><span class="co">#&gt; R/fetch_epicrop_weather_list.R: 0.00%</span></span>
+<span><span class="co">#&gt; R/run_epicrop_model.R: 0.00%</span></span>
+<span><span class="co">#&gt; R/calculate_audpc.R: 80.00%</span></span>
+<span><span class="co">#&gt; R/validation.R: 83.07%</span></span>
+<span><span class="co">#&gt; R/epicrop_sim.R: 85.47%</span></span>
+<span><span class="co">#&gt; R/leaf_wetness.R: 90.55%</span></span>
+<span><span class="co">#&gt; src/seir_core.cpp: 97.73%</span></span>
+<span><span class="co">#&gt; R/disease_models.R: 100.00%</span></span>
+<span><span class="co">#&gt; R/interpolation.R: 100.00%</span></span>
+<span><span class="co">#&gt; R/weather.R: 100.00%</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
@@ -226,8 +225,9 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <div class="section level1">
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h1>
-<p>Brun François, David Makowski, Daniel Wallach, and James W Jones. (2018). ZeBook: Working with Dynamic Models for Agriculture and Environment. DOI: <a href="https://doi.org/10.32614/CRAN.package.ZeBook" class="external-link">10.32614/CRAN.package.ZeBook</a> R package version 1.1, <a href="https://CRAN.R-project.org/package=ZeBook" class="external-link uri">https://CRAN.R-project.org/package=ZeBook</a>.</p>
-<p>Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.</p>
+<p>Brun François, David Makowski, Daniel Wallach, and James W Jones. (2018). <em>ZeBook: Working with Dynamic Models for Agriculture and Environment</em>. DOI: <a href="https://doi.org/10.32614/CRAN.package.ZeBook" class="external-link">10.32614/CRAN.package.ZeBook</a> R package version 1.1, <a href="https://CRAN.R-project.org/package=ZeBook" class="external-link uri">https://CRAN.R-project.org/package=ZeBook</a>.</p>
+<p>Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015). Predicting potential epidemics of rice leaf blast and sheath blight in South Korea. <em>Agricultural and Forest Meteorology</em>, 203: 191-207. DOI: <a href="https://doi.org/10.1016/j.agrformet.2015.01.011" class="external-link">10.1016/j.agrformet.2015.01.011</a></p>
+<p>Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. <strong>cropsim</strong>. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.</p>
 <p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009" class="external-link">10.1016/j.cropro.2011.11.009</a>.</p>
 <p>Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). <em>European Journal of Plant Pathology</em> 142, no. 4:771–90. DOI: <a href="https://doi.org/10.1007/s10658-015-0650-7" class="external-link">10.1007/s10658-015-0650-7</a>.</p>
 <p>Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. <em>Journal of Open Source Software</em>, 3(30), 1035, DOI: <a href="https://doi.org/10.21105/joss.01035" class="external-link">10.21105/joss.01035</a>.</p>
@@ -286,7 +286,7 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://zenodo.org/badge/latestdoi/58613738" class="external-link"><img src="https://zenodo.org/badge/58613738.svg" alt="DOI"></a></li>
 <li><a href="https://CRAN.R-project.org/package=epicrop" class="external-link"><img src="https://www.r-pkg.org/badges/version/epicrop" alt="CRAN status"></a></li>
-<li><a href="#code-coverage"><img src="https://img.shields.io/badge/code_coverage-96%25-green" alt="Code Coverage: 96%"></a></li>
+<li><a href="#code-coverage"><img src="https://img.shields.io/badge/code_coverage-70%25-green" alt="Code Coverage: 70%"></a></li>
 </ul>
 </div>
 
