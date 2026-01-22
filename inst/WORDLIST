@@ -1,9 +1,9 @@
+AUCPC
 AUDPC
 Acqua
 Adanve
 Alduchov
 Bacilliform
-Benchmarking
 Brun
 Buri
 CHIRTS
@@ -19,6 +19,7 @@ Ecija
 Esker
 Eskridge
 Fabrice
+Finney
 Forsythe
 François
 GDD
@@ -26,6 +27,7 @@ Guo
 Hsin
 Hwan
 Hyung
+IDate
 IRRI
 ISSN
 Inoculum
@@ -36,7 +38,6 @@ Laetitia
 Lifecycle
 Magnaporthe
 Makowski
-Microbenchmark
 Modelling
 Nueva
 ORCID
@@ -65,6 +66,7 @@ Schoolfield
 Senesced
 Seop
 Septoria
+Shaner
 Silwal
 Stacia
 Stahl
@@ -88,9 +90,9 @@ Zymoseptoria
 agrformet
 al
 anthesis
+args
+audpc
 baselayer
-behaviour
-benchmarking
 ce
 conceptor
 cropro
@@ -104,10 +106,8 @@ dplyr
 dvs
 epifitter
 et
-familiarised
 fd
 frac
-furrr
 gdd
 geolocation
 ggplot
@@ -121,22 +121,18 @@ joss
 kilopascals
 labelling
 lon
-maximise
 md
-microbenchmark
 miyabeanus
 modelling
 nasapower
 nrow
-optimise
 optimised
 oryzae
 parameterising
 pathosystems
-purrr
+penninsula
 pv
 rainlim
-realised
 rh
 rhlim
 roxygen
@@ -157,6 +153,5 @@ tungro
 unmanaged
 vapour
 vcr
-visualisation
 visualise
 wth
