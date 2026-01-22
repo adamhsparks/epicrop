@@ -13,6 +13,8 @@
 #' @importFrom data.table .NGRP
 #' @importFrom data.table .SD
 #' @importFrom data.table data.table
+#' @useDynLib epicrop, .registration = TRUE
+#' @importFrom Rcpp evalCpp
 ## usethis namespace: end
 
 NULL
