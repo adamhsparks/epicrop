@@ -44,7 +44,5 @@
 ^man/dot-calculate_weighted_hr_wet\.Rd$
 ^man/dot-make_slicer\.Rd$
 ^man/dot-make_runner\.Rd$
-^man/dot-select_applier\.Rd$
 ^man/dot-assemble_results\.Rd$
-^man/dot-normalize_chunk\.Rd$
 ^man/dot-check_date\.Rd$
