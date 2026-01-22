@@ -50,20 +50,16 @@ Imports:
 Suggests:
     cropgrowdays,
     dplyr,
-    future,
-    future.apply,
     ggplot2,
     ggrepel,
     ggspatial,
     knitr,
     microbenchmark,
-    parallelly,
     prettymapr,
     rmarkdown,
     roxyglobals,
     spelling,
     testthat,
-    tidyr,
     vcr (>= 0.6.0),
     withr
 LinkingTo:
