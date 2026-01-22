@@ -161,31 +161,11 @@ Experiment Station in Calabarzon, Philippines.</div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="simulating-multiple-seasons-and-establishment-dates-with-the-futureverse-using-parallel-processing">Simulating multiple seasons and establishment dates with the
-{futureverse} using parallel processing<a class="anchor" aria-label="anchor" href="#simulating-multiple-seasons-and-establishment-dates-with-the-futureverse-using-parallel-processing"></a>
+<h3 id="simulating-multiple-seasons-and-establishment-dates">Simulating multiple seasons and establishment dates<a class="anchor" aria-label="anchor" href="#simulating-multiple-seasons-and-establishment-dates"></a>
 </h3>
-<p>Using the same <code><a href="../reference/run_epicrop_model.html">run_epicrop_model()</a></code>, we can do the same
-thing in parallel to reduce the runtime, especially if you have several
-seasons.</p>
 <div class="section level4">
-<h4 id="a-note-on-the-use-of-parallel-processing">A note on the use of parallel processing<a class="anchor" aria-label="anchor" href="#a-note-on-the-use-of-parallel-processing"></a>
+<h4 id="single-site-with-multiple-dates">Single Site with Multiple Dates<a class="anchor" aria-label="anchor" href="#single-site-with-multiple-dates"></a>
 </h4>
-<p>Use parallel processing with caution. {epicrop} is highly optimised
-for speed. For small runs, <em>e.g.</em>, one or two seasons or
-locations, this is will not reduce the time and may increase the run
-time due to overhead setting up and running the parallel processing.
-Best guess is that unless you have &gt; 40 or 50 seasons or locations or
-some combinations thereof; to run the processes in parallel will not be
-any benefit.</p>
-<p>In this case, while this code runs, you can benchmark it and see that
-this is no faster and in some cases, slower than running the code
-sequentially. An example benchmarking different methods is provided
-here.</p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="single-site-with-multiple-dates">Single Site with Multiple Dates<a class="anchor" aria-label="anchor" href="#single-site-with-multiple-dates"></a>
-</h3>
 <p>A helper function, <code><a href="../reference/run_epicrop_model.html">run_epicrop_model()</a></code> is provided to
 simplify running multiple establishment dates.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -273,9 +253,9 @@ simplify running multiple establishment dates.</p>
 <span><span class="co">#&gt;            emergence     AUDPC</span></span>
 <span><span class="co">#&gt;     &lt;epicrop.emerge&gt;     &lt;num&gt;</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="multiple-sites-and-seasons">Multiple Sites and Seasons<a class="anchor" aria-label="anchor" href="#multiple-sites-and-seasons"></a>
-</h3>
+<div class="section level4">
+<h4 id="multiple-sites-and-seasons">Multiple Sites and Seasons<a class="anchor" aria-label="anchor" href="#multiple-sites-and-seasons"></a>
+</h4>
 <p>Multiple locations can also be simulated using
 <code><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> and
 <code><a href="../reference/run_epicrop_model.html">run_epicrop_model()</a></code>. Here Septoria tritici blotch is
@@ -324,6 +304,7 @@ season.</p>
 <span><span class="co">#&gt; 10:       2020-05-01 0.6290722 Tamworth</span></span>
 <span><span class="co">#&gt; 11:       2021-04-15 0.7767261 Tamworth</span></span>
 <span><span class="co">#&gt; 12:       2021-05-01 0.8202714 Tamworth</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
