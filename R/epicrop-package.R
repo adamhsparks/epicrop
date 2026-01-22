@@ -1,4 +1,3 @@
-#' keywords @internal
 "_PACKAGE"
 
 #' @useDynLib epicrop, .registration = TRUE
@@ -17,4 +16,6 @@
 #' @importFrom data.table .SD
 #' @importFrom data.table data.table
 ## usethis namespace: end
+
+#' @keywords @internal
 NULL
