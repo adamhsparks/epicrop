@@ -23,7 +23,7 @@ A validated POSIXct date object.
 ``` r
 # passes
 .check_date("2023-10-15")
-#> Error in .check_date("2023-10-15"): could not find function ".check_date"
+#> [1] "2023-10-15 AWST"
 
 # fails
 if (FALSE) { # \dontrun{

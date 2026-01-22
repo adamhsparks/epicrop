@@ -32,5 +32,5 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 
 ``` r
 .saturated_vapour_pressure(0)
-#> Error in .saturated_vapour_pressure(0): could not find function ".saturated_vapour_pressure"
+#> [1] 0.61094
 ```
