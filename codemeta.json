@@ -72,18 +72,6 @@
     },
     {
       "@type": "Person",
-      "givenName": "Aleksandar",
-      "familyName": "Blagotić",
-      "email": "alex@rapporter.net"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Gergely",
-      "familyName": "Daróczi",
-      "email": "daroczig@rapporter.net"
-    },
-    {
-      "@type": "Person",
       "givenName": "Robert",
       "familyName": "Hijmans",
       "email": "robert.hijmans@gmail.com",
@@ -172,18 +160,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "furrr",
-      "name": "furrr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=furrr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
       "provider": {
@@ -244,18 +220,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "pander",
-      "name": "pander",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=pander"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "prettymapr",
       "name": "prettymapr",
       "provider": {
@@ -265,18 +229,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=prettymapr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "purrr",
-      "name": "purrr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=purrr"
     },
     {
       "@type": "SoftwareApplication",
@@ -328,18 +280,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "tidyr",
-      "name": "tidyr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=tidyr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "vcr",
       "name": "vcr",
       "version": ">= 0.6.0",
@@ -373,18 +313,6 @@
     },
     "2": {
       "@type": "SoftwareApplication",
-      "identifier": "Rcpp",
-      "name": "Rcpp",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=Rcpp"
-    },
-    "3": {
-      "@type": "SoftwareApplication",
       "identifier": "cli",
       "name": "cli",
       "provider": {
@@ -395,7 +323,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=cli"
     },
-    "4": {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "data.table",
       "name": "data.table",
@@ -407,7 +335,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=data.table"
     },
-    "5": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -419,7 +347,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "6": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "nasapower",
       "name": "nasapower",
@@ -431,6 +359,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=nasapower"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
+      "identifier": "Rcpp",
+      "name": "Rcpp",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=Rcpp"
     },
     "7": {
       "@type": "SoftwareApplication",
@@ -453,7 +393,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "2393.16KB",
+  "fileSize": "697.395KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

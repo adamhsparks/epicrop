@@ -32,12 +32,15 @@ knitr::opts_chunk$set(eval = all(
 
 ## Introduction to {epicrop}
 
-{epicrop} provides an R package of the 'EPIRICE' model as described in [@Savary2012].
-Default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`bacterial_blight()`); brown spot (`brown_spot()`); leaf blast (`leaf_blast()`); sheath blight (`sheath_blight()`) and tungro (`tungro()`) and two modified by Kim _et al._ [-@Kim2015], (`modified_kim_leaf_blast()` and `helper_modified_kim_sheath_blight()`), are provided.
+{epicrop} provides an R package of the 'EPIRICE' model as described in [@Savary2012], the modified EPIRICE model as described in [@Kim2015], the 'EPIWHEAT' model as described in [@Savary2015] and a generic SEIR model function, `epicrop_sim()`, for modelling crop disease epidemics.
 The model uses daily weather data to estimate disease intensity.
-A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package [@Sparks2018] and predict disease intensity of five rice diseases using a generic SEIR model [@Zadoks1971] function, `seir()`.
+A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package [@Sparks2018] and predict disease intensity of five rice diseases using a generic SEIR model [@Zadoks1971] function, `epicrop_sim()`.
 
-Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `seir()` function.
+For 'EPIRICE', default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`bacterial_blight()`); brown spot (`brown_spot()`); leaf blast (`leaf_blast()`); sheath blight (`sheath_blight()`) and tungro (`tungro()`) and two modified by Kim _et al._ [-@Kim2015], (`modified_kim_leaf_blast()` and `helper_modified_kim_sheath_blight()`), are provided.
+The modified Kim versions provide leaf blast and sheath blight models that include additional weather parameters and modified equations to better reflect disease progress under certain environmental conditions on the Korean Peninsula.
+The 'EPIWHEAT' model includes two wheat diseases, leaf rust (`leaf_rust()`) and septoria tritici blotch (`s_tritici_blotch()`), with default values derived from the literature suitable for modelling unmanaged disease intensity of these diseases.
+
+Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `epicrop_sim()` function.
 If you are interested in modelling other pathosystems, please refer to [-@Savary2012] for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
 
 ### Getting started
@@ -67,7 +70,7 @@ wth
 
 All of the helper family of functions work in exactly the same manner.
 You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease intensity over the season and other values associated with the model.
-See the help file for `seir()` for more on the values returned.
+See the help file for `epicrop_sim()` for more on the values returned.
 
 ```{r bb}
 # Predict bacterial blight intensity for the year 2000 wet season at IRRI
@@ -155,16 +158,14 @@ ggplot(data = bb_dry,
   theme_classic()
 ```
 
-As the AUDPC value is found in the `AUDPC` column and is repeated for every row of the `data.table` so we only need to access the first row.
-We can easily do this by calling the column using the `$` operator and `[]` to select an index value, in this case the first row of the `data.table`.
-Optionally if you wished to used {dplyr} you could use the `dplyr::distinct()` function, which is demonstrated in the "Mapping Simulations" vignette.
+The AUDPC values can be viewed directly from the attributes of the `data.table` outputs above, but we can also create a small helper function to extract them.
 
 ```{r audpc}
 # Dry season
-bb_dry$AUDPC[1]
+get_audpc(bb_dry)
 
 # Wet season
-bb_wet$AUDPC[1]
+get_audpc(bb_wet)
 ```
 
 The AUDPC of the wet season is greater than that of the dry season.

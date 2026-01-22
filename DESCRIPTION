@@ -15,15 +15,11 @@ Authors@R: c(
     person("Jorrel", "Aunario", , "j.aunario@irri.org", role = c("aut", "trl", "cph"),
            comment = "Original R implementation"),
     person("Kwang-Hyung", "Kim", , "sospicy77@gmail.com", role = c("aut", "cph"),
-           comment = "Contributed code for modified Kim leaf blast and sheath blight functions."),
+           comment = "Contributed code for modified Kim leaf blast and sheath blight functions and feedback on the implementation."),
     person("Aji", "Sukarta", , "aji.ixb@gmail.com", role = "ctb",
            comment = "Helped fix bug related to SEIR model and establishment\n           date"),
     person("Emerson", "Del Ponte", , "delponte@ufv.br", role = "ctb",
-           comment = c("Suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X")),
-    person("Aleksandar", "Blagotić", , "alex@rapporter.net", role = "ctb",
-           comment = "Author of the CRAN package 'rapportools', from which\n             the '.is_boolean()' was taken."),
-    person("Gergely", "Daróczi", , "daroczig@rapporter.net", role = "ctb",
-           comment = "Author of the CRAN package 'rapportools', from which\n             the '.is_boolean()' was taken.")
+           comment = c("Suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X"))
   )
 Description: Generic simulation modelling of crop diseases using a
     Susceptible-Exposed-Infectious-Removed ('SEIR') model.  This type of
@@ -44,30 +40,26 @@ BugReports: https://codeberg.org/adamhsparks/epicrop/issues
 Depends:
     R (>= 4.1.0)
 Imports:
-    Rcpp,
     cli,
     data.table,
     lubridate,
     nasapower (>= 4.0),
+    Rcpp,
     rlang,
     stats
 Suggests:
     cropgrowdays,
     dplyr,
-    furrr,
     ggplot2,
     ggrepel,
     ggspatial,
     knitr,
     microbenchmark,
-    pander,
     prettymapr,
-    purrr,
     rmarkdown,
     roxyglobals,
     spelling,
     testthat,
-    tidyr,
     vcr (>= 0.6.0),
     withr
 LinkingTo:

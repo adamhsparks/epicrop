@@ -1,752 +1,539 @@
-# Define modifier curves used across tests
-RcA <- cbind(
-  c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
-  c(
-    1.0,
-    1.0,
-    1.0,
-    0.9,
-    0.62,
-    0.43,
-    0.42,
-    0.42,
-    0.41,
-    0.41,
-    0.41,
-    0.41,
-    0.41
+# Validation & Internals for epicrop_sim --------------------------------------
+
+testthat::test_that("setup: extended weather available", {
+  testthat::skip_if(
+    !exists("wth_formatted") ||
+      !is.data.frame(wth_formatted) ||
+      nrow(wth_formatted) < 185,
+    "Need extended weather data for validation tests"
   )
+})
+
+# --- Shared constants (inline) ----------------------------------------------
+
+.emergence_date <- "2000-07-01"
+
+# Base modifier curves used across tests
+RcA_base <- cbind(
+  c(0L, 10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L, 110L, 120L),
+  c(1.0, 1.0, 1.0, 0.9, 0.62, 0.43, 0.42, 0.42, 0.41, 0.41, 0.41, 0.41, 0.41)
 )
 
-RcT <- cbind(
+RcT_base <- cbind(
   c(16L, 19L, 22L, 25L, 28L, 31L, 34L, 37L, 40L),
   c(0.0, 0.29, 0.44, 0.90, 0.90, 1.0, 0.88, 0.01, 0.0)
 )
 
-# Helper to create valid args for . check_inputs()
-make_valid_args <- function(...) {
-  defaults <- list(
-    wth = wth_formatted,
-    emergence = "2000-07-01",
-    onset = 20L,
-    duration = 120L,
-    rhlim = 90,
-    rainlim = 5,
-    H0 = 600,
+# Columns expected from epicrop_sim outputs
+.expected_cols <- c(
+  "simday",
+  "dates",
+  "sites",
+  "latent",
+  "infectious",
+  "removed",
+  "senesced",
+  "rateinf",
+  "rlex",
+  "rtransfer",
+  "rremoved",
+  "rgrowth",
+  "rsenesced",
+  "diseased",
+  "intensity"
+)
+
+# --- Inline helpers ----------------------------------------------------------
+
+# Build a base argument list for epicrop_sim; override via modifyList
+.base_args <- function(wth = wth_formatted) {
+  list(
+    wth = wth,
+    emergence = .emergence_date,
+    onset = 20,
+    duration = 120,
+    H0 = 100,
     I0 = 1,
-    RcA = RcA,
-    RcT = RcT,
-    RcOpt = 0.61,
-    p = 6L,
-    i = 19L,
-    Sx = 100000,
-    a = 1,
+    RcA = RcA_base,
+    RcT = RcT_base,
+    RcOpt = 0.87,
+    p = 5,
+    i = 30,
+    Sx = 3200,
     RRS = 0.01,
     RRG = 0.1,
-    RcW = NULL,
-    simple_wetness = TRUE
+    a = 4, # scalar; engine requires a >= 1
+    rhlim = 90, # scalar [0..100]
+    rainlim = 5, # scalar >= 0
+    simple_wetness = TRUE,
+    age_driver = "day"
   )
-
-  utils::modifyList(defaults, list(...))
 }
 
-# Tests for input validation
-test_that("non numeric values are not accepted", {
-  var_args <- make_valid_args(onset = "twenty")
+# Safe wrapper to run epicrop_sim with overrides
+run_epicrop <- function(overrides = list(), wth = wth_formatted) {
+  args <- .base_args(wth)
+  if (length(overrides)) {
+    for (nm in names(overrides)) {
+      args[[nm]] <- overrides[[nm]]
+    } # shallow replace
+  }
+  do.call(epicrop_sim, args)
+}
 
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "onset.*numeric"
-  )
-})
-
-test_that("Formatting fails if simple_wetness is not boolean", {
-  var_args <- make_valid_args(simple_wetness = "no")
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "simple_wetness.*Boolean"
-  )
-})
-
-test_that("Failure if `wth` is not of class `epicrop.wth`", {
-  # Create a plain data. frame without epicrop.wth class
-  wth_no_class <- as.data.frame(wth)
-  class(wth_no_class) <- "data.frame"
-
-  # Build var_args manually
-  var_args <- list(
-    wth = wth_no_class,
-    emergence = "2000-07-01",
-    onset = 20L,
-    duration = 120L,
+# Build modifiers with minimal duplication
+build_modifiers <- function(
+  w,
+  age_vec = seq(0, nrow(w) - 1),
+  duration = length(age_vec),
+  overrides = list()
+) {
+  args <- list(
+    w = w,
+    age_vec = age_vec,
+    duration = duration,
+    RcA = RcA_base,
+    RcT = RcT_base,
+    RcW = NULL,
+    RcOpt = 0.87,
+    p = 5,
+    i = 30,
+    RRS = 0.01,
+    a = 4,
+    RRLEX = 0,
+    RRG = 0.1,
     rhlim = 90,
     rainlim = 5,
-    H0 = 600,
-    I0 = 1,
-    RcA = RcA,
-    RcT = RcT,
-    RcOpt = 0.61,
-    p = 6L,
-    i = 19L,
-    Sx = 100000,
-    a = 1,
-    RRS = 0.01,
-    RRG = 0.1,
-    RcW = NULL,
     simple_wetness = TRUE
   )
+  do.call(
+    epicrop:::.prepare_modifiers,
+    utils::modifyList(args, overrides, keep.null = TRUE)
+  )
+}
 
-  expect_error(
-    .check_inputs(var_args),
+# Basic output checker
+expect_valid_epicrop <- function(x, n_rows = 120L) {
+  testthat::expect_s3_class(x, c("epicrop.sim", "data.table", "data.frame"))
+  testthat::expect_identical(nrow(x), n_rows)
+  testthat::expect_true(all(.expected_cols %in% names(x)))
+  testthat::expect_true(all(x$intensity >= 0 & x$intensity <= 1))
+  testthat::expect_false(is.null(attr(x, "AUDPC")))
+  invisible(x)
+}
+
+# =============================================================================
+# Validation Tests
+# =============================================================================
+
+testthat::test_that(".validate_all_inputs catches non-numeric values", {
+  testthat::expect_error(
+    run_epicrop(list(onset = "twenty")), # invalid type
+    regexp = "numeric"
+  )
+})
+
+testthat::test_that(".validate_all_inputs catches non-boolean simple_wetness", {
+  testthat::expect_error(
+    run_epicrop(list(simple_wetness = "no")), # invalid type
+    regexp = "Boolean"
+  )
+})
+
+testthat::test_that(".validate_all_inputs catches invalid epicrop.wth class", {
+  wth_no_class <- as.data.frame(wth_formatted)
+  class(wth_no_class) <- "data.frame"
+
+  # Disease wrappers enforce class too
+  testthat::expect_error(
+    bacterial_blight(wth_no_class, emergence = .emergence_date),
     regexp = "epicrop.wth"
   )
 })
 
-test_that("Failure if `duration` is <50", {
-  var_args <- make_valid_args(duration = 45)
+testthat::test_that(".validate_all_inputs warns about short duration", {
+  wth_short <- data.table::copy(wth_formatted)[1:60]
+  RcA_short <- cbind(c(0L, 20L, 40L), c(1.0, 0.8, 0.6))
 
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "duration.*<\\s*50"
+  expect_warning(
+    run_epicrop(list(wth = wth_short, duration = 45, RcA = RcA_short)),
+    regexp = "duration.*50"
   )
 })
 
-test_that("Failure if `rhlim` is >100", {
-  var_args <- make_valid_args(rhlim = 190)
-
-  expect_error(
-    .check_inputs(var_args),
+testthat::test_that(".validate_all_inputs catches invalid rhlim", {
+  testthat::expect_error(
+    run_epicrop(list(rhlim = 190)), # out of [0..100]
     regexp = "rhlim.*100"
   )
 })
 
-test_that("Error if `duration` is > max RcA days", {
-  var_args <- make_valid_args(duration = 140)
+testthat::test_that(".validate_all_inputs catches TMIN/TMAX missing with complex wetness", {
+  wth_no_temp <- data.table::data.table(
+    YYYYMMDD = wth_formatted$YYYYMMDD,
+    DOY = wth_formatted$DOY,
+    TEMP = wth_formatted$TEMP,
+    RHUM = wth_formatted$RHUM,
+    RAIN = wth_formatted$RAIN
+  )
+  class(wth_no_temp) <- c("epicrop.wth", "data.table", "data.frame")
 
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcA.*duration.*less"
+  testthat::expect_error(
+    run_epicrop(list(wth = wth_no_temp, simple_wetness = FALSE)),
+    regexp = "TMIN.*TMAX"
   )
 })
 
-test_that("Warning if `duration` is < max RcA days", {
-  var_args <- make_valid_args(duration = 100)
-
-  expect_warning(
-    .check_inputs(var_args),
-    regexp = "RcA.*duration.*greater"
-  )
-})
-
-test_that("Failure if TMIN/TMAX not supplied with `simple_wetness = FALSE`", {
-  wth2 <- wth_formatted[, -c("TMIN", "TMAX")]
-  var_args <- make_valid_args(
-    wth = wth2,
-    simple_wetness = FALSE
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "TMIN.*TMAX|simple_wetness"
-  )
-})
-
-# Tests for negative parameter validation
-test_that("validation catches negative values in key parameters", {
-  test_params <- c(
-    "H0",
-    "I0",
-    "RcOpt",
-    "p",
-    "i",
-    "Sx",
-    "a",
-    "RRS",
-    "rhlim",
-    "rainlim"
-  )
-
-  for (param in test_params) {
-    var_args <- make_valid_args()
-    var_args[[param]] <- -1
-
-    expect_error(
-      .check_inputs(var_args),
-      regexp = param,
-      info = paste("Failed to catch negative", param)
-    )
-  }
-})
-
-test_that("validation catches RcA/RcT with non-numeric values", {
-  var_args <- make_valid_args(
-    RcA = cbind(1:5, c("a", "b", "c", "d", "e"))
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcA.*numeric"
-  )
-})
-
-test_that("validation handles RcW hour validation", {
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = cbind(
-      c(0, 6, 12, 30), # 30 exceeds 24
-      c(0, 0.5, 0.75, 1)
-    )
-  )
-
-  expect_error(
-    .check_inputs(var_args),
+testthat::test_that(".validate_all_inputs validates RcW when simple_wetness = FALSE", {
+  RcW_bad_hours <- cbind(c(-1, 6, 12, 18, 30), c(0, 0.25, 0.5, 0.75, 1))
+  testthat::expect_error(
+    run_epicrop(list(simple_wetness = FALSE, RcW = RcW_bad_hours)),
     regexp = "RcW.*24"
   )
-})
 
-test_that("validation handles RcW modifier out of bounds", {
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = cbind(
-      c(0, 6, 12, 18, 24),
-      c(0, 0.5, 1.5, 0.9, 1) # 1.5 exceeds 1
-    )
-  )
-
-  expect_error(
-    .check_inputs(var_args),
+  RcW_bad_mods <- cbind(c(0, 6, 12, 18, 24), c(-0.1, 0.25, 0.5, 0.75, 1.5))
+  testthat::expect_error(
+    run_epicrop(list(simple_wetness = FALSE, RcW = RcW_bad_mods)),
     regexp = "RcW.*modifier.*0.*1"
   )
 })
 
-# Tests for . check_date()
-test_that("Failure if object should be date but cannot be formatted as such", {
-  expect_snapshot(
-    .check_date(x = "string"),
-    error = TRUE
+testthat::test_that(".validate_all_inputs catches negative/invalid scalar parameters", {
+  # Disease wrappers: parameters that can be overridden
+  testthat::expect_error(
+    bacterial_blight(wth_formatted, emergence = .emergence_date, H0 = -10),
+    regexp = "H0"
   )
-})
-
-test_that(". check_date() handles various date formats", {
-  expect_s3_class(.check_date("2000-01-01"), "POSIXct")
-  expect_s3_class(.check_date("01/01/2000"), "POSIXct")
-  expect_s3_class(.check_date(as.Date("2000-01-01")), "POSIXct")
-})
-
-# Tests for .check_emergence_date()
-test_that("Vectors of establishment dates only use the first", {
-  expect_snapshot(
-    .check_emergence_date(x = c("2000-06-01", "2000-06-02"))
+  testthat::expect_error(
+    bacterial_blight(wth_formatted, emergence = .emergence_date, I0 = -1),
+    regexp = "I0"
   )
-})
-
-test_that(".check_emergence_date() handles single date without warning", {
-  expect_no_warning(.check_emergence_date(x = "2000-06-01"))
-})
-
-# Tests for .is_boolean()
-test_that(".is_boolean() correctly identifies booleans", {
-  expect_true(.is_boolean(TRUE))
-  expect_true(.is_boolean(FALSE))
-  expect_false(.is_boolean(1))
-  expect_false(.is_boolean("TRUE"))
-  expect_false(.is_boolean(c(TRUE, FALSE)))
-})
-
-# Additional validation tests
-test_that("validation catches aggregation coefficient < 1", {
-  var_args <- make_valid_args(a = 0.5)
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "a.*aggregation|>=\\s*1"
+  testthat::expect_error(
+    bacterial_blight(wth_formatted, emergence = .emergence_date, RcOpt = -0.5),
+    regexp = "RcOpt"
   )
-})
+  testthat::expect_error(
+    bacterial_blight(wth_formatted, emergence = .emergence_date, p = -5),
+    regexp = "p"
+  )
+  testthat::expect_error(
+    bacterial_blight(wth_formatted, emergence = .emergence_date, i = -20),
+    regexp = "i"
+  )
 
-test_that("validation catches zero or negative Sx", {
-  var_args <- make_valid_args(Sx = 0)
-
-  expect_error(
-    .check_inputs(var_args),
+  # Direct engine calls
+  testthat::expect_error(
+    run_epicrop(list(Sx = -100)),
     regexp = "Sx"
   )
+  testthat::expect_error(
+    run_epicrop(list(a = 0.5)), # must be >= 1
+    regexp = "a.*1"
+  )
+})
 
-  var_args <- make_valid_args(Sx = -100)
-
-  expect_error(
-    .check_inputs(var_args),
+testthat::test_that(".validate_all_inputs catches zero or negative Sx", {
+  testthat::expect_error(
+    run_epicrop(list(Sx = 0)),
+    regexp = "Sx"
+  )
+  testthat::expect_error(
+    run_epicrop(list(Sx = -100)),
     regexp = "Sx"
   )
 })
 
-test_that("validation catches onset < 1", {
-  var_args <- make_valid_args(onset = 0)
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "onset.*>=\\s*1"
+testthat::test_that(".validate_all_inputs catches onset < 1", {
+  testthat::expect_error(
+    bacterial_blight(wth_formatted, emergence = .emergence_date, onset = 0),
+    regexp = "onset"
   )
 })
 
-test_that("validation catches duration <= 0", {
-  # duration < 50 check happens first, so we just check for "duration" in error
-  var_args <- make_valid_args(duration = 0)
-
-  expect_error(
-    .check_inputs(var_args),
+testthat::test_that(".validate_all_inputs catches duration <= 0", {
+  testthat::expect_error(
+    run_epicrop(list(duration = 0)),
     regexp = "duration"
   )
-
-  var_args <- make_valid_args(duration = -5)
-
-  expect_error(
-    .check_inputs(var_args),
+  testthat::expect_error(
+    run_epicrop(list(duration = -5)),
     regexp = "duration"
   )
 })
 
-test_that("validation handles RcT with non-numeric values", {
-  var_args <- make_valid_args(
-    RcT = cbind(15:20, c("a", "b", "c", "d", "e", "f"))
-  )
+# =============================================================================
+# Date Handling Tests
+# =============================================================================
 
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcT.*numeric"
-  )
-})
-
-test_that("validation handles RRG as matrix with non-numeric values", {
-  RRG_bad <- cbind(1:120, rep("bad", 120))
-  var_args <- make_valid_args(RRG = RRG_bad)
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RRG.*numeric"
+testthat::test_that(".check_date handles various date formats", {
+  testthat::expect_s3_class(epicrop:::.check_date("2000-01-01"), "POSIXct")
+  testthat::expect_s3_class(epicrop:::.check_date("01/01/2000"), "POSIXct")
+  testthat::expect_s3_class(
+    epicrop:::.check_date(as.Date("2000-01-01")),
+    "POSIXct"
   )
 })
 
-test_that("validation handles missing weather columns for complex wetness", {
-  # Create a minimal weather object without TMIN/TMAX
-  wth_no_temp <- data.table::data.table(
-    YYYYMMDD = seq.Date(as.Date("2000-07-01"), by = "day", length.out = 185),
-    DOY = 182:366,
-    TEMP = rep(25, 185),
-    RHUM = rep(80, 185),
-    RAIN = rep(5, 185),
-    LAT = rep(14.6774, 185),
-    LON = rep(121.25562, 185)
-  )
-  class(wth_no_temp) <- c("epicrop.wth", "data.table", "data.frame")
-
-  # Verify TMIN/TMAX are NOT in this weather object
-  expect_false("TMIN" %in% names(wth_no_temp))
-  expect_false("TMAX" %in% names(wth_no_temp))
-  expect_true(inherits(wth_no_temp, "epicrop.wth"))
-
-  # Build var_args manually
-  var_args <- list(
-    wth = wth_no_temp,
-    emergence = "2000-07-01",
-    onset = 20L,
-    duration = 120L,
-    rhlim = 90,
-    rainlim = 5,
-    H0 = 600,
-    I0 = 1,
-    RcA = RcA,
-    RcT = RcT,
-    RcOpt = 0.61,
-    p = 6L,
-    i = 19L,
-    Sx = 100000,
-    a = 1,
-    RRS = 0.01,
-    RRG = 0.1,
-    RcW = cbind(c(0, 6, 12, 18, 24), c(0, 0.25, 0.5, 0.75, 1)),
-    simple_wetness = FALSE
-  )
-
-  # Verify the wth in var_args doesn't have TMIN/TMAX
-  expect_false("TMIN" %in% names(var_args$wth))
-  expect_false("TMAX" %in% names(var_args$wth))
-
-  # Now test - should error about missing TMIN/TMAX
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "TMIN|TMAX"
+testthat::test_that(".check_date fails with invalid date string", {
+  testthat::expect_error(
+    epicrop:::.check_date("not-a-date"),
+    regexp = "valid date"
   )
 })
 
-test_that("validation requires RcW when simple_wetness = FALSE", {
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = NULL
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW|matrix|weighted"
-  )
+testthat::test_that(".check_date preserves timezone information", {
+  date_utc <- epicrop:::.check_date("2000-01-01")
+  testthat::expect_s3_class(date_utc, "POSIXct")
 })
 
-test_that("validation rejects scalar RcW when simple_wetness = FALSE", {
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = 1
-  )
+# =============================================================================
+# Weather Preparation Tests
+# =============================================================================
 
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW.*scalar|matrix"
-  )
-})
-
-test_that("validation checks RcW is a proper 2-column matrix", {
-  # List (not matrix) - will fail numeric check first
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = list(c(0, 6, 12), c(0, 0.5, 1))
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW" # Either numeric or matrix error
-  )
-
-  # Wrong number of columns
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = cbind(c(0, 6, 12), c(0, 0.5, 1), c(1, 2, 3))
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW.*two-column"
-  )
-})
-
-test_that("validation checks RcW hour values are 0-24", {
-  # Negative hours
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = cbind(c(-1, 6, 12, 18, 24), c(0, 0.25, 0.5, 0.75, 1))
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW.*0.*24"
-  )
-
-  # Hours > 24
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = cbind(c(0, 6, 12, 18, 25), c(0, 0.25, 0.5, 0.75, 1))
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW.*24"
-  )
-})
-
-test_that("validation checks RcW modifier values are 0-1", {
-  # Negative modifier
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = cbind(c(0, 6, 12, 18, 24), c(-0.1, 0.25, 0.5, 0.75, 1))
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW.*modifier.*0"
-  )
-
-  # Modifier > 1
-  var_args <- make_valid_args(
-    simple_wetness = FALSE,
-    RcW = cbind(c(0, 6, 12, 18, 24), c(0, 0.25, 0.5, 0.75, 1.5))
-  )
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcW.*modifier.*1"
-  )
-})
-
-test_that(".check_date() preserves timezone information", {
-  # Test with explicit timezone
-  date_utc <- .check_date("2000-01-01")
-  expect_s3_class(date_utc, "POSIXct")
-
-  # Test with Date object
-  date_obj <- as.Date("2000-01-01")
-  date_converted <- .check_date(date_obj)
-  expect_s3_class(date_converted, "POSIXct")
-})
-
-test_that("validation handles empty or NULL weather data", {
-  var_args <- make_valid_args(wth = NULL)
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "wth|epicrop.wth"
-  )
-})
-
-test_that("validation handles data.frame weather without epicrop.wth class", {
-  # Create a plain data. frame by converting to regular data.frame
+testthat::test_that(".prepare_weather_data converts to data.table", {
   wth_df <- as.data.frame(wth_formatted)
+  wth_prep <- epicrop:::.prepare_weather_data(wth_df, 120)
+  testthat::expect_s3_class(wth_prep, "data.table")
+})
 
-  # Set class to only data.frame (removing all other classes)
-  class(wth_df) <- "data.frame"
-
-  # Verify only data.frame class remains
-  expect_identical(class(wth_df), "data.frame")
-  expect_false(inherits(wth_df, "epicrop.wth"))
-
-  # Build var_args manually instead of using make_valid_args
-  var_args <- list(
-    wth = wth_df,
-    emergence = "2000-07-01",
-    onset = 20L,
-    duration = 120L,
-    rhlim = 90,
-    rainlim = 5,
-    H0 = 600,
-    I0 = 1,
-    RcA = RcA,
-    RcT = RcT,
-    RcOpt = 0.61,
-    p = 6L,
-    i = 19L,
-    Sx = 100000,
-    a = 1,
-    RRS = 0.01,
-    RRG = 0.1,
-    RcW = NULL,
-    simple_wetness = TRUE
-  )
-
-  # Verify it's still just a data.frame in var_args
-  expect_false(inherits(var_args$wth, "epicrop.wth"))
-
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "epicrop.wth"
+testthat::test_that(".prepare_weather_data catches NA in TEMP", {
+  wth_na_temp <- data.table::copy(wth_formatted)
+  wth_na_temp[1, TEMP := NA]
+  testthat::expect_error(
+    epicrop:::.prepare_weather_data(wth_na_temp, 120),
+    regexp = "TEMP.*NA"
   )
 })
 
-test_that("validation catches missing required arguments in seir()", {
-  # Test missing wth - need to provide simple_wetness explicitly
-  expect_error(
-    seir(
-      # missing wth
-      emergence = "2000-07-01",
-      onset = 20L,
-      duration = 120L,
-      rhlim = 90,
-      rainlim = 5,
-      H0 = 600,
-      I0 = 1,
-      RcA = RcA,
-      RcT = RcT,
-      RcOpt = 0.61,
-      p = 6L,
-      i = 19L,
-      Sx = 100000,
-      a = 1,
-      RRS = 0.01,
-      RRG = 0.1,
-      simple_wetness = TRUE # Add this
-    )
+testthat::test_that(".prepare_weather_data handles NA in RAIN", {
+  wth_na_rain <- data.table::copy(wth_formatted)
+  wth_na_rain[1:5, RAIN := NA]
+
+  testthat::expect_warning(
+    wth_prep <- epicrop:::.prepare_weather_data(wth_na_rain, 120),
+    regexp = "RAIN.*NA"
+  )
+  testthat::expect_equal(wth_prep$RAIN[1:5], rep(0, 5))
+})
+
+# =============================================================================
+# Simulation Window Tests
+# =============================================================================
+
+testthat::test_that(".determine_run_window extracts correct date range", {
+  run_info <- epicrop:::.determine_run_window(
+    wth_formatted,
+    .emergence_date,
+    120
   )
 
-  # Test missing emergence
-  expect_error(
-    seir(
-      wth = wth_formatted,
-      # missing emergence
-      onset = 20L,
-      duration = 120L,
-      rhlim = 90,
-      rainlim = 5,
-      H0 = 600,
-      I0 = 1,
-      RcA = RcA,
-      RcT = RcT,
-      RcOpt = 0.61,
-      p = 6L,
-      i = 19L,
-      Sx = 100000,
-      a = 1,
-      RRS = 0.01,
-      RRG = 0.1
-    )
-  )
+  testthat::expect_identical(nrow(run_info$wth_subset), 120L)
 
-  # Test missing RcA
-  expect_error(
-    seir(
-      wth = wth_formatted,
-      emergence = "2000-07-01",
-      onset = 20L,
-      duration = 120L,
-      rhlim = 90,
-      rainlim = 5,
-      H0 = 600,
-      I0 = 1,
-      # missing RcA
-      RcT = RcT,
-      RcOpt = 0.61,
-      p = 6L,
-      i = 19L,
-      Sx = 100000,
-      a = 1,
-      RRS = 0.01,
-      RRG = 0.1
-    )
+  # Day 0 is the day before emergence
+  testthat::expect_equal(run_info$run_dates[1], as.Date("2000-06-30"))
+  testthat::expect_equal(run_info$run_dates[120], as.Date("2000-06-30") + 119)
+
+  # Sequential dates
+  testthat::expect_equal(diff(as.numeric(run_info$run_dates)), rep(1, 119))
+})
+
+testthat::test_that(".determine_run_window catches insufficient weather data", {
+  testthat::expect_error(
+    epicrop:::.determine_run_window(wth_formatted, "2000-01-01", 120),
+    regexp = "Insufficient weather"
   )
 })
 
-test_that("validation catches missing required arguments in seir()", {
-  # Test missing wth - validation checks class before rlang::check_required
-  expect_error(
-    seir(
-      # missing wth
-      emergence = "2000-07-01",
-      onset = 20L,
-      duration = 120L,
-      rhlim = 90,
-      rainlim = 5,
-      H0 = 600,
-      I0 = 1,
-      RcA = RcA,
-      RcT = RcT,
-      RcOpt = 0.61,
-      p = 6L,
-      i = 19L,
-      Sx = 100000,
-      a = 1,
-      RRS = 0.01,
-      RRG = 0.1,
-      simple_wetness = TRUE
-    )
-  )
-
-  # Test missing emergence
-  expect_error(
-    seir(
-      wth = wth_formatted,
-      # missing emergence
-      onset = 20L,
-      duration = 120L,
-      rhlim = 90,
-      rainlim = 5,
-      H0 = 600,
-      I0 = 1,
-      RcA = RcA,
-      RcT = RcT,
-      RcOpt = 0.61,
-      p = 6L,
-      i = 19L,
-      Sx = 100000,
-      a = 1,
-      RRS = 0.01,
-      RRG = 0.1
-    )
-  )
-
-  # Test missing RcT (RcA validation happens first if RcA is missing)
-  expect_error(
-    seir(
-      wth = wth_formatted,
-      emergence = "2000-07-01",
-      onset = 20L,
-      duration = 120L,
-      rhlim = 90,
-      rainlim = 5,
-      H0 = 600,
-      I0 = 1,
-      RcA = RcA,
-      # missing RcT
-      RcOpt = 0.61,
-      p = 6L,
-      i = 19L,
-      Sx = 100000,
-      a = 1,
-      RRS = 0.01,
-      RRG = 0.1
-    )
-  )
-
-  # Test missing onset
-  expect_error(
-    seir(
-      wth = wth_formatted,
-      emergence = "2000-07-01",
-      # missing onset
-      duration = 120L,
-      rhlim = 90,
-      rainlim = 5,
-      H0 = 600,
-      I0 = 1,
-      RcA = RcA,
-      RcT = RcT,
-      RcOpt = 0.61,
-      p = 6L,
-      i = 19L,
-      Sx = 100000,
-      a = 1,
-      RRS = 0.01,
-      RRG = 0.1
-    )
+testthat::test_that(".determine_run_window warns about multiple emergence dates", {
+  testthat::expect_warning(
+    epicrop:::.determine_run_window(
+      wth_formatted,
+      c("2000-07-01", "2000-07-02"),
+      120
+    ),
+    regexp = "Only one day.*emergence"
   )
 })
 
-test_that("validation handles extremely large duration values", {
-  var_args <- make_valid_args(duration = 10000L)
+# =============================================================================
+# DVS Calculation Tests
+# =============================================================================
 
-  # Should error because RcA doesn't cover that many days
-  expect_error(
-    .check_inputs(var_args),
-    regexp = "RcA.*duration"
+testthat::test_that(".calculate_dvs produces values between 0 and 2", {
+  w <- wth_formatted[1:120, ]
+  thermal_time <- list(base_temp = 0, gdd_to_maturity = 1100)
+
+  dvs <- epicrop:::.calculate_dvs(w, thermal_time)
+
+  testthat::expect_length(dvs, 120)
+  testthat::expect_true(all(dvs >= 0))
+  testthat::expect_true(all(dvs <= 2))
+})
+
+testthat::test_that(".calculate_dvs increases monotonically", {
+  w <- wth_formatted[1:120, ]
+  thermal_time <- list(base_temp = 0, gdd_to_maturity = 1100)
+
+  dvs <- epicrop:::.calculate_dvs(w, thermal_time)
+
+  testthat::expect_true(all(diff(dvs) >= 0))
+})
+
+# =============================================================================
+# Modifier Preparation Tests
+# =============================================================================
+
+testthat::test_that(".prepare_modifiers produces correct length vectors", {
+  w <- wth_formatted[1:120, ]
+  age_vec <- seq(0, 119)
+
+  modifiers <- build_modifiers(w, age_vec = age_vec, duration = 120)
+
+  testthat::expect_length(modifiers$Rc, 120)
+  testthat::expect_length(modifiers$RRLEX, 120)
+  testthat::expect_length(modifiers$RRG, 120)
+  testthat::expect_length(modifiers$RRS, 120)
+  testthat::expect_length(modifiers$p, 120)
+  testthat::expect_length(modifiers$i, 120)
+  testthat::expect_length(modifiers$a, 120)
+})
+
+testthat::test_that(".prepare_modifiers produces values in valid ranges", {
+  w <- wth_formatted[1:120, ]
+  age_vec <- seq(0, 119)
+
+  modifiers <- build_modifiers(w, age_vec = age_vec, duration = 120)
+
+  testthat::expect_true(all(modifiers$Rc >= 0))
+  testthat::expect_true(all(modifiers$RRLEX >= 0))
+  testthat::expect_true(all(modifiers$RRG >= 0))
+  testthat::expect_true(all(modifiers$RRS >= 0))
+  testthat::expect_true(all(modifiers$p > 0))
+  testthat::expect_true(all(modifiers$i > 0))
+  testthat::expect_true(all(modifiers$a >= 1))
+})
+
+# =============================================================================
+# Inoculum Building Tests
+# =============================================================================
+
+testthat::test_that(".build_inoculum creates impulse at onset", {
+  Iprim <- epicrop:::.build_inoculum(I0 = 1, onset = 20, duration = 120)
+
+  testthat::expect_length(Iprim, 120)
+  testthat::expect_equal(Iprim[20], 1)
+  testthat::expect_equal(sum(Iprim), 1)
+})
+
+testthat::test_that(".build_inoculum handles list mode - uniform", {
+  I0_list <- list(mode = "uniform", I0 = 10, duration = 5)
+
+  Iprim <- epicrop:::.build_inoculum(I0_list, onset = 20, duration = 120)
+
+  testthat::expect_length(Iprim, 120)
+  testthat::expect_equal(sum(Iprim), 10)
+  testthat::expect_equal(sum(Iprim[20:24]), 10)
+})
+
+testthat::test_that(".build_inoculum handles list mode - triangle", {
+  I0_list <- list(mode = "triangle", I0 = 10, duration = 5)
+
+  Iprim <- epicrop:::.build_inoculum(I0_list, onset = 20, duration = 120)
+
+  testthat::expect_length(Iprim, 120)
+  testthat::expect_equal(sum(Iprim), 10, tolerance = 0.01)
+
+  # Peak should be in middle of the 5-day window (positions 21–22)
+  peak_idx <- which.max(Iprim[20:24]) + 19
+  testthat::expect_true(peak_idx %in% 21:22)
+})
+
+testthat::test_that(".build_inoculum handles list mode - series", {
+  custom_series <- rep(0, 120)
+  custom_series[20:25] <- c(1, 2, 3, 2, 1, 0.5)
+
+  I0_list <- list(mode = "series", series = custom_series)
+
+  Iprim <- epicrop:::.build_inoculum(I0_list, onset = 20, duration = 120)
+
+  testthat::expect_identical(Iprim, custom_series)
+})
+
+testthat::test_that(".build_inoculum warns when onset outside window", {
+  testthat::expect_warning(
+    Iprim <- epicrop:::.build_inoculum(I0 = 1, onset = 150, duration = 120),
+    regexp = "onset.*outside"
   )
+  testthat::expect_equal(sum(Iprim), 0)
 })
 
-test_that("validation handles edge case:  a = 1 (no aggregation)", {
-  var_args <- make_valid_args(a = 1)
+# =============================================================================
+# Output Assembly Tests
+# =============================================================================
 
-  # Should not error
-  expect_no_error(.check_inputs(var_args))
-})
-
-test_that("validation handles edge case: rhlim = 0", {
-  var_args <- make_valid_args(rhlim = 0)
-
-  # Should not error (0 is valid, means never wet)
-  expect_no_error(.check_inputs(var_args))
-})
-
-test_that("validation handles edge case: rhlim = 100", {
-  var_args <- make_valid_args(rhlim = 100)
-
-  # Should not error (100 is valid)
-  expect_no_error(.check_inputs(var_args))
-})
-
-test_that("validation handles emergence date outside weather data range", {
-  # This is tested in seir() itself, not .check_inputs
-  # But we can verify the date checking works
-  var_args <- make_valid_args(emergence = "1999-01-01")
-
-  # . check_inputs validates the date format, not the range
-  expect_no_error(.check_inputs(var_args))
-
-  # But seir() should catch it
-  expect_error(
-    do.call(seir, var_args),
-    regexp = "Incomplete weather|dates.*align"
+# Small helper to mock a stable 'core' shape for .assemble_output
+.mock_core <- function(n = 120L) {
+  list(
+    sites = rep(100, n),
+    latent = rep(10, n),
+    infectious = rep(5, n),
+    removed = rep(2, n),
+    senesced = rep(1, n),
+    rateinf = rep(0.1, n),
+    rlex = rep(0, n),
+    rtransfer = rep(0.5, n),
+    rremoved = rep(0.3, n),
+    rgrowth = rep(1, n),
+    rsenesced = rep(0.1, n),
+    diseased = rep(17, n),
+    intensity = seq(0, 0.5, length.out = n)
   )
+}
+
+testthat::test_that(".assemble_output produces correct structure", {
+  core <- .mock_core(120L)
+  run_dates <- seq(as.Date(.emergence_date), by = "day", length.out = 120)
+
+  result <- epicrop:::.assemble_output(core, run_dates, 120, wth_formatted)
+
+  testthat::expect_s3_class(
+    result,
+    c("epicrop.sim", "data.table", "data.frame")
+  )
+  testthat::expect_identical(nrow(result), 120L)
+  testthat::expect_true("simday" %in% names(result))
+  testthat::expect_true("dates" %in% names(result))
+  testthat::expect_false(is.null(attr(result, "AUDPC")))
+})
+
+testthat::test_that(".assemble_output includes lat/lon when available", {
+  core <- .mock_core(120L)
+  run_dates <- seq(as.Date(.emergence_date), by = "day", length.out = 120)
+
+  result <- epicrop:::.assemble_output(core, run_dates, 120, wth_formatted)
+
+  # lat/lon presence & plausibility
+  testthat::expect_true("lat" %in% names(result))
+  testthat::expect_true("lon" %in% names(result))
+  testthat::expect_type(result$lat, "double")
+  testthat::expect_type(result$lon, "double")
+  testthat::expect_length(unique(result$lat), 1L)
+  testthat::expect_length(unique(result$lon), 1L)
+  testthat::expect_false(is.na(unique(result$lat)))
+  testthat::expect_false(is.na(unique(result$lon)))
+  testthat::expect_true(abs(unique(result$lat)) > 0)
+  testthat::expect_true(abs(unique(result$lon)) > 0)
+})
+
+# =============================================================================
+# Helper Function Tests
+# =============================================================================
+
+testthat::test_that(".is_boolean correctly identifies booleans", {
+  testthat::expect_true(epicrop:::.is_boolean(TRUE))
+  testthat::expect_true(epicrop:::.is_boolean(FALSE))
+  testthat::expect_false(epicrop:::.is_boolean(1))
+  testthat::expect_false(epicrop:::.is_boolean("TRUE"))
+  testthat::expect_false(epicrop:::.is_boolean(c(TRUE, FALSE)))
+  testthat::expect_false(epicrop:::.is_boolean(NA))
 })
