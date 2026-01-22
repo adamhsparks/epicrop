@@ -33,14 +33,39 @@
 #' # run_epicrop_model(bacterial_blight, em, wth_list, output = "audpc")
 #'
 #' @export
+
 build_epicrop_emergence <- function(years, month_day) {
-  g <- data.table::CJ(years = years, month_day = month_day, sorted = FALSE)
-  g <- sort(
-    data.table::as.IDate(
-      sprintf("%s%s", g$years, g$month_day),
-      format = "%Y-%m-%d"
+  md <- data.table::fifelse(
+    !is.na(month_day) &
+      grepl("^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", month_day),
+    month_day,
+    data.table::fifelse(
+      !is.na(month_day) &
+        grepl("^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", month_day),
+      paste0("-", month_day),
+      NA_character_
     )
   )
-  class(g) <- union("epicrop.emerge", class(g))
-  g
+
+  if (anyNA(md)) {
+    bad <- unique(month_day[is.na(md)])
+    cli::cli_abort(
+      "Invalid {.arg month_day} value(s): {bad}. Use \"MM-DD\" or \"-MM-DD\"."
+    )
+  }
+
+  g <- data.table::CJ(years = years, month_day = md, sorted = FALSE)
+  dates <- data.table::as.IDate(
+    sprintf("%s%s", g$years, g$month_day),
+    format = "%Y-%m-%d"
+  )
+  if (anyNA(dates)) {
+    cli::cli_abort(
+      "Failed to construct emergence dates from {.arg years} and
+      {.arg month_day}."
+    )
+  }
+  out <- sort(dates)
+  class(out) <- union("epicrop.emerge", class(out))
+  out
 }
