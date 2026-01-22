@@ -83,11 +83,6 @@ See the help file for `epicrop_sim()` for more on the values returned.
 bb_wet <- bacterial_blight(wth, emergence = "2000-07-01")
 ```
 
-```
-## Emergence date: 2000-06-30
-## ℹ Inoculum: 1 at day 20 (impulse)
-```
-
 
 ``` r
 summary(bb_wet)
@@ -108,20 +103,27 @@ summary(bb_wet)
 ##  Mean   :267.60   Mean   : 56.04   Mean   : 775.2   Mean   :12.262  
 ##  3rd Qu.:595.15   3rd Qu.: 28.87   3rd Qu.:1390.0   3rd Qu.:22.356  
 ##  Max.   :970.87   Max.   :612.71   Max.   :1895.1   Max.   :56.827  
-##       rlex     rtransfer        rremoved         rgrowth         rsenesced     
-##  Min.   :0   Min.   : 0.00   Min.   : 0.000   Min.   : 9.688   Min.   : 1.000  
-##  1st Qu.:0   1st Qu.: 0.00   1st Qu.: 0.000   1st Qu.:19.569   1st Qu.: 9.323  
-##  Median :0   Median : 0.00   Median : 0.000   Median :32.024   Median :17.120  
-##  Mean   :0   Mean   :11.83   Mean   : 5.106   Mean   :38.908   Mean   :15.793  
-##  3rd Qu.:0   3rd Qu.:22.36   3rd Qu.: 2.517   3rd Qu.:57.391   3rd Qu.:22.789  
-##  Max.   :0   Max.   :56.83   Max.   :48.174   Max.   :79.585   Max.   :25.863  
-##     diseased          intensity             lat             lon       
-##  Min.   :   0.000   Min.   :0.000000   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:   2.429   1st Qu.:0.002382   1st Qu.:14.68   1st Qu.:121.3  
-##  Median :  46.853   Median :0.017969   Median :14.68   Median :121.3  
-##  Mean   : 383.668   Mean   :0.122956   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.: 846.783   3rd Qu.:0.289563   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :1471.442   Max.   :0.426437   Max.   :14.68   Max.   :121.3
+##       rlex     rtransfer        rremoved         rgrowth      
+##  Min.   :0   Min.   : 0.00   Min.   : 0.000   Min.   : 9.688  
+##  1st Qu.:0   1st Qu.: 0.00   1st Qu.: 0.000   1st Qu.:19.569  
+##  Median :0   Median : 0.00   Median : 0.000   Median :32.024  
+##  Mean   :0   Mean   :11.83   Mean   : 5.106   Mean   :38.908  
+##  3rd Qu.:0   3rd Qu.:22.36   3rd Qu.: 2.517   3rd Qu.:57.391  
+##  Max.   :0   Max.   :56.83   Max.   :48.174   Max.   :79.585  
+##    rsenesced         diseased          intensity             lat       
+##  Min.   : 1.000   Min.   :   0.000   Min.   :0.000000   Min.   :14.68  
+##  1st Qu.: 9.323   1st Qu.:   2.429   1st Qu.:0.002382   1st Qu.:14.68  
+##  Median :17.120   Median :  46.853   Median :0.017969   Median :14.68  
+##  Mean   :15.793   Mean   : 383.668   Mean   :0.122956   Mean   :14.68  
+##  3rd Qu.:22.789   3rd Qu.: 846.783   3rd Qu.:0.289563   3rd Qu.:14.68  
+##  Max.   :25.863   Max.   :1471.442   Max.   :0.426437   Max.   :14.68  
+##       lon       
+##  Min.   :121.3  
+##  1st Qu.:121.3  
+##  Median :121.3  
+##  Mean   :121.3  
+##  3rd Qu.:121.3  
+##  Max.   :121.3
 ```
 
 ## Plotting using {ggplot2}
@@ -191,14 +193,6 @@ We can compare the dry season with the wet season by looking at the AUDPC values
 
 ``` r
 bb_dry <- bacterial_blight(wth = wth, emergence = "2000-01-05")
-```
-
-```
-## Emergence date: 2000-01-04
-## ℹ Inoculum: 1 at day 20 (impulse)
-```
-
-``` r
 summary(bb_dry)
 ```
 
@@ -217,20 +211,27 @@ summary(bb_dry)
 ##  Mean   : 74.78   Mean   : 21.38   Mean   : 824.8   Mean   : 2.904  
 ##  3rd Qu.:141.06   3rd Qu.: 19.49   3rd Qu.:1455.2   3rd Qu.: 0.562  
 ##  Max.   :285.00   Max.   :154.75   Max.   :2213.8   Max.   :43.425  
-##       rlex     rtransfer         rremoved        rgrowth         rsenesced     
-##  Min.   :0   Min.   : 0.000   Min.   : 0.00   Min.   : 9.688   Min.   : 1.000  
-##  1st Qu.:0   1st Qu.: 0.000   1st Qu.: 0.00   1st Qu.:25.940   1st Qu.: 9.333  
-##  Median :0   Median : 0.000   Median : 0.00   Median :33.960   Median :24.958  
-##  Mean   :0   Mean   : 2.904   Mean   : 1.29   Mean   :41.597   Mean   :18.448  
-##  3rd Qu.:0   3rd Qu.: 0.562   3rd Qu.: 0.00   3rd Qu.:57.653   3rd Qu.:25.900  
-##  Max.   :0   Max.   :43.425   Max.   :25.25   Max.   :79.439   Max.   :27.142  
-##     diseased         intensity             lat             lon       
-##  Min.   :  0.000   Min.   :0.000000   Min.   :14.68   Min.   :121.3  
-##  1st Qu.:  2.166   1st Qu.:0.002226   1st Qu.:14.68   1st Qu.:121.3  
-##  Median : 33.297   Median :0.012592   Median :14.68   Median :121.3  
-##  Mean   :110.689   Mean   :0.032582   Mean   :14.68   Mean   :121.3  
-##  3rd Qu.:200.347   3rd Qu.:0.063808   3rd Qu.:14.68   3rd Qu.:121.3  
-##  Max.   :348.522   Max.   :0.108523   Max.   :14.68   Max.   :121.3
+##       rlex     rtransfer         rremoved        rgrowth      
+##  Min.   :0   Min.   : 0.000   Min.   : 0.00   Min.   : 9.688  
+##  1st Qu.:0   1st Qu.: 0.000   1st Qu.: 0.00   1st Qu.:25.940  
+##  Median :0   Median : 0.000   Median : 0.00   Median :33.960  
+##  Mean   :0   Mean   : 2.904   Mean   : 1.29   Mean   :41.597  
+##  3rd Qu.:0   3rd Qu.: 0.562   3rd Qu.: 0.00   3rd Qu.:57.653  
+##  Max.   :0   Max.   :43.425   Max.   :25.25   Max.   :79.439  
+##    rsenesced         diseased         intensity             lat       
+##  Min.   : 1.000   Min.   :  0.000   Min.   :0.000000   Min.   :14.68  
+##  1st Qu.: 9.333   1st Qu.:  2.166   1st Qu.:0.002226   1st Qu.:14.68  
+##  Median :24.958   Median : 33.297   Median :0.012592   Median :14.68  
+##  Mean   :18.448   Mean   :110.689   Mean   :0.032582   Mean   :14.68  
+##  3rd Qu.:25.900   3rd Qu.:200.347   3rd Qu.:0.063808   3rd Qu.:14.68  
+##  Max.   :27.142   Max.   :348.522   Max.   :0.108523   Max.   :14.68  
+##       lon       
+##  Min.   :121.3  
+##  1st Qu.:121.3  
+##  Median :121.3  
+##  Mean   :121.3  
+##  3rd Qu.:121.3  
+##  Max.   :121.3
 ```
 
 ### Dry season intensity
