@@ -4,13 +4,13 @@
 #'  parameters suitable for use in \pkg{epicrop}.
 #'
 #' @param lonlat A numeric vector of geographic coordinates for a cell or region
-#'  entered as x, y coordinates.
+#'  entered as lon (x), lat (y) coordinates.
 #' @param dates A character vector of start and end dates in that order.
 #' @param duration A numeric value indicating how many days a single
 #'  growing season being simulated is to be.  If this is used, only the start
 #'  date will be used and the end date will be ignored if supplied.  This must
-#'  match the `duration` parameter value passed along to [epicrop_sim()] or any of the
-#'  `predict` family of functions.
+#'  match the `duration` parameter value passed along to [epicrop_sim()] or any
+#'  of the `predict` family of functions.
 #'
 #' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table()],
 #'  object suitable for use in \pkg{epicrop} containing weather data, dates and
@@ -51,20 +51,31 @@
 #' @export get_wth
 
 get_wth <- function(lonlat, dates, duration = NULL) {
+  # --- existing checks ---
   if (!is.numeric(lonlat) || length(lonlat) != 2L) {
     cli::cli_abort(
       "{.arg lonlat} must be numeric length-2: {.code c(lon, lat)}."
     )
   }
 
+  lon <- as.double(unname(lonlat[1L]))
+  lat <- as.double(unname(lonlat[2L]))
+
+  if (is.na(lon) || lon < -180 || lon > 180) {
+    cli::cli_abort("Longitude must be in [-180, 180], got {lon}.")
+  }
+  if (is.na(lat) || lat < -90 || lat > 90) {
+    cli::cli_abort("Latitude must be in [-90, 90], got {lat}.")
+  }
+
   if (missing(dates) || length(dates) < 1L) {
     cli::cli_abort(
-      "Provide {.arg dates} as \"YYYY-MM-DD\" (start) or c(start, end)."
+      "Provide {.arg dates} as 'YYYY-MM-DD' (start) or c(start, end)."
     )
   }
   start <- as.Date(dates[1L])
   if (is.na(start)) {
-    cli::cli_abort("`dates[1]` must be an ISO date (\"YYYY-MM-DD\").")
+    cli::cli_abort("`dates[1]` must be an ISO date ('YYYY-MM-DD').")
   }
 
   if (!is.null(duration) && !missing(duration)) {
@@ -75,25 +86,25 @@ get_wth <- function(lonlat, dates, duration = NULL) {
         "{.arg duration} must be a single positive integer (days)."
       )
     }
-    end <- start + (as.integer(duration) - 1L) # <-- inclusive window
+    end <- start + (as.integer(duration) - 1L) # inclusive
   } else if (length(dates) >= 2L) {
     end <- as.Date(dates[2L])
     if (is.na(end)) {
-      cli::cli_abort("`dates[2]` must be an ISO date (\"YYYY-MM-DD\").")
+      cli::cli_abort("`dates[2]` must be an ISO date ('YYYY-MM-DD').")
     }
   } else {
-    end <- start # single-day request
+    end <- start
   }
 
   date_vec <- c(format(start, "%Y-%m-%d"), format(end, "%Y-%m-%d"))
 
   wth <- data.table::setDT(
     nasapower::get_power(
-      lonlat = lonlat,
-      dates = date_vec,
       community = "AG",
       pars = c("T2M", "T2M_MIN", "T2M_MAX", "RH2M", "PRECTOTCORR"),
-      temporal_api = "DAILY"
+      temporal_api = "DAILY",
+      lonlat = c(lon, lat),
+      dates = date_vec
     )
   )
 
@@ -122,14 +133,12 @@ get_wth <- function(lonlat, dates, duration = NULL) {
       )
     }
   } else if (!rlang::inherits_any(wth$YYYYMMDD, "IDate")) {
-    # POWER sometimes returns integer YYYYMMDD; coerce explicitly
     wth[,
       YYYYMMDD := data.table::as.IDate(
         as.character(YYYYMMDD),
         format = "%Y%m%d"
       )
     ]
-    # If that failed (e.g., already "YYYY-MM-DD"), try plain coercion
     if (anyNA(wth$YYYYMMDD)) {
       wth[, YYYYMMDD := data.table::as.IDate(as.character(YYYYMMDD))]
     }
@@ -165,7 +174,7 @@ get_wth <- function(lonlat, dates, duration = NULL) {
   have <- intersect(target, names(wth))
   data.table::setcolorder(wth, c(have, setdiff(names(wth), have)))
 
-  data.table::setkey(wth, "YYYYMMDD") # <-- fix: setkey (not setKey)
+  data.table::setkey(wth, "YYYYMMDD")
   .check_na(wth)
 
   class(wth) <- union("epicrop.wth", class(wth))
