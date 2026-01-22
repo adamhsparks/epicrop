@@ -7,7 +7,7 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 93.9%](https://img.shields.io/badge/code_coverage-93.9%25-green)](#code-coverage)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 70.4%](https://img.shields.io/badge/code_coverage-70.4%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
@@ -73,8 +73,6 @@ Once you have the weather data, run the model for any of the five rice diseases 
 
 ``` r
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
-#> Emergence date: 2000-06-30
-#> ℹ Inoculum: 1 at day 20 (impulse)
 
 bb_sim
 #>      simday      dates     sites   latent infectious  removed    senesced
@@ -90,32 +88,32 @@ bb_sim
 #> 118:    118 2000-10-25 1435.3902 40.40084   868.8771 528.6018 1866.593329
 #> 119:    119 2000-10-26 1418.3189 36.13249   849.7002 569.4202 1880.947231
 #> 120:    120 2000-10-27 1402.4149 52.32144   806.4095 612.7109 1895.130420
-#>       rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased
-#>         <num> <num>     <num>    <num>    <num>     <num>    <num>
-#>   1:  0.00000     0   0.00000  0.00000  9.68750  1.000000    0.000
-#>   2:  0.00000     0   0.00000  0.00000 10.49959  1.086875    0.000
-#>   3:  0.00000     0   0.00000  0.00000 11.37416  1.181002    0.000
-#>   4:  0.00000     0   0.00000  0.00000 12.31499  1.282934    0.000
-#>   5:  0.00000     0   0.00000  0.00000 13.32593  1.393254    0.000
-#>  ---                                                              
-#> 116:  0.00000     0  24.08819 46.61892 14.88278 14.531424 1419.120
-#> 117:  0.00000     0  22.75600 48.17443 14.87042 14.534937 1419.120
-#> 118: 18.75936     0  22.22305 44.45507 14.85861 14.538292 1437.880
-#> 119: 17.37313     0  21.64148 40.81840 14.65579 14.353902 1455.253
-#> 120: 16.18895     0   0.00000 43.29069 14.46810 14.183189 1471.442
-#>      intensity     lat      lon
-#>          <num>   <num>    <num>
-#>   1: 0.0000000 14.6774 121.2556
-#>   2: 0.0000000 14.6774 121.2556
-#>   3: 0.0000000 14.6774 121.2556
-#>   4: 0.0000000 14.6774 121.2556
-#>   5: 0.0000000 14.6774 121.2556
-#>  ---                           
-#> 116: 0.4034849 14.6774 121.2556
-#> 117: 0.3913984 14.6774 121.2556
-#> 118: 0.3878067 14.6774 121.2556
-#> 119: 0.3844507 14.6774 121.2556
-#> 120: 0.3797769 14.6774 121.2556
+#>       rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased intensity
+#>         <num> <num>     <num>    <num>    <num>     <num>    <num>     <num>
+#>   1:  0.00000     0   0.00000  0.00000  9.68750  1.000000    0.000 0.0000000
+#>   2:  0.00000     0   0.00000  0.00000 10.49959  1.086875    0.000 0.0000000
+#>   3:  0.00000     0   0.00000  0.00000 11.37416  1.181002    0.000 0.0000000
+#>   4:  0.00000     0   0.00000  0.00000 12.31499  1.282934    0.000 0.0000000
+#>   5:  0.00000     0   0.00000  0.00000 13.32593  1.393254    0.000 0.0000000
+#>  ---                                                                        
+#> 116:  0.00000     0  24.08819 46.61892 14.88278 14.531424 1419.120 0.4034849
+#> 117:  0.00000     0  22.75600 48.17443 14.87042 14.534937 1419.120 0.3913984
+#> 118: 18.75936     0  22.22305 44.45507 14.85861 14.538292 1437.880 0.3878067
+#> 119: 17.37313     0  21.64148 40.81840 14.65579 14.353902 1455.253 0.3844507
+#> 120: 16.18895     0   0.00000 43.29069 14.46810 14.183189 1471.442 0.3797769
+#>          lat      lon
+#>        <num>    <num>
+#>   1: 14.6774 121.2556
+#>   2: 14.6774 121.2556
+#>   3: 14.6774 121.2556
+#>   4: 14.6774 121.2556
+#>   5: 14.6774 121.2556
+#>  ---                 
+#> 116: 14.6774 121.2556
+#> 117: 14.6774 121.2556
+#> 118: 14.6774 121.2556
+#> 119: 14.6774 121.2556
+#> 120: 14.6774 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -123,8 +121,6 @@ Lastly, you can visualise the result of the model run.
 
 ``` r
 library(ggplot2)
-#> Posit Community (formerly RStudio Community) is a great place to
-#> get help: https://forum.posit.co/c/tidyverse
 
 ggplot(
   data = bb_sim,
@@ -159,10 +155,14 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 93.88%
+#> epicrop Coverage: 70.38%
+#> R/audpc_dt.R: 0.00%
+#> R/build_epicrop_emergence.R: 0.00%
+#> R/fetch_epicrop_weather_list.R: 0.00%
+#> R/run_epicrop_model.R: 0.00%
 #> R/calculate_audpc.R: 80.00%
 #> R/validation.R: 83.07%
-#> R/epicrop_sim.R: 88.63%
+#> R/epicrop_sim.R: 85.47%
 #> R/leaf_wetness.R: 90.55%
 #> src/seir_core.cpp: 97.73%
 #> R/disease_models.R: 100.00%
