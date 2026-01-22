@@ -496,8 +496,6 @@ epicrop_sim <- function(
   em_date <- as.Date(em_date)
   dates <- seq(from = em_date, by = "day", length.out = duration)
 
-  cli::cli_inform("Emergence date: {.val {em_date}}")
-
   # Convert a local view for matching without touching parent
   col <- wth[["YYYYMMDD"]]
 
@@ -715,20 +713,13 @@ epicrop_sim <- function(
 
     if (onset >= 1 && onset <= duration) {
       Iprim[onset] <- I0
-      cli::cli_inform(
-        call = rlang::caller_env(),
-        c("i" = "Inoculum: {.val {I0}} at day {.val {onset}} (impulse)"),
-
-        .envir = parent.frame()
-      )
     } else {
       cli::cli_warn(
         c(
           call = rlang::caller_env(),
           "!" = "{.var onset} = {.val {onset}} outside simulation window",
           "i" = "No inoculum applied"
-        ),
-        .envir = parent.frame()
+        )
       )
     }
 
@@ -746,8 +737,8 @@ epicrop_sim <- function(
     cli::cli_warn(
       c(
         call = rlang::caller_env(),
-        "!" = "{.var start_offset} = {.val {start_offset}}
-      outside simulation window",
+        "!" = "{.var start_offset} = {.val {start_offset}} outside simulation
+          window",
         "i" = "No inoculum applied"
       ),
       .envir = parent.frame()
@@ -759,13 +750,6 @@ epicrop_sim <- function(
 
   if (mode == "impulse") {
     Iprim[start_offset] <- I0$I0
-    cli::cli_inform(
-      call = rlang::caller_env(),
-      c(
-        "i" = "Inoculum: {.val {I0$I0}} at day {.val {start_offset}} (impulse)"
-      ),
-      .envir = parent.frame()
-    )
   } else if (mode == "uniform") {
     L <- max(1, I0$duration)
     idx <- start_offset:(start_offset + L - 1)
@@ -773,14 +757,6 @@ epicrop_sim <- function(
 
     if (length(idx) > 0) {
       Iprim[idx] <- I0$I0 / length(idx)
-      cli::cli_inform(
-        call = rlang::caller_env(),
-        c(
-          "i" = "Inoculum:   {.val {I0$I0}} uniform, days
-        {.val {min(idx)}}-{.val {max(idx)}}"
-        ),
-        .envir = parent.frame()
-      )
     }
   } else if (mode == "triangle") {
     L <- max(3, I0$duration)
@@ -791,14 +767,6 @@ epicrop_sim <- function(
       half <- ceiling(length(idx) / 2)
       wts <- c(seq_len(half), rev(seq_len(length(idx) - half)))
       Iprim[idx] <- I0$I0 * (wts / sum(wts))
-      cli::cli_inform(
-        call = rlang::caller_env(),
-        c(
-          "i" = "Inoculum:   {.val {I0$I0}} triangular, days
-        {.val {min(idx)}}-{.val {max(idx)}}"
-        ),
-        .envir = parent.frame()
-      )
     }
   } else if (mode == "series") {
     if (is.null(I0$series)) {
@@ -825,11 +793,6 @@ epicrop_sim <- function(
 
     Iprim <- I0$series
     total <- sum(Iprim)
-    cli::cli_inform(
-      call = rlang::caller_env(),
-      c("i" = "Inoculum: custom series, total = {.val {round(total, 2)}}"),
-      .envir = parent.frame()
-    )
   }
 
   return(Iprim)
