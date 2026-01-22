@@ -4,7 +4,7 @@ template:
     bootswatch: journal
 url: https://adamhsparks.codeberg.page/epicrop/
 reference:
-  - title: Helper Functions for Disease Simulations
+  - title: Helper Functions for Rice Disease Simulations
     desc: |
       Run the model using pre-defined functions as defined in Savary _et al._ 2012 and Kim et al. 2015
     contents:
@@ -15,13 +15,30 @@ reference:
       - tungro
       - modified_kim_leaf_blast
       - modified_kim_sheath_blight
+  - title: Helper Functions for Wheat Disease Simulations
+    desc: |
+      Run the model using pre-defined functions as defined in Savary _et al._ 2015
+    contents:
+      - leaf_rust
+      - s_tritici_blotch
+  - title: Helper Functions for Multiple Simulations
+    contents:
+      - run_epicrop_model
+      - build_epicrop_emergence
+      - audpc_dt
   - title: SEIR
     desc: |
       A susceptible-exposed-infectious-removed (SEIR) model and the main function that drives {epicrop}
-    contents: seir
+    contents: epicrop_sim
   - title: Weather Data
     desc: |
       Functions for fetching and formatting weather data for use in {epicrop}
     contents:
       - get_wth
+      - fetch_epicrop_weather_list
       - format_wth
+  - title: Miscellaneous
+    desc: |
+      Other functions
+    contents:
+      - get_audpc
