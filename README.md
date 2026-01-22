@@ -1,9 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+
+
 # Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model <img src="man/figures/logo.png" align="right"/>
 
 <!-- badges: start -->
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 70%](https://img.shields.io/badge/code_coverage-70%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
@@ -11,7 +15,7 @@ A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, `seir()`.
 
 The original EPIRICE manuscript, Savary *et al.* (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
-The original EPIWHEAT manuscript, Savary *et al.* (2015), which details the model and results of its use to model potential epidemics of wheat diseases, leaf rust and septoria tritici blotch, is also included in this package.
+The original EPIWHEAT manuscript, Savary *et al.* (2015), which details the model and results of its use to model potential epidemics of wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.
 
 Additional models included for rice are adapted from Kim et al. (2015) for rice sheath blight and leaf blast.
 
@@ -23,7 +27,7 @@ Alternatively, you can supply your own weather data for any time period as long 
 {epicrop} is not yet on CRAN.
 You can install it this way.
 
-```r
+```r 
 install.packages("epicrop",
   repos = c("https://adamhsparks.r-universe.dev",
             "https://cloud.r-project.org"))
@@ -33,6 +37,7 @@ install.packages("epicrop",
 
 First you need to provide weather data for the model; {epicrop} provides the `get_wth()` function to do this.
 Using it you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.
+
 
 ``` r
 library(epicrop)
@@ -64,6 +69,7 @@ wth
 ## Modelling bacterial blight disease intensity
 
 Once you have the weather data, run the model for any of the five rice diseases by providing the emergence or crop establishment date for transplanted rice.
+
 
 ``` r
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
@@ -112,6 +118,7 @@ bb_sim
 
 Lastly, you can visualise the result of the model run.
 
+
 ``` r
 library(ggplot2)
 
@@ -138,13 +145,14 @@ ggplot(
 
 # Meta
 
-- Please [report any issues or bugs](https://codeberg.org/adamhsparks/epicrop/issues).
+-   Please [report any issues or bugs](https://codeberg.org/adamhsparks/epicrop/issues).
 
-- License: GPL-3
+-   License: GPL-3
 
-- To cite {epicrop}, please use the output from `citation(package = "epicrop")`.
+-   To cite {epicrop}, please use the output from `citation(package = "epicrop")`.
 
 ## Code Coverage
+
 
 ```
 #> epicrop Coverage: 70.38%
@@ -169,16 +177,15 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Other Implementations in R
 
-- The EPIRICE model was originally written in R as a part of the [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) package (Hijmans *et al.* 2009).
+ - The EPIRICE model was originally written in R as a part of the [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) package (Hijmans _et al._ 2009).
 
-- The EPIRICE model is also available from CRAN in the [{ZeBook}](https://cran.r-project.org/package=ZeBook) package (Brun *et al.* 2018) to accompany, "Working with dynamic crop models: methods, tools and examples for agriculture and environment" (Wallach *et al.* 2018).
+ - The EPIRICE model is also available from CRAN in the [{ZeBook}](https://cran.r-project.org/package=ZeBook) package (Brun _et al._ 2018) to accompany, "Working with dynamic crop models: methods, tools and examples for agriculture and environment" (Wallach _et al._ 2018).
 
 # References
-
 Brun François, David Makowski, Daniel Wallach, and James W Jones.
 (2018).
 *ZeBook: Working with Dynamic Models for Agriculture and Environment*.
-DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook)
+DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) 
 R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
 
 Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee.
@@ -217,4 +224,4 @@ DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
 Wallach, Daniel, David Makowski, James W. Jones, and François Brun.
 (2018)
-*Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press.
+_Working with dynamic crop models: methods, tools and examples for agriculture and environment_. Academic Press.
