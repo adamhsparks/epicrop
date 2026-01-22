@@ -1,13 +1,13 @@
-#' Fetch weather once (single or multiple sites) and split by calendar year
+#' Fetch weather once (single or multiple locations) and split by calendar year
 #'
 #' Retrieve one or more continuous blocks of weather for one or more locations
 #' from given start dates and durations, then split each result into a named
-#' list of per‑year tables. Each (site, start, duration) result is an
+#' list of per‑year tables. Each (location, start, duration) result is an
 #' `epicrop.wth.list`. The top-level return is an `epicrop.wth.bundle` when
 #' multiple requests are processed, otherwise a single `epicrop.wth.list`.
 #'
 #' ## Flexible inputs
-#' * `lonlat`: a single `c(lon, lat)`; or multiple sites as a numeric vector of
+#' * `lonlat`: a single `c(lon, lat)`; or multiple locations as a numeric vector of
 #'   length `2n`, or a 2‑column matrix/data.frame, or a list of `c(lon, lat)`.
 #' * `start_date`: a single `"YYYY-MM-DD"` (or `Date`/`IDate`), or a vector of
 #'   the same; or a month–day string like `"06-30"` or `"6-30"` (leading `"-"`
@@ -18,7 +18,7 @@
 #'   window** per distinct month–day: `start = min(paste(years, md))`,
 #'   `end = max(paste(years, md)) + (duration - 1)`.
 #'
-#' @param lonlat Numeric length‑2 vector `c(lon, lat)`, OR multiple sites as:
+#' @param lonlat Numeric length‑2 vector `c(lon, lat)`, OR multiple locations as:
 #'   numeric vector of length `2n`, a 2‑column matrix/data.frame, or a list of
 #'   numeric length‑2 vectors.
 #' @param start_date A starting date (character `"YYYY-MM-DD"`, [Date], or
@@ -28,18 +28,18 @@
 #'   (inclusive). Single value or vector (recycled).
 #' @param years Optional integer vector of years. **Required** if `start_date`
 #'   contains any month–day values without a year.
-#' @param mode Character scalar: `"pairwise"` (default) pairs sites and dates by
+#' @param mode Character scalar: `"pairwise"` (default) pairs locations and dates by
 #'   position (recycling length-1), or `"cross"` forms all combinations
-#'   (sites × dates).
-#' @param site_names Optional character names for sites (length = number of
-#'   unique sites).
+#'   (locations × dates).
+#' @param location_names Optional character names for locations (length = number of
+#'   unique locations).
 #'
 #' @return
-#' * If only one (site, start, duration) is requested: an `epicrop.wth.list`.
+#' * If only one (location, start, duration) is requested: an `epicrop.wth.list`.
 #' * Otherwise: an `epicrop.wth.bundle` (a named list of `epicrop.wth.list`).
 #'
 #' @examplesIf interactive()
-#' # Single site, month-day start date (any of "6/30", "-06-30", "06-30")
+#' # Single location, month-day start date (any of "6/30", "-06-30", "06-30")
 #' w1 <- fetch_epicrop_weather_list(
 #'   lonlat     = c(121.255669, 14.16742),
 #'   start_date = "6/30",
@@ -54,13 +54,13 @@
 #'   duration   = 120L
 #' )
 #'
-#' # Multiple sites × multiple dates (cross mode), mixed inputs
-#' sites <- rbind(
+#' # Multiple locations × multiple dates (cross mode), mixed inputs
+#' locations <- rbind(
 #'   "IRRI_ZES" = c(121.255669, 14.16742),
 #'   "Metro_Manila" = c(120.985, 14.6042)
 #' )
 #' w3 <- fetch_epicrop_weather_list(
-#'   lonlat     = sites,
+#'   lonlat     = locations,
 #'   start_date = c("2000-06-30", "6-30"),
 #'   duration   = 120L,
 #'   years      = 2000:2001,
@@ -75,11 +75,11 @@ fetch_epicrop_weather_list <- function(
   duration,
   years = NULL,
   mode = c("pairwise", "cross"),
-  site_names = NULL
+  location_names = NULL
 ) {
   mode <- match.arg(mode)
 
-  norm_sites <- function(ll) {
+  norm_locations <- function(ll) {
     if (is.list(ll)) {
       ll <- do.call(rbind, ll)
     }
@@ -159,20 +159,21 @@ fetch_epicrop_weather_list <- function(
     }
   })
 
-  sites <- norm_sites(lonlat)
-  n_sites <- nrow(sites)
+  locations <- norm_locations(lonlat)
+  n_locations <- nrow(locations)
 
-  if (!missing(site_names) && !is.null(site_names)) {
-    if (length(site_names) != n_sites) {
+  if (!missing(location_names) && !is.null(location_names)) {
+    if (length(location_names) != n_locations) {
       cli::cli_abort(
-        "{.arg site_names} length must equal number of sites ({n_sites})."
+        "{.arg location_names} length must equal number of locations
+        ({n_locations})."
       )
     }
   } else {
-    if (!is.null(rownames(sites)) && all(nzchar(rownames(sites)))) {
-      site_names <- rownames(sites)
+    if (!is.null(rownames(locations)) && all(nzchar(rownames(locations)))) {
+      location_names <- rownames(locations)
     } else {
-      site_names <- sprintf("site%02d", seq_len(n_sites))
+      location_names <- sprintf("location%02d", seq_len(n_locations))
     }
   }
 
@@ -199,10 +200,10 @@ fetch_epicrop_weather_list <- function(
     sd_char[md_idx] <- normalize_md_vec(sd_char[md_idx])
   }
 
-  # Always build tasks for all site × date combinations
+  # Always build tasks for all location × date combinations
   date_vec <- sd_char
-  site_idx <- rep(seq_len(n_sites), each = length(date_vec))
-  date_idx <- rep(seq_along(date_vec), times = n_sites)
+  location_idx <- rep(seq_len(n_locations), each = length(date_vec))
+  date_idx <- rep(seq_along(date_vec), times = n_locations)
 
   dur_vec <- rep_len(as.integer(duration), length.out = length(date_idx))
   if (any(!rlang::is_integerish(dur_vec, finite = TRUE) | dur_vec <= 0L)) {
@@ -211,10 +212,10 @@ fetch_epicrop_weather_list <- function(
 
   tasks <- vector("list", length(date_idx))
   for (k in seq_along(tasks)) {
-    i <- site_idx[k]
+    i <- location_idx[k]
     j <- date_idx[k]
-    lon <- sites[i, "LON"]
-    lat <- sites[i, "LAT"]
+    lon <- locations[i, "LON"]
+    lat <- locations[i, "LAT"]
     d_str <- sd_char[j]
     dur <- dur_vec[k]
 
@@ -237,15 +238,15 @@ fetch_epicrop_weather_list <- function(
     }
 
     tasks[[k]] <- list(
-      site_id = i,
-      site_name = site_names[i],
+      location_id = i,
+      location_name = location_names[i],
       lonlat = c(lon, lat),
       start_chr = start_chr,
       duration = dur_use
     )
   }
 
-  by_site <- split(tasks, vapply(tasks, `[[`, integer(1L), "site_id"))
+  by_location <- split(tasks, vapply(tasks, `[[`, integer(1L), "location_id"))
 
   collapse_one <- function(tsks) {
     starts <- data.table::as.IDate(vapply(
@@ -262,15 +263,15 @@ fetch_epicrop_weather_list <- function(
 
     t0 <- tsks[[1L]]
     list(
-      site_id = t0$site_id,
-      site_name = t0$site_name,
+      location_id = t0$location_id,
+      location_name = t0$location_name,
       lonlat = t0$lonlat,
       start_chr = as.character(s_min),
       duration = as.integer(e_max - s_min + 1L)
     )
   }
 
-  tasks <- unname(lapply(by_site, collapse_one))
+  tasks <- unname(lapply(by_location, collapse_one))
 
   run_one <- function(task) {
     tab <- get_wth(
@@ -294,7 +295,12 @@ fetch_epicrop_weather_list <- function(
   results <- lapply(tasks, run_one)
 
   make_key <- function(tk) {
-    sprintf("%s__%s__%dd", tk$site_name, tk$start_chr, as.integer(tk$duration))
+    sprintf(
+      "%s__%s__%dd",
+      tk$location_name,
+      tk$start_chr,
+      as.integer(tk$duration)
+    )
   }
   keys <- vapply(tasks, make_key, character(1))
 
