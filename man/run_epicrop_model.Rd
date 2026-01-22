@@ -2,18 +2,14 @@
 % Please edit documentation in R/run_epicrop_model.R
 \name{run_epicrop_model}
 \alias{run_epicrop_model}
-\title{Run an epicrop disease model across emergence dates (sequential or futureverse)}
+\title{Run an epicrop disease model across emergence dates and/or locations}
 \usage{
 run_epicrop_model(
   model_fun,
   emergence_dates,
   wth_list,
   window_days = 120L,
-  mode = "sequential",
-  cores = NULL,
-  chunk = "auto",
   output = "audpc",
-  dt_threads = NULL,
   ...
 )
 }
@@ -31,25 +27,11 @@ Each table must have a \code{YYYYMMDD} column (Date/IDate/ISO/"YYYYMMDD").}
 \item{window_days}{Integer. Days after emergence to include (default 120L).
 The slicer returns exactly \code{window_days} rows when data are available.}
 
-\item{mode}{Character. "sequential" for sequential (default) or "future" for
-parallel. Defaults to "sequential".}
-
-\item{cores}{Integer. Number of workers when \code{mode = "future"}.
-Default: \code{max(1L, parallel::detectCores() - 1L)}.}
-
-\item{chunk}{Either "auto", "none", or a positive integer chunk size
-for batching emergence dates per future. "auto" ~ 4 chunks/worker. Defaults
-to "auto".}
-
 \item{output}{Character. "audpc" (compact summary using \code{\link[=get_audpc]{get_audpc()}})
 or "full" (return full model outputs per date, with \code{emergence} added).
 Defaults to "audpc".
 required year weather is missing; if FALSE, skip that date with
 \code{\link[cli:cli_abort]{cli::cli_warn()}}.}
-
-\item{dt_threads}{Integer or NULL. \CRANpkg{data.table} threads per process.
-In parallel, this is set \strong{inside each worker} (default 1). In sequential,
-it is set in the main process if provided.}
 
 \item{...}{Additional arguments forwarded to \code{model_fun}.}
 }
@@ -72,31 +54,19 @@ windows without globally binding weather.
 years <- 2001:2003
 month_day <- c("-06-01", "-06-14", "-06-30")
 lonlat <- c(121.255669, 14.16742)
-
+duration <- 120L
 emergence <- build_epicrop_emergence(years, month_day)
 
-# select 200 days duration to allow for multiple seasonal runs on same data
 wth_list <- fetch_epicrop_weather_list(years,
                                        lonlat,
-                                       start_md = month_day[1],
-                                       duration = 200L)
+                                       start_date = month_day,
+                                       duration = duration)
 
-# Sequential AUDPC for bacterial blight
+# AUDPC for bacterial blight
 run_epicrop_model(bacterial_blight,
                   emergence,
                   wth_list,
                   window_days = 120L,
-                  output = "audpc")
-
-# Parallel (futureverse) AUDPC for STB on 4 workers
-# requires {future} and {future.apply} packages to be installed
-run_epicrop_model(stb,
-                  emergence,
-                  wth_list,
-                  window_days = 120L,
-                  mode = "future",
-                  cores = 4,
-                  chunk = "auto",
                   output = "audpc")
 \dontshow{\}) # examplesIf}
 }

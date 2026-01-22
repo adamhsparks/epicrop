@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{fetch_epicrop_weather_list}
 \alias{fetch_epicrop_weather_list}
-\title{Fetch weather once (single or multiple sites) and split by calendar year}
+\title{Fetch weather once (single or multiple locations) and split by calendar year}
 \usage{
 fetch_epicrop_weather_list(
   lonlat,
@@ -10,11 +10,11 @@ fetch_epicrop_weather_list(
   duration,
   years = NULL,
   mode = c("pairwise", "cross"),
-  site_names = NULL
+  location_names = NULL
 )
 }
 \arguments{
-\item{lonlat}{Numeric length‑2 vector \code{c(lon, lat)}, OR multiple sites as:
+\item{lonlat}{Numeric length‑2 vector \code{c(lon, lat)}, OR multiple locations as:
 numeric vector of length \verb{2n}, a 2‑column matrix/data.frame, or a list of
 numeric length‑2 vectors.}
 
@@ -28,30 +28,30 @@ numeric length‑2 vectors.}
 \item{years}{Optional integer vector of years. \strong{Required} if \code{start_date}
 contains any month–day values without a year.}
 
-\item{mode}{Character scalar: \code{"pairwise"} (default) pairs sites and dates by
+\item{mode}{Character scalar: \code{"pairwise"} (default) pairs locations and dates by
 position (recycling length-1), or \code{"cross"} forms all combinations
-(sites × dates).}
+(locations × dates).}
 
-\item{site_names}{Optional character names for sites (length = number of
-unique sites).}
+\item{location_names}{Optional character names for locations (length = number of
+unique locations).}
 }
 \value{
 \itemize{
-\item If only one (site, start, duration) is requested: an \code{epicrop.wth.list}.
+\item If only one (location, start, duration) is requested: an \code{epicrop.wth.list}.
 \item Otherwise: an \code{epicrop.wth.bundle} (a named list of \code{epicrop.wth.list}).
 }
 }
 \description{
 Retrieve one or more continuous blocks of weather for one or more locations
 from given start dates and durations, then split each result into a named
-list of per‑year tables. Each (site, start, duration) result is an
+list of per‑year tables. Each (location, start, duration) result is an
 \code{epicrop.wth.list}. The top-level return is an \code{epicrop.wth.bundle} when
 multiple requests are processed, otherwise a single \code{epicrop.wth.list}.
 }
 \details{
 \subsection{Flexible inputs}{
 \itemize{
-\item \code{lonlat}: a single \code{c(lon, lat)}; or multiple sites as a numeric vector of
+\item \code{lonlat}: a single \code{c(lon, lat)}; or multiple locations as a numeric vector of
 length \verb{2n}, or a 2‑column matrix/data.frame, or a list of \code{c(lon, lat)}.
 \item \code{start_date}: a single \code{"YYYY-MM-DD"} (or \code{Date}/\code{IDate}), or a vector of
 the same; or a month–day string like \code{"06-30"} or \code{"6-30"} (leading \code{"-"}
@@ -66,7 +66,7 @@ window} per distinct month–day: \code{start = min(paste(years, md))},
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-# Single site, month-day start date (any of "6/30", "-06-30", "06-30")
+# Single location, month-day start date (any of "6/30", "-06-30", "06-30")
 w1 <- fetch_epicrop_weather_list(
   lonlat     = c(121.255669, 14.16742),
   start_date = "6/30",
@@ -81,13 +81,13 @@ w2 <- fetch_epicrop_weather_list(
   duration   = 120L
 )
 
-# Multiple sites × multiple dates (cross mode), mixed inputs
-sites <- rbind(
+# Multiple locations × multiple dates (cross mode), mixed inputs
+locations <- rbind(
   "IRRI_ZES" = c(121.255669, 14.16742),
   "Metro_Manila" = c(120.985, 14.6042)
 )
 w3 <- fetch_epicrop_weather_list(
-  lonlat     = sites,
+  lonlat     = locations,
   start_date = c("2000-06-30", "6-30"),
   duration   = 120L,
   years      = 2000:2001,
