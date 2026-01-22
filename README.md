@@ -17,11 +17,11 @@ This version provides easy to use functions to fetch weather data from NASA POWE
 The original EPIRICE manuscript, Savary *et al.* (2012), which details the model and results of its use to model global epidemics of rice diseases, was published in *Crop Protection* detailing global unmanaged disease risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro, which are included in this package.
 The original EPIWHEAT manuscript, Savary *et al.* (2015), which details the model and results of its use to model potential epidemics of wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.
 
-Additional models included for rice are adapted from Kim et al. (2015) for rice sheath blight and leaf blast.
+Additional models included for rice are adapted from Kim *et al.* (2015) for rice sheath blight and leaf blast.
 
 # Quick start
 
-You can easily simulate any of the five diseases for rice grown anywhere in the world, two for the Korean penninsula based on Kim *et al.* 2015 or two for wheat in Europe based on Savary *et al.* 2015 for any years from 1983 to near current using `get_wth()` to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
+You can easily simulate any of the five diseases for rice grown anywhere in the world, two for the Korean peninsula based on Kim *et al.* 2015 or two of wheat in Europe based on Savary *et al.* 2015 for any years from 1983 to near current using `get_wth()` to fetch data from the [NASA POWER web API](https://power.larc.nasa.gov).
 Alternatively, you can supply your own weather data for any time period as long as it fits the model’s requirements.
 
 {epicrop} is not yet on CRAN.
