@@ -229,7 +229,10 @@ plot(x = sb_sim$dates, y = sb_sim$intensity, type = "l")
 
 # use shorthand function
 mk_sb <- mk_sb(wth, emergence = "2000-07-01")
-#> Error in seir(wth = wth, emergence = emergence, onset = 30L, duration = 88L,     rhlim = 95L, rainlim = 5L, H0 = 90L, I0 = 1L, RcA = cbind(c(0L,         10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 88L), c(0.43,         0.5, 0.73, 0.81, 0.94, 1, 1, 1, 1, 1)), RcT = cbind(c(12L,         15L, 18L, 21L, 24L, 27L, 30L, 33L, 36L, 39L), c(0, 0.1,         0.8, 1, 1, 1, 0.2, 0.01, 0.01, 0)), RcOpt = 0.58, p = 4L,     i = 65L, Sx = 800L, a = 2.8, RRS = 0.005, RRG = cbind(c(0L,         10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 88L), c(0.15,         0.21, 0.11, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001,         0.0001)), simple_wetness = TRUE): Incomplete weather data or dates do not align.
+#> Error in .determine_run_window(wth, emergence, duration): Insufficient weather data for simulation window
+#> ✖ Need 88 days, have 64
+#> ℹ Window: 2000-06-30 to 2000-09-25
+#> ℹ Available: 2000-04-30 to 2000-09-01
 plot(x = mk_sb$dates, y = mk_sb$intensity, type = "l")
 #> Error in mk_sb$dates: object of type 'closure' is not subsettable
 ```

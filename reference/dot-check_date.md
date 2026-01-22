@@ -31,5 +31,5 @@ Adam H. Sparks <adamhsparks@curtin.edu.au>
 
 ``` r
 .check_date("2024-01-01")
-#> [1] "2024-01-01 AWST"
+#> Error in .check_date("2024-01-01"): could not find function ".check_date"
 ```

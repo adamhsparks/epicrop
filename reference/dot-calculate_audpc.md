@@ -50,5 +50,5 @@ wth <- get_wth(
 )
 bb <- bacterial_blight(wth, emergence = "2000-07-01")
 .calculate_audpc(intensity = bb$intensity)
-#> [1] 14.91121
+#> Error in .calculate_audpc(intensity = bb$intensity): could not find function ".calculate_audpc"
 ```

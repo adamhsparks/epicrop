@@ -67,10 +67,5 @@ wth <- get_wth(
   doy = wth$DOY,
   yyyymmdd = wth$YYYYMMDD
 )
-#> $`2000-06-30`
-#>  [1] 100.00000 100.00000 100.00000 100.00000 100.00000 100.00000  94.58384
-#>  [8]  89.21482  84.67398  81.01595  78.26627  76.43329  75.51746  75.51746
-#> [15]  76.43329  78.26627  81.01595  84.67398  88.79249  92.15830  94.87917
-#> [22]  97.06086  98.79907 100.00000
-#> 
+#> Error in .diurnal_rh(rh = wth$RHUM, tmin = wth$TMIN, tmax = wth$TMAX,     tmp = wth$TEMP, lat = wth$LAT, doy = wth$DOY, yyyymmdd = wth$YYYYMMDD): could not find function ".diurnal_rh"
 ```
