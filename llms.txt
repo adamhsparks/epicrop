@@ -259,34 +259,9 @@ for agriculture and environment*. Academic Press.
 
 ## Helper Functions for Rice Disease Simulations
 
-Run the model using pre-defined functions as defined in Savary *et al.*
-2012 and Kim et al. 2015
-
-- [`bacterial_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`bb()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`brown_spot()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`bs()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`lb()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`sb()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`tungro()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`tg()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`modified_kim_leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`mk_lb()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`modified_kim_sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`mk_sb()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`leaf_rust()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`brown_rust()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`lr()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`s_tritici_blotch()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  [`stb()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
-  : Rice and Wheat Disease Models
-
-## Helper Functions for Wheat Disease Simulations
-
-Run the model using pre-defined functions as defined in Savary *et al.*
-2015
+Run
+[`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
+using pre-defined models
 
 - [`bacterial_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
   [`bb()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
