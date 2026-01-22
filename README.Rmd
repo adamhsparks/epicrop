@@ -133,7 +133,7 @@ Predicting potential epidemics of rice leaf blast and sheath blight in South Kor
 DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
 
 Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
-**cropsim**.
+*cropsim*.
 (2009).
 Simulation modeling of crops and their diseases.
 R package version 0.2-6.

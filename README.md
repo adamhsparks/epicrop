@@ -121,6 +121,8 @@ Lastly, you can visualise the result of the model run.
 
 ``` r
 library(ggplot2)
+#> Use suppressPackageStartupMessages() to eliminate package startup
+#> messages
 
 ggplot(
   data = bb_sim,
@@ -155,7 +157,7 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 70.38%
+#> epicrop Coverage: 70.13%
 #> R/audpc_dt.R: 0.00%
 #> R/build_epicrop_emergence.R: 0.00%
 #> R/fetch_epicrop_weather_list.R: 0.00%
@@ -195,7 +197,7 @@ Predicting potential epidemics of rice leaf blast and sheath blight in South Kor
 DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
 
 Robert J. Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
-**cropsim**.
+*cropsim*.
 (2009).
 Simulation modeling of crops and their diseases.
 R package version 0.2-6.
