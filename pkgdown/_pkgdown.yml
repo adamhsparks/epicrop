@@ -6,7 +6,7 @@ url: https://adamhsparks.codeberg.page/epicrop/
 reference:
   - title: Helper Functions for Rice Disease Simulations
     desc: |
-      Run the model using pre-defined functions as defined in Savary _et al._ 2012 and Kim et al. 2015
+      Run `epicrop_sim()` using pre-defined models
     contents:
       - bacterial_blight
       - brown_spot
@@ -15,10 +15,6 @@ reference:
       - tungro
       - modified_kim_leaf_blast
       - modified_kim_sheath_blight
-  - title: Helper Functions for Wheat Disease Simulations
-    desc: |
-      Run the model using pre-defined functions as defined in Savary _et al._ 2015
-    contents:
       - leaf_rust
       - s_tritici_blotch
   - title: Helper Functions for Multiple Simulations
