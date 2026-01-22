@@ -1,4 +1,4 @@
-#' Run an epicrop disease model across emergence dates (sequential or futureverse)
+#' Run an epicrop disease model across emergence dates and/or locations
 #'
 #' A unified helper that executes any \pkg{epicrop} model (*e.g.*,
 #' [bacterial_blight()], [brown_spot()], [leaf_blast()], [sheath_blight()],
@@ -8,30 +8,20 @@
 #' windows without globally binding weather.
 #'
 #' @param model_fun Function. An \pkg{epicrop} model function (*e.g.*,
-#'  [bacterial_blight()]).
+#'   [bacterial_blight()]).
 #' @param emergence_dates Vector of dates (character "YYYY-MM-DD", Date, or
-#'  IDate).
+#'   IDate).
 #' @param wth_list Named list of weather [data.table::data.table]s with
 #'   one per year; `names(wth_list)` must be year strings (*e.g.*, "2001").
 #'   Each table must have a \code{YYYYMMDD} column (Date/IDate/ISO/"YYYYMMDD").
 #' @param window_days Integer. Days after emergence to include (default 120L).
 #'   The slicer returns exactly `window_days` rows when data are available.
-#' @param mode Character. "sequential" for sequential (default) or "future" for
-#'   parallel. Defaults to "sequential".
-#' @param cores Integer. Number of workers when `mode = "future"`.
-#'   Default: `max(1L, parallel::detectCores() - 1L)`.
-#' @param chunk Either "auto", "none", or a positive integer chunk size
-#'   for batching emergence dates per future. "auto" ~ 4 chunks/worker. Defaults
-#'   to "auto".
 #' @param output Character. "audpc" (compact summary using [get_audpc()])
 #'   or "full" (return full model outputs per date, with `emergence` added).
 #'   Defaults to "audpc".
 # ' @param strict Logical. If TRUE (default), abort via [cli::cli_abort()] when
 #'   required year weather is missing; if FALSE, skip that date with
 #'   [cli::cli_warn()].
-#' @param dt_threads Integer or NULL. \CRANpkg{data.table} threads per process.
-#'   In parallel, this is set **inside each worker** (default 1). In sequential,
-#'   it is set in the main process if provided.
 #' @param ... Additional arguments forwarded to `model_fun`.
 #'
 #' @return A [data.table::data.table]. When `output = "audpc"`:
@@ -43,102 +33,98 @@
 #' years <- 2001:2003
 #' month_day <- c("-06-01", "-06-14", "-06-30")
 #' lonlat <- c(121.255669, 14.16742)
-#'
+#' duration <- 120L
 #' emergence <- build_epicrop_emergence(years, month_day)
 #'
-#' # select 200 days duration to allow for multiple seasonal runs on same data
 #' wth_list <- fetch_epicrop_weather_list(years,
 #'                                        lonlat,
-#'                                        start_md = month_day[1],
-#'                                        duration = 200L)
+#'                                        start_date = month_day,
+#'                                        duration = duration)
 #'
-#' # Sequential AUDPC for bacterial blight
+#' # AUDPC for bacterial blight
 #' run_epicrop_model(bacterial_blight,
 #'                   emergence,
 #'                   wth_list,
 #'                   window_days = 120L,
 #'                   output = "audpc")
 #'
-#' # Parallel (futureverse) AUDPC for STB on 4 workers
-#' # requires {future} and {future.apply} packages to be installed
-#' run_epicrop_model(stb,
-#'                   emergence,
-#'                   wth_list,
-#'                   window_days = 120L,
-#'                   mode = "future",
-#'                   cores = 4,
-#'                   chunk = "auto",
-#'                   output = "audpc")
-#'
 #' @seealso fetch_epicrop_weather_list, build_epicrop_emergence
 #' @autoglobal
 #' @export
-
 run_epicrop_model <- function(
   model_fun,
   emergence_dates,
   wth_list,
   window_days = 120L,
-  mode = "sequential",
-  cores = NULL,
-  chunk = "auto",
   output = "audpc",
-  strict = TRUE,
-  dt_threads = NULL,
   ...
 ) {
-  mode <- rlang::arg_match(mode, c("sequential", "future"))
   output <- rlang::arg_match(output, c("audpc", "full"))
-  chunk <- rlang::arg_match(chunk, c("auto", "none"))
-  chunk <- .normalize_chunk(chunk)
 
   if (!rlang::inherits_any(emergence_dates, "epicrop.emerge")) {
-    cli::cli_abort(
-      c(
-        "{.arg emergence_dates} is not of class {.cls epicrop.emerge}.",
-        i = "Please use {.fn build_epicrop_emergence} to construct it."
-      )
+    cli::cli_abort(c(
+      "{.arg emergence_dates} is not of class {.cls epicrop.emerge}.",
+      i = "Construct it via {.fn build_epicrop_emergence}."
+    ))
+  }
+
+  if (
+    !rlang::inherits_any(wth_list, c("epicrop.wth.list", "epicrop.wth.bundle"))
+  ) {
+    cli::cli_abort(c(
+      "{.arg wth_list} must be {.cls epicrop.wth.list} or
+      {.cls epicrop.wth.bundle}.",
+      i = "Use {.fn fetch_epicrop_weather_list}."
+    ))
+  }
+
+  is_bundle <- rlang::inherits_any(wth_list, "epicrop.wth.bundle") ||
+    !all(grepl("^\\d{4}$", rlang::names2(wth_list)))
+
+  if (is_bundle) {
+    site_keys <- rlang::names2(wth_list)
+    site_labels <- sub("__.*$", "", site_keys)
+    site_labels[!nzchar(site_labels)] <- paste0(
+      "site",
+      sprintf("%02d", seq_along(wth_list))
     )
-  }
 
-  if (!rlang::inherits_any(wth_list, "epicrop.wth.list")) {
-    cli::cli_abort(
-      c(
-        "{.arg wth_list} is not of class {.cls epicrop.wth.list}.",
-        i = "Please use {.fn fetch_epicrop_weather_list} to construct it."
-      )
+    pieces <- Map(
+      function(site_w, site_nm) {
+        ans <- run_epicrop_model(
+          model_fun = model_fun,
+          emergence_dates = emergence_dates,
+          wth_list = site_w,
+          window_days = window_days,
+          output = output,
+          ...
+        )
+        ans[, site := site_nm]
+        ans
+      },
+      wth_list,
+      site_labels
     )
+
+    return(data.table::rbindlist(pieces, use.names = TRUE, fill = TRUE))
   }
 
-  # data.table threads policy (parent)
-  if (mode == "future") {
-    data.table::setDTthreads(if (is.null(dt_threads)) 1L else dt_threads)
-  } else if (!is.null(dt_threads)) {
-    data.table::setDTthreads(dt_threads)
-  }
-
-  # Slicer trusts S3 contract: `YYYYMMDD` exists and is IDate
-  slicer <- .make_slicer(wth_list, as.integer(window_days), strict)
+  slicer <- .make_slicer(wth_list, as.integer(window_days))
 
   runner <- .make_runner(
-    model_fun,
-    output,
-    slicer,
+    model_fun = model_fun,
+    output = output,
+    slicer = slicer,
     ...,
     window_days = as.integer(window_days)
   )
 
-  applier <- .select_applier(
-    mode = mode,
-    cores = cores,
-    chunk = chunk,
-    dt_threads = dt_threads
-  )
+  # Always sequential
+  applier <- function(x, fun) lapply(X = x, FUN = fun)
 
   pieces <- applier(emergence_dates, runner)
   .assemble_results(pieces, output)
 }
-
 
 #' Cross‑year weather slicer (assumes `epicrop.wth.list` contract)
 #'
@@ -154,7 +140,7 @@ run_epicrop_model <- function(
 #' @return A function(ed) -> data.table or NULL
 #' @autoglobal
 #' @dev
-.make_slicer <- function(wth_list, window_days, strict = TRUE) {
+.make_slicer <- function(wth_list, window_days) {
   year_of <- function(id) as.integer(format(id, "%Y"))
 
   function(ed) {
@@ -162,21 +148,18 @@ run_epicrop_model <- function(
     end <- ed + (as.integer(window_days) - 1L)
     ys <- seq.int(year_of(start), year_of(end))
 
+    .env <- rlang::current_env()
+
     segs <- vector("list", length(ys))
     n_seg <- 0L
 
     for (y in ys) {
       tab <- wth_list[[as.character(y)]]
       if (is.null(tab)) {
-        if (strict) {
-          cli::cli_abort(
-            "Missing weather for required year {y} (window {start}–{end}).",
-            .envir = parent.frame()
-          )
-        }
         cli::cli_warn(
-          "Skipping {start}: no weather for required year {y}.",
-          .envir = parent.frame()
+          "Skipping {start}: no weather for required year {y}
+          (window {start}–{end}).",
+          .envir = .env
         )
         next
       }
@@ -184,20 +167,14 @@ run_epicrop_model <- function(
       s <- max(start, data.table::as.IDate(sprintf("%d-01-01", y)))
       e <- min(end, data.table::as.IDate(sprintf("%d-12-31", y)))
 
-      # Direct slice on non‑syntactic column; no copies here
       seg <- tab[`YYYYMMDD` %between% c(s, e)]
       if (nrow(seg)) {
         n_seg <- n_seg + 1L
         segs[[n_seg]] <- seg
-      } else if (strict) {
-        cli::cli_abort(
-          "Missing weather rows for required year {y} within window {start}–{end}.",
-          .envir = parent.frame()
-        )
       } else {
         cli::cli_warn(
           "Skipping {start}: no rows in year {y} within {s}–{e}.",
-          .envir = parent.frame()
+          .envir = .env
         )
       }
     }
@@ -230,34 +207,39 @@ run_epicrop_model <- function(
   force(model_fun)
   force(output)
   force(slicer)
-  dots <- list(...)
+  dots <- rlang::dots_list(..., .named = TRUE)
 
-  has_user_duration <- (function() {
-    # CHANGED
-    dn <- names(dots)
-    if (is.null(dn) || any(is.na(dn) | dn == "")) {
-      return(TRUE)
-    } # unnamed: could bind by position
-    if ("duration" %in% dn) {
-      return(TRUE)
-    }
-    fml_names <- tryCatch(names(formals(model_fun)), error = function(e) NULL)
-    if (is.null(fml_names)) {
-      return(FALSE)
-    }
-    fml_no_dots <- setdiff(fml_names, "...")
-    any(vapply(
-      dn,
-      function(nm) {
-        if (!nzchar(nm)) {
-          return(FALSE)
+  # Determine if user *supplied* duration (exact or unique partial)
+  has_user_duration <- local({
+    dn <- rlang::names2(dots)
+    if (length(dn) && any(nzchar(dn))) {
+      if ("duration" %in% dn) {
+        TRUE
+      } else {
+        fmls <- rlang::fn_fmls_names(model_fun)
+        if (is.null(fmls)) {
+          FALSE
+        } else {
+          fml_no_dots <- setdiff(fmls, "...")
+          # unique partial match to "duration"
+          any(vapply(
+            dn,
+            function(nm) {
+              if (!nzchar(nm)) {
+                return(FALSE)
+              }
+              hit <- startsWith(fml_no_dots, nm)
+              sum(hit) == 1L && identical(fml_no_dots[which(hit)], "duration")
+            },
+            logical(1)
+          ))
         }
-        hit <- startsWith(fml_no_dots, nm)
-        sum(hit) == 1L && fml_no_dots[which(hit)] == "duration"
-      },
-      logical(1)
-    ))
-  })()
+      }
+    } else {
+      # unnamed ... could bind by position; be conservative
+      TRUE
+    }
+  })
 
   function(ed) {
     w_sub <- slicer(ed)
@@ -271,119 +253,31 @@ run_epicrop_model <- function(
     # sever by-reference ties
     w_sub <- data.table::copy(w_sub)
 
-    # Respect user-provided duration if present; otherwise use the slice length
-    extra_args <- if (!has_user_duration) {
+    # Inject duration only if user didn't provide it
+    extra <- if (!has_user_duration) {
       list(duration = as.integer(nrow(w_sub)))
     } else {
       list()
     }
 
-    out <- do.call(
+    out <- rlang::exec(
       model_fun,
-      c(list(wth = w_sub, emergence = ed), dots, extra_args)
+      wth = w_sub,
+      emergence = ed,
+      !!!dots,
+      !!!extra
     )
 
     if (identical(output, "audpc")) {
       aud <- attr(out, "AUDPC", exact = TRUE)
-      if (is.null(aud)) {
-        y <- out[["intensity"]]
-        if (is.null(y)) {
-          cli::cli_abort(
-            "Model output lacks {intensity} column required for AUDPC.",
-            .envir = parent.frame()
-          )
-        }
-        aud <- sum((head(y, -1L) + tail(y, -1L)) / 2) # dt = 1
-      }
       data.table::data.table(emergence = ed, AUDPC = aud)
     } else {
       out[, emergence := ed]
-      # Preserve AUDPC even after rbindlist
       out[, AUDPC := attr(out, "AUDPC", exact = TRUE)]
       out
     }
   }
 }
-
-
-#' Select sequential or futureverse application strategy
-#'
-#' Applies `fun` over emergence dates either sequentially or via {future.apply}.
-#' In parallel, uses `future.seed = TRUE` to give each element a stable RNG
-#'   stream.
-#'
-#' @param mode "sequential" or "future".
-#' @param cores Integer worker count (future).
-#' @param chunk "auto", "none", or numeric (mapped to future.scheduling).
-#' @param dt_threads Integer data.table threads per worker (default 1 in
-#'  parallel).
-#' @return function(x, fun) -> list of results
-#' @autoglobal
-#' @dev
-.select_applier <- function(
-  mode = c("sequential", "future"),
-  cores = NULL,
-  chunk = c("auto", "none"),
-  dt_threads = NULL
-) {
-  mode <- rlang::arg_match(mode, c("sequential", "future"))
-  chunk <- .normalize_chunk(chunk)
-
-  if (mode == "sequential") {
-    return(function(x, fun) lapply(X = x, FUN = fun))
-  }
-
-  if (
-    !requireNamespace("future", quietly = TRUE) ||
-      !requireNamespace("future.apply", quietly = TRUE)
-  ) {
-    cli::cli_abort(
-      "Parallel mode requires {.pkg future} and {.pkg future.apply}.",
-      .envir = parent.frame()
-    )
-  }
-
-  map_scheduling <- function(chunk, n, workers) {
-    if (is.numeric(chunk)) {
-      return(max(1L, as.integer(chunk)))
-    }
-    if (identical(chunk, "none") || n <= workers) {
-      return(1L)
-    }
-    4L # "auto"
-  }
-
-  function(x, fun) {
-    n <- length(x)
-    wrk <- if (is.null(cores)) {
-      max(1L, parallel::detectCores() - 1L)
-    } else {
-      as.integer(cores)
-    }
-    sch <- map_scheduling(chunk, n, wrk)
-
-    old <- future::plan()
-    on.exit(try(future::plan(old), silent = TRUE), add = TRUE)
-    future::plan(future::multisession, workers = wrk)
-    cli::cli_inform(
-      "Running in parallel with {.val {wrk}} worker{?s}.",
-      .envir = parent.frame()
-    )
-
-    future.apply::future_lapply(
-      X = x,
-      FUN = function(ed) {
-        data.table::setDTthreads(
-          if (is.null(dt_threads)) 1L else as.integer(dt_threads)
-        )
-        fun(ed)
-      },
-      future.seed = TRUE,
-      future.scheduling = sch
-    )
-  }
-}
-
 
 #' Assemble model outputs into final result tables
 #'
@@ -395,7 +289,6 @@ run_epicrop_model <- function(
 #' @return data.table
 #' @autoglobal
 #' @dev
-
 .assemble_results <- function(pieces, output) {
   if (identical(output, "audpc")) {
     # Normalize each piece to have (emergence, AUDPC) or a NA row
@@ -403,34 +296,12 @@ run_epicrop_model <- function(
       if (is.null(x)) {
         return(data.table::data.table(
           emergence = data.table::as.IDate(NA),
-          AUDPC = as.numeric(NA)
+          AUDPC = NA_real_
         ))
       }
       # Coerce to data.table
       if (!data.table::is.data.table(x)) {
         x <- data.table::as.data.table(x)
-      }
-
-      # Normalize likely variants of names
-      nms <- names(x)
-      if (!"emergence" %in% nms) {
-        if ("Emergence" %in% nms) {
-          data.table::setnames(x, "Emergence", "emergence")
-        }
-        if ("emergence_date" %in% nms) {
-          data.table::setnames(x, "emergence_date", "emergence")
-        }
-      }
-      if (!"AUDPC" %in% nms) {
-        if ("audpc" %in% nms) data.table::setnames(x, "audpc", "AUDPC")
-      }
-
-      # Ensure both columns exist (fill-with-NA if absent)
-      if (!"emergence" %in% names(x)) {
-        x[, emergence := data.table::as.IDate(NA)]
-      }
-      if (!"AUDPC" %in% names(x)) {
-        x[, AUDPC := as.numeric(NA)]
       }
 
       # Keep only what we need for the compact result
@@ -441,7 +312,7 @@ run_epicrop_model <- function(
     if (length(pieces) == 0L) {
       res <- data.table::data.table(
         emergence = data.table::as.IDate(NA),
-        AUDPC = as.numeric(NA)
+        AUDPC = NA_real_
       )
       data.table::setkey(res, emergence, AUDPC)
       return(res)
@@ -458,27 +329,4 @@ run_epicrop_model <- function(
       fill = TRUE
     )
   }
-}
-
-#' Normalize the `chunk` option
-#'
-#' Accepts "auto"/"none" or a positive integer. Returns a scalar value suitable
-#' for mapping to scheduling behavior.
-#'
-#' @param chunk Character or numeric.
-#' @return "auto", "none", or integer > 0.
-#' @autoglobal
-#' @dev
-.normalize_chunk <- function(chunk) {
-  if (is.numeric(chunk)) {
-    chk <- as.integer(chunk[1L])
-    if (!is.finite(chk) || chk <= 0L) {
-      cli::cli_abort(
-        "{.arg chunk} must be a positive integer when numeric.",
-        .envir = parent.frame()
-      )
-    }
-    return(chk)
-  }
-  rlang::arg_match(chunk, c("auto", "none"))
 }
