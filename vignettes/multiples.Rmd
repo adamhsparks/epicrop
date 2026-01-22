@@ -90,22 +90,9 @@ ggplot(bb_2_seasons,
 
 ![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
-### Simulating multiple seasons and establishment dates with the {futureverse} using parallel processing
+### Simulating multiple seasons and establishment dates
 
-Using the same `run_epicrop_model()`, we can do the same thing in parallel to reduce the runtime, especially if you have several seasons.
-
-#### A note on the use of parallel processing
-
-Use parallel processing with caution.
-{epicrop} is highly optimised for speed.
-For small runs, _e.g._, one or two seasons or locations, this is will not reduce the time and may increase the run time due to overhead setting up and running the parallel processing.
-Best guess is that unless you have > 40 or 50 seasons or locations or some combinations thereof; to run the processes in parallel will not be any benefit.
-
-In this case, while this code runs, you can benchmark it and see that this is no faster and in some cases, slower than running the code sequentially.
-An example benchmarking different methods is provided here.
-
-
-### Single Site with Multiple Dates
+#### Single Site with Multiple Dates
 
 A helper function, `run_epicrop_model()` is provided to simplify running multiple establishment dates.
 
@@ -200,7 +187,7 @@ wth_list <- fetch_epicrop_weather_list(years = years,
 #>     <epicrop.emerge>     <num>
 ```
 
-### Multiple Sites and Seasons
+#### Multiple Sites and Seasons
 
 Multiple locations can also be simulated using `fetch_epicrop_weather_list()` and `run_epicrop_model()`.
 Here Septoria tritici blotch is simulated for three locations in Western Australia and New South Wales over two seasons and two planting dates with a 240 day growing season.
