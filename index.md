@@ -33,7 +33,9 @@ two of wheat in Europe based on Savary *et al.* 2015 for any years from
 to fetch data from the [NASA POWER web
 API](https://power.larc.nasa.gov). Alternatively, you can supply your
 own weather data for any time period as long as it fits the model’s
-requirements.
+requirements by using the
+[`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
+supplied in this package.
 
 {epicrop} is not yet on CRAN. You can install it this way.
 
@@ -138,8 +140,6 @@ Lastly, you can visualise the result of the model run.
 ``` r
 
 library(ggplot2)
-#> Use suppressPackageStartupMessages() to eliminate package startup
-#> messages
 
 ggplot(
   data = bb_sim,
