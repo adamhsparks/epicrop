@@ -94,6 +94,7 @@ w1 <- fetch_epicrop_weather_list(
   duration   = 120L,
   years      = 2000:2001
 )
+#> Error in YYYYMMDD %between% c(s, e): could not find function "%between%"
 
 # ISO start date
 w2 <- fetch_epicrop_weather_list(
@@ -101,6 +102,7 @@ w2 <- fetch_epicrop_weather_list(
   start_date = "2000-06-30",
   duration   = 120L
 )
+#> Error in YYYYMMDD %between% c(s, e): could not find function "%between%"
 
 # Multiple locations × multiple dates (cross mode), mixed inputs
 locations <- rbind(
@@ -114,4 +116,5 @@ w3 <- fetch_epicrop_weather_list(
   years      = 2000:2001,
   mode       = "cross"
 )
+#> Error in YYYYMMDD %between% c(s, e): could not find function "%between%"
 ```
