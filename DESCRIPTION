@@ -53,13 +53,10 @@ Imports:
     stats
 Suggests:
     cropgrowdays,
-    dplyr,
     ggplot2,
     ggrepel,
     ggspatial,
     knitr,
-    microbenchmark,
-    prettymapr,
     rmarkdown,
     roxyglobals,
     spelling,

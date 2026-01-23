@@ -79,9 +79,11 @@ test_that("format_wth errors with missing required columns", {
 })
 
 test_that("format_wth fails with non-daily data", {
-  wth_monthly <- wth |>
-    dplyr::group_by(YEAR, MM) |>
-    dplyr::summarise_all(mean)
+  wth_monthly <- wth[,
+    lapply(.SD, mean, na.rm = FALSE),
+    by = .(YEAR, MM),
+    .SDcols = names(which(sapply(wth, is.numeric)))
+  ]
 
   expect_error(
     format_wth(
