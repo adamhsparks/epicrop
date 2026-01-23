@@ -6,10 +6,12 @@
 
 - Version now 1.0.0.9000, almost ready for first major release
 
-- Uses {Rcpp} for speed improvements in `seir()` function’s efficiency
-  (it’s faster now!).
+- Uses {Rcpp} for speed improvements in
+  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
+  function’s efficiency (it’s faster now!).
 
-- `SEIR()` is now `seir()`.
+- `SEIR()` is now
+  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
 
 - All helper functions drop the `predict_` prefix for simplicity,
   *e.g.*, `predict_bacterial_blight()` becomes just
@@ -18,30 +20,44 @@
 - Addition of functions to predict rice blast and sheath blight based on
   Kim et al. 2015.
 
-- Adds the RcRH parameter to `seir()` to calculate the relative humidity
-  correction factor for the disease progress curve as published in
-  Savary *et al.* 2012.
+- Adds the RcRH parameter to
+  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
+  to calculate the relative humidity correction factor for the disease
+  progress curve as published in Savary *et al.* 2012.
 
 - Adds the RcRH parameter to all helper functions.
 
-### New Functionality
+#### New Functionality
 
 - Adds functions from Kim et al. 2015 for:
 
   - Leaf blast in South Korean varieties
   - Sheath blight in South Korean varieties
 
+- Adds EPIWHEAT disease models from Savary et al. 2015 for:
+
+  - Brown (leaf) rust in European wheat
+  - Septoria tritici blotch in European wheat
+
+- Adds EPIWHEAT style functionality to handle complex leaf wetness
+  calculations using daily RH to calculate hourly RH and then modify the
+  value of `RcW` using `.fn_Rc()` as already existing with `RcT` and
+  `RcA` by setting the argument, `simple_wetness == FALSE` in
+  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
+
 - Adds functionality missing in original {cropsim} to handle complex
   leaf wetness calculations using daily RH to calculate hourly RH and
   then modify the value of `RcW` using `.fn_Rc()` as already existing
   with `RcT` and `RcA` by setting the argument,
-  `simple_wetness == FALSE` in `seir()`
+  `simple_wetness == FALSE` in
+  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
 
 - Adds functionality to use a matrix in `RRG` and modify it with
   `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim et al. 2015
   (though not implemented in Kim et al. 2015)
 
-- Allow pass through of more arguments from helper functions to `seir()`
+- Allow pass through of more arguments from helper functions to
+  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
   via `...` argument
 
 - Strict checking of user-inputs with informative messages now provided
