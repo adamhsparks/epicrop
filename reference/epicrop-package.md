@@ -14,7 +14,12 @@ generic 'SEIR' model function that is suitable for parameterising for
 use with other pathosystems as demonstrated in Savary et al. 2012 and
 Kim et al. 2015
 [doi:10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
-.
+along with two wheat diseases, brown (leaf) rust and Septoria tritici
+blotch as published in Savary et al. 2015
+[doi:10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7)
+. Functions for fetching and formatting weather data from the NASA POWER
+database are also provided to simplify the process of running
+simulations.
 
 ## See also
 
