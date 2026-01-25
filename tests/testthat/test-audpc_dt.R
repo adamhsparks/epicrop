@@ -1,6 +1,8 @@
 # Helper that loads the epicrop.sim object for all tests.
 # Adjust filename if needed.
-epicrop_sim <- testthat::test_path("testdata", "epicrop_sim.rds")
+epicrop_sim <- testthat::test_path("testdata", "epicrop_sim.rda")
+load(epicrop_sim)  # loads object 'epicrop.sim'
+epicrop_sim <- bb_sim # rename for clarity in tests
 
 test_that("audpc_dt() errors with non-epicrop.sim input", {
   expect_error(
@@ -20,10 +22,6 @@ test_that("audpc_dt() errors with non-epicrop.sim input", {
 })
 
 test_that("audpc_dt() returns a data.table with expected five columns", {
-  skip_if_not(
-    exists("epicrop.sim", inherits = FALSE),
-    "no epicrop.sim test data"
-  )
 
   out <- audpc_dt(epicrop_sim)
 
