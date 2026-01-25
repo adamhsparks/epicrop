@@ -13,6 +13,7 @@ audpc_dt <- function(dt) {
       an `epicrop.sim` object."
     )
   }
+  # TODO: set this up such that it works with a single model run
   dt <- dt[, .SD, .SDcols = c("lat", "lon", "AUDPC", "location", "emergence")]
   data.table::setkey(dt, location, emergence)
   return(unique(dt))
