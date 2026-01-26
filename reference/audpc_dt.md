@@ -25,4 +25,5 @@ directly, the output will be a `data.table` with five columns: `lat`,
 `lon`, `AUDPC`, `location`, and `emergence`. If `dt` is from any of the
 helper functions or directly from
 [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md),
-the output will be a `data.table` with one column: `AUDPC`.
+the output will be a `data.table` with four columns: `lat`, `lon`,
+`AUDPC` and `emergence`.
