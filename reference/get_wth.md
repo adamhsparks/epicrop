@@ -39,7 +39,7 @@ get_wth(lonlat, dates, duration)
 ## Value
 
 A `epicrop.wth`, a data frame based on a
-[`data.table::data.table()`](https://rdatatable.gitlab.io/data.table/reference/data.table.html),
+[`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html),
 object suitable for use in epicrop containing weather data, dates and
 geolocation information (LAT/LON values) with the following columns:
 
@@ -57,7 +57,7 @@ geolocation information (LAT/LON values) with the following columns:
 | *LON*          | Longitude of area of interest.                         |
 
 A `epicrop.wth`, a data frame based on a
-[`data.table::data.table()`](https://rdatatable.gitlab.io/data.table/reference/data.table.html),
+[`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html),
 object suitable for use in epicrop containing weather data, dates and
 geolocation information (LAT/LON values) with the following columns:
 

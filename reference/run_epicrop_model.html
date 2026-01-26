@@ -84,7 +84,7 @@ IDate).</p></dd>
 
 
 <dt id="arg-wth-list">wth_list<a class="anchor" aria-label="anchor" href="#arg-wth-list"></a></dt>
-<dd><p>Named list of weather <a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table</a>s with
+<dd><p>Named list of weather <a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table::data.table</a>s with
 one per year; <code>names(wth_list)</code> must be year strings (<em>e.g.</em>, "2001").
 Each table must have a <code>YYYYMMDD</code> column (Date/IDate/ISO/"YYYYMMDD").</p></dd>
 
@@ -108,7 +108,7 @@ required year weather is missing; if FALSE, skip that date with
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table</a>. When <code>output = "audpc"</code>:
+    <p>A <a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table::data.table</a>. When <code>output = "audpc"</code>:
 columns <code>emergence</code> (IDate) and <code>AUDPC</code> (numeric).
 When <code>output = "full"</code>: full model output columns plus <code>emergence</code>, and
 an <code>AUDPC</code> column preserved per emergence date.</p>

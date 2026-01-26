@@ -31,7 +31,7 @@ fetch_epicrop_weather_list(
 - start_date:
 
   A starting date (character `"YYYY-MM-DD"`, lubridate::Date, or
-  [data.table::IDate](https://rdatatable.gitlab.io/data.table/reference/IDateTime.html))
+  [data.table::IDate](https://rdrr.io/pkg/data.table/man/IDateTime.html))
   **or** a month–day string like `"06-30"` (leading `"-"` optional) used
   together with `years`.
 

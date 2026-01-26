@@ -57,8 +57,12 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table()</a></code> suitable for mapping or other analysis
-with five columns: <code>lat</code>, <code>lon</code>, <code>AUDPC</code>, <code>location</code>, and <code>emergence</code>.</p>
+    <p>A <code><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table::data.table()</a></code> suitable for mapping or other analysis.
+If <code>dt</code> is from <code><a href="run_epicrop_model.html">run_epicrop_model()</a></code> directly, the output will be a
+<code>data.table</code> with five columns: <code>lat</code>, <code>lon</code>, <code>AUDPC</code>, <code>location</code>, and
+<code>emergence</code>. If <code>dt</code> is from any of the helper functions or directly from
+<code>epiccrop_sim()</code>, the output will be a <code>data.table</code> with one column:
+<code>AUDPC</code>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

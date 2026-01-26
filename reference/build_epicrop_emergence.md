@@ -27,7 +27,7 @@ build_epicrop_emergence(years, month_day)
 ## Value
 
 A sorted vector of
-[data.table::IDate](https://rdatatable.gitlab.io/data.table/reference/IDateTime.html)
+[data.table::IDate](https://rdrr.io/pkg/data.table/man/IDateTime.html)
 emergence dates with class `epicrop.emerge` (i.e.,
 `inherits(x, "epicrop.emerge")` will be `TRUE`).
 

@@ -42,7 +42,7 @@ run_epicrop_model(
 - wth_list:
 
   Named list of weather
-  [data.table::data.table](https://rdatatable.gitlab.io/data.table/reference/data.table.html)s
+  [data.table::data.table](https://rdrr.io/pkg/data.table/man/data.table.html)s
   with one per year; `names(wth_list)` must be year strings (*e.g.*,
   "2001"). Each table must have a `YYYYMMDD` column
   (Date/IDate/ISO/"YYYYMMDD").
@@ -68,7 +68,7 @@ run_epicrop_model(
 ## Value
 
 A
-[data.table::data.table](https://rdatatable.gitlab.io/data.table/reference/data.table.html).
+[data.table::data.table](https://rdrr.io/pkg/data.table/man/data.table.html).
 When `output = "audpc"`: columns `emergence` (IDate) and `AUDPC`
 (numeric). When `output = "full"`: full model output columns plus
 `emergence`, and an `AUDPC` column preserved per emergence date.

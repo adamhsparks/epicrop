@@ -69,7 +69,7 @@ stb(wth, emergence, ...)
 ## Value
 
 A
-[`data.table::data.table()`](https://rdatatable.gitlab.io/data.table/reference/data.table.html)
+[`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html)
 of disease intensity and infection sites. See
 [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
 for a full description of the column values.

@@ -18,6 +18,10 @@ audpc_dt(dt)
 ## Value
 
 A
-[`data.table::data.table()`](https://rdatatable.gitlab.io/data.table/reference/data.table.html)
-suitable for mapping or other analysis with five columns: `lat`, `lon`,
-`AUDPC`, `location`, and `emergence`.
+[`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html)
+suitable for mapping or other analysis. If `dt` is from
+[`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)
+directly, the output will be a `data.table` with five columns: `lat`,
+`lon`, `AUDPC`, `location`, and `emergence`. If `dt` is from any of the
+helper functions or directly from `epiccrop_sim()`, the output will be a
+`data.table` with one column: `AUDPC`.

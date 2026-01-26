@@ -73,11 +73,11 @@ format_wth(wth, date, temp, rhum, rain, tmin, tmax, lat, lon)
 ## Value
 
 An `epicrop.wth` object, a data frame compatible with a
-[`data.table::data.table()`](https://rdatatable.gitlab.io/data.table/reference/data.table.html),
+[`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html),
 suitable for use in epicrop.
 
 An `epicrop.wth` object, a data frame compatible with a
-[`data.table::data.table()`](https://rdatatable.gitlab.io/data.table/reference/data.table.html),
+[`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html),
 suitable for use in epicrop.
 
 ## Details
