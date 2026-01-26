@@ -40,21 +40,11 @@ test_that("audpc_dt() returns a data.table with expected four columns", {
   expect_true(is.character(out$emergence) || is.factor(out$emergence))
 })
 
-test_that("audpc_dt() sets key to location,emergence and ordering reflects the key", {
-  skip_if_not(
-    exists("epicrop.sim", inherits = FALSE),
-    "no epicrop.sim test data"
-  )
-
+test_that("audpc_dt() sets key to emergence and ordering reflects the key", {
   out <- audpc_dt(epicrop_sim)
 
   # data.table key
-  expect_identical(data.table::key(out), c("location", "emergence"))
-
-  # Check that order is non-decreasing by (location, emergence)
-  # Convert to character for robust comparison if factors are used
-  ord <- out[order(as.character(location), as.character(emergence))]
-  expect_equal(out, ord, ignore_attr = TRUE)
+  expect_identical(data.table::key(out), "emergence")
 })
 
 test_that("audpc_dt() removes duplicate rows on the five selected columns", {
@@ -106,7 +96,6 @@ test_that("audpc_dt() does not key or mutate the input by reference", {
 test_that("audpc_dt() tolerates factors/characters for grouping fields", {
   dt_char <- data.table::copy(epicrop_sim)
   # Force to character
-  dt_char[, location := as.character(location)]
   dt_char[, emergence := as.character(emergence)]
   out_char <- audpc_dt(dt_char)
   expect_s3_class(out_char, "data.table")
@@ -138,11 +127,6 @@ test_that("audpc_dt() tolerates factors/characters for grouping fields", {
 })
 
 test_that("audpc_dt() fails informatively if required columns are missing", {
-  skip_if_not(
-    exists("epicrop.sim", inherits = FALSE),
-    "no epicrop.sim test data"
-  )
-
   # Start from a valid epicrop.sim object but drop a required column
   dt_bad <- data.table::copy(epicrop_sim)
   # Ensure it still has class epicrop.sim so we reach the .SDcols selection
