@@ -14,7 +14,7 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} suitable for map
 If \code{dt} is from \code{run_epicrop_model()} directly, the output will be a
 \code{data.table} with five columns: \code{lat}, \code{lon}, \code{AUDPC}, \code{location}, and
 \code{emergence}. If \code{dt} is from any of the helper functions or directly from
-\code{epiccrop_sim()}, the output will be a \code{data.table} with one column:
+\code{epicrop_sim()}, the output will be a \code{data.table} with one column:
 \code{AUDPC}.
 }
 \description{

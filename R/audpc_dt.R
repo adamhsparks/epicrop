@@ -4,7 +4,7 @@
 #'  If `dt` is from `run_epicrop_model()` directly, the output will be a
 #'  `data.table` with five columns: `lat`, `lon`, `AUDPC`, `location`, and
 #'  `emergence`. If `dt` is from any of the helper functions or directly from
-#'   `epiccrop_sim()`, the output will be a `data.table` with one column:
+#'   `epicrop_sim()`, the output will be a `data.table` with one column:
 #'   `AUDPC`.
 #' @autoglobal
 #' @export
