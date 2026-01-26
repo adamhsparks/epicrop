@@ -3,6 +3,9 @@
 utils::globalVariables(c(
   "location", # <audpc_dt>
   "emergence", # <audpc_dt>
+  "AUDPC", # <audpc_dt>
+  "lat", # <audpc_dt>
+  "lon", # <audpc_dt>
   "RHUM", # <.prepare_weather_data>
   "RAIN", # <.prepare_weather_data>
   "lat", # <.assemble_output>
