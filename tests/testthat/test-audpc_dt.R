@@ -1,7 +1,7 @@
 # Helper that loads the epicrop.sim object for all tests.
 # Adjust filename if needed.
 epicrop_sim <- testthat::test_path("testdata", "epicrop_sim.rda")
-load(epicrop_sim)  # loads object 'epicrop.sim'
+load(epicrop_sim) # loads object 'epicrop.sim'
 epicrop_sim <- bb_sim # rename for clarity in tests
 
 test_that("audpc_dt() errors with non-epicrop.sim input", {
@@ -21,8 +21,7 @@ test_that("audpc_dt() errors with non-epicrop.sim input", {
   expect_error(audpc_dt(dt), regexp = "epicrop\\.sim", ignore.case = TRUE)
 })
 
-test_that("audpc_dt() returns a data.table with expected five columns", {
-
+test_that("audpc_dt() returns a data.table with expected four columns", {
   out <- audpc_dt(epicrop_sim)
 
   # Class and structure
@@ -30,15 +29,14 @@ test_that("audpc_dt() returns a data.table with expected five columns", {
   expect_s3_class(out, "data.frame")
   expect_equal(
     sort(names(out)),
-    sort(c("lat", "lon", "AUDPC", "location", "emergence"))
+    sort(c("lat", "lon", "AUDPC", "emergence"))
   )
-  expect_equal(ncol(out), 5L)
+  expect_equal(ncol(out), 4L)
 
   # Column types
   expect_true(is.numeric(out$lat))
   expect_true(is.numeric(out$lon))
   expect_true(is.numeric(out$AUDPC))
-  expect_true(is.character(out$location) || is.factor(out$location))
   expect_true(is.character(out$emergence) || is.factor(out$emergence))
 })
 
@@ -60,11 +58,9 @@ test_that("audpc_dt() sets key to location,emergence and ordering reflects the k
 })
 
 test_that("audpc_dt() removes duplicate rows on the five selected columns", {
-
   # Create a version with deliberate duplicated rows on the five columns
-  dt <- data.table::copy(epicrop˙sim)
-  # Keep only required cols to control duplication
-  req_cols <- c("lat", "lon", "AUDPC", "location", "emergence")
+  dt <- data.table::copy(epicrop_sim)
+
   # If epicrop.sim has additional columns, we can still duplicate rows;
   # audpc_dt() will subset to the five columns, then unique().
   if (nrow(dt) >= 1L) {
@@ -75,6 +71,11 @@ test_that("audpc_dt() removes duplicate rows on the five selected columns", {
       fill = TRUE
     )
   }
+
+  class(dt) <- unique(c(
+    "epicrop.sim",
+    setdiff(class(dt), "epicrop.sim")
+  ))
 
   out <- audpc_dt(dt)
   # Unique on the five columns should match unique(dt[, .SD, .SDcols = req_cols])
@@ -103,7 +104,6 @@ test_that("audpc_dt() does not key or mutate the input by reference", {
 })
 
 test_that("audpc_dt() tolerates factors/characters for grouping fields", {
-
   dt_char <- data.table::copy(epicrop_sim)
   # Force to character
   dt_char[, location := as.character(location)]
