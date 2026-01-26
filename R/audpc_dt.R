@@ -4,8 +4,8 @@
 #'  If `dt` is from `run_epicrop_model()` directly, the output will be a
 #'  `data.table` with five columns: `lat`, `lon`, `AUDPC`, `location`, and
 #'  `emergence`. If `dt` is from any of the helper functions or directly from
-#'   `epicrop_sim()`, the output will be a `data.table` with one column:
-#'   `AUDPC`.
+#'   `epicrop_sim()`, the output will be a `data.table` with four columns:
+#'   `lat`, `lon`, `AUDPC` and `emergence`.
 #' @autoglobal
 #' @export
 
@@ -22,9 +22,12 @@ audpc_dt <- function(dt) {
     dt <- dt[, .SD, .SDcols = c("lat", "lon", "AUDPC", "location", "emergence")]
     data.table::setkey(dt, location, emergence)
   } else {
-    x <- get_audpc(dt)
-    dt <- data.table::as.data.table(x)
-    data.table::setnames(dt, "x", "AUCPC")
+    audpc <- get_audpc(dt)
+    dt <- dt[1, .SD, .SDcols = c("lat", "lon", "dates")]
+    dt[, AUDPC := audpc]
+    data.table::setnames(dt, "dates", "emergence")
+    data.table::setcolorder(dt, c("lat", "lon", "AUDPC"))
+    data.table::setkey(dt, lat, lon, emergence)
   }
   return(unique(dt))
 }
