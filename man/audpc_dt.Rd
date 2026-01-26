@@ -10,8 +10,12 @@ audpc_dt(dt)
 \item{dt}{A \code{data.table} created by \code{run_epicrop_model()}.}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} suitable for mapping or other analysis
-with five columns: \code{lat}, \code{lon}, \code{AUDPC}, \code{location}, and \code{emergence}.
+A \code{\link[data.table:data.table]{data.table::data.table()}} suitable for mapping or other analysis.
+If \code{dt} is from \code{run_epicrop_model()} directly, the output will be a
+\code{data.table} with five columns: \code{lat}, \code{lon}, \code{AUDPC}, \code{location}, and
+\code{emergence}. If \code{dt} is from any of the helper functions or directly from
+\code{epiccrop_sim()}, the output will be a \code{data.table} with one column:
+\code{AUDPC}.
 }
 \description{
 Create an AUDPC data frame for locations and emergence dates
