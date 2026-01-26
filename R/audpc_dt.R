@@ -32,8 +32,8 @@ audpc_dt <- function(dt) {
     dt[, AUDPC := audpc]
     data.table::setnames(dt, "dates", "emergence")
     data.table::setcolorder(dt, "AUDPC", before = "emergence")
-    data.table::setkey(dt, lat, lon, emergence)
+    dt[, emergence := as.factor(emergence)]
+    data.table::setkey(dt, emergence)
   }
-  dt[, emergence := as.factor(emergence)]
   return(unique(dt))
 }
