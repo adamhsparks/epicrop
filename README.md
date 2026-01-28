@@ -121,6 +121,7 @@ Lastly, you can visualise the result of the model run.
 
 ``` r
 library(ggplot2)
+#> Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2
 
 ggplot(
   data = bb_sim,
@@ -155,19 +156,18 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 70.13%
-#> R/audpc_dt.R: 0.00%
+#> epicrop Coverage: 70.49%
 #> R/build_epicrop_emergence.R: 0.00%
 #> R/fetch_epicrop_weather_list.R: 0.00%
 #> R/run_epicrop_model.R: 0.00%
-#> R/calculate_audpc.R: 80.00%
 #> R/validation.R: 83.07%
 #> R/epicrop_sim.R: 85.47%
+#> R/audpc.R: 87.50%
 #> R/leaf_wetness.R: 90.55%
+#> R/weather.R: 94.87%
 #> src/seir_core.cpp: 97.73%
 #> R/disease_models.R: 100.00%
 #> R/interpolation.R: 100.00%
-#> R/weather.R: 100.00%
 ```
 
 ## Code of Conduct
