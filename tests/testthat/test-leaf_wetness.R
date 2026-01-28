@@ -39,8 +39,8 @@ test_that("setup: extended weather available", {
   cols = c("YYYYMMDD", "DOY", "TEMP", "RHUM", "RAIN", "TMIN", "TMAX", "LAT")
 ) {
   cols <- intersect(cols, names(wth_formatted)) # ensure only real columns
-  dt <- data.table::as.data.table(wth_formatted)[, ..cols] # <-- NOTE THE ..cols
-  class(dt) <- c("epicrop.wth", "data.table", "data.frame")
+  x <- data.table::as.data.table(wth_formatted)[, ..cols] # <-- NOTE THE ..cols
+  class(x) <- c("epicrop.wth", "data.table", "data.frame")
   dt
 }
 

@@ -10,7 +10,7 @@ test_that("audpc_dt() errors with non-epicrop.sim input", {
     regexp = "epicrop\\.sim",
     ignore.case = TRUE
   )
-  dt <- data.table::data.table(
+  x <- data.table::data.table(
     lat = 0,
     lon = 0,
     AUDPC = 1,
@@ -18,7 +18,7 @@ test_that("audpc_dt() errors with non-epicrop.sim input", {
     emergence = "2020-01-01"
   )
   # Even if columns exist, class must be epicrop.sim
-  expect_error(audpc_dt(dt), regexp = "epicrop\\.sim", ignore.case = TRUE)
+  expect_error(audpc_dt(x), regexp = "epicrop\\.sim", ignore.case = TRUE)
 })
 
 test_that("audpc_dt() returns a data.table with expected four columns", {
@@ -49,27 +49,32 @@ test_that("audpc_dt() sets key to emergence and ordering reflects the key", {
 
 test_that("audpc_dt() removes duplicate rows on the five selected columns", {
   # Create a version with deliberate duplicated rows on the five columns
-  dt <- data.table::copy(epicrop_sim)
+  x <- data.table::copy(epicrop_sim)
 
   # If epicrop.sim has additional columns, we can still duplicate rows;
   # audpc_dt() will subset to the five columns, then unique().
-  if (nrow(dt) >= 1L) {
-    dup_block <- dt[1:min(3L, nrow(dt))] # few rows to duplicate
-    dt <- data.table::rbindlist(
-      list(dt, dup_block),
+  if (nrow(x) >= 1L) {
+    dup_block <- x[seq_len(min(3L, nrow(x)))] # few rows to duplicate
+    x <- data.table::rbindlist(
+      list(x, dup_block),
       use.names = TRUE,
       fill = TRUE
     )
   }
 
-  class(dt) <- unique(c(
+  class(x) <- unique(c(
     "epicrop.sim",
-    setdiff(class(dt), "epicrop.sim")
+    setdiff(class(x), "epicrop.sim")
   ))
 
-  out <- audpc_dt(dt)
-  # Unique on the five columns should match unique(dt[, .SD, .SDcols = req_cols])
-  expected <- unique(dt[, .SD, .SDcols = req_cols])
+  # these next two lines come from epicrop_sim.R to calculate AUDPC and add it
+  # as an attribute to the epicrop.sim object
+  audpc_value <- .calculate_audpc(x$intensity)
+  data.table::setattr(x, "AUDPC", audpc_value)
+
+  out <- audpc_dt(x)
+  # Unique on the five columns should match unique(x[, .SD, .SDcols = req_cols])
+  expected <- unique(x[, .SD, .SDcols = req_cols])
   data.table::setkey(expected, location, emergence)
 
   # Same set and order after keying
@@ -82,28 +87,30 @@ test_that("audpc_dt() does not key or mutate the input by reference", {
     "no epicrop.sim test data"
   )
 
-  dt <- data.table::copy(epicrop_sim)
+  x <- data.table::copy(epicrop_sim)
   # Remove any keys from the copy to know baseline
-  if (!is.null(data.table::key(dt))) data.table::setkey(dt, NULL)
-  in_key_before <- data.table::key(dt)
+  if (!is.null(data.table::key(x))) {
+    data.table::setkey(x, NULL)
+  }
+  in_key_before <- data.table::key(x)
 
-  invisible(audpc_dt(dt))
+  invisible(audpc_dt(x))
 
   # Ensure original 'dt' key unchanged (function subsets internally then keys the subset)
-  expect_identical(data.table::key(dt), in_key_before)
+  expect_identical(data.table::key(x), in_key_before)
 })
 
 test_that("audpc_dt() tolerates factors/characters for grouping fields", {
   dt_char <- data.table::copy(epicrop_sim)
   # Force to character
   dt_char[, emergence := as.character(emergence)]
-  out_char <- audpc_dt(dt_char)
+  out_char <- audpc_dt(x_char)
   expect_s3_class(out_char, "data.table")
 
   dt_fac <- data.table::copy(epicrop_sim)
   dt_fac[, location := as.factor(location)]
   dt_fac[, emergence := as.factor(emergence)]
-  out_fac <- audpc_dt(dt_fac)
+  out_fac <- audpc_dt(x_fac)
   expect_s3_class(out_fac, "data.table")
 
   # Same rows regardless of type (after converting for comparison)
@@ -130,17 +137,19 @@ test_that("audpc_dt() fails informatively if required columns are missing", {
   # Start from a valid epicrop.sim object but drop a required column
   dt_bad <- data.table::copy(epicrop_sim)
   # Ensure it still has class epicrop.sim so we reach the .SDcols selection
-  class(dt_bad) <- unique(c(
+  class(x_bad) <- unique(c(
     "epicrop.sim",
-    setdiff(class(dt_bad), "epicrop.sim")
+    setdiff(class(x_bad), "epicrop.sim")
   ))
 
   # Drop one of the required columns
-  if ("AUDPC" %in% names(dt_bad)) dt_bad[, AUDPC := NULL]
+  if ("AUDPC" %in% names(x_bad)) {
+    dt_bad[, AUDPC := NULL]
+  }
 
   # data.table will error if .SDcols contains a missing name
   expect_error(
-    audpc_dt(dt_bad),
+    audpc_dt(x_bad),
     regexp = "column.*AUDPC|undefined columns|cannot select|object.*not found",
     ignore.case = TRUE
   )
