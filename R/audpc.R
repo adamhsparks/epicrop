@@ -65,3 +65,43 @@
 #'   given object.
 #' @export
 get_audpc <- function(result) attr(result, "AUDPC")
+
+#' Create an AUDPC data frame for locations and emergence dates
+#' @param x A `data.table` created by `run_epicrop_model()`.
+#' @returns A [data.table::data.table()] suitable for mapping or other analysis.
+#'  If `dt` is from `run_epicrop_model()` directly, the output will be a
+#'  `data.table` with five columns: `lat`, `lon`, `AUDPC`, `location`, and
+#'  `emergence`. If `dt` is from any of the helper functions or directly from
+#'   `epicrop_sim()`, the output will be a `data.table` with two (or) four
+#'   columns: `lat`*, `lon`*, `AUDPC` and `emergence`. *`lat` and `lon` columns
+#'   must be in the original weather dataset for them to appear.
+#' @autoglobal
+#' @export
+
+audpc_dt <- function(x) {
+  if (!rlang::inherits_any(x = dt, class = "epicrop.sim")) {
+    cli::cli_abort(
+      "{.var dt} must be an `epicrop.sim` object created by
+      `run_epicrop_model()` or any of the other helper functions that create
+      an `epicrop.sim` object."
+    )
+  }
+
+  if (all(names(x) %in% c("lat", "lon", "AUDPC", "location", "emergence"))) {
+    x <- x[, .SD, .SDcols = c("lat", "lon", "AUDPC", "location", "emergence")]
+    data.table::setkey(x, location, emergence)
+  } else {
+    audpc <- get_audpc(x)
+    if ("lat" %in% names(x) && "lon" %in% names(x)) {
+      x <- x[1, .SD, .SDcols = c("lat", "lon", "dates")]
+    } else {
+      x <- x[1, "dates"]
+    }
+    x[, AUDPC := audpc]
+    data.table::setnames(x, "dates", "emergence")
+    data.table::setcolorder(x, "AUDPC", before = "emergence")
+    x[, emergence := as.factor(emergence)]
+    data.table::setkey(x, emergence)
+  }
+  return(unique(x[]))
+}
