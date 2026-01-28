@@ -390,7 +390,7 @@ epicrop_sim <- function(
   }
 
   data.table::setorderv(wth, "YYYYMMDD")
-  return(wth)
+  return(wth[])
 }
 
 #' Determine simulation window from weather data
@@ -645,7 +645,7 @@ epicrop_sim <- function(
     if (!is.null(RcW)) {
       RcW_daily <- .interp(RcW, wet_hours)
     } else {
-      # Linear:   0 hours = 0, 24 hours = 1
+      # Linear: 0 hours = 0, 24 hours = 1
       RcW_daily <- wet_hours / 24.0
     }
   }
