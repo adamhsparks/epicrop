@@ -73,20 +73,29 @@ test_that("audpc_dt() removes duplicate rows on the five selected columns", {
   data.table::setattr(x, "AUDPC", audpc_value)
 
   out <- audpc_dt(x)
-  # Unique on the five columns should match unique(x[, .SD, .SDcols = req_cols])
-  expected <- unique(x[, .SD, .SDcols = req_cols])
-  data.table::setkey(expected, location, emergence)
+  # Unique on the four columns should match unique(x[, .SD, .SDcols = req_cols])
+  req_cols <- c("lat", "lon", "AUDPC", "emergence")
+  expected <- structure(
+    list(
+      lat = 14.6774,
+      lon = 121.25562,
+      AUDPC = 14.7546733439836,
+      emergence = structure(1L, levels = "2000-06-30", class = "factor")
+    ),
+    row.names = c(NA, -1L),
+    class = c("epicrop.sim", "data.table", "data.frame"),
+    AUDPC = 14.7546733439836,
+    sorted = "emergence"
+  )
+
+  expected <- unique(out[, .SD, .SDcols = req_cols])
+  data.table::setkey(expected, emergence)
 
   # Same set and order after keying
   expect_identical(out, expected)
 })
 
 test_that("audpc_dt() does not key or mutate the input by reference", {
-  skip_if_not(
-    exists("epicrop.sim", inherits = FALSE),
-    "no epicrop.sim test data"
-  )
-
   x <- data.table::copy(epicrop_sim)
   # Remove any keys from the copy to know baseline
   if (!is.null(data.table::key(x))) {
@@ -103,14 +112,13 @@ test_that("audpc_dt() does not key or mutate the input by reference", {
 test_that("audpc_dt() tolerates factors/characters for grouping fields", {
   dt_char <- data.table::copy(epicrop_sim)
   # Force to character
-  dt_char[, emergence := as.character(emergence)]
-  out_char <- audpc_dt(x_char)
+  dt_char[, emergence := as.character(dates)]
+  out_char <- audpc_dt(dt_char)
   expect_s3_class(out_char, "data.table")
 
   dt_fac <- data.table::copy(epicrop_sim)
-  dt_fac[, location := as.factor(location)]
-  dt_fac[, emergence := as.factor(emergence)]
-  out_fac <- audpc_dt(x_fac)
+  dt_fac[, emergence := as.factor(dates)]
+  out_fac <- audpc_dt(dt_fac)
   expect_s3_class(out_fac, "data.table")
 
   # Same rows regardless of type (after converting for comparison)
@@ -118,18 +126,16 @@ test_that("audpc_dt() tolerates factors/characters for grouping fields", {
     lat,
     lon,
     AUDPC,
-    location = as.character(location),
     emergence = as.character(emergence)
   )]
   out_fac_cmp <- out_fac[, .(
     lat,
     lon,
     AUDPC,
-    location = as.character(location),
     emergence = as.character(emergence)
   )]
-  data.table::setkey(out_char_cmp, location, emergence, lat, lon, AUDPC)
-  data.table::setkey(out_fac_cmp, location, emergence, lat, lon, AUDPC)
+  data.table::setkey(out_char_cmp, emergence, lat, lon, AUDPC)
+  data.table::setkey(out_fac_cmp, emergence, lat, lon, AUDPC)
   expect_identical(out_char_cmp, out_fac_cmp)
 })
 
@@ -137,13 +143,13 @@ test_that("audpc_dt() fails informatively if required columns are missing", {
   # Start from a valid epicrop.sim object but drop a required column
   dt_bad <- data.table::copy(epicrop_sim)
   # Ensure it still has class epicrop.sim so we reach the .SDcols selection
-  class(x_bad) <- unique(c(
+  class(dt_bad) <- unique(c(
     "epicrop.sim",
-    setdiff(class(x_bad), "epicrop.sim")
+    setdiff(class(dt_bad), "epicrop.sim")
   ))
 
   # Drop one of the required columns
-  if ("AUDPC" %in% names(x_bad)) {
+  if ("AUDPC" %in% names(dt_bad)) {
     dt_bad[, AUDPC := NULL]
   }
 
