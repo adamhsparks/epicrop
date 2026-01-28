@@ -79,7 +79,7 @@ get_audpc <- function(result) attr(result, "AUDPC")
 #' @export
 
 audpc_dt <- function(x) {
-  if (!rlang::inherits_any(x = dt, class = "epicrop.sim")) {
+  if (!rlang::inherits_any(x = x, class = "epicrop.sim")) {
     cli::cli_abort(
       "{.var x} must be an `epicrop.sim` object created by
       {.fun run_epicrop_model()}, {.fun epicrop_sim()} or any of the other
