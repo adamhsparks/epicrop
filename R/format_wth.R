@@ -105,6 +105,16 @@ format_wth <- function(
   lat,
   lon
 ) {
+  if (inherits(wth, "epicrop.wth")) {
+    cli::cli_warn(
+      call = rlang::caller_env(),
+      "{.var wth} is already an {.cls epicrop.wth} object. No formatting is
+      necessary."
+    )
+    return(wth)
+  }
+
+  `%notin%` <- Negate(`%in%`)
   rlang::check_required(c(wth, date, temp, rhum, rain))
 
   # Get all provided arguments (excluding wth)
