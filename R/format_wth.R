@@ -1,4 +1,4 @@
-#' Format Weather Data for Use in epicrop
+#' Format Weather Data for Use in epicrop_sim Simulations
 #'
 #' Formats an existing [data.frame()] of weather data for use in \pkg{epicrop}.
 #'  Only the data necessary for use in the model is returned and the columns
