@@ -66,6 +66,7 @@
 #'   years      = 2000:2001,
 #'   mode       = "cross"
 #' )
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
 

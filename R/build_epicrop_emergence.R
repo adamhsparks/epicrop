@@ -32,6 +32,8 @@
 #' # Typical downstream: pass to run_epicrop_model(...)
 #' # run_epicrop_model(bacterial_blight, em, wth_list, output = "audpc")
 #'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
+#' @autoglobal
 #' @export
 
 build_epicrop_emergence <- function(years, month_day) {

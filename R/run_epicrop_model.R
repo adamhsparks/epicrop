@@ -49,6 +49,8 @@
 #'                   output = "audpc")
 #'
 #' @seealso fetch_epicrop_weather_list, build_epicrop_emergence
+#'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
 run_epicrop_model <- function(

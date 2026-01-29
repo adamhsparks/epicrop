@@ -48,7 +48,7 @@
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
-#' @export get_wth
+#' @export
 
 get_wth <- function(lonlat, dates, duration = NULL) {
   # --- existing checks ---

@@ -21,6 +21,7 @@
 #' For function input, applies function to `age_vec` and sets any negative
 #' values to 0.
 #'
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @keywords internal
 #' @dev
