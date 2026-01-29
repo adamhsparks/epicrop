@@ -7,7 +7,8 @@
 audpc_dt(x)
 }
 \arguments{
-\item{x}{A \code{data.table} created by \code{run_epicrop_model()}.}
+\item{x}{A \code{data.table} created by \code{run_epicrop_model()}, \code{epicrop_sim()} or
+any one of the disease specific helper functions.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} suitable for mapping or other analysis.

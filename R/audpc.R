@@ -50,7 +50,7 @@
 #' Get the \acronym{AUDPC} value from an \pkg{epicrop} model run object's
 #'  attributes for use in analysis, mapping, or reporting.
 #'
-#' @param epicrop_obj an object of class `epicrop.sim` as returned by any of
+#' @param x an object of class `epicrop.sim` as returned by any of
 #'  the modelling functions in \pkg{epicrop}.
 #'
 #' @examples
@@ -64,10 +64,11 @@
 #' @returns A scalar numeric double precision value of the AUCPC for the
 #'   given object.
 #' @export
-get_audpc <- function(result) attr(result, "AUDPC")
+get_audpc <- function(x) attr(x, "AUDPC")
 
 #' Create an AUDPC data frame for locations and emergence dates
-#' @param x A `data.table` created by `run_epicrop_model()`.
+#' @param x A `data.table` created by `run_epicrop_model()`, `epicrop_sim()` or
+#'   any one of the disease specific helper functions.
 #' @returns A [data.table::data.table()] suitable for mapping or other analysis.
 #'  If `dt` is from `run_epicrop_model()` directly, the output will be a
 #'  `data.table` with five columns: `lat`, `lon`, `AUDPC`, `location`, and

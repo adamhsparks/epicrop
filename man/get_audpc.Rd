@@ -4,10 +4,10 @@
 \alias{get_audpc}
 \title{Get the AUDPC from an epicrop_sim Object}
 \usage{
-get_audpc(result)
+get_audpc(x)
 }
 \arguments{
-\item{epicrop_obj}{an object of class \code{epicrop.sim} as returned by any of
+\item{x}{an object of class \code{epicrop.sim} as returned by any of
 the modelling functions in \pkg{epicrop}.}
 }
 \value{
