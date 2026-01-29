@@ -10,12 +10,17 @@ utils::globalVariables(c(
   "lon", # <.assemble_output>
   "YYYYMMDD", # <fetch_epicrop_weather_list>
   "DOY", # <format_wth>
+  "YYYYMMDD", # <get_wth>
+  "YEAR", # <get_wth>
+  "MO", # <get_wth>
+  "DY", # <get_wth>
+  "MM", # <get_wth>
+  "DD", # <get_wth>
   "location", # <run_epicrop_model>
   "YYYYMMDD", # <.make_slicer>
   "emergence", # <.make_runner>
   "AUDPC", # <.make_runner>
   "emergence", # <.assemble_results>
   "AUDPC", # <.assemble_results>
-  "DOY", # <format_wth>
   NULL
 ))

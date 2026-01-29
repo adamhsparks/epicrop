@@ -31,5 +31,8 @@ For matrix input, uses linear interpolation via \code{\link[stats:approxfun]{sta
 For function input, applies function to \code{age_vec} and sets any negative
 values to 0.
 }
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}
 \keyword{internal}
 \keyword{internal}

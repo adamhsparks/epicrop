@@ -44,3 +44,6 @@ length(em)                       # 6 (2 years × 3 month-days)
 \seealso{
 \code{\link[=run_epicrop_model]{run_epicrop_model()}}, \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}
 }
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}

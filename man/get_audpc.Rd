@@ -27,3 +27,6 @@ bb <- bacterial_blight(wth, emergence = "2000-07-01")
 get_audpc(bb)
 
 }
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}

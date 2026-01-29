@@ -45,4 +45,10 @@
 ^man/dot-make_slicer\.Rd$
 ^man/dot-make_runner\.Rd$
 ^man/dot-assemble_results\.Rd$
-^man/dot-check_date\.Rd$
+^man/dot-validate_all_inputs\.Rd$
+^man/dot-validate_weather\.Rd$
+^man/dot-validate_scalars\.Rd$
+^man/dot-validate_wetness_params\.Rd$
+^man/dot-validate_RcW_matrix\.Rd$
+^man/dot-is_boolean\.Rd$
+^man/dot-validate_emergence\.Rd$

@@ -2,7 +2,7 @@
 #'
 #' Central validation function for epicrop_sim() parameters
 #' @autoglobal
-#' @noRd
+#' @dev
 .validate_all_inputs <- function(
   wth,
   emergence,
@@ -63,7 +63,7 @@
 
 #' Validate weather data
 #' @autoglobal
-#' @noRd
+#' @dev
 .validate_weather <- function(wth) {
   if (!rlang::inherits_any(wth, "epicrop.wth")) {
     cli::cli_abort(
@@ -94,17 +94,9 @@
   invisible(TRUE)
 }
 
-#' Validate emergence date
-#' @autoglobal
-#' @noRd
-.validate_emergence <- function(emergence) {
-  .check_date(emergence)
-  invisible(TRUE)
-}
-
 #' Validate scalar parameters
 #' @autoglobal
-#' @noRd
+#' @dev
 .validate_scalars <- function(
   onset,
   duration,
@@ -222,7 +214,7 @@
 
 #' Validate wetness parameters
 #' @autoglobal
-#' @noRd
+#' @dev
 .validate_wetness_params <- function(simple_wetness, wth, RcW) {
   # Check TMIN/TMAX required for complex wetness
   if (isFALSE(simple_wetness) && any(c("TMIN", "TMAX") %notin% names(wth))) {
@@ -247,7 +239,7 @@
 
 #' Validate RcW matrix
 #' @autoglobal
-#' @noRd
+#' @dev
 .validate_RcW_matrix <- function(RcW) {
   # Check that RcW is numeric
   if (!is.numeric(RcW)) {
@@ -319,14 +311,13 @@
 #' }
 #'
 #' @autoglobal
-#' @keywords internal
-#' @noRd
+#' @dev
 .is_boolean <- function(x) {
   is.logical(x) && length(x) == 1L && !is.na(x)
 }
 
-#' Check and parse date
-#'
+#' Check and Parse Date
+#' Validates dates, normally the emergence date.
 #' @param x a date input (character, Date, POSIXct).
 #'
 #' @examples
@@ -340,7 +331,7 @@
 #' @return A validated POSIXct date object.
 #' @dev
 #' @autoglobal
-.check_date <- function(x) {
+.validate_emergence <- function(x) {
   if (lubridate::is.POSIXct(x) || lubridate::is.Date(x)) {
     tz <- lubridate::tz(x)
   } else {

@@ -95,3 +95,6 @@ w3 <- fetch_epicrop_weather_list(
 )
 \dontshow{\}) # examplesIf}
 }
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}

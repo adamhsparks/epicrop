@@ -73,3 +73,6 @@ run_epicrop_model(bacterial_blight,
 \seealso{
 fetch_epicrop_weather_list, build_epicrop_emergence
 }
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}
