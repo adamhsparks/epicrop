@@ -1,4 +1,4 @@
-# Format Weather Data for Use in epicrop_sim Simulations
+# Format Weather Data for Use in epicrop_sim() Simulations
 
 Formats an existing
 [`data.frame()`](https://rdrr.io/r/base/data.frame.html) of weather data

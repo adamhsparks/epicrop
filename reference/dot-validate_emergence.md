@@ -23,9 +23,9 @@ A validated POSIXct date object.
 ``` r
 # passes
 .validate_emergence("2023-10-15")
-#> Error in .validate_emergence("2023-10-15"): could not find function ".validate_emergence"
+#> [1] "2023-10-15"
 
 # fails
  .validate_emergence("120-100-2023")
-#> Error in .validate_emergence("120-100-2023"): could not find function ".validate_emergence"
+#> Error in .validate_emergence("120-100-2023"): `x` is not in a valid date format.
 ```

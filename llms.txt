@@ -328,7 +328,7 @@ Functions for fetching and formatting weather data for use in {epicrop}
   : Fetch weather once (single or multiple locations) and split by
   calendar year
 - [`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
-  : Format Weather Data for Use in epicrop_sim Simulations
+  : Format Weather Data for Use in epicrop_sim() Simulations
 
 ## Miscellaneous
 

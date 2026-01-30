@@ -74,5 +74,5 @@ wth <- get_wth(
   doy = wth$DOY,
   yyyymmdd = wth$YYYYMMDD
 )
-#> Error in .diurnal_rh(rh = wth$RHUM, tmin = wth$TMIN, tmax = wth$TMAX,     tmp = wth$TEMP, lat = wth$LAT, doy = wth$DOY, yyyymmdd = wth$YYYYMMDD): could not find function ".diurnal_rh"
+#> Error: object 'wth' not found
 ```
