@@ -62,7 +62,8 @@ wth <- get_wth(
   dates = c("2000-06-30")
 )
 #> Error in nasapower::get_power(community = "AG", pars = c("T2M", "T2M_MIN",     "T2M_MAX", "RH2M", "PRECTOTCORR"), temporal_api = "DAILY",     lonlat = c(lon, lat), dates = date_vec): ℹ You have supplied more than two dates for start and end.
-#> ✖ Please supply only two (2) dates for `dates` as 'YYYY-MM-DD' (ISO8601 format).
+#> ✖ Please supply only two (2) dates for `dates` as 'YYYY-MM-DD' (ISO8601
+#>   format).
 
 .diurnal_rh(
   rh = wth$RHUM,

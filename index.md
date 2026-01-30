@@ -11,32 +11,24 @@ functions to fetch weather data from NASA POWER, via the
 a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks
 1971) function, `seir()`.
 
-The original EPIRICE manuscript, Savary *et al.* (2012), which details
-the model and results of its use to model global epidemics of rice
-diseases, was published in *Crop Protection* detailing global unmanaged
-disease risk of bacterial blight, brown spot, leaf blast, sheath blight
-and rice tungro, which are included in this package. Additional models
-included for rice are adapted from Kim *et al.* (2015) for rice sheath
-blight and leaf blast.
+This package implements the original EPIRICE model as detailed in Savary
+*et al.* (2012), which introduces the model and uses it to model global
+epidemics of rice diseases illustrating the risk of bacterial blight,
+brown spot, leaf blast, sheath blight and rice tungro disease.
+Additional models included for rice are adapted from Kim *et al.* (2015)
+for rice sheath blight and leaf blast.
 
-The original EPIWHEAT manuscript, Savary *et al.* (2015), which details
-the model and results of its use to model potential epidemics of wheat
-diseases, leaf rust and Septoria tritici blotch, is also included in
-this package.
+The original EPIWHEAT model as presented in Savary *et al.* (2015) is
+also included in this implementation and can be used to model potential
+epidemics of two wheat diseases, leaf rust and Septoria tritici blotch,
+is also included in this package.
+
+Users may also provide their own paramters to the generic
+[`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
+function to simulate other crop diseases as long as the weather data
+provided meet the model’s requirements.
 
 # Quick start
-
-You can easily simulate any of the five diseases for rice grown anywhere
-in the world, two for the Korean peninsula based on Kim *et al.* 2015 or
-two of wheat in Europe based on Savary *et al.* 2015 for any years from
-1983 to near current using
-[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
-to fetch data from the [NASA POWER web
-API](https://power.larc.nasa.gov). Alternatively, you can supply your
-own weather data for any time period as long as it fits the model’s
-requirements by using the
-[`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
-supplied in this package.
 
 {epicrop} is not yet on CRAN. You can install it this way.
 
@@ -70,19 +62,32 @@ wth <- get_wth(
 
 wth
 #> Key: <YYYYMMDD>
-#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON
-#>          <IDat> <int> <num> <num> <num> <num> <num>   <num>    <num>
-#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556
-#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556
-#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556
-#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556
-#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556
-#>  ---                                                                
-#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556
-#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556
-#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556
-#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556
-#> 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556
+#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON  YEAR
+#>          <IDat> <int> <num> <num> <num> <num> <num>   <num>    <num> <num>
+#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556  2000
+#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556  2000
+#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556  2000
+#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556  2000
+#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556  2000
+#>  ---                                                                      
+#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556  2000
+#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556  2000
+#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556  2000
+#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556  2000
+#> 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556  2000
+#>         MM    DD
+#>      <int> <int>
+#>   1:     7     1
+#>   2:     7     2
+#>   3:     7     3
+#>   4:     7     4
+#>   5:     7     5
+#>  ---            
+#> 117:    10    25
+#> 118:    10    26
+#> 119:    10    27
+#> 120:    10    28
+#> 121:    10    29
 ```
 
 ## Modelling bacterial blight disease intensity

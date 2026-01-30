@@ -94,7 +94,8 @@ wth_list <- fetch_epicrop_weather_list(years,
                                        lonlat,
                                        start_date = month_day,
                                        duration = duration)
-#> Error in norm_locations(lonlat): `lonlat` must be c(lon, lat), a 2-column matrix/data.frame, or arg list of length-2 numerics.
+#> Error in norm_locations(lonlat): `lonlat` must be c(lon, lat), a 2-column matrix/data.frame, or arg list
+#> of length-2 numerics.
 
 # AUDPC for bacterial blight
 run_epicrop_model(bacterial_blight,
