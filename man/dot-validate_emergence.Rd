@@ -2,8 +2,7 @@
 % Please edit documentation in R/validation.R
 \name{.validate_emergence}
 \alias{.validate_emergence}
-\title{Check and Parse Date
-Validates dates, normally the emergence date.}
+\title{Validates dates, normally the emergence date.}
 \usage{
 .validate_emergence(x)
 }
@@ -14,7 +13,6 @@ Validates dates, normally the emergence date.}
 A validated POSIXct date object.
 }
 \description{
-Check and Parse Date
 Validates dates, normally the emergence date.
 }
 \examples{
