@@ -1,4 +1,4 @@
-load(test_path(file = "fixtures", "wth_test_data.Rdata"))
+load(test_path(file = "testdata", "wth_test_data.rda"))
 
 wth_formatted <-
   format_wth(
