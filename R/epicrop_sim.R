@@ -423,7 +423,7 @@ epicrop_sim <- function(
 #' @details
 #' This function performs several operations:
 #' \enumerate{
-#'   \item Converts the emergence date to Date class using [.check_date()]
+#'   \item Converts the emergence date to Date class using [.validate_emergence()]
 #'   \item Generates a sequence of dates from emergence to emergence +
 #'      duration - 1
 #'   \item Ensures the weather data's YYYYMMDD column is Date class for matching
@@ -473,7 +473,7 @@ epicrop_sim <- function(
 #'
 #' @seealso
 #' \itemize{
-#'   \item [.check_date()] for date parsing and validation
+#'   \item [.validate_emergence()] for date parsing and validation
 #'   \item [get_wth()] for fetching weather data from NASA POWER
 #'   \item [format_wth()] for formatting user-supplied weather data
 #'   \item [epicrop_sim()] which calls this function internally
@@ -485,7 +485,7 @@ epicrop_sim <- function(
 #' @dev
 
 .determine_run_window <- function(wth, emergence, duration) {
-  em_date <- .check_date(emergence)
+  em_date <- .validate_emergence(emergence)
   if (length(em_date) > 1L) {
     # Use this function's environment (or omit `.envir` entirely)
     cli::cli_warn(
