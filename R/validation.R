@@ -181,6 +181,13 @@
     )
   }
 
+  if ((steps_per_day & (steps_per_day - 1L)) != 0L) {
+    cli::cli_warn(
+      "{.var steps_per_day} should be a power of 2 (1, 2, 4, 8...) for best
+      accuracy."
+    )
+  }
+
   # Check aggregation coefficient
   if (a < 1) {
     cli::cli_abort(
@@ -314,7 +321,7 @@
   is.logical(x) && length(x) == 1L && !is.na(x)
 }
 
-#' Check and Parse Date
+
 #' Validates dates, normally the emergence date.
 #' @param x a date input (character, Date, POSIXct).
 #'
@@ -328,24 +335,40 @@
 #' @dev
 #' @autoglobal
 .validate_emergence <- function(x) {
-  if (lubridate::is.POSIXct(x) || lubridate::is.Date(x)) {
-    tz <- lubridate::tz(x)
-  } else {
-    tz <- Sys.timezone()
+  # If already Date, return as-is
+  if (inherits(x, "Date")) {
+    return(x)
   }
 
-  tryCatch(
-    x <- lubridate::parse_date_time(
-      x,
-      c("Ymd", "dmY", "BdY", "Bdy"),
-      tz = tz
-    ),
-    warning = function(c) {
-      cli::cli_abort(
-        call = rlang::caller_env(),
-        "{x} is not in a valid date format. Please enter a valid date format."
-      )
+  # If POSIXct/lt, strip time & tz safely
+  if (inherits(x, "POSIXt")) {
+    return(as.Date(format(x, "%Y-%m-%d")))
+  }
+
+  # Otherwise parse character input without introducing tz
+  if (is.character(x)) {
+    # First try standard ISO
+    d <- suppressWarnings(as.Date(x))
+    if (!anyNA(d)) {
+      return(d)
     }
-  )
-  return(x)
+
+    # If failed, use lubridate to parse, then drop tz
+    d <- tryCatch(
+      lubridate::parse_date_time(
+        x,
+        c("Ymd", "dmY", "BdY", "Bdy"),
+        tz = "UTC" # avoids shifting due to local tz
+      ),
+      error = function(e) NA
+    )
+
+    if (anyNA(d)) {
+      cli::cli_abort("{x} is not in a valid date format.")
+    }
+
+    return(as.Date(format(d, "%Y-%m-%d")))
+  }
+
+  cli::cli_abort("Unsupported type for emergence date: {class(x)}")
 }

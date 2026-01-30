@@ -41,18 +41,6 @@ Rcpp::List epicrop_core_cpp(const NumericVector& Rc,
                             const int steps_per_day = 1) {
 
   const int n = Rc.size();
-  
-  // Input validation
-  if (RRLEX.size() != n || RRG.size() != n || RRS.size() != n ||
-      p_days.size() != n || i_days.size() != n || agg.size() != n ||
-      Iprim.size() != n) {
-    stop("All daily input vectors must have the same length.");
-  }
-  if (SMax <= 0.0) stop("SMax must be > 0.");
-  if (steps_per_day < 1) stop("steps_per_day must be >= 1.");
-  if ((steps_per_day & (steps_per_day - 1)) != 0) {
-    Rcpp::warning("steps_per_day should be a power of 2 for best accuracy.");
-  }
 
   // Output vectors
   NumericVector sites(n), latent(n), infectious(n), removed(n), senesced(n);
