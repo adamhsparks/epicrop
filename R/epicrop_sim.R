@@ -792,7 +792,7 @@ epicrop_sim <- function(
     }
 
     Iprim <- I0$series
-    total <- sum(Iprim)
+    sum(Iprim)
   }
 
   return(Iprim)
