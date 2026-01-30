@@ -35,5 +35,5 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 
 ``` r
 .calculate_weighted_hr_wet(rh = 86, rhlim = 95)
-#> [1] 0.4
+#> Error in .calculate_weighted_hr_wet(rh = 86, rhlim = 95): could not find function ".calculate_weighted_hr_wet"
 ```

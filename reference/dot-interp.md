@@ -40,3 +40,7 @@ For matrix input, uses linear interpolation via
 
 For function input, applies function to `age_vec` and sets any negative
 values to 0.
+
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>

@@ -77,6 +77,10 @@ When `output = "audpc"`: columns `emergence` (IDate) and `AUDPC`
 
 fetch_epicrop_weather_list, build_epicrop_emergence
 
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>
+
 ## Examples
 
 ``` r

@@ -61,6 +61,9 @@ wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-06-30")
 )
+#> Error in nasapower::get_power(community = "AG", pars = c("T2M", "T2M_MIN",     "T2M_MAX", "RH2M", "PRECTOTCORR"), temporal_api = "DAILY",     lonlat = c(lon, lat), dates = date_vec): ℹ You have supplied more than two dates for start and end.
+#> ✖ Please supply only two (2) dates for `dates` as 'YYYY-MM-DD' (ISO8601
+#>   format).
 
 .diurnal_rh(
   rh = wth$RHUM,
@@ -71,9 +74,5 @@ wth <- get_wth(
   doy = wth$DOY,
   yyyymmdd = wth$YYYYMMDD
 )
-#> $`2000-06-29`
-#>  [1] 97.34653 97.78016 98.11937 98.38447 98.59149 97.04739 93.89333 91.02691
-#>  [9] 88.53083 86.46838 84.88571 83.81445 83.27418 83.27418 83.81445 84.88571
-#> [17] 86.46838 88.53083 90.79842 92.61096 94.05079 95.18958 96.08722 96.79290
-#> 
+#> Error in .diurnal_rh(rh = wth$RHUM, tmin = wth$TMIN, tmax = wth$TMAX,     tmp = wth$TEMP, lat = wth$LAT, doy = wth$DOY, yyyymmdd = wth$YYYYMMDD): could not find function ".diurnal_rh"
 ```

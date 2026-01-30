@@ -36,6 +36,10 @@ emergence dates with class `epicrop.emerge` (i.e.,
 [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md),
 [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
 
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>
+
 ## Examples
 
 ``` r

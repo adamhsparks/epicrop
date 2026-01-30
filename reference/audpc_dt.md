@@ -5,15 +5,17 @@ Create an AUDPC data frame for locations and emergence dates
 ## Usage
 
 ``` r
-audpc_dt(dt)
+audpc_dt(x)
 ```
 
 ## Arguments
 
-- dt:
+- x:
 
   A `data.table` created by
-  [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md).
+  [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md),
+  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
+  or any one of the disease specific helper functions.
 
 ## Value
 

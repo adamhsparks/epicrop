@@ -6,12 +6,12 @@ use in analysis, mapping, or reporting.
 ## Usage
 
 ``` r
-get_audpc(result)
+get_audpc(x)
 ```
 
 ## Arguments
 
-- epicrop_obj:
+- x:
 
   an object of class `epicrop.sim` as returned by any of the modelling
   functions in epicrop.
@@ -20,6 +20,10 @@ get_audpc(result)
 
 A scalar numeric double precision value of the AUCPC for the given
 object.
+
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>
 
 ## Examples
 
@@ -30,5 +34,5 @@ wth <- get_wth(
 )
 bb <- bacterial_blight(wth, emergence = "2000-07-01")
 get_audpc(bb)
-#> [1] 14.56478
+#> [1] 15.13818
 ```

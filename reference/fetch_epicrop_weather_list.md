@@ -84,6 +84,10 @@ fetch_epicrop_weather_list(
   `start = min(paste(years, md))`,
   `end = max(paste(years, md)) + (duration - 1)`.
 
+## Author
+
+Adam H. Sparks, <adamhsparks@gmail.com>
+
 ## Examples
 
 ``` r

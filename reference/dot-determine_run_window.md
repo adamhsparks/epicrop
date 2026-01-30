@@ -54,7 +54,7 @@ A list with two elements:
 This function performs several operations:
 
 1.  Converts the emergence date to Date class using
-    [`.check_date()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-check_date.md)
+    [`.validate_emergence()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-validate_emergence.md)
 
 2.  Generates a sequence of dates from emergence to emergence +
     duration - 1
@@ -89,7 +89,7 @@ fewer than `duration` rows), an informative error is thrown showing:
 
 ## See also
 
-- [`.check_date()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-check_date.md)
+- [`.validate_emergence()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-validate_emergence.md)
   for date parsing and validation
 
 - [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
