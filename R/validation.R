@@ -302,13 +302,11 @@
 #' }
 #'
 #' @examples
-#' \dontrun{
-#' . is_boolean(TRUE)           # TRUE
+#' .is_boolean(TRUE)           # TRUE
 #' .is_boolean(FALSE)          # TRUE
 #' .is_boolean(NA)             # FALSE
 #' .is_boolean(1)              # FALSE
 #' .is_boolean(c(TRUE, FALSE)) # FALSE
-#' }
 #'
 #' @autoglobal
 #' @dev
@@ -325,9 +323,7 @@
 #' .check_date("2023-10-15")
 #'
 #' # fails
-#' \dontrun{
 #'  .check_date("120-100-2023")
-#' }
 #' @return A validated POSIXct date object.
 #' @dev
 #' @autoglobal
