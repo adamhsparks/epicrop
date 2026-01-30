@@ -7,8 +7,9 @@
 #' multiple requests are processed, otherwise a single `epicrop.wth.list`.
 #'
 #' ## Flexible inputs
-#' * `lonlat`: a single `c(lon, lat)`; or multiple locations as a numeric vector of
-#'   length `2n`, or a 2‑column matrix/data.frame, or a list of `c(lon, lat)`.
+#' * `lonlat`: a single numeric vector, `c(lon, lat)`; or multiple locations as
+#'   a numeric vector of length `2n`, or a 2‑column matrix/data.frame, or a list
+#'   of `list(c(lon, lat))`.
 #' * `start_date`: a single `"YYYY-MM-DD"` (or `Date`/`IDate`), or a vector of
 #'   the same; or a month–day string like `"06-30"` or `"6-30"` (leading `"-"`
 #'   optional) provided together with `years`.
@@ -18,9 +19,9 @@
 #'   window** per distinct month–day: `start = min(paste(years, md))`,
 #'   `end = max(paste(years, md)) + (duration - 1)`.
 #'
-#' @param lonlat Numeric length‑2 vector `c(lon, lat)`, OR multiple locations as:
-#'   numeric vector of length `2n`, a 2‑column matrix/data.frame, or a list of
-#'   numeric length‑2 vectors.
+#' @param lonlat Numeric length‑2 vector `c(lon, lat)`, OR multiple locations
+#'   as: numeric vector of length `2n`, a 2‑column matrix/data.frame, or a list
+#'   of numeric length‑2 vectors.
 #' @param start_date A starting date (character `"YYYY-MM-DD"`, [Date], or
 #'   [data.table::IDate]) **or** a month–day string like `"06-30"` (leading
 #'   `"-"` optional) used together with `years`.
@@ -28,8 +29,8 @@
 #'   (inclusive). Single value or vector (recycled).
 #' @param years Optional integer vector of years. **Required** if `start_date`
 #'   contains any month–day values without a year.
-#' @param mode Character scalar: `"pairwise"` (default) pairs locations and dates by
-#'   position (recycling length-1), or `"cross"` forms all combinations
+#' @param mode Character scalar: `"pairwise"` (default) pairs locations and
+#'   dates by position (recycling length-1), or `"cross"` forms all combinations
 #'   (locations × dates).
 #' @param location_names Optional character names for locations (length = number of
 #'   unique locations).
@@ -75,10 +76,10 @@ fetch_epicrop_weather_list <- function(
   start_date,
   duration,
   years = NULL,
-  mode = c("pairwise", "cross"),
+  mode = "pairwise",
   location_names = NULL
 ) {
-  mode <- match.arg(mode)
+  mode <- rlang::arg_match0(mode, c("pairwise", "cross"))
 
   norm_locations <- function(ll) {
     if (is.list(ll)) {
