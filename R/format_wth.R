@@ -114,14 +114,13 @@ format_wth <- function(
     return(wth)
   }
 
-  `%notin%` <- Negate(`%in%`)
   rlang::check_required(c(wth, date, temp, rhum, rain))
 
   # Get all provided arguments (excluding wth)
   passed_args <- as.character(match.call())[-c(1L:2L)]
 
   if (any(passed_args %notin% names(wth))) {
-    not_in <- passed_args[passed_args %notin% names(wth)]
+    passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
       call = rlang::caller_env(),
       "The following columns that you have provided are not in {.var wth}: 
