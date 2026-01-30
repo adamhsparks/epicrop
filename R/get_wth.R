@@ -75,7 +75,7 @@ get_wth <- function(lonlat, dates, duration = NULL) {
   }
   start <- as.Date(dates[1L])
   if (is.na(start)) {
-    cli::cli_abort("`dates[1]` must be an ISO date ('YYYY-MM-DD').")
+    cli::cli_abort("{.arg dates[1]} must be an ISO date ('YYYY-MM-DD').")
   }
 
   if (!is.null(duration) && !missing(duration)) {
@@ -86,19 +86,17 @@ get_wth <- function(lonlat, dates, duration = NULL) {
         "{.arg duration} must be a single positive integer (days)."
       )
     }
-    end <- start + (as.integer(duration) - 1L) # inclusive
+    end <- start + (as.integer(duration)) # inclusive
   } else if (length(dates) >= 2L) {
     end <- as.Date(dates[2L])
     if (is.na(end)) {
-      cli::cli_abort("`dates[2]` must be an ISO date ('YYYY-MM-DD').")
+      cli::cli_abort("{.arg dates[2]} must be an ISO date ('YYYY-MM-DD').")
     }
-  } else {
-    end <- start
   }
 
   date_vec <- c(format(start, "%Y-%m-%d"), format(end, "%Y-%m-%d"))
 
-  wth <- data.table::setDT(
+  wth <- data.table::as.data.table(
     nasapower::get_power(
       community = "AG",
       pars = c("T2M", "T2M_MIN", "T2M_MAX", "RH2M", "PRECTOTCORR"),
@@ -108,46 +106,12 @@ get_wth <- function(lonlat, dates, duration = NULL) {
     )
   )
 
-  if (!"YYYYMMDD" %in% names(wth)) {
-    if (all(c("YEAR", "MO", "DY") %in% names(wth))) {
-      wth[,
-        YYYYMMDD := data.table::as.IDate(sprintf(
-          "%04d-%02d-%02d",
-          YEAR,
-          MO,
-          DY
-        ))
-      ]
-    } else if (all(c("YEAR", "MM", "DD") %in% names(wth))) {
-      wth[,
-        YYYYMMDD := data.table::as.IDate(sprintf(
-          "%04d-%02d-%02d",
-          YEAR,
-          MM,
-          DD
-        ))
-      ]
-    } else {
-      cli::cli_abort(
-        "Could not find or construct {.field YYYYMMDD} in POWER response."
-      )
-    }
-  } else if (!rlang::inherits_any(wth$YYYYMMDD, "IDate")) {
-    wth[,
-      YYYYMMDD := data.table::as.IDate(
-        as.character(YYYYMMDD),
-        format = "%Y%m%d"
-      )
-    ]
-    if (anyNA(wth$YYYYMMDD)) {
-      wth[, YYYYMMDD := data.table::as.IDate(as.character(YYYYMMDD))]
-    }
-  }
-
-  cols_drop <- intersect(c("YEAR", "MM", "MO", "DD", "DY"), names(wth))
-  if (length(cols_drop)) {
-    wth[, (cols_drop) := NULL]
-  }
+  wth[,
+    YYYYMMDD := data.table::as.IDate(
+      wth$YYYYMMDD,
+      format = "%Y%m%d"
+    )
+  ]
 
   rename_map <- c(
     "T2M" = "TEMP",
@@ -171,8 +135,8 @@ get_wth <- function(lonlat, dates, duration = NULL) {
     "LAT",
     "LON"
   )
-  have <- intersect(target, names(wth))
-  data.table::setcolorder(wth, c(have, setdiff(names(wth), have)))
+  keep <- intersect(target, names(wth))
+  data.table::setcolorder(wth, c(keep, setdiff(names(wth), keep)))
 
   data.table::setkey(wth, "YYYYMMDD")
 
