@@ -303,8 +303,7 @@
   a <- (sin(0.8333 * pi / 180.0) + sin(lat * pi / 180.0) * sin(p)) /
     (cos(lat * pi / 180.0) * cos(p))
   a <- pmin(pmax(a, -1.0), 1.0)
-  return(24 - 7.639437 * acos(a)) # where 7.6397437 = 24 / pi
-}
+  return(24 - 7.639437 * acos(a)) }
 
 #' Calculate saturated vapour pressure, es
 #'
@@ -370,7 +369,8 @@
   w <- rh
   x <- (rh - 80.0) / (rhlim - 80.0)
   w[rh >= rhlim] <- 1.0
-  w[rh < rhlim] <- x[rh < rhlim]
+  cs_1 <- rh < rhlim
+  w[cs_1] <- x[cs_1]
   w[rh < 80.0] <- 0.0
   return(w)
 }
