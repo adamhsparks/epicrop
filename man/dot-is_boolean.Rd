@@ -24,13 +24,11 @@ This function checks that a value is:
 }
 }
 \examples{
-\dontrun{
-. is_boolean(TRUE)           # TRUE
+.is_boolean(TRUE)           # TRUE
 .is_boolean(FALSE)          # TRUE
 .is_boolean(NA)             # FALSE
 .is_boolean(1)              # FALSE
 .is_boolean(c(TRUE, FALSE)) # FALSE
-}
 
 }
 \keyword{internal}

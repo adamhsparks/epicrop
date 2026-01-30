@@ -39,7 +39,7 @@ data is available for the requested time window.
 \details{
 This function performs several operations:
 \enumerate{
-\item Converts the emergence date to Date class using \code{\link[=.check_date]{.check_date()}}
+\item Converts the emergence date to Date class using \code{\link[=.validate_emergence]{.validate_emergence()}}
 \item Generates a sequence of dates from emergence to emergence +
 duration - 1
 \item Ensures the weather data's YYYYMMDD column is Date class for matching
@@ -92,7 +92,7 @@ range(run_info$run_dates)  # 2000-07-01 to 2000-10-28
 }
 \seealso{
 \itemize{
-\item \code{\link[=.check_date]{.check_date()}} for date parsing and validation
+\item \code{\link[=.validate_emergence]{.validate_emergence()}} for date parsing and validation
 \item \code{\link[=get_wth]{get_wth()}} for fetching weather data from NASA POWER
 \item \code{\link[=format_wth]{format_wth()}} for formatting user-supplied weather data
 \item \code{\link[=epicrop_sim]{epicrop_sim()}} which calls this function internally
