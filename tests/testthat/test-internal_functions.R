@@ -265,24 +265,24 @@ testthat::test_that(".validate_all_inputs catches duration <= 0", {
 # Date Handling Tests
 # =============================================================================
 
-testthat::test_that(".check_date handles various date formats", {
-  testthat::expect_s3_class(epicrop:::.check_date("2000-01-01"), "POSIXct")
-  testthat::expect_s3_class(epicrop:::.check_date("01/01/2000"), "POSIXct")
+testthat::test_that(".validate_emergence handles various date formats", {
+  testthat::expect_s3_class(epicrop:::.validate_emergence("2000-01-01"), "POSIXct")
+  testthat::expect_s3_class(epicrop:::.validate_emergence("01/01/2000"), "POSIXct")
   testthat::expect_s3_class(
-    epicrop:::.check_date(as.Date("2000-01-01")),
+    epicrop:::.validate_emergence(as.Date("2000-01-01")),
     "POSIXct"
   )
 })
 
-testthat::test_that(".check_date fails with invalid date string", {
+testthat::test_that(".validate_emergence fails with invalid date string", {
   testthat::expect_error(
-    epicrop:::.check_date("not-a-date"),
+    epicrop:::.validate_emergence("not-a-date"),
     regexp = "valid date"
   )
 })
 
-testthat::test_that(".check_date preserves timezone information", {
-  date_utc <- epicrop:::.check_date("2000-01-01")
+testthat::test_that(".validate_emergence preserves timezone information", {
+  date_utc <- epicrop:::.validate_emergence("2000-01-01")
   testthat::expect_s3_class(date_utc, "POSIXct")
 })
 

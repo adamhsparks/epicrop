@@ -301,10 +301,10 @@ test_that("validation rejects simple_wetness=FALSE without TMIN/TMAX", {
   )
 })
 
-test_that(".check_date handles various date formats", {
-  expect_s3_class(.check_date("2000-07-01"), "POSIXct")
-  expect_s3_class(.check_date("01-07-2000"), "POSIXct")
-  expect_s3_class(.check_date("July 1, 2000"), "POSIXct")
+test_that(".validate_emergence handles various date formats", {
+  expect_s3_class(.validate_emergence("2000-07-01"), "POSIXct")
+  expect_s3_class(.validate_emergence("01-07-2000"), "POSIXct")
+  expect_s3_class(.validate_emergence("July 1, 2000"), "POSIXct")
 })
 
 test_that(".is_boolean correctly identifies booleans", {
