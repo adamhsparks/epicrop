@@ -84,7 +84,7 @@ audpc_dt <- function(x) {
   if (!rlang::inherits_any(x = x, class = "epicrop.sim")) {
     cli::cli_abort(
       "{.var x} must be an `epicrop.sim` object created by
-      {.fun run_epicrop_model()}, {.fun epicrop_sim()} or any of the other
+      {.fun run_epicrop_model}, {.fun epicrop_sim} or any of the other
       helper functions that create an `epicrop.sim` object."
     )
   }
