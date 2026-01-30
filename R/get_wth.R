@@ -175,7 +175,6 @@ get_wth <- function(lonlat, dates, duration = NULL) {
   data.table::setcolorder(wth, c(have, setdiff(names(wth), have)))
 
   data.table::setkey(wth, "YYYYMMDD")
-  .check_na(wth)
 
   class(wth) <- union("epicrop.wth", class(wth))
   wth
