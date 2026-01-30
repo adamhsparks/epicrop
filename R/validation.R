@@ -320,10 +320,10 @@
 #'
 #' @examples
 #' # passes
-#' .check_date("2023-10-15")
+#' .validate_emergence("2023-10-15")
 #'
 #' # fails
-#'  .check_date("120-100-2023")
+#'  .validate_emergence("120-100-2023")
 #' @return A validated POSIXct date object.
 #' @dev
 #' @autoglobal
