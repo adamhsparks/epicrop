@@ -69,15 +69,15 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">.is_boolean</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span>           <span class="co"># TRUE</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .is_boolean(TRUE):</span> could not find function ".is_boolean"</span>
 <span class="r-in"><span><span class="fu">.is_boolean</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>          <span class="co"># TRUE</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .is_boolean(FALSE):</span> could not find function ".is_boolean"</span>
 <span class="r-in"><span><span class="fu">.is_boolean</span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>             <span class="co"># FALSE</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .is_boolean(NA):</span> could not find function ".is_boolean"</span>
 <span class="r-in"><span><span class="fu">.is_boolean</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>              <span class="co"># FALSE</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .is_boolean(1):</span> could not find function ".is_boolean"</span>
 <span class="r-in"><span><span class="fu">.is_boolean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co"># FALSE</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .is_boolean(c(TRUE, FALSE)):</span> could not find function ".is_boolean"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

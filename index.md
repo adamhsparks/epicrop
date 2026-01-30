@@ -15,13 +15,14 @@ The original EPIRICE manuscript, Savary *et al.* (2012), which details
 the model and results of its use to model global epidemics of rice
 diseases, was published in *Crop Protection* detailing global unmanaged
 disease risk of bacterial blight, brown spot, leaf blast, sheath blight
-and rice tungro, which are included in this package. The original
-EPIWHEAT manuscript, Savary *et al.* (2015), which details the model and
-results of its use to model potential epidemics of wheat diseases, leaf
-rust and Septoria tritici blotch, is also included in this package.
+and rice tungro, which are included in this package. Additional models
+included for rice are adapted from Kim *et al.* (2015) for rice sheath
+blight and leaf blast.
 
-Additional models included for rice are adapted from Kim *et al.* (2015)
-for rice sheath blight and leaf blast.
+The original EPIWHEAT manuscript, Savary *et al.* (2015), which details
+the model and results of its use to model potential epidemics of wheat
+diseases, leaf rust and Septoria tritici blotch, is also included in
+this package.
 
 # Quick start
 

@@ -32,13 +32,13 @@ This function checks that a value is:
 
 ``` r
 .is_boolean(TRUE)           # TRUE
-#> [1] TRUE
+#> Error in .is_boolean(TRUE): could not find function ".is_boolean"
 .is_boolean(FALSE)          # TRUE
-#> [1] TRUE
+#> Error in .is_boolean(FALSE): could not find function ".is_boolean"
 .is_boolean(NA)             # FALSE
-#> [1] FALSE
+#> Error in .is_boolean(NA): could not find function ".is_boolean"
 .is_boolean(1)              # FALSE
-#> [1] FALSE
+#> Error in .is_boolean(1): could not find function ".is_boolean"
 .is_boolean(c(TRUE, FALSE)) # FALSE
-#> [1] FALSE
+#> Error in .is_boolean(c(TRUE, FALSE)): could not find function ".is_boolean"
 ```

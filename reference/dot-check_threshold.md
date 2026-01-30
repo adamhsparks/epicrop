@@ -30,5 +30,5 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 
 ``` r
 .check_threshold(rh_hr = rep(95, 24), rhlim = 95)
-#> [1] 24
+#> Error in .check_threshold(rh_hr = rep(95, 24), rhlim = 95): could not find function ".check_threshold"
 ```
