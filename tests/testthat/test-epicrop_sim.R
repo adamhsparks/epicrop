@@ -1,7 +1,7 @@
 # Test epicrop_sim core simulation engine
 
-testthat::test_that("setup: extended weather available", {
-  testthat::skip_if(
+ test_that("setup: extended weather available", {
+   skip_if(
     !exists("wth_formatted") ||
       !is.data.frame(wth_formatted) ||
       nrow(wth_formatted) < 185,
@@ -82,17 +82,17 @@ run_sim <- function(
 }
 
 expect_valid_epicrop <- function(x, n_rows = 120L) {
-  testthat::expect_s3_class(x, c("epicrop.sim", "data.table", "data.frame"))
-  testthat::expect_identical(nrow(x), n_rows)
-  testthat::expect_true(all(.expected_cols %in% names(x)))
-  testthat::expect_true(all(x$intensity >= 0 & x$intensity <= 1))
-  testthat::expect_gt(attr(x, "AUDPC"), 0)
+   expect_s3_class(x, c("epicrop.sim", "data.table", "data.frame"))
+   expect_identical(nrow(x), n_rows)
+   expect_true(all(.expected_cols %in% names(x)))
+   expect_true(all(x$intensity >= 0 & x$intensity <= 1))
+   expect_gt(attr(x, "AUDPC"), 0)
   invisible(x)
 }
 
 # ---- Core parameter combinations ------------------------------------------
 
-testthat::test_that("epicrop_sim runs under parameter variations", {
+ test_that("epicrop_sim runs under parameter variations", {
   variants <- list(
     basic = list(),
     complex_wetness = list(simple_wetness = FALSE),
@@ -113,27 +113,27 @@ testthat::test_that("epicrop_sim runs under parameter variations", {
 
     if (nm == "lesion_expansion") {
       # Weather-dependent: don't force > 0; validate capability & non-negativity
-      testthat::expect_true("rlex" %in% names(res))
-      testthat::expect_true(is.numeric(res$rlex))
-      testthat::expect_true(all(res$rlex >= 0))
+       expect_true("rlex" %in% names(res))
+       expect_true(is.numeric(res$rlex))
+       expect_true(all(res$rlex >= 0))
     }
   }
 })
 
 # ---- Disease progression sanity -------------------------------------------
 
-testthat::test_that("epicrop_sim produces valid disease progression", {
+ test_that("epicrop_sim produces valid disease progression", {
   res <- run_sim()
-  testthat::expect_true(all(res$sites >= 0))
-  testthat::expect_true(all(res$latent >= 0))
-  testthat::expect_true(all(res$infectious >= 0))
-  testthat::expect_true(all(res$intensity >= 0 & res$intensity <= 1))
+   expect_true(all(res$sites >= 0))
+   expect_true(all(res$latent >= 0))
+   expect_true(all(res$infectious >= 0))
+   expect_true(all(res$intensity >= 0 & res$intensity <= 1))
 })
 
 # ---- Reproducibility -------------------------------------------------------
 
-testthat::test_that("epicrop_sim is reproducible", {
+ test_that("epicrop_sim is reproducible", {
   r1 <- run_sim()
   r2 <- run_sim()
-  testthat::expect_identical(r1, r2)
+   expect_identical(r1, r2)
 })

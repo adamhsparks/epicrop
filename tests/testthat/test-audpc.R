@@ -1,15 +1,13 @@
 # AUDPC calculation tests -----------------------------------------------------
 
-testthat::test_that("setup: weather OK", {
-  testthat::skip_if(
+test_that("setup: weather OK", {
+  skip_if(
     !exists("wth_formatted") ||
       !is.data.frame(wth_formatted) ||
       nrow(wth_formatted) < 185,
     "Need extended weather data"
   )
 })
-
-# --- Inline helpers ----------------------------------------------------------
 
 # Extract AUDPC for convenience
 .get_audpc <- function(result) attr(result, "AUDPC")
@@ -25,10 +23,10 @@ testthat::test_that("setup: weather OK", {
 
 # Generic expectation for AUDPC (double or integer)
 .expect_valid_audpc <- function(a) {
-  testthat::expect_true(is.numeric(a))
-  testthat::expect_length(a, 1)
-  testthat::expect_true(is.finite(a))
-  testthat::expect_gte(a, 0)
+  expect_true(is.numeric(a))
+  expect_length(a, 1)
+  expect_true(is.finite(a))
+  expect_gte(a, 0)
 }
 
 # Disease models for parametric tests
@@ -44,32 +42,24 @@ rice_models <- list(
 
 .emergence <- "2000-07-01"
 
-# =============================================================================
-# Basic AUDPC correctness tests
-# =============================================================================
-
-testthat::test_that("AUDPC is calculated correctly for normal simulation", {
+test_that("AUDPC is calculated correctly for normal simulation", {
   result <- bacterial_blight(wth_formatted, emergence = .emergence)
   audpc <- .get_audpc(result)
 
   .expect_valid_audpc(audpc)
-  testthat::expect_gt(audpc, 0)
+  expect_gt(audpc, 0)
 })
 
-testthat::test_that("AUDPC uses trapezoidal rule", {
+test_that("AUDPC uses trapezoidal rule", {
   result <- bacterial_blight(wth_formatted, emergence = .emergence)
   manual <- .trapz(result$intensity)
   audpc <- .get_audpc(result)
 
-  testthat::expect_equal(audpc, manual, tolerance = 1e-10)
+  expect_equal(audpc, manual, tolerance = 1e-10)
 })
 
-# =============================================================================
-# Edge cases: small simulation windows, no disease
-# =============================================================================
-
-testthat::test_that("AUDPC returns 0 for simulations with < 2 days", {
-  w1 <- wth_formatted[1, ]
+test_that("AUDPC returns 0 for simulations with < 2 days", {
+  w1 <- wth_formatted[1:2, ]
 
   RcA <- cbind(c(0L, 1L), c(1, 1))
   RcT <- cbind(c(15L, 25L, 35L), c(0.5, 1, 0.5))
@@ -95,11 +85,11 @@ testthat::test_that("AUDPC returns 0 for simulations with < 2 days", {
   )
 
   audpc <- .get_audpc(result)
-  testthat::expect_equal(audpc, 0)
-  testthat::expect_true(is.numeric(audpc))
+  expect_equal(audpc, 0)
+  expect_true(is.numeric(audpc))
 })
 
-testthat::test_that("AUDPC is zero when no disease occurs", {
+test_that("AUDPC is zero when no disease occurs", {
   result <- epicrop_sim(
     wth = wth_formatted,
     emergence = .emergence,
@@ -117,14 +107,14 @@ testthat::test_that("AUDPC is zero when no disease occurs", {
     RRG = 0.1
   )
 
-  testthat::expect_equal(.get_audpc(result), 0, tolerance = 1e-6)
+  expect_equal(.get_audpc(result), 0, tolerance = 1e-6)
 })
 
 # =============================================================================
 # Functional relationships: AUDPC vs intensity, vs duration
 # =============================================================================
 
-testthat::test_that("AUDPC increases with disease intensity", {
+test_that("AUDPC increases with disease intensity", {
   base <- bacterial_blight(wth_formatted, emergence = .emergence)
 
   low <- base
@@ -133,10 +123,10 @@ testthat::test_that("AUDPC increases with disease intensity", {
 
   high <- .get_audpc(base)
 
-  testthat::expect_gt(high, manual_low)
+  expect_gt(high, manual_low)
 })
 
-testthat::test_that("AUDPC scales with simulation duration", {
+test_that("AUDPC scales with simulation duration", {
   short <- epicrop_sim(
     wth = wth_formatted,
     emergence = .emergence,
@@ -171,36 +161,36 @@ testthat::test_that("AUDPC scales with simulation duration", {
     RRG = 0.1
   )
 
-  testthat::expect_gt(.get_audpc(long), .get_audpc(short))
+  expect_gt(.get_audpc(long), .get_audpc(short))
 })
 
 # =============================================================================
 # Presence & reproducibility across models
 # =============================================================================
 
-testthat::test_that("AUDPC is present in all disease models and > 0", {
+test_that("AUDPC is present in all disease models and > 0", {
   for (fn in rice_models) {
     result <- fn(wth_formatted, .emergence)
     audpc <- .get_audpc(result)
 
-    testthat::expect_false(is.null(audpc))
-    testthat::expect_true(is.numeric(audpc))
-    testthat::expect_gt(audpc, 0)
+    expect_false(is.null(audpc))
+    expect_true(is.numeric(audpc))
+    expect_gt(audpc, 0)
   }
 })
 
-testthat::test_that("AUDPC is reproducible", {
+test_that("AUDPC is reproducible", {
   r1 <- bacterial_blight(wth_formatted, .emergence)
   r2 <- bacterial_blight(wth_formatted, .emergence)
 
-  testthat::expect_equal(.get_audpc(r1), .get_audpc(r2))
+  expect_equal(.get_audpc(r1), .get_audpc(r2))
 })
 
 # =============================================================================
 # Bounding & integrity
 # =============================================================================
 
-testthat::test_that("AUDPC is bounded by maximum possible value", {
+test_that("AUDPC is bounded by maximum possible value", {
   result <- bacterial_blight(wth_formatted, .emergence)
   audpc <- .get_audpc(result)
   duration <- nrow(result)
@@ -208,16 +198,16 @@ testthat::test_that("AUDPC is bounded by maximum possible value", {
   # Maximum if intensity = 1 every day → (1+1)/2 * (duration-1)
   max_possible <- duration - 1
 
-  testthat::expect_lte(audpc, max_possible)
+  expect_lte(audpc, max_possible)
 })
 
-testthat::test_that("AUDPC handles intensity values correctly", {
+test_that("AUDPC handles intensity values correctly", {
   result <- bacterial_blight(wth_formatted, .emergence)
 
   # Intensity field sanity
-  testthat::expect_true(all(result$intensity >= 0))
-  testthat::expect_true(all(result$intensity <= 1))
-  testthat::expect_false(anyNA(result$intensity))
+  expect_true(all(result$intensity >= 0))
+  expect_true(all(result$intensity <= 1))
+  expect_false(anyNA(result$intensity))
 
   # AUDPC field sanity
   audpc <- .get_audpc(result)

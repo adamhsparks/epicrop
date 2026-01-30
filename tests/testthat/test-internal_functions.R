@@ -266,11 +266,17 @@ testthat::test_that(".validate_all_inputs catches duration <= 0", {
 # =============================================================================
 
 testthat::test_that(".validate_emergence handles various date formats", {
-  testthat::expect_s3_class(epicrop:::.validate_emergence("2000-01-01"), "POSIXct")
-  testthat::expect_s3_class(epicrop:::.validate_emergence("01/01/2000"), "POSIXct")
+  testthat::expect_s3_class(
+    epicrop:::.validate_emergence("2000-01-01"),
+    "Date"
+  )
+  testthat::expect_s3_class(
+    epicrop:::.validate_emergence("01/01/2000"),
+    "Date"
+  )
   testthat::expect_s3_class(
     epicrop:::.validate_emergence(as.Date("2000-01-01")),
-    "POSIXct"
+    "Date"
   )
 })
 
@@ -283,7 +289,7 @@ testthat::test_that(".validate_emergence fails with invalid date string", {
 
 testthat::test_that(".validate_emergence preserves timezone information", {
   date_utc <- epicrop:::.validate_emergence("2000-01-01")
-  testthat::expect_s3_class(date_utc, "POSIXct")
+  testthat::expect_s3_class(date_utc, "Date")
 })
 
 # =============================================================================
@@ -330,8 +336,8 @@ testthat::test_that(".determine_run_window extracts correct date range", {
   testthat::expect_identical(nrow(run_info$wth_subset), 120L)
 
   # Day 0 is the day before emergence
-  testthat::expect_equal(run_info$run_dates[1], as.Date("2000-06-30"))
-  testthat::expect_equal(run_info$run_dates[120], as.Date("2000-06-30") + 119)
+  testthat::expect_equal(run_info$run_dates[1], as.Date("2000-07-01"))
+  testthat::expect_equal(run_info$run_dates[120], as.Date("2000-06-30") + 120)
 
   # Sequential dates
   testthat::expect_equal(diff(as.numeric(run_info$run_dates)), rep(1, 119))
