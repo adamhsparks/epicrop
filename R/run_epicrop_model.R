@@ -125,7 +125,13 @@ run_epicrop_model <- function(
   applier <- function(x, fun) lapply(X = x, FUN = fun)
 
   pieces <- applier(emergence_dates, runner)
-  .assemble_results(pieces, output)
+
+  out <- .assemble_results(pieces, output)
+  return(data.table::setattr(
+    out,
+    "class",
+    c("epicrop.sim", "data.table", "data.frame")
+  ))
 }
 
 #' Cross‑year weather slicer (assumes `epicrop.wth.list` contract)
@@ -196,7 +202,7 @@ run_epicrop_model <- function(
 #' Ensures we only auto‑inject `duration` when the user has *not* supplied it
 #' (including unique partial matches or positional args).
 #'
-#' @param model_fun Epicrop model function to call.
+#' @param model_fun \pkg{epicrop} model function to call.
 #' @param output "audpc" or "full".
 #' @param slicer Slicer function producing a weather slice for an emergence
 #'  date.
@@ -238,7 +244,6 @@ run_epicrop_model <- function(
         }
       }
     } else {
-      # unnamed ... could bind by position; be conservative
       TRUE
     }
   })
@@ -252,7 +257,6 @@ run_epicrop_model <- function(
       return(NULL)
     }
 
-    # sever by-reference ties
     w_sub <- data.table::copy(w_sub)
 
     # Inject duration only if user didn't provide it
@@ -276,7 +280,7 @@ run_epicrop_model <- function(
     } else {
       out[, emergence := ed]
       out[, AUDPC := attr(out, "AUDPC", exact = TRUE)]
-      out
+      out[]
     }
   }
 }
@@ -301,7 +305,6 @@ run_epicrop_model <- function(
           AUDPC = NA_real_
         ))
       }
-      # Coerce to data.table
       if (!data.table::is.data.table(x)) {
         x <- data.table::as.data.table(x)
       }
