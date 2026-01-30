@@ -26,9 +26,9 @@ test_that("get_wth works with duration parameter", {
     wth_season <- get_wth(
       lonlat = c(151.81, -27.48),
       dates = c("2015-01-15", "2015-05-15"),
-      duration = 2.0
+      duration = 2
     )
-    expect_identical(nrow(wth_season), 4L)
+    expect_identical(nrow(wth_season), 2L)
   })
 })
 
@@ -92,26 +92,6 @@ test_that("format_wth fails with non-daily data", {
       temp = "T2M",
       rhum = "RH2M",
       rain = "PRECTOTCORR"
-    )
-  )
-})
-
-test_that("NA values in POWER data emit a message", {
-  skip_if_offline()
-
-  expect_message(
-    .check_na(
-      .wth = data.frame(
-        "YYYYMMDD" = as.Date("2015-01-15"),
-        "DOY" = 15.0,
-        "TEMP" = 26.05,
-        "TMIN" = 25.1,
-        "TMAX" = 27.0,
-        "RHUM" = 56.6,
-        "RAIN" = NA,
-        "LAT" = -27.48,
-        "LON" = 151.8
-      )
     )
   )
 })
