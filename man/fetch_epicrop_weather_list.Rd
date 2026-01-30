@@ -9,14 +9,14 @@ fetch_epicrop_weather_list(
   start_date,
   duration,
   years = NULL,
-  mode = c("pairwise", "cross"),
+  mode = "pairwise",
   location_names = NULL
 )
 }
 \arguments{
-\item{lonlat}{Numeric length‑2 vector \code{c(lon, lat)}, OR multiple locations as:
-numeric vector of length \verb{2n}, a 2‑column matrix/data.frame, or a list of
-numeric length‑2 vectors.}
+\item{lonlat}{Numeric length‑2 vector \code{c(lon, lat)}, OR multiple locations
+as: numeric vector of length \verb{2n}, a 2‑column matrix/data.frame, or a list
+of numeric length‑2 vectors.}
 
 \item{start_date}{A starting date (character \code{"YYYY-MM-DD"}, \link[lubridate:date_utils]{lubridate::Date}, or
 \link[data.table:IDateTime]{data.table::IDate}) \strong{or} a month–day string like \code{"06-30"} (leading
@@ -28,8 +28,8 @@ numeric length‑2 vectors.}
 \item{years}{Optional integer vector of years. \strong{Required} if \code{start_date}
 contains any month–day values without a year.}
 
-\item{mode}{Character scalar: \code{"pairwise"} (default) pairs locations and dates by
-position (recycling length-1), or \code{"cross"} forms all combinations
+\item{mode}{Character scalar: \code{"pairwise"} (default) pairs locations and
+dates by position (recycling length-1), or \code{"cross"} forms all combinations
 (locations × dates).}
 
 \item{location_names}{Optional character names for locations (length = number of
@@ -51,8 +51,9 @@ multiple requests are processed, otherwise a single \code{epicrop.wth.list}.
 \details{
 \subsection{Flexible inputs}{
 \itemize{
-\item \code{lonlat}: a single \code{c(lon, lat)}; or multiple locations as a numeric vector of
-length \verb{2n}, or a 2‑column matrix/data.frame, or a list of \code{c(lon, lat)}.
+\item \code{lonlat}: a single numeric vector, \code{c(lon, lat)}; or multiple locations as
+a numeric vector of length \verb{2n}, or a 2‑column matrix/data.frame, or a list
+of \code{list(c(lon, lat))}.
 \item \code{start_date}: a single \code{"YYYY-MM-DD"} (or \code{Date}/\code{IDate}), or a vector of
 the same; or a month–day string like \code{"06-30"} or \code{"6-30"} (leading \code{"-"}
 optional) provided together with \code{years}.

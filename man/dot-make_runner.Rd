@@ -7,7 +7,7 @@
 .make_runner(model_fun, output, slicer, ..., window_days = NULL)
 }
 \arguments{
-\item{model_fun}{Epicrop model function to call.}
+\item{model_fun}{\pkg{epicrop} model function to call.}
 
 \item{output}{"audpc" or "full".}
 
