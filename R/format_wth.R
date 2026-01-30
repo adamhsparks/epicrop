@@ -120,7 +120,7 @@ format_wth <- function(
   passed_args <- as.character(match.call())[-c(1L:2L)]
 
   if (any(passed_args %notin% names(wth))) {
-    passed_args[passed_args %notin% names(wth)]
+    not_in <- passed_args[passed_args %notin% names(wth)]
     cli::cli_abort(
       call = rlang::caller_env(),
       "The following columns that you have provided are not in {.var wth}: 
@@ -130,7 +130,7 @@ format_wth <- function(
 
   wth <- data.table(wth)
 
-  dates <- .check_date(wth[[date]])
+  dates <- .validate_emergence(wth[[date]])
   unique_dates <- length(unique(dates))
   diff_dates <- diff(dates)
   nrows <- nrow(wth)
@@ -163,13 +163,13 @@ format_wth <- function(
     new_names <- c(new_names, "LON")
   }
 
-  setnames(wth, old = old_names, new = new_names)
+  data.table::setnames(wth, old = old_names, new = new_names)
   wth <- wth[, new_names, with = FALSE]
 
   # Add DOY
   wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
 
-  setcolorder(
+  data.table::setcolorder(
     wth,
     c("YYYYMMDD", "DOY", "TEMP", "TMIN", "TMAX", "RHUM", "RAIN", "LAT", "LON"),
     skip_absent = TRUE
