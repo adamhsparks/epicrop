@@ -105,7 +105,7 @@ get_wth <- function(lonlat, dates, duration = NULL) {
       dates = date_vec
     )
   )
-
+  wth[, c("YEAR", "MM", "DD") := NULL]
   wth[,
     YYYYMMDD := data.table::as.IDate(
       wth$YYYYMMDD,
