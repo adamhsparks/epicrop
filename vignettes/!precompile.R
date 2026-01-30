@@ -22,8 +22,8 @@ purl("vignettes/mapping.Rmd.orig", output = "vignettes/mapping.R")
 
 # --- move figure image files into vignettes/ using fs ------------------------
 
-fig_dir <- here::here("figure")
-vig_dir <- here::here("vignettes")
+fig_dir <- here("figure")
+vig_dir <- here("vignettes")
 
 # list .pngs in figure/
 figs <- dir_ls(fig_dir, glob = "*.png")
@@ -61,7 +61,7 @@ build_vignettes()
 
 # --- move resource files (images) to /doc using fs ---------------------------
 
-doc_dir <- here::here("doc")
+doc_dir <- here("doc")
 pngs_in_vig <- dir_ls(vig_dir, glob = "*.png")
 if (length(pngs_in_vig)) {
   file_copy(path = pngs_in_vig, new_path = doc_dir, overwrite = TRUE)
