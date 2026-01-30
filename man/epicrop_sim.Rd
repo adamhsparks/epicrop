@@ -9,8 +9,6 @@ epicrop_sim(
   emergence,
   onset,
   duration,
-  rhlim = 90,
-  rainlim = 5,
   H0,
   I0,
   RcA,
@@ -19,9 +17,11 @@ epicrop_sim(
   p,
   i,
   Sx,
-  a = 1,
   RRS,
   RRG,
+  a = 1,
+  rhlim = 90,
+  rainlim = 5,
   RcW = NULL,
   RRLEX = 0,
   simple_wetness = TRUE,
@@ -55,14 +55,6 @@ emergence date (day, integer). Described in Table 1 of Savary \emph{et al.}
 
 \item{duration}{simulation duration \emph{i. e.}, growing season length (day,
 integer). Described in Table 1 of Savary _et al. _ 2012.}
-
-\item{rhlim}{relative humidity value threshold to decide whether leaves are
-wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
-\emph{et al.} 2012 used \code{90}.}
-
-\item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
-\emph{et al.} 2012 used \code{5}.}
 
 \item{H0}{initial number of plant's healthy sites (integer). Described in
 Table 1 of Savary \emph{et al.} 2012.}
@@ -103,16 +95,24 @@ temperature). Described in Table 1 of Savary \emph{et al.} 2012.}
 \item{Sx}{maximum number of sites (integer). Described in Table 1 of Savary
 \emph{et al.} 2012.}
 
-\item{a}{aggregation coefficient, values are from 1 to >1 (numeric or
-function of DVS). Described in Table 1 of Savary \emph{et al.} 2012 and Table 1
-of Savary \emph{et al.} 2015. See further details in \strong{\emph{a} - Aggregation}
-section.}
-
 \item{RRS}{relative rate of physiological senescence (numeric, vector, or
 function of DVS). Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RRG}{relative rate of growth (numeric, vector, or function of time).
 Described in Table 1 of Savary \emph{et al.} 2012.}
+
+\item{a}{aggregation coefficient, values are from 1 to >1 (numeric or
+function of DVS). Described in Table 1 of Savary \emph{et al.} 2012 and Table 1
+of Savary \emph{et al.} 2015. See further details in \strong{\emph{a} - Aggregation}
+section. Defaults to 1.}
+
+\item{rhlim}{relative humidity value threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used \code{90}. Defaults to 90.}
+
+\item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used \code{5}. Defaults to 5.}
 
 \item{RcW}{Optional modifier for \emph{Rc} to calculate leaf wetness effect
 from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
@@ -132,7 +132,7 @@ uses hourly wetness duration calculation (requires TMIN, TMAX, LAT, DOY in
 
 \item{age_driver}{Character. Use "day" (default, 0-indexed days from
 emergence) or "dvs" (development stage 0-2) for age-based modifiers in
-\code{RcA}. When "dvs", \code{thermal_time} parameter is required.}
+\code{RcA}. When "dvs", \code{thermal_time} parameter is required. Defautls to "day".}
 
 \item{thermal_time}{List with \code{base_temp} (°C) and \code{gdd_to_maturity}
 (°C·days). Only required when \code{age_driver = "dvs"}. Determines how growing
@@ -141,7 +141,7 @@ degree days are accumulated and converted to development stage (DVS).}
 \item{steps_per_day}{Integer. Number of sub-daily time steps for numerical
 integration. Default is 1 (daily steps). Values of 2, 4, or 8 can improve
 accuracy for stiff systems at cost of computation time.  Should be a power
-of 2.}
+of 2. Defaults to 1.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} object containing the following

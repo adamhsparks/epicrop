@@ -31,14 +31,6 @@
 #' @param duration simulation duration *i. e.*, growing season length (day,
 #'  integer). Described in Table 1 of Savary _et al. _ 2012.
 #'
-#' @param rhlim relative humidity value threshold to decide whether leaves are
-#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
-#'  _et al._ 2012 used `90`.
-#'
-#' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
-#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
-#'  _et al._ 2012 used `5`.
-#'
 #' @param H0 initial number of plant's healthy sites (integer). Described in
 #'  Table 1 of Savary _et al._ 2012.
 #'
@@ -76,16 +68,24 @@
 #' @param Sx maximum number of sites (integer). Described in Table 1 of Savary
 #'  _et al._ 2012.
 #'
-#' @param a aggregation coefficient, values are from 1 to >1 (numeric or
-#'  function of DVS). Described in Table 1 of Savary _et al._ 2012 and Table 1
-#'  of Savary _et al._ 2015. See further details in **_a_ - Aggregation**
-#'  section.
-#'
 #' @param RRS relative rate of physiological senescence (numeric, vector, or
 #'  function of DVS). Described in Table 1 of Savary _et al._ 2012.
 #'
 #' @param RRG relative rate of growth (numeric, vector, or function of time).
 #'  Described in Table 1 of Savary _et al._ 2012.
+#'
+#' @param a aggregation coefficient, values are from 1 to >1 (numeric or
+#'  function of DVS). Described in Table 1 of Savary _et al._ 2012 and Table 1
+#'  of Savary _et al._ 2015. See further details in **_a_ - Aggregation**
+#'  section. Defaults to 1.
+#'
+#' @param rhlim relative humidity value threshold to decide whether leaves are
+#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
+#'  _et al._ 2012 used `90`. Defaults to 90.
+#'
+#' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
+#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
+#'  _et al._ 2012 used `5`. Defaults to 5.
 #'
 #' @param RcW Optional modifier for _Rc_ to calculate leaf wetness effect
 #'  from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
@@ -105,7 +105,7 @@
 #'
 #' @param age_driver Character. Use "day" (default, 0-indexed days from
 #'  emergence) or "dvs" (development stage 0-2) for age-based modifiers in
-#'  `RcA`. When "dvs", `thermal_time` parameter is required.
+#'  `RcA`. When "dvs", `thermal_time` parameter is required. Defautls to "day".
 #'
 #' @param thermal_time List with `base_temp` (°C) and `gdd_to_maturity`
 #'  (°C·days). Only required when `age_driver = "dvs"`. Determines how growing
@@ -114,7 +114,7 @@
 #' @param steps_per_day Integer. Number of sub-daily time steps for numerical
 #'  integration. Default is 1 (daily steps). Values of 2, 4, or 8 can improve
 #'  accuracy for stiff systems at cost of computation time.  Should be a power
-#'  of 2.
+#'  of 2. Defaults to 1.
 #'
 #' @returns A [data.table::data.table()] object containing the following
 #' columns:
@@ -227,8 +227,6 @@ epicrop_sim <- function(
   emergence,
   onset,
   duration,
-  rhlim = 90,
-  rainlim = 5,
   H0,
   I0,
   RcA,
@@ -237,9 +235,11 @@ epicrop_sim <- function(
   p,
   i,
   Sx,
-  a = 1,
   RRS,
   RRG,
+  a = 1,
+  rhlim = 90,
+  rainlim = 5,
   RcW = NULL,
   RRLEX = 0,
   simple_wetness = TRUE,
