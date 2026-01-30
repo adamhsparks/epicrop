@@ -96,7 +96,7 @@ test_that("validation warns about edge cases", {
     c(0.0, 0.5, 1.0, 0.5, 0.0)
   )
 
-  wth_short <- wth_formatted[1:45, ]
+  wth_short <- wth_formatted[1:46, ]
 
   # Must use epicrop_sim directly to test duration warnings
   expect_warning(
@@ -117,7 +117,7 @@ test_that("validation warns about edge cases", {
       RRG = 0.1,
       a = 4
     ),
-    regexp = "duration.*50"
+    regexp = "`duration` is < 50 days, is this intended?"
   )
 })
 

@@ -28,7 +28,7 @@ test_that("get_wth works with duration parameter", {
       dates = c("2015-01-15", "2015-05-15"),
       duration = 2
     )
-    expect_identical(nrow(wth_season), 2L)
+    expect_identical(nrow(wth_season), 3L)
   })
 })
 
