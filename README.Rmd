@@ -163,3 +163,4 @@ DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 Wallach, Daniel, David Makowski, James W. Jones, and François Brun.
 (2018)
 _Working with dynamic crop models: methods, tools and examples for agriculture and environment_. Academic Press.
+DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
