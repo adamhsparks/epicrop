@@ -485,7 +485,7 @@ epicrop_sim <- function(
 #' @dev
 
 .determine_run_window <- function(wth, emergence, duration) {
-  em_date <- .validate_emergence(emergence)
+  em_date <- as.Date(format(.validate_emergence(emergence), "%Y-%m-%d"))
   if (length(em_date) > 1L) {
     # Use this function's environment (or omit `.envir` entirely)
     cli::cli_warn(
