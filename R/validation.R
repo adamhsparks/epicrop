@@ -39,7 +39,7 @@
     steps_per_day = steps_per_day
   )
 
-  # Validate boolean parameters
+  # Validate Boolean parameters
   if (!.is_boolean(simple_wetness)) {
     cli::cli_abort(
       "{.var simple_wetness} must be a Boolean ({.code TRUE/FALSE}) value.",
@@ -347,24 +347,19 @@
 
   # Otherwise parse character input without introducing tz
   if (is.character(x)) {
-    # First try standard ISO
-    d <- suppressWarnings(as.Date(x))
-    if (!anyNA(d)) {
-      return(d)
-    }
-
-    # If failed, use lubridate to parse, then drop tz
-    d <- tryCatch(
-      lubridate::parse_date_time(
-        x,
-        c("Ymd", "dmY", "BdY", "Bdy"),
-        tz = "UTC" # avoids shifting due to local tz
-      ),
-      error = function(e) NA
+    d <- suppressWarnings(
+      tryCatch(
+        lubridate::parse_date_time(
+          x,
+          c("Ymd", "dmY", "BdY", "Bdy"),
+          tz = "UTC"
+        ),
+        error = function(e) NA
+      )
     )
 
     if (anyNA(d)) {
-      cli::cli_abort("{x} is not in a valid date format.")
+      cli::cli_abort("{.var x} is not in a valid date format.")
     }
 
     return(as.Date(format(d, "%Y-%m-%d")))
