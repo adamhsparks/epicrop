@@ -61,11 +61,16 @@ inline double backref_opt(const double *hist, const int d, const double delay) {
   return fast_max(0.0, v);
 }
 
-//' CRAN-Safe Optimized Epicrop Core
+//' Optimized Epicrop Core SEIR Model
 //'
 //' @description
-//' Optimized version that works on all platforms and passes CRAN checks.
-//' Approximately 15-25% faster than naive implementation.
+//'
+//' A model framework based on the medical idea of a Susceptible-Exposed-
+//' Infectious-Removed (\acronym{SEIR}) model. This framework is designed for
+//' plant diseases. This function is originally used by specific disease models
+//' in \sQuote{EPIWHEAT} and \sQuote{EPIRICE} to model disease intensity of
+//  several diseases. Given proper values it can be used with other pathosystems
+//  as well.
 //'
 //' @param Rc Numeric vector: reproduction rate
 //' @param RRLEX Numeric vector: rate of lesion expansion
@@ -78,6 +83,29 @@ inline double backref_opt(const double *hist, const int d, const double delay) {
 //' @param H0 Numeric scalar: initial healthy sites
 //' @param SMax Numeric scalar: maximum sites
 //' @param steps_per_day Integer: sub-daily time steps (default 1)
+//'
+//' @references
+//
+//'
+//' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
+//' Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+//' \doi{10.1094/9780890545058}.
+//'
+//' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
+//' and mapping potential epidemics of rice diseases globally. _Crop
+//' Protection_, ' Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+//' \doi{10.1016/j.cropro.2011.11.009}.
+//'
+//'  Savary, S., Stetkiewicz, S., Brun, R., and Willocquet, L. Modelling and
+//'  Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
+//'  Septoria Tritici Blotch Using EPIWHEAT. _European Journal of Plant
+//'  Pathology_ Volume 142, No. 4, 2015, Pages 771–90, DOI:
+//' \doi{10.1007/s10658-015-0650-7}.
+//'
+//' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+//' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
+//' Disease Progress over Time. *The Plant Health Instructor*.
+//' \doi{10.1094/PHI-A-2008-0129-02}.
 //'
 //' @return Named list with 14 numeric vectors containing simulation results
 //'

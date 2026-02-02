@@ -2,7 +2,9 @@
 % Please edit documentation in R/RcppExports.R
 \name{epicrop_core_cpp}
 \alias{epicrop_core_cpp}
-\title{CRAN-Safe Optimized Epicrop Core}
+\title{Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
+Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+\doi{10.1094/9780890545058}.}
 \usage{
 epicrop_core_cpp(
   Rc,
@@ -18,33 +20,24 @@ epicrop_core_cpp(
   steps_per_day = 1L
 )
 }
-\arguments{
-\item{Rc}{Numeric vector: reproduction rate}
-
-\item{RRLEX}{Numeric vector: rate of lesion expansion}
-
-\item{RRG}{Numeric vector: rate of host growth}
-
-\item{RRS}{Numeric vector: rate of senescence}
-
-\item{p_days}{Numeric vector: latent period (days)}
-
-\item{i_days}{Numeric vector: infectious period (days)}
-
-\item{agg}{Numeric vector: aggregation parameter}
-
-\item{Iprim}{Numeric vector: primary infection rate}
-
-\item{H0}{Numeric scalar: initial healthy sites}
-
-\item{SMax}{Numeric scalar: maximum sites}
-
-\item{steps_per_day}{Integer: sub-daily time steps (default 1)}
-}
 \value{
 Named list with 14 numeric vectors containing simulation results
 }
 \description{
-Optimized version that works on all platforms and passes CRAN checks.
-Approximately 15-25\% faster than naive implementation.
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. Modeling
+and mapping potential epidemics of rice diseases globally. \emph{Crop
+Protection}, ' Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+\doi{10.1016/j.cropro.2011.11.009}.
+}
+\details{
+Savary, S., Stetkiewicz, S., Brun, R., and Willocquet, L. Modelling and
+Mapping Potential Epidemics of Wheat Diseases—Examples on Leaf Rust and
+Septoria Tritici Blotch Using EPIWHEAT. \emph{European Journal of Plant
+Pathology} Volume 142, No. 4, 2015, Pages 771–90, DOI:
+\doi{10.1007/s10658-015-0650-7}.
+
+Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
+Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
+Disease Progress over Time. \emph{The Plant Health Instructor}.
+\doi{10.1094/PHI-A-2008-0129-02}.
 }
