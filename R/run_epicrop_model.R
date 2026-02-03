@@ -252,7 +252,7 @@ run_epicrop_model <- function(
     w_sub <- slicer(ed)
     if (is.null(w_sub) || nrow(w_sub) == 0L) {
       if (identical(output, "audpc")) {
-        return(data.table::data.table(emergence = ed, AUDPC = NA_real_))
+        return(data.table(emergence = ed, AUDPC = NA_real_))
       }
       return(NULL)
     }
@@ -276,7 +276,7 @@ run_epicrop_model <- function(
 
     if (identical(output, "audpc")) {
       aud <- attr(out, "AUDPC", exact = TRUE)
-      data.table::data.table(emergence = ed, AUDPC = aud)
+      data.table(emergence = ed, AUDPC = aud)
     } else {
       out[, emergence := ed]
       out[, AUDPC := attr(out, "AUDPC", exact = TRUE)]
@@ -300,7 +300,7 @@ run_epicrop_model <- function(
     # Normalize each piece to have (emergence, AUDPC) or a NA row
     norm_piece <- function(x) {
       if (is.null(x)) {
-        return(data.table::data.table(
+        return(data.table(
           emergence = data.table::as.IDate(NA),
           AUDPC = NA_real_
         ))
@@ -315,7 +315,7 @@ run_epicrop_model <- function(
 
     # Handle totally empty inputs robustly
     if (length(pieces) == 0L) {
-      res <- data.table::data.table(
+      res <- data.table(
         emergence = data.table::as.IDate(NA),
         AUDPC = NA_real_
       )

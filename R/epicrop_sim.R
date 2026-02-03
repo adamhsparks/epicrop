@@ -841,7 +841,7 @@ epicrop_sim <- function(
 #'
 .assemble_output <- function(core, run_dates, duration, wth) {
   # Build output data.table
-  out <- data.table::data.table(
+  out <- data.table(
     simday = seq_len(duration),
     dates = run_dates,
     sites = core$sites,
