@@ -23,6 +23,6 @@
 )
 }
 \description{
-Central validation function for epicrop_sim() parameters
+Central validation function for \code{epicrop_sim()} parameters
 }
 \keyword{internal}

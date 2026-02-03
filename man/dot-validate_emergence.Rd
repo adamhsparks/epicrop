@@ -2,18 +2,18 @@
 % Please edit documentation in R/validation.R
 \name{.validate_emergence}
 \alias{.validate_emergence}
-\title{Validates dates, normally the emergence date.}
+\title{Validates Dates, Normally the Emergence Date}
 \usage{
 .validate_emergence(x)
 }
 \arguments{
-\item{x}{a date input (character, Date, POSIXct).}
+\item{x}{a date input (character, Date, IDate, POSIXct).}
 }
 \value{
-A validated POSIXct date object.
+A validated IDate object.
 }
 \description{
-Validates dates, normally the emergence date.
+Validates Dates, Normally the Emergence Date
 }
 \examples{
 # passes

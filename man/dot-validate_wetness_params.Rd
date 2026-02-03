@@ -2,11 +2,11 @@
 % Please edit documentation in R/validation.R
 \name{.validate_wetness_params}
 \alias{.validate_wetness_params}
-\title{Validate wetness parameters}
+\title{Validate Wetness Parameters}
 \usage{
 .validate_wetness_params(simple_wetness, wth, RcW)
 }
 \description{
-Validate wetness parameters
+Validate Wetness Parameters
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/validation.R
 \name{.is_boolean}
 \alias{.is_boolean}
-\title{Check if value is a single boolean}
+\title{Check if Value is a Single Boolean}
 \usage{
 .is_boolean(x)
 }
@@ -13,7 +13,7 @@
 TRUE if x is exactly TRUE or FALSE, FALSE otherwise (including NA)
 }
 \description{
-Check if value is a single boolean
+Check if Value is a Single Boolean
 }
 \details{
 This function checks that a value is:

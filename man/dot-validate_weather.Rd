@@ -2,11 +2,11 @@
 % Please edit documentation in R/validation.R
 \name{.validate_weather}
 \alias{.validate_weather}
-\title{Validate weather data}
+\title{Validate Weather Data}
 \usage{
 .validate_weather(wth)
 }
 \description{
-Validate weather data
+Validate Weather Data
 }
 \keyword{internal}
