@@ -169,7 +169,7 @@ testthat::test_that(".validate_all_inputs catches invalid rhlim", {
 })
 
 testthat::test_that(".validate_all_inputs catches TMIN/TMAX missing with complex wetness", {
-  wth_no_temp <- data.table::data.table(
+  wth_no_temp <- data.table(
     YYYYMMDD = wth_formatted$YYYYMMDD,
     DOY = wth_formatted$DOY,
     TEMP = wth_formatted$TEMP,

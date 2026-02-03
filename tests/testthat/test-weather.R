@@ -1,5 +1,3 @@
-# Test weather data functions (get_wth + format_wth)
-
 test_that("get_wth works with basic inputs", {
   skip_on_cran()
   skip_if_offline()

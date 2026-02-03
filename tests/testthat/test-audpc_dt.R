@@ -1,6 +1,6 @@
 # Helper that loads the epicrop.sim object for all tests.
 # Adjust filename if needed.
-epicrop_sim <-  test_path("testdata", "epicrop_sim.rda")
+epicrop_sim <- test_path("testdata", "epicrop_sim.rda")
 load(epicrop_sim) # loads object 'epicrop.sim'
 epicrop_sim <- bb_sim # rename for clarity in tests
 
@@ -10,7 +10,7 @@ test_that("audpc_dt() errors with non-epicrop.sim input", {
     regexp = "epicrop\\.sim",
     ignore.case = TRUE
   )
-  x <- data.table::data.table(
+  x <- data.table(
     lat = 0,
     lon = 0,
     AUDPC = 1,
