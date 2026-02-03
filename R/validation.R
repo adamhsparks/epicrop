@@ -1,6 +1,6 @@
 #' Validate All Simulation Inputs
 #'
-#' Central validation function for epicrop_sim() parameters
+#' Central validation function for `epicrop_sim()` parameters
 #' @autoglobal
 #' @dev
 .validate_all_inputs <- function(
@@ -20,13 +20,10 @@
   age_driver,
   RcW
 ) {
-  # Validate weather data
   .validate_weather(wth)
 
-  # Validate dates
   .validate_emergence(emergence)
 
-  # Validate scalar parameters
   .validate_scalars(
     onset = onset,
     duration = duration,
@@ -39,7 +36,6 @@
     steps_per_day = steps_per_day
   )
 
-  # Validate Boolean parameters
   if (!.is_boolean(simple_wetness)) {
     cli::cli_abort(
       "{.var simple_wetness} must be a Boolean ({.code TRUE/FALSE}) value.",
@@ -47,7 +43,6 @@
     )
   }
 
-  # Validate age_driver
   if (!age_driver %in% c("day", "dvs")) {
     cli::cli_abort(
       "{.var age_driver} must be 'day' or 'dvs', got {.val {age_driver}}",
@@ -55,13 +50,12 @@
     )
   }
 
-  # Validate wetness parameters
   .validate_wetness_params(simple_wetness, wth, RcW)
 
   invisible(TRUE)
 }
 
-#' Validate weather data
+#' Validate Weather Data
 #' @autoglobal
 #' @dev
 .validate_weather <- function(wth) {
@@ -77,7 +71,6 @@
     )
   }
 
-  # Check required columns
   required <- c("YYYYMMDD", "TEMP", "RAIN")
   missing <- setdiff(required, names(wth))
 
@@ -108,7 +101,6 @@
   a,
   steps_per_day
 ) {
-  # Check numeric
   params <- list(
     onset = onset,
     duration = duration,
@@ -121,7 +113,7 @@
     steps_per_day = steps_per_day
   )
 
-  non_numeric <- params[!sapply(params, is.numeric)]
+  non_numeric <- Filter(Negate(is.numeric), params)
   if (length(non_numeric) > 0) {
     cli::cli_abort(
       "{.var {names(non_numeric)}} must be numeric values.",
@@ -212,14 +204,15 @@
     cli::cli_warn(c(
       call = rlang::caller_env(),
       "!" = "{.var steps_per_day} should be power of 2 for best accuracy",
-      "i" = "Got {.val {steps_per_day}}, consider {.val 1}, {.val 2}, {.val 4}, or {.val 8}"
+      "i" = "Got {.val {steps_per_day}}, consider {.val 1}, {.val 2}, {.val 4},
+      or {.val 8}"
     ))
   }
 
   invisible(TRUE)
 }
 
-#' Validate wetness parameters
+#' Validate Wetness Parameters
 #' @autoglobal
 #' @dev
 .validate_wetness_params <- function(simple_wetness, wth, RcW) {
@@ -295,7 +288,7 @@
   invisible(TRUE)
 }
 
-#' Check if value is a single boolean
+#' Check if Value is a Single Boolean
 #'
 #' @param x Value to check
 #' @returns TRUE if x is exactly TRUE or FALSE, FALSE otherwise (including NA)
@@ -322,7 +315,7 @@
 }
 
 
-#' Validates dates, normally the emergence date.
+#' Validates Dates, Normally the Emergence Date
 #' @param x a date input (character, Date, POSIXct).
 #'
 #' @examples
