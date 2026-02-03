@@ -12,10 +12,11 @@
 #' @importFrom data.table .N
 #' @importFrom data.table .NGRP
 #' @importFrom data.table .SD
-#' @importFrom data.table `%notin%`
 #' @importFrom data.table `%between%`
-#' @useDynLib epicrop, .registration = TRUE
+#' @importFrom data.table `%notin%`
+#' @importFrom data.table data.table
 #' @importFrom Rcpp evalCpp
+#' @useDynLib epicrop, .registration = TRUE
 ## usethis namespace: end
 
 NULL
