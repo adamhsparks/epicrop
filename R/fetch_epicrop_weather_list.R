@@ -32,11 +32,12 @@
 #' @param mode Character scalar: `"pairwise"` (default) pairs locations and
 #'   dates by position (recycling length-1), or `"cross"` forms all combinations
 #'   (locations × dates).
-#' @param location_names Optional character names for locations (length = number of
-#'   unique locations).
+#' @param location_names Optional character names for locations (length = number
+#'   of unique locations).
 #'
 #' @return
-#' * If only one (location, start, duration) is requested: an `epicrop.wth.list`.
+#' * Ifhhhly one (location, start, duration) is requested: an
+#'   `epicrop.wth.list`.
 #' * Otherwise: an `epicrop.wth.bundle` (a named list of `epicrop.wth.list`).
 #'
 #' @examplesIf interactive()
@@ -67,6 +68,17 @@
 #'   years      = 2000:2001,
 #'   mode       = "cross"
 #' )
+#'
+#' # Multiple start dates for same location across years (efficient API calls)
+#' w4 <- fetch_epicrop_weather_list(
+#'   lonlat     = c(121.255669, 14.16742),
+#'   start_date = c("-06-01", "-06-14", "-06-30"),
+#'   duration   = 90L,
+#'   years      = 2001:2003
+#' )
+#' # This makes only 3 API calls (one per year), fetching from earliest to
+#' # latest start date + duration
+#'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
@@ -83,7 +95,7 @@ fetch_epicrop_weather_list <- function(
 
   norm_locations <- function(ll) {
     if (is.list(ll)) {
-      ll <- do.call(rbind, ll)
+      ll <- data.table::rbindlist(ll) # FIXED: was "datat.table"
     }
     if (is.data.frame(ll)) {
       ll <- as.matrix(ll)
@@ -102,7 +114,7 @@ fetch_epicrop_weather_list <- function(
       ll <- matrix(ll, ncol = 2L)
     } else {
       cli::cli_abort(
-        "{.arg lonlat} must be c(lon, lat), a 2-column matrix/data.frame, or arg
+        "{.arg lonlat} must be c(lon, lat), a 2-column matrix/data.frame, or a
         list of length-2 numerics."
       )
     }
@@ -141,6 +153,7 @@ fetch_epicrop_weather_list <- function(
             .envir = parent.frame()
           )
         }
+        # Use data.table::as.IDate for date construction
         em <- data.table::as.IDate(sprintf("%04d-%s", as.integer(yrs), md_mmdd))
         if (anyNA(em)) {
           cli::cli_abort(
@@ -248,9 +261,13 @@ fetch_epicrop_weather_list <- function(
     )
   }
 
+  # Group tasks by location
   by_location <- split(tasks, vapply(tasks, `[[`, integer(1L), "location_id"))
 
+  # Collapse overlapping/adjacent date ranges per location
+  # This is the KEY function that makes API calls efficient!
   collapse_one <- function(tsks) {
+    # Use data.table::as.IDate for all date operations
     starts <- data.table::as.IDate(vapply(
       tsks,
       `[[`,
@@ -260,6 +277,7 @@ fetch_epicrop_weather_list <- function(
     ends <- starts +
       (vapply(tsks, function(t) as.integer(t$duration), integer(1L)) - 1L)
 
+    # Find the earliest start and latest end
     s_min <- min(starts)
     e_max <- max(ends)
 

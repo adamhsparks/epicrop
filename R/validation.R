@@ -314,9 +314,8 @@
   is.logical(x) && length(x) == 1L && !is.na(x)
 }
 
-
 #' Validates Dates, Normally the Emergence Date
-#' @param x a date input (character, Date, POSIXct).
+#' @param x a date input (character, Date, IDate, POSIXct).
 #'
 #' @examples
 #' # passes
@@ -324,38 +323,46 @@
 #'
 #' # fails
 #'  .validate_emergence("120-100-2023")
-#' @return A validated POSIXct date object.
+#' @return A validated IDate object.
 #' @dev
 #' @autoglobal
 .validate_emergence <- function(x) {
-  # If already Date, return as-is
+  # If already Date or IDate, convert to IDate
   if (inherits(x, "Date")) {
-    return(x)
+    return(data.table::as.IDate(x))
   }
 
   # If POSIXct/lt, strip time & tz safely
   if (inherits(x, "POSIXt")) {
-    return(as.Date(format(x, "%Y-%m-%d")))
+    return(data.table::as.IDate(x))
   }
 
-  # Otherwise parse character input without introducing tz
+  # Otherwise parse character input
   if (is.character(x)) {
-    d <- suppressWarnings(
-      tryCatch(
-        lubridate::parse_date_time(
-          x,
-          c("Ymd", "dmY", "BdY", "Bdy"),
-          tz = "UTC"
-        ),
-        error = function(e) NA
-      )
+    # Try common date formats in order
+    formats <- c(
+      "%Y-%m-%d",    # ISO: 2023-10-15
+      "%Y/%m/%d",    # 2023/10/15
+      "%d-%m-%Y",    # 15-10-2023
+      "%d/%m/%Y",    # 15/10/2023
+      "%m-%d-%Y",    # 10-15-2023 (US format)
+      "%m/%d/%Y",    # 10/15/2023 (US format)
+      "%d %b %Y",    # 15 Oct 2023
+      "%d %B %Y",    # 15 October 2023
+      "%b %d %Y",    # Oct 15 2023
+      "%B %d %Y"     # October 15 2023
     )
-
-    if (anyNA(d)) {
-      cli::cli_abort("{.var x} is not in a valid date format.")
+    
+    d <- NA
+    for (fmt in formats) {
+      d <- suppressWarnings(data.table::as.IDate(x, format = fmt))
+      if (!is.na(d)) {
+        return(d)
+      }
     }
-
-    return(as.Date(format(d, "%Y-%m-%d")))
+    
+    # If all formats failed
+    cli::cli_abort("{.var x} is not in a valid date format.")
   }
 
   cli::cli_abort("Unsupported type for emergence date: {class(x)}")
