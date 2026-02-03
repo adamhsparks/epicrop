@@ -8,7 +8,7 @@ utils::globalVariables(c(
   "RAIN", # <.prepare_weather_data>
   "lat", # <.assemble_output>
   "lon", # <.assemble_output>
-  "YYYYMMDD", # <fetch_epicrop_weather_list>
+  "YYYYMMDD", # <.fetch_one_weather>
   "DOY", # <format_wth>
   "YYYYMMDD", # <get_wth>
   "location", # <run_epicrop_model>
