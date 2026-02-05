@@ -49,7 +49,6 @@
 ^man/dot-calculate_leaf_wetness\.Rd$
 ^man/dot-diurnal_rh\.Rd$
 ^man/dot-diurnal_temp\.Rd$
-^man/dot-diurnal_temp_single\.Rd$
 ^man/dot-day_length\.Rd$
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-calculate_weighted_hr_wet\.Rd$

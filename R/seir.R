@@ -248,7 +248,9 @@ seir <- function(
     age_driver = age_driver,
     RcW = RcW
   )
+
   age_driver <- rlang::arg_match(age_driver)
+
   if (!inherits(wth, "epicrop.wth")) {
     cli::cli_abort(
       c(
@@ -257,8 +259,6 @@ seir <- function(
       )
     )
   }
-
-  age_driver <- rlang::arg_match(age_driver)
 
   # Validate DVS requirements
   if (age_driver == "dvs" && is.null(thermal_time)) {
@@ -301,6 +301,7 @@ seir <- function(
   if (!rlang::has_name(w, "dates")) {
     w[, dates := YYYYMMDD]
   }
+
   # Parse emergence
   emergence_date <- .validate_emergence(emergence)
   emergence_day <- which(w$YYYYMMDD == emergence_date)
@@ -310,7 +311,8 @@ seir <- function(
     cli::cli_abort(
       c(
         "Emergence date not found in weather data",
-        "x" = "Emergence {.val {emergence_date}} not in weather data range {.val {min(w$YYYYMMDD)}} to {.val {max(w$YYYYMMDD)}}"
+        "x" = "Emergence {.val {emergence_date}} not in weather data range
+        {.val {min(w$YYYYMMDD)}} to {.val {max(w$YYYYMMDD)}}"
       )
     )
   }
@@ -323,7 +325,7 @@ seir <- function(
       c(
         "Insufficient weather data for simulation duration",
         "x" = "Duration requires {duration} days but only {available_days}
-      {cli::qty(available_days)}day{?s} available after emergence",
+        {cli::qty(available_days)}day{?s} available after emergence",
         "i" = "Emergence date: {.val {emergence_date}}",
         "i" = "Weather data ends: {.val {max(w$YYYYMMDD)}}"
       )
@@ -336,7 +338,7 @@ seir <- function(
         "Short simulation duration may produce unrealistic results",
         "i" = "Duration is {duration} days (< 50 days recommended minimum)",
         "i" = "Consider extending the simulation period for more reliable
-      epidemic development"
+        epidemic development"
       )
     )
   }

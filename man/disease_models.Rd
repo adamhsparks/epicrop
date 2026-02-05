@@ -69,9 +69,17 @@ modified_kim_sheath_blight(
   ...
 )
 
-leaf_rust(wth, emergence, RcA = NULL, RcT = NULL, ...)
+leaf_rust(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-s_tritici_blotch(wth, emergence, RcA = NULL, RcT = NULL, ...)
+s_tritici_blotch(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  ...
+)
 
 bb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
@@ -87,11 +95,11 @@ mk_lb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
 mk_sb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-lr(wth, emergence, RcA = NULL, RcT = NULL, ...)
+lr(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-brown_rust(wth, emergence, RcA = NULL, RcT = NULL, ...)
+brown_rust(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-stb(wth, emergence, RcA = NULL, RcT = NULL, ...)
+stb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 }
 \arguments{
 \item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or

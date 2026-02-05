@@ -21,17 +21,27 @@
 #' @autoglobal
 #' @keywords internal
 #' @dev
-
 .interp <- function(param, age_vec) {
   # Handle NULL
   if (is.null(param)) {
     cli::cli_abort("Parameter is NULL", call = rlang::caller_env())
   }
 
-  # Handle functions
+  # Handle functions (check FIRST before length checks)
   if (is.function(param)) {
-    result <- param(age_vec)
-    return(pmax(0, result)) # Clamp negative values to zero
+    result <- tryCatch(
+      param(age_vec),
+      error = function(e) {
+        cli::cli_abort(
+          c(
+            "Function evaluation failed",
+            "x" = conditionMessage(e)
+          ),
+          call = rlang::caller_env()
+        )
+      }
+    )
+    return(pmax(0, as.numeric(result))) # Clamp negative values to zero
   }
 
   # Handle scalars
@@ -72,8 +82,8 @@
   if (ncol(param) != 2L) {
     cli::cli_abort(
       c(
-        "Lookup table must have 2 columns [age, value]",
-        "x" = "Got {ncol(param)} column{?s}"
+        "Lookup table must have exactly 2 columns [age, value].",
+        "x" = "Got {ncol(param)} column{?s}."
       ),
       call = rlang::caller_env()
     )
@@ -89,6 +99,32 @@
       ),
       call = rlang::caller_env()
     )
+  }
+
+  # Check for empty or NA values
+  if (nrow(param) == 0L) {
+    cli::cli_abort(
+      "Lookup table must have at least 1 row",
+      call = rlang::caller_env()
+    )
+  }
+
+  if (anyNA(param)) {
+    cli::cli_warn(
+      c(
+        "Lookup table contains NA values",
+        "i" = "Removing rows with NA"
+      ),
+      call = rlang::caller_env()
+    )
+    param <- param[!is.na(param[, 1L]) & !is.na(param[, 2L]), , drop = FALSE]
+
+    if (nrow(param) == 0L) {
+      cli::cli_abort(
+        "No valid rows after removing NAs",
+        call = rlang::caller_env()
+      )
+    }
   }
 
   .fast_interp(param, age_vec)
@@ -108,7 +144,8 @@
     cli::cli_abort(
       c(
         "Vector length mismatch.",
-        "i" = "Expected length {length(age_vec)} to match age vector, or even length for lookup table.",
+        "i" = "Expected length {length(age_vec)} to match age vector, or even
+        length for lookup table.",
         "x" = "Got length {length(param)}."
       ),
       call = rlang::caller_env()

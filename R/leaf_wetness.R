@@ -169,39 +169,7 @@
 #' @autoglobal
 #' @dev
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
-  # Check if inputs are scalar or vector
-  n <- max(length(lat), length(doy), length(tmin), length(tmax))
-
-  # If scalar, process single day
-  if (n == 1L) {
-    return(.diurnal_temp_single(lat, doy, tmin, tmax))
-  }
-
-  # If vector, process each day and combine
-  # Recycle shorter vectors to match longest
-  lat <- rep_len(lat, n)
-  doy <- rep_len(doy, n)
-  tmin <- rep_len(tmin, n)
-  tmax <- rep_len(tmax, n)
-
-  # Process each day and return as matrix (24 x n_days)
-  result <- vapply(
-    seq_len(n),
-    function(i) {
-      .diurnal_temp_single(lat[i], doy[i], tmin[i], tmax[i])
-    },
-    numeric(24)
-  )
-
-  # Return as vector for single day, matrix for multiple days
-  if (n == 1L) result[, 1] else result
-}
-
-#' Calculate diurnal temperature for a single day
-#' @autoglobal
-#' @dev
-.diurnal_temp_single <- function(lat, doy, tmin, tmax) {
-  # Day length calculation
+  # Vectorized day length calculation
   dayl <- .day_length(lat, doy)
   nightl <- 24 - dayl
   sunris <- 12 - 0.5 * dayl
@@ -246,6 +214,7 @@
 
   hr_temp
 }
+
 #' Calculate day length for a given latitude and date
 #'
 #' @param lat Latitude (degrees).

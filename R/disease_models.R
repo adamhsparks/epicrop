@@ -266,7 +266,15 @@ modified_kim_sheath_blight <- function(
 
 #' @rdname disease_models
 #' @export
-leaf_rust <- function(wth, emergence, RcA = NULL, RcT = NULL, ...) {
+leaf_rust <- function(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  ...
+) {
   seir(
     wth = wth,
     emergence = emergence,
@@ -298,6 +306,8 @@ s_tritici_blotch <- function(
   emergence,
   RcA = NULL,
   RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
   ...
 ) {
   seir(

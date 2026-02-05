@@ -129,5 +129,3 @@ save(
   compress = "bzip2",
   version = 2
 )
-
-message("✓ Created R/sysdata.rda with all disease parameters")
