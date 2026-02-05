@@ -44,8 +44,7 @@
 ^man/dot-format_results\.Rd$
 ^man/dot-interp\.Rd$
 ^man/dot-interp_table\.Rd$
-^man/dot-interp_vector\.Rd$
-^man/dot-fast_interp\.Rd$
+^man/dot-fast_interp_approx\.Rd$
 ^man/dot-calculate_leaf_wetness\.Rd$
 ^man/dot-diurnal_rh\.Rd$
 ^man/dot-diurnal_temp\.Rd$

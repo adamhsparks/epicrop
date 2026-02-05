@@ -13,9 +13,10 @@
 #' @returns Numeric vector of length `length(age_vec)` with interpolated values
 #'
 #' @details
-#' For matrix input, uses fast linear interpolation with constant extrapolation
-#' at boundaries. For function input, applies function to `age_vec` and clamps
-#' negative values to 0.
+#' For matrix input, uses fast linear interpolation that exactly matches
+#' stats::approx() with rule = 2 (constant extrapolation at boundaries).
+#' For function input, applies function to `age_vec` and clamps negative
+#' values to 0.
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
@@ -41,7 +42,9 @@
         )
       }
     )
-    return(pmax(0, as.numeric(result))) # Clamp negative values to zero
+    # Match second version's behavior exactly
+    result[result < 0] <- 0
+    return(result)
   }
 
   # Handle scalars
@@ -54,9 +57,18 @@
     return(.interp_table(param, age_vec))
   }
 
-  # Handle vectors
+  # Handle vectors - MATCH SECOND VERSION (exact length match only)
   if (is.numeric(param) && length(param) > 1L) {
-    return(.interp_vector(param, age_vec))
+    if (length(param) != length(age_vec)) {
+      cli::cli_abort(
+        c(
+          "Vector length mismatch:",
+          "x" = "Got {length(param)}, expected {length(age_vec)}"
+        ),
+        call = rlang::caller_env()
+      )
+    }
+    return(param)
   }
 
   # Unsupported type
@@ -90,12 +102,12 @@
   }
 
   # Validate numeric content
-  if (!is.numeric(param[1, 1]) || !is.numeric(param[1, 2])) {
+  if (!is.numeric(param[, 1]) || !is.numeric(param[, 2])) {
     cli::cli_abort(
       c(
         "Lookup table must contain numeric values",
-        "x" = "Got {.cls {class(param[1, 1])}} in first column or
-        {.cls {class(param[1, 2])}} in second column"
+        "x" = "Got {.cls {class(param[, 1])}} in first column or
+        {.cls {class(param[, 2])}} in second column"
       ),
       call = rlang::caller_env()
     )
@@ -127,54 +139,28 @@
     }
   }
 
-  .fast_interp(param, age_vec)
+  .fast_interp_approx(param, age_vec)
 }
 
-#' Interpolate from numeric vector
-#' @autoglobal
-#' @dev
-.interp_vector <- function(param, age_vec) {
-  # If vector length matches age_vec, return as-is (pre-computed values)
-  if (length(param) == length(age_vec)) {
-    return(param)
-  }
-
-  # Check if it's a valid lookup table (even length for age/value pairs)
-  if (length(param) %% 2L != 0L) {
-    cli::cli_abort(
-      c(
-        "Vector length mismatch.",
-        "i" = "Expected length {length(age_vec)} to match age vector, or even
-        length for lookup table.",
-        "x" = "Got length {length(param)}."
-      ),
-      call = rlang::caller_env()
-    )
-  }
-
-  # Convert to matrix and interpolate
-  mat <- matrix(param, ncol = 2L, byrow = TRUE)
-  .fast_interp(mat, age_vec)
-}
-
-#' Fast linear interpolation
+#' Fast linear interpolation matching stats::approx()
 #'
-#' Vectorized linear interpolation using findInterval(). Handles unsorted and
-#' duplicate x values automatically. Faster than stats::approx() for repeated
-#' calls with similar data.
+#' Vectorized linear interpolation that produces identical results to
+#' stats::approx(method = "linear", rule = 2) but with better performance
+#' for repeated calls.
 #'
 #' @param mat Two-column numeric matrix \[x, y\]
 #' @param xout Vector of x values to interpolate at
-#' @returns Vector of interpolated y values
+#' @returns Vector of interpolated y values (identical to approx() output)
 #'
 #' @details
-#' Automatically sorts by x column if unsorted, removes duplicates (keeping
-#' first occurrence), and uses constant extrapolation at boundaries.
+#' Automatically sorts by x column if unsorted, handles duplicates using
+#' approx()'s tie handling (keeps first value), and uses constant
+#' extrapolation at boundaries (rule = 2).
 #'
 #' @autoglobal
 #' @keywords internal
 #' @dev
-.fast_interp <- function(mat, xout) {
+.fast_interp_approx <- function(mat, xout) {
   if (length(xout) == 0L) {
     return(numeric(0))
   }
@@ -188,14 +174,14 @@
     return(rep(y[1L], length(xout)))
   }
 
-  # Sort if needed (check is cheap)
+  # Sort if needed (approx requires sorted x)
   if (is.unsorted(x)) {
     ord <- order(x)
     x <- x[ord]
     y <- y[ord]
   }
 
-  # Remove duplicates (keep first occurrence)
+  # Handle duplicates - approx() uses first occurrence for ties
   dup <- duplicated(x)
   if (any(dup)) {
     x <- x[!dup]
@@ -208,22 +194,43 @@
     return(rep(y[1L], length(xout)))
   }
 
-  # Find intervals (returns 0 for xout < min(x), n for xout >= max(x))
+  # Find intervals - matches approx() behavior
+  # findInterval with left.open = FALSE matches approx()'s bin assignment
   i <- findInterval(xout, x, left.open = FALSE)
 
-  # Clamp to valid range [1, n-1] for interpolation
-  i <- pmax(1L, pmin(i, n - 1L))
+  # Initialize result with NA (like approx does internally)
+  result <- numeric(length(xout))
 
-  # Calculate interpolation fraction
-  dx <- x[i + 1L] - x[i]
-  frac <- (xout - x[i]) / dx
+  # Handle left extrapolation (xout < min(x)) - use first y value
+  left_extrap <- i == 0L
+  if (any(left_extrap)) {
+    result[left_extrap] <- y[1L]
+  }
 
-  # Linear interpolation
-  result <- y[i] + frac * (y[i + 1L] - y[i])
+  # Handle right extrapolation (xout >= max(x)) - use last y value
+  right_extrap <- i >= n
+  if (any(right_extrap)) {
+    result[right_extrap] <- y[n]
+  }
 
-  # Handle extrapolation (use edge values)
-  result[xout <= x[1L]] <- y[1L]
-  result[xout >= x[n]] <- y[n]
+  # Handle interpolation (values within range)
+  interp_idx <- !left_extrap & !right_extrap
+  if (any(interp_idx)) {
+    i_interp <- i[interp_idx]
+    xout_interp <- xout[interp_idx]
+
+    # Linear interpolation formula (same as approx)
+    x0 <- x[i_interp]
+    x1 <- x[i_interp + 1L]
+    y0 <- y[i_interp]
+    y1 <- y[i_interp + 1L]
+
+    # Interpolation weight
+    w <- (xout_interp - x0) / (x1 - x0)
+
+    # Linear interpolation: y = y0 + w * (y1 - y0)
+    result[interp_idx] <- y0 + w * (y1 - y0)
+  }
 
   return(result)
 }

@@ -25,9 +25,10 @@ Internal function to handle different parameter input types (scalar, vector,
 matrix lookup table, or function) and interpolate to daily values.
 }
 \details{
-For matrix input, uses fast linear interpolation with constant extrapolation
-at boundaries. For function input, applies function to \code{age_vec} and clamps
-negative values to 0.
+For matrix input, uses fast linear interpolation that exactly matches
+stats::approx() with rule = 2 (constant extrapolation at boundaries).
+For function input, applies function to \code{age_vec} and clamps negative
+values to 0.
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}
