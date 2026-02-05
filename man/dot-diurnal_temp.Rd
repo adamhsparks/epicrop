@@ -2,24 +2,25 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.diurnal_temp}
 \alias{.diurnal_temp}
-\title{Calculate hourly temperature for a given day}
+\title{Calculate hourly temperature for a given day or multiple days}
 \usage{
 .diurnal_temp(lat, doy, tmin, tmax)
 }
 \arguments{
-\item{lat}{Latitude.}
+\item{lat}{Latitude (scalar or vector).}
 
-\item{doy}{Day of year.}
+\item{doy}{Day of year (scalar or vector).}
 
-\item{tmin}{Minimum temperature.}
+\item{tmin}{Minimum temperature (scalar or vector).}
 
-\item{tmax}{Maximum temperature.}
+\item{tmax}{Maximum temperature (scalar or vector).}
 }
 \value{
-Numeric vector of 24 hourly temperatures.
+Numeric vector of 24 hourly temperatures for single day, or
+numeric vector of 24*n hourly temperatures for multiple days.
 }
 \description{
-Calculate hourly temperature for a given day
+Calculate hourly temperature for a given day or multiple days
 }
 \author{
 Robert J. Hijmans with modifications by Adam H. Sparks

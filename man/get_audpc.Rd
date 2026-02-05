@@ -2,31 +2,17 @@
 % Please edit documentation in R/audpc.R
 \name{get_audpc}
 \alias{get_audpc}
-\title{Get the AUDPC from an seir Object}
+\title{Get AUDPC from epicrop.sim Object}
 \usage{
 get_audpc(x)
 }
 \arguments{
-\item{x}{an object of class \code{epicrop.sim} as returned by any of
-the modelling functions in \pkg{epicrop}.}
+\item{x}{An \code{epicrop.sim} object}
 }
 \value{
-A scalar numeric double precision value of the AUCPC for the
-given object.
+Numeric AUDPC value
 }
 \description{
 Get the \acronym{AUDPC} value from an \pkg{epicrop} model run object's
 attributes for use in analysis, mapping, or reporting.
-}
-\examples{
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
-)
-bb <- bacterial_blight(wth, emergence = "2000-07-01")
-get_audpc(bb)
-
-}
-\author{
-Adam H. Sparks, \email{adamhsparks@gmail.com}
 }

@@ -2,23 +2,23 @@
 % Please edit documentation in R/audpc.R
 \name{audpc_dt}
 \alias{audpc_dt}
-\title{Create an AUDPC data frame for locations and emergence dates}
+\title{Extract AUDPC Summary as data.table}
 \usage{
 audpc_dt(x)
 }
 \arguments{
-\item{x}{A \code{data.table} created by \code{run_epicrop_model()}, \code{seir()} or
-any one of the disease specific helper functions.}
+\item{x}{An \code{epicrop.sim} object from \code{\link[=seir]{seir()}} or disease model functions.}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} suitable for mapping or other analysis.
-If \code{dt} is from \code{run_epicrop_model()} directly, the output will be a
-\code{data.table} with five columns: \code{lat}, \code{lon}, \code{AUDPC}, \code{location}, and
-\code{emergence}. If \code{dt} is from any of the helper functions or directly from
-\code{seir()}, the output will be a \code{data.table} with two (or) four
-columns: \code{lat}\emph{, \code{lon}}, \code{AUDPC} and \code{emergence}. *\code{lat} and \code{lon} columns
-must be in the original weather dataset for them to appear.
+A \code{\link[data.table:data.table]{data.table::data.table()}} with columns:
+\itemize{
+\item \code{lat}: Latitude (if available)
+\item \code{lon}: Longitude (if available)
+\item \code{AUDPC}: Area under disease progress curve
+\item \code{emergence}: Emergence date (as character)
+}
 }
 \description{
-Create an AUDPC data frame for locations and emergence dates
+Extracts Area Under Disease Progress Curve (AUDPC) values along with
+location and emergence date information from an epicrop.sim object.
 }
