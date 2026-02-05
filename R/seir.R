@@ -422,11 +422,37 @@ seir <- function(
     duration
   )
 
+  # Initialize delay history vectors
+  RI_hist <- numeric(duration)
+  BecInf_hist <- numeric(duration)
+
   sites[1] <- H0
   dt <- 1.0 / steps_per_day
+  EPSILON <- 1e-15
+
+  # Fractional back-reference function matching C++
+  backref <- function(hist, d, delay) {
+    if (delay <= 0.0) return(0.0)
+
+    exact_day <- d - delay
+    if (exact_day < 1) return(0.0) # R is 1-indexed
+
+    j_lo <- floor(exact_day)
+    j_hi <- ceiling(exact_day)
+
+    if (j_lo < 1 || j_hi >= d) return(0.0)
+
+    frac <- exact_day - j_lo
+
+    v <- (1.0 - frac) * hist[j_lo]
+    if (j_hi != j_lo && j_hi < d) {
+      v <- v + frac * hist[j_hi]
+    }
+
+    return(max(0.0, v))
+  }
 
   # Main simulation loop
-
   for (day in 2:duration) {
     S <- sites[day - 1]
     E <- latent[day - 1]
@@ -434,41 +460,91 @@ seir <- function(
     R <- removed[day - 1]
     Sen <- senesced[day - 1]
 
+    # Cache daily parameters
+    a_d <- max(1.0, a_vals[day])
+    Rc_d <- max(0.0, Rc[day])
+    rrlex_d <- max(0.0, RRLEX_vals[day])
+    rrs_d <- max(0.0, RRS_vals[day])
+    rrg_d <- max(0.0, RRG_vals[day])
+    p_d <- max(0.0, p_days[day])
+    i_d <- max(0.0, i_days[day])
+    Iprim_d <- max(0.0, inoculum[day])
+
+    # Pre-compute daily delays
+    RT_day <- backref(RI_hist, day, p_d)
+    RREM_day <- backref(BecInf_hist, day, i_d)
+
     daily_inf <- daily_lex <- daily_trans <- daily_rem <- daily_grw <-
       daily_sen <- 0
 
     for (step in 1:steps_per_day) {
-      total <- S + E + I
+      # COFR calculation matching C++
+      total_prev <- S + E + I + R
+      if (total_prev < EPSILON) total_prev <- EPSILON
 
-      # Check for valid Rc value and positive totals
-      if (!is.na(Rc[day]) && total > 0 && I > 0) {
-        COFR <- 1 - (1 / (1 + a_vals[day] * I / total))
-        inf_rate <- Rc[day] * COFR * (I / total) * S
+      cofr_d <- 1.0 - ((E + I + R) / total_prev)
+      cofr_d <- max(0.0, min(1.0, cofr_d))
+
+      # Aggregation power
+      if (a_d == 1.0) {
+        cofr_pow <- cofr_d
+      } else if (a_d == 2.0) {
+        cofr_pow <- cofr_d * cofr_d
+      } else if (a_d == 3.0) {
+        cofr_pow <- cofr_d * cofr_d * cofr_d
       } else {
-        inf_rate <- 0
+        cofr_pow <- cofr_d^a_d
       }
 
-      inf_rate <- inf_rate + inoculum[day] * dt
+      # Flows (distributed over sub-steps)
+      ri_prim <- Iprim_d * dt
+      ri_sec <- I * Rc_d * cofr_pow * dt
+      ri_step <- ri_prim + ri_sec
 
-      lex_rate <- RRLEX_vals[day] * S
-      trans_rate <- E / max(p_days[day], 1)
-      rem_rate <- I / max(i_days[day], 1)
-      grw_rate <- RRG_vals[day] * S * (1 - total / Sx)
-      sen_rate <- RRS_vals[day] * S
+      rlex_step <- rrlex_d * I * cofr_d * dt
+      rt_step <- RT_day * dt
+      rrem_step <- RREM_day * dt
+      rsn_step <- rrs_d * S * dt
+      rg_step <- rrg_d * S * (1.0 - (total_prev / Sx)) * dt
 
-      S <- max(0, S + (grw_rate - sen_rate - inf_rate - lex_rate) * dt)
-      E <- max(0, E + (inf_rate - trans_rate) * dt)
-      I <- max(0, I + (trans_rate + lex_rate - rem_rate) * dt)
-      R <- max(0, R + rem_rate * dt)
-      Sen <- max(0, Sen + sen_rate * dt)
+      # Flow limiting (priority order: RLEX > RI > RSN)
+      HS_avail <- S + rg_step
+      if (HS_avail < 0.0) HS_avail <- 0.0
 
-      daily_inf <- daily_inf + inf_rate * dt
-      daily_lex <- daily_lex + lex_rate * dt
-      daily_trans <- daily_trans + trans_rate * dt
-      daily_rem <- daily_rem + rem_rate * dt
-      daily_grw <- daily_grw + grw_rate * dt
-      daily_sen <- daily_sen + sen_rate * dt
+      rlex_step <- min(rlex_step, HS_avail)
+      HS_avail <- HS_avail - rlex_step
+
+      ri_step <- min(ri_step, HS_avail)
+      HS_avail <- HS_avail - ri_step
+
+      rsn_step <- min(rsn_step, HS_avail)
+
+      INF_avail <- I + rt_step + rlex_step
+      if (INF_avail < 0.0) INF_avail <- 0.0
+      rrem_step <- min(rrem_step, INF_avail)
+
+      # State updates
+      S <- S + rg_step - ri_step - rlex_step - rsn_step
+      E <- E + ri_step - rt_step
+      I <- I + rt_step + rlex_step - rrem_step
+      R <- R + rrem_step
+      Sen <- Sen + rsn_step
+
+      # Accumulate daily totals
+      daily_inf <- daily_inf + ri_step
+      daily_lex <- daily_lex + rlex_step
+      daily_trans <- daily_trans + rt_step
+      daily_rem <- daily_rem + rrem_step
+      daily_grw <- daily_grw + rg_step
+      daily_sen <- daily_sen + rsn_step
     }
+
+    # Bounds checking: floor at zero
+    S <- max(0.0, S)
+    E <- max(0.0, E)
+    I <- max(0.0, I)
+    R <- max(0.0, R)
+    Sen <- max(0.0, Sen)
 
     sites[day] <- S
     latent[day] <- E
@@ -482,6 +558,10 @@ seir <- function(
     rremoved[day] <- daily_rem
     rgrowth[day] <- daily_grw
     rsenesced[day] <- daily_sen
+
+    # Update histories
+    RI_hist[day] <- rateinf[day]
+    BecInf_hist[day] <- rtransfer[day] + rlex[day]
   }
 
   # Calculate output metrics
