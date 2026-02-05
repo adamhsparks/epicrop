@@ -32,7 +32,7 @@ Additional models included for rice are adapted from Kim *et al.* (2015) for ric
 
 The original EPIWHEAT model as presented in Savary *et al.* (2015) is also included in this implementation and can be used to model potential epidemics of two wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.
 
-Users may also provide their own paramters to the generic `seir()` function to simulate other crop diseases as long as the weather data provided meet the model's requirements.
+Users may also provide their own parameters to the generic `seir()` function to simulate other crop diseases as long as the weather data provided meet the model's requirements.
 
 # Quick start
 

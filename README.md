@@ -21,7 +21,7 @@ Additional models included for rice are adapted from Kim *et al.* (2015) for ric
 
 The original EPIWHEAT model as presented in Savary *et al.* (2015) is also included in this implementation and can be used to model potential epidemics of two wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.
 
-Users may also provide their own paramters to the generic `seir()` function to simulate other crop diseases as long as the weather data provided meet the model's requirements.
+Users may also provide their own parameters to the generic `seir()` function to simulate other crop diseases as long as the weather data provided meet the model's requirements.
 
 # Quick start
 
@@ -75,12 +75,47 @@ Once you have the weather data, run the model for any of the five rice diseases 
 
 ``` r
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
-#> Error in `bacterial_blight()`:
-#> ! object '.RcA_bacterial_blight' not found
 
 bb_sim
-#> Error:
-#> ! object 'bb_sim' not found
+#>      simday      dates     sites      latent infectious  removed senesced
+#>       <int>     <IDat>     <num>       <num>      <num>    <num>    <num>
+#>   1:      1 2000-07-01 100.00000 0.000000000 0.00000000 0.000000        0
+#>   2:      2 2000-07-02 100.00000 0.000000000 0.00000000 0.000000        0
+#>   3:      3 2000-07-03 100.00000 0.000000000 0.00000000 0.000000        0
+#>   4:      4 2000-07-04 100.00000 0.000000000 0.00000000 0.000000        0
+#>   5:      5 2000-07-05 100.00000 0.000000000 0.00000000 0.000000        0
+#>  ---                                                                     
+#> 116:    116 2000-10-24  98.73873 0.001023389 0.09071700 1.169533        0
+#> 117:    117 2000-10-25  98.73847 0.001073575 0.08789778 1.172557        0
+#> 118:    118 2000-10-26  98.73822 0.001112784 0.08518256 1.175487        0
+#> 119:    119 2000-10-27  98.73799 0.001117908 0.08256570 1.178326        0
+#> 120:    120 2000-10-28  98.73777 0.001118451 0.08003709 1.181078        0
+#>           rateinf  rlex    rtransfer    rremoved rgrowth rsenesced diseased
+#>             <num> <num>        <num>       <num>   <num>     <num>    <num>
+#>   1: 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000
+#>   2: 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000
+#>   3: 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000
+#>   4: 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000
+#>   5: 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000
+#>  ---                                                                       
+#> 116: 0.0000000000     0 0.0002558474 0.003119350       0         0 1.261273
+#> 117: 0.0002548630     0 0.0002046779 0.003023900       0         0 1.261528
+#> 118: 0.0002539244     0 0.0002147149 0.002929926       0         0 1.261782
+#> 119: 0.0002276806     0 0.0002225568 0.002839419       0         0 1.262010
+#> 120: 0.0002241249     0 0.0002235816 0.002752190       0         0 1.262234
+#>         intensity     lat      lon
+#>             <num>   <num>    <num>
+#>   1: 0.0000000000 14.6774 121.2556
+#>   2: 0.0000000000 14.6774 121.2556
+#>   3: 0.0000000000 14.6774 121.2556
+#>   4: 0.0000000000 14.6774 121.2556
+#>   5: 0.0000000000 14.6774 121.2556
+#>  ---                              
+#> 116: 0.0009282602 14.6774 121.2556
+#> 117: 0.0009002697 14.6774 121.2556
+#> 118: 0.0008732180 14.6774 121.2556
+#> 119: 0.0008468143 14.6774 121.2556
+#> 120: 0.0008212551 14.6774 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -103,9 +138,12 @@ ggplot(
   geom_line() +
   geom_point() +
   theme_classic()
-#> Error:
-#> ! object 'bb_sim' not found
 ```
+
+<div class="figure">
+<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
+<p class="caption">Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
+</div>
 
 # Meta
 
@@ -119,12 +157,12 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 61.99%
+#> epicrop Coverage: 62.30%
 #> R/build_epicrop_emergence.R: 0.00%
 #> R/fetch_epicrop_weather_list.R: 0.00%
 #> R/run_epicrop_model.R: 0.00%
 #> R/validation.R: 64.12%
-#> R/interpolation.R: 74.07%
+#> R/interpolation.R: 77.19%
 #> R/get_wth.R: 81.16%
 #> R/format_wth.R: 93.15%
 #> R/seir.R: 95.63%
