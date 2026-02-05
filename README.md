@@ -7,9 +7,11 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 62%](https://img.shields.io/badge/code_coverage-62%25-green)](#code-coverage)
+[![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 62%](https://img.shields.io/badge/code_coverage-62%25-green)](#code-coverage)
 
 <!-- badges: end -->
+
+**This project currently is under active development and not yet stable. Use at your own risk**
 
 A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package.
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, `seir()`.
@@ -73,34 +75,12 @@ Once you have the weather data, run the model for any of the five rice diseases 
 
 ``` r
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
+#> Error in `bacterial_blight()`:
+#> ! object '.RcA_bacterial_blight' not found
 
 bb_sim
-#>      simday      dates     sites      latent infectious  removed senesced      rateinf  rlex    rtransfer    rremoved rgrowth rsenesced diseased    intensity     lat
-#>       <int>     <IDat>     <num>       <num>      <num>    <num>    <num>        <num> <num>        <num>       <num>   <num>     <num>    <num>        <num>   <num>
-#>   1:      1 2000-07-01 100.00000 0.000000000 0.00000000 0.000000        0 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000 0.0000000000 14.6774
-#>   2:      2 2000-07-02 100.00000 0.000000000 0.00000000 0.000000        0 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000 0.0000000000 14.6774
-#>   3:      3 2000-07-03 100.00000 0.000000000 0.00000000 0.000000        0 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000 0.0000000000 14.6774
-#>   4:      4 2000-07-04 100.00000 0.000000000 0.00000000 0.000000        0 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000 0.0000000000 14.6774
-#>   5:      5 2000-07-05 100.00000 0.000000000 0.00000000 0.000000        0 0.0000000000     0 0.0000000000 0.000000000       0         0 0.000000 0.0000000000 14.6774
-#>  ---                                                                                                                                                                 
-#> 116:    116 2000-10-24  98.73873 0.001023389 0.09071700 1.169533        0 0.0000000000     0 0.0002558474 0.003119350       0         0 1.261273 0.0009282602 14.6774
-#> 117:    117 2000-10-25  98.73847 0.001073575 0.08789778 1.172557        0 0.0002548630     0 0.0002046779 0.003023900       0         0 1.261528 0.0009002697 14.6774
-#> 118:    118 2000-10-26  98.73822 0.001112784 0.08518256 1.175487        0 0.0002539244     0 0.0002147149 0.002929926       0         0 1.261782 0.0008732180 14.6774
-#> 119:    119 2000-10-27  98.73799 0.001117908 0.08256570 1.178326        0 0.0002276806     0 0.0002225568 0.002839419       0         0 1.262010 0.0008468143 14.6774
-#> 120:    120 2000-10-28  98.73777 0.001118451 0.08003709 1.181078        0 0.0002241249     0 0.0002235816 0.002752190       0         0 1.262234 0.0008212551 14.6774
-#>           lon
-#>         <num>
-#>   1: 121.2556
-#>   2: 121.2556
-#>   3: 121.2556
-#>   4: 121.2556
-#>   5: 121.2556
-#>  ---         
-#> 116: 121.2556
-#> 117: 121.2556
-#> 118: 121.2556
-#> 119: 121.2556
-#> 120: 121.2556
+#> Error:
+#> ! object 'bb_sim' not found
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -123,12 +103,9 @@ ggplot(
   geom_line() +
   geom_point() +
   theme_classic()
+#> Error:
+#> ! object 'bb_sim' not found
 ```
-
-<div class="figure">
-<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
-<p class="caption">Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
-</div>
 
 # Meta
 
