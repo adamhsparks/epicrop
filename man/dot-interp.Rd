@@ -4,12 +4,12 @@
 \alias{.interp}
 \title{Interpolate parameter values}
 \usage{
-.interp(def, x)
+.interp(param, age_vec)
 }
 \arguments{
 \item{param}{Parameter value(s). Can be:
 \itemize{
-\item Scalar:  single value used for all days
+\item Scalar: single value used for all days
 \item Vector: must match length of \code{age_vec}
 \item Matrix: 2-column lookup table (column 1 = age, column 2 = modifier)
 \item Function: function of age that returns modifier values
@@ -25,11 +25,9 @@ Internal function to handle different parameter input types (scalar, vector,
 matrix lookup table, or function) and interpolate to daily values.
 }
 \details{
-For matrix input, uses linear interpolation via \code{\link[stats:approxfun]{stats::approx()}} with
-\code{rule = 2} (constant extrapolation at boundaries).
-
-For function input, applies function to \code{age_vec} and sets any negative
-values to 0.
+For matrix input, uses fast linear interpolation with constant extrapolation
+at boundaries. For function input, applies function to \code{age_vec} and clamps
+negative values to 0.
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

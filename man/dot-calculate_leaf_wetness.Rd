@@ -38,7 +38,7 @@ across 24 hours (0 to 24 wet-hours).
 
 Rainfall contributes additional wet-hours proportional to RAIN / rainlim,
 capped at 24, and combined without double-counting by scaling to the
-remaining dry fraction of the day.  If TMIN/TMAX are missing, the function
+remaining dry fraction of the day. If TMIN/TMAX are missing, the function
 falls back to a binary wetness day (0 or 24 wet-hours) based on rhlim/rainlim
 thresholds.
 }
@@ -48,7 +48,6 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-07-31")
 )
 
-# Simple binary wetness
 wet_simple <- .calculate_leaf_wetness(
   wth = wth,
   rhlim = 90,

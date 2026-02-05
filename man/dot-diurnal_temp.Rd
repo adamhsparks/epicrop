@@ -7,37 +7,21 @@
 .diurnal_temp(lat, doy, tmin, tmax)
 }
 \arguments{
-\item{lat}{Latitude as provided by \code{wth}.}
+\item{lat}{Latitude.}
 
-\item{doy}{Sequential day of year as provided by \code{wth}.}
+\item{doy}{Day of year.}
 
-\item{tmin}{Minimum temperature as provided by \code{wth}.}
+\item{tmin}{Minimum temperature.}
 
-\item{tmax}{Maximum temperature as provided by \code{wth}.}
+\item{tmax}{Maximum temperature.}
 }
 \value{
-A numeric vector of hourly temperature values for the duration of
-\code{wth} data.
+Numeric vector of 24 hourly temperatures.
 }
 \description{
-Uses doy, location (lat) and TMIN and TMAX to calculate hourly temperatures.
-}
-\examples{
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
-)
-
-.diurnal_temp(
-  lat = wth$LAT,
-  doy = wth$DOY,
-  tmin = wth$TMIN,
-  tmax = wth$TMAX
-)
-
+Calculate hourly temperature for a given day
 }
 \author{
-Robert J. Hijmans with modifications by Adam H. Sparks,
-\email{adamhsparks@gmail.com}
+Robert J. Hijmans with modifications by Adam H. Sparks
 }
 \keyword{internal}

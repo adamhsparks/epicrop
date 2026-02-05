@@ -2,28 +2,24 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.saturated_vapour_pressure}
 \alias{.saturated_vapour_pressure}
-\title{Calculate saturated vapour pressure, es}
+\title{Calculate saturated vapour pressure}
 \usage{
 .saturated_vapour_pressure(tmp)
 }
 \arguments{
-\item{tmp}{Mean temperature as provided by \code{wth}.}
+\item{tmp}{Temperature (°C).}
 }
 \value{
-Single double precision value of es as kilopascals.
+Saturated vapour pressure (kPa).
 }
 \description{
-Calculate saturated vapour pressure, es
-}
-\examples{
-.saturated_vapour_pressure(0)
-
+Calculate saturated vapour pressure
 }
 \references{
-Alduchov and Eskridge 1995,
+Alduchov and Eskridge (1996) J. Appl. Meteor. 35:601-609.
 \doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
 }
 \author{
-Adam H. Sparks, \email{adamhsparks@gmail.com}
+Adam H. Sparks
 }
 \keyword{internal}

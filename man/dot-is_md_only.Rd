@@ -6,24 +6,7 @@
 \usage{
 .is_md_only(x_chr)
 }
-\arguments{
-\item{x_chr}{Character vector of date strings.}
-}
-\value{
-Logical vector indicating which elements are month-day only.
-}
 \description{
-Determines if a date string is in month-day format (e.g., "06-30", "-6-30",
-"6/30") rather than full ISO format (YYYY-MM-DD).
-}
-\examples{
-.is_md_only(c("2000-06-30", "-06-30", "6/15", "12-25"))
-# [1] FALSE  TRUE  TRUE  TRUE
-
-.is_md_only("2000-06-30")
-# [1] FALSE
-
-.is_md_only("-06-30")
-# [1] TRUE
+Check if Date String is Month-Day Only Format
 }
 \keyword{internal}

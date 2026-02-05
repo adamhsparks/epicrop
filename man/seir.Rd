@@ -2,15 +2,13 @@
 % Please edit documentation in R/seir.R
 \name{seir}
 \alias{seir}
-\title{Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework}
+\title{Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework with Lesion Expansion}
 \usage{
 seir(
   wth,
   emergence,
   onset,
   duration,
-  rhlim,
-  rainlim,
   H0,
   I0,
   RcA,
@@ -19,12 +17,15 @@ seir(
   p,
   i,
   Sx,
-  a,
-  RRS,
-  RRG,
+  a = 1,
+  rhlim = 90,
+  rainlim = 5,
+  RRS = NULL,
+  RRG = NULL,
   RcW = NULL,
   RRLEX = 0,
   simple_wetness = TRUE,
+  weighted_wetness = FALSE,
   age_driver = c("day", "dvs"),
   thermal_time = NULL,
   steps_per_day = 1L,
@@ -47,130 +48,173 @@ field names:\tabular{rl}{
    \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
 }}
 
-\item{emergence}{expected date of plant emergence (or transplanting for rice)
-entered in \code{YYYY-MM-DD} format (character).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\item{emergence}{Expected date of plant emergence (or transplanting for rice)
+entered in \code{YYYY-MM-DD} format (character).}
 
 \item{onset}{expected number of days until the onset of disease after
-emergence date (day, integer).  Described in Table 1 of Savary \emph{et al.}
+emergence date (day, integer). Described in Table 1 of Savary \emph{et al.}
 2012.}
 
-\item{duration}{simulation duration \emph{i.e.}, growing season length (day,
-integer).  Described in Table 1 of Savary \emph{et al.} 2012.}
+\item{duration}{simulation duration \emph{i. e.}, growing season length (day,
+integer). Described in Table 1 of Savary _et al. _ 2012.}
 
-\item{rhlim}{relative humidity value threshold to decide whether leaves are
-wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
-\emph{et al.} 2012 used \code{90}.}
-
-\item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not (numeric).  Described in Table 1 of Savary \emph{et al.} 2012.  Savary
-\emph{et al.} 2012 used \code{5}.}
-
-\item{H0}{initial number of plant's healthy sites (integer).  Described in
+\item{H0}{initial number of plant's healthy sites (integer). Described in
 Table 1 of Savary \emph{et al.} 2012.}
 
-\item{I0}{initial number of infective sites (integer).  Described in Table 1
-of Savary \emph{et al.} 2012.}
+\item{I0}{initial number of infective sites (scalar integer). Described in
+Table 1 of Savary \emph{et al.} 2012. I0 is injected as new infections (become
+infectious after \code{p} days).}
 
 \item{RcA}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for crop age as a numeric two-column matrix with the first column
-being the crop age in days (1 to \code{duration}) and the second being the
-modifier (bounded by 0 and 1).  Described in Tables 1 and 2 of Savary
-\emph{et al.} 2012.}
+being the crop age in days (0 to \code{duration-1}) or DVS (0 to 2) and the
+second being the modifier (bounded by 0 and 1). Described in Tables 1 and 2
+of Savary \emph{et al.} 2012.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature as a numeric two-column matrix with the first
-column being temperature in ˚C and the second the modifier (bounded by 0 and
-1).  Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
+column being temperature in °C and the second the modifier (bounded by 0 and
+1). Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
-Described in Table 1 of Savary \emph{et al.} 2012.  This value can be modified
-to reflect crop cultivar resistance ratings as well, see Kim \emph{et al.} 2015
+Described in Table 1 of Savary \emph{et al.} 2012. This value can be modified
+to reflect crop cultivar resistance ratings as well, see Kim _et al. _ 2015
 for more details.}
 
-\item{p}{duration of latent period (day, integer or numeric).  Described in
-Table 1 of Savary \emph{et al.} 2012. Can be a scalar, a two-column matrix
-for temperature-dependent duration, or a numeric vector of length
-\code{duration}.}
+\item{p}{duration of latent period (day, integer or function of temperature).
+Described in Table 1 of Savary \emph{et al.} 2012.}
 
-\item{i}{duration of infectious period (day, integer or numeric).  Described
-in Table 1 of Savary \emph{et al.} 2012. Can be a scalar, a two-column matrix
-for temperature-dependent duration, or a numeric vector of length
-\code{duration}.}
+\item{i}{duration of infectious period (day, integer or function of
+temperature). Described in Table 1 of Savary \emph{et al.} 2012.}
 
-\item{Sx}{maximum number of sites (integer).  Described in Table 1 of Savary
+\item{Sx}{maximum number of sites (integer). Described in Table 1 of Savary
 \emph{et al.} 2012.}
 
-\item{a}{aggregation coefficient, values are from 1 to >1 (numeric).
-Described in Table 1 of Savary \emph{et al.} 2012 and Table 1 of Savary \emph{et al.}
-2015.  See further details in \strong{\emph{a} - Aggregation} section.}
+\item{a}{aggregation coefficient, values are from 1 to >1 (numeric or
+function of DVS). Described in Table 1 of Savary \emph{et al.} 2012 and Table 1
+of Savary \emph{et al.} 2015. See further details in \strong{\emph{a} - Aggregation}
+section. Defaults to 1.}
 
-\item{RRS}{relative rate of physiological senescence (numeric).  Described in
-Table 1 of Savary \emph{et al.} 2012.}
+\item{rhlim}{relative humidity value threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used \code{90}. Defaults to 90.}
 
-\item{RRG}{relative rate of growth (numeric).  Described in Table 1 of Savary
-\emph{et al.} 2012.}
+\item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used \code{5}. Defaults to 5.}
+
+\item{RRS}{relative rate of physiological senescence (numeric, vector, or
+function of DVS). Described in Table 1 of Savary \emph{et al.} 2012.}
+
+\item{RRG}{relative rate of growth (numeric, vector, or function of time).
+Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{RcW}{Optional modifier for \emph{Rc} to calculate leaf wetness effect
 from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
-first column being hours (1 to 24) and the second the modifier (bounded by 0
-and 1).  Used when \code{simple_wetness == FALSE} (hourly/derived wetness)., if
-it is provided and \code{simple_wetness == TRUE}, these values will be ignored.}
+first column being hours (0 to 24) and the second the modifier (bounded by 0
+and 1). Used when \code{simple_wetness = FALSE} (hourly/derived wetness). If
+\code{NULL} (default), a linear relationship is used where 0 hours wet = 0 and
+24 hours wet = 1. Ignored if \code{simple_wetness = TRUE}.}
 
-\item{RRLEX}{Relative rate of lesion expansion (numeric). Only used when
-\code{lesion_expansion = TRUE}. Described in Table 1 of Savary \emph{et al.} 2015.
-Default is \code{NULL}.}
+\item{RRLEX}{Rate of lesion expansion (scalar, vector, or function). Allows
+healthy sites to be directly converted to infectious sites without passing
+through latent stage. Set to 0 (default) for standard SEIR behavior.}
 
-\item{simple_wetness}{\code{Boolean} value, if \code{TRUE} the function will use a
-simple calculation of leaf wetness based on the daily \code{rhlim} and \code{rainlim}
-values. If \code{FALSE} the function will use a more complex calculation of leaf
-wetness based on the \code{wth} data and will calculate the leaf wetness value
-for each hour of the day and use \code{RcW} to determine the effect of leaf
-wetness on the infection rate.}
+\item{simple_wetness}{Logical.  If \code{TRUE} (default), uses binary wetness
+calculation (0 or 1) based on \code{rhlim} and \code{rainlim} thresholds. If \code{FALSE},
+uses hourly wetness duration calculation (requires TMIN, TMAX, LAT, DOY in
+\code{wth}) and applies \code{RcW} curve.}
+
+\item{weighted_wetness}{Logical. If \code{TRUE}, compute weighted hourly wetness
+(0 to 24); if \code{FALSE}, count hours where hourly RH >= rhlim (0 to 24).
+Only used when \code{simple_wetness = FALSE}. Defaults to FALSE.}
+
+\item{age_driver}{Character. Use "day" (default, 0-indexed days from
+emergence) or "dvs" (development stage 0-2) for age-based modifiers in
+\code{RcA}. When "dvs", \code{thermal_time} parameter is required. Defaults to "day".}
+
+\item{thermal_time}{List with \code{base_temp} (°C) and \code{gdd_to_maturity}
+(°C·days). Only required when \code{age_driver = "dvs"}. Determines how growing
+degree days are accumulated and converted to development stage (DVS).}
+
+\item{steps_per_day}{Integer. Number of sub-daily time steps for numerical
+integration. Default is 1 (daily steps). Values of 2, 4, or 8 can improve
+accuracy for stiff systems at cost of computation time.  Should be a power
+of 2. Defaults to 1.}
 
 \item{infection_window}{Optional list defining DVS-based infection window:
 \itemize{
-\item \code{dvs_start}: DVS when susceptibility begins (e.g., 1.0 for flowering)
-\item \code{dvs_end}: DVS when susceptibility ends (e.g., 1.3 for early grain fill)
-\item \code{base_temp}: Base temperature for GDD (default 0)
-\item \code{gdd_to_maturity}: Total GDD to reach DVS=2 (default 1100)
-If NULL, infection possible at all growth stages (default behavior).
+\item \code{dvs_start}: DVS when susceptibility begins
+\item \code{dvs_end}: DVS when susceptibility ends
+\item \code{base_temp}: Base temperature for GDD (optional, uses thermal_time if present)
+\item \code{gdd_to_maturity}: GDD to maturity (optional, uses thermal_time if present)
 }}
-
-\item{lesion_expansion}{Logical. If \code{TRUE}, enables lesion expansion dynamics
-following Savary et al. 2015. Default is \code{FALSE} for backward compatibility.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} object containing the following
 columns:
 
 \describe{
-\item{simday}{Zero indexed day of simulation that was run}
-\item{dates}{Date of simulation}
-\item{sites}{Total number of sites present on day "x"}
+\item{simday}{Day of simulation (1-indexed, where 1 is the emergence date)}
+\item{dates}{Date of simulation (Date class)}
+\item{sites}{Total number of healthy sites present on day "x"}
 \item{latent}{Number of latent sites present on day "x"}
 \item{infectious}{Number of infectious sites present on day "x"}
 \item{removed}{Number of removed sites present on day "x"}
 \item{senesced}{Number of senesced sites present on day "x"}
-\item{rateinf}{Rate of infection}
-\item{rtransfer}{Rate of transfer from latent to infectious sites}
-\item{rgrowth}{Rate of growth of healthy sites}
-\item{rsenesced}{Rate of senescence of healthy sites}
-\item{rlex}{Rate of lesion expansion (only when \code{lesion_expansion = TRUE})}
-\item{diseased}{Number of diseased (latent + infectious + removed) sites on day "x"}
-\item{intensity}{Proportion of diseased (latent + infectious + removed) sites per total sites not including removed sites on day "x"}
-\item{AUDPC}{Area under the disease progress curve \acronym{AUDPC} for the simulation}
+\item{rateinf}{Rate of infection (new infections on day "x")}
+\item{rlex}{Rate of lesion expansion (healthy sites converted to infectious
+via direct expansion on day "x")}
+\item{rtransfer}{Rate of transfer from latent to infectious sites on day
+"x"}
+\item{rremoved}{Rate of removal from infectious to removed sites on day
+"x"}
+\item{rgrowth}{Rate of growth of healthy sites on day "x"}
+\item{rsenesced}{Rate of senescence of healthy sites on day "x"}
+\item{diseased}{Number of diseased (latent + infectious + removed) sites on
+day "x"}
+\item{intensity}{Proportion of diseased sites (latent + infectious) per
+total living sites (excludes removed and senesced) on day "x"}
 \item{lat}{Latitude value if provided by the \code{wth} object}
 \item{lon}{Longitude value if provided by the \code{wth} object}
 }
+
+The returned object also has an attribute \code{AUDPC} (accessed via
+\code{attr(result, "AUDPC")}) containing the area under the disease progress
+curve for the entire simulation, calculated using the trapezoidal rule.
 }
 \description{
 This function is originally used by specific disease models in
-\sQuote{EPIRICE} to model disease intensity of several rice diseases.  Given
-proper values it can be used with other pathosystems as well. Optionally
-includes lesion expansion dynamics implemented in \sQuote{EPIWHEAT}
-following Savary et al. 2015.
+\sQuote{EPIRICE} and \sQuote{EPIWHEAT} to model disease intensity of
+several rice diseases and two wheat diseases respectively. Given proper
+values it can be used with other pathosystems as well.
 }
+\section{Output Structure}{
+
+
+The output is organized into three categories:
+
+\strong{State Variables} (stocks at end of each day):
+\itemize{
+\item \code{sites}, \code{latent}, \code{infectious}, \code{removed}, \code{senesced}
+}
+
+\strong{Flow Variables} (rates/changes during each day):
+\itemize{
+\item \code{rateinf}, \code{rlex}, \code{rtransfer}, \code{rremoved}, \code{rgrowth}, \code{rsenesced}
+}
+
+\strong{Derived Variables} (calculated from states):
+\itemize{
+\item \code{diseased}, \code{intensity}
+}
+
+\strong{Mass Balance:}
+At any day:  \code{sites + latent + infectious + removed + senesced} should equal
+initial sites (H0) plus cumulative growth minus cumulative senescence
+(accounting for numerical precision).
+}
+
 \section{\emph{a} -- Aggregation Details}{
 
 
@@ -178,65 +222,46 @@ When \emph{a} is set to \code{1} the assumption is that that there is no disease
 aggregation with new infections occurring at random among the healthy sites.
 When \emph{a} is greater than \code{1} there is aggregation in the disease occurrence,
 the pathogen is unable to access the entire population of healthy sites,
-which results in disease aggregation. Refer to Savary \emph{et al.} (2012) for
+which results in disease aggregation.  Refer to Savary \emph{et al.} (2012) for
 greater detail.
-}
-
-\section{Lesion Expansion Details}{
-
-
-When \code{lesion_expansion = TRUE}, the model incorporates the mechanism where
-healthy sites are colonized by expanding lesions at rate RRLEX (Savary et al.
-2015, Equation 1). This is implemented as:
-
-\deqn{RLEX = RRLEX \times INF \times COFR}
-
-Where RLEX is the rate of lesion expansion converting healthy sites to
-infectious sites, and COFR is the correction factor for removals.
-
-This differs from simple lesion area tracking by directly incorporating
-expansion into site dynamics, making it suitable for diseases like wheat
-rusts and Septoria where lesion growth significantly impacts epidemic
-development.
 }
 
 \section{TMIN/TMAX Details}{
 
 
 If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
-TMAX\verb{columns in the}wth\verb{object to calculate the leaf wetness value for 24 hours of the day using the}rhlim\code{and}rainlim\verb{values and then uses}RcW\verb{to calculate a value between 0 and 1 for the whole day.  When}simple_wetness\verb{is set to}TRUE\verb{, the function only sets the leaf wetness to 0 or 1 for the day based on the }rhlim\code{and}rainlim` values.
+\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
+24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
+\code{RcW} to calculate a value between 0 and 1 for the whole day. When
+\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
+to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
 }
 
 \section{LAT/LON Details}{
 
 
 If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
-in the output for mapping purposes. Both values must be present. These
+in the output for mapping purposes.  Both values must be present.  These
 columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
 }
 
 \references{
-Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
-Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-Disease Progress over Time. \emph{The Plant Health Instructor}.
+Sparks, A. H., P. D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia,
+S.D. Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in
+R: Disease Progress over Time. \emph{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
 
-Madden, L. V., G. Hughes, and F. van den Bosch. 2007. The Study of Plant
-Disease Epidemics. American Phytopathological Society, St. Paul, MN.
+Madden, L. V., G. Hughes, and F. van den Bosch. 2007. \emph{The Study of Plant
+Disease Epidemics}. American Phytopathological Society, St. Paul, MN.
 \doi{10.1094/9780890545058}.
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-J. Modeling and mapping potential epidemics of rice diseases globally. \emph{Crop
-Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+J. Modeling and mapping potential epidemics of rice diseases globally.
+\emph{Crop Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
 \doi{10.1016/j.cropro.2011.11.009}.
-
-Savary, S., Willocquet, L., Pethybridge, S.J., Esker, P., McRoberts, N., and
-Nelson, A. 2015. The global burden of pathogens and pests on major food crops.
-\emph{European Journal of Plant Pathology} 143:369-398.
-\doi{10.1007/s10658-015-0650-7}.
 }
 \seealso{
-\code{seir()} is called by the following specific disease modelling functions:
+Disease-specific helper functions:
 \itemize{
 \item \code{\link[=bacterial_blight]{bacterial_blight()}},
 \item \code{\link[=brown_spot]{brown_spot()}},

@@ -29,9 +29,7 @@ The slicer returns exactly \code{window_days} rows when data are available.}
 
 \item{output}{Character. "audpc" (compact summary using \code{\link[=get_audpc]{get_audpc()}})
 or "full" (return full model outputs per date, with \code{emergence} added).
-Defaults to "audpc".
-required year weather is missing; if FALSE, skip that date with
-\code{\link[cli:cli_abort]{cli::cli_warn()}}.}
+Defaults to "audpc".}
 
 \item{...}{Additional arguments forwarded to \code{model_fun}.}
 }

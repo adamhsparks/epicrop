@@ -2,10 +2,8 @@
 % Please edit documentation in R/seir.R
 \name{.calculate_dvs}
 \alias{.calculate_dvs}
-\title{Calculate Development Stage (DVS)}
+\title{Calculate development stage (DVS)}
 \usage{
-.calculate_dvs(w, thermal_time)
-
 .calculate_dvs(w, thermal_time)
 }
 \arguments{
@@ -15,13 +13,8 @@
 }
 \value{
 Numeric vector of DVS (0-2).
-
-Numeric vector of DVS (0-2).
 }
 \description{
-Calculate Development Stage (DVS)
-
-Calculate Development Stage (DVS)
+Calculate development stage (DVS)
 }
-\keyword{internal}
 \keyword{internal}

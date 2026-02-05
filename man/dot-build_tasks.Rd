@@ -6,37 +6,7 @@
 \usage{
 .build_tasks(locations, location_names, sd_char, duration, years, mode)
 }
-\arguments{
-\item{locations}{Normalized location matrix (from \code{.norm_locations()}).}
-
-\item{location_names}{Character vector of location names.}
-
-\item{sd_char}{Character vector of processed start dates.}
-
-\item{duration}{Integer(s) for duration in days.}
-
-\item{years}{Integer vector of years (for month-day dates).}
-
-\item{mode}{Character: "pairwise" or "cross".}
-}
-\value{
-List of tasks, each containing location_id, location_name, lonlat,
-start_chr, and duration.
-}
 \description{
-Creates a list of tasks for fetching weather data based on locations, dates,
-durations, and mode (pairwise or cross).
-}
-\examples{
-locs <- matrix(c(121.25, 14.16, 120.98, 14.60), ncol = 2, byrow = TRUE)
-colnames(locs) <- c("LON", "LAT")
-names <- c("Site_A", "Site_B")
-dates <- c("06-01", "06-15")
-
-# Pairwise: Site_A with 06-01, Site_B with 06-15
-tasks <- .build_tasks(locs, names, dates, 120L, 2000:2001, "pairwise")
-
-# Cross: All combinations
-tasks <- .build_tasks(locs, names, dates, 120L, 2000:2001, "cross")
+Build Task List for Weather Fetching
 }
 \keyword{internal}

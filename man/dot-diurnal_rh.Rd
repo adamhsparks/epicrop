@@ -4,46 +4,26 @@
 \alias{.diurnal_rh}
 \title{Calculate hourly relative humidity for a given day}
 \usage{
-.diurnal_rh(rh, tmin, tmax, tmp, lat, doy, yyyymmdd)
+.diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
 }
 \arguments{
-\item{rh}{Mean daily relative humidity as provided by \code{wth}.}
+\item{rh}{Mean daily relative humidity.}
 
-\item{tmin}{Minimum temperature as provided by \code{wth}.}
+\item{tmin}{Minimum temperature.}
 
-\item{tmax}{Maximum temperature as provided by \code{wth}.}
+\item{tmax}{Maximum temperature.}
 
-\item{tmp}{Mean daily temperature as provided by \code{wth}.}
+\item{tmp}{Mean daily temperature.}
 
-\item{lat}{Latitude provided by \code{wth}.}
+\item{lat}{Latitude.}
 
-\item{doy}{Sequential day of year as provided by \code{wth}.}
-
-\item{yyyymmdd}{Date (YYYY-MM-DD) as provided by \code{wth}.}
+\item{doy}{Day of year.}
 }
 \value{
-A numeric vector of relative humidity values over 24 hrs.
+List of numeric vectors (one per day, 24 values each).
 }
 \description{
-Uses mean rh, doy, location (lat), mean tmp, tmin and tmax to calculate
-hourly rh values.
-}
-\examples{
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30")
-)
-
-.diurnal_rh(
-  rh = wth$RHUM,
-  tmin = wth$TMIN,
-  tmax = wth$TMAX,
-  tmp = wth$TEMP,
-  lat = wth$LAT,
-  doy = wth$DOY,
-  yyyymmdd = wth$YYYYMMDD
-)
-
+Calculate hourly relative humidity for a given day
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

@@ -1,5 +1,3 @@
-# AUDPC calculation tests -----------------------------------------------------
-
 test_that("setup: weather OK", {
   skip_if(
     !exists("wth_formatted") ||
@@ -37,8 +35,6 @@ rice_models <- list(
   sheath_blight,
   tungro
 )
-
-# --- Shared fixture ----------------------------------------------------------
 
 .emergence <- "2000-07-01"
 
@@ -110,10 +106,6 @@ test_that("AUDPC is zero when no disease occurs", {
   expect_equal(.get_audpc(result), 0, tolerance = 1e-6)
 })
 
-# =============================================================================
-# Functional relationships: AUDPC vs intensity, vs duration
-# =============================================================================
-
 test_that("AUDPC increases with disease intensity", {
   base <- bacterial_blight(wth_formatted, emergence = .emergence)
 
@@ -164,10 +156,6 @@ test_that("AUDPC scales with simulation duration", {
   expect_gt(.get_audpc(long), .get_audpc(short))
 })
 
-# =============================================================================
-# Presence & reproducibility across models
-# =============================================================================
-
 test_that("AUDPC is present in all disease models and > 0", {
   for (fn in rice_models) {
     result <- fn(wth_formatted, .emergence)
@@ -185,10 +173,6 @@ test_that("AUDPC is reproducible", {
 
   expect_equal(.get_audpc(r1), .get_audpc(r2))
 })
-
-# =============================================================================
-# Bounding & integrity
-# =============================================================================
 
 test_that("AUDPC is bounded by maximum possible value", {
   result <- bacterial_blight(wth_formatted, .emergence)

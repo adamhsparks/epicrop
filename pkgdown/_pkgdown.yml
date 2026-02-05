@@ -6,7 +6,7 @@ url: https://adamhsparks.codeberg.page/epicrop/
 reference:
   - title: Helper Functions for Rice Disease Simulations
     desc: |
-      Run `epicrop_sim()` using pre-defined models
+      Run `seir()` using pre-defined models
     contents:
       - bacterial_blight
       - brown_spot
@@ -25,7 +25,7 @@ reference:
   - title: SEIR
     desc: |
       A susceptible-exposed-infectious-removed (SEIR) model and the main function that drives {epicrop}
-    contents: epicrop_sim
+    contents: seir
   - title: Weather Data
     desc: |
       Functions for fetching and formatting weather data for use in {epicrop}

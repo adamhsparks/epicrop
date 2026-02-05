@@ -2,32 +2,22 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.calculate_weighted_hr_wet}
 \alias{.calculate_weighted_hr_wet}
-\title{Calculates the weighted hourly leaf wetness value}
+\title{Calculate weighted hourly leaf wetness}
 \usage{
 .calculate_weighted_hr_wet(rh, rhlim)
 }
 \arguments{
-\item{rh}{A numeric vector of relative humidity values.}
+\item{rh}{Hourly RH values (\%).}
 
-\item{rhlim}{The relative humidity threshold to check against between \code{80} &
-\code{100}.}
+\item{rhlim}{RH threshold for full wetness (\%).}
 }
 \value{
-A \code{vector} of weighted values between 0 and 1 depending on the
-\code{rhlim}.
+Weighted wetness values [0, 1].
 }
 \description{
-Calculates the weighted hourly leaf wetness value
-}
-\note{
-This functionality is just a placeholder for future possible work.
-This particular function is set up but not exposed to users yet.
-}
-\examples{
-.calculate_weighted_hr_wet(rh = 86, rhlim = 95)
-
+Calculate weighted hourly leaf wetness
 }
 \author{
-Adam H. Sparks, \email{adamhsparks@gmail.com}
+Adam H. Sparks
 }
 \keyword{internal}

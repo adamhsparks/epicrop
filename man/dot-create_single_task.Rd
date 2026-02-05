@@ -14,38 +14,7 @@
   years
 )
 }
-\arguments{
-\item{locations}{Normalized location matrix.}
-
-\item{location_names}{Character vector of location names.}
-
-\item{loc_idx}{Integer index for which location to use.}
-
-\item{sd_char}{Character vector of all start dates.}
-
-\item{date_idx}{Integer index for which date to use.}
-
-\item{dur}{Integer duration in days.}
-
-\item{years}{Integer vector of years (for month-day dates).}
-}
-\value{
-A list with elements: location_id, location_name, lonlat, start_chr,
-duration.
-}
 \description{
-Builds one task structure containing all information needed to fetch weather
-for a specific location, date, and duration combination.
-}
-\examples{
-locs <- matrix(c(121.25, 14.16), ncol = 2)
-colnames(locs) <- c("LON", "LAT")
-task <- .create_single_task(locs, "Site_A", 1L, c("06-01", "06-15"), 1L,
-                            120L, 2000:2001)
-# $location_id: 1
-# $location_name: "Site_A"
-# $lonlat: c(121.25, 14.16)
-# $start_chr: "2000-06-01"
-# $duration: 485 (covers 2000 and 2001)
+Create a Single Task for Weather Fetching
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/audpc.R
 \name{get_audpc}
 \alias{get_audpc}
-\title{Get the AUDPC from an epicrop_sim Object}
+\title{Get the AUDPC from an seir Object}
 \usage{
 get_audpc(x)
 }

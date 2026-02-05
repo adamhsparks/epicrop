@@ -6,21 +6,7 @@
 \usage{
 .normalize_md(x_chr)
 }
-\arguments{
-\item{x_chr}{Character vector of month-day strings.}
-}
-\value{
-Character vector of normalized "MM-DD" strings.
-}
 \description{
-Converts various month-day formats (e.g., "6-30", "-06-30", "6/15") to
-standardized "MM-DD" format with zero-padding.
-}
-\examples{
-.normalize_md(c("-06-30", "6-15", "12/1"))
-# [1] "06-30" "06-15" "12-01"
-
-.normalize_md("-6-1")
-# [1] "06-01"
+Normalize Month-Day Strings to MM-DD Format
 }
 \keyword{internal}

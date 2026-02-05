@@ -11,14 +11,15 @@
 #' @param RRS Optional custom senescence rate (scalar, vector, or function).
 #' @param ... Other parameters passed to `seir()` allowing the user to override
 #'   the default values from published papers.
+#'
 #' @references
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. (2012).
 #' Modeling and mapping potential epidemics of rice diseases globally.
 #' *Crop Protection*, 34: 6-17. \doi{10.1016/j.cropro.2011.11.009}
 #'
 #' Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
-#' Predicting potential epidemics of rice leaf blast and sheath blight in South
-#' Korea. *Agricultural and Forest Meteorology*, 203: 191-207.
+#' Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
+#' *Agricultural and Forest Meteorology*, 203: 191-207.
 #' \doi{10.1016/j.agrformet.2015.01.011}
 #'
 #' Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
@@ -44,20 +45,21 @@ bacterial_blight <- function(
   seir(
     wth = wth,
     emergence = emergence,
+    RcA = RcA %||% .RcA_bacterial_blight,
+    RcT = RcT %||% .RcT_bacterial_blight,
     onset = 20L,
     duration = 120L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 100L,
     I0 = 1L,
-    RcA = RcA %||% .RcA_bacterial_blight,
-    RcT = RcT %||% .RcT_bacterial_blight,
     RcOpt = 0.87,
     p = 5L,
     i = 30L,
     Sx = 3200L,
     a = 4L,
     simple_wetness = TRUE,
+    age_driver = "day",
     ...
   )
 }
@@ -76,20 +78,21 @@ brown_spot <- function(
   seir(
     wth = wth,
     emergence = emergence,
+    RcA = RcA %||% .RcA_brown_spot,
+    RcT = RcT %||% .RcT_brown_spot,
     onset = 20L,
     duration = 120L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 600L,
     I0 = 1L,
-    RcA = RcA %||% .RcA_brown_spot,
-    RcT = RcT %||% .RcT_brown_spot,
     RcOpt = 0.61,
     p = 6L,
     i = 19L,
     a = 1L,
     Sx = 100000L,
     simple_wetness = TRUE,
+    age_driver = "day",
     ...
   )
 }
@@ -108,20 +111,21 @@ leaf_blast <- function(
   seir(
     wth = wth,
     emergence = emergence,
+    RcA = RcA %||% .RcA_leaf_blast,
+    RcT = RcT %||% .RcT_leaf_blast,
     onset = 15L,
     duration = 120L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 600L,
     I0 = 1L,
-    RcA = RcA %||% .RcA_leaf_blast,
-    RcT = RcT %||% .RcT_leaf_blast,
     RcOpt = 1.14,
     p = 5L,
     i = 20L,
     a = 1L,
     Sx = 30000L,
     simple_wetness = TRUE,
+    age_driver = "day",
     ...
   )
 }
@@ -140,20 +144,21 @@ sheath_blight <- function(
   seir(
     wth = wth,
     emergence = emergence,
+    RcA = RcA %||% .RcA_sheath_blight,
+    RcT = RcT %||% .RcT_sheath_blight,
     onset = 30L,
     duration = 120L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 25L,
     I0 = 1L,
-    RcA = RcA %||% .RcA_sheath_blight,
-    RcT = RcT %||% .RcT_sheath_blight,
     RcOpt = 0.46,
     p = 3L,
     i = 120L,
     Sx = 800L,
     a = 2.8,
     simple_wetness = TRUE,
+    age_driver = "day",
     ...
   )
 }
@@ -172,20 +177,21 @@ tungro <- function(
   seir(
     wth = wth,
     emergence = emergence,
+    RcA = RcA %||% .RcA_tungro,
+    RcT = RcT %||% .RcT_tungro,
     onset = 25L,
     duration = 120L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 100L,
     I0 = 1L,
-    RcA = RcA %||% .RcA_tungro,
-    RcT = RcT %||% .RcT_tungro,
     RcOpt = 0.18,
     p = 6L,
     i = 120L,
     Sx = 100L,
     a = 1L,
     simple_wetness = TRUE,
+    age_driver = "day",
     ...
   )
 }
@@ -204,21 +210,22 @@ modified_kim_leaf_blast <- function(
   seir(
     wth = wth,
     emergence = emergence,
+    RcA = RcA %||% .RcA_modified_kim_leaf_blast,
+    RcT = RcT %||% .RcT_modified_kim_leaf_blast,
+    RRG = RRG %||% .RRG_modified_kim_leaf_blast,
     onset = 15L,
     duration = 77L,
     rhlim = 90L,
     rainlim = 5L,
     H0 = 600L,
     I0 = 1L,
-    RcA = RcA %||% .RcA_modified_kim_leaf_blast,
-    RcT = RcT %||% .RcT_modified_kim_leaf_blast,
     RcOpt = 0.86,
     p = 4L,
     i = 20L,
     a = 1L,
     Sx = 90000L,
-    RRG = RRG %||% .RRG_modified_kim_leaf_blast,
     simple_wetness = TRUE,
+    age_driver = "day",
     ...
   )
 }
@@ -237,28 +244,29 @@ modified_kim_sheath_blight <- function(
   seir(
     wth = wth,
     emergence = emergence,
+    RcA = RcA %||% .RcA_modified_kim_sheath_blight,
+    RcT = RcT %||% .RcT_modified_kim_sheath_blight,
+    RRG = RRG %||% .RRG_modified_kim_sheath_blight,
     onset = 30L,
     duration = 88L,
     rhlim = 95L,
     rainlim = 5L,
     H0 = 90L,
     I0 = 1L,
-    RcA = RcA %||% .RcA_modified_kim_sheath_blight,
-    RcT = RcT %||% .RcT_modified_kim_sheath_blight,
     RcOpt = 0.58,
     p = 4L,
     i = 65L,
     Sx = 800L,
     a = 2.8,
-    RRG = RRG %||% .RRG_modified_kim_sheath_blight,
     simple_wetness = TRUE,
+    age_driver = "day",
     ...
   )
 }
 
 #' @rdname disease_models
 #' @export
-leaf_rust <- function(wth, emergence, RcA = NULL, RcT = NULL, RRG = NULL, ...) {
+leaf_rust <- function(wth, emergence, RcA = NULL, RcT = NULL, ...) {
   seir(
     wth = wth,
     emergence = emergence,
@@ -276,6 +284,8 @@ leaf_rust <- function(wth, emergence, RcA = NULL, RcT = NULL, RRG = NULL, ...) {
     i = 31L,
     Sx = 750000L,
     a = 1L,
+    age_driver = "dvs",
+    thermal_time = list(base_temp = 0, gdd_to_maturity = 1500),
     simple_wetness = TRUE,
     ...
   )
@@ -288,7 +298,6 @@ s_tritici_blotch <- function(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRG = NULL,
   ...
 ) {
   seir(
@@ -308,6 +317,8 @@ s_tritici_blotch <- function(
     i = 18L,
     Sx = 174000L,
     a = 1L,
+    age_driver = "dvs",
+    thermal_time = list(base_temp = 0, gdd_to_maturity = 1500),
     simple_wetness = TRUE,
     ...
   )

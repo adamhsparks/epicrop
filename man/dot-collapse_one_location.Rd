@@ -6,22 +6,7 @@
 \usage{
 .collapse_one_location(tsks)
 }
-\arguments{
-\item{tsks}{List of tasks for one location.}
-}
-\value{
-A single task covering the entire date range needed.
-}
 \description{
-Takes all tasks for a single location and finds the minimum start date and
-maximum end date to create one efficient fetch covering all requests.
-}
-\examples{
-tasks <- list(
-  list(location_id = 1L, start_chr = "2000-06-01", duration = 120L),
-  list(location_id = 1L, start_chr = "2000-06-30", duration = 120L)
-)
-.collapse_one_location(tasks)
-# Single task: start = "2000-06-01", duration = 149
+Collapse Tasks for One Location
 }
 \keyword{internal}

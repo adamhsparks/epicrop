@@ -1,8 +1,8 @@
 # Helper that loads the epicrop.sim object for all tests.
 # Adjust filename if needed.
-epicrop_sim <- test_path("testdata", "epicrop_sim.rda")
-load(epicrop_sim) # loads object 'epicrop.sim'
-epicrop_sim <- bb_sim # rename for clarity in tests
+seir <- test_path("testdata", "seir.rda")
+load(seir) # loads object 'epicrop.sim'
+seir <- bb_sim # rename for clarity in tests
 
 test_that("audpc_dt() errors with non-epicrop.sim input", {
   expect_error(
@@ -22,7 +22,7 @@ test_that("audpc_dt() errors with non-epicrop.sim input", {
 })
 
 test_that("audpc_dt() returns a data.table with expected four columns", {
-  out <- audpc_dt(epicrop_sim)
+  out <- audpc_dt(seir)
 
   # Class and structure
   expect_s3_class(out, "data.table")
@@ -41,7 +41,7 @@ test_that("audpc_dt() returns a data.table with expected four columns", {
 })
 
 test_that("audpc_dt() sets key to emergence and ordering reflects the key", {
-  out <- audpc_dt(epicrop_sim)
+  out <- audpc_dt(seir)
 
   # data.table key
   expect_identical(data.table::key(out), "emergence")
@@ -49,7 +49,7 @@ test_that("audpc_dt() sets key to emergence and ordering reflects the key", {
 
 test_that("audpc_dt() removes duplicate rows on the five selected columns", {
   # Create a version with deliberate duplicated rows on the five columns
-  x <- data.table::copy(epicrop_sim)
+  x <- data.table::copy(seir)
 
   # If epicrop.sim has additional columns, we can still duplicate rows;
   # audpc_dt() will subset to the five columns, then unique().
@@ -67,7 +67,7 @@ test_that("audpc_dt() removes duplicate rows on the five selected columns", {
     setdiff(class(x), "epicrop.sim")
   ))
 
-  # these next two lines come from epicrop_sim.R to calculate AUDPC and add it
+  # these next two lines come from seir.R to calculate AUDPC and add it
   # as an attribute to the epicrop.sim object
   audpc_value <- .calculate_audpc(x$intensity)
   data.table::setattr(x, "AUDPC", audpc_value)
@@ -96,7 +96,7 @@ test_that("audpc_dt() removes duplicate rows on the five selected columns", {
 })
 
 test_that("audpc_dt() does not key or mutate the input by reference", {
-  x <- data.table::copy(epicrop_sim)
+  x <- data.table::copy(seir)
   # Remove any keys from the copy to know baseline
   if (!is.null(data.table::key(x))) {
     data.table::setkey(x, NULL)
@@ -110,13 +110,13 @@ test_that("audpc_dt() does not key or mutate the input by reference", {
 })
 
 test_that("audpc_dt() tolerates factors/characters for grouping fields", {
-  dt_char <- data.table::copy(epicrop_sim)
+  dt_char <- data.table::copy(seir)
   # Force to character
   dt_char[, emergence := as.character(dates)]
   out_char <- audpc_dt(dt_char)
   expect_s3_class(out_char, "data.table")
 
-  dt_fac <- data.table::copy(epicrop_sim)
+  dt_fac <- data.table::copy(seir)
   dt_fac[, emergence := as.factor(dates)]
   out_fac <- audpc_dt(dt_fac)
   expect_s3_class(out_fac, "data.table")
@@ -141,7 +141,7 @@ test_that("audpc_dt() tolerates factors/characters for grouping fields", {
 
 test_that("audpc_dt() fails informatively if required columns are missing", {
   # Start from a valid epicrop.sim object but drop a required column
-  dt_bad <- data.table::copy(epicrop_sim)
+  dt_bad <- data.table::copy(seir)
   # Ensure it still has class epicrop.sim so we reach the .SDcols selection
   class(dt_bad) <- unique(c(
     "epicrop.sim",

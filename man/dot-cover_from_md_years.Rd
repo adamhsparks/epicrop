@@ -6,31 +6,7 @@
 \usage{
 .cover_from_md_years(md_mmdd, yrs, window_days)
 }
-\arguments{
-\item{md_mmdd}{Character month-day string in "MM-DD" format.}
-
-\item{yrs}{Integer vector of years.}
-
-\item{window_days}{Integer growing season duration in days.}
-}
-\value{
-A list with elements: start_chr (earliest date), duration
-(total days).
-}
 \description{
-Given a month-day string and a vector of years, calculates the earliest start
-date and total duration needed to cover all year × month-day combinations
-plus the growing season duration.
-}
-\examples{
-# Single year
-.cover_from_md_years("06-30", 2000L, 120L)
-# $start_chr: "2000-06-30"
-# $duration: 120
-
-# Multiple years - spans from first to last + duration
-.cover_from_md_years("06-30", 2000:2002, 120L)
-# $start_chr: "2000-06-30"
-# $duration: 850 (from 2000-06-30 to 2002-10-27)
+Calculate Date Coverage Window from Month-Day and Years
 }
 \keyword{internal}

@@ -15,11 +15,4 @@ A validated IDate object.
 \description{
 Validates Dates, Normally the Emergence Date
 }
-\examples{
-# passes
-.validate_emergence("2023-10-15")
-
-# fails
- .validate_emergence("120-100-2023")
-}
 \keyword{internal}

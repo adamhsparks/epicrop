@@ -6,22 +6,7 @@
 \usage{
 .collapse_tasks_by_location(tasks)
 }
-\arguments{
-\item{tasks}{List of tasks from \code{.build_tasks()}.}
-}
-\value{
-List of collapsed tasks (one per location) with extended durations.
-}
 \description{
-Groups tasks by location and collapses overlapping date ranges to minimize
-the number of API calls needed.
-}
-\examples{
-# If you have 3 tasks for same location with dates:
-# Task 1: 2000-06-01 for 120 days
-# Task 2: 2000-06-15 for 120 days
-# Task 3: 2000-06-30 for 120 days
-# This collapses to:
-# Task: 2000-06-01 for 149 days (covers all three + durations)
+Collapse Tasks by Location for Efficient API Calls
 }
 \keyword{internal}

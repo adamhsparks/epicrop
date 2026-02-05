@@ -6,32 +6,7 @@
 \usage{
 .resolve_location_names(locations, location_names)
 }
-\arguments{
-\item{locations}{A normalized location matrix (from \code{.norm_locations()}).}
-
-\item{location_names}{Optional character vector of names, or NULL.}
-}
-\value{
-A character vector of location names (length = number of locations).
-}
 \description{
-Determines location names from explicit argument, matrix rownames, or
-generates default names.
-}
-\examples{
-# With explicit names
-locs <- matrix(c(121.25, 14.16, 120.98, 14.60), ncol = 2, byrow = TRUE)
-colnames(locs) <- c("LON", "LAT")
-.resolve_location_names(locs, c("Site_A", "Site_B"))
-# [1] "Site_A" "Site_B"
-
-# With rownames
-rownames(locs) <- c("IRRI", "Manila")
-.resolve_location_names(locs, NULL)
-# [1] "IRRI"   "Manila"
-
-# Auto-generated
-.resolve_location_names(locs, NULL)
-# [1] "location01" "location02"
+Resolve Location Names
 }
 \keyword{internal}

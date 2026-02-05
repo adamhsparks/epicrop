@@ -2,38 +2,26 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.day_length}
 \alias{.day_length}
-\title{Calculate day length for a given latitude on a given date}
+\title{Calculate day length for a given latitude and date}
 \usage{
 .day_length(lat, doy)
 }
 \arguments{
-\item{lat}{Latitude as provided by \code{wth}.}
+\item{lat}{Latitude (degrees).}
 
-\item{doy}{Sequential day of year (Julian date) as provided by \code{wth} via
-\code{\link[=seir]{seir()}}.}
+\item{doy}{Day of year (1-365).}
 }
 \value{
-A numeric vector of daylight hours based on latitude and date.
+Numeric day length in hours.
 }
 \description{
-Calculate day length for a given latitude on a given date
-}
-\examples{
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
-)
-.day_length(lat = wth[, LAT], doy = wth[, DOY])
-
+Calculate day length for a given latitude and date
 }
 \references{
-William C. Forsythe and Edward J. Rykiel and Randal S. Stahl and Hsin-i Wu
-and Robert M. Schoolfield.  Ecological Modeling, Volume 80 (1995) pp.  87-95,
-"A Model Comparison for Day Length as a Function of Latitude and Day of the
-Year", \doi{10.1016/0304-3800(94)00034-F}
+Forsythe et al. (1995) Ecological Modeling 80:87-95.
+\doi{10.1016/0304-3800(94)00034-F}
 }
 \author{
-Robert J. Hijmans, modifications by Adam H. Sparks,
-\email{adamhsparks@gmail.com}
+Robert J. Hijmans, modifications by Adam H. Sparks
 }
 \keyword{internal}

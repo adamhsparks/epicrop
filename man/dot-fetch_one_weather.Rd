@@ -6,23 +6,7 @@
 \usage{
 .fetch_one_weather(task)
 }
-\arguments{
-\item{task}{A task list with elements: lonlat, start_chr, duration.}
-}
-\value{
-An \code{epicrop.wth.list} object containing weather data split by year.
-}
 \description{
-Fetches weather data for a single location/date/duration combination and
-splits the result by calendar year.
-}
-\examples{
-task <- list(
-  lonlat = c(121.25, 14.16),
-  start_chr = "2000-06-01",
-  duration = 120L
-)
-wth <- .fetch_one_weather(task)
-# Returns list with elements: $`2000`, potentially $`2001`
+Fetch Weather Data for One Task
 }
 \keyword{internal}

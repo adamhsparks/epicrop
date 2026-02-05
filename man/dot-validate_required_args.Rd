@@ -6,25 +6,7 @@
 \usage{
 .validate_required_args(lonlat, start_date, duration)
 }
-\arguments{
-\item{lonlat}{The lonlat argument from the parent function.}
-
-\item{start_date}{The start_date argument from the parent function.}
-
-\item{duration}{The duration argument from the parent function.}
-}
-\value{
-NULL (invisible). Aborts with error if validation fails.
-}
 \description{
-Checks that \code{lonlat}, \code{start_date}, and \code{duration} are provided and gives
-helpful error messages with examples if any are missing.
-}
-\examples{
-# This will abort with helpful message
-.validate_required_args(missing_arg(), "2000-06-01", 120)
-
-# This passes
-.validate_required_args(c(121.25, 14.16), "2000-06-01", 120)
+Validate Required Arguments
 }
 \keyword{internal}

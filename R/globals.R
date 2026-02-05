@@ -4,15 +4,10 @@ utils::globalVariables(c(
   "location", # <audpc_dt>
   "emergence", # <audpc_dt>
   "AUDPC", # <audpc_dt>
-  "YYYYMMDD", # <.fetch_one_weather>
   "DOY", # <format_wth>
   "YYYYMMDD", # <get_wth>
-  "location", # <run_epicrop_model>
-  "YYYYMMDD", # <.make_slicer>
-  "emergence", # <.make_runner>
-  "AUDPC", # <.make_runner>
-  "emergence", # <.assemble_results>
-  "AUDPC", # <.assemble_results>
+  "dates", # <seir>
+  "YYYYMMDD", # <seir>
   "lat", # <seir>
   "lon", # <seir>
   NULL

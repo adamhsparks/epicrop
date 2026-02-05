@@ -6,29 +6,7 @@
 \usage{
 .resolve_date_and_duration(d_str, dur, years)
 }
-\arguments{
-\item{d_str}{Character date string.}
-
-\item{dur}{Integer duration in days.}
-
-\item{years}{Integer vector of years (for month-day dates).}
-}
-\value{
-A list with elements: start_chr (character date), duration (integer).
-}
 \description{
-Converts a date string (either ISO YYYY-MM-DD or month-day MM-DD) to a final
-start date and duration, expanding month-day values across years if needed.
-}
-\examples{
-# ISO date - pass through
-.resolve_date_and_duration("2000-06-30", 120L, NULL)
-# $start_chr: "2000-06-30"
-# $duration: 120
-
-# Month-day across multiple years
-.resolve_date_and_duration("06-30", 120L, 2000:2002)
-# $start_chr: "2000-06-30"
-# $duration: 850 (2000-06-30 to 2002-10-27)
+Resolve Date String and Calculate Duration
 }
 \keyword{internal}

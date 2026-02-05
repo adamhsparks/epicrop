@@ -47,16 +47,10 @@ test_that("setup: extended weather available", {
 }
 
 
-# --- Modes to test -----------------------------------------------------------
-
 modes <- list(
   unweighted = FALSE,
   weighted = TRUE
 )
-
-# =============================================================================
-# .calculate_leaf_wetness — basic behavior across modes
-# =============================================================================
 
 test_that(".calculate_leaf_wetness returns valid wet-hours (both modes)", {
   for (nm in names(modes)) {
@@ -88,9 +82,6 @@ test_that(".calculate_leaf_wetness falls back to binary without TMIN/TMAX (unwei
   expect_true(all(res %in% c(0, 24)))
 })
 
-# =============================================================================
-# .calculate_leaf_wetness — missing columns / NA handling
-# =============================================================================
 
 test_that(".calculate_leaf_wetness errors when RHUM or DOY are missing; handles missing RAIN", {
   cases <- list(
@@ -149,10 +140,6 @@ test_that(".calculate_leaf_wetness requires LAT for hourly calculation", {
   )
 })
 
-# =============================================================================
-# Rainfall effects & bounding
-# =============================================================================
-
 test_that("leaf wetness increases with rainfall (unweighted)", {
   w_no_rain <- data.table::copy(wth_formatted)
   w_no_rain$RAIN <- 0
@@ -174,10 +161,6 @@ test_that("leaf wetness is bounded at 24 hours under extreme conditions", {
   expect_true(all(res <= 24))
 })
 
-# =============================================================================
-# .diurnal_rh and .diurnal_temp
-# =============================================================================
-
 test_that(".diurnal_rh returns 24-hour RH values (single day)", {
   res <- epicrop:::.diurnal_rh(
     rh = wth_formatted$RHUM[1],
@@ -185,8 +168,7 @@ test_that(".diurnal_rh returns 24-hour RH values (single day)", {
     tmax = wth_formatted$TMAX[1],
     tmp = wth_formatted$TEMP[1],
     lat = wth_formatted$LAT[1],
-    doy = wth_formatted$DOY[1],
-    yyyymmdd = wth_formatted$YYYYMMDD[1]
+    doy = wth_formatted$DOY[1]
   )
 
   expect_type(res, "list")
@@ -218,10 +200,6 @@ test_that(".diurnal_temp returns 24-hour temperatures (single day) and supports 
   expect_length(res3, 72)
 })
 
-# =============================================================================
-# .day_length
-# =============================================================================
-
 test_that(".day_length returns reasonable daylight hours and is vectorized", {
   r1 <- epicrop:::.day_length(lat = 14.6774, doy = 182)
   expect_length(r1, 1)
@@ -248,10 +226,6 @@ test_that(".day_length varies with latitude and season", {
   expect_gt(summer, winter)
 })
 
-# =============================================================================
-# .saturated_vapour_pressure
-# =============================================================================
-
 test_that(".saturated_vapour_pressure basic properties and vectorization", {
   es1 <- epicrop:::.saturated_vapour_pressure(25)
   expect_type(es1, "double")
@@ -272,22 +246,6 @@ test_that(".saturated_vapour_pressure basic properties and vectorization", {
   expect_lt(es0, 1)
 })
 
-# =============================================================================
-# .check_threshold and .calculate_weighted_hr_wet
-# =============================================================================
-
-test_that(".check_threshold counts wet hours correctly across scenarios", {
-  scenarios <- list(
-    all_above = list(rh = rep(95, 24), expect = 24L),
-    half_above = list(rh = c(rep(95, 12), rep(80, 12)), expect = 12L),
-    none_above = list(rh = rep(70, 24), expect = 0L)
-  )
-  for (nm in names(scenarios)) {
-    sc <- scenarios[[nm]]
-    got <- epicrop:::.check_threshold(rh_hr = sc$rh, rhlim = 90)
-    expect_identical(got, sc$expect)
-  }
-})
 
 test_that(".calculate_weighted_hr_wet returns values in [0,1], handles edge cases, and vectorizes", {
   # Range checks and edges
@@ -320,6 +278,6 @@ test_that(".calculate_weighted_hr_wet returns values in [0,1], handles edge case
   # Reject invalid thresholds
   expect_error(
     epicrop:::.calculate_weighted_hr_wet(rh = 85, rhlim = 75),
-    regexp = "below 80"
+    regexp = "must be >= 80" # Match what the error actually says
   )
 })
