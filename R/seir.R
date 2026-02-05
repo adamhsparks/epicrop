@@ -223,66 +223,37 @@ seir <- function(
   RRS = NULL,
   RRG = NULL,
   RcW = NULL,
-  RRLEX = 0,
+  RRLEX = NULL, # fast path: if NULL (or all zero) -> fully skipped
   simple_wetness = TRUE,
   weighted_wetness = FALSE,
   age_driver = c("day", "dvs"),
   thermal_time = NULL,
-  steps_per_day = 1L,
+  steps_per_day = 1L, # kept for API compatibility; not used in pure R
   infection_window = NULL
 ) {
-  .validate_all_inputs(
-    wth = wth,
-    emergence = emergence,
-    onset = onset,
-    duration = duration,
-    rhlim = rhlim,
-    rainlim = rainlim,
-    H0 = H0,
-    I0 = I0,
-    RcOpt = RcOpt,
-    Sx = Sx,
-    a = a,
-    steps_per_day = steps_per_day,
-    simple_wetness = simple_wetness,
-    age_driver = age_driver,
-    RcW = RcW
-  )
-
+  # ---- Arg matching / concise validation ------------------------------------
   age_driver <- rlang::arg_match(age_driver)
-
   if (!inherits(wth, "epicrop.wth")) {
-    cli::cli_abort(
-      c(
-        "{.arg wth} must be an object of class {.class epicrop.wth}",
-        "i" = "Use {.fun get_wth} or {.fun format_wth} to create one"
-      )
-    )
+    cli::cli_abort(c(
+      "{.arg wth} must be of class {.class epicrop.wth}",
+      "i" = "Use {.fun get_wth} or {.fun format_wth} to create one"
+    ))
   }
-
-  # Validate DVS requirements
   if (age_driver == "dvs" && is.null(thermal_time)) {
     cli::cli_abort(
-      "{.arg age_driver} = {.val dvs} requires {.arg thermal_time}",
-      class = "epicrop_missing_thermal_time"
+      "{.arg age_driver} = {.val dvs} requires {.arg thermal_time}"
     )
   }
-
   if (!is.null(infection_window)) {
-    if (!rlang::is_list(infection_window)) {
-      cli::cli_abort("{.arg infection_window} must be a list")
-    }
-
     if (
-      !rlang::has_name(infection_window, "dvs_start") ||
+      !rlang::is_list(infection_window) ||
+        !rlang::has_name(infection_window, "dvs_start") ||
         !rlang::has_name(infection_window, "dvs_end")
     ) {
       cli::cli_abort(
-        "{.arg infection_window} must contain {.field dvs_start} and
-        {.field dvs_end}"
+        "{.arg infection_window} must have {.field dvs_start} and {.field dvs_end}"
       )
     }
-
     thermal_time <- thermal_time %||%
       list(
         base_temp = infection_window$base_temp %||%
@@ -294,312 +265,360 @@ seir <- function(
       )
   }
 
-  # Make working copy
+  # ---- Weather windowing -----------------------------------------------------
   w <- data.table::copy(wth)
+  if (!rlang::has_name(w, "dates")) w[, dates := YYYYMMDD]
 
-  # Create dates column if not present
-  if (!rlang::has_name(w, "dates")) {
-    w[, dates := YYYYMMDD]
-  }
-
-  # Parse emergence
   emergence_date <- .validate_emergence(emergence)
-  emergence_day <- which(w$YYYYMMDD == emergence_date)
-
-  # Check emergence is in weather data FIRST
-  if (length(emergence_day) == 0) {
+  i0 <- which(w$YYYYMMDD == emergence_date)
+  if (!length(i0)) {
+    cli::cli_abort(c(
+      "Emergence date not found in weather data",
+      "x" = "Emergence {.val {emergence_date}} not in range {.val {min(w$YYYYMMDD)}}–{.val {max(w$YYYYMMDD)}}"
+    ))
+  }
+  if ((nrow(w) - i0 + 1) < duration) {
     cli::cli_abort(
-      c(
-        "Emergence date not found in weather data",
-        "x" = "Emergence {.val {emergence_date}} not in weather data range
-        {.val {min(w$YYYYMMDD)}} to {.val {max(w$YYYYMMDD)}}"
-      )
+      "Insufficient weather data to run {duration} days after emergence"
     )
   }
-
-  # NOW calculate available days (safe because emergence_day has length 1)
-  available_days <- nrow(w) - emergence_day + 1
-
-  if (available_days < duration) {
-    cli::cli_abort(
-      c(
-        "Insufficient weather data for simulation duration",
-        "x" = "Duration requires {duration} days but only {available_days}
-        {cli::qty(available_days)}day{?s} available after emergence",
-        "i" = "Emergence date: {.val {emergence_date}}",
-        "i" = "Weather data ends: {.val {max(w$YYYYMMDD)}}"
-      )
-    )
-  }
-
   if (duration < 50) {
-    cli::cli_warn(
-      c(
-        "Short simulation duration may produce unrealistic results",
-        "i" = "Duration is {duration} days (< 50 days recommended minimum)",
-        "i" = "Consider extending the simulation period for more reliable
-        epidemic development"
-      )
-    )
+    cli::cli_warn(c(
+      "Short simulation duration may produce unrealistic dynamics",
+      "i" = "Duration is {duration} days (< 50 recommended)"
+    ))
   }
+  w <- w[i0:(i0 + duration - 1L)]
 
-  # Subset weather to simulation period
-  w <- w[emergence_day:(emergence_day + duration - 1)]
-
-  # Calculate age variable
-  if (age_driver == "dvs") {
-    age_values <- .calculate_dvs(w, thermal_time)
-  } else {
-    age_values <- seq(0, duration - 1, by = 1)
-  }
-
-  # Calculate modifiers
+  # ---- Age driver & modifiers (vectorised) -----------------------------------
+  age_values <- if (age_driver == "dvs") .calculate_dvs(w, thermal_time) else
+    seq(0, duration - 1L)
   Rc_age <- .interp(RcA, age_values)
   Rc_temp <- .interp(RcT, w$TEMP)
 
-  # Wetness modifier
   if (simple_wetness) {
     Rc_wet <- as.numeric((w$RHUM >= rhlim) | (w$RAIN >= rainlim))
   } else {
-    wetness_hours <- .calculate_leaf_wetness(
-      wth = w,
+    wet_hrs <- .calculate_leaf_wetness(
+      w,
       rhlim = rhlim,
       rainlim = rainlim,
       weighted_wetness = weighted_wetness
     )
-
-    if (is.null(RcW)) {
-      Rc_wet <- pmin(1, wetness_hours / 24)
-    } else {
-      Rc_wet <- .interp(RcW, wetness_hours)
-    }
+    Rc_wet <- if (is.null(RcW)) pmin(1, wet_hrs / 24) else .interp(RcW, wet_hrs)
   }
+  Rc <- pmax(0, RcOpt) * pmax(0, Rc_age) * pmax(0, Rc_temp) * pmax(0, Rc_wet)
 
-  # Combined infection rate
-  Rc <- RcOpt * Rc_age * Rc_temp * Rc_wet
-
-  # Apply infection window
   if (!is.null(infection_window)) {
-    window_dvs <- if (age_driver == "dvs") {
-      age_values
-    } else {
+    dvs <- if (age_driver == "dvs") age_values else
       .calculate_dvs(w, thermal_time)
-    }
-    susceptible <- (window_dvs >= infection_window$dvs_start) &
-      (window_dvs <= infection_window$dvs_end)
-    Rc <- Rc * as.numeric(susceptible)
+    Rc <- Rc *
+      as.numeric(
+        dvs >= infection_window$dvs_start & dvs <= infection_window$dvs_end
+      )
   }
 
-  # Other parameters
-  p_days <- if (is.function(p)) p(w$TEMP) else .interp(p, age_values)
-  i_days <- if (is.function(i)) i(w$TEMP) else .interp(i, age_values)
-  RRG_vals <- if (!is.null(RRG)) {
-    .interp(RRG, age_values)
-  } else {
-    rep(0, duration)
+  # ---- Daily drivers (vectorised) --------------------------------------------
+  .as_daily <- function(x) {
+    if (is.function(x)) x(w$TEMP) else if (is.matrix(x) || (length(x) > 1))
+      .interp(x, age_values) else rep(x, duration)
   }
-  RRS_vals <- if (is.null(RRS)) {
-    rep(0, duration)
-  } else if (is.function(RRS)) {
-    RRS(age_values)
-  } else {
-    .interp(RRS, age_values)
+  p_days <- pmax(0, .as_daily(p))
+  i_days <- pmax(0, .as_daily(i))
+  RRG_vals <- if (!is.null(RRG)) pmax(0, .as_daily(RRG)) else numeric(duration)
+  RRS_vals <- if (is.null(RRS)) numeric(duration) else {
+    if (is.function(RRS)) pmax(0, RRS(age_values)) else
+      pmax(0, .interp(RRS, age_values))
   }
-  RRLEX_vals <- if (is.null(RRLEX)) {
-    rep(0, duration)
-  } else {
-    .interp(RRLEX, age_values)
-  }
-  a_vals <- .interp(a, age_values)
+  a_vals <- pmax(1, .interp(a, age_values))
 
-  # Inoculum
-  inoculum <- numeric(duration)
-  inoculum[onset] <- I0
+  # ---- Primary inoculum timing (0-indexed onset) -----------------------------
+  Iprim <- numeric(duration)
+  onset_idx <- onset + 1L
+  if (onset_idx < 1L || onset_idx > duration) {
+    cli::cli_abort(
+      "{.arg onset} out of range for duration={duration} (0-indexed)"
+    )
+  }
+  Iprim[onset_idx] <- I0
 
-  # Initialize state vectors
+  # ---- Fast path decision for lesion expansion -------------------------------
+  lex_on <- FALSE
+  RRLEX_vals <- NULL
+  if (!is.null(RRLEX)) {
+    RRLEX_vals <- pmax(0, .as_daily(RRLEX))
+    lex_on <- any(RRLEX_vals > 0)
+  }
+
+  # ---- Delegate to specialised core (keeps cyclocomp low here) ---------------
+  out <- if (!lex_on) {
+    .seir_core_no_lex(
+      duration,
+      onset_idx,
+      H0,
+      Iprim,
+      Rc,
+      p_days,
+      i_days,
+      RRG_vals,
+      RRS_vals,
+      a_vals,
+      Sx
+    )
+  } else {
+    .seir_core_with_lex(
+      duration,
+      onset_idx,
+      H0,
+      Iprim,
+      Rc,
+      p_days,
+      i_days,
+      RRG_vals,
+      RRS_vals,
+      RRLEX_vals,
+      a_vals,
+      Sx
+    )
+  }
+
+  # ---- Attach calendar + spatial, attributes ---------------------------------
+  out[, `:=`(simday = seq_len(duration), dates = w$dates)]
+  if (rlang::has_name(w, "LAT")) out[, lat := w$LAT[1]]
+  if (rlang::has_name(w, "LON")) out[, lon := w$LON[1]]
+
+  data.table::setcolorder(
+    out,
+    c(
+      "simday",
+      "dates",
+      "sites",
+      "latent",
+      "infectious",
+      "removed",
+      "senesced",
+      "rateinf",
+      "rlex",
+      "rtransfer",
+      "rremoved",
+      "rgrowth",
+      "rsenesced",
+      "diseased",
+      "intensity",
+      intersect(c("lat", "lon"), names(out))
+    )
+  )
+  data.table::setattr(out, "AUDPC", .calculate_audpc(out$intensity))
+  data.table::setattr(out, "class", c("epicrop.sim", class(out)))
+  out[]
+}
+
+# --- Core without lesion expansion (fast path) --------------------------------
+# Uses cumulative sums to avoid O(n) inner-window sums; Cropsim integer delays.
+# Returns a data.table with required columns; rlex is identically zero.
+.seir_core_no_lex <- function(
+  duration,
+  onset_idx,
+  H0,
+  Iprim,
+  Rc,
+  p_days,
+  i_days,
+  RRG_vals,
+  RRS_vals,
+  a_vals,
+  Sx
+) {
   sites <- latent <- infectious <- removed <- senesced <- numeric(duration)
+  latency <- infectious_flow <- numeric(duration)
   rateinf <- rlex <- rtransfer <- rremoved <- rgrowth <- rsenesced <- numeric(
     duration
   )
+  now_latent <- now_infectious <- diseased <- numeric(duration)
+  cs_lat <- cs_inf <- numeric(duration) # cumulative sums
 
-  # Initialize delay history vectors
-  RI_hist <- numeric(duration)
-  BecInf_hist <- numeric(duration)
+  # Day 1
+  sites[1L] <- H0
+  rsenesced[1L] <- RRS_vals[1L] * sites[1L]
+  senesced[1L] <- rsenesced[1L]
+  rgrowth[1L] <- RRG_vals[1L] * sites[1L] * (1 - (sites[1L] / Sx))
+  rateinf[1L] <- if (1L == onset_idx) Iprim[1L] else 0
 
-  sites[1] <- H0
-  dt <- 1.0 / steps_per_day
-  EPSILON <- 1e-15
+  # Loop
+  for (t in 2:duration) {
+    lat_src <- t - floor(p_days[t])
+    inf_src <- t - floor(i_days[t])
 
-  # Fractional back-reference function matching C++
-  backref <- function(hist, d, delay) {
-    if (delay <= 0.0) return(0.0)
+    removed_today <- if (inf_src > 1L) infectious_flow[inf_src - 1L] else 0
 
-    exact_day <- d - delay
-    if (exact_day < 1) return(0.0) # R is 1-indexed
+    sites[t] <- max(
+      0,
+      sites[t - 1L] + rgrowth[t - 1L] - rateinf[t - 1L] - rsenesced[t - 1L]
+    )
+    rsenesced[t] <- removed_today + RRS_vals[t] * sites[t]
+    senesced[t] <- senesced[t - 1L] + rsenesced[t]
 
-    j_lo <- floor(exact_day)
-    j_hi <- ceiling(exact_day)
+    latency[t] <- rateinf[t - 1L]
+    cs_lat[t] <- cs_lat[t - 1L] + latency[t]
 
-    if (j_lo < 1 || j_hi >= d) return(0.0)
+    # sum(latency[max(1, lat_src):t]) via cumulative sums
+    win_lat0 <- if (lat_src > 2L) cs_lat[lat_src - 2L] else 0
+    now_latent[t] <- cs_lat[t] - win_lat0
+    rtransfer[t] <- if (lat_src > 1L) latency[lat_src - 1L] else 0
 
-    frac <- exact_day - j_lo
+    # Infectious (no lesion expansion)
+    infectious_flow[t] <- rtransfer[t]
+    cs_inf[t] <- cs_inf[t - 1L] + infectious_flow[t]
+    win_inf0 <- if (inf_src > 2L) cs_inf[inf_src - 2L] else 0
+    now_infectious[t] <- cs_inf[t] - win_inf0
 
-    v <- (1.0 - frac) * hist[j_lo]
-    if (j_hi != j_lo && j_hi < d) {
-      v <- v + frac * hist[j_hi]
-    }
+    removed[t] <- cs_inf[t] - now_infectious[t]
+    diseased[t] <- cs_inf[t] + now_latent[t] + removed[t]
 
-    return(max(0.0, v))
+    total_cur <- sites[t] + diseased[t]
+    COFR <- if (total_cur > 0) 1 - (diseased[t] / total_cur) else 1
+    COFR <- min(1, max(0, COFR))
+
+    rateinf[t] <- if (t == onset_idx) Iprim[t] else
+      now_infectious[t] * Rc[t] * (COFR^a_vals[t])
+
+    total_sites <- sites[t] + diseased[t]
+    rgrowth[t] <- RRG_vals[t] * sites[t] * (1 - (total_sites / Sx))
   }
 
-  # Main simulation loop
-  for (day in 2:duration) {
-    S <- sites[day - 1]
-    E <- latent[day - 1]
-    I <- infectious[day - 1]
-    R <- removed[day - 1]
-    Sen <- senesced[day - 1]
+  intensity <- ifelse(
+    (sites + now_latent + now_infectious) > 0,
+    (now_latent + now_infectious) / (sites + now_latent + now_infectious),
+    0
+  )
 
-    # Cache daily parameters
-    a_d <- max(1.0, a_vals[day])
-    Rc_d <- max(0.0, Rc[day])
-    rrlex_d <- max(0.0, RRLEX_vals[day])
-    rrs_d <- max(0.0, RRS_vals[day])
-    rrg_d <- max(0.0, RRG_vals[day])
-    p_d <- max(0.0, p_days[day])
-    i_d <- max(0.0, i_days[day])
-    Iprim_d <- max(0.0, inoculum[day])
-
-    # Pre-compute daily delays
-    RT_day <- backref(RI_hist, day, p_d)
-    RREM_day <- backref(BecInf_hist, day, i_d)
-
-    daily_inf <- daily_lex <- daily_trans <- daily_rem <- daily_grw <-
-      daily_sen <- 0
-
-    for (step in 1:steps_per_day) {
-      # COFR calculation matching C++
-      total_prev <- S + E + I + R
-      if (total_prev < EPSILON) total_prev <- EPSILON
-
-      cofr_d <- 1.0 - ((E + I + R) / total_prev)
-      cofr_d <- max(0.0, min(1.0, cofr_d))
-
-      # Aggregation power
-      if (a_d == 1.0) {
-        cofr_pow <- cofr_d
-      } else if (a_d == 2.0) {
-        cofr_pow <- cofr_d * cofr_d
-      } else if (a_d == 3.0) {
-        cofr_pow <- cofr_d * cofr_d * cofr_d
-      } else {
-        cofr_pow <- cofr_d^a_d
-      }
-
-      # Flows (distributed over sub-steps)
-      ri_prim <- Iprim_d * dt
-      ri_sec <- I * Rc_d * cofr_pow * dt
-      ri_step <- ri_prim + ri_sec
-
-      rlex_step <- rrlex_d * I * cofr_d * dt
-      rt_step <- RT_day * dt
-      rrem_step <- RREM_day * dt
-      rsn_step <- rrs_d * S * dt
-      rg_step <- rrg_d * S * (1.0 - (total_prev / Sx)) * dt
-
-      # Flow limiting (priority order: RLEX > RI > RSN)
-      HS_avail <- S + rg_step
-      if (HS_avail < 0.0) HS_avail <- 0.0
-
-      rlex_step <- min(rlex_step, HS_avail)
-      HS_avail <- HS_avail - rlex_step
-
-      ri_step <- min(ri_step, HS_avail)
-      HS_avail <- HS_avail - ri_step
-
-      rsn_step <- min(rsn_step, HS_avail)
-
-      INF_avail <- I + rt_step + rlex_step
-      if (INF_avail < 0.0) INF_avail <- 0.0
-      rrem_step <- min(rrem_step, INF_avail)
-
-      # State updates
-      S <- S + rg_step - ri_step - rlex_step - rsn_step
-      E <- E + ri_step - rt_step
-      I <- I + rt_step + rlex_step - rrem_step
-      R <- R + rrem_step
-      Sen <- Sen + rsn_step
-
-      # Accumulate daily totals
-      daily_inf <- daily_inf + ri_step
-      daily_lex <- daily_lex + rlex_step
-      daily_trans <- daily_trans + rt_step
-      daily_rem <- daily_rem + rrem_step
-      daily_grw <- daily_grw + rg_step
-      daily_sen <- daily_sen + rsn_step
-    }
-
-    # Bounds checking: floor at zero
-    S <- max(0.0, S)
-    E <- max(0.0, E)
-    I <- max(0.0, I)
-    R <- max(0.0, R)
-    Sen <- max(0.0, Sen)
-
-    sites[day] <- S
-    latent[day] <- E
-    infectious[day] <- I
-    removed[day] <- R
-    senesced[day] <- Sen
-
-    rateinf[day] <- daily_inf
-    rlex[day] <- daily_lex
-    rtransfer[day] <- daily_trans
-    rremoved[day] <- daily_rem
-    rgrowth[day] <- daily_grw
-    rsenesced[day] <- daily_sen
-
-    # Update histories
-    RI_hist[day] <- rateinf[day]
-    BecInf_hist[day] <- rtransfer[day] + rlex[day]
-  }
-
-  # Calculate output metrics
-  living <- sites + latent + infectious
-  intensity <- ifelse(living > 0, (latent + infectious) / living, 0)
-
-  # Build output data.table
-  result <- data.table::data.table(
-    simday = 1:duration,
-    dates = w$dates,
+  data.table::data.table(
     sites = sites,
-    latent = latent,
-    infectious = infectious,
+    latent = now_latent,
+    infectious = now_infectious,
+    removed = removed,
+    senesced = senesced,
+    rateinf = rateinf,
+    rlex = numeric(duration),
+    rtransfer = rtransfer,
+    rremoved = c(0, diff(removed)),
+    rgrowth = rgrowth,
+    rsenesced = rsenesced,
+    diseased = diseased,
+    intensity = intensity
+  )
+}
+
+# --- Core with lesion expansion (RRLEX ON) ------------------------------------
+# Computes lesion expansion using a two-stage update to avoid circularity:
+#  1) compute infectious window ignoring today's rlex
+#  2) compute rlex from pre-lex now_infectious & COFR
+#  3) finalise infectious window including rlex
+.seir_core_with_lex <- function(
+  duration,
+  onset_idx,
+  H0,
+  Iprim,
+  Rc,
+  p_days,
+  i_days,
+  RRG_vals,
+  RRS_vals,
+  RRLEX_vals,
+  a_vals,
+  Sx
+) {
+  sites <- latent <- infectious <- removed <- senesced <- numeric(duration)
+  latency <- infectious_flow <- numeric(duration)
+  rateinf <- rlex <- rtransfer <- rremoved <- rgrowth <- rsenesced <- numeric(
+    duration
+  )
+  now_latent <- now_infectious <- diseased <- numeric(duration)
+  cs_lat <- cs_inf <- numeric(duration)
+
+  # Day 1
+  sites[1L] <- H0
+  rsenesced[1L] <- RRS_vals[1L] * sites[1L]
+  senesced[1L] <- rsenesced[1L]
+  rgrowth[1L] <- RRG_vals[1L] * sites[1L] * (1 - (sites[1L] / Sx))
+  rateinf[1L] <- if (1L == onset_idx) Iprim[1L] else 0
+
+  for (t in 2:duration) {
+    lat_src <- t - floor(p_days[t])
+    inf_src <- t - floor(i_days[t])
+
+    removed_today <- if (inf_src > 1L) infectious_flow[inf_src - 1L] else 0
+
+    sites[t] <- max(
+      0,
+      sites[t - 1L] +
+        rgrowth[t - 1L] -
+        rateinf[t - 1L] -
+        rsenesced[t - 1L] -
+        rlex[t - 1L]
+    )
+    rsenesced[t] <- removed_today + RRS_vals[t] * sites[t]
+    senesced[t] <- senesced[t - 1L] + rsenesced[t]
+
+    latency[t] <- rateinf[t - 1L]
+    cs_lat[t] <- cs_lat[t - 1L] + latency[t]
+    win_lat0 <- if (lat_src > 2L) cs_lat[lat_src - 2L] else 0
+    now_latent[t] <- cs_lat[t] - win_lat0
+
+    rtransfer[t] <- if (lat_src > 1L) latency[lat_src - 1L] else 0
+
+    # Stage A: infectious window *before* today's lesion expansion
+    inf_wo_lex <- rtransfer[t]
+    cs_pre <- cs_inf[t - 1L] + inf_wo_lex
+    now_inf_pre <- if (inf_src > 2L) cs_pre - cs_inf[inf_src - 2L] else cs_pre
+
+    # COFR from pre-lex states
+    removed_pre <- cs_pre - now_inf_pre
+    diseased_pre <- cs_pre + now_latent[t] + removed_pre
+    total_cur <- sites[t] + diseased_pre
+    COFR <- if (total_cur > 0) 1 - (diseased_pre / total_cur) else 1
+    COFR <- min(1, max(0, COFR))
+
+    # Today's lesion expansion from pre-lex infectious
+    rlex[t] <- RRLEX_vals[t] * now_inf_pre * max(0, COFR)
+
+    # Finalise infectious window including lesion expansion
+    infectious_flow[t] <- rtransfer[t] + rlex[t]
+    cs_inf[t] <- cs_inf[t - 1L] + infectious_flow[t]
+    now_infectious[t] <- if (inf_src > 2L) cs_inf[t] - cs_inf[inf_src - 2L] else
+      cs_inf[t]
+
+    removed[t] <- cs_inf[t] - now_infectious[t]
+    diseased[t] <- cs_inf[t] + now_latent[t] + removed[t]
+
+    rateinf[t] <- if (t == onset_idx) Iprim[t] else
+      now_infectious[t] * Rc[t] * (COFR^a_vals[t])
+
+    total_sites <- sites[t] + diseased[t]
+    rgrowth[t] <- RRG_vals[t] * sites[t] * (1 - (total_sites / Sx))
+  }
+
+  intensity <- ifelse(
+    (sites + now_latent + now_infectious) > 0,
+    (now_latent + now_infectious) / (sites + now_latent + now_infectious),
+    0
+  )
+
+  data.table::data.table(
+    sites = sites,
+    latent = now_latent,
+    infectious = now_infectious,
     removed = removed,
     senesced = senesced,
     rateinf = rateinf,
     rlex = rlex,
     rtransfer = rtransfer,
-    rremoved = rremoved,
+    rremoved = c(0, diff(removed)),
     rgrowth = rgrowth,
     rsenesced = rsenesced,
-    diseased = latent + infectious + removed,
+    diseased = diseased,
     intensity = intensity
   )
-
-  # Add spatial columns if available
-  if (rlang::has_name(w, "LAT")) {
-    result[, lat := w$LAT[1]]
-  }
-  if (rlang::has_name(w, "LON")) {
-    result[, lon := w$LON[1]]
-  }
-
-  # Add AUDPC attribute
-  data.table::setattr(result, "AUDPC", .calculate_audpc(intensity))
-  data.table::setattr(result, "class", c("epicrop.sim", class(result)))
-
-  result[]
 }
 
 #' Calculate development stage (DVS)

@@ -23,7 +23,7 @@ seir(
   RRS = NULL,
   RRG = NULL,
   RcW = NULL,
-  RRLEX = 0,
+  RRLEX = NULL,
   simple_wetness = TRUE,
   weighted_wetness = FALSE,
   age_driver = c("day", "dvs"),
