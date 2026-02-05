@@ -105,76 +105,118 @@ format_wth <- function(
   lat,
   lon
 ) {
+  # Early return if already formatted
   if (inherits(wth, "epicrop.wth")) {
     cli::cli_warn(
-      call = rlang::caller_env(),
-      "{.var wth} is already an {.cls epicrop.wth} object. No formatting is
-      necessary."
+      "{.var wth} is already an {.cls epicrop.wth} object. No formatting is necessary."
     )
     return(wth)
   }
 
+  # Validate required arguments
   rlang::check_required(c(wth, date, temp, rhum, rain))
 
-  # Get all provided arguments (excluding wth)
-  passed_args <- as.character(match.call())[-c(1L:2L)]
-
-  if (any(passed_args %notin% names(wth))) {
-    not_in <- passed_args[passed_args %notin% names(wth)]
-    cli::cli_abort(
-      call = rlang::caller_env(),
-      "The following columns that you have provided are not in {.var wth}: 
-        {.var {not_in}}."
-    )
+  # Convert to data.table (by reference if already data.table)
+  if (!data.table::is.data.table(wth)) {
+    w <- data.table::as.data.table(wth)
+  } else {
+    w <- data.table::copy(wth)
   }
 
-  wth <- data.table(wth)
-
-  dates <- .validate_emergence(wth[[date]])
-  unique_dates <- length(unique(dates))
-  diff_dates <- diff(dates)
-  nrows <- nrow(wth)
-
-  if ((unique_dates != nrows) || (any(as.numeric(diff_dates) != 1.0))) {
-    cli::cli_abort(
-      call = rlang::caller_env(),
-      "Please check that the values in {.var wth} are on a daily time-step."
-    )
-  }
-  # Build list of columns to rename based on what was provided
-  old_names <- c(date, temp, rhum, rain)
-  new_names <- c("YYYYMMDD", "TEMP", "RHUM", "RAIN")
+  # Build column mapping for renaming
+  col_map <- c(
+    "YYYYMMDD" = date,
+    "TEMP" = temp,
+    "RHUM" = rhum,
+    "RAIN" = rain
+  )
 
   # Add optional columns if provided
   if (!missing(tmin)) {
-    old_names <- c(old_names, tmin)
-    new_names <- c(new_names, "TMIN")
+    col_map["TMIN"] <- tmin
   }
   if (!missing(tmax)) {
-    old_names <- c(old_names, tmax)
-    new_names <- c(new_names, "TMAX")
+    col_map["TMAX"] <- tmax
   }
   if (!missing(lat)) {
-    old_names <- c(old_names, lat)
-    new_names <- c(new_names, "LAT")
+    col_map["LAT"] <- lat
   }
   if (!missing(lon)) {
-    old_names <- c(old_names, lon)
-    new_names <- c(new_names, "LON")
+    col_map["LON"] <- lon
   }
 
-  data.table::setnames(wth, old = old_names, new = new_names)
-  wth <- wth[, new_names, with = FALSE]
+  # Validate all specified columns exist
+  missing_cols <- col_map[!col_map %in% names(w)]
+  if (length(missing_cols) > 0L) {
+    cli::cli_abort(
+      c(
+        "The following columns are not in {.var wth}:",
+        "x" = "{.var {missing_cols}}"
+      )
+    )
+  }
 
-  # Add DOY
-  wth[, DOY := as.integer(as.POSIXlt(wth$YYYYMMDD)$yday)]
+  # Select and rename columns in one operation
+  w <- w[, .SD, .SDcols = col_map]
+  data.table::setnames(w, old = col_map, new = names(col_map))
 
-  data.table::setcolorder(
-    wth,
-    c("YYYYMMDD", "DOY", "TEMP", "TMIN", "TMAX", "RHUM", "RAIN", "LAT", "LON"),
-    skip_absent = TRUE
-  )[]
+  # Convert date to Date class
+  w[, YYYYMMDD := as.Date(YYYYMMDD)]
 
-  class(wth) <- union("epicrop.wth", class(wth))
-  return(wth)
+  # Validate daily data - check for duplicates
+  if (anyDuplicated(w$YYYYMMDD)) {
+    dup_dates <- w[duplicated(YYYYMMDD), YYYYMMDD]
+    cli::cli_abort(
+      c(
+        "Weather data contains duplicate dates",
+        "x" = "Found {length(dup_dates)} duplicate date{?s}",
+        "i" = "First duplicate: {dup_dates[1]}",
+        "i" = "Each date must appear exactly once for daily data"
+      )
+    )
+  }
+
+  # Sort by date for validation and consistency
+  data.table::setorder(w, YYYYMMDD)
+
+  # Validate consecutive daily time-step (no gaps)
+  if (nrow(w) > 1L) {
+    date_diff <- as.integer(diff(w$YYYYMMDD))
+
+    if (!all(date_diff == 1L)) {
+      gaps <- which(date_diff != 1L)
+      gap_sizes <- date_diff[gaps]
+
+      cli::cli_abort(
+        c(
+          "Weather data is not on a daily time-step or has gaps",
+          "x" = "Found {length(gaps)} gap{?s} in date sequence",
+          "i" = "First gap: {gap_sizes[1]} day{?s} between {w$YYYYMMDD[gaps[1]]} and {w$YYYYMMDD[gaps[1] + 1L]}",
+          "i" = "Weather data must be continuous daily observations"
+        )
+      )
+    }
+  }
+
+  # Add DOY (day of year)
+  w[, DOY := data.table::yday(YYYYMMDD)]
+
+  # Set column order
+  col_order <- c(
+    "YYYYMMDD",
+    "DOY",
+    "TEMP",
+    "TMIN",
+    "TMAX",
+    "RHUM",
+    "RAIN",
+    "LAT",
+    "LON"
+  )
+  data.table::setcolorder(w, intersect(col_order, names(w)))
+
+  # Set class
+  data.table::setattr(w, "class", c("epicrop.wth", class(w)))
+
+  w[]
 }

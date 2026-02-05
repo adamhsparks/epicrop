@@ -156,20 +156,34 @@
   rh_hr
 }
 
-#' Calculate hourly temperature for a given day
+#' Calculate hourly temperature for a given day or multiple days
 #'
-#' @param lat Latitude.
-#' @param doy Day of year.
-#' @param tmin Minimum temperature.
-#' @param tmax Maximum temperature.
+#' @param lat Latitude (scalar or vector).
+#' @param doy Day of year (scalar or vector).
+#' @param tmin Minimum temperature (scalar or vector).
+#' @param tmax Maximum temperature (scalar or vector).
 #'
-#' @returns Numeric vector of 24 hourly temperatures.
+#' @returns Numeric vector of 24 hourly temperatures for single day, or
+#'   numeric vector of 24*n hourly temperatures for multiple days.
 #'
 #' @author Robert J. Hijmans with modifications by Adam H. Sparks
 #' @autoglobal
 #' @dev
 .diurnal_temp <- function(lat, doy, tmin, tmax) {
-  # Vectorized day length calculation
+  # Determine length and recycle vectors
+  n <- max(length(lat), length(doy), length(tmin), length(tmax))
+
+  if (n == 0L) {
+    return(numeric(0))
+  }
+
+  # Recycle to common length
+  lat <- rep_len(lat, n)
+  doy <- rep_len(doy, n)
+  tmin <- rep_len(tmin, n)
+  tmax <- rep_len(tmax, n)
+
+  # Calculate day length parameters (vectorized)
   dayl <- .day_length(lat, doy)
   nightl <- 24 - dayl
   sunris <- 12 - 0.5 * dayl
@@ -182,38 +196,51 @@
   exp_night <- exp(-nightl / 4)
   denom <- 1 - exp_night
 
-  # Vectorized hourly calculation
-  hr <- 1:24
-  hr_temp <- numeric(24)
+  # Create expanded grid: n days × 24 hours
+  # Repeat each day's parameters 24 times
+  n_total <- n * 24L
+  day_idx <- rep(seq_len(n), each = 24L)
+  hr <- rep(1:24, times = n)
 
+  # Vectorized parameter lookup
+  tmin_v <- tmin[day_idx]
+  tmax_v <- tmax[day_idx]
+  dayl_v <- dayl[day_idx]
+  sunris_v <- sunris[day_idx]
+  sunset_v <- sunset[day_idx]
+  tsunst_v <- tsunst[day_idx]
+  exp_night_v <- exp_night[day_idx]
+  denom_v <- denom[day_idx]
+
+  # Initialize result
+  hr_temp <- numeric(n_total)
+
+  # Vectorized calculation for all three periods
   # Before sunrise
-  idx_before <- hr < sunris
-  if (any(idx_before)) {
-    hr_temp[idx_before] <- (tmin -
-      tsunst * exp_night +
-      (tsunst - tmin) * exp(-(hr[idx_before] + 24 - sunset) / 4)) /
-      denom
-  }
+  idx_before <- hr < sunris_v
+  hr_temp[idx_before] <- (tmin_v[idx_before] -
+    tsunst_v[idx_before] * exp_night_v[idx_before] +
+    (tsunst_v[idx_before] - tmin_v[idx_before]) *
+      exp(-(hr[idx_before] + 24 - sunset_v[idx_before]) / 4)) /
+    denom_v[idx_before]
 
   # Daytime (sunrise to sunset)
-  idx_day <- hr >= sunris & hr < sunset
-  if (any(idx_day)) {
-    hr_temp[idx_day] <- tmin +
-      (tmax - tmin) *
-        sin(pi * (hr[idx_day] - sunris) / (dayl + 3))
-  }
+  idx_day <- hr >= sunris_v & hr < sunset_v
+  hr_temp[idx_day] <- tmin_v[idx_day] +
+    (tmax_v[idx_day] - tmin_v[idx_day]) *
+      sin(pi * (hr[idx_day] - sunris_v[idx_day]) / (dayl_v[idx_day] + 3))
 
   # After sunset
-  idx_after <- hr >= sunset
-  if (any(idx_after)) {
-    hr_temp[idx_after] <- (tmin -
-      tsunst * exp_night +
-      (tsunst - tmin) * exp(-(hr[idx_after] - sunset) / 4)) /
-      denom
-  }
+  idx_after <- hr >= sunset_v
+  hr_temp[idx_after] <- (tmin_v[idx_after] -
+    tsunst_v[idx_after] * exp_night_v[idx_after] +
+    (tsunst_v[idx_after] - tmin_v[idx_after]) *
+      exp(-(hr[idx_after] - sunset_v[idx_after]) / 4)) /
+    denom_v[idx_after]
 
   hr_temp
 }
+# Sunset temperature
 
 #' Calculate day length for a given latitude and date
 #'

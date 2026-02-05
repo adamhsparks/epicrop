@@ -45,65 +45,113 @@
   sum((intensity[-1L] + intensity[-n]) / 2)
 }
 
-#' Get the AUDPC from an seir Object
+#' Get AUDPC from epicrop.sim Object
 #'
 #' Get the \acronym{AUDPC} value from an \pkg{epicrop} model run object's
 #'  attributes for use in analysis, mapping, or reporting.
-#'
-#' @param x an object of class `epicrop.sim` as returned by any of
-#'  the modelling functions in \pkg{epicrop}.
-#'
-#' @examples
-#' wth <- get_wth(
-#'   lonlat = c(121.25562, 14.6774),
-#'   dates = c("2000-06-30", "2000-12-31")
-#' )
-#' bb <- bacterial_blight(wth, emergence = "2000-07-01")
-#' get_audpc(bb)
-#'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
-#' @returns A scalar numeric double precision value of the AUCPC for the
-#'   given object.
-#' @export
-get_audpc <- function(x) attr(x, "AUDPC")
-
-#' Create an AUDPC data frame for locations and emergence dates
-#' @param x A `data.table` created by `run_epicrop_model()`, `seir()` or
-#'   any one of the disease specific helper functions.
-#' @returns A [data.table::data.table()] suitable for mapping or other analysis.
-#'  If `dt` is from `run_epicrop_model()` directly, the output will be a
-#'  `data.table` with five columns: `lat`, `lon`, `AUDPC`, `location`, and
-#'  `emergence`. If `dt` is from any of the helper functions or directly from
-#'   `seir()`, the output will be a `data.table` with two (or) four
-#'   columns: `lat`*, `lon`*, `AUDPC` and `emergence`. *`lat` and `lon` columns
-#'   must be in the original weather dataset for them to appear.
+#' @param x An `epicrop.sim` object
+#' @returns Numeric AUDPC value
 #' @autoglobal
 #' @export
-
-audpc_dt <- function(x) {
-  if (!rlang::inherits_any(x = x, class = "epicrop.sim")) {
+get_audpc <- function(x) {
+  if (!inherits(x, "epicrop.sim")) {
     cli::cli_abort(
-      "{.var x} must be an `epicrop.sim` object created by
-      {.fun run_epicrop_model}, {.fun seir} or any of the other
-      helper functions that create an `epicrop.sim` object."
+      c(
+        "{.arg x} must be an {.cls epicrop.sim} object",
+        "i" = "Created by {.fun seir} or disease-specific helper functions"
+      )
     )
   }
 
-  if (all(names(x) %in% c("lat", "lon", "AUDPC", "location", "emergence"))) {
-    x <- x[, .SD, .SDcols = c("lat", "lon", "AUDPC", "location", "emergence")]
-    data.table::setkey(x, location, emergence)
-  } else {
-    audpc <- get_audpc(x)
-    if ("lat" %in% names(x) && "lon" %in% names(x)) {
-      x <- x[1, .SD, .SDcols = c("lat", "lon", "dates")]
-    } else {
-      x <- x[1, "dates"]
-    }
-    x[, AUDPC := audpc]
-    data.table::setnames(x, "dates", "emergence")
-    data.table::setcolorder(x, "AUDPC", before = "emergence")
-    x[, emergence := as.factor(emergence)]
-    data.table::setkey(x, emergence)
+  audpc <- attr(x, "AUDPC")
+
+  if (is.null(audpc)) {
+    cli::cli_abort(
+      c(
+        "AUDPC attribute not found in {.arg x}",
+        "i" = "This should be automatically calculated by {.fun seir}"
+      )
+    )
   }
-  return(unique(x[]))
+
+  audpc
+}
+
+#' Extract AUDPC Summary as data.table
+#'
+#' Extracts Area Under Disease Progress Curve (AUDPC) values along with
+#' location and emergence date information from an epicrop.sim object.
+#'
+#' @param x An `epicrop.sim` object from [seir()] or disease model functions.
+#'
+#' @returns A [data.table::data.table()] with columns:
+#'   * `lat`: Latitude (if available)
+#'   * `lon`: Longitude (if available)
+#'   * `AUDPC`: Area under disease progress curve
+#'   * `emergence`: Emergence date (as character)
+#'
+#' @autoglobal
+#' @export
+audpc_dt <- function(x) {
+  # Validate input class
+  if (!inherits(x, "epicrop.sim")) {
+    cli::cli_abort(
+      c(
+        "{.arg x} must be an {.cls epicrop.sim} object",
+        "i" = "Created by {.fun seir} or disease-specific helper functions"
+      )
+    )
+  }
+
+  # Get AUDPC from attribute
+  audpc_val <- attr(x, "AUDPC")
+  if (is.null(audpc_val)) {
+    cli::cli_abort(
+      c(
+        "{.arg x} must contain AUDPC value as attribute",
+        "i" = "This should be automatically added by {.fun seir}"
+      )
+    )
+  }
+
+  # Get emergence date
+  if ("dates" %in% names(x)) {
+    emergence_val <- as.character(x$dates[1])
+  } else if ("emergence" %in% names(x)) {
+    emergence_val <- as.character(x$emergence[1])
+  } else {
+    cli::cli_abort(
+      c(
+        "{.arg x} must contain {.field dates} or {.field emergence} column",
+        "i" = "This should be automatically added by {.fun seir}"
+      )
+    )
+  }
+
+  # Build column list - only add columns that exist
+  cols <- list()
+
+  if ("lat" %in% names(x)) {
+    cols$lat <- x$lat[1]
+  }
+
+  if ("lon" %in% names(x)) {
+    cols$lon <- x$lon[1]
+  }
+
+  cols$AUDPC <- audpc_val
+  cols$emergence <- emergence_val
+
+  # Create data.table from list
+  result <- data.table::as.data.table(cols)
+
+  # Set column order: spatial cols, AUDPC, emergence
+  desired_order <- c("lat", "lon", "AUDPC", "emergence")
+  actual_order <- intersect(desired_order, names(result))
+  data.table::setcolorder(result, actual_order)
+
+  # Set key for sorting/indexing
+  data.table::setkey(result, emergence)
+
+  result[]
 }

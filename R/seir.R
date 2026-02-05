@@ -426,6 +426,7 @@ seir <- function(
   dt <- 1.0 / steps_per_day
 
   # Main simulation loop
+
   for (day in 2:duration) {
     S <- sites[day - 1]
     E <- latent[day - 1]
@@ -439,11 +440,12 @@ seir <- function(
     for (step in 1:steps_per_day) {
       total <- S + E + I
 
-      inf_rate <- if (total > 0 && I > 0) {
+      # Check for valid Rc value and positive totals
+      if (!is.na(Rc[day]) && total > 0 && I > 0) {
         COFR <- 1 - (1 / (1 + a_vals[day] * I / total))
-        Rc[day] * COFR * (I / total) * S
+        inf_rate <- Rc[day] * COFR * (I / total) * S
       } else {
-        0
+        inf_rate <- 0
       }
 
       inf_rate <- inf_rate + inoculum[day] * dt
