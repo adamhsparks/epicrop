@@ -3,110 +3,131 @@
 \name{disease_models}
 \alias{disease_models}
 \alias{bacterial_blight}
-\alias{bb}
 \alias{brown_spot}
-\alias{bs}
 \alias{leaf_blast}
-\alias{lb}
 \alias{sheath_blight}
-\alias{sb}
 \alias{tungro}
-\alias{tg}
 \alias{modified_kim_leaf_blast}
-\alias{mk_lb}
 \alias{modified_kim_sheath_blight}
-\alias{mk_sb}
 \alias{leaf_rust}
-\alias{brown_rust}
-\alias{lr}
 \alias{s_tritici_blotch}
+\alias{bb}
+\alias{bs}
+\alias{lb}
+\alias{sb}
+\alias{tg}
+\alias{mk_lb}
+\alias{mk_sb}
+\alias{lr}
+\alias{brown_rust}
 \alias{stb}
 \title{Rice and Wheat Disease Models}
 \usage{
-bacterial_blight(wth, emergence, ...)
+bacterial_blight(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  ...
+)
 
-bb(wth, emergence, ...)
+brown_spot(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-brown_spot(wth, emergence, ...)
+leaf_blast(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-bs(wth, emergence, ...)
+sheath_blight(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  ...
+)
 
-leaf_blast(wth, emergence, ...)
+tungro(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-lb(wth, emergence, ...)
+modified_kim_leaf_blast(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  ...
+)
 
-sheath_blight(wth, emergence, ...)
+modified_kim_sheath_blight(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  ...
+)
 
-sb(wth, emergence, ...)
+leaf_rust(wth, emergence, RcA = NULL, RcT = NULL, RRG = NULL, ...)
 
-tungro(wth, emergence, ...)
+s_tritici_blotch(wth, emergence, RcA = NULL, RcT = NULL, RRG = NULL, ...)
 
-tg(wth, emergence, ...)
+bb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-modified_kim_leaf_blast(wth, emergence, ...)
+bs(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-mk_lb(wth, emergence, ...)
+lb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-modified_kim_sheath_blight(wth, emergence, ...)
+sb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-mk_sb(wth, emergence, ...)
+tg(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-leaf_rust(wth, emergence, ...)
+mk_lb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-brown_rust(wth, emergence, ...)
+mk_sb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 
-lr(wth, emergence, ...)
+lr(wth, emergence, RcA = NULL, RcT = NULL, RRG = NULL, ...)
 
-s_tritici_blotch(wth, emergence, ...)
+brown_rust(wth, emergence, RcA = NULL, RcT = NULL, RRG = NULL, ...)
 
-stb(wth, emergence, ...)
+stb(wth, emergence, RcA = NULL, RcT = NULL, RRG = NULL, ...)
 }
 \arguments{
-\item{wth}{Weather data with a daily time-step, normally \acronym{NASA}
-\acronym{POWER} data from \code{\link[=get_wth]{get_wth()}}, but any \code{\link[base:data.frame]{base::data.frame()}} object
-that has been formatted using \code{\link[=format_wth]{format_wth()}} will work.}
+\item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or
+\code{\link[=format_wth]{format_wth()}} containing weather on a daily time-step with the following
+field names:\tabular{rl}{
+   \strong{Field Name} \tab \strong{Value} \cr
+   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
+   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
+   \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
+   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
+   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (°C), see TMIN/TMAX Details \cr
+   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (°C), see TMIN/TMAX Details \cr
+   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Details \cr
+   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
+}}
 
-\item{emergence}{Expected date of crop emergence in \code{YYYY-MM-DD} format.}
+\item{emergence}{expected date of plant emergence (or transplanting for rice)
+entered in \code{YYYY-MM-DD} format (character).  Described in Table 1 of Savary
+\emph{et al.} 2012.}
 
-\item{...}{Additional arguments passed to \code{\link[=epicrop_sim]{epicrop_sim()}}.}
-}
-\value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} of disease intensity and infection
-sites. See \code{\link[=epicrop_sim]{epicrop_sim()}} for a full description of the column values.
+\item{RcA}{Optional custom age modifier table (2-column matrix).}
+
+\item{RcT}{Optional custom temperature modifier table (2-column matrix).}
+
+\item{RRS}{Optional custom senescence rate (scalar, vector, or function).}
+
+\item{RRG}{Optional custom growth rate (scalar, vector, or table).}
+
+\item{...}{Other parameters passed to \code{seir()} allowing the user to override
+the default values from published papers.}
 }
 \description{
-Helper functions that provide sensible defaults for disease-specific
-simulations using \code{\link[=epicrop_sim]{epicrop_sim()}}.
+Helper functions with pre-loaded parameter tables for optimal performance.
+Custom parameter tables can be provided to override defaults.
 }
-\section{Available Models}{
-
-
-\strong{Rice Diseases (Savary et al. 2012)}:
-\itemize{
-\item \code{\link[=bacterial_blight]{bacterial_blight()}} / \code{\link[=bb]{bb()}} - Bacterial blight (\emph{Xanthomonas oryzae} pv.
-\emph{oryzae})
-\item \code{\link[=brown_spot]{brown_spot()}} / \code{\link[=bs]{bs()}} - Brown spot (\emph{Cochliobolus miyabeanus})
-\item \code{\link[=leaf_blast]{leaf_blast()}} / \code{\link[=lb]{lb()}} - Leaf blast (\emph{Magnaporthe oryzae})
-\item \code{\link[=sheath_blight]{sheath_blight()}} / \code{\link[=sb]{sb()}} - Sheath blight (\emph{Rhizoctonia solani})
-\item \code{\link[=tungro]{tungro()}} / \code{\link[=tg]{tg()}} - Tungro (\emph{Rice Tungro Spherical Virus} and
-\emph{Rice Tungro Bacilliform Virus})
-}
-
-\strong{Rice Diseases (Kim et al. 2015)}:
-\itemize{
-\item \code{\link[=modified_kim_leaf_blast]{modified_kim_leaf_blast()}} / \code{\link[=mk_lb]{mk_lb()}} - Modified leaf blast model
-\item \code{\link[=modified_kim_sheath_blight]{modified_kim_sheath_blight()}} / \code{\link[=mk_sb]{mk_sb()}} - Modified sheath blight model
-}
-
-\strong{Wheat Diseases (Savary et al. 2015)}:
-\itemize{
-\item \code{\link[=leaf_rust]{leaf_rust()}} / \code{\link[=brown_rust]{brown_rust()}} / \code{\link[=lr]{lr()}} - Leaf/brown rust (\emph{Puccinia
-triticina})
-\item \code{\link[=s_tritici_blotch]{s_tritici_blotch()}} / \code{\link[=stb]{stb()}} - Septoria tritici blotch (\emph{Zymoseptoria
-tritici})
-}
-}
-
 \references{
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. (2012).
 Modeling and mapping potential epidemics of rice diseases globally.
@@ -114,12 +135,12 @@ Modeling and mapping potential epidemics of rice diseases globally.
 
 Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
 Predicting potential epidemics of rice leaf blast and sheath blight in South
-Korea \emph{Agricultural and Forest Meteorology}, 203: 191-207.
-\doi{10.1016/j.agrformet. 2015.01.011}
+Korea. \emph{Agricultural and Forest Meteorology}, 203: 191-207.
+\doi{10.1016/j.agrformet.2015.01.011}
 
 Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
 Modelling and mapping potential epidemics of wheat diseases.
-\emph{European Journal of Plant Pathology}, 142:771-790.
+\emph{European Journal of Plant Pathology}, 142: 771-790.
 \doi{10.1007/s10658-015-0650-7}
 }
 \author{

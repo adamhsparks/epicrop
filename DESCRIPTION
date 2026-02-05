@@ -1,6 +1,6 @@
 Type: Package
 Package: epicrop
-Title: Simulation Modelling of Crop Diseases
+Title: SEIR Simulation Modelling of Crop Diseases
 Version: 1.0.0.9000
 Authors@R: c(
     person("Adam H.", "Sparks", , "adamhsparks@gmail.com", role = c("cre", "aut"),
@@ -46,8 +46,8 @@ Depends:
 Imports:
     cli,
     data.table,
+    memoise,
     nasapower (>= 4.0),
-    Rcpp,
     rlang,
     stats
 Suggests:
@@ -62,8 +62,6 @@ Suggests:
     testthat,
     vcr (>= 0.6.0),
     withr
-LinkingTo:
-    Rcpp
 VignetteBuilder: 
     knitr
 ByteCompile: TRUE
@@ -74,7 +72,7 @@ Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
 Language: en-US
-NeedsCompilation: no
+LazyData: true
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet", "devtag::dev_roclet"))
 RoxygenNote: 7.3.3

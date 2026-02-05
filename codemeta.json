@@ -3,7 +3,7 @@
   "@type": "SoftwareSourceCode",
   "identifier": "epicrop",
   "description": "Generic simulation modelling of crop diseases using a Susceptible-Exposed-Infectious-Removed ('SEIR') model. This type of model was first described in botanical epidemiology by Zadoks (1971) <doi:10.1094/Phyto-61-600> and implemented in the 'EPIRICE' model by Savary et al. (2012) <doi:10.1016/j.cropro.2011.11.009> detailing the model's development, use and results from modelling global unmanaged epidemics of rice diseases for five major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro. Specific functions are provided to simulate all of these diseases with a generic 'SEIR' model function that is suitable for parameterising for use with other pathosystems as demonstrated in Savary et al. 2012 and Kim et al. 2015 <doi:10.1016/j.agrformet.2015.01.011> along with two wheat diseases, brown (leaf) rust and Septoria tritici blotch as published in Savary et al. 2015 <doi:10.1007/s10658-015-0650-7>. Functions for fetching and formatting weather data from the NASA POWER database are also provided to simplify the process of running simulations.",
-  "name": "epicrop: Simulation Modelling of Crop Diseases",
+  "name": "epicrop: SEIR Simulation Modelling of Crop Diseases",
   "relatedLink": "https://adamhsparks.codeberg.page/epicrop",
   "codeRepository": "https://codeberg.org/adamhsparks/epicrop",
   "issueTracker": "https://codeberg.org/adamhsparks/epicrop/issues",
@@ -301,15 +301,15 @@
     },
     "4": {
       "@type": "SoftwareApplication",
-      "identifier": "lubridate",
-      "name": "lubridate",
+      "identifier": "memoise",
+      "name": "memoise",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=lubridate"
+      "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
     "5": {
       "@type": "SoftwareApplication",
@@ -326,18 +326,6 @@
     },
     "6": {
       "@type": "SoftwareApplication",
-      "identifier": "Rcpp",
-      "name": "Rcpp",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=Rcpp"
-    },
-    "7": {
-      "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
       "provider": {
@@ -348,7 +336,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "8": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
@@ -357,7 +345,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "2195.123KB",
+  "fileSize": "810.414KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

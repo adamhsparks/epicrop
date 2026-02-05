@@ -9,7 +9,7 @@
 #' @param duration A numeric value indicating how many days a single
 #'  growing season being simulated is to be.  If this is used, only the start
 #'  date will be used and the end date will be ignored if supplied.  This must
-#'  match the `duration` parameter value passed along to [epicrop_sim()] or any
+#'  match the `duration` parameter value passed along to [seir()] or any
 #'  of the `predict` family of functions.
 #'
 #' @returns A `epicrop.wth`, a data frame based on a [data.table::data.table()],

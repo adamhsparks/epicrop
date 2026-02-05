@@ -151,13 +151,13 @@
 #' Uses mean rh, doy, location (lat), mean tmp, tmin and tmax to calculate
 #' hourly rh values.
 #'
-#' @param rh Mean daily relative humidity as provided by `wth` via [epicrop_sim()].
-#' @param tmin Minimum temperature as provided by `wth` via [epicrop_sim()].
-#' @param tmax Maximum temperature as provided by `wth` via [epicrop_sim()].
-#' @param tmp Mean daily temperature as provided by `wth` via [epicrop_sim()].
-#' @param lat Latitude provided by `wth` via [epicrop_sim()].
-#' @param doy Sequential day of year as provided by `wth` via [epicrop_sim()].
-#' @param yyyymmdd Date (YYYY-MM-DD) as provided by `wth` via [epicrop_sim()].
+#' @param rh Mean daily relative humidity as provided by `wth`.
+#' @param tmin Minimum temperature as provided by `wth`.
+#' @param tmax Maximum temperature as provided by `wth`.
+#' @param tmp Mean daily temperature as provided by `wth`.
+#' @param lat Latitude provided by `wth`.
+#' @param doy Sequential day of year as provided by `wth`.
+#' @param yyyymmdd Date (YYYY-MM-DD) as provided by `wth`.
 #'
 #' @returns A numeric vector of relative humidity values over 24 hrs.
 #'
@@ -202,10 +202,10 @@
 #'
 #' Uses doy, location (lat) and TMIN and TMAX to calculate hourly temperatures.
 #'
-#' @param lat Latitude as provided by `wth` via [epicrop_sim()].
-#' @param doy Sequential day of year as provided by `wth` via [epicrop_sim()].
-#' @param tmin Minimum temperature as provided by `wth` via [epicrop_sim()].
-#' @param tmax Maximum temperature as provided by `wth` via [epicrop_sim()].
+#' @param lat Latitude as provided by `wth`.
+#' @param doy Sequential day of year as provided by `wth`.
+#' @param tmin Minimum temperature as provided by `wth`.
+#' @param tmax Maximum temperature as provided by `wth`.
 #'
 #' @returns A numeric vector of hourly temperature values for the duration of
 #'  `wth` data.
@@ -269,9 +269,9 @@
 
 #' Calculate day length for a given latitude on a given date
 #'
-#' @param lat Latitude as provided by `wth` via [epicrop_sim()].
+#' @param lat Latitude as provided by `wth`.
 #' @param doy Sequential day of year (Julian date) as provided by `wth` via
-#'  [epicrop_sim()].
+#'  [seir()].
 #'
 #' @returns A numeric vector of daylight hours based on latitude and date.
 #'
@@ -303,11 +303,12 @@
   a <- (sin(0.8333 * pi / 180.0) + sin(lat * pi / 180.0) * sin(p)) /
     (cos(lat * pi / 180.0) * cos(p))
   a <- pmin(pmax(a, -1.0), 1.0)
-  return(24 - 7.639437 * acos(a)) }
+  return(24 - 7.639437 * acos(a))
+}
 
 #' Calculate saturated vapour pressure, es
 #'
-#' @param tmp Mean temperature as provided by `wth` via [epicrop_sim()].
+#' @param tmp Mean temperature as provided by `wth`.
 #'
 #' @returns Single double precision value of es as kilopascals.
 #'

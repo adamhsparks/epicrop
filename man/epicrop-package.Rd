@@ -4,7 +4,7 @@
 \name{epicrop-package}
 \alias{epicrop}
 \alias{epicrop-package}
-\title{epicrop: Simulation Modelling of Crop Diseases}
+\title{epicrop: SEIR Simulation Modelling of Crop Diseases}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

@@ -4,7 +4,7 @@
 \alias{.interp}
 \title{Interpolate parameter values}
 \usage{
-.interp(param, age_vec)
+.interp(def, x)
 }
 \arguments{
 \item{param}{Parameter value(s). Can be:

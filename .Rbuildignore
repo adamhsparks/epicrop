@@ -28,12 +28,6 @@
 ^flir$
 
 ^man/dot-calculate_audpc\.Rd$
-^man/dot-prepare_weather_data\.Rd$
-^man/dot-determine_run_window\.Rd$
-^man/dot-calculate_dvs\.Rd$
-^man/dot-prepare_modifiers\.Rd$
-^man/dot-build_inoculum\.Rd$
-^man/dot-assemble_output\.Rd$
 ^man/dot-validate_required_args\.Rd$
 ^man/dot-validate_lonlat_type\.Rd$
 ^man/dot-norm_locations\.Rd$
@@ -63,6 +57,10 @@
 ^man/dot-make_slicer\.Rd$
 ^man/dot-make_runner\.Rd$
 ^man/dot-assemble_results\.Rd$
+^man/dot-calculate_dvs\.Rd$
+^man/dot-calculate_dvs\.Rd$
+^man/dot-fn_Rc\.Rd$
+^man/dot-interp_impl\.Rd$
 ^man/dot-validate_all_inputs\.Rd$
 ^man/dot-validate_weather\.Rd$
 ^man/dot-validate_scalars\.Rd$

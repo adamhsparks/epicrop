@@ -1,10 +1,10 @@
 #' Calculate the Area Under the Disease Progress Curve (AUDPC)
 #'
-#' This function is used to return the AUDPC in the output of [epicrop_sim()].
+#' This function is used to return the AUDPC in the output of [seir()].
 #' Not to be used alone as it assumes that there is always only one day between
 #' observations so it takes shortcuts in the calculation of the values.
 #'
-#' @param intensity A `vector` of disease intensity from [epicrop_sim()].
+#' @param intensity A `vector` of disease intensity from [seir()].
 #'
 #' @returns  A `numeric` value as `double`.
 #'
@@ -68,13 +68,13 @@
 get_audpc <- function(x) attr(x, "AUDPC")
 
 #' Create an AUDPC data frame for locations and emergence dates
-#' @param x A `data.table` created by `run_epicrop_model()`, `epicrop_sim()` or
+#' @param x A `data.table` created by `run_epicrop_model()`, `seir()` or
 #'   any one of the disease specific helper functions.
 #' @returns A [data.table::data.table()] suitable for mapping or other analysis.
 #'  If `dt` is from `run_epicrop_model()` directly, the output will be a
 #'  `data.table` with five columns: `lat`, `lon`, `AUDPC`, `location`, and
 #'  `emergence`. If `dt` is from any of the helper functions or directly from
-#'   `epicrop_sim()`, the output will be a `data.table` with two (or) four
+#'   `seir()`, the output will be a `data.table` with two (or) four
 #'   columns: `lat`*, `lon`*, `AUDPC` and `emergence`. *`lat` and `lon` columns
 #'   must be in the original weather dataset for them to appear.
 #' @autoglobal

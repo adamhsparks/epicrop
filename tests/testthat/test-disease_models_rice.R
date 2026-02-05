@@ -128,7 +128,7 @@ expect_epicrop_layout <- function(x, n_rows, expected_names = .expected_names) {
     c(0.0, 0.5, 1.0, 0.5, 0.0)
   )
 
-  res <- epicrop_sim(
+  res <- seir(
     wth = wth_formatted,
     emergence = .emergence_date,
     onset = 25,

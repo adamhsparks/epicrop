@@ -1,6 +1,6 @@
 #' Validate All Simulation Inputs
 #'
-#' Central validation function for `epicrop_sim()` parameters
+#' Central validation function for `seir()` parameters
 #' @autoglobal
 #' @dev
 .validate_all_inputs <- function(

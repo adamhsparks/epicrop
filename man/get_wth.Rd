@@ -15,7 +15,7 @@ entered as lon (x), lat (y) coordinates.}
 \item{duration}{A numeric value indicating how many days a single
 growing season being simulated is to be.  If this is used, only the start
 date will be used and the end date will be ignored if supplied.  This must
-match the \code{duration} parameter value passed along to \code{\link[=epicrop_sim]{epicrop_sim()}} or any
+match the \code{duration} parameter value passed along to \code{\link[=seir]{seir()}} or any
 of the \code{predict} family of functions.}
 }
 \value{

@@ -7,19 +7,19 @@
 .diurnal_rh(rh, tmin, tmax, tmp, lat, doy, yyyymmdd)
 }
 \arguments{
-\item{rh}{Mean daily relative humidity as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{rh}{Mean daily relative humidity as provided by \code{wth}.}
 
-\item{tmin}{Minimum temperature as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{tmin}{Minimum temperature as provided by \code{wth}.}
 
-\item{tmax}{Maximum temperature as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{tmax}{Maximum temperature as provided by \code{wth}.}
 
-\item{tmp}{Mean daily temperature as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{tmp}{Mean daily temperature as provided by \code{wth}.}
 
-\item{lat}{Latitude provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{lat}{Latitude provided by \code{wth}.}
 
-\item{doy}{Sequential day of year as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{doy}{Sequential day of year as provided by \code{wth}.}
 
-\item{yyyymmdd}{Date (YYYY-MM-DD) as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{yyyymmdd}{Date (YYYY-MM-DD) as provided by \code{wth}.}
 }
 \value{
 A numeric vector of relative humidity values over 24 hrs.

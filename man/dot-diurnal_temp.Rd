@@ -7,13 +7,13 @@
 .diurnal_temp(lat, doy, tmin, tmax)
 }
 \arguments{
-\item{lat}{Latitude as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{lat}{Latitude as provided by \code{wth}.}
 
-\item{doy}{Sequential day of year as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{doy}{Sequential day of year as provided by \code{wth}.}
 
-\item{tmin}{Minimum temperature as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{tmin}{Minimum temperature as provided by \code{wth}.}
 
-\item{tmax}{Maximum temperature as provided by \code{wth} via \code{\link[=epicrop_sim]{epicrop_sim()}}.}
+\item{tmax}{Maximum temperature as provided by \code{wth}.}
 }
 \value{
 A numeric vector of hourly temperature values for the duration of

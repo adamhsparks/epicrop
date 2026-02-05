@@ -66,7 +66,7 @@ test_that("AUDPC returns 0 for simulations with < 2 days", {
 
   # Duration 1 → AUDPC = 0
   result <- suppressWarnings(
-    epicrop_sim(
+    seir(
       wth = w1,
       emergence = .emergence,
       onset = 1,
@@ -90,7 +90,7 @@ test_that("AUDPC returns 0 for simulations with < 2 days", {
 })
 
 test_that("AUDPC is zero when no disease occurs", {
-  result <- epicrop_sim(
+  result <- seir(
     wth = wth_formatted,
     emergence = .emergence,
     onset = 20,
@@ -127,7 +127,7 @@ test_that("AUDPC increases with disease intensity", {
 })
 
 test_that("AUDPC scales with simulation duration", {
-  short <- epicrop_sim(
+  short <- seir(
     wth = wth_formatted,
     emergence = .emergence,
     onset = 20,
@@ -144,7 +144,7 @@ test_that("AUDPC scales with simulation duration", {
     RRG = 0.1
   )
 
-  long <- epicrop_sim(
+  long <- seir(
     wth = wth_formatted,
     emergence = .emergence,
     onset = 20,

@@ -15,8 +15,6 @@
 #' @importFrom data.table `%between%`
 #' @importFrom data.table `%notin%`
 #' @importFrom data.table data.table
-#' @importFrom Rcpp evalCpp
-#' @useDynLib epicrop, .registration = TRUE
 ## usethis namespace: end
 
 NULL

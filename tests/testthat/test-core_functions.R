@@ -9,7 +9,7 @@ test_that("epicrop_sim runs successfully with valid inputs", {
     c(0.0, 0.5, 1.0, 0.5, 0.0)
   )
 
-  result <- epicrop_sim(
+  result <- seir(
     wth = wth_formatted,
     emergence = "2000-07-01",
     onset = 20,
@@ -43,7 +43,7 @@ test_that("validation rejects negative/invalid parameters", {
 
   # Must use epicrop_sim directly to test parameter validation
   expect_error(
-    epicrop_sim(
+    seir(
       wth = wth_formatted,
       emergence = "2000-07-01",
       onset = 20,
@@ -64,7 +64,7 @@ test_that("validation rejects negative/invalid parameters", {
   )
 
   expect_error(
-    epicrop_sim(
+    seir(
       wth = wth_formatted,
       emergence = "2000-07-01",
       onset = 20,
@@ -100,7 +100,7 @@ test_that("validation warns about edge cases", {
 
   # Must use epicrop_sim directly to test duration warnings
   expect_warning(
-    epicrop_sim(
+    seir(
       wth = wth_short,
       emergence = "2000-07-01",
       onset = 20,
@@ -145,7 +145,7 @@ test_that("validation rejects simple_wetness=FALSE without TMIN/TMAX", {
 
   # Must use epicrop_sim directly to test simple_wetness = FALSE
   expect_error(
-    epicrop_sim(
+    seir(
       wth = wth_no_temp,
       emergence = "2000-07-01",
       onset = 20,

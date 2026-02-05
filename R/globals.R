@@ -4,10 +4,6 @@ utils::globalVariables(c(
   "location", # <audpc_dt>
   "emergence", # <audpc_dt>
   "AUDPC", # <audpc_dt>
-  "RHUM", # <.prepare_weather_data>
-  "RAIN", # <.prepare_weather_data>
-  "lat", # <.assemble_output>
-  "lon", # <.assemble_output>
   "YYYYMMDD", # <.fetch_one_weather>
   "DOY", # <format_wth>
   "YYYYMMDD", # <get_wth>
@@ -17,5 +13,7 @@ utils::globalVariables(c(
   "AUDPC", # <.make_runner>
   "emergence", # <.assemble_results>
   "AUDPC", # <.assemble_results>
+  "lat", # <seir>
+  "lon", # <seir>
   NULL
 ))

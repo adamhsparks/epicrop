@@ -7,7 +7,7 @@
 audpc_dt(x)
 }
 \arguments{
-\item{x}{A \code{data.table} created by \code{run_epicrop_model()}, \code{epicrop_sim()} or
+\item{x}{A \code{data.table} created by \code{run_epicrop_model()}, \code{seir()} or
 any one of the disease specific helper functions.}
 }
 \value{
@@ -15,7 +15,7 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} suitable for map
 If \code{dt} is from \code{run_epicrop_model()} directly, the output will be a
 \code{data.table} with five columns: \code{lat}, \code{lon}, \code{AUDPC}, \code{location}, and
 \code{emergence}. If \code{dt} is from any of the helper functions or directly from
-\code{epicrop_sim()}, the output will be a \code{data.table} with two (or) four
+\code{seir()}, the output will be a \code{data.table} with two (or) four
 columns: \code{lat}\emph{, \code{lon}}, \code{AUDPC} and \code{emergence}. *\code{lat} and \code{lon} columns
 must be in the original weather dataset for them to appear.
 }
