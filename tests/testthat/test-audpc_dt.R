@@ -1,162 +1,186 @@
-# Helper that loads the epicrop.sim object for all tests.
-# Adjust filename if needed.
-seir <- test_path("testdata", "seir.rda")
-load(seir) # loads object 'epicrop.sim'
-seir <- bb_sim # rename for clarity in tests
-
-test_that("audpc_dt() errors with non-epicrop.sim input", {
-  expect_error(
-    audpc_dt(data.frame()),
-    regexp = "epicrop\\.sim",
-    ignore.case = TRUE
-  )
-  x <- data.table(
-    lat = 0,
-    lon = 0,
-    AUDPC = 1,
-    location = "A",
-    emergence = "2020-01-01"
-  )
-  # Even if columns exist, class must be epicrop.sim
-  expect_error(audpc_dt(x), regexp = "epicrop\\.sim", ignore.case = TRUE)
-})
-
-test_that("audpc_dt() returns a data.table with expected four columns", {
-  out <- audpc_dt(seir)
-
-  # Class and structure
-  expect_s3_class(out, "data.table")
-  expect_s3_class(out, "data.frame")
-  expect_equal(
-    sort(names(out)),
-    sort(c("lat", "lon", "AUDPC", "emergence"))
-  )
-  expect_equal(ncol(out), 4L)
-
-  # Column types
-  expect_true(is.numeric(out$lat))
-  expect_true(is.numeric(out$lon))
-  expect_true(is.numeric(out$AUDPC))
-  expect_true(is.character(out$emergence) || is.factor(out$emergence))
-})
-
-test_that("audpc_dt() sets key to emergence and ordering reflects the key", {
-  out <- audpc_dt(seir)
-
-  # data.table key
-  expect_identical(data.table::key(out), "emergence")
-})
-
-test_that("audpc_dt() removes duplicate rows on the five selected columns", {
-  # Create a version with deliberate duplicated rows on the five columns
-  x <- data.table::copy(seir)
-
-  # If epicrop.sim has additional columns, we can still duplicate rows;
-  # audpc_dt() will subset to the five columns, then unique().
-  if (nrow(x) >= 1L) {
-    dup_block <- x[seq_len(min(3L, nrow(x)))] # few rows to duplicate
-    x <- data.table::rbindlist(
-      list(x, dup_block),
-      use.names = TRUE,
-      fill = TRUE
+# Wrap all tests in a single cassette
+vcr::use_cassette("audpc_dt_tests", {
+  # Setup: Create test data
+  setup_test_sim <- function() {
+    wth <- get_wth(
+      lonlat = c(121.25562, 14.6774),
+      dates = c("2000-07-01", "2000-10-31")
     )
+
+    sim <- brown_spot(
+      wth = wth,
+      emergence = "2000-07-01"
+    )
+
+    sim
   }
 
-  class(x) <- unique(c(
-    "epicrop.sim",
-    setdiff(class(x), "epicrop.sim")
-  ))
+  test_that("audpc_dt validates input class", {
+    expect_error(
+      audpc_dt(data.frame()),
+      class = "rlang_error"
+    )
 
-  # these next two lines come from seir.R to calculate AUDPC and add it
-  # as an attribute to the epicrop.sim object
-  audpc_value <- .calculate_audpc(x$intensity)
-  data.table::setattr(x, "AUDPC", audpc_value)
+    expect_error(
+      audpc_dt(data.frame()),
+      "epicrop.sim"
+    )
 
-  out <- audpc_dt(x)
-  # Unique on the four columns should match unique(x[, .SD, .SDcols = req_cols])
-  req_cols <- c("lat", "lon", "AUDPC", "emergence")
-  expected <- structure(
-    list(
-      lat = 14.6774,
-      lon = 121.25562,
-      AUDPC = 14.7546733439836,
-      emergence = structure(1L, levels = "2000-06-30", class = "factor")
-    ),
-    row.names = c(NA, -1L),
-    class = c("epicrop.sim", "data.table", "data.frame"),
-    AUDPC = 14.7546733439836,
-    sorted = "emergence"
-  )
+    fake_dt <- data.table::data.table(
+      lat = 14.6,
+      lon = 121.3,
+      AUDPC = 10,
+      emergence = "2000-07-01"
+    )
 
-  expected <- unique(out[, .SD, .SDcols = req_cols])
-  data.table::setkey(expected, emergence)
+    expect_error(
+      audpc_dt(fake_dt),
+      "epicrop.sim"
+    )
+  })
 
-  # Same set and order after keying
-  expect_identical(out, expected)
-})
+  test_that("audpc_dt returns data.table with correct structure", {
+    sim <- setup_test_sim()
+    result <- audpc_dt(sim)
 
-test_that("audpc_dt() does not key or mutate the input by reference", {
-  x <- data.table::copy(seir)
-  # Remove any keys from the copy to know baseline
-  if (!is.null(data.table::key(x))) {
-    data.table::setkey(x, NULL)
-  }
-  in_key_before <- data.table::key(x)
+    expect_s3_class(result, "data.table")
+    expect_s3_class(result, "data.frame")
+    expect_true("AUDPC" %in% names(result))
+    expect_true("emergence" %in% names(result))
+    expect_type(result$AUDPC, "double")
+    expect_type(result$emergence, "character")
+    expect_equal(nrow(result), 1L)
+  })
 
-  invisible(audpc_dt(x))
+  test_that("audpc_dt includes spatial columns when available", {
+    sim <- setup_test_sim()
+    result <- audpc_dt(sim)
 
-  # Ensure original 'dt' key unchanged (function subsets internally then keys the subset)
-  expect_identical(data.table::key(x), in_key_before)
-})
+    expect_true("lat" %in% names(result))
+    expect_true("lon" %in% names(result))
+    expect_type(result$lat, "double")
+    expect_type(result$lon, "double")
+  })
 
-test_that("audpc_dt() tolerates factors/characters for grouping fields", {
-  dt_char <- data.table::copy(seir)
-  # Force to character
-  dt_char[, emergence := as.character(dates)]
-  out_char <- audpc_dt(dt_char)
-  expect_s3_class(out_char, "data.table")
+  test_that("audpc_dt handles missing spatial columns", {
+    sim <- setup_test_sim()
+    sim[, `:=`(lat = NULL, lon = NULL)]
 
-  dt_fac <- data.table::copy(seir)
-  dt_fac[, emergence := as.factor(dates)]
-  out_fac <- audpc_dt(dt_fac)
-  expect_s3_class(out_fac, "data.table")
+    result <- audpc_dt(sim)
 
-  # Same rows regardless of type (after converting for comparison)
-  out_char_cmp <- out_char[, .(
-    lat,
-    lon,
-    AUDPC,
-    emergence = as.character(emergence)
-  )]
-  out_fac_cmp <- out_fac[, .(
-    lat,
-    lon,
-    AUDPC,
-    emergence = as.character(emergence)
-  )]
-  data.table::setkey(out_char_cmp, emergence, lat, lon, AUDPC)
-  data.table::setkey(out_fac_cmp, emergence, lat, lon, AUDPC)
-  expect_identical(out_char_cmp, out_fac_cmp)
-})
+    expect_s3_class(result, "data.table")
+    expect_true("AUDPC" %in% names(result))
+    expect_true("emergence" %in% names(result))
+    expect_false("lat" %in% names(result))
+    expect_false("lon" %in% names(result))
+  })
 
-test_that("audpc_dt() fails informatively if required columns are missing", {
-  # Start from a valid epicrop.sim object but drop a required column
-  dt_bad <- data.table::copy(seir)
-  # Ensure it still has class epicrop.sim so we reach the .SDcols selection
-  class(dt_bad) <- unique(c(
-    "epicrop.sim",
-    setdiff(class(dt_bad), "epicrop.sim")
-  ))
+  test_that("audpc_dt sets key to emergence", {
+    sim <- setup_test_sim()
+    result <- audpc_dt(sim)
 
-  # Drop one of the required columns
-  if ("AUDPC" %in% names(dt_bad)) {
-    dt_bad[, AUDPC := NULL]
-  }
+    expect_identical(data.table::key(result), "emergence")
+  })
 
-  # data.table will error if .SDcols contains a missing name
-  expect_error(
-    audpc_dt(x_bad),
-    regexp = "column.*AUDPC|undefined columns|cannot select|object.*not found",
-    ignore.case = TRUE
-  )
-})
+  test_that("audpc_dt has correct column order", {
+    sim <- setup_test_sim()
+    result <- audpc_dt(sim)
+
+    actual_cols <- names(result)
+
+    expect_true("AUDPC" %in% actual_cols)
+    expect_true("emergence" %in% actual_cols)
+
+    audpc_idx <- which(actual_cols == "AUDPC")
+    emerg_idx <- which(actual_cols == "emergence")
+    expect_true(audpc_idx < emerg_idx)
+
+    if ("lat" %in% actual_cols) {
+      lat_idx <- which(actual_cols == "lat")
+      expect_true(lat_idx < audpc_idx)
+    }
+
+    if ("lon" %in% actual_cols) {
+      lon_idx <- which(actual_cols == "lon")
+      expect_true(lon_idx < audpc_idx)
+    }
+  })
+
+  test_that("audpc_dt extracts AUDPC from attribute", {
+    sim <- setup_test_sim()
+
+    audpc_attr <- attr(sim, "AUDPC")
+    expect_type(audpc_attr, "double")
+    expect_true(audpc_attr > 0)
+
+    result <- audpc_dt(sim)
+    expect_equal(result$AUDPC, audpc_attr)
+  })
+
+  test_that("audpc_dt does not modify input by reference", {
+    sim <- setup_test_sim()
+
+    original_key <- data.table::key(sim)
+    original_names <- names(sim)
+    original_nrow <- nrow(sim)
+
+    result <- audpc_dt(sim)
+
+    expect_identical(data.table::key(sim), original_key)
+    expect_identical(names(sim), original_names)
+    expect_equal(nrow(sim), original_nrow)
+  })
+
+  test_that("audpc_dt works with multiple disease models", {
+    wth <- get_wth(
+      lonlat = c(121.25562, 14.6774),
+      dates = c("2000-07-01", "2000-10-31")
+    )
+
+    bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
+    lb_sim <- leaf_blast(wth, emergence = "2000-07-01")
+    sb_sim <- sheath_blight(wth, emergence = "2000-07-01")
+
+    bb_result <- audpc_dt(bb_sim)
+    lb_result <- audpc_dt(lb_sim)
+    sb_result <- audpc_dt(sb_sim)
+
+    expect_s3_class(bb_result, "data.table")
+    expect_s3_class(lb_result, "data.table")
+    expect_s3_class(sb_result, "data.table")
+
+    expect_true(bb_result$AUDPC > 0)
+    expect_true(lb_result$AUDPC > 0)
+    expect_true(sb_result$AUDPC > 0)
+
+    expect_false(isTRUE(all.equal(bb_result$AUDPC, lb_result$AUDPC)))
+  })
+
+  test_that("audpc_dt errors informatively when AUDPC missing", {
+    sim <- setup_test_sim()
+
+    attr(sim, "AUDPC") <- NULL
+    if ("AUDPC" %in% names(sim)) {
+      sim[, AUDPC := NULL]
+    }
+
+    expect_error(
+      audpc_dt(sim),
+      "AUDPC"
+    )
+  })
+
+  test_that("audpc_dt errors informatively when dates missing", {
+    sim <- setup_test_sim()
+
+    sim[, dates := NULL]
+    if ("emergence" %in% names(sim)) {
+      sim[, emergence := NULL]
+    }
+
+    expect_error(
+      audpc_dt(sim),
+      "dates|emergence"
+    )
+  })
+}) # End vcr::use_cassette

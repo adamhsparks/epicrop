@@ -76,20 +76,60 @@ test_that("format_wth errors with missing required columns", {
   )
 })
 
-test_that("format_wth fails with non-daily data", {
-  wth_monthly <- wth[,
-    lapply(.SD, mean, na.rm = FALSE),
-    by = .(YEAR, MM),
-    .SDcols = names(which(sapply(wth, is.numeric)))
-  ]
-
+test_that("format_wth validates daily time-step", {
+  # Gaps in data
+  wth_gaps <- wth[seq(1, min(30, .N), by = 2)]
   expect_error(
     format_wth(
-      wth = wth_monthly,
+      wth = wth_gaps,
       date = "YYYYMMDD",
       temp = "T2M",
       rhum = "RH2M",
       rain = "PRECTOTCORR"
-    )
+    ),
+    "gap|daily|consecutive"
   )
+
+  # Duplicate dates
+  wth_test <- wth[1:20]
+  wth_dup <- data.table::rbindlist(list(wth_test, wth_test[5:10]))
+  expect_error(
+    format_wth(
+      wth = wth_dup,
+      date = "YYYYMMDD",
+      temp = "T2M",
+      rhum = "RH2M",
+      rain = "PRECTOTCORR"
+    ),
+    "duplicate"
+  )
+
+  # Weekly data (7-day gaps)
+  wth_weekly <- wth[seq(1, min(56, .N), by = 7)]
+  expect_error(
+    format_wth(
+      wth = wth_weekly,
+      date = "YYYYMMDD",
+      temp = "T2M",
+      rhum = "RH2M",
+      rain = "PRECTOTCORR"
+    ),
+    "gap|daily"
+  )
+})
+
+test_that("format_wth accepts consecutive daily data", {
+  wth_daily <- wth[1:30]
+
+  result <- format_wth(
+    wth = wth_daily,
+    date = "YYYYMMDD",
+    temp = "T2M",
+    rhum = "RH2M",
+    rain = "PRECTOTCORR"
+  )
+
+  expect_s3_class(result, "epicrop.wth")
+  expect_equal(nrow(result), 30)
+  expect_true(all(diff(result$YYYYMMDD) == 1))
 })
