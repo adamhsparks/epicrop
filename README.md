@@ -15,6 +15,8 @@ This version provides easy to use functions to fetch weather data from NASA POWE
 The legacy `SEIR()` in {cropsim} uses a non-canonical formula for "diseased" ([it accumulates "infectious" twice via `sum(infectious)`](https://github.com/r-forge/cropsim/blob/7b7a035a612f9386112d8d49ec21724500d7f88e/pkg/cropsim/R/SEIR.R#L118C1-L120C60)).
 The modern core of `seir()` in {epicrop} was changed to the canonical formula (`diseased = latent + infectious + removed`), which reduced modern diseased and COFR relative to legacy.
 So, please be aware that the legacy `SEIR()` and the modern `seir()` will give different results for the same parameters, and that the modern `seir()` is more consistent with the canonical SEIR model.
+This modern core of `seir()` is also now 1 indexed, which is more consistent with R's indexing and makes it easier to understand the model's parameters and outputs when developing new models based on this core.
+The original `SEIR()` is 0 indexed, which is more consistent with the original EPIRICE model as presented in Savary *et al.* (2012) and the legacy `SEIR()` in {cropsim}.
 
 This package implements the original EPIRICE model as detailed in Savary *et al.* (2012), which introduces the model and uses it to model global epidemics of rice diseases illustrating the risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro disease.
 Additional models included for rice are adapted from Kim *et al.* (2015) for rice sheath blight and leaf blast.
