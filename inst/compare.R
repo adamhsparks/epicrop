@@ -1,30 +1,23 @@
 # compare_seir_ignore_rrlex.R
 # Compare modern seir() and legacy SEIR() while ignoring RRLEX (set to NULL).
-# Usage:
-# 1) Provide a daily weather data.frame `w` with at least:
-#      - date (Date class) OR YYYY-MM-DD strings
-#      - tavg  OR TEMP  (daily mean temperature °C)
-#      - rhmax OR RHUM  (daily mean or max relative humidity %)
-#      - prec  OR RAIN  (daily rainfall mm)
-#    Optional: TMIN, TMAX, LAT, LON
+# Updated to handle modern seir() 1-indexed onset and ensure legacy SEIR gets
+# the required pre-emergence row (legacy expects weather starting at emergence-1).
 #
-# 2) Source this file or copy into your R session after loading the package
+# Usage:
+#  - Provide a weather data.frame `w` and a params list (see example at bottom).
+#  - Source this file or copy into your R session after loading the package
 #    (or sourcing the R files) so modern `seir()` and legacy `SEIR()` are available.
 #
-# 3) Call run_compare(w, params...) with mapped parameters (examples below).
-#
-# Note: legacy SEIR() code expects an S4 object with a slot `@w` (data.frame),
-# so we create a minimal temporary S4 class "tmp_wth" with slot w to host the data.frame.
+# Changes in this version:
+#  - modern_onset is passed as-is to modern seir() (1..duration)
+#  - legacy_onset = modern_onset - 1 is passed to legacy SEIR() (0..duration)
+#  - ensure legacy weather includes the day emergence-1 and at least duration+1 rows
 
 library(data.table)
 library(stats) # for approx if needed
-# (Assumes modern seir() and legacy SEIR() are in scope)
 
 # --- Helpers to normalize weather and create model inputs -------------------
 
-# Accepts a data.frame 'w' and returns a list with modern and legacy representations.
-# Input 'w' must have a date column or a YYYY/MM/DD character column.
-# tolerant normalize_weather: accepts YYYYMMDD as "20000630" or "2000-06-30" or 'dates'/'date' Date
 normalize_weather <- function(w) {
   df <- as.data.frame(w)
 
@@ -35,20 +28,17 @@ normalize_weather <- function(w) {
     df$date <- as.Date(df$dates)
   } else if ("YYYYMMDD" %in% names(df)) {
     col <- df$YYYYMMDD
-    # If already Date class
     if (inherits(col, "Date")) {
       df$date <- col
     } else {
       col_chr <- as.character(col)
-      # Try ISO 'YYYY-MM-DD'
       parsed <- suppressWarnings(as.Date(col_chr, format = "%Y-%m-%d"))
       if (all(is.na(parsed))) {
-        # Try compact 'YYYYMMDD'
         parsed <- suppressWarnings(as.Date(col_chr, format = "%Y%m%d"))
       }
       if (all(is.na(parsed))) {
         stop(
-          "Could not parse YYYYMMDD column as dates. Expected formats 'YYYY-MM-DD' or 'YYYYMMDD'."
+          "Could not parse YYYYMMDD column as dates. Expected 'YYYY-MM-DD' or 'YYYYMMDD'."
         )
       }
       df$date <- parsed
@@ -88,17 +78,37 @@ normalize_weather <- function(w) {
     stop("Weather must include 'prec' or 'RAIN' (precipitation)")
   }
 
-  Tmin <- if ("TMIN" %in% names(df)) df$TMIN else if ("tmin" %in% names(df))
-    df$tmin else rep(NA, nrow(df))
-  Tmax <- if ("TMAX" %in% names(df)) df$TMAX else if ("tmax" %in% names(df))
-    df$tmax else rep(NA, nrow(df))
-  LAT <- if ("LAT" %in% names(df)) df$LAT else if ("lat" %in% names(df))
-    df$lat else NA
-  LON <- if ("LON" %in% names(df)) df$LON else if ("lon" %in% names(df))
-    df$lon else NA
+  Tmin <- if ("TMIN" %in% names(df)) {
+    df$TMIN
+  } else if ("tmin" %in% names(df)) {
+    df$tmin
+  } else {
+    rep(NA, nrow(df))
+  }
+  Tmax <- if ("TMAX" %in% names(df)) {
+    df$TMAX
+  } else if ("tmax" %in% names(df)) {
+    df$tmax
+  } else {
+    rep(NA, nrow(df))
+  }
+  LAT <- if ("LAT" %in% names(df)) {
+    df$LAT
+  } else if ("lat" %in% names(df)) {
+    df$lat
+  } else {
+    NA
+  }
+  LON <- if ("LON" %in% names(df)) {
+    df$LON
+  } else if ("lon" %in% names(df)) {
+    df$lon
+  } else {
+    NA
+  }
 
   dt_modern <- data.table::data.table(
-    YYYYMMDD = as.Date(df$date), # use Date to match seir() emergence type
+    YYYYMMDD = as.Date(df$date),
     dates = as.Date(df$date),
     DOY = as.integer(format(df$date, "%j")),
     TEMP = as.numeric(tavg),
@@ -127,22 +137,69 @@ normalize_weather <- function(w) {
 
   list(modern = dt_modern, legacy = legacy_wth)
 }
+
+# Ensure legacy weather contains emergence-1 and at least duration+1 rows
+.ensure_legacy_preemergence <- function(legacy_wth, emergence, duration) {
+  em <- as.Date(emergence)
+  need_date <- em - 1L
+  wdf <- legacy_wth@w
+
+  # If the exact need_date exists, fine. If not and the first available date is after need_date,
+  # prepend a copy of the first row but with date = need_date.
+  if (!any(wdf$date == need_date)) {
+    if (min(wdf$date) > need_date) {
+      first_row <- wdf[1, , drop = FALSE]
+      first_row$date <- need_date
+      wdf <- rbind(first_row, wdf)
+    } else {
+      # if need_date is between dates, try to insert a row (copy nearest prior).
+      # Find the row just before need_date and copy it (conservative).
+      prior_idx <- max(which(wdf$date < need_date), na.rm = TRUE)
+      if (length(prior_idx) && !is.infinite(prior_idx)) {
+        new_row <- wdf[prior_idx, , drop = FALSE]
+        new_row$date <- need_date
+        wdf <- rbind(
+          wdf[1:prior_idx, , drop = FALSE],
+          new_row,
+          wdf[(prior_idx + 1):nrow(wdf), , drop = FALSE]
+        )
+      } else {
+        # fallback: copy first row
+        first_row <- wdf[1, , drop = FALSE]
+        first_row$date <- need_date
+        wdf <- rbind(first_row, wdf)
+      }
+    }
+  }
+
+  # Now check we have at least duration+1 rows starting at need_date
+  start_idx <- which(wdf$date == need_date)[1]
+  if (is.na(start_idx) || (nrow(wdf) - start_idx + 1) < (duration + 1)) {
+    stop(
+      "Insufficient legacy weather rows after ensuring pre-emergence day; legacy SEIR requires at least duration+1 rows starting at emergence-1"
+    )
+  }
+
+  legacy_wth@w <- wdf
+  legacy_wth
+}
+
 # --- Output conversion & alignment -----------------------------------------
-# Robust convert_modern_to_legacy_df: builds a day-0 row matching modern_out columns
 convert_modern_to_legacy_df <- function(modern_out, H0, I0 = 0) {
   dt <- as.data.frame(modern_out, stringsAsFactors = FALSE)
-  if (nrow(dt) == 0L) stop("modern_out has zero rows")
-  # ensure dates column exists and is Date
-  if (!"dates" %in% names(dt)) stop("modern_out missing 'dates' column")
+  if (nrow(dt) == 0L) {
+    stop("modern_out has zero rows")
+  }
+  if (!"dates" %in% names(dt)) {
+    stop("modern_out missing 'dates' column")
+  }
   first_date <- as.Date(dt$dates[1])
 
   cols <- names(dt)
-  # build a named list for day0 with same column names
   day0 <- setNames(vector("list", length(cols)), cols)
 
   for (cn in cols) {
     col_vals <- dt[[cn]]
-    # Date-like
     if (inherits(col_vals, "Date")) {
       if (cn == "dates") {
         day0[[cn]] <- first_date - 1L
@@ -150,7 +207,6 @@ convert_modern_to_legacy_df <- function(modern_out, H0, I0 = 0) {
         day0[[cn]] <- as.Date(NA)
       }
     } else if (is.numeric(col_vals)) {
-      # sensible initial values for common state/flow names
       if (cn %in% c("sites")) {
         day0[[cn]] <- as.numeric(H0)
       } else if (cn %in% c("rateinf") && !is.null(I0) && I0 > 0) {
@@ -161,27 +217,23 @@ convert_modern_to_legacy_df <- function(modern_out, H0, I0 = 0) {
     } else if (is.integer(col_vals)) {
       if (cn == "simday") day0[[cn]] <- 0L else day0[[cn]] <- NA_integer_
     } else {
-      # character or other: set NA_character_
       day0[[cn]] <- NA_character_
     }
   }
 
   day0df <- as.data.frame(day0, stringsAsFactors = FALSE)
-
-  # rbind safely now that columns match
   full <- rbind(day0df, dt)
 
-  # compute severity from intensity if present
   if ("intensity" %in% names(full)) {
     full$severity <- as.numeric(full$intensity) * 100
   } else {
     full$severity <- NA_real_
   }
 
-  # Build legacy-like data.frame with required columns (create missing ones as NA)
   get_col <- function(nm, fallback = NA_real_) {
-    if (nm %in% names(full)) return(full[[nm]])
-    # return vector of NA with correct length
+    if (nm %in% names(full)) {
+      return(full[[nm]])
+    }
     rep(fallback, nrow(full))
   }
 
@@ -205,14 +257,14 @@ convert_modern_to_legacy_df <- function(modern_out, H0, I0 = 0) {
   return(legacy_like)
 }
 
-
 # Extract legacy data.frame from SEIR S4 object (slot 'd' or list$d)
 extract_legacy_df <- function(legacy_obj) {
-  if (is.list(legacy_obj) && !is.null(legacy_obj$d))
+  if (is.list(legacy_obj) && !is.null(legacy_obj$d)) {
     return(as.data.frame(legacy_obj$d))
-  if (!is.null(slotNames(legacy_obj)) && "d" %in% slotNames(legacy_obj))
+  }
+  if (!is.null(slotNames(legacy_obj)) && "d" %in% slotNames(legacy_obj)) {
     return(as.data.frame(slot(legacy_obj, "d")))
-  # Try common fields if direct extraction fails
+  }
   stop(
     "Could not extract legacy result data.frame (expected slot 'd' or list$d)."
   )
@@ -220,26 +272,36 @@ extract_legacy_df <- function(legacy_obj) {
 
 # --- Main run & compare function -------------------------------------------
 
-# params: list containing param mapping to both functions
-#   required fields (example names):
-#     emergence (as Date or string), onset (int), duration (int),
-#     initSites, initInfection,
-#     ageRc, tmpRc, rhRc, baseRc, latrans (p), inftrans (i), siteMax, AGGR, RRPhysiolSenesc, RRG
-#
-# modern params mapping:
-#   H0 = initSites, I0 = initInfection, RcA = ageRc, RcT = tmpRc, RcOpt = baseRc,
-#   p = latrans, i = inftrans, Sx = siteMax, a = AGGR, RRS = RRPhysiolSenesc, RRG = RRG
+# params: list containing param mapping to both functions (see example below)
 run_compare <- function(w_df, params, plot = TRUE) {
   # normalize
   nws <- normalize_weather(w_df)
   w_modern <- nws$modern
   w_legacy <- nws$legacy
 
+  # Ensure legacy weather includes emergence-1 and enough rows
+  w_legacy <- .ensure_legacy_preemergence(
+    w_legacy,
+    params$emergence,
+    params$duration
+  )
+
+  # Onset mapping:
+  # modern seir() uses 1..duration (1-indexed). Legacy SEIR uses 0..duration (0-indexed).
+  modern_onset <- as.integer(params$onset) # 1-indexed expected by modern seir()
+  legacy_onset <- as.integer(params$onset) - 1L # legacy expects 0-index
+
+  if (legacy_onset < 0L) {
+    stop(
+      "params$onset must be >= 1 for modern-onset to map to legacy (legacy_onset would be < 0)"
+    )
+  }
+
   # modern seir call (RRLEX NULL to ignore lesion expansion)
   modern_args <- list(
     wth = w_modern,
     emergence = params$emergence,
-    onset = params$onset,
+    onset = modern_onset,
     duration = params$duration,
     H0 = params$initSites,
     I0 = params$initInfection,
@@ -252,18 +314,18 @@ run_compare <- function(w_df, params, plot = TRUE) {
     a = params$AGGR,
     RRS = params$RRPhysiolSenesc,
     RRG = params$RRG,
-    RcW = params$rhRc, # modern RcW corresponds to rhRc when simple_wetness = TRUE ignored
+    RcW = params$rhRc,
     simple_wetness = TRUE,
     RRLEX = NULL
   )
-  # Run modern; allow errors to bubble up so you can inspect call
+  cat("Calling modern seir() with onset (1-index) =", modern_onset, "\n")
   modern_out <- do.call(seir, modern_args)
 
-  # legacy SEIR call (note parameter names differ)
+  # legacy SEIR call: translate onset and pass legacy weather (S4 tmp_wth)
   legacy_args <- list(
     wth = w_legacy,
     emergence = params$emergence,
-    onset = params$onset,
+    onset = legacy_onset,
     duration = params$duration,
     initSites = params$initSites,
     initInfection = params$initInfection,
@@ -278,6 +340,7 @@ run_compare <- function(w_df, params, plot = TRUE) {
     RRPhysiolSenesc = params$RRPhysiolSenesc,
     RRG = params$RRG
   )
+  cat("Calling legacy SEIR() with onset (0-index) =", legacy_onset, "\n")
   legacy_out <- do.call(SEIR, legacy_args)
 
   # Align/convert modern output to legacy-like
@@ -296,6 +359,7 @@ run_compare <- function(w_df, params, plot = TRUE) {
   # Compare infectious and other states
   cmp <- data.frame(
     simday = modern_legacy_df$simday,
+    date = modern_legacy_df$date,
     modern_infectious = modern_legacy_df$infectious,
     legacy_infectious = legacy_df$infectious,
     diff_infectious = modern_legacy_df$infectious - legacy_df$infectious,
@@ -308,7 +372,13 @@ run_compare <- function(w_df, params, plot = TRUE) {
     stringsAsFactors = FALSE
   )
 
-  # Diagnostics
+  # Build drivers diagnostics if available on both
+  drivers <- list()
+  drivers$modern_Rc <- if ("Rc" %in% names(modern_out)) modern_out$Rc else NA
+  drivers$legacy_Rc <- NA
+  # if legacy exposes Rc in its output, user can add extraction here
+
+  # Diagnostics summary
   cat("Comparison diagnostics:\n")
   cat(sprintf(" rows compared: %d\n", n))
   cat(sprintf(
@@ -367,15 +437,17 @@ run_compare <- function(w_df, params, plot = TRUE) {
     legacy_out = legacy_out,
     modern_like = modern_legacy_df,
     legacy_df = legacy_df,
-    cmp = cmp
+    cmp = cmp,
+    drivers = drivers
   )
 }
 
 # ---------------- Example / template call ----------------------------------
 # Example parameter mapping (fill with your values)
+# NOTE: onset below is 1-indexed for modern seir() (1 = emergence day).
 params <- list(
   emergence = "2000-06-30",
-  onset = 15,
+  onset = 15, # 1-indexed (modern). legacy will get onset-1 (0-index).
   duration = 120,
   initSites = 600,
   initInfection = 1,
@@ -391,8 +463,6 @@ params <- list(
   RRG = 0.1
 )
 
-# Then run:
-result <- run_compare(w, params)
-head(result$cmp)
-#
-# The function returns a list with the raw modern and legacy outputs plus aligned data.frames and a per-day comparison table.
+# Then run (example):
+# result <- run_compare(w, params)
+# head(result$cmp)
