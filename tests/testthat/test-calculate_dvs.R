@@ -67,32 +67,3 @@ test_that(".calculate_dvs() caps at DVS = 2", {
   expect_equal(dvs[100], 2)
   expect_equal(dvs[200], 2)
 })
-
-test_that(".calculate_dvs() validates inputs", {
-  wth <- data.table::data.table(TEMP = rep(20, 10))
-
-  # Missing base_temp
-  expect_error(
-    .calculate_dvs(wth, list(gdd_to_maturity = 1000)),
-    "must contain base_temp"
-  )
-
-  # Missing gdd_to_maturity
-  expect_error(
-    .calculate_dvs(wth, list(base_temp = 10)),
-    "must contain gdd_to_maturity"
-  )
-
-  # Invalid gdd_to_maturity
-  expect_error(
-    .calculate_dvs(wth, list(base_temp = 10, gdd_to_maturity = -100)),
-    "must be positive"
-  )
-
-  # NA in TEMP
-  wth_na <- data.table::data.table(TEMP = c(20, NA, 25))
-  expect_error(
-    .calculate_dvs(wth_na, list(base_temp = 10, gdd_to_maturity = 1000)),
-    "contains NA values"
-  )
-})

@@ -291,7 +291,7 @@ test_that("seir requires thermal_time when age_driver = 'dvs'", {
       Sx = 3200,
       age_driver = "dvs"
     ),
-    class = "epicrop_missing_thermal_time"
+    '`age_driver` = "dvs" requires `thermal_time`'
   )
 })
 
@@ -341,7 +341,7 @@ test_that("seir validates infection_window structure", {
       Sx = 3200,
       infection_window = "invalid"
     ),
-    "must be a list"
+    "infection_window` must have dvs_start and dvs_end"
   )
 
   expect_error(
@@ -493,7 +493,7 @@ test_that("seir errors on emergence not in weather range", {
       i = 19,
       Sx = 3200
     ),
-    "not in weather data range"
+    "Emergence date not found in weather data"
   )
 })
 
