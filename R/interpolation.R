@@ -1,5 +1,3 @@
-#' Interpolate parameter values
-#'
 #' Internal function to handle different parameter input types (scalar, vector,
 #' matrix lookup table, or function) and interpolate to daily values.
 #'
@@ -14,13 +12,12 @@
 #'
 #' @details
 #' For matrix input, uses fast linear interpolation that exactly matches
-#' stats::approx() with rule = 2 (constant extrapolation at boundaries).
+#' [stats::approx()] with rule = 2 (constant extrapolation at boundaries).
 #' For function input, applies function to `age_vec` and clamps negative
 #' values to 0.
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
-#' @keywords internal
 #' @dev
 .interp <- function(param, age_vec) {
   # Handle NULL
@@ -42,7 +39,6 @@
         )
       }
     )
-    # Match second version's behavior exactly
     result[result < 0] <- 0
     return(result)
   }
@@ -81,7 +77,7 @@
   )
 }
 
-#' Interpolate from lookup table (matrix or data.frame)
+#' Interpolate from lookup table (matrix or data.frame) with digest memoisation
 #' @autoglobal
 #' @dev
 .interp_table <- function(param, age_vec) {
@@ -139,7 +135,8 @@
     }
   }
 
-  .fast_interp_approx(param, age_vec)
+  # Use content-based memoised fast interpolation
+  .memo_fast_interp_approx_digest(param, age_vec)
 }
 
 #' Fast linear interpolation matching stats::approx()
@@ -150,17 +147,17 @@
 #'
 #' @param mat Two-column numeric matrix \[x, y\]
 #' @param xout Vector of x values to interpolate at
-#' @returns Vector of interpolated y values (identical to approx() output)
+#' @returns Vector of interpolated y values (identical to `stats::approx()`
+#' output)
 #'
 #' @details
 #' Automatically sorts by x column if unsorted, handles duplicates using
-#' approx()'s tie handling (keeps first value), and uses constant
+#' `approx()`'s tie handling (keeps first value), and uses constant
 #' extrapolation at boundaries (rule = 2).
 #'
 #' @autoglobal
-#' @keywords internal
 #' @dev
-.fast_interp_approx <- function(mat, xout) {
+.fast_interp_approx_internal <- function(mat, xout) {
   if (length(xout) == 0L) {
     return(numeric(0))
   }
@@ -234,3 +231,15 @@
 
   return(result)
 }
+
+#' Memoised wrapper for interpolation using content-based hashing
+#' @autoglobal
+#' @dev
+.memo_fast_interp_approx_digest <- memoise::memoise(
+  function(mat, xout) {
+    mat_hash <- digest::digest(as.numeric(mat))
+    xout_hash <- digest::digest(as.numeric(xout))
+    # Only used for cache key; actual computation does not use hashes
+    .fast_interp_approx_internal(mat, xout)
+  }
+)
