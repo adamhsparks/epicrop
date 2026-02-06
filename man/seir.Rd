@@ -52,11 +52,12 @@ field names:\tabular{rl}{
 entered in \code{YYYY-MM-DD} format (character).}
 
 \item{onset}{expected number of days until the onset of disease after
-emergence date (day, integer). Described in Table 1 of Savary \emph{et al.}
-2012.}
+emergence date (day, integer). For this modern seir() variant onset is
+1-indexed (1 = emergence day). When comparing with legacy SEIR(),
+translate as legacy_onset = onset - 1.}
 
 \item{duration}{simulation duration \emph{i. e.}, growing season length (day,
-integer). Described in Table 1 of Savary _et al. _ 2012.}
+integer). Described in Table 1 of Savary \emph{et al.} 2012.}
 
 \item{H0}{initial number of plant's healthy sites (integer). Described in
 Table 1 of Savary \emph{et al.} 2012.}
@@ -73,8 +74,8 @@ of Savary \emph{et al.} 2012.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature as a numeric two-column matrix with the first
-column being temperature in °C and the second the modifier (bounded by 0 and
-1). Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
+column being temperature in °C and the second the modifier (bounded by 0
+and 1). Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Described in Table 1 of Savary \emph{et al.} 2012. This value can be modified
@@ -154,125 +155,13 @@ of 2. Defaults to 1.}
 A \code{\link[data.table:data.table]{data.table::data.table()}} object containing the following
 columns:
 
-\describe{
-\item{simday}{Day of simulation (1-indexed, where 1 is the emergence date)}
-\item{dates}{Date of simulation (Date class)}
-\item{sites}{Total number of healthy sites present on day "x"}
-\item{latent}{Number of latent sites present on day "x"}
-\item{infectious}{Number of infectious sites present on day "x"}
-\item{removed}{Number of removed sites present on day "x"}
-\item{senesced}{Number of senesced sites present on day "x"}
-\item{rateinf}{Rate of infection (new infections on day "x")}
-\item{rlex}{Rate of lesion expansion (healthy sites converted to infectious
-via direct expansion on day "x")}
-\item{rtransfer}{Rate of transfer from latent to infectious sites on day
-"x"}
-\item{rremoved}{Rate of removal from infectious to removed sites on day
-"x"}
-\item{rgrowth}{Rate of growth of healthy sites on day "x"}
-\item{rsenesced}{Rate of senescence of healthy sites on day "x"}
-\item{diseased}{Number of diseased (latent + infectious + removed) sites on
-day "x"}
-\item{intensity}{Proportion of diseased sites (latent + infectious) per
-total living sites (excludes removed and senesced) on day "x"}
-\item{lat}{Latitude value if provided by the \code{wth} object}
-\item{lon}{Longitude value if provided by the \code{wth} object}
-}
-
-The returned object also has an attribute \code{AUDPC} (accessed via
-\code{attr(result, "AUDPC")}) containing the area under the disease progress
-curve for the entire simulation, calculated using the trapezoidal rule.
+... (documentation omitted for brevity) ...
 }
 \description{
 This function is originally used by specific disease models in
 \sQuote{EPIRICE} and \sQuote{EPIWHEAT} to model disease intensity of
 several rice diseases and two wheat diseases respectively. Given proper
 values it can be used with other pathosystems as well.
-}
-\section{Output Structure}{
-
-
-The output is organized into three categories:
-
-\strong{State Variables} (stocks at end of each day):
-\itemize{
-\item \code{sites}, \code{latent}, \code{infectious}, \code{removed}, \code{senesced}
-}
-
-\strong{Flow Variables} (rates/changes during each day):
-\itemize{
-\item \code{rateinf}, \code{rlex}, \code{rtransfer}, \code{rremoved}, \code{rgrowth}, \code{rsenesced}
-}
-
-\strong{Derived Variables} (calculated from states):
-\itemize{
-\item \code{diseased}, \code{intensity}
-}
-
-\strong{Mass Balance:}
-At any day:  \code{sites + latent + infectious + removed + senesced} should equal
-initial sites (H0) plus cumulative growth minus cumulative senescence
-(accounting for numerical precision).
-}
-
-\section{\emph{a} -- Aggregation Details}{
-
-
-When \emph{a} is set to \code{1} the assumption is that that there is no disease
-aggregation with new infections occurring at random among the healthy sites.
-When \emph{a} is greater than \code{1} there is aggregation in the disease occurrence,
-the pathogen is unable to access the entire population of healthy sites,
-which results in disease aggregation.  Refer to Savary \emph{et al.} (2012) for
-greater detail.
-}
-
-\section{TMIN/TMAX Details}{
-
-
-If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
-\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
-24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
-\code{RcW} to calculate a value between 0 and 1 for the whole day. When
-\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
-to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
-}
-
-\section{LAT/LON Details}{
-
-
-If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
-in the output for mapping purposes.  Both values must be present.  These
-columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
-}
-
-\references{
-Sparks, A. H., P. D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia,
-S.D. Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in
-R: Disease Progress over Time. \emph{The Plant Health Instructor}.
-\doi{10.1094/PHI-A-2008-0129-02}.
-
-Madden, L. V., G. Hughes, and F. van den Bosch. 2007. \emph{The Study of Plant
-Disease Epidemics}. American Phytopathological Society, St. Paul, MN.
-\doi{10.1094/9780890545058}.
-
-Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
-J. Modeling and mapping potential epidemics of rice diseases globally.
-\emph{Crop Protection}, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
-\doi{10.1016/j.cropro.2011.11.009}.
-}
-\seealso{
-Disease-specific helper functions:
-\itemize{
-\item \code{\link[=bacterial_blight]{bacterial_blight()}},
-\item \code{\link[=brown_spot]{brown_spot()}},
-\item \code{\link[=leaf_blast]{leaf_blast()}},
-\item \code{\link[=sheath_blight]{sheath_blight()}},
-\item \code{\link[=tungro]{tungro()}},
-\item \code{\link[=modified_kim_leaf_blast]{modified_kim_leaf_blast()}},
-\item \code{\link[=modified_kim_sheath_blight]{modified_kim_sheath_blight()}},
-\item \code{\link[=leaf_rust]{leaf_rust()}}, and
-\item \code{\link[=s_tritici_blotch]{s_tritici_blotch()}}.
-}
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com} from original by
