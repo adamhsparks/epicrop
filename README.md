@@ -12,6 +12,9 @@
 
 A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package.
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, `seir()`.
+The legacy `SEIR()`` in {cropsim} uses a non-canonical formula for "diseased" ([it accumulates "infectious" twice via `sum(infectious)`](https://github.com/r-forge/cropsim/blob/7b7a035a612f9386112d8d49ec21724500d7f88e/pkg/cropsim/R/SEIR.R#L118C1-L120C60)).
+The modern core of `seir()` in {epicrop} was changed to the canonical formula (`diseased = latent + infectious + removed`), which reduced modern diseased and COFR relative to legacy.
+So, please be aware that the legacy `SEIR()` and the modern `seir()` will give different results for the same parameters, and that the modern `seir()` is more consistent with the canonical SEIR model.
 
 This package implements the original EPIRICE model as detailed in Savary *et al.* (2012), which introduces the model and uses it to model global epidemics of rice diseases illustrating the risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro disease.
 Additional models included for rice are adapted from Kim *et al.* (2015) for rice sheath blight and leaf blast.
@@ -82,24 +85,24 @@ bb_sim
 #>   4:      4 2000-07-04   100      0   0.000000  0.00000  0.00000       0     0
 #>   5:      5 2000-07-05   100      0   0.000000  0.00000  0.00000       0     0
 #>  ---                                                                          
-#> 116:    116 2000-10-24     0      0   4.849591 59.32692 60.00625       0     0
-#> 117:    117 2000-10-25     0      0   4.170267 60.00625 60.49282       0     0
-#> 118:    118 2000-10-26     0      0   3.683692 60.49282 60.95208       0     0
-#> 119:    119 2000-10-27     0      0   3.224435 60.95208 61.49435       0     0
-#> 120:    120 2000-10-28     0      0   2.682167 61.49435 62.03536       0     0
+#> 116:    116 2000-10-24     0      0   6.717905 56.35040 57.27858       0     0
+#> 117:    117 2000-10-25     0      0   5.789721 57.27858 57.93887       0     0
+#> 118:    118 2000-10-26     0      0   5.129435 57.93887 58.55975       0     0
+#> 119:    119 2000-10-27     0      0   4.508549 58.55975 59.28986       0     0
+#> 120:    120 2000-10-28     0      0   3.778446 59.28986 60.01366       0     0
 #>      rtransfer  rremoved rgrowth rsenesced diseased intensity     lat      lon
 #>          <num>     <num>   <num>     <num>    <num>     <num>   <num>    <num>
-#>   1:         0 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   2:         0 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   3:         0 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   4:         0 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   5:         0 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
+#>   1:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
+#>   2:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
+#>   3:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
+#>   4:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
+#>   5:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
 #>  ---                                                                          
-#> 116:         0 0.0000000       0 0.6793234 64.17652         1 14.6774 121.2556
-#> 117:         0 0.6793234       0 0.4865757 64.17652         1 14.6774 121.2556
-#> 118:         0 0.4865757       0 0.4592564 64.17652         1 14.6774 121.2556
-#> 119:         0 0.4592564       0 0.5422683 64.17652         1 14.6774 121.2556
-#> 120:         0 0.5422683       0 0.5410127 64.17652         1 14.6774 121.2556
+#> 116:         0 0.0000000       0 0.9281842 119.4187         1 14.6774 121.2556
+#> 117:         0 0.9281842       0 0.6602855 120.3469         1 14.6774 121.2556
+#> 118:         0 0.6602855       0 0.6208868 121.0072         1 14.6774 121.2556
+#> 119:         0 0.6208868       0 0.7301022 121.6281         1 14.6774 121.2556
+#> 120:         0 0.7301022       0 0.7238054 122.3582         1 14.6774 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
