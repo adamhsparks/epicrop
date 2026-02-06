@@ -1,3 +1,0 @@
-    Legacy SEIR uses a non-canonical formula for "diseased" (it accumulates "infectious" twice via sum(infectious) in that code path). The modern core was changed to the canonical formula (diseased = latent + infectious + removed), which reduced modern diseased and COFR relative to legacy — so COFR diverged.
-    Your diagnostics show modern and legacy drivers (Rc, wetness) are now aligned, but legacy reports much larger diseased totals (and lower COFR) because of the legacy formula/ordering.
-
