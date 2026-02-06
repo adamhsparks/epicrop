@@ -15,7 +15,24 @@
 
 library(data.table)
 library(stats) # for approx if needed
+library(cropsim)
+devtools::load_all("cropsim") # ensure seir() and dependencies are loaded
 
+load(test_path(file = "testdata", "wth_test_data.rda"))
+
+wth_formatted <-
+  format_wth(
+    wth = wth,
+    date = "YYYYMMDD",
+    temp = "T2M",
+    rhum = "RH2M",
+    rain = "PRECTOTCORR",
+    tmin = "T2M_MIN",
+    tmax = "T2M_MAX",
+    lat = "LAT",
+    lon = "LON"
+  )
+w <- wth_formatted
 # --- Helpers to normalize weather and create model inputs -------------------
 
 normalize_weather <- function(w) {
@@ -438,7 +455,9 @@ run_compare <- function(w_df, params, plot = TRUE) {
     modern_like = modern_legacy_df,
     legacy_df = legacy_df,
     cmp = cmp,
-    drivers = drivers
+    drivers = drivers,
+    w_modern = w_modern,
+    w_legacy = w_legacy
   )
 }
 
@@ -464,5 +483,169 @@ params <- list(
 )
 
 # Then run (example):
-# result <- run_compare(w, params)
-# head(result$cmp)
+result <- run_compare(w, params)
+head(result$cmp)
+# Safe diagnostics for COFR / Rc / rateinf mismatches
+# Run after: result <- run_compare(w, params)
+
+# Guard: ensure result exists
+if (!exists("result")) {
+  stop("Please run: result <- run_compare(w, params) first")
+}
+
+# Pull objects
+modern_like <- result$modern_like # modern converted-to-legacy-like (includes day0)
+legacy_df <- result$legacy_df # legacy output (includes day0)
+w_modern <- result$w_modern # epicrop.wth used by modern (rows emergence ..)
+w_legacy_df <- result$w_legacy@w # data.frame used by legacy (rows starting at emergence-1)
+
+# Basic params / defaults
+duration <- as.integer(params$duration)
+rhlim <- if (!is.null(params$rhlim)) params$rhlim else 90
+rainlim <- if (!is.null(params$rainlim)) params$rainlim else 5
+baseRc <- if (!is.null(params$baseRc)) {
+  params$baseRc
+} else {
+  stop("params$baseRc missing")
+}
+
+# Helper AFGen-like wrapper (works whether AFGen exists or not)
+af_wrapper <- function(xy, xval) {
+  # xy may be matrix/data.frame (2-col), scalar, vector, or function - try AFGen first if present
+  if (exists("AFGen", mode = "function")) {
+    # AFGen in legacy expects matrix-like table (2-col) and scalar x
+    # but AFGen may error on data types; use tryCatch to fallback
+    res <- tryCatch(AFGen(xy, xval), error = function(e) NULL)
+    if (!is.null(res)) return(as.numeric(res))
+  }
+  # Fallback to .interp for numeric/matrix/function/vector inputs
+  if (is.function(xy)) {
+    return(as.numeric(.interp(xy, xval)))
+  }
+  if (is.matrix(xy) || is.data.frame(xy)) {
+    return(as.numeric(.interp(xy, xval))[1])
+  }
+  # numeric scalar or vector: if length>1 and xval is vectorized, pick single via .interp
+  return(as.numeric(.interp(xy, xval))[1])
+}
+
+# -------- Modern Rc calculation (vectorised, as seir does) -------------------
+if (!("TEMP" %in% names(w_modern))) {
+  stop("w_modern missing TEMP")
+}
+age_values_mod <- if (
+  !is.null(params$age_driver) && params$age_driver == "dvs"
+) {
+  .calculate_dvs(w_modern, params$thermal_time)
+} else {
+  seq(0, duration - 1)
+}
+Rc_age_mod <- .interp(params$ageRc, age_values_mod)
+Rc_temp_mod <- .interp(params$tmpRc, w_modern$TEMP)
+Rc_wet_mod <- as.numeric((w_modern$RHUM >= rhlim) | (w_modern$RAIN >= rainlim))
+Rc_mod_vec <- pmax(0, baseRc) *
+  pmax(0, Rc_age_mod) *
+  pmax(0, Rc_temp_mod) *
+  pmax(0, Rc_wet_mod)
+# Align to modern_like which has a prepended day0: make length duration+1
+Rc_mod_aligned <- c(NA_real_, Rc_mod_vec) # index 1 = day0, 2.. = simdays 1..
+
+# -------- Legacy Rc calculation (as looped in SEIR) -------------------------
+# legacy uses day loop day = 0..duration-1 and indexes temp/rh by wth@w$tavg[day+1]
+legacy_days <- 0:(duration - 1)
+# ensure we have enough legacy rows (should start at emergence-1)
+if (nrow(w_legacy_df) < (duration + 1)) {
+  stop(
+    "legacy weather shorter than expected; needs at least duration+1 rows starting at emergence-1"
+  )
+}
+
+# age and temp for each legacy day
+Rc_age_leg_vec <- sapply(legacy_days, function(d) af_wrapper(params$ageRc, d))
+# Map legacy day d to the row that corresponds to the same calendar date as modern simday d+1
+# legacy w_legacy_df row 1 == emergence-1, row 2 == emergence, etc.
+tavg_for_days <- w_legacy_df$tavg[legacy_days + 2] # day 0 -> row 2 (emergence), day 1 -> row 3, ...
+Rc_temp_leg_vec <- sapply(tavg_for_days, function(tt) {
+  af_wrapper(params$tmpRc, tt)
+})
+# choose rows 1..nrows from the legacy output which start at emergence-1,
+# but to compare per-simday align to the modern day0..duration-1 rows:
+RH_legacy = w_legacy_df$rhmax[1:nrows] # this is fine for printing the raw legacy weather
+RAIN_legacy = w_legacy_df$prec[1:nrows]
+# (we use rh_legacy_vec / prec_legacy_vec above for driver construction)
+Rc_wet_leg_vec <- as.numeric((rh_leg_vec >= rhlim) | (prec_leg_vec >= rainlim))
+Rc_leg_vec <- pmax(0, baseRc) *
+  pmax(0, Rc_age_leg_vec) *
+  pmax(0, Rc_temp_leg_vec) *
+  pmax(0, Rc_wet_leg_vec)
+Rc_leg_aligned <- c(NA_real_, Rc_leg_vec) # align to day0..duration rows
+
+# -------- Build diagnostics table aligned to modern_like / legacy_df rows ----
+nrows <- min(nrow(modern_like), nrow(legacy_df))
+df <- data.frame(
+  row = seq_len(nrows),
+  date = as.Date(modern_like$date[1:nrows]),
+  Rc_modern = Rc_mod_aligned[1:nrows],
+  Rc_legacy = Rc_leg_aligned[1:nrows],
+  RH_modern = if ("RHUM" %in% names(w_modern)) {
+    c(NA, w_modern$RHUM)[1:nrows]
+  } else {
+    NA
+  },
+  RAIN_modern = if ("RAIN" %in% names(w_modern)) {
+    c(NA, w_modern$RAIN)[1:nrows]
+  } else {
+    NA
+  },
+  RH_legacy = w_legacy_df$rhmax[1:nrows],
+  RAIN_legacy = w_legacy_df$prec[1:nrows],
+  modern_diseased = modern_like$diseased[1:nrows],
+  legacy_diseased = legacy_df$diseased[1:nrows],
+  modern_COFR = with(modern_like, 1 - diseased / (sites + diseased))[1:nrows],
+  legacy_COFR = with(legacy_df, 1 - diseased / (sites + diseased))[1:nrows],
+  modern_rateinf = modern_like$rateinf[1:nrows],
+  legacy_rateinf = legacy_df$rateinf[1:nrows],
+  modern_rtransfer = modern_like$rtransfer[1:nrows],
+  legacy_rtransfer = legacy_df$rtransfer[1:nrows],
+  modern_infectious = modern_like$infectious[1:nrows],
+  legacy_infectious = legacy_df$infectious[1:nrows],
+  stringsAsFactors = FALSE
+)
+
+# differences
+df$diff_Rc <- df$Rc_modern - df$Rc_legacy
+df$diff_COFR <- df$modern_COFR - df$legacy_COFR
+df$diff_rateinf <- df$modern_rateinf - df$legacy_rateinf
+df$diff_infectious <- df$modern_infectious - df$legacy_infectious
+
+# Top mismatches
+top_cofr <- df[order(-abs(df$diff_COFR)), ][1:10, ]
+top_rc <- df[order(-abs(df$diff_Rc)), ][1:10, ]
+top_rateinf <- df[order(-abs(df$diff_rateinf)), ][1:10, ]
+
+cat("Top COFR diffs:\n")
+print(top_cofr)
+cat("\nTop Rc diffs:\n")
+print(top_rc)
+cat("\nTop rateinf diffs:\n")
+print(top_rateinf)
+
+# Simple wetness boolean mismatches (modern uses RHUM/RAIN; legacy uses rhmax/prec)
+wet_mod_bool <- (df$RH_modern >= rhlim) | (df$RAIN_modern >= rainlim)
+wet_leg_bool <- (df$RH_legacy >= rhlim) | (df$RAIN_legacy >= rainlim)
+wet_mismatch_idx <- which((wet_mod_bool %in% TRUE) != (wet_leg_bool %in% TRUE))
+
+if (length(wet_mismatch_idx) > 0) {
+  cat("\nDays where simple wetness boolean differs (indices):\n")
+  print(wet_mismatch_idx)
+  print(df[
+    wet_mismatch_idx,
+    c("row", "date", "RH_modern", "RAIN_modern", "RH_legacy", "RAIN_legacy")
+  ])
+} else {
+  cat("\nNo simple-wetness boolean mismatches detected.\n")
+}
+
+# Return diagnostics object into the session for further inspection
+diagnostics_df <- df
+invisible(diagnostics_df)
