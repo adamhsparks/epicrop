@@ -46,6 +46,7 @@ Depends:
 Imports:
     cli,
     data.table,
+    digest,
     memoise,
     nasapower (>= 4.0),
     rlang,
