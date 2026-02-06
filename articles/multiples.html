@@ -117,7 +117,16 @@ last season of the last start date.</p>
 <span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span>
 <span>  start_date <span class="op">=</span> <span class="va">emergence_date</span>,</span>
 <span>  duration <span class="op">=</span> <span class="va">duration</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A</span></span>
+<span><span class="co">#&gt; shallow copy of this data.table was taken so that := can add or remove 1</span></span>
+<span><span class="co">#&gt; columns by reference. At an earlier point, this data.table was copied by R (or</span></span>
+<span><span class="co">#&gt; was created manually using structure() or similar). Avoid names&lt;- and attr&lt;-</span></span>
+<span><span class="co">#&gt; which in R currently (and oddly) may copy the whole data.table. Use set* syntax</span></span>
+<span><span class="co">#&gt; instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual</span></span>
+<span><span class="co">#&gt; for data.table-agnostic packages to produce tables affected by this issue. If</span></span>
+<span><span class="co">#&gt; this message doesn't help, please report your use case to the data.table issue</span></span>
+<span><span class="co">#&gt; tracker so the root cause can be fixed or this message improved.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="using-a-helper-function-to-model-several-seasons">Using a Helper Function to Model Several Seasons<a class="anchor" aria-label="anchor" href="#using-a-helper-function-to-model-several-seasons"></a>
@@ -131,13 +140,12 @@ frame of the two seasons.</p>
 <span>                                  emergence <span class="op">=</span> <span class="va">ymd</span>,</span>
 <span>                                  wth_list <span class="op">=</span> <span class="va">wth_list</span>,</span>
 <span>                                  window_days <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in `seir()`:</span></span>
+<span><span class="co">#&gt; ! formal argument "duration" matched by multiple actual arguments</span></span>
 <span></span>
 <span><span class="va">bb_2_seasons</span></span>
-<span><span class="co">#&gt; Key: &lt;emergence, AUDPC&gt;</span></span>
-<span><span class="co">#&gt;           emergence     AUDPC</span></span>
-<span><span class="co">#&gt;    &lt;epicrop.emerge&gt;     &lt;num&gt;</span></span>
-<span><span class="co">#&gt; 1:       2000-06-30 12.638149</span></span>
-<span><span class="co">#&gt; 2:       2001-06-30  7.132555</span></span></code></pre></div>
+<span><span class="co">#&gt; Error:</span></span>
+<span><span class="co">#&gt; ! object 'bb_2_seasons' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visualising-differences-in-audpc-between-seasons">Visualising differences in AUDPC between seasons<a class="anchor" aria-label="anchor" href="#visualising-differences-in-audpc-between-seasons"></a>
@@ -153,12 +161,9 @@ visualise the difference between the two seasons.</p>
 <span>           orientation <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Emergence (YYYY-MM-DD)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"AUDPC"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="float">
-<img src="graph_seasons-1.png" alt="Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."><div class="figcaption">Bacterial blight area under the disease progress
-curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler
-Experiment Station in Calabarzon, Philippines.</div>
-</div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error:</span></span>
+<span><span class="co">#&gt; ! object 'bb_2_seasons' not found</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="simulating-multiple-seasons-and-establishment-dates">Simulating multiple seasons and establishment dates<a class="anchor" aria-label="anchor" href="#simulating-multiple-seasons-and-establishment-dates"></a>
@@ -180,78 +185,24 @@ simplify running multiple establishment dates.</p>
 <span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span>years <span class="op">=</span> <span class="va">years</span>,</span>
 <span>                                       lonlat <span class="op">=</span> <span class="va">lonlat</span>,</span>
 <span>                                       start_date <span class="op">=</span> <span class="va">month_day</span>,</span>
-<span>                                       duration <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span></code></pre></div>
+<span>                                       duration <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A</span></span>
+<span><span class="co">#&gt; shallow copy of this data.table was taken so that := can add or remove 1</span></span>
+<span><span class="co">#&gt; columns by reference. At an earlier point, this data.table was copied by R (or</span></span>
+<span><span class="co">#&gt; was created manually using structure() or similar). Avoid names&lt;- and attr&lt;-</span></span>
+<span><span class="co">#&gt; which in R currently (and oddly) may copy the whole data.table. Use set* syntax</span></span>
+<span><span class="co">#&gt; instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual</span></span>
+<span><span class="co">#&gt; for data.table-agnostic packages to produce tables affected by this issue. If</span></span>
+<span><span class="co">#&gt; this message doesn't help, please report your use case to the data.table issue</span></span>
+<span><span class="co">#&gt; tracker so the root cause can be fixed or this message improved.</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="fu"><a href="../reference/run_epicrop_model.html">run_epicrop_model</a></span><span class="op">(</span><span class="va">bacterial_blight</span>,</span>
 <span>                   <span class="va">emergence</span>,</span>
 <span>                   <span class="va">wth_list</span>,</span>
 <span>                   window_days <span class="op">=</span> <span class="va">duration</span>,</span>
 <span>                   output <span class="op">=</span> <span class="st">"audpc"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Key: &lt;emergence, AUDPC&gt;</span></span>
-<span><span class="co">#&gt;            emergence     AUDPC</span></span>
-<span><span class="co">#&gt;     &lt;epicrop.emerge&gt;     &lt;num&gt;</span></span>
-<span><span class="co">#&gt;  1:       2001-06-01 14.131715</span></span>
-<span><span class="co">#&gt;  2:       2001-06-14  9.151969</span></span>
-<span><span class="co">#&gt;  3:       2001-06-30  7.132555</span></span>
-<span><span class="co">#&gt;  4:       2002-06-01 14.943097</span></span>
-<span><span class="co">#&gt;  5:       2002-06-14 13.195117</span></span>
-<span><span class="co">#&gt;  6:       2002-06-30 15.009709</span></span>
-<span><span class="co">#&gt;  7:       2003-06-01 13.378803</span></span>
-<span><span class="co">#&gt;  8:       2003-06-14 14.130203</span></span>
-<span><span class="co">#&gt;  9:       2003-06-30 17.226754</span></span>
-<span><span class="co">#&gt; 10:       2004-06-01 12.862026</span></span>
-<span><span class="co">#&gt; 11:       2004-06-14 14.450173</span></span>
-<span><span class="co">#&gt; 12:       2004-06-30 12.391271</span></span>
-<span><span class="co">#&gt; 13:       2005-06-01 16.170222</span></span>
-<span><span class="co">#&gt; 14:       2005-06-14 15.617532</span></span>
-<span><span class="co">#&gt; 15:       2005-06-30 16.970441</span></span>
-<span><span class="co">#&gt; 16:       2006-06-01 16.577408</span></span>
-<span><span class="co">#&gt; 17:       2006-06-14 15.807245</span></span>
-<span><span class="co">#&gt; 18:       2006-06-30 14.780878</span></span>
-<span><span class="co">#&gt; 19:       2007-06-01  9.387853</span></span>
-<span><span class="co">#&gt; 20:       2007-06-14  7.646396</span></span>
-<span><span class="co">#&gt; 21:       2007-06-30 11.882833</span></span>
-<span><span class="co">#&gt; 22:       2008-06-01 10.742961</span></span>
-<span><span class="co">#&gt; 23:       2008-06-14 10.728721</span></span>
-<span><span class="co">#&gt; 24:       2008-06-30 13.153549</span></span>
-<span><span class="co">#&gt; 25:       2009-06-01  6.040063</span></span>
-<span><span class="co">#&gt; 26:       2009-06-14 11.356032</span></span>
-<span><span class="co">#&gt; 27:       2009-06-30  9.117641</span></span>
-<span><span class="co">#&gt; 28:       2010-06-01 15.149563</span></span>
-<span><span class="co">#&gt; 29:       2010-06-14 17.895281</span></span>
-<span><span class="co">#&gt; 30:       2010-06-30 17.669956</span></span>
-<span><span class="co">#&gt; 31:       2011-06-01 14.512311</span></span>
-<span><span class="co">#&gt; 32:       2011-06-14 16.732625</span></span>
-<span><span class="co">#&gt; 33:       2011-06-30 19.958490</span></span>
-<span><span class="co">#&gt; 34:       2012-06-01 17.156552</span></span>
-<span><span class="co">#&gt; 35:       2012-06-14 18.759039</span></span>
-<span><span class="co">#&gt; 36:       2012-06-30 19.580385</span></span>
-<span><span class="co">#&gt; 37:       2013-06-01 17.394346</span></span>
-<span><span class="co">#&gt; 38:       2013-06-14 18.431213</span></span>
-<span><span class="co">#&gt; 39:       2013-06-30 19.381236</span></span>
-<span><span class="co">#&gt; 40:       2014-06-01 11.391712</span></span>
-<span><span class="co">#&gt; 41:       2014-06-14 11.564790</span></span>
-<span><span class="co">#&gt; 42:       2014-06-30 10.557649</span></span>
-<span><span class="co">#&gt; 43:       2015-06-01  6.669598</span></span>
-<span><span class="co">#&gt; 44:       2015-06-14 10.184387</span></span>
-<span><span class="co">#&gt; 45:       2015-06-30 14.403355</span></span>
-<span><span class="co">#&gt; 46:       2016-06-01 11.993649</span></span>
-<span><span class="co">#&gt; 47:       2016-06-14  9.168104</span></span>
-<span><span class="co">#&gt; 48:       2016-06-30 10.740988</span></span>
-<span><span class="co">#&gt; 49:       2017-06-01 16.609637</span></span>
-<span><span class="co">#&gt; 50:       2017-06-14 15.192003</span></span>
-<span><span class="co">#&gt; 51:       2017-06-30 13.617421</span></span>
-<span><span class="co">#&gt; 52:       2018-06-01 14.858372</span></span>
-<span><span class="co">#&gt; 53:       2018-06-14 17.450385</span></span>
-<span><span class="co">#&gt; 54:       2018-06-30 13.319767</span></span>
-<span><span class="co">#&gt; 55:       2019-06-01 12.141632</span></span>
-<span><span class="co">#&gt; 56:       2019-06-14 12.368693</span></span>
-<span><span class="co">#&gt; 57:       2019-06-30 12.987964</span></span>
-<span><span class="co">#&gt; 58:       2020-06-01  9.041934</span></span>
-<span><span class="co">#&gt; 59:       2020-06-14  7.628714</span></span>
-<span><span class="co">#&gt; 60:       2020-06-30 11.703225</span></span>
-<span><span class="co">#&gt;            emergence     AUDPC</span></span>
-<span><span class="co">#&gt;     &lt;epicrop.emerge&gt;     &lt;num&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in `seir()`:</span></span>
+<span><span class="co">#&gt; ! formal argument "duration" matched by multiple actual arguments</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="multiple-sites-and-seasons">Multiple Sites and Seasons<a class="anchor" aria-label="anchor" href="#multiple-sites-and-seasons"></a>
@@ -281,6 +232,8 @@ season.</p>
 <span>  years <span class="op">=</span> <span class="va">years</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"cross"</span></span>
 <span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Error in `data.table::rbindlist()`:</span></span>
+<span><span class="co">#&gt; ! Item 1 of input is not a data.frame, data.table or list</span></span>
 <span></span>
 <span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_epicrop_emergence.html">build_epicrop_emergence</a></span><span class="op">(</span><span class="va">years</span>, <span class="va">start_date</span><span class="op">)</span></span></code></pre></div>
 <p>Examples of how to run the model sequentially and in parallel.</p>
@@ -290,20 +243,8 @@ season.</p>
 <span>                  <span class="va">wth_list</span>,</span>
 <span>                  window_days <span class="op">=</span> <span class="fl">240L</span>,</span>
 <span>                  output <span class="op">=</span> <span class="st">"audpc"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            emergence     AUDPC location</span></span>
-<span><span class="co">#&gt;     &lt;epicrop.emerge&gt;     &lt;num&gt;   &lt;char&gt;</span></span>
-<span><span class="co">#&gt;  1:       2020-04-15 0.9981608 Merredin</span></span>
-<span><span class="co">#&gt;  2:       2020-05-01 0.7967816 Merredin</span></span>
-<span><span class="co">#&gt;  3:       2021-04-15 1.2313931 Merredin</span></span>
-<span><span class="co">#&gt;  4:       2021-05-01 0.9065767 Merredin</span></span>
-<span><span class="co">#&gt;  5:       2020-04-15 0.9459766 Corrigin</span></span>
-<span><span class="co">#&gt;  6:       2020-05-01 0.8105469 Corrigin</span></span>
-<span><span class="co">#&gt;  7:       2021-04-15 1.0624976 Corrigin</span></span>
-<span><span class="co">#&gt;  8:       2021-05-01 0.7734221 Corrigin</span></span>
-<span><span class="co">#&gt;  9:       2020-04-15 0.6112117 Tamworth</span></span>
-<span><span class="co">#&gt; 10:       2020-05-01 0.6290722 Tamworth</span></span>
-<span><span class="co">#&gt; 11:       2021-04-15 0.7767261 Tamworth</span></span>
-<span><span class="co">#&gt; 12:       2021-05-01 0.8202714 Tamworth</span></span></code></pre></div>
+<span><span class="co">#&gt; Error in `seir()`:</span></span>
+<span><span class="co">#&gt; ! formal argument "duration" matched by multiple actual arguments</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

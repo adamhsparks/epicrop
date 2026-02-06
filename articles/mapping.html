@@ -114,6 +114,8 @@ data and labelling capabilities.</p>
 <span>  years <span class="op">=</span> <span class="va">year</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"cross"</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in `data.table::rbindlist()`:</span></span>
+<span><span class="co">#&gt; ! Item 1 of input is not a data.frame, data.table or list</span></span>
 <span></span>
 <span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_epicrop_model.html">run_epicrop_model</a></span><span class="op">(</span></span>
 <span>  model <span class="op">=</span> <span class="va">bacterial_blight</span>,</span>
@@ -122,9 +124,14 @@ data and labelling capabilities.</p>
 <span>  window_days <span class="op">=</span> <span class="fl">120L</span>,</span>
 <span>  output <span class="op">=</span> <span class="st">"full"</span></span>
 <span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Skipping 2000-06-30: no weather for required year 2000 (window</span></span>
+<span><span class="co">#&gt; 2000-06-30–2000-10-27).</span></span>
 <span></span>
 <span><span class="co"># helper fn to create a data.table with location, emergence and location</span></span>
 <span><span class="va">bb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/audpc_dt.html">audpc_dt</a></span><span class="op">(</span><span class="va">bb</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in `audpc_dt()`:</span></span>
+<span><span class="co">#&gt; ! `x` must contain AUDPC value as attribute</span></span>
+<span><span class="co">#&gt; ℹ This should be automatically added by `seir()`</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">bb</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lon</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_map_tile.html" class="external-link">annotation_map_tile</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"cartolight"</span>, zoomin <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
@@ -154,17 +161,12 @@ data and labelling capabilities.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">75</span>, <span class="fl">127</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
-<div class="float">
-<img src="map-AUDPC-1.png" alt="Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors."><div class="figcaption">Rice bacterial blight area under the disease
-progress curve (AUDPC) values for an establishment date of June 30, 2000
-at five locations, Mekong River Delta and Red River Delta in Vietnam;
-Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the
-Philippines. These data were obtained from the NASA Langley Research
-Center POWER Project funded through the NASA Earth Science Directorate
-Applied Science Program. Map base layer data is © OpenStreetMap
-contributors.</div>
-</div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in `ggplot2::geom_point()`:</span></span>
+<span><span class="co">#&gt; ! Problem while computing aesthetics.</span></span>
+<span><span class="co">#&gt; ℹ Error occurred in the 3rd layer.</span></span>
+<span><span class="co">#&gt; Caused by error:</span></span>
+<span><span class="co">#&gt; ! object 'AUDPC' not found</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

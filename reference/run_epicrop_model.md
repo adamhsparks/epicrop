@@ -102,5 +102,5 @@ run_epicrop_model(bacterial_blight,
                   wth_list,
                   window_days = 120L,
                   output = "audpc")
-#> Error: object 'wth_list' not found
+#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% .RcA_bacterial_blight,     RcT = RcT %||% .RcT_bacterial_blight, onset = 20L, duration = 120L,     rhlim = 90L, rainlim = 5L, H0 = 100L, I0 = 1L, RcOpt = 0.87,     p = 5L, i = 30L, Sx = 3200L, a = 4L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "duration" matched by multiple actual arguments
 ```
