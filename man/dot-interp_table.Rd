@@ -2,11 +2,11 @@
 % Please edit documentation in R/interpolation.R
 \name{.interp_table}
 \alias{.interp_table}
-\title{Interpolate from lookup table (matrix or data.frame)}
+\title{Interpolate from lookup table (matrix or data.frame) with digest memoisation}
 \usage{
 .interp_table(param, age_vec)
 }
 \description{
-Interpolate from lookup table (matrix or data.frame)
+Interpolate from lookup table (matrix or data.frame) with digest memoisation
 }
 \keyword{internal}
