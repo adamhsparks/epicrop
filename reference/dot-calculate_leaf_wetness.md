@@ -65,7 +65,6 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-07-31")
 )
 
-# Simple binary wetness
 wet_simple <- .calculate_leaf_wetness(
   wth = wth,
   rhlim = 90,

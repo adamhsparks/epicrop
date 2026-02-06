@@ -1,6 +1,6 @@
-# Validate weather data
+# Validate Weather Data
 
-Validate weather data
+Validate Weather Data
 
 ## Usage
 

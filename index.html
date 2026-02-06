@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Simulation Modelling of Crop Diseases • epicrop</title>
+<title>SEIR Simulation Modelling of Crop Diseases • epicrop</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -15,7 +15,7 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Simulation Modelling of Crop Diseases">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="SEIR Simulation Modelling of Crop Diseases">
 <meta name="description" content="Generic simulation modelling of crop diseases using a Susceptible-Exposed-Infectious-Removed (SEIR) model. This type of model was first described in botanical epidemiology by Zadoks (1971) &lt;doi:10.1094/Phyto-61-600&gt; and implemented in the EPIRICE model by Savary et al. (2012) &lt;doi:10.1016/j.cropro.2011.11.009&gt; detailing the models development, use and results from modelling global unmanaged epidemics of rice diseases for five major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro. Specific functions are provided to simulate all of these diseases with a generic SEIR' model function that is suitable for parameterising for use with other pathosystems as demonstrated in Savary et al. 2012 and Kim et al. 2015 &lt;doi:10.1016/j.agrformet.2015.01.011&gt; along with two wheat diseases, brown (leaf) rust and Septoria tritici blotch as published in Savary et al. 2015 &lt;doi:10.1007/s10658-015-0650-7&gt;. Functions for fetching and formatting weather data from the NASA POWER database are also provided to simplify the process of running simulations.">
 <meta property="og:description" content="Generic simulation modelling of crop diseases using a Susceptible-Exposed-Infectious-Removed (SEIR) model. This type of model was first described in botanical epidemiology by Zadoks (1971) &lt;doi:10.1094/Phyto-61-600&gt; and implemented in the EPIRICE model by Savary et al. (2012) &lt;doi:10.1016/j.cropro.2011.11.009&gt; detailing the models development, use and results from modelling global unmanaged epidemics of rice diseases for five major rice diseases, bacterial blight, brown spot, leaf blast, sheath blight and tungro. Specific functions are provided to simulate all of these diseases with a generic SEIR' model function that is suitable for parameterising for use with other pathosystems as demonstrated in Savary et al. 2012 and Kim et al. 2015 &lt;doi:10.1016/j.agrformet.2015.01.011&gt; along with two wheat diseases, brown (leaf) rust and Septoria tritici blotch as published in Savary et al. 2015 &lt;doi:10.1007/s10658-015-0650-7&gt;. Functions for fetching and formatting weather data from the NASA POWER database are also provided to simplify the process of running simulations.">
 <meta property="og:image" content="https://adamhsparks.codeberg.page/epicrop/logo.png">
@@ -68,10 +68,10 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code>seir()</code>.</p>
+<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package. This version provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code><a href="reference/seir.html">seir()</a></code>. The legacy <code>SEIR()</code> in {cropsim} uses a non-canonical formula for “diseased” (<a href="https://github.com/r-forge/cropsim/blob/7b7a035a612f9386112d8d49ec21724500d7f88e/pkg/cropsim/R/SEIR.R#L118C1-L120C60" class="external-link">it accumulates “infectious” twice via <code>sum(infectious)</code></a>). The modern core of <code><a href="reference/seir.html">seir()</a></code> in {epicrop} was changed to the canonical formula (<code>diseased = latent + infectious + removed</code>), which reduced modern diseased and COFR relative to legacy. So, please be aware that the legacy <code>SEIR()</code> and the modern <code><a href="reference/seir.html">seir()</a></code> will give different results for the same parameters, and that the modern <code><a href="reference/seir.html">seir()</a></code> is more consistent with the canonical SEIR model. This modern core of <code><a href="reference/seir.html">seir()</a></code> is also now 1 indexed, which is more consistent with R’s indexing and makes it easier to understand the model’s parameters and outputs when developing new models based on this core. The original <code>SEIR()</code> is 0 indexed, which is as it was used in the original EPIRICE model and published in Savary <em>et al.</em> (2012) and the legacy <code>SEIR()</code> in {cropsim}.</p>
 <p>This package implements the original EPIRICE model as detailed in Savary <em>et al.</em> (2012), which introduces the model and uses it to model global epidemics of rice diseases illustrating the risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro disease. Additional models included for rice are adapted from Kim <em>et al.</em> (2015) for rice sheath blight and leaf blast.</p>
 <p>The original EPIWHEAT model as presented in Savary <em>et al.</em> (2015) is also included in this implementation and can be used to model potential epidemics of two wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.</p>
-<p>Users may also provide their own paramters to the generic <code><a href="reference/epicrop_sim.html">epicrop_sim()</a></code> function to simulate other crop diseases as long as the weather data provided meet the model’s requirements.</p>
+<p>Users may also provide their own parameters to the generic <code><a href="reference/seir.html">seir()</a></code> function to simulate other crop diseases as long as the weather data provided meet the model’s requirements.</p>
 </div>
 <div class="section level1">
 <h1 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -98,32 +98,19 @@
 <span></span>
 <span><span class="va">wth</span></span>
 <span><span class="co">#&gt; Key: &lt;YYYYMMDD&gt;</span></span>
-<span><span class="co">#&gt;        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON  YEAR</span></span>
-<span><span class="co">#&gt;          &lt;IDat&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;   &lt;num&gt;    &lt;num&gt; &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt;   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt;   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt;   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt;   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt;  ---                                                                      </span></span>
-<span><span class="co">#&gt; 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt; 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt; 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt; 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt; 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556  2000</span></span>
-<span><span class="co">#&gt;         MM    DD</span></span>
-<span><span class="co">#&gt;      &lt;int&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt;   1:     7     1</span></span>
-<span><span class="co">#&gt;   2:     7     2</span></span>
-<span><span class="co">#&gt;   3:     7     3</span></span>
-<span><span class="co">#&gt;   4:     7     4</span></span>
-<span><span class="co">#&gt;   5:     7     5</span></span>
-<span><span class="co">#&gt;  ---            </span></span>
-<span><span class="co">#&gt; 117:    10    25</span></span>
-<span><span class="co">#&gt; 118:    10    26</span></span>
-<span><span class="co">#&gt; 119:    10    27</span></span>
-<span><span class="co">#&gt; 120:    10    28</span></span>
-<span><span class="co">#&gt; 121:    10    29</span></span></code></pre></div>
+<span><span class="co">#&gt;        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON</span></span>
+<span><span class="co">#&gt;          &lt;IDat&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;  ---                                                                </span></span>
+<span><span class="co">#&gt; 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="modelling-bacterial-blight-disease-intensity">Modelling bacterial blight disease intensity<a class="anchor" aria-label="anchor" href="#modelling-bacterial-blight-disease-intensity"></a>
@@ -133,45 +120,32 @@
 <code class="sourceCode R"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bb_sim</span></span>
-<span><span class="co">#&gt;      simday      dates     sites   latent infectious  removed    senesced</span></span>
-<span><span class="co">#&gt;       &lt;int&gt;     &lt;Date&gt;     &lt;num&gt;    &lt;num&gt;      &lt;num&gt;    &lt;num&gt;       &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:      1 2000-07-01  108.6875  0.00000     0.0000   0.0000    1.000000</span></span>
-<span><span class="co">#&gt;   2:      2 2000-07-02  118.1002  0.00000     0.0000   0.0000    2.086875</span></span>
-<span><span class="co">#&gt;   3:      3 2000-07-03  128.2934  0.00000     0.0000   0.0000    3.267877</span></span>
-<span><span class="co">#&gt;   4:      4 2000-07-04  139.3254  0.00000     0.0000   0.0000    4.550811</span></span>
-<span><span class="co">#&gt;   5:      5 2000-07-05  151.2581  0.00000     0.0000   0.0000    5.944065</span></span>
-<span><span class="co">#&gt;  ---                                                                     </span></span>
-<span><span class="co">#&gt; 116:    116 2000-10-24 1447.1969 42.91601   882.1001 499.8577 1816.288533</span></span>
-<span><span class="co">#&gt; 117:    117 2000-10-25 1429.3000 39.43396   858.8877 544.8076 1830.760502</span></span>
-<span><span class="co">#&gt; 118:    118 2000-10-26 1412.7346 35.15905   838.8631 586.0107 1845.053503</span></span>
-<span><span class="co">#&gt; 119:    119 2000-10-27 1397.3041 50.90893   795.3101 629.5637 1859.180849</span></span>
-<span><span class="co">#&gt; 120:    120 2000-10-28 1383.3219 65.19296   749.9324 674.9414 1873.153890</span></span>
-<span><span class="co">#&gt;       rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased intensity</span></span>
-<span><span class="co">#&gt;         &lt;num&gt; &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:  0.00000     0   0.00000  0.00000  9.68750  1.000000    0.000 0.0000000</span></span>
-<span><span class="co">#&gt;   2:  0.00000     0   0.00000  0.00000 10.49959  1.086875    0.000 0.0000000</span></span>
-<span><span class="co">#&gt;   3:  0.00000     0   0.00000  0.00000 11.37416  1.181002    0.000 0.0000000</span></span>
-<span><span class="co">#&gt;   4:  0.00000     0   0.00000  0.00000 12.31499  1.282934    0.000 0.0000000</span></span>
-<span><span class="co">#&gt;   5:  0.00000     0   0.00000  0.00000 13.32593  1.393254    0.000 0.0000000</span></span>
-<span><span class="co">#&gt;  ---                                                                        </span></span>
-<span><span class="co">#&gt; 116:  0.00000     0  22.24980 48.78973 14.84370 14.468215 1424.874 0.3899380</span></span>
-<span><span class="co">#&gt; 117: 18.25549     0  21.73754 44.94989 14.83057 14.471969 1443.129 0.3859397</span></span>
-<span><span class="co">#&gt; 118: 16.90356     0  21.17847 41.20307 14.63115 14.293000 1460.033 0.3822104</span></span>
-<span><span class="co">#&gt; 119: 15.74988     0   0.00000 43.55303 14.44665 14.127346 1475.783 0.3771831</span></span>
-<span><span class="co">#&gt; 120: 14.28403     0   0.00000 45.37768 14.27491 13.973041 1490.067 0.3707732</span></span>
-<span><span class="co">#&gt;          lat      lon</span></span>
-<span><span class="co">#&gt;        &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   2: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   3: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   4: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   5: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;  ---                 </span></span>
-<span><span class="co">#&gt; 116: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 117: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 118: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 119: 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 120: 14.6774 121.2556</span></span></code></pre></div>
+<span><span class="co">#&gt;      simday      dates sites latent infectious  removed senesced rateinf  rlex</span></span>
+<span><span class="co">#&gt;       &lt;int&gt;     &lt;IDat&gt; &lt;num&gt;  &lt;num&gt;      &lt;num&gt;    &lt;num&gt;    &lt;num&gt;   &lt;num&gt; &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:      1 2000-07-01   100      0   0.000000  0.00000  0.00000       0     0</span></span>
+<span><span class="co">#&gt;   2:      2 2000-07-02   100      0   0.000000  0.00000  0.00000       0     0</span></span>
+<span><span class="co">#&gt;   3:      3 2000-07-03   100      0   0.000000  0.00000  0.00000       0     0</span></span>
+<span><span class="co">#&gt;   4:      4 2000-07-04   100      0   0.000000  0.00000  0.00000       0     0</span></span>
+<span><span class="co">#&gt;   5:      5 2000-07-05   100      0   0.000000  0.00000  0.00000       0     0</span></span>
+<span><span class="co">#&gt;  ---                                                                          </span></span>
+<span><span class="co">#&gt; 116:    116 2000-10-24     0      0   6.717905 56.35040 57.27858       0     0</span></span>
+<span><span class="co">#&gt; 117:    117 2000-10-25     0      0   5.789721 57.27858 57.93887       0     0</span></span>
+<span><span class="co">#&gt; 118:    118 2000-10-26     0      0   5.129435 57.93887 58.55975       0     0</span></span>
+<span><span class="co">#&gt; 119:    119 2000-10-27     0      0   4.508549 58.55975 59.28986       0     0</span></span>
+<span><span class="co">#&gt; 120:    120 2000-10-28     0      0   3.778446 59.28986 60.01366       0     0</span></span>
+<span><span class="co">#&gt;      rtransfer  rremoved rgrowth rsenesced diseased intensity     lat      lon</span></span>
+<span><span class="co">#&gt;          &lt;num&gt;     &lt;num&gt;   &lt;num&gt;     &lt;num&gt;    &lt;num&gt;     &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   2:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   3:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   4:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   5:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;  ---                                                                          </span></span>
+<span><span class="co">#&gt; 116:         0 0.0000000       0 0.9281842 119.4187         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 117:         0 0.9281842       0 0.6602855 120.3469         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 118:         0 0.6602855       0 0.6208868 121.0072         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 119:         0 0.6208868       0 0.7301022 121.6281         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 120:         0 0.7301022       0 0.7238054 122.3582         1 14.6774 121.2556</span></span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -208,19 +182,18 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <div class="section level2">
 <h2 id="code-coverage">Code Coverage<a class="anchor" aria-label="anchor" href="#code-coverage"></a>
 </h2>
-<pre><code><span><span class="co">#&gt; epicrop Coverage: 69.02%</span></span>
+<pre><code><span><span class="co">#&gt; epicrop Coverage: 57.68%</span></span>
 <span><span class="co">#&gt; R/build_epicrop_emergence.R: 0.00%</span></span>
 <span><span class="co">#&gt; R/fetch_epicrop_weather_list.R: 0.00%</span></span>
 <span><span class="co">#&gt; R/run_epicrop_model.R: 0.00%</span></span>
-<span><span class="co">#&gt; R/validation.R: 73.71%</span></span>
-<span><span class="co">#&gt; R/format_wth.R: 80.00%</span></span>
+<span><span class="co">#&gt; R/validation.R: 10.00%</span></span>
+<span><span class="co">#&gt; R/seir.R: 77.40%</span></span>
+<span><span class="co">#&gt; R/interpolation.R: 77.78%</span></span>
 <span><span class="co">#&gt; R/get_wth.R: 81.16%</span></span>
-<span><span class="co">#&gt; R/epicrop_sim.R: 85.47%</span></span>
-<span><span class="co">#&gt; R/audpc.R: 87.50%</span></span>
-<span><span class="co">#&gt; R/leaf_wetness.R: 90.62%</span></span>
-<span><span class="co">#&gt; src/seir_core.cpp: 98.41%</span></span>
-<span><span class="co">#&gt; R/disease_models.R: 100.00%</span></span>
-<span><span class="co">#&gt; R/interpolation.R: 100.00%</span></span></code></pre>
+<span><span class="co">#&gt; R/format_wth.R: 93.15%</span></span>
+<span><span class="co">#&gt; R/leaf_wetness.R: 97.22%</span></span>
+<span><span class="co">#&gt; R/audpc.R: 98.28%</span></span>
+<span><span class="co">#&gt; R/disease_models.R: 100.00%</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
@@ -300,7 +273,7 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://zenodo.org/badge/latestdoi/58613738" class="external-link"><img src="https://zenodo.org/badge/58613738.svg" alt="DOI"></a></li>
 <li><a href="https://CRAN.R-project.org/package=epicrop" class="external-link"><img src="https://www.r-pkg.org/badges/version/epicrop" alt="CRAN status"></a></li>
-<li><a href="#code-coverage"><img src="https://img.shields.io/badge/code_coverage-69%25-green" alt="Code Coverage: 69%"></a></li>
+<li><a href="#code-coverage"><img src="https://img.shields.io/badge/code_coverage-57.7%25-green" alt="Code Coverage: 57.7%"></a></li>
 </ul>
 </div>
 

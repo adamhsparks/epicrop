@@ -27,7 +27,7 @@ get_wth(lonlat, dates, duration = NULL)
   simulated is to be. If this is used, only the start date will be used
   and the end date will be ignored if supplied. This must match the
   `duration` parameter value passed along to
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
+  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
   or any of the `predict` family of functions.
 
 ## Value

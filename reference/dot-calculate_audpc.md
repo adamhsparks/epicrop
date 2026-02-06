@@ -1,7 +1,7 @@
 # Calculate the Area Under the Disease Progress Curve (AUDPC)
 
 This function is used to return the AUDPC in the output of
-[`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
+[`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
 Not to be used alone as it assumes that there is always only one day
 between observations so it takes shortcuts in the calculation of the
 values.
@@ -17,7 +17,7 @@ values.
 - intensity:
 
   A `vector` of disease intensity from
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
+  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
 
 ## Value
 

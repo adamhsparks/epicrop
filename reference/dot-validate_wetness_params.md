@@ -1,6 +1,6 @@
-# Validate wetness parameters
+# Validate Wetness Parameters
 
-Validate wetness parameters
+Validate Wetness Parameters
 
 ## Usage
 

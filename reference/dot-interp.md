@@ -1,4 +1,4 @@
-# Interpolate parameter values
+# Internal function to handle different parameter input types (scalar, vector, matrix lookup table, or function) and interpolate to daily values.
 
 Internal function to handle different parameter input types (scalar,
 vector, matrix lookup table, or function) and interpolate to daily
@@ -34,12 +34,10 @@ Numeric vector of length `length(age_vec)` with interpolated values
 
 ## Details
 
-For matrix input, uses linear interpolation via
-[`stats::approx()`](https://rdrr.io/r/stats/approxfun.html) with
-`rule = 2` (constant extrapolation at boundaries).
-
-For function input, applies function to `age_vec` and sets any negative
-values to 0.
+For matrix input, uses fast linear interpolation that exactly matches
+[`stats::approx()`](https://rdrr.io/r/stats/approxfun.html) with rule =
+2 (constant extrapolation at boundaries). For function input, applies
+function to `age_vec` and clamps negative values to 0.
 
 ## Author
 

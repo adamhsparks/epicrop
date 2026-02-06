@@ -1,4 +1,4 @@
-# Get the AUDPC from an epicrop_sim Object
+# Get AUDPC from epicrop.sim Object
 
 Get the AUDPC value from an epicrop model run object's attributes for
 use in analysis, mapping, or reporting.
@@ -13,26 +13,8 @@ get_audpc(x)
 
 - x:
 
-  an object of class `epicrop.sim` as returned by any of the modelling
-  functions in epicrop.
+  An `epicrop.sim` object
 
 ## Value
 
-A scalar numeric double precision value of the AUCPC for the given
-object.
-
-## Author
-
-Adam H. Sparks, <adamhsparks@gmail.com>
-
-## Examples
-
-``` r
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
-)
-bb <- bacterial_blight(wth, emergence = "2000-07-01")
-get_audpc(bb)
-#> [1] 15.13818
-```
+Numeric AUDPC value

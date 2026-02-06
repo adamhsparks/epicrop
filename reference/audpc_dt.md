@@ -1,6 +1,7 @@
-# Create an AUDPC data frame for locations and emergence dates
+# Extract AUDPC Summary as data.table
 
-Create an AUDPC data frame for locations and emergence dates
+Extracts Area Under Disease Progress Curve (AUDPC) values along with
+location and emergence date information from an epicrop.sim object.
 
 ## Usage
 
@@ -12,21 +13,20 @@ audpc_dt(x)
 
 - x:
 
-  A `data.table` created by
-  [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md),
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md)
-  or any one of the disease specific helper functions.
+  An `epicrop.sim` object from
+  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
+  or disease model functions.
 
 ## Value
 
 A
 [`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html)
-suitable for mapping or other analysis. If `dt` is from
-[`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)
-directly, the output will be a `data.table` with five columns: `lat`,
-`lon`, `AUDPC`, `location`, and `emergence`. If `dt` is from any of the
-helper functions or directly from
-[`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md),
-the output will be a `data.table` with two (or) four columns: `lat`*,
-`lon`*, `AUDPC` and `emergence`. \*`lat` and `lon` columns must be in
-the original weather dataset for them to appear.
+with columns:
+
+- `lat`: Latitude (if available)
+
+- `lon`: Longitude (if available)
+
+- `AUDPC`: Area under disease progress curve
+
+- `emergence`: Emergence date (as character)

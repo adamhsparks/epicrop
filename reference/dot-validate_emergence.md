@@ -1,6 +1,6 @@
-# Validates dates, normally the emergence date.
+# Validates Dates, Normally the Emergence Date
 
-Validates dates, normally the emergence date.
+Validates Dates, Normally the Emergence Date
 
 ## Usage
 
@@ -12,20 +12,8 @@ Validates dates, normally the emergence date.
 
 - x:
 
-  a date input (character, Date, POSIXct).
+  a date input (character, Date, IDate, POSIXct).
 
 ## Value
 
-A validated POSIXct date object.
-
-## Examples
-
-``` r
-# passes
-.validate_emergence("2023-10-15")
-#> Error in .validate_emergence("2023-10-15"): could not find function ".validate_emergence"
-
-# fails
- .validate_emergence("120-100-2023")
-#> Error in .validate_emergence("120-100-2023"): could not find function ".validate_emergence"
-```
+A validated IDate object.

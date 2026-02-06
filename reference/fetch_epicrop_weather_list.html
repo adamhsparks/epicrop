@@ -61,7 +61,7 @@ multiple requests are processed, otherwise a single <code>epicrop.wth.list</code
 <span>  <span class="va">start_date</span>,</span>
 <span>  <span class="va">duration</span>,</span>
 <span>  years <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pairwise"</span>, <span class="st">"cross"</span><span class="op">)</span>,</span>
+<span>  mode <span class="op">=</span> <span class="st">"pairwise"</span>,</span>
 <span>  location_names <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -71,13 +71,13 @@ multiple requests are processed, otherwise a single <code>epicrop.wth.list</code
 
 
 <dl><dt id="arg-lonlat">lonlat<a class="anchor" aria-label="anchor" href="#arg-lonlat"></a></dt>
-<dd><p>Numeric length‑2 vector <code>c(lon, lat)</code>, OR multiple locations as:
-numeric vector of length <code>2n</code>, a 2‑column matrix/data.frame, or a list of
-numeric length‑2 vectors.</p></dd>
+<dd><p>Numeric length‑2 vector <code>c(lon, lat)</code>, OR multiple locations
+as: numeric vector of length <code>2n</code>, a 2‑column matrix/data.frame, or a list
+of numeric length‑2 vectors.</p></dd>
 
 
 <dt id="arg-start-date">start_date<a class="anchor" aria-label="anchor" href="#arg-start-date"></a></dt>
-<dd><p>A starting date (character <code>"YYYY-MM-DD"</code>, lubridate::Date, or
+<dd><p>A starting date (character <code>"YYYY-MM-DD"</code>, <a href="https://rdrr.io/r/base/Dates.html" class="external-link">Date</a>, or
 <a href="https://rdrr.io/pkg/data.table/man/IDateTime.html" class="external-link">data.table::IDate</a>) <strong>or</strong> a month–day string like <code>"06-30"</code> (leading
 <code>"-"</code> optional) used together with <code>years</code>.</p></dd>
 
@@ -93,20 +93,21 @@ contains any month–day values without a year.</p></dd>
 
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
-<dd><p>Character scalar: <code>"pairwise"</code> (default) pairs locations and dates by
-position (recycling length-1), or <code>"cross"</code> forms all combinations
+<dd><p>Character scalar: <code>"pairwise"</code> (default) pairs locations and
+dates by position (recycling length-1), or <code>"cross"</code> forms all combinations
 (locations × dates).</p></dd>
 
 
 <dt id="arg-location-names">location_names<a class="anchor" aria-label="anchor" href="#arg-location-names"></a></dt>
-<dd><p>Optional character names for locations (length = number of
-unique locations).</p></dd>
+<dd><p>Optional character names for locations (length = number
+of unique locations).</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
 
-<ul><li><p>If only one (location, start, duration) is requested: an <code>epicrop.wth.list</code>.</p></li>
+<ul><li><p>If only one (location, start, duration) is requested: an
+<code>epicrop.wth.list</code>.</p></li>
 <li><p>Otherwise: an <code>epicrop.wth.bundle</code> (a named list of <code>epicrop.wth.list</code>).</p></li>
 </ul></div>
     <div class="section level2">
@@ -115,8 +116,9 @@ unique locations).</p></dd>
 <div class="section">
 <h3 id="flexible-inputs">Flexible inputs<a class="anchor" aria-label="anchor" href="#flexible-inputs"></a></h3>
 
-<ul><li><p><code>lonlat</code>: a single <code>c(lon, lat)</code>; or multiple locations as a numeric vector of
-length <code>2n</code>, or a 2‑column matrix/data.frame, or a list of <code>c(lon, lat)</code>.</p></li>
+<ul><li><p><code>lonlat</code>: a single numeric vector, <code>c(lon, lat)</code>; or multiple locations as
+a numeric vector of length <code>2n</code>, or a 2‑column matrix/data.frame, or a list
+of <code>list(c(lon, lat))</code>.</p></li>
 <li><p><code>start_date</code>: a single <code>"YYYY-MM-DD"</code> (or <code>Date</code>/<code>IDate</code>), or a vector of
 the same; or a month–day string like <code>"06-30"</code> or <code>"6-30"</code> (leading <code>"-"</code>
 optional) provided together with <code>years</code>.</p></li>
@@ -142,7 +144,7 @@ window</strong> per distinct month–day: <code>start = min(paste(years, md))</c
 <span class="r-in"><span>  duration   <span class="op">=</span> <span class="fl">120L</span>,</span></span>
 <span class="r-in"><span>  years      <span class="op">=</span> <span class="fl">2000</span><span class="op">:</span><span class="fl">2001</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in YYYYMMDD %between% c(s, e):</span> could not find function "%between%"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ISO start date</span></span></span>
 <span class="r-in"><span><span class="va">w2</span> <span class="op">&lt;-</span> <span class="fu">fetch_epicrop_weather_list</span><span class="op">(</span></span></span>
@@ -150,7 +152,7 @@ window</strong> per distinct month–day: <code>start = min(paste(years, md))</c
 <span class="r-in"><span>  start_date <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span></span>
 <span class="r-in"><span>  duration   <span class="op">=</span> <span class="fl">120L</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in YYYYMMDD %between% c(s, e):</span> could not find function "%between%"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Multiple locations × multiple dates (cross mode), mixed inputs</span></span></span>
 <span class="r-in"><span><span class="va">locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
@@ -164,7 +166,19 @@ window</strong> per distinct month–day: <code>start = min(paste(years, md))</c
 <span class="r-in"><span>  years      <span class="op">=</span> <span class="fl">2000</span><span class="op">:</span><span class="fl">2001</span>,</span></span>
 <span class="r-in"><span>  mode       <span class="op">=</span> <span class="st">"cross"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in YYYYMMDD %between% c(s, e):</span> could not find function "%between%"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Multiple start dates for same location across years (efficient API calls)</span></span></span>
+<span class="r-in"><span><span class="va">w4</span> <span class="op">&lt;-</span> <span class="fu">fetch_epicrop_weather_list</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  lonlat     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-06-01"</span>, <span class="st">"-06-14"</span>, <span class="st">"-06-30"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  duration   <span class="op">=</span> <span class="fl">90L</span>,</span></span>
+<span class="r-in"><span>  years      <span class="op">=</span> <span class="fl">2001</span><span class="op">:</span><span class="fl">2003</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.</span>
+<span class="r-in"><span><span class="co"># This makes only 3 API calls (one per year), fetching from earliest to</span></span></span>
+<span class="r-in"><span><span class="co"># latest start date + duration</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

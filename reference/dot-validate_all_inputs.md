@@ -1,6 +1,8 @@
 # Validate All Simulation Inputs
 
-Central validation function for epicrop_sim() parameters
+Central validation function for
+[`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
+parameters
 
 ## Usage
 

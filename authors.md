@@ -6,28 +6,28 @@
   [](https://orcid.org/0000-0002-0061-8359)
 
 - **Robert Hijmans**. Author, translator, copyright holder.
-  [](https://orcid.org/0000-0001-5872-2872)  
+  [](https://orcid.org/0000-0001-5872-2872)\
   Original R implementation
 
 - **Serge Savary**. Author, conceptor, copyright holder.
-  [](https://orcid.org/0000-0002-6867-180X)  
+  [](https://orcid.org/0000-0002-6867-180X)\
   Model conception and development in Stella
 
-- **Ireno Pangga**. Author, translator, copyright holder.  
+- **Ireno Pangga**. Author, translator, copyright holder.\
   Model conception, development in Stella and original R implementation
 
-- **Jorrel Aunario**. Author, translator, copyright holder.  
+- **Jorrel Aunario**. Author, translator, copyright holder.\
   Original R implementation
 
-- **Kwang-Hyung Kim**. Author, copyright holder.  
+- **Kwang-Hyung Kim**. Author, copyright holder.\
   Contributed code for modified Kim leaf blast and sheath blight
   functions and feedback on the implementation.
 
-- **Aji Sukarta**. Contributor.  
+- **Aji Sukarta**. Contributor.\
   Helped fix bug related to SEIR model and establishment date
 
 - **Emerson Del Ponte**. Contributor.
-  [](https://orcid.org/0000-0003-4398-409X)  
+  [](https://orcid.org/0000-0003-4398-409X)\
   Suggested fixes for several typos in the documentation
 
 ## Citation

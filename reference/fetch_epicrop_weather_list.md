@@ -15,7 +15,7 @@ fetch_epicrop_weather_list(
   start_date,
   duration,
   years = NULL,
-  mode = c("pairwise", "cross"),
+  mode = "pairwise",
   location_names = NULL
 )
 ```
@@ -30,7 +30,8 @@ fetch_epicrop_weather_list(
 
 - start_date:
 
-  A starting date (character `"YYYY-MM-DD"`, lubridate::Date, or
+  A starting date (character `"YYYY-MM-DD"`,
+  [Date](https://rdrr.io/r/base/Dates.html), or
   [data.table::IDate](https://rdrr.io/pkg/data.table/man/IDateTime.html))
   **or** a month–day string like `"06-30"` (leading `"-"` optional) used
   together with `years`.
@@ -68,9 +69,9 @@ fetch_epicrop_weather_list(
 
 ### Flexible inputs
 
-- `lonlat`: a single `c(lon, lat)`; or multiple locations as a numeric
-  vector of length `2n`, or a 2‑column matrix/data.frame, or a list of
-  `c(lon, lat)`.
+- `lonlat`: a single numeric vector, `c(lon, lat)`; or multiple
+  locations as a numeric vector of length `2n`, or a 2‑column
+  matrix/data.frame, or a list of `list(c(lon, lat))`.
 
 - `start_date`: a single `"YYYY-MM-DD"` (or `Date`/`IDate`), or a vector
   of the same; or a month–day string like `"06-30"` or `"6-30"` (leading
@@ -98,7 +99,7 @@ w1 <- fetch_epicrop_weather_list(
   duration   = 120L,
   years      = 2000:2001
 )
-#> Error in YYYYMMDD %between% c(s, e): could not find function "%between%"
+#> Warning: A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.
 
 # ISO start date
 w2 <- fetch_epicrop_weather_list(
@@ -106,7 +107,7 @@ w2 <- fetch_epicrop_weather_list(
   start_date = "2000-06-30",
   duration   = 120L
 )
-#> Error in YYYYMMDD %between% c(s, e): could not find function "%between%"
+#> Warning: A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.
 
 # Multiple locations × multiple dates (cross mode), mixed inputs
 locations <- rbind(
@@ -120,5 +121,17 @@ w3 <- fetch_epicrop_weather_list(
   years      = 2000:2001,
   mode       = "cross"
 )
-#> Error in YYYYMMDD %between% c(s, e): could not find function "%between%"
+#> Warning: A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.
+#> Warning: A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.
+
+# Multiple start dates for same location across years (efficient API calls)
+w4 <- fetch_epicrop_weather_list(
+  lonlat     = c(121.255669, 14.16742),
+  start_date = c("-06-01", "-06-14", "-06-30"),
+  duration   = 90L,
+  years      = 2001:2003
+)
+#> Warning: A shallow copy of this data.table was taken so that := can add or remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar). Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.
+# This makes only 3 API calls (one per year), fetching from earliest to
+# latest start date + duration
 ```

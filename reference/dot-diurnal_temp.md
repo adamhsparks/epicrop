@@ -1,7 +1,6 @@
-# Calculate hourly temperature for a given day
+# Calculate hourly temperature for a given day or multiple days
 
-Uses doy, location (lat) and TMIN and TMAX to calculate hourly
-temperatures.
+Calculate hourly temperature for a given day or multiple days
 
 ## Usage
 
@@ -13,47 +12,25 @@ temperatures.
 
 - lat:
 
-  Latitude as provided by `wth` via
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
+  Latitude (scalar or vector).
 
 - doy:
 
-  Sequential day of year as provided by `wth` via
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
+  Day of year (scalar or vector).
 
 - tmin:
 
-  Minimum temperature as provided by `wth` via
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
+  Minimum temperature (scalar or vector).
 
 - tmax:
 
-  Maximum temperature as provided by `wth` via
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
+  Maximum temperature (scalar or vector).
 
 ## Value
 
-A numeric vector of hourly temperature values for the duration of `wth`
-data.
+Numeric vector of 24 hourly temperatures for single day, or numeric
+vector of 24\*n hourly temperatures for multiple days.
 
 ## Author
 
-Robert J. Hijmans with modifications by Adam H. Sparks,
-<adamhsparks@gmail.com>
-
-## Examples
-
-``` r
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
-)
-
-.diurnal_temp(
-  lat = wth$LAT,
-  doy = wth$DOY,
-  tmin = wth$TMIN,
-  tmax = wth$TMAX
-)
-#> Error in .diurnal_temp(lat = wth$LAT, doy = wth$DOY, tmin = wth$TMIN,     tmax = wth$TMAX): could not find function ".diurnal_temp"
-```
+Robert J. Hijmans with modifications by Adam H. Sparks

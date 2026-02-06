@@ -1,6 +1,6 @@
-# Calculates the weighted hourly leaf wetness value
+# Calculate weighted hourly leaf wetness
 
-Calculates the weighted hourly leaf wetness value
+Calculate weighted hourly leaf wetness
 
 ## Usage
 
@@ -12,28 +12,16 @@ Calculates the weighted hourly leaf wetness value
 
 - rh:
 
-  A numeric vector of relative humidity values.
+  Hourly RH values (%).
 
 - rhlim:
 
-  The relative humidity threshold to check against between `80` & `100`.
+  RH threshold for full wetness (%).
 
 ## Value
 
-A `vector` of weighted values between 0 and 1 depending on the `rhlim`.
-
-## Note
-
-This functionality is just a placeholder for future possible work. This
-particular function is set up but not exposed to users yet.
+Weighted wetness values \[0, 1\].
 
 ## Author
 
-Adam H. Sparks, <adamhsparks@gmail.com>
-
-## Examples
-
-``` r
-.calculate_weighted_hr_wet(rh = 86, rhlim = 95)
-#> Error in .calculate_weighted_hr_wet(rh = 86, rhlim = 95): could not find function ".calculate_weighted_hr_wet"
-```
+Adam H. Sparks

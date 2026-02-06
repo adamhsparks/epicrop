@@ -1,4 +1,4 @@
-# epicrop: Simulation Modelling of Crop Diseases
+# epicrop: SEIR Simulation Modelling of Crop Diseases
 
 Generic simulation modelling of crop diseases using a
 Susceptible-Exposed-Infectious-Removed ('SEIR') model. This type of

@@ -1,6 +1,6 @@
-# Calculate saturated vapour pressure, es
+# Calculate saturated vapour pressure
 
-Calculate saturated vapour pressure, es
+Calculate saturated vapour pressure
 
 ## Usage
 
@@ -12,25 +12,17 @@ Calculate saturated vapour pressure, es
 
 - tmp:
 
-  Mean temperature as provided by `wth` via
-  [`epicrop_sim()`](https://adamhsparks.codeberg.page/epicrop/reference/epicrop_sim.md).
+  Temperature (°C).
 
 ## Value
 
-Single double precision value of es as kilopascals.
+Saturated vapour pressure (kPa).
 
 ## References
 
-Alduchov and Eskridge 1995,
+Alduchov and Eskridge (1996) J. Appl. Meteor. 35:601-609.
 [doi:10.1175/1520-0450(1996)035\<0601:IMFAOS\>2.0.CO;2](https://doi.org/10.1175/1520-0450%281996%29035%3C0601%3AIMFAOS%3E2.0.CO%3B2)
 
 ## Author
 
-Adam H. Sparks, <adamhsparks@gmail.com>
-
-## Examples
-
-``` r
-.saturated_vapour_pressure(0)
-#> Error in .saturated_vapour_pressure(0): could not find function ".saturated_vapour_pressure"
-```
+Adam H. Sparks

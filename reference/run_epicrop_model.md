@@ -57,9 +57,7 @@ run_epicrop_model(
   Character. "audpc" (compact summary using
   [`get_audpc()`](https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.md))
   or "full" (return full model outputs per date, with `emergence`
-  added). Defaults to "audpc". required year weather is missing; if
-  FALSE, skip that date with
-  [`cli::cli_warn()`](https://cli.r-lib.org/reference/cli_abort.html).
+  added). Defaults to "audpc".
 
 - ...:
 
@@ -94,8 +92,9 @@ wth_list <- fetch_epicrop_weather_list(years,
                                        lonlat,
                                        start_date = month_day,
                                        duration = duration)
-#> Error in norm_locations(lonlat): `lonlat` must be c(lon, lat), a 2-column matrix/data.frame, or arg list
-#> of length-2 numerics.
+#> Error in .norm_locations(lonlat): `lonlat` numeric vector must have even length.
+#> ✖ You provided length 3
+#> ℹ Expected pairs of (longitude, latitude)
 
 # AUDPC for bacterial blight
 run_epicrop_model(bacterial_blight,
