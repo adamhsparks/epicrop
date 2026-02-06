@@ -6,13 +6,13 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 57.6%](https://img.shields.io/badge/code_coverage-57.6%25-green)](#code-coverage)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 57.7%](https://img.shields.io/badge/code_coverage-57.7%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
 A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package.
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, `seir()`.
-The legacy `SEIR()`` in {cropsim} uses a non-canonical formula for "diseased" ([it accumulates "infectious" twice via `sum(infectious)`](https://github.com/r-forge/cropsim/blob/7b7a035a612f9386112d8d49ec21724500d7f88e/pkg/cropsim/R/SEIR.R#L118C1-L120C60)).
+The legacy `SEIR()` in {cropsim} uses a non-canonical formula for "diseased" ([it accumulates "infectious" twice via `sum(infectious)`](https://github.com/r-forge/cropsim/blob/7b7a035a612f9386112d8d49ec21724500d7f88e/pkg/cropsim/R/SEIR.R#L118C1-L120C60)).
 The modern core of `seir()` in {epicrop} was changed to the canonical formula (`diseased = latent + infectious + removed`), which reduced modern diseased and COFR relative to legacy.
 So, please be aware that the legacy `SEIR()` and the modern `seir()` will give different results for the same parameters, and that the modern `seir()` is more consistent with the canonical SEIR model.
 
@@ -144,13 +144,13 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 57.61%
+#> epicrop Coverage: 57.68%
 #> R/build_epicrop_emergence.R: 0.00%
 #> R/fetch_epicrop_weather_list.R: 0.00%
 #> R/run_epicrop_model.R: 0.00%
 #> R/validation.R: 10.00%
-#> R/interpolation.R: 77.19%
 #> R/seir.R: 77.40%
+#> R/interpolation.R: 77.78%
 #> R/get_wth.R: 81.16%
 #> R/format_wth.R: 93.15%
 #> R/leaf_wetness.R: 97.22%
