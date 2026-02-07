@@ -49,6 +49,7 @@ Imports:
     digest,
     memoise,
     nasapower (>= 4.0),
+    Rcpp,
     rlang,
     stats
 Suggests:
@@ -63,6 +64,8 @@ Suggests:
     testthat,
     vcr (>= 0.6.0),
     withr
+LinkingTo: 
+    Rcpp
 VignetteBuilder: 
     knitr
 ByteCompile: TRUE
