@@ -186,8 +186,9 @@
   # Calculate day length parameters (vectorized)
   dayl <- .day_length(lat, doy)
   nightl <- 24 - dayl
-  sunris <- 12 - 0.5 * dayl
-  sunset <- 12 + 0.5 * dayl
+  cs_1 <- 0.5 * dayl
+  sunris <- 12 - cs_1
+  sunset <- 12 + cs_1
 
   # Sunset temperature
   tsunst <- tmin + (tmax - tmin) * sin(pi * dayl / (dayl + 3))

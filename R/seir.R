@@ -393,9 +393,9 @@ seir <- function(
   a_vals,
   Sx
 ) {
-  sites <- latent <- infectious <- removed <- senesced <- numeric(duration)
+  sites <- removed <- senesced <- numeric(duration)
   latency <- infectious_flow <- numeric(duration)
-  rateinf <- rlex <- rtransfer <- rremoved <- rgrowth <- rsenesced <- numeric(
+  rateinf <- rtransfer <- rgrowth <- rsenesced <- numeric(
     duration
   )
   now_latent <- now_infectious <- diseased <- numeric(duration)
@@ -420,10 +420,11 @@ seir <- function(
       sites[t - 1L] + rgrowth[t - 1L] - rateinf[t - 1L] - rsenesced[t - 1L]
     )
     rsenesced[t] <- removed_today + RRS_vals[t] * sites[t]
-    senesced[t] <- senesced[t - 1L] + rsenesced[t]
+    cs_Inf <- t - 1L
+    senesced[t] <- senesced[cs_Inf] + rsenesced[t]
 
-    latency[t] <- rateinf[t - 1L]
-    cs_lat[t] <- cs_lat[t - 1L] + latency[t]
+    latency[t] <- rateinf[cs_Inf]
+    cs_lat[t] <- cs_lat[cs_Inf] + latency[t]
 
     # sum(latency[max(1, lat_src):t]) via cumulative sums
     win_lat0 <- if (lat_src > 2L) cs_lat[lat_src - 2L] else 0
@@ -432,7 +433,7 @@ seir <- function(
 
     # Infectious (no lesion expansion)
     infectious_flow[t] <- rtransfer[t]
-    cs_inf[t] <- cs_inf[t - 1L] + infectious_flow[t]
+    cs_inf[t] <- cs_inf[cs_Inf] + infectious_flow[t]
     win_inf0 <- if (inf_src > 2L) cs_inf[inf_src - 2L] else 0
     now_infectious[t] <- cs_inf[t] - win_inf0
 
@@ -496,9 +497,9 @@ seir <- function(
   a_vals,
   Sx
 ) {
-  sites <- latent <- infectious <- removed <- senesced <- numeric(duration)
+  sites <- removed <- senesced <- numeric(duration)
   latency <- infectious_flow <- numeric(duration)
-  rateinf <- rlex <- rtransfer <- rremoved <- rgrowth <- rsenesced <- numeric(
+  rateinf <- rlex <- rtransfer <- rgrowth <- rsenesced <- numeric(
     duration
   )
   now_latent <- now_infectious <- diseased <- numeric(duration)
@@ -526,10 +527,11 @@ seir <- function(
         rlex[t - 1L]
     )
     rsenesced[t] <- removed_today + RRS_vals[t] * sites[t]
-    senesced[t] <- senesced[t - 1L] + rsenesced[t]
+    cs_Inf <- t - 1L
+    senesced[t] <- senesced[cs_Inf] + rsenesced[t]
 
-    latency[t] <- rateinf[t - 1L]
-    cs_lat[t] <- cs_lat[t - 1L] + latency[t]
+    latency[t] <- rateinf[cs_Inf]
+    cs_lat[t] <- cs_lat[cs_Inf] + latency[t]
     win_lat0 <- if (lat_src > 2L) cs_lat[lat_src - 2L] else 0
     now_latent[t] <- cs_lat[t] - win_lat0
 
@@ -537,7 +539,7 @@ seir <- function(
 
     # Stage A: infectious window *before* today's lesion expansion
     inf_wo_lex <- rtransfer[t]
-    cs_pre <- cs_inf[t - 1L] + inf_wo_lex
+    cs_pre <- cs_inf[cs_Inf] + inf_wo_lex
     now_inf_pre <- if (inf_src > 2L) cs_pre - cs_inf[inf_src - 2L] else cs_pre
 
     # COFR from pre-lex states
@@ -622,11 +624,11 @@ seir <- function(
   RRS_steps <- rep_each(RRS_vals) / steps_per_day
   a_steps <- rep_each(a_vals)
 
-  sites_s <- latent_s <- infectious_s <- removed_s <- senesced_s <- numeric(
+  sites_s <- removed_s <- senesced_s <- numeric(
     total_steps
   )
   latency_s <- infectious_flow_s <- numeric(total_steps)
-  rateinf_s <- rlex_s <- rtransfer_s <- rremoved_s <- rgrowth_s <- rsenesced_s <- numeric(
+  rateinf_s <- rtransfer_s <- rgrowth_s <- rsenesced_s <- numeric(
     total_steps
   )
   now_latent_s <- now_infectious_s <- diseased_s <- numeric(total_steps)
@@ -652,17 +654,18 @@ seir <- function(
         rsenesced_s[t - 1L]
     )
     rsenesced_s[t] <- removed_today + RRS_steps[t] * sites_s[t]
-    senesced_s[t] <- senesced_s[t - 1L] + rsenesced_s[t]
+    cs_1 <- t - 1L
+    senesced_s[t] <- senesced_s[cs_1] + rsenesced_s[t]
 
-    latency_s[t] <- rateinf_s[t - 1L]
-    cs_lat_s[t] <- cs_lat_s[t - 1L] + latency_s[t]
+    latency_s[t] <- rateinf_s[cs_1]
+    cs_lat_s[t] <- cs_lat_s[cs_1] + latency_s[t]
 
     win_lat0 <- if (lat_src > 2L) cs_lat_s[lat_src - 2L] else 0
     now_latent_s[t] <- cs_lat_s[t] - win_lat0
     rtransfer_s[t] <- if (lat_src > 1L) latency_s[lat_src - 1L] else 0
 
     infectious_flow_s[t] <- rtransfer_s[t]
-    cs_inf_s[t] <- cs_inf_s[t - 1L] + infectious_flow_s[t]
+    cs_inf_s[t] <- cs_inf_s[cs_1] + infectious_flow_s[t]
     win_inf0 <- if (inf_src > 2L) cs_inf_s[inf_src - 2L] else 0
     now_infectious_s[t] <- cs_inf_s[t] - win_inf0
 
@@ -747,11 +750,11 @@ seir <- function(
   a_steps <- rep_each(a_vals)
   RRLEX_steps <- rep_each(RRLEX_vals)
 
-  sites_s <- latent_s <- infectious_s <- removed_s <- senesced_s <- numeric(
+  sites_s <- removed_s <- senesced_s <- numeric(
     total_steps
   )
   latency_s <- infectious_flow_s <- numeric(total_steps)
-  rateinf_s <- rlex_s <- rtransfer_s <- rremoved_s <- rgrowth_s <- rsenesced_s <- numeric(
+  rateinf_s <- rlex_s <- rtransfer_s <- rgrowth_s <- rsenesced_s <- numeric(
     total_steps
   )
   now_latent_s <- now_infectious_s <- diseased_s <- numeric(total_steps)
@@ -778,10 +781,11 @@ seir <- function(
         rlex_s[t - 1L]
     )
     rsenesced_s[t] <- removed_today + RRS_steps[t] * sites_s[t]
-    senesced_s[t] <- senesced_s[t - 1L] + rsenesced_s[t]
+    cs_1 <- t - 1L
+    senesced_s[t] <- senesced_s[cs_1] + rsenesced_s[t]
 
-    latency_s[t] <- rateinf_s[t - 1L]
-    cs_lat_s[t] <- cs_lat_s[t - 1L] + latency_s[t]
+    latency_s[t] <- rateinf_s[cs_1]
+    cs_lat_s[t] <- cs_lat_s[cs_1] + latency_s[t]
     win_lat0 <- if (lat_src > 2L) cs_lat_s[lat_src - 2L] else 0
     now_latent_s[t] <- cs_lat_s[t] - win_lat0
 
@@ -789,7 +793,7 @@ seir <- function(
 
     # Stage A: infectious window *before* today's lesion expansion
     inf_wo_lex <- rtransfer_s[t]
-    cs_pre <- cs_inf_s[t - 1L] + inf_wo_lex
+    cs_pre <- cs_inf_s[cs_1] + inf_wo_lex
     now_inf_pre <- if (inf_src > 2L) cs_pre - cs_inf_s[inf_src - 2L] else cs_pre
 
     removed_pre <- cs_pre - now_inf_pre
@@ -930,9 +934,9 @@ seir <- function(
   a_vals,
   Sx
 ) {
-  sites <- latent <- infectious <- removed <- senesced <- numeric(duration)
+  sites <- removed <- senesced <- numeric(duration)
   latency <- infectious_flow <- numeric(duration)
-  rateinf <- rlex <- rtransfer <- rremoved <- rgrowth <- rsenesced <- numeric(
+  rateinf <- rtransfer <- rgrowth <- rsenesced <- numeric(
     duration
   )
   now_latent <- now_infectious <- diseased <- numeric(duration)
@@ -957,10 +961,11 @@ seir <- function(
       sites[t - 1L] + rgrowth[t - 1L] - rateinf[t - 1L] - rsenesced[t - 1L]
     )
     rsenesced[t] <- removed_today + RRS_vals[t] * sites[t]
-    senesced[t] <- senesced[t - 1L] + rsenesced[t]
+    cs_Inf <- t - 1L
+    senesced[t] <- senesced[cs_Inf] + rsenesced[t]
 
-    latency[t] <- rateinf[t - 1L]
-    cs_lat[t] <- cs_lat[t - 1L] + latency[t]
+    latency[t] <- rateinf[cs_Inf]
+    cs_lat[t] <- cs_lat[cs_Inf] + latency[t]
 
     # sum(latency[max(1, lat_src):t]) via cumulative sums
     win_lat0 <- if (lat_src > 2L) cs_lat[lat_src - 2L] else 0
@@ -969,7 +974,7 @@ seir <- function(
 
     # Infectious (no lesion expansion)
     infectious_flow[t] <- rtransfer[t]
-    cs_inf[t] <- cs_inf[t - 1L] + infectious_flow[t]
+    cs_inf[t] <- cs_inf[cs_Inf] + infectious_flow[t]
     win_inf0 <- if (inf_src > 2L) cs_inf[inf_src - 2L] else 0
     now_infectious[t] <- cs_inf[t] - win_inf0
 
@@ -996,7 +1001,7 @@ seir <- function(
     0
   )
 
-  data.table::data.table(
+  data.table::setDT(
     sites = sites,
     latent = now_latent,
     infectious = now_infectious,
@@ -1032,9 +1037,9 @@ seir <- function(
   a_vals,
   Sx
 ) {
-  sites <- latent <- infectious <- removed <- senesced <- numeric(duration)
+  sites <- removed <- senesced <- numeric(duration)
   latency <- infectious_flow <- numeric(duration)
-  rateinf <- rlex <- rtransfer <- rremoved <- rgrowth <- rsenesced <- numeric(
+  rateinf <- rlex <- rtransfer <- rgrowth <- rsenesced <- numeric(
     duration
   )
   now_latent <- now_infectious <- diseased <- numeric(duration)
@@ -1062,10 +1067,11 @@ seir <- function(
         rlex[t - 1L]
     )
     rsenesced[t] <- removed_today + RRS_vals[t] * sites[t]
-    senesced[t] <- senesced[t - 1L] + rsenesced[t]
+    cs_Inf <- t - 1L
+    senesced[t] <- senesced[cs_Inf] + rsenesced[t]
 
-    latency[t] <- rateinf[t - 1L]
-    cs_lat[t] <- cs_lat[t - 1L] + latency[t]
+    latency[t] <- rateinf[cs_Inf]
+    cs_lat[t] <- cs_lat[cs_Inf] + latency[t]
     win_lat0 <- if (lat_src > 2L) cs_lat[lat_src - 2L] else 0
     now_latent[t] <- cs_lat[t] - win_lat0
 
@@ -1073,7 +1079,7 @@ seir <- function(
 
     # Stage A: infectious window *before* today's lesion expansion
     inf_wo_lex <- rtransfer[t]
-    cs_pre <- cs_inf[t - 1L] + inf_wo_lex
+    cs_pre <- cs_inf[cs_Inf] + inf_wo_lex
     now_inf_pre <- if (inf_src > 2L) cs_pre - cs_inf[inf_src - 2L] else cs_pre
 
     # COFR from pre-lex states
@@ -1114,7 +1120,7 @@ seir <- function(
     0
   )
 
-  data.table::data.table(
+  data.table::setDT(
     sites = sites,
     latent = now_latent,
     infectious = now_infectious,
