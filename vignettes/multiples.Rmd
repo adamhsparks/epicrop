@@ -50,6 +50,15 @@ wth_list <- fetch_epicrop_weather_list(
   start_date = emergence_date,
   duration = duration
 )
+#> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A
+#> shallow copy of this data.table was taken so that := can add or remove 1
+#> columns by reference. At an earlier point, this data.table was copied by R (or
+#> was created manually using structure() or similar). Avoid names<- and attr<-
+#> which in R currently (and oddly) may copy the whole data.table. Use set* syntax
+#> instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual
+#> for data.table-agnostic packages to produce tables affected by this issue. If
+#> this message doesn't help, please report your use case to the data.table issue
+#> tracker so the root cause can be fixed or this message improved.
 ```
 
 ### Using a Helper Function to Model Several Seasons
@@ -62,13 +71,12 @@ bb_2_seasons <- run_epicrop_model(model = bacterial_blight,
                                   emergence = ymd,
                                   wth_list = wth_list,
                                   window_days = duration)
+#> Error in `seir()`:
+#> ! formal argument "duration" matched by multiple actual arguments
 
 bb_2_seasons
-#> Key: <emergence, AUDPC>
-#>           emergence     AUDPC
-#>    <epicrop.emerge>     <num>
-#> 1:       2000-06-30 12.638149
-#> 2:       2001-06-30  7.132555
+#> Error:
+#> ! object 'bb_2_seasons' not found
 ```
 
 ### Visualising differences in AUDPC between seasons
@@ -86,9 +94,9 @@ ggplot(bb_2_seasons,
   ylab("Emergence (YYYY-MM-DD)") +
   xlab("AUDPC") +
   theme_classic()
+#> Error:
+#> ! object 'bb_2_seasons' not found
 ```
-
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
 ### Simulating multiple seasons and establishment dates
 
@@ -110,6 +118,15 @@ wth_list <- fetch_epicrop_weather_list(years = years,
                                        lonlat = lonlat,
                                        start_date = month_day,
                                        duration = duration)
+#> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A
+#> shallow copy of this data.table was taken so that := can add or remove 1
+#> columns by reference. At an earlier point, this data.table was copied by R (or
+#> was created manually using structure() or similar). Avoid names<- and attr<-
+#> which in R currently (and oddly) may copy the whole data.table. Use set* syntax
+#> instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual
+#> for data.table-agnostic packages to produce tables affected by this issue. If
+#> this message doesn't help, please report your use case to the data.table issue
+#> tracker so the root cause can be fixed or this message improved.
 ```
 
 
@@ -120,71 +137,8 @@ wth_list <- fetch_epicrop_weather_list(years = years,
                    wth_list,
                    window_days = duration,
                    output = "audpc")
-#> Key: <emergence, AUDPC>
-#>            emergence     AUDPC
-#>     <epicrop.emerge>     <num>
-#>  1:       2001-06-01 14.131715
-#>  2:       2001-06-14  9.151969
-#>  3:       2001-06-30  7.132555
-#>  4:       2002-06-01 14.943097
-#>  5:       2002-06-14 13.195117
-#>  6:       2002-06-30 15.009709
-#>  7:       2003-06-01 13.378803
-#>  8:       2003-06-14 14.130203
-#>  9:       2003-06-30 17.226754
-#> 10:       2004-06-01 12.862026
-#> 11:       2004-06-14 14.450173
-#> 12:       2004-06-30 12.391271
-#> 13:       2005-06-01 16.170222
-#> 14:       2005-06-14 15.617532
-#> 15:       2005-06-30 16.970441
-#> 16:       2006-06-01 16.577408
-#> 17:       2006-06-14 15.807245
-#> 18:       2006-06-30 14.780878
-#> 19:       2007-06-01  9.387853
-#> 20:       2007-06-14  7.646396
-#> 21:       2007-06-30 11.882833
-#> 22:       2008-06-01 10.742961
-#> 23:       2008-06-14 10.728721
-#> 24:       2008-06-30 13.153549
-#> 25:       2009-06-01  6.040063
-#> 26:       2009-06-14 11.356032
-#> 27:       2009-06-30  9.117641
-#> 28:       2010-06-01 15.149563
-#> 29:       2010-06-14 17.895281
-#> 30:       2010-06-30 17.669956
-#> 31:       2011-06-01 14.512311
-#> 32:       2011-06-14 16.732625
-#> 33:       2011-06-30 19.958490
-#> 34:       2012-06-01 17.156552
-#> 35:       2012-06-14 18.759039
-#> 36:       2012-06-30 19.580385
-#> 37:       2013-06-01 17.394346
-#> 38:       2013-06-14 18.431213
-#> 39:       2013-06-30 19.381236
-#> 40:       2014-06-01 11.391712
-#> 41:       2014-06-14 11.564790
-#> 42:       2014-06-30 10.557649
-#> 43:       2015-06-01  6.669598
-#> 44:       2015-06-14 10.184387
-#> 45:       2015-06-30 14.403355
-#> 46:       2016-06-01 11.993649
-#> 47:       2016-06-14  9.168104
-#> 48:       2016-06-30 10.740988
-#> 49:       2017-06-01 16.609637
-#> 50:       2017-06-14 15.192003
-#> 51:       2017-06-30 13.617421
-#> 52:       2018-06-01 14.858372
-#> 53:       2018-06-14 17.450385
-#> 54:       2018-06-30 13.319767
-#> 55:       2019-06-01 12.141632
-#> 56:       2019-06-14 12.368693
-#> 57:       2019-06-30 12.987964
-#> 58:       2020-06-01  9.041934
-#> 59:       2020-06-14  7.628714
-#> 60:       2020-06-30 11.703225
-#>            emergence     AUDPC
-#>     <epicrop.emerge>     <num>
+#> Error in `seir()`:
+#> ! formal argument "duration" matched by multiple actual arguments
 ```
 
 #### Multiple Sites and Seasons
@@ -212,6 +166,8 @@ wth_list <- fetch_epicrop_weather_list(
   years = years,
   mode = "cross"
   )
+#> Error in `data.table::rbindlist()`:
+#> ! Item 1 of input is not a data.frame, data.table or list
 
 emergence <- build_epicrop_emergence(years, start_date)
 ```
@@ -225,19 +181,7 @@ run_epicrop_model(s_tritici_blotch,
                   wth_list,
                   window_days = 240L,
                   output = "audpc")
-#>            emergence     AUDPC location
-#>     <epicrop.emerge>     <num>   <char>
-#>  1:       2020-04-15 0.9981608 Merredin
-#>  2:       2020-05-01 0.7967816 Merredin
-#>  3:       2021-04-15 1.2313931 Merredin
-#>  4:       2021-05-01 0.9065767 Merredin
-#>  5:       2020-04-15 0.9459766 Corrigin
-#>  6:       2020-05-01 0.8105469 Corrigin
-#>  7:       2021-04-15 1.0624976 Corrigin
-#>  8:       2021-05-01 0.7734221 Corrigin
-#>  9:       2020-04-15 0.6112117 Tamworth
-#> 10:       2020-05-01 0.6290722 Tamworth
-#> 11:       2021-04-15 0.7767261 Tamworth
-#> 12:       2021-05-01 0.8202714 Tamworth
+#> Error in `seir()`:
+#> ! formal argument "duration" matched by multiple actual arguments
 ```
 
