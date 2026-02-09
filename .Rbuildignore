@@ -27,6 +27,9 @@
 # flir files
 ^flir$
 
+^R/RcppExports\.R$
+^src/RcppExports\.cpp$
+
 ^man/dot-calculate_audpc\.Rd$
 ^man/dot-validate_required_args\.Rd$
 ^man/dot-norm_locations\.Rd$
