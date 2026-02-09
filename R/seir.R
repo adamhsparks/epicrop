@@ -24,11 +24,10 @@
 #' @param emergence Expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).
 #' @param onset expected number of days until the onset of disease after
-#'  emergence date (day, integer). For this modern seir() variant onset is
-#'  1-indexed (1 = emergence day). When comparing with legacy SEIR(),
-#'  translate as legacy_onset = onset - 1.
+#'  emergence date (day, integer). Described in Table 1 of Savary _et al._
+#'  2012.
 #' @param duration simulation duration *i. e.*, growing season length (day,
-#'  integer). Described in Table 1 of Savary _et al._ 2012.
+#'  integer). Described in Table 1 of Savary _et al. _ 2012.
 #' @param H0 initial number of plant's healthy sites (integer). Described in
 #'  Table 1 of Savary _et al._ 2012.
 #' @param I0 initial number of infective sites (scalar integer). Described in
@@ -41,8 +40,8 @@
 #'  of Savary _et al._ 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature as a numeric two-column matrix with the first
-#'  column being temperature in °C and the second the modifier (bounded by 0
-#'  and 1). Described in Tables 1 and 2 of Savary _et al._ 2012.
+#'  column being temperature in °C and the second the modifier (bounded by 0 and
+#'  1). Described in Tables 1 and 2 of Savary _et al._ 2012.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012. This value can be modified
 #'  to reflect crop cultivar resistance ratings as well, see Kim _et al. _ 2015
@@ -102,7 +101,103 @@
 #' @returns A [data.table::data.table()] object containing the following
 #' columns:
 #'
-#' ... (documentation omitted for brevity) ...
+#' \describe{
+#'   \item{simday}{Day of simulation (1-indexed, where 1 is the emergence date)}
+#'   \item{dates}{Date of simulation (Date class)}
+#'   \item{sites}{Total number of healthy sites present on day "x"}
+#'   \item{latent}{Number of latent sites present on day "x"}
+#'   \item{infectious}{Number of infectious sites present on day "x"}
+#'   \item{removed}{Number of removed sites present on day "x"}
+#'   \item{senesced}{Number of senesced sites present on day "x"}
+#'   \item{rateinf}{Rate of infection (new infections on day "x")}
+#'   \item{rlex}{Rate of lesion expansion (healthy sites converted to infectious
+#'    via direct expansion on day "x")}
+#'   \item{rtransfer}{Rate of transfer from latent to infectious sites on day
+#'    "x"}
+#'   \item{rremoved}{Rate of removal from infectious to removed sites on day
+#'    "x"}
+#'   \item{rgrowth}{Rate of growth of healthy sites on day "x"}
+#'   \item{rsenesced}{Rate of senescence of healthy sites on day "x"}
+#'   \item{diseased}{Number of diseased (latent + infectious + removed) sites on
+#'    day "x"}
+#'   \item{intensity}{Proportion of diseased sites (latent + infectious) per
+#'    total living sites (excludes removed and senesced) on day "x"}
+#'   \item{lat}{Latitude value if provided by the `wth` object}
+#'   \item{lon}{Longitude value if provided by the `wth` object}
+#' }
+#'
+#' The returned object also has an attribute `AUDPC` (accessed via
+#' `attr(result, "AUDPC")`) containing the area under the disease progress
+#' curve for the entire simulation, calculated using the trapezoidal rule.
+#'
+#' @section Output Structure:
+#'
+#' The output is organized into three categories:
+#'
+#' **State Variables** (stocks at end of each day):
+#' * `sites`, `latent`, `infectious`, `removed`, `senesced`
+#'
+#' **Flow Variables** (rates/changes during each day):
+#' * `rateinf`, `rlex`, `rtransfer`, `rremoved`, `rgrowth`, `rsenesced`
+#'
+#' **Derived Variables** (calculated from states):
+#' * `diseased`, `intensity`
+#'
+#' **Mass Balance:**
+#' At any day:  `sites + latent + infectious + removed + senesced` should equal
+#' initial sites (H0) plus cumulative growth minus cumulative senescence
+#' (accounting for numerical precision).
+#'
+#' @references
+#' Sparks, A. H., P. D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia,
+#' S.D. Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and Epidemiology in
+#' R: Disease Progress over Time. *The Plant Health Instructor*.
+#' \doi{10.1094/PHI-A-2008-0129-02}.
+#'
+#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. *The Study of Plant
+#' Disease Epidemics*. American Phytopathological Society, St. Paul, MN.
+#' \doi{10.1094/9780890545058}.
+#'
+#' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario,
+#' J. Modeling and mapping potential epidemics of rice diseases globally.
+#' *Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+#' \doi{10.1016/j.cropro.2011.11.009}.
+#'
+#' @section _a_ -- Aggregation Details:
+#'
+#' When _a_ is set to `1` the assumption is that that there is no disease
+#' aggregation with new infections occurring at random among the healthy sites.
+#' When _a_ is greater than `1` there is aggregation in the disease occurrence,
+#' the pathogen is unable to access the entire population of healthy sites,
+#' which results in disease aggregation.  Refer to Savary _et al._ (2012) for
+#' greater detail.
+#'
+#' @section TMIN/TMAX Details:
+#'
+#' If `simple_wetness` is set to `FALSE`, the function will use the `TMIN` and
+#'  `TMAX` columns in the `wth` object to calculate the leaf wetness value for
+#'  24 hours of the day using the `rhlim` and `rainlim` values and then uses
+#'  `RcW` to calculate a value between 0 and 1 for the whole day. When
+#'  `simple_wetness` is set to `TRUE`, the function only sets the leaf wetness
+#'  to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
+#'
+#' @section LAT/LON Details:
+#'
+#' If the `wth` object provides `LAT` and `LON` columns, these will be included
+#' in the output for mapping purposes.  Both values must be present.  These
+#' columns are provided by default when using [get_wth()].
+#'
+#' @seealso
+#' Disease-specific helper functions:
+#' * [bacterial_blight()],
+#' * [brown_spot()],
+#' * [leaf_blast()],
+#' * [sheath_blight()],
+#' * [tungro()],
+#' * [modified_kim_leaf_blast()],
+#' * [modified_kim_sheath_blight()],
+#' * [leaf_rust()], and
+#' * [s_tritici_blotch()].
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com} from original by
 #'   Robert J. Hijmans, Rene Pangga and Jorrel Aunario.
