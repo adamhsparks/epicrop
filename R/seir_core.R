@@ -1,19 +1,12 @@
 # R wrappers that dispatch to Rcpp cores (daily or step-resolution) and return data.table
 # Expects Rcpp::compileAttributes() has been run so seir_core_*_cpp functions are available.
 
-#' Internal: compute AUDPC trapezoid (unit spacing)
-calc_audpc_trap <- function(x) {
-  n <- length(x)
-  if (n < 2) return(0)
-  sum((x[-1] + x[-n]) / 2)
-}
-
 #' Wrapper that dispatches to no-lex core (daily or steps) and returns data.table
 #' @param steps_per_day integer >= 1
 #' @param audpc optional externally computed AUDPC (numeric scalar)
 #' @param simday,dates,lat,lon optional metadata to attach
-#' @export
-seir_core_no_lex_dt <- function(
+#' @dev
+.seir_core_no_lex_dt <- function(
   duration,
   steps_per_day = 1L,
   onset_idx,
@@ -83,10 +76,18 @@ seir_core_no_lex_dt <- function(
   data.table::setcolorder(dt, intersect(cols_order, names(dt)))
 
   # attach optional metadata
-  if (!is.null(simday)) dt[, simday := simday]
-  if (!is.null(dates)) dt[, dates := dates]
-  if (!is.null(lat)) dt[, lat := lat]
-  if (!is.null(lon)) dt[, lon := lon]
+  if (!is.null(simday)) {
+    dt[, simday := simday]
+  }
+  if (!is.null(dates)) {
+    dt[, dates := dates]
+  }
+  if (!is.null(lat)) {
+    dt[, lat := lat]
+  }
+  if (!is.null(lon)) {
+    dt[, lon := lon]
+  }
 
   # move simday/dates to front if present
   front <- intersect(c("simday", "dates"), names(dt))
@@ -98,7 +99,7 @@ seir_core_no_lex_dt <- function(
   if (!is.null(audpc)) {
     data.table::setattr(dt, "AUDPC", audpc)
   } else {
-    data.table::setattr(dt, "AUDPC", calc_audpc_trap(dt$intensity))
+    data.table::setattr(dt, "AUDPC", .calculate_audpc(dt$intensity))
   }
 
   data.table::setattr(dt, "class", unique(c("epicrop.sim", class(dt))))
@@ -106,8 +107,8 @@ seir_core_no_lex_dt <- function(
 }
 
 #' Wrapper that dispatches to with-lex core and returns data.table
-#' @export
-seir_core_with_lex_dt <- function(
+#' @dev
+.seir_core_with_lex_dt <- function(
   duration,
   steps_per_day = 1L,
   onset_idx,
@@ -179,10 +180,18 @@ seir_core_with_lex_dt <- function(
   )
   data.table::setcolorder(dt, intersect(cols_order, names(dt)))
 
-  if (!is.null(simday)) dt[, simday := simday]
-  if (!is.null(dates)) dt[, dates := dates]
-  if (!is.null(lat)) dt[, lat := lat]
-  if (!is.null(lon)) dt[, lon := lon]
+  if (!is.null(simday)) {
+    dt[, simday := simday]
+  }
+  if (!is.null(dates)) {
+    dt[, dates := dates]
+  }
+  if (!is.null(lat)) {
+    dt[, lat := lat]
+  }
+  if (!is.null(lon)) {
+    dt[, lon := lon]
+  }
 
   front <- intersect(c("simday", "dates"), names(dt))
   if (length(front)) {
@@ -193,7 +202,7 @@ seir_core_with_lex_dt <- function(
   if (!is.null(audpc)) {
     data.table::setattr(dt, "AUDPC", audpc)
   } else {
-    data.table::setattr(dt, "AUDPC", calc_audpc_trap(dt$intensity))
+    data.table::setattr(dt, "AUDPC", .calculate_audpc(dt$intensity))
   }
 
   data.table::setattr(dt, "class", unique(c("epicrop.sim", class(dt))))
