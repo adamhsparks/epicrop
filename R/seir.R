@@ -465,7 +465,7 @@ seir <- function(
 
   # Loop
   for (t in 2:duration) {
-    lat_src <- t - floor(p_days[t])
+    lat_src <- t - floor(p_days[t]) + 2L
     inf_src <- t - floor(i_days[t])
 
     removed_today <- if (inf_src > 1L) infectious_flow[inf_src - 1L] else 0
@@ -566,7 +566,7 @@ seir <- function(
   rateinf[1L] <- if (1L == onset_idx) Iprim[1L] else 0
 
   for (t in 2:duration) {
-    lat_src <- t - floor(p_days[t])
+    lat_src <- t - floor(p_days[t]) + 2L
     inf_src <- t - floor(i_days[t])
 
     removed_today <- if (inf_src > 1L) infectious_flow[inf_src - 1L] else 0
