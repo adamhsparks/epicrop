@@ -28,7 +28,6 @@ seir(
   weighted_wetness = FALSE,
   age_driver = c("day", "dvs"),
   thermal_time = NULL,
-  steps_per_day = 1L,
   infection_window = NULL
 )
 }
@@ -138,11 +137,6 @@ emergence) or "dvs" (development stage 0-2) for age-based modifiers in
 (°C·days). Only required when \code{age_driver = "dvs"}. Determines how growing
 degree days are accumulated and converted to development stage (DVS).}
 
-\item{steps_per_day}{Integer. Number of sub-daily time steps for numerical
-integration. Default is 1 (daily steps). Values of 2, 4, or 8 can improve
-accuracy for stiff systems at cost of computation time.  Should be a power
-of 2. Defaults to 1.}
-
 \item{infection_window}{Optional list defining DVS-based infection window:
 \itemize{
 \item \code{dvs_start}: DVS when susceptibility begins
@@ -150,6 +144,11 @@ of 2. Defaults to 1.}
 \item \code{base_temp}: Base temperature for GDD (optional, uses thermal_time if present)
 \item \code{gdd_to_maturity}: GDD to maturity (optional, uses thermal_time if present)
 }}
+
+\item{steps_per_day}{Integer. Number of sub-daily time steps for numerical
+integration. Default is 1 (daily steps). Values of 2, 4, or 8 can improve
+accuracy for stiff systems at cost of computation time.  Should be a power
+of 2. Defaults to 1.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} object containing the following

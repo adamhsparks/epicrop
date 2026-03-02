@@ -5,8 +5,6 @@
 \title{Calculate development stage (DVS)}
 \usage{
 .calculate_dvs(w, thermal_time)
-
-.calculate_dvs(w, thermal_time)
 }
 \arguments{
 \item{w}{Weather data with TEMP column.}
@@ -15,13 +13,8 @@
 }
 \value{
 Numeric vector of DVS (0-2).
-
-Numeric vector of DVS (0-2).
 }
 \description{
 Calculate development stage (DVS)
-
-Calculate development stage (DVS)
 }
-\keyword{internal}
 \keyword{internal}
