@@ -158,7 +158,7 @@ static List seir_core_worker(
     const int iback = i_int[t - 1]; // infectious window length
 
     // sources of "end of window" indices
-    const int lat_src = t - pback; // day at which new latent enters infectious
+    const int lat_src = t - pback + 2; // day at which new latent enters infectious
     const int inf_src = t - iback; // day at which infectious leaves window
 
     // Removed today: infectious that just left the infectious window
