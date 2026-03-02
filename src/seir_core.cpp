@@ -35,7 +35,7 @@ inline void check_no_missing(const NumericVector &v, const char *name) {
 
 inline void check_length(const NumericVector &v, int expected,
                          const char *name) {
-  ensure_true(v.size() == expected,
+  ensure_true(v.size() == static_cast<R_xlen_t>(expected),
               (std::string("Vector '") + name +
                "' must have length = duration").c_str());
 }
