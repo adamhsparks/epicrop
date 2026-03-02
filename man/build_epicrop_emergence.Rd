@@ -16,7 +16,7 @@ expects the leading \code{-} as part of the format \code{"YYYY-MM-DD"}.}
 }
 \value{
 A sorted vector of \link[data.table:IDateTime]{data.table::IDate} emergence dates with class
-\code{epicrop.emerge} (i.e., \code{inherits(x, "epicrop.emerge")} will be \code{TRUE}).
+\code{epicrop.emerge} (\emph{i.e.}, \code{inherits(x, "epicrop.emerge")} will be \code{TRUE}).
 }
 \description{
 Construct a vector of emergence dates by combining a set of years with a set

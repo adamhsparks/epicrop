@@ -12,7 +12,7 @@
 #'   expects the leading `-` as part of the format `"YYYY-MM-DD"`.
 #'
 #' @return A sorted vector of [data.table::IDate] emergence dates with class
-#'   `epicrop.emerge` (i.e., `inherits(x, "epicrop.emerge")` will be `TRUE`).
+#'   `epicrop.emerge` (*i.e.*, `inherits(x, "epicrop.emerge")` will be `TRUE`).
 #'
 #' @seealso [run_epicrop_model()], [fetch_epicrop_weather_list()]
 #'
