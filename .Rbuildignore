@@ -27,6 +27,9 @@
 # flir files
 ^flir$
 
+^R/RcppExports\.R$
+^src/RcppExports\.cpp$
+
 ^man/dot-calculate_audpc\.Rd$
 ^man/dot-validate_required_args\.Rd$
 ^man/dot-norm_locations\.Rd$
@@ -53,6 +56,8 @@
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-calculate_weighted_hr_wet\.Rd$
 ^man/dot-calculate_dvs\.Rd$
+^man/dot-seir_core_no_lex_dt\.Rd$
+^man/dot-seir_core_with_lex_dt\.Rd$
 ^man/dot-validate_all_inputs\.Rd$
 ^man/dot-validate_weather\.Rd$
 ^man/dot-validate_scalars\.Rd$

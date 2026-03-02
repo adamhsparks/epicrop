@@ -301,6 +301,18 @@
     },
     "4": {
       "@type": "SoftwareApplication",
+      "identifier": "digest",
+      "name": "digest",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=digest"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
       "identifier": "memoise",
       "name": "memoise",
       "provider": {
@@ -311,7 +323,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
-    "5": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "nasapower",
       "name": "nasapower",
@@ -324,7 +336,19 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=nasapower"
     },
-    "6": {
+    "7": {
+      "@type": "SoftwareApplication",
+      "identifier": "Rcpp",
+      "name": "Rcpp",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=Rcpp"
+    },
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -336,7 +360,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "7": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
@@ -345,7 +369,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "957.596KB",
+  "fileSize": "2263.331KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

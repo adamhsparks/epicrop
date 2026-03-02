@@ -1,14 +1,3 @@
-test_that("setup: extended weather available", {
-  skip_if(
-    !exists("wth_formatted") ||
-      !is.data.frame(wth_formatted) ||
-      nrow(wth_formatted) < 185,
-    "Need extended weather data for rice models"
-  )
-})
-
-# ---- Helpers ---------------------------------------------------------------
-
 .emergence_date <- "2000-07-01"
 
 .expected_names <- c(
