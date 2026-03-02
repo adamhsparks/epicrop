@@ -228,6 +228,7 @@ seir <- function(
   thermal_time = NULL,
   infection_window = NULL
 ) {
+  # TODO: Move cpp to options where R is main model and cpp is performance option only
   age_driver <- rlang::arg_match(age_driver)
   if (!inherits(wth, "epicrop.wth")) {
     cli::cli_abort(c(
