@@ -37,13 +37,17 @@
 #'                                        lonlat,
 #'                                        start_date = month_day,
 #'                                        duration = duration)
+#' Default: pure R implementation
+#' run_epicrop_model(bacterial_blight, emergence, wth_list)
 #'
-#' # AUDPC for bacterial blight
-#' run_epicrop_model(bacterial_blight,
-#'                   emergence,
-#'                   wth_list,
-#'                   window_days = 120L,
-#'                   output = "audpc")
+#' # Switch to Rcpp for the session
+#' options(epicrop.use_rcpp = TRUE)
+#' run_epicrop_model(bacterial_blight, emergence, wth_list)
+#'
+#' # Scoped toggle — ideal for benchmarking
+#' withr::with_options(list(epicrop.use_rcpp = TRUE), {
+#'  run_epicrop_model(bacterial_blight, emergence, wth_list)
+#' })
 #'
 #' @seealso fetch_epicrop_weather_list, build_epicrop_emergence
 #'
@@ -162,7 +166,7 @@ run_epicrop_model <- function(
 #' @param window_days Integer number of days after emergence to include
 #'  (inclusive).
 #' @return A function(ed) -> data.table or NULL
-#' @noRd
+#' @dev
 .make_slicer <- function(wth_list, window_days) {
   window_days <- as.integer(window_days)
 
@@ -226,10 +230,13 @@ run_epicrop_model <- function(
 #' @param window_days Integer; passed for reference only.
 #' @param ... Extra args forwarded to `model_fun`.
 #' @return A function(ed) -> data.table (summary or full)
-#' @noRd
+#' @dev
 .make_runner <- function(model_fun, output, slicer, window_days, ...) {
   dots <- rlang::dots_list(..., .named = TRUE)
   has_user_duration <- .check_user_duration(dots, model_fun)
+
+  # Resolve backend once per call to run_epicrop_model(), not per emergence date
+  use_rcpp <- .use_rcpp()
 
   function(ed) {
     w_sub <- slicer(ed)
@@ -246,8 +253,11 @@ run_epicrop_model <- function(
     # Inject duration only if user didn't provide it
     extra <- if (!has_user_duration) list(duration = nrow(w_sub)) else list()
 
+    # Select backend: Rcpp or pure R
+    backend <- if (use_rcpp) .rcpp_kernel else model_fun
+
     out <- rlang::exec(
-      model_fun,
+      backend,
       wth = w_sub,
       emergence = ed,
       !!!dots,
@@ -305,7 +315,7 @@ run_epicrop_model <- function(
 #' @param pieces List of per-emergence outputs.
 #' @param output "audpc" or "full".
 #' @return data.table
-#' @noRd
+#' @dev
 .assemble_results <- function(pieces, output) {
   if (output == "audpc") {
     if (length(pieces) == 0L) {
