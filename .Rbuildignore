@@ -55,6 +55,9 @@
 ^man/dot-day_length\.Rd$
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-calculate_weighted_hr_wet\.Rd$
+^man/dot-make_slicer\.Rd$
+^man/dot-make_runner\.Rd$
+^man/dot-assemble_results\.Rd$
 ^man/dot-calculate_dvs\.Rd$
 ^man/dot-seir_core_with_lex_r\.Rd$
 ^man/dot-seir_core_no_lex_r\.Rd$
