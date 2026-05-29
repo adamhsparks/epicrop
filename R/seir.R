@@ -361,7 +361,6 @@ seir <- function(
     )
   }
   Iprim[onset_idx] <- I0
-
   out <- if (lex_on) {
     .seir_core_with_lex(
       duration,
@@ -373,8 +372,9 @@ seir <- function(
       i_days,
       RRG_vals,
       RRS_vals,
+      RRLEX_vals,
       a_vals,
-      Sx
+      Sx # RRLEX_vals belongs here
     )
   } else {
     .seir_core_no_lex(
@@ -387,9 +387,8 @@ seir <- function(
       i_days,
       RRG_vals,
       RRS_vals,
-      RRLEX_vals,
       a_vals,
-      Sx
+      Sx # no RRLEX_vals here
     )
   }
 
