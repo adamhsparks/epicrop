@@ -80,3 +80,21 @@ fetch_epicrop_weather_list, build_epicrop_emergence
 Adam H. Sparks, <adamhsparks@gmail.com>
 
 ## Examples
+
+``` r
+years <- 2001:2003
+month_day <- c("-06-01", "-06-14", "-06-30")
+lonlat <- c(121.255669, 14.16742)
+duration <- 120L
+emergence <- build_epicrop_emergence(years, month_day)
+
+wth_list <- fetch_epicrop_weather_list(years,
+                                       lonlat,
+                                       start_date = month_day,
+                                       duration = duration)
+#> Error in .norm_locations(lonlat): `lonlat` numeric vector must have even length.
+#> ✖ You provided length 3
+#> ℹ Expected pairs of (longitude, latitude)
+run_epicrop_model(bacterial_blight, emergence, wth_list)
+#> Error: object 'wth_list' not found
+```

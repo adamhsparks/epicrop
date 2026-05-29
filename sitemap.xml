@@ -13,7 +13,6 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/audpc_dt.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/disease_models.html</loc></url>
-<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-assemble_results.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-build_tasks.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-calculate_audpc.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-calculate_dvs.html</loc></url>
@@ -31,8 +30,6 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-interp.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-is_boolean.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-is_md_only.html</loc></url>
-<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-make_runner.html</loc></url>
-<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-make_slicer.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-memo_fast_interp_approx_digest.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-norm_locations.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-normalize_md.html</loc></url>

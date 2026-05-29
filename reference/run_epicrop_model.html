@@ -122,7 +122,23 @@ an <code>AUDPC</code> column preserved per emergence date.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">years</span> <span class="op">&lt;-</span> <span class="fl">2001</span><span class="op">:</span><span class="fl">2003</span></span></span>
+<span class="r-in"><span><span class="va">month_day</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-06-01"</span>, <span class="st">"-06-14"</span>, <span class="st">"-06-30"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lonlat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">duration</span> <span class="op">&lt;-</span> <span class="fl">120L</span></span></span>
+<span class="r-in"><span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="fu"><a href="build_epicrop_emergence.html">build_epicrop_emergence</a></span><span class="op">(</span><span class="va">years</span>, <span class="va">month_day</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span><span class="va">years</span>,</span></span>
+<span class="r-in"><span>                                       <span class="va">lonlat</span>,</span></span>
+<span class="r-in"><span>                                       start_date <span class="op">=</span> <span class="va">month_day</span>,</span></span>
+<span class="r-in"><span>                                       duration <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .norm_locations(lonlat):</span> `lonlat` numeric vector must have even length.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> You provided length 3</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Expected pairs of (longitude, latitude)</span>
+<span class="r-in"><span><span class="fu">run_epicrop_model</span><span class="op">(</span><span class="va">bacterial_blight</span>, <span class="va">emergence</span>, <span class="va">wth_list</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wth_list' not found</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

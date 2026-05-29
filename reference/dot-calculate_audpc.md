@@ -54,7 +54,6 @@ wth <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 bb <- bacterial_blight(wth, emergence = "2000-07-01")
-#> Error in .seir_core_no_lex(duration, onset_idx, H0, Iprim, Rc, p_days,     i_days, RRG_vals, RRS_vals, RRLEX_vals, a_vals, Sx): unused argument (Sx)
 .calculate_audpc(intensity = bb$intensity)
-#> Error in bb$intensity: object of type 'closure' is not subsettable
+#> [1] 53.43405
 ```
