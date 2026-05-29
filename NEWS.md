@@ -4,8 +4,6 @@
 
 - Version now 1.0.0.9000, almost ready for first major release
 
-- Uses {Rcpp} for speed improvements in `seir()` function's efficiency (it's faster now!).
-
 - `SEIR()` is now `seir()`.
 
 - All helper functions drop the `predict_` prefix for simplicity, _e.g._, `predict_bacterial_blight()` becomes just `bacterial_blight()`.
@@ -147,13 +145,19 @@
 - Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit <https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287>. See Lines 124:126 that were changed to Lines 118:120 where
 
 ```r
-Rc[day+1] <- baseRc * AFGen(ageRc, day) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
+Rc[day + 1] <- baseRc *
+  AFGen(ageRc, day) *
+  AFGen(tmpRc, wthsub$tavg[day + 1]) *
+  RHCoef[day + 1]
 ```
 
 should have been
 
 ```r
-Rc[day+1] <- baseRc * AFGen(ageRc, day+1) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
+Rc[day + 1] <- baseRc *
+  AFGen(ageRc, day + 1) *
+  AFGen(tmpRc, wthsub$tavg[day + 1]) *
+  RHCoef[day + 1]
 ```
 
 to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://codeberg.org/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
