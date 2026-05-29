@@ -108,14 +108,20 @@ field names:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
-   \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{TEMP} \tab Mean daily temperature (degrees C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (°C), see TMIN/TMAX Details \cr
-   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (°C), see TMIN/TMAX Details \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Details \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
-}}
+   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (degrees C), see TMIN/TMAX \cr
+}
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ Details
+}\if{html}{\out{</div>}}
+
+\emph{TMAX} | \strong{Optional} Maximum daily temperature (degrees C), see TMIN/TMAX
+Details
+\emph{LAT} | \strong{Optional} latitude of weather observation, see LAT/LON Details
+\emph{LON} | \strong{Optional} longitude of weather observation, see LAT/LON Details}
 
 \item{emergence}{Expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).}

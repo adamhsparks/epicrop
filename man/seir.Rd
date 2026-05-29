@@ -38,14 +38,20 @@ field names:\tabular{rl}{
    \strong{Field Name} \tab \strong{Value} \cr
    \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
    \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
-   \emph{TEMP} \tab Mean daily temperature (°C) \cr
+   \emph{TEMP} \tab Mean daily temperature (degrees C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (°C), see TMIN/TMAX Details \cr
-   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (°C), see TMIN/TMAX Details \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON Details \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON Details \cr
-}}
+   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (degrees C), see TMIN/TMAX \cr
+}
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ Details
+}\if{html}{\out{</div>}}
+
+\emph{TMAX} | \strong{Optional} Maximum daily temperature (degrees C), see TMIN/TMAX
+Details
+\emph{LAT} | \strong{Optional} latitude of weather observation, see LAT/LON Details
+\emph{LON} | \strong{Optional} longitude of weather observation, see LAT/LON Details}
 
 \item{emergence}{Expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).}
@@ -73,8 +79,8 @@ of Savary \emph{et al.} 2012.}
 
 \item{RcT}{modifier for \emph{Rc} (the basic infection rate corrected for
 removals) for temperature as a numeric two-column matrix with the first
-column being temperature in °C and the second the modifier (bounded by 0
-and 1). Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
+column being temperature in degrees C and the second the modifier (bounded
+by 0 and 1). Described in Tables 1 and 2 of Savary \emph{et al.} 2012.}
 
 \item{RcOpt}{potential basic infection rate corrected for removals (numeric).
 Described in Table 1 of Savary \emph{et al.} 2012. This value can be modified
@@ -133,9 +139,10 @@ Only used when \code{simple_wetness = FALSE}. Defaults to FALSE.}
 emergence) or "dvs" (development stage 0-2) for age-based modifiers in
 \code{RcA}. When "dvs", \code{thermal_time} parameter is required. Defaults to "day".}
 
-\item{thermal_time}{List with \code{base_temp} (°C) and \code{gdd_to_maturity}
-(°C·days). Only required when \code{age_driver = "dvs"}. Determines how growing
-degree days are accumulated and converted to development stage (DVS).}
+\item{thermal_time}{List with \code{base_temp} (degrees C) and \code{gdd_to_maturity}
+(degrees C days). Only required when \code{age_driver = "dvs"}. Determines how
+growing degree days are accumulated and converted to development stage
+(DVS).}
 
 \item{infection_window}{Optional list defining DVS-based infection window:
 \itemize{

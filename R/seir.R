@@ -13,11 +13,13 @@
 #'   --------------:|:----------
 #'   _YYYYMMDD_ | Date as Year Month Day (ISO8601)
 #'   _DOY_ | Consecutive day of year, commonly called "Julian date"
-#'   _TEMP_ | Mean daily temperature (°C)
+#'   _TEMP_ | Mean daily temperature (degrees C)
 #'   _RHUM_ | Mean daily relative humidity (%)
 #'   _RAIN_ | Mean daily rainfall (mm)
-#'   _TMIN_ | **Optional** Minimum daily temperature (°C), see TMIN/TMAX Details
-#'   _TMAX_ | **Optional** Maximum daily temperature (°C), see TMIN/TMAX Details
+#'   _TMIN_ | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX
+#'      Details
+#'   _TMAX_ | **Optional** Maximum daily temperature (degrees C), see TMIN/TMAX
+#'      Details
 #'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON Details
 #'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
 #'
@@ -41,8 +43,8 @@
 #'  of Savary _et al._ 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature as a numeric two-column matrix with the first
-#'  column being temperature in °C and the second the modifier (bounded by 0
-#'  and 1). Described in Tables 1 and 2 of Savary _et al._ 2012.
+#'  column being temperature in degrees C and the second the modifier (bounded
+#'  by 0 and 1). Described in Tables 1 and 2 of Savary _et al._ 2012.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
 #'  Described in Table 1 of Savary _et al._ 2012. This value can be modified
 #'  to reflect crop cultivar resistance ratings as well, see Kim _et al. _ 2015
@@ -86,9 +88,10 @@
 #' @param age_driver Character. Use "day" (default, 0-indexed days from
 #'  emergence) or "dvs" (development stage 0-2) for age-based modifiers in
 #'  `RcA`. When "dvs", `thermal_time` parameter is required. Defaults to "day".
-#' @param thermal_time List with `base_temp` (°C) and `gdd_to_maturity`
-#'  (°C·days). Only required when `age_driver = "dvs"`. Determines how growing
-#'  degree days are accumulated and converted to development stage (DVS).
+#' @param thermal_time List with `base_temp` (degrees C) and `gdd_to_maturity`
+#'  (degrees C days). Only required when `age_driver = "dvs"`. Determines how
+#'  growing degree days are accumulated and converted to development stage
+#'  (DVS).
 #' @param infection_window Optional list defining DVS-based infection window:
 #'   * `dvs_start`: DVS when susceptibility begins
 #'   * `dvs_end`: DVS when susceptibility ends
@@ -274,7 +277,7 @@ seir <- function(
     cli::cli_abort(c(
       "Emergence date not found in weather data",
       x = "Emergence {.val {emergence_date}} not in range
-      {.val {min(w$YYYYMMDD)}}–{.val {max(w$YYYYMMDD)}}"
+      {.val {min(w$YYYYMMDD)}}--{.val {max(w$YYYYMMDD)}}"
     ))
   }
   if ((nrow(w) - i0 + 1) < duration) {
