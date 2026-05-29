@@ -37,23 +37,15 @@
 #'                                        lonlat,
 #'                                        start_date = month_day,
 #'                                        duration = duration)
-#' Default: pure R implementation
 #' run_epicrop_model(bacterial_blight, emergence, wth_list)
 #'
-#' # Switch to Rcpp for the session
-#' options(epicrop.use_rcpp = TRUE)
-#' run_epicrop_model(bacterial_blight, emergence, wth_list)
-#'
-#' # Scoped toggle — ideal for benchmarking
-#' withr::with_options(list(epicrop.use_rcpp = TRUE), {
-#'  run_epicrop_model(bacterial_blight, emergence, wth_list)
-#' })
 #'
 #' @seealso fetch_epicrop_weather_list, build_epicrop_emergence
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
+
 run_epicrop_model <- function(
   model_fun,
   emergence_dates,
@@ -63,13 +55,10 @@ run_epicrop_model <- function(
   ...
 ) {
   output <- rlang::arg_match(output, c("audpc", "full"))
+  .validate_run_inputs(emergence_dates, wth_list)
 
-  # Validate inputs
-  .validate_inputs(emergence_dates, wth_list)
-
-  # Handle bundle (multiple locations)
-  if (.is_bundle(wth_list)) {
-    return(.process_bundle(
+  if (.is_wth_bundle(wth_list)) {
+    return(.run_bundle(
       model_fun,
       emergence_dates,
       wth_list,
@@ -79,50 +68,47 @@ run_epicrop_model <- function(
     ))
   }
 
-  # Single location processing
-  slicer <- .make_slicer(wth_list, window_days)
-  runner <- .make_runner(model_fun, output, slicer, window_days, ...)
+  dots <- rlang::dots_list(..., .named = TRUE)
+  has_duration <- .has_duration_arg(dots, model_fun)
+  pieces <- lapply(emergence_dates, function(ed) {
+    .run_one(
+      ed,
+      model_fun,
+      wth_list,
+      window_days,
+      dots,
+      has_duration,
+      output
+    )
+  })
 
-  pieces <- lapply(emergence_dates, runner)
-  out <- .assemble_results(pieces, output)
-
-  data.table::setattr(
-    out,
-    "class",
-    c("epicrop.sim", "data.table", "data.frame")
-  )
+  .assemble(pieces, output)
 }
 
-#' Validate input arguments
-#' @noRd
-.validate_inputs <- function(emergence_dates, wth_list) {
+.validate_run_inputs <- function(emergence_dates, wth_list) {
   if (!inherits(emergence_dates, "epicrop.emerge")) {
     cli::cli_abort(c(
       "{.arg emergence_dates} is not of class {.cls epicrop.emerge}.",
       i = "Construct it via {.fn build_epicrop_emergence}."
     ))
   }
-
   if (
     !rlang::inherits_any(wth_list, c("epicrop.wth.list", "epicrop.wth.bundle"))
   ) {
     cli::cli_abort(c(
-      "{.arg wth_list} must be {.cls epicrop.wth.list} or {.cls epicrop.wth.bundle}.",
+      "{.arg wth_list} must be {.cls epicrop.wth.list} or
+        {.cls epicrop.wth.bundle}.",
       i = "Use {.fn fetch_epicrop_weather_list}."
     ))
   }
 }
 
-#' Check if wth_list is a bundle (multiple locations)
-#' @noRd
-.is_bundle <- function(wth_list) {
+.is_wth_bundle <- function(wth_list) {
   inherits(wth_list, "epicrop.wth.bundle") ||
     !all(grepl("^\\d{4}$", rlang::names2(wth_list)))
 }
 
-#' Process bundle of weather lists across multiple locations
-#' @noRd
-.process_bundle <- function(
+.run_bundle <- function(
   model_fun,
   emergence_dates,
   wth_list,
@@ -130,221 +116,148 @@ run_epicrop_model <- function(
   output,
   ...
 ) {
-  location_keys <- rlang::names2(wth_list)
-  location_labels <- sub("__.*$", "", location_keys)
-  location_labels[!nzchar(location_labels)] <- sprintf(
-    "location%02d",
-    seq_along(wth_list)
-  )
+  nms <- rlang::names2(wth_list)
+  labels <- sub("__.*$", "", nms)
+  labels[!nzchar(labels)] <- sprintf("location%02d", seq_along(wth_list))
 
   pieces <- Map(
-    function(location_w, location_nm) {
-      ans <- run_epicrop_model(
-        model_fun = model_fun,
-        emergence_dates = emergence_dates,
-        wth_list = location_w,
-        window_days = window_days,
-        output = output,
+    function(w, nm) {
+      out <- run_epicrop_model(
+        model_fun,
+        emergence_dates,
+        w,
+        window_days,
+        output,
         ...
       )
-      ans[, location := location_nm]
+      out[, location := nm]
     },
     wth_list,
-    location_labels
+    labels
   )
 
   data.table::rbindlist(pieces, use.names = TRUE, fill = TRUE)
 }
 
-#' Cross‑year weather slicer (assumes `epicrop.wth.list` contract)
-#'
-#' Returns a function that slices per-year weather tables using the IDate column
-#' `YYYYMMDD`. No format parsing or coercion is performed—this trusts the S3
-#' class contract that tables are well-formed.
-#'
-#' @param wth_list An `epicrop.wth.list` (named by year strings).
-#' @param window_days Integer number of days after emergence to include
-#'  (inclusive).
-#' @return A function(ed) -> data.table or NULL
-#' @dev
-.make_slicer <- function(wth_list, window_days) {
-  window_days <- as.integer(window_days)
-
-  function(ed) {
-    start <- ed
-    end <- ed + (window_days - 1L)
-    years <- seq.int(data.table::year(start), data.table::year(end))
-
-    segs <- vector("list", length(years))
-
-    for (i in seq_along(years)) {
-      y <- years[i]
-      tab <- wth_list[[as.character(y)]]
-
-      if (is.null(tab)) {
-        cli::cli_warn(
-          "Skipping {start}: no weather for required year {y} (window {start}\u2013{end})."
-        )
-        next
-      }
-
-      year_start <- data.table::as.IDate(sprintf("%d-01-01", y))
-      year_end <- data.table::as.IDate(sprintf("%d-12-31", y))
-
-      seg_start <- max(start, year_start)
-      seg_end <- min(end, year_end)
-
-      seg <- tab[YYYYMMDD %between% c(seg_start, seg_end)]
-
-      if (nrow(seg) == 0L) {
-        cli::cli_warn(
-          "Skipping {start}: no rows in year {y} within {seg_start}\u2013{seg_end}."
-        )
-        next
-      }
-
-      segs[[i]] <- seg
-    }
-
-    segs <- Filter(Negate(is.null), segs)
-
-    if (length(segs) == 0L) {
-      return(NULL)
-    }
-    if (length(segs) == 1L) {
-      return(segs[[1L]])
-    }
-
-    data.table::rbindlist(segs, use.names = TRUE)
-  }
-}
-
-#' Create a per‑emergence model‑execution function
-#'
-#' Ensures we only auto‑inject `duration` when the user has *not* supplied it
-#' (including unique partial matches or positional args).
-#'
-#' @param model_fun \pkg{epicrop} model function to call.
-#' @param output "audpc" or "full".
-#' @param slicer Slicer function producing a weather slice for an emergence date.
-#' @param window_days Integer; passed for reference only.
-#' @param ... Extra args forwarded to `model_fun`.
-#' @return A function(ed) -> data.table (summary or full)
-#' @dev
-.make_runner <- function(model_fun, output, slicer, window_days, ...) {
-  dots <- rlang::dots_list(..., .named = TRUE)
-  has_user_duration <- .check_user_duration(dots, model_fun)
-
-  # Resolve backend once per call to run_epicrop_model(), not per emergence date
-  use_rcpp <- .use_rcpp()
-
-  function(ed) {
-    w_sub <- slicer(ed)
-
-    if (is.null(w_sub) || nrow(w_sub) == 0L) {
-      if (output == "audpc") {
-        return(data.table::data.table(emergence = ed, AUDPC = NA_real_))
-      }
-      return(NULL)
-    }
-
-    w_sub <- data.table::copy(w_sub)
-
-    # Inject duration only if user didn't provide it
-    extra <- if (!has_user_duration) list(duration = nrow(w_sub)) else list()
-
-    # Select backend: Rcpp or pure R
-    backend <- if (use_rcpp) .rcpp_kernel else model_fun
-
-    out <- rlang::exec(
-      backend,
-      wth = w_sub,
-      emergence = ed,
-      !!!dots,
-      !!!extra
-    )
-
-    if (output == "audpc") {
-      data.table::data.table(
-        emergence = ed,
-        AUDPC = attr(out, "AUDPC", exact = TRUE)
-      )
-    } else {
-      audpc_val <- attr(out, "AUDPC", exact = TRUE)
-      out[, `:=`(emergence = ed, AUDPC = audpc_val)][]
-    }
-  }
-}
-
-#' Check if user provided duration argument
-#' @noRd
-.check_user_duration <- function(dots, model_fun) {
-  dot_names <- rlang::names2(dots)
-
-  if (length(dot_names) == 0L || !any(nzchar(dot_names))) {
-    return(FALSE)
-  }
-
-  if ("duration" %in% dot_names) {
+.has_duration_arg <- function(dots, model_fun) {
+  nms <- rlang::names2(dots)[nzchar(rlang::names2(dots))]
+  fmls <- setdiff(rlang::fn_fmls_names(model_fun) %||% character(), "...")
+  if ("duration" %in% nms) {
     return(TRUE)
   }
-
-  fmls <- rlang::fn_fmls_names(model_fun)
-  if (is.null(fmls)) {
-    return(FALSE)
-  }
-
-  fml_no_dots <- setdiff(fmls, "...")
-
   any(vapply(
-    dot_names[nzchar(dot_names)],
+    nms,
     function(nm) {
-      hit <- startsWith(fml_no_dots, nm)
-      sum(hit) == 1L && fml_no_dots[which(hit)] == "duration"
+      hits <- startsWith(fmls, nm)
+      sum(hits) == 1L && fmls[hits] == "duration"
     },
     logical(1),
     USE.NAMES = FALSE
   ))
 }
 
-#' Assemble model outputs into final result tables
-#'
-#' Combines per-emergence outputs into the requested shape.
-#' For "audpc", returns unique rows by (emergence, AUDPC).
-#'
-#' @param pieces List of per-emergence outputs.
-#' @param output "audpc" or "full".
-#' @return data.table
-#' @dev
-.assemble_results <- function(pieces, output) {
-  if (output == "audpc") {
-    if (length(pieces) == 0L) {
-      res <- data.table::data.table(
-        emergence = data.table::as.IDate(NA),
-        AUDPC = NA_real_
-      )
-      return(data.table::setkey(res, emergence, AUDPC))
-    }
+.slice_weather <- function(ed, wth_list, window_days) {
+  start <- ed
+  end <- ed + (window_days - 1L)
+  years <- seq.int(data.table::year(start), data.table::year(end))
 
-    # Normalize pieces
-    pieces <- lapply(pieces, function(x) {
-      if (is.null(x)) {
-        return(data.table::data.table(
-          emergence = data.table::as.IDate(NA),
-          AUDPC = NA_real_
-        ))
+  segs <- Filter(
+    Negate(is.null),
+    lapply(years, function(y) {
+      tab <- wth_list[[as.character(y)]]
+      if (is.null(tab)) {
+        cli::cli_warn("Skipping {ed}: no weather for year {y}.")
+        return(NULL)
       }
-      x[, .(emergence, AUDPC)]
+      seg <- tab[
+        YYYYMMDD %between%
+          c(
+            max(start, data.table::as.IDate(sprintf("%d-01-01", y))),
+            min(end, data.table::as.IDate(sprintf("%d-12-31", y)))
+          )
+      ]
+      if (nrow(seg) == 0L) {
+        cli::cli_warn("Skipping {ed}: no rows in year {y}.")
+        return(NULL)
+      }
+      seg
     })
+  )
 
-    res <- data.table::rbindlist(pieces, use.names = TRUE)
-    data.table::setkey(res, emergence, AUDPC)
-    unique(res)
+  if (!length(segs)) {
+    return(NULL)
+  }
+  if (length(segs) == 1L) {
+    segs[[1L]]
   } else {
-    data.table::rbindlist(
+    data.table::rbindlist(segs, use.names = TRUE)
+  }
+}
+
+.run_one <- function(
+  ed,
+  model_fun,
+  wth_list,
+  window_days,
+  dots,
+  has_duration,
+  output
+) {
+  w_sub <- .slice_weather(ed, wth_list, window_days)
+
+  if (is.null(w_sub)) {
+    return(
+      if (output == "audpc") {
+        data.table::data.table(emergence = ed, AUDPC = NA_real_)
+      } else {
+        NULL
+      }
+    )
+  }
+
+  extra <- if (!has_duration) list(duration = nrow(w_sub)) else list()
+  result <- rlang::exec(
+    wth = data.table::copy(w_sub),
+    emergence = ed,
+    !!!dots,
+    !!!extra
+  )
+
+  if (output == "audpc") {
+    return(data.table::data.table(
+      emergence = ed,
+      AUDPC = attr(result, "AUDPC", exact = TRUE)
+    ))
+  }
+
+  result[, `:=`(emergence = ed, AUDPC = attr(result, "AUDPC", exact = TRUE))][]
+}
+
+.assemble <- function(pieces, output) {
+  if (output != "audpc") {
+    out <- data.table::rbindlist(
       Filter(Negate(is.null), pieces),
       use.names = TRUE,
       fill = TRUE
     )
+    return(data.table::setattr(
+      out,
+      "class",
+      c("epicrop.sim", "data.table", "data.frame")
+    ))
   }
+
+  empty <- data.table::data.table(
+    emergence = data.table::as.IDate(NA),
+    AUDPC = NA_real_
+  )
+  if (!length(Filter(Negate(is.null), pieces))) {
+    return(data.table::setkeyv(empty, c("emergence", "AUDPC")))
+  }
+
+  res <- data.table::rbindlist(
+    lapply(pieces, function(x) x %||% empty),
+    use.names = TRUE
+  )
+  unique(data.table::setkeyv(res, c("emergence", "AUDPC")))
 }
