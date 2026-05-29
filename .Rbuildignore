@@ -1,11 +1,6 @@
-^renv$
-^renv\.lock$
-^.*\.Rproj$
-^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
 ^docs$
-^codecov\.yml$
 ^\.ccache$
 ^\_pkgdown\.yml$
 ^codemeta\.json$
@@ -16,19 +11,12 @@
 ^.*\.Rmd\.orig$
 ^doc$
 ^Meta$
-^epicrop.code-workspace$
 ^rosm\.cache$
 ^_pkgdown\.yml$
 ^pkgdown$
 ^LICENSE\.md$
 ^air\.toml$
 ^\.woodpecker$
-
-# flir files
-^flir$
-
-^R/RcppExports\.R$
-^src/RcppExports\.cpp$
 
 ^man/dot-calculate_audpc\.Rd$
 ^man/dot-validate_required_args\.Rd$
@@ -46,8 +34,6 @@
 ^man/dot-fetch_one_weather\.Rd$
 ^man/dot-format_results\.Rd$
 ^man/dot-interp\.Rd$
-^man/dot-interp_table\.Rd$
-^man/dot-fast_interp_approx_internal\.Rd$
 ^man/dot-memo_fast_interp_approx_digest\.Rd$
 ^man/dot-calculate_leaf_wetness\.Rd$
 ^man/dot-diurnal_rh\.Rd$
@@ -59,8 +45,6 @@
 ^man/dot-make_runner\.Rd$
 ^man/dot-assemble_results\.Rd$
 ^man/dot-calculate_dvs\.Rd$
-^man/dot-seir_core_with_lex_r\.Rd$
-^man/dot-seir_core_no_lex_r\.Rd$
 ^man/dot-validate_all_inputs\.Rd$
 ^man/dot-validate_weather\.Rd$
 ^man/dot-validate_scalars\.Rd$
