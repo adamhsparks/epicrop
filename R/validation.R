@@ -252,7 +252,7 @@
   .validate_param_range(max(RcW[, 2]), "RcW modifiers (column 2)", max = 1)
   .validate_param_range(min(RcW[, 2]), "RcW modifiers (column 2)", min = 0)
 
-  invisible(TRUE)
+  return(invisible(TRUE))
 }
 
 #' Check if Value is a Single Boolean
@@ -301,7 +301,8 @@
   }
 
   cli::cli_abort(
-    "{.var emergence} must be a Date, IDate, POSIXt, or character, not {.cls {class(x)}}.",
+    "{.var emergence} must be a Date, IDate, POSIXt, or character, not
+      {.cls {class(x)}}.",
     call = rlang::caller_env()
   )
 }

@@ -239,7 +239,7 @@
       exp(-(hr[idx_after] - sunset_v[idx_after]) / 4)) /
     denom_v[idx_after]
 
-  hr_temp
+  return(hr_temp)
 }
 # Sunset temperature
 
