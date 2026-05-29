@@ -4,7 +4,6 @@ utils::globalVariables(c(
   "emergence", # <audpc_dt>
   "YYYYMMDD", # <format_wth>
   "DOY", # <format_wth>
-  "YYYYMMDD", # <get_wth>
   "dates", # <seir>
   "YYYYMMDD", # <seir>
   "lat", # <seir>

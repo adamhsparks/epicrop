@@ -272,7 +272,7 @@
     (cos(lat_rad) * cos(p))
   a <- pmin(pmax(a, -1), 1) # Clamp to [-1, 1]
 
-  24 - 7.639437 * acos(a)
+  return(24 - 7.639437 * acos(a))
 }
 
 #' Calculate saturated vapour pressure
@@ -311,5 +311,5 @@
   w[rh >= rhlim] <- 1
   w[rh < 80] <- 0
 
-  w
+  return(w)
 }

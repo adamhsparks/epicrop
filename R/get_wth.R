@@ -51,22 +51,9 @@
 #' @export
 
 get_wth <- function(lonlat, dates, duration = NULL) {
-  # --- existing checks ---
-  if (!is.numeric(lonlat) || length(lonlat) != 2L) {
-    cli::cli_abort(
-      "{.arg lonlat} must be numeric length-2: {.code c(lon, lat)}."
-    )
-  }
-
-  lon <- as.double(unname(lonlat[1L]))
-  lat <- as.double(unname(lonlat[2L]))
-
-  if (is.na(lon) || lon < -180 || lon > 180) {
-    cli::cli_abort("Longitude must be in [-180, 180], got {lon}.")
-  }
-  if (is.na(lat) || lat < -90 || lat > 90) {
-    cli::cli_abort("Latitude must be in [-90, 90], got {lat}.")
-  }
+  ll <- .validate_lonlat(lonlat)
+  lon <- ll[1L]
+  lat <- ll[2L]
 
   if (missing(dates) || length(dates) < 1L) {
     cli::cli_abort(
@@ -78,23 +65,8 @@ get_wth <- function(lonlat, dates, duration = NULL) {
     cli::cli_abort("{.arg dates[1]} must be an ISO date ('YYYY-MM-DD').")
   }
 
-  if (!is.null(duration) && !missing(duration)) {
-    if (
-      !rlang::is_integerish(duration, n = 1, finite = TRUE) || duration <= 0L
-    ) {
-      cli::cli_abort(
-        "{.arg duration} must be a single positive integer (days)."
-      )
-    }
-    end <- start + (as.integer(duration)) # inclusive
-  } else if (length(dates) >= 2L) {
-    end <- as.Date(dates[2L])
-    if (is.na(end)) {
-      cli::cli_abort("{.arg dates[2]} must be an ISO date ('YYYY-MM-DD').")
-    }
-  }
-
-  date_vec <- c(format(start, "%Y-%m-%d"), format(end, "%Y-%m-%d"))
+  end <- .resolve_end_date(dates, start, duration)
+  date_vec <- format(c(start, end), "%Y-%m-%d")
 
   wth <- data.table::as.data.table(
     nasapower::get_power(
@@ -105,20 +77,61 @@ get_wth <- function(lonlat, dates, duration = NULL) {
       dates = date_vec
     )
   )
-  wth[, c("YEAR", "MM", "DD") := NULL]
-  wth[,
-    YYYYMMDD := data.table::as.IDate(
-      wth$YYYYMMDD,
-      format = "%Y%m%d"
+  .postprocess_wth(wth)
+}
+
+.check_coord <- function(val, name, lo, hi) {
+  if (is.na(val) || val < lo || val > hi) {
+    cli::cli_abort("{name} must be in [{lo}, {hi}], got {val}.")
+  }
+}
+
+.validate_lonlat <- function(lonlat) {
+  if (!is.numeric(lonlat) || length(lonlat) != 2L) {
+    cli::cli_abort(
+      "{.arg lonlat} must be numeric length-2: {.code c(lon, lat)}."
     )
-  ]
+  }
+  lon <- as.double(unname(lonlat[1L]))
+  lat <- as.double(unname(lonlat[2L]))
+  .check_coord(lon, "Longitude", -180, 180)
+  .check_coord(lat, "Latitude", -90, 90)
+  c(lon, lat)
+}
+
+.resolve_end_date <- function(dates, start, duration) {
+  if (!is.null(duration)) {
+    if (
+      !rlang::is_integerish(duration, n = 1, finite = TRUE) || duration <= 0L
+    ) {
+      cli::cli_abort(
+        "{.arg duration} must be a single positive integer (days)."
+      )
+    }
+    return(start + as.integer(duration))
+  }
+  if (length(dates) >= 2L) {
+    end <- as.Date(dates[2L])
+    if (is.na(end)) {
+      cli::cli_abort("{.arg dates[2]} must be an ISO date ('YYYY-MM-DD').")
+    }
+    return(end)
+  }
+  cli::cli_abort(
+    "Provide {.arg dates} as c(start, end) or supply {.arg duration}."
+  )
+}
+
+.postprocess_wth <- function(wth) {
+  wth[, c("YEAR", "MM", "DD") := NULL]
+  wth[, YYYYMMDD := data.table::as.IDate(wth$YYYYMMDD, format = "%Y%m%d")]
 
   rename_map <- c(
-    "T2M" = "TEMP",
-    "T2M_MIN" = "TMIN",
-    "T2M_MAX" = "TMAX",
-    "PRECTOTCORR" = "RAIN",
-    "RH2M" = "RHUM"
+    T2M = "TEMP",
+    T2M_MIN = "TMIN",
+    T2M_MAX = "TMAX",
+    PRECTOTCORR = "RAIN",
+    RH2M = "RHUM"
   )
   for (old in names(rename_map)) {
     if (old %in% names(wth)) data.table::setnames(wth, old, rename_map[[old]])
@@ -137,9 +150,7 @@ get_wth <- function(lonlat, dates, duration = NULL) {
   )
   keep <- intersect(target, names(wth))
   data.table::setcolorder(wth, c(keep, setdiff(names(wth), keep)))
-
   data.table::setkey(wth, "YYYYMMDD")
-
   class(wth) <- union("epicrop.wth", class(wth))
   wth
 }

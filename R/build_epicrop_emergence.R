@@ -37,16 +37,12 @@
 #' @export
 
 build_epicrop_emergence <- function(years, month_day) {
-  md <- data.table::fifelse(
-    !is.na(month_day) &
-      grepl("^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", month_day),
-    month_day,
-    data.table::fifelse(
-      !is.na(month_day) &
-        grepl("^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", month_day),
-      paste0("-", month_day),
-      NA_character_
-    )
+  md <- data.table::fcase(
+    !is.na(month_day) & grepl("^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", month_day) ,
+    month_day                                                                           ,
+    !is.na(month_day) & grepl("^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", month_day)  ,
+    paste0("-", month_day)                                                              ,
+    default = NA_character_
   )
 
   if (anyNA(md)) {

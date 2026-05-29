@@ -55,7 +55,7 @@
     cli::cli_abort(
       c(
         "{.var wth} must be an object of class {.cls epicrop.wth}.",
-        "i" = "Use {.fn get_wth} or {.fn format_wth} to create one."
+        i = "Use {.fn get_wth} or {.fn format_wth} to create one."
       ),
       call = rlang::caller_env()
     )
@@ -68,7 +68,7 @@
     cli::cli_abort(
       c(
         "Missing required columns in {.var wth}:",
-        "x" = "{.val {missing}}"
+        x = "{.val {missing}}"
       ),
       call = rlang::caller_env()
     )
@@ -212,8 +212,10 @@
     if (length(missing_temp) > 0L) {
       cli::cli_abort(
         c(
-          "{.var simple_wetness} is {.code FALSE} but weather data is missing {.val {missing_temp}}.",
-          "i" = "Set {.var simple_wetness} to {.code TRUE} or add {.val {missing_temp}} to {.var wth}."
+          "{.var simple_wetness} is {.code FALSE} but weather data is missing
+            {.val {missing_temp}}.",
+          i = "Set {.var simple_wetness} to {.code TRUE} or add
+            {.val {missing_temp}} to {.var wth}."
         ),
         call = rlang::caller_env()
       )
@@ -224,7 +226,7 @@
     }
   }
 
-  invisible(TRUE)
+  return(invisible(TRUE))
 }
 
 #' Validate RcW matrix

@@ -228,12 +228,11 @@ seir <- function(
   thermal_time = NULL,
   infection_window = NULL
 ) {
-  # TODO: Move cpp to options where R is main model and cpp is performance option only
   age_driver <- rlang::arg_match(age_driver)
   if (!inherits(wth, "epicrop.wth")) {
     cli::cli_abort(c(
       "{.arg wth} must be of class {.class epicrop.wth}",
-      "i" = "Use {.fun get_wth} or {.fun format_wth} to create one"
+      i = "Use {.fun get_wth} or {.fun format_wth} to create one"
     ))
   }
   if (age_driver == "dvs" && is.null(thermal_time)) {
@@ -274,7 +273,7 @@ seir <- function(
   if (!length(i0)) {
     cli::cli_abort(c(
       "Emergence date not found in weather data",
-      "x" = "Emergence {.val {emergence_date}} not in range
+      x = "Emergence {.val {emergence_date}} not in range
       {.val {min(w$YYYYMMDD)}}–{.val {max(w$YYYYMMDD)}}"
     ))
   }
@@ -286,7 +285,7 @@ seir <- function(
   if (duration < 50) {
     cli::cli_warn(c(
       "Short simulation duration may produce unrealistic dynamics",
-      "i" = "Duration is {duration} days (< 50 recommended)"
+      i = "Duration is {duration} days (< 50 recommended)"
     ))
   }
   w <- w[i0:(i0 + duration - 1L)]
@@ -295,7 +294,7 @@ seir <- function(
   age_values <- if (age_driver == "dvs") {
     .calculate_dvs(w, thermal_time)
   } else {
-    seq(0, duration - 1L)
+    seq(0L, duration - 1L)
   }
   Rc_age <- .interp(RcA, age_values)
   Rc_temp <- .interp(RcT, w$TEMP)
@@ -341,11 +340,7 @@ seir <- function(
   RRS_vals <- if (is.null(RRS)) {
     numeric(duration)
   } else {
-    if (is.function(RRS)) {
-      pmax(0, RRS(age_values))
-    } else {
-      pmax(0, .interp(RRS, age_values))
-    }
+    pmax(0, if (is.function(RRS)) RRS(age_values) else .interp(RRS, age_values))
   }
   a_vals <- pmax(1, .interp(a, age_values))
 
@@ -367,8 +362,8 @@ seir <- function(
   }
   Iprim[onset_idx] <- I0
 
-  out <- if (!lex_on) {
-    .seir_core_no_lex(
+  out <- if (lex_on) {
+    .seir_core_with_lex(
       duration,
       onset_idx,
       H0,
@@ -382,7 +377,7 @@ seir <- function(
       Sx
     )
   } else {
-    .seir_core_with_lex(
+    .seir_core_no_lex(
       duration,
       onset_idx,
       H0,
@@ -430,7 +425,7 @@ seir <- function(
   )
   data.table::setattr(out, "AUDPC", .calculate_audpc(out$intensity))
   data.table::setattr(out, "class", c("epicrop.sim", class(out)))
-  out[]
+  return(out[])
 }
 
 # --- Core without lesion expansion (fast path) --------------------------------
@@ -704,5 +699,5 @@ seir <- function(
   }
 
   gdd <- cumsum(pmax(w$TEMP - base_temp, 0))
-  pmin(2, 2 * gdd / gdd_to_maturity)
+  return(pmin(2, 2 * gdd / gdd_to_maturity))
 }

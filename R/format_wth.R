@@ -169,9 +169,9 @@ format_wth <- function(
     cli::cli_abort(
       c(
         "Weather data contains duplicate dates",
-        "x" = "Found {length(dup_dates)} duplicate date{?s}",
-        "i" = "First duplicate: {dup_dates[1]}",
-        "i" = "Each date must appear exactly once for daily data"
+        x = "Found {length(dup_dates)} duplicate date{?s}",
+        i = "First duplicate: {dup_dates[1]}",
+        i = "Each date must appear exactly once for daily data"
       )
     )
   }
@@ -190,9 +190,9 @@ format_wth <- function(
       cli::cli_abort(
         c(
           "Weather data is not on a daily time-step or has gaps",
-          "x" = "Found {length(gaps)} gap{?s} in date sequence",
-          "i" = "First gap: {gap_sizes[1]} day{?s} between {w$YYYYMMDD[gaps[1]]} and {w$YYYYMMDD[gaps[1] + 1L]}",
-          "i" = "Weather data must be continuous daily observations"
+          x = "Found {length(gaps)} gap{?s} in date sequence",
+          i = "First gap: {gap_sizes[1]} day{?s} between {w$YYYYMMDD[gaps[1]]} and {w$YYYYMMDD[gaps[1] + 1L]}",
+          i = "Weather data must be continuous daily observations"
         )
       )
     }
@@ -218,5 +218,5 @@ format_wth <- function(
   # Set class
   data.table::setattr(w, "class", c("epicrop.wth", class(w)))
 
-  w[]
+  return(w[])
 }
