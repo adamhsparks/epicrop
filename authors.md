@@ -38,7 +38,7 @@ Source:
 Sparks A, Hijmans R, Savary S, Pangga I, Aunario J (????). *epicrop:
 Simulation Modelling of Crop Diseases Using a
 Susceptible-Exposed-Infectious-Removed (SEIR) Model*.
-[doi:10.5281/zenodo.5070395](https://doi.org/10.5281/zenodo.5070395), R
+[doi:10.5281/zenodo.5070395](https://doi.org/10.5281/zenodo.5070395). R
 package version 1.0.0.9000, <https://codeberg.org/adamhsparks/epicrop>.
 
     @Manual{,

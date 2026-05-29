@@ -6,10 +6,6 @@
 
 - Version now 1.0.0.9000, almost ready for first major release
 
-- Uses {Rcpp} for speed improvements in
-  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-  function’s efficiency (it’s faster now!).
-
 - `SEIR()` is now
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
 
@@ -195,14 +191,20 @@
 
 ``` r
 
-Rc[day+1] <- baseRc * AFGen(ageRc, day) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
+Rc[day + 1] <- baseRc *
+  AFGen(ageRc, day) *
+  AFGen(tmpRc, wthsub$tavg[day + 1]) *
+  RHCoef[day + 1]
 ```
 
 should have been
 
 ``` r
 
-Rc[day+1] <- baseRc * AFGen(ageRc, day+1) * AFGen(tmpRc, wthsub$tavg[day+1]) * RHCoef[day+1]
+Rc[day + 1] <- baseRc *
+  AFGen(ageRc, day + 1) *
+  AFGen(tmpRc, wthsub$tavg[day + 1]) *
+  RHCoef[day + 1]
 ```
 
 to calculate the basic infection rate, `Rc`, for `day + 1`. Commit:

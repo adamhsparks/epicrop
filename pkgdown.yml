@@ -1,11 +1,11 @@
-pandoc: '3.9'
+pandoc: 3.9.0.2
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   epicrop: epicrop.html
   mapping: mapping.html
   multiples: multiples.html
-last_built: 2026-02-06T13:04Z
+last_built: 2026-05-29T03:39Z
 urls:
   reference: https://adamhsparks.codeberg.page/epicrop/reference
   article: https://adamhsparks.codeberg.page/epicrop/articles

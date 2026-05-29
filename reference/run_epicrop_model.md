@@ -80,27 +80,3 @@ fetch_epicrop_weather_list, build_epicrop_emergence
 Adam H. Sparks, <adamhsparks@gmail.com>
 
 ## Examples
-
-``` r
-years <- 2001:2003
-month_day <- c("-06-01", "-06-14", "-06-30")
-lonlat <- c(121.255669, 14.16742)
-duration <- 120L
-emergence <- build_epicrop_emergence(years, month_day)
-
-wth_list <- fetch_epicrop_weather_list(years,
-                                       lonlat,
-                                       start_date = month_day,
-                                       duration = duration)
-#> Error in .norm_locations(lonlat): `lonlat` numeric vector must have even length.
-#> ✖ You provided length 3
-#> ℹ Expected pairs of (longitude, latitude)
-
-# AUDPC for bacterial blight
-run_epicrop_model(bacterial_blight,
-                  emergence,
-                  wth_list,
-                  window_days = 120L,
-                  output = "audpc")
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% .RcA_bacterial_blight,     RcT = RcT %||% .RcT_bacterial_blight, onset = 20L, duration = 120L,     rhlim = 90L, rainlim = 5L, H0 = 100L, I0 = 1L, RcOpt = 0.87,     p = 5L, i = 30L, Sx = 3200L, a = 4L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "duration" matched by multiple actual arguments
-```

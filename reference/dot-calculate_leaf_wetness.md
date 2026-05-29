@@ -71,7 +71,7 @@ wet_simple <- .calculate_leaf_wetness(
   rainlim = 5,
   weighted_wetness = FALSE
 )
-#> Error in .calculate_leaf_wetness(wth = wth, rhlim = 90, rainlim = 5, weighted_wetness = FALSE): could not find function ".calculate_leaf_wetness"
 summary(wet_simple)
-#> Error: object 'wet_simple' not found
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>   0.000   0.510   1.372   2.231   3.545   8.074 
 ```

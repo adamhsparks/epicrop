@@ -38,6 +38,9 @@ Useful links:
 
 Authors:
 
+- Adam H. Sparks <adamhsparks@gmail.com>
+  ([ORCID](https://orcid.org/0000-0002-0061-8359))
+
 - Robert Hijmans <robert.hijmans@gmail.com>
   ([ORCID](https://orcid.org/0000-0001-5872-2872)) (Original R
   implementation) \[translator, copyright holder\]

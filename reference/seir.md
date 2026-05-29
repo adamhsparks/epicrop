@@ -32,7 +32,6 @@ seir(
   weighted_wetness = FALSE,
   age_driver = c("day", "dvs"),
   thermal_time = NULL,
-  steps_per_day = 1L,
   infection_window = NULL
 )
 ```
@@ -195,13 +194,6 @@ seir(
   required when `age_driver = "dvs"`. Determines how growing degree days
   are accumulated and converted to development stage (DVS).
 
-- steps_per_day:
-
-  Integer. Number of sub-daily time steps for numerical integration.
-  Default is 1 (daily steps). Values of 2, 4, or 8 can improve accuracy
-  for stiff systems at cost of computation time. Should be a power of 2.
-  Defaults to 1.
-
 - infection_window:
 
   Optional list defining DVS-based infection window:
@@ -222,7 +214,167 @@ A
 [`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html)
 object containing the following columns:
 
-... (documentation omitted for brevity) ...
+- simday:
+
+  Day of simulation (1-indexed, where 1 is the emergence date)
+
+- dates:
+
+  Date of simulation (Date class)
+
+- sites:
+
+  Total number of healthy sites present on day "x"
+
+- latent:
+
+  Number of latent sites present on day "x"
+
+- infectious:
+
+  Number of infectious sites present on day "x"
+
+- removed:
+
+  Number of removed sites present on day "x"
+
+- senesced:
+
+  Number of senesced sites present on day "x"
+
+- rateinf:
+
+  Rate of infection (new infections on day "x")
+
+- rlex:
+
+  Rate of lesion expansion (healthy sites converted to infectious via
+  direct expansion on day "x")
+
+- rtransfer:
+
+  Rate of transfer from latent to infectious sites on day "x"
+
+- rremoved:
+
+  Rate of removal from infectious to removed sites on day "x"
+
+- rgrowth:
+
+  Rate of growth of healthy sites on day "x"
+
+- rsenesced:
+
+  Rate of senescence of healthy sites on day "x"
+
+- diseased:
+
+  Number of diseased (latent + infectious + removed) sites on day "x"
+
+- intensity:
+
+  Proportion of diseased sites (latent + infectious) per total living
+  sites (excludes removed and senesced) on day "x"
+
+- lat:
+
+  Latitude value if provided by the `wth` object
+
+- lon:
+
+  Longitude value if provided by the `wth` object
+
+The returned object also has an attribute `AUDPC` (accessed via
+`attr(result, "AUDPC")`) containing the area under the disease progress
+curve for the entire simulation, calculated using the trapezoidal rule.
+
+## Output Structure
+
+The output is organized into three categories:
+
+**State Variables** (stocks at end of each day):
+
+- `sites`, `latent`, `infectious`, `removed`, `senesced`
+
+**Flow Variables** (rates/changes during each day):
+
+- `rateinf`, `rlex`, `rtransfer`, `rremoved`, `rgrowth`, `rsenesced`
+
+**Derived Variables** (calculated from states):
+
+- `diseased`, `intensity`
+
+**Mass Balance:** At any day:
+`sites + latent + infectious + removed + senesced` should equal initial
+sites (H0) plus cumulative growth minus cumulative senescence
+(accounting for numerical precision).
+
+## *a* – Aggregation Details
+
+When *a* is set to `1` the assumption is that that there is no disease
+aggregation with new infections occurring at random among the healthy
+sites. When *a* is greater than `1` there is aggregation in the disease
+occurrence, the pathogen is unable to access the entire population of
+healthy sites, which results in disease aggregation. Refer to Savary *et
+al.* (2012) for greater detail.
+
+## TMIN/TMAX Details
+
+If `simple_wetness` is set to `FALSE`, the function will use the `TMIN`
+and `TMAX` columns in the `wth` object to calculate the leaf wetness
+value for 24 hours of the day using the `rhlim` and `rainlim` values and
+then uses `RcW` to calculate a value between 0 and 1 for the whole day.
+When `simple_wetness` is set to `TRUE`, the function only sets the leaf
+wetness to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
+
+## LAT/LON Details
+
+If the `wth` object provides `LAT` and `LON` columns, these will be
+included in the output for mapping purposes. Both values must be
+present. These columns are provided by default when using
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
+
+## References
+
+Sparks, A. H., P. D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V.
+Segovia, S.D. Silwal, S. Tolos, and K. A. Garrett, 2008. Ecology and
+Epidemiology in R: Disease Progress over Time. *The Plant Health
+Instructor*.
+[doi:10.1094/PHI-A-2008-0129-02](https://doi.org/10.1094/PHI-A-2008-0129-02)
+.
+
+Madden, L. V., G. Hughes, and F. van den Bosch. 2007. *The Study of
+Plant Disease Epidemics*. American Phytopathological Society, St. Paul,
+MN. [doi:10.1094/9780890545058](https://doi.org/10.1094/9780890545058) .
+
+Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
+Modeling and mapping potential epidemics of rice diseases globally.
+*Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+[doi:10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009)
+.
+
+## See also
+
+Disease-specific helper functions:
+
+- [`bacterial_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+
+- [`brown_spot()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+
+- [`leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+
+- [`sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+
+- [`tungro()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+
+- [`modified_kim_leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+
+- [`modified_kim_sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+
+- [`leaf_rust()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+  and
+
+- [`s_tritici_blotch()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md).
 
 ## Author
 
