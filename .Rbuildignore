@@ -41,9 +41,6 @@
 ^man/dot-day_length\.Rd$
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-calculate_weighted_hr_wet\.Rd$
-^man/dot-make_slicer\.Rd$
-^man/dot-make_runner\.Rd$
-^man/dot-assemble_results\.Rd$
 ^man/dot-calculate_dvs\.Rd$
 ^man/dot-validate_all_inputs\.Rd$
 ^man/dot-validate_weather\.Rd$
