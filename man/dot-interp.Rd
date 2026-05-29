@@ -27,7 +27,7 @@ matrix lookup table, or function) and interpolate to daily values.
 }
 \details{
 For matrix input, uses fast linear interpolation that exactly matches
-\code{\link[stats:approxfun]{stats::approx()}} with rule = 2 (constant extrapolation at boundaries).
+\code{\link[stats:approx]{stats::approx()}} with rule = 2 (constant extrapolation at boundaries).
 For function input, applies function to \code{age_vec} and clamps negative
 values to 0.
 }

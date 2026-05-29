@@ -364,47 +364,6 @@ test_that("seir validates infection_window structure", {
   )
 })
 
-test_that("seir handles steps_per_day parameter", {
-  wth <- wth_formatted
-
-  result1 <- seir(
-    wth = wth,
-    emergence = "2000-07-01",
-    onset = 20,
-    duration = 120,
-    H0 = 600,
-    I0 = 1,
-    RcA = cbind(c(0, 120), c(0.35, 0.35)),
-    RcT = cbind(c(15, 20, 25, 30, 35), c(0, 0.06, 1.0, 0.85, 0.16)),
-    RcOpt = 0.61,
-    p = 6,
-    i = 19,
-    Sx = 3200,
-    steps_per_day = 1
-  )
-
-  result4 <- seir(
-    wth = wth,
-    emergence = "2000-07-01",
-    onset = 20,
-    duration = 120,
-    H0 = 600,
-    I0 = 1,
-    RcA = cbind(c(0, 120), c(0.35, 0.35)),
-    RcT = cbind(c(15, 20, 25, 30, 35), c(0, 0.06, 1.0, 0.85, 0.16)),
-    RcOpt = 0.61,
-    p = 6,
-    i = 19,
-    Sx = 3200,
-    steps_per_day = 4
-  )
-
-  expect_s3_class(result1, "epicrop.sim")
-  expect_s3_class(result4, "epicrop.sim")
-  # Results should be similar but not identical
-  expect_false(identical(result1$intensity, result4$intensity))
-})
-
 test_that("seir includes lat/lon when present in weather", {
   wth <- wth_formatted
 

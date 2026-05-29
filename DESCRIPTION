@@ -70,6 +70,7 @@ VignetteBuilder:
     knitr
 ByteCompile: TRUE
 Config/Needs/build: moodymudskipper/devtag
+Config/roxygen2/version: 8.0.0
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE
 Config/testthat/edition: 3
@@ -78,7 +79,6 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet", "devtag::dev_roclet"))
-RoxygenNote: 7.3.3
 X-schema.org-applicationCategory: Tools
 X-schema.org-keywords: rice, wheat, botanical-epidemiology, disease,
     model, seir, agricultural-modelling, agricultural-modeling,

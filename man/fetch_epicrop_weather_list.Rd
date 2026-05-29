@@ -19,7 +19,7 @@ as: numeric vector of length \verb{2n}, a 2‑column matrix/data.frame, or a lis
 of numeric length‑2 vectors.}
 
 \item{start_date}{A starting date (character \code{"YYYY-MM-DD"}, \link{Date}, or
-\link[data.table:IDateTime]{data.table::IDate}) \strong{or} a month–day string like \code{"06-30"} (leading
+\link[data.table:IDate]{data.table::IDate}) \strong{or} a month–day string like \code{"06-30"} (leading
 \code{"-"} optional) used together with \code{years}.}
 
 \item{duration}{Integer(s). Number of days to retrieve \strong{from} \code{start_date}

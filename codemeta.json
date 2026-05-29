@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
+  "runtimePlatform": "R version 4.6.0 (2026-04-24)",
   "author": [
     {
       "@type": "Person",
@@ -369,7 +369,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "2263.331KB",
+  "fileSize": "970.325KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
