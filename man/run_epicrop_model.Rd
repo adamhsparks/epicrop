@@ -59,17 +59,8 @@ wth_list <- fetch_epicrop_weather_list(years,
                                        lonlat,
                                        start_date = month_day,
                                        duration = duration)
-Default: pure R implementation
 run_epicrop_model(bacterial_blight, emergence, wth_list)
 
-# Switch to Rcpp for the session
-options(epicrop.use_rcpp = TRUE)
-run_epicrop_model(bacterial_blight, emergence, wth_list)
-
-# Scoped toggle — ideal for benchmarking
-withr::with_options(list(epicrop.use_rcpp = TRUE), {
- run_epicrop_model(bacterial_blight, emergence, wth_list)
-})
 \dontshow{\}) # examplesIf}
 }
 \seealso{
