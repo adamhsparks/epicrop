@@ -70,7 +70,7 @@ VignetteBuilder:
     knitr
 ByteCompile: TRUE
 Config/Needs/build: moodymudskipper/devtag
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE
 Config/testthat/edition: 3

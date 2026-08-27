@@ -27,14 +27,16 @@ export(sheath_blight)
 export(stb)
 export(tg)
 export(tungro)
-importFrom(data.table,":=")
-importFrom(data.table,.BY)
-importFrom(data.table,.EACHI)
-importFrom(data.table,.GRP)
-importFrom(data.table,.I)
-importFrom(data.table,.N)
-importFrom(data.table,.NGRP)
-importFrom(data.table,.SD)
-importFrom(data.table,`%between%`)
-importFrom(data.table,`%notin%`)
-importFrom(data.table,data.table)
+importFrom(data.table,
+  "%between%",
+  "%notin%",
+  ":=",
+  .BY,
+  .EACHI,
+  .GRP,
+  .I,
+  .N,
+  .NGRP,
+  .SD,
+  data.table
+)
