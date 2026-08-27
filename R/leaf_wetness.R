@@ -74,7 +74,7 @@
   }
 
   # Get temperature data
-  tmp <- wth$TEMP %||% wth$T2M %||% (wth$TMIN + wth$TMAX) / 2
+  tmp <- wth$TEMP %||% wth$T2M %||% ((wth$TMIN + wth$TMAX)) / 2L
 
   if (is.null(tmp)) {
     cli::cli_abort("{.field TEMP} cannot be derived from available columns")
