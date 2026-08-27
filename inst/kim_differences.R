@@ -52,6 +52,8 @@ Cal.LB.audpc <- function(wth, tpd) {
   if (!inherits(o, "try-error")) {
     n <- nrow(o@d)
     audpc_trapz(o@d$date[1:n], o@d$severity[1:n])
-  } else -999
+  } else {
+    -999
+  }
 }
 ``

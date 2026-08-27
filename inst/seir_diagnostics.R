@@ -13,8 +13,9 @@ seir_driver_diagnostics <- function(result) {
   legacy_df <- legacy[1:n, , drop = FALSE]
 
   # Helper to safely extract columns (return NA if missing)
-  getcol <- function(df, nm)
+  getcol <- function(df, nm) {
     if (nm %in% names(df)) df[[nm]] else rep(NA_real_, nrow(df))
+  }
 
   # Compute COFR for modern (matches modern core: COFR = 1 - (diseased / (sites + diseased)))
   modern_sites <- getcol(modern_df, "sites")
@@ -132,8 +133,11 @@ seir_driver_diagnostics <- function(result) {
       c("simday", "date", "modern_COFR", "legacy_COFR", "diff_COFR")
     ],
     aggregate_sums = c(
-      total_rlex = if ("rlex" %in% names(modern_df))
-        sum(getcol(modern_df, "rlex"), na.rm = TRUE) else 0,
+      total_rlex = if ("rlex" %in% names(modern_df)) {
+        sum(getcol(modern_df, "rlex"), na.rm = TRUE)
+      } else {
+        0
+      },
       total_rateinf_modern = sum(modern_rateinf, na.rm = TRUE),
       total_rateinf_legacy = sum(legacy_rateinf, na.rm = TRUE)
     )
