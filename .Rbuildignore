@@ -19,6 +19,8 @@
 ^\.woodpecker$
 
 ^man/dot-calculate_audpc\.Rd$
+^man/epi_get_params\.Rd$
+^man/epi_eval_param\.Rd$
 ^man/dot-validate_required_args\.Rd$
 ^man/dot-norm_locations\.Rd$
 ^man/dot-resolve_location_names\.Rd$
