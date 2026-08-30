@@ -95,12 +95,18 @@ test_that("wheat models use DVS age driver (class check)", {
   expect_s3_class(res_stb, "epicrop.sim")
 })
 
-# ---- Septoria: lesion expansion must be enabled ---------------------------
+# ---- Lesion expansion: septoria on, leaf rust off --------------------------
 
 test_that("septoria has lesion expansion enabled", {
   res_stb <- run_model(s_tritici_blotch)
   expect_true("rlex" %in% names(res_stb))
   expect_gt(sum(res_stb$rlex), 0)
+})
+
+test_that("leaf_rust has lesion expansion disabled (RRLEX = 0)", {
+  res_lr <- run_model(leaf_rust)
+  expect_true("rlex" %in% names(res_lr))
+  expect_true(all(res_lr$rlex == 0))
 })
 
 # ---- Snapshot (single representative model; lighter & deterministic) -------
@@ -168,4 +174,79 @@ test_that("leaf_rust results are reproducible", {
   r1 <- run_model(leaf_rust)
   r2 <- run_model(leaf_rust)
   expect_identical(r1, r2)
+})
+
+# ---- Custom RcA/RcT/RRG/RRS overrides actually change output --------------
+
+test_that("wheat model functions respect custom RcA/RcT/RRG/RRS overrides", {
+  custom_RcA <- cbind(c(0, 2), c(0.2, 0.2))
+  custom_RcT <- cbind(c(0, 35), c(0.1, 0.1))
+
+  default_res <- run_model(leaf_rust)
+  custom_res <- run_model(
+    leaf_rust,
+    RcA = custom_RcA,
+    RcT = custom_RcT,
+    RRG = 0.5,
+    RRS = 0.5
+  )
+
+  expect_s3_class(custom_res, "epicrop.sim")
+  expect_false(identical(default_res$intensity, custom_res$intensity))
+})
+
+# ---- Defaults trace back to .epi_params via epi_get_params -----------------
+# Note: the wheat wrappers map their `RRS` argument onto the stored `RRPSN`
+# table (physiological senescence), not a stored `RRS` entry.
+
+test_that("wheat model defaults match the underlying epi_params store", {
+  models <- list(
+    leaf_rust = list(
+      fun = leaf_rust,
+      crop = "wheat",
+      disease = "leaf_rust"
+    ),
+    s_tritici_blotch = list(
+      fun = s_tritici_blotch,
+      crop = "wheat",
+      disease = "s_tritici_blotch"
+    )
+  )
+
+  for (nm in names(models)) {
+    mdl <- models[[nm]]
+    params <- epi_get_params(mdl$crop, mdl$disease)
+
+    default_res <- run_model(mdl$fun)
+    explicit_res <- run_model(
+      mdl$fun,
+      RcA = params$RcA,
+      RcT = params$RcT,
+      RRG = params$RRG,
+      RRS = params$RRPSN
+    )
+
+    expect_identical(default_res, explicit_res)
+  }
+})
+
+# ---- ... passthrough: non-hardcoded args work, hardcoded ones collide -----
+
+test_that("wheat models accept non-hardcoded seir arguments via ...", {
+  default_res <- run_model(s_tritici_blotch)
+  custom_res <- run_model(s_tritici_blotch, rhlim = 95, rainlim = 10)
+
+  expect_s3_class(custom_res, "epicrop.sim")
+  expect_identical(nrow(custom_res), nrow(default_res))
+})
+
+test_that("hardcoded seir arguments cannot be overridden via ... (wheat)", {
+  # RcOpt, onset, duration, RRLEX, age_driver, and thermal_time are all set
+  # explicitly inside each wrapper's seir() call, so passing them again via
+  # `...` produces a duplicate-argument error rather than silently
+  # overriding.
+  expect_error(run_model(leaf_rust, RcOpt = 0.5), "formal argument")
+  expect_error(run_model(leaf_rust, age_driver = "day"), "formal argument")
+  expect_error(run_model(s_tritici_blotch, RRLEX = 0.5), "formal argument")
+  expect_error(run_model(s_tritici_blotch, duration = 100), "formal argument")
 })
