@@ -77,7 +77,6 @@ run_epicrop_model <- function(
       wth_list,
       window_days,
       dots,
-      has_duration,
       output
     )
   })
@@ -200,7 +199,6 @@ run_epicrop_model <- function(
   wth_list,
   window_days,
   dots,
-  has_duration,
   output
 ) {
   w_sub <- .slice_weather(ed, wth_list, window_days)
@@ -208,29 +206,39 @@ run_epicrop_model <- function(
   if (is.null(w_sub)) {
     return(
       if (output == "audpc") {
-        data.table::data.table(emergence = ed, AUDPC = NA_real_)
+        data.table::data.table(
+          emergence = ed,
+          AUDPC = NA_real_
+        )
       } else {
         NULL
       }
     )
   }
 
-  extra <- if (!has_duration) list(duration = nrow(w_sub)) else list()
   result <- rlang::exec(
+    model_fun,
     wth = data.table::copy(w_sub),
     emergence = ed,
-    !!!dots,
-    !!!extra
+    !!!dots
   )
+
+  audpc <- attr(result, "AUDPC", exact = TRUE)
 
   if (output == "audpc") {
     return(data.table::data.table(
       emergence = ed,
-      AUDPC = attr(result, "AUDPC", exact = TRUE)
+      AUDPC = audpc
     ))
   }
 
-  result[, `:=`(emergence = ed, AUDPC = attr(result, "AUDPC", exact = TRUE))][]
+  result <- data.table::copy(result)
+  result[, `:=`(
+    emergence = ed,
+    AUDPC = audpc
+  )]
+
+  result[]
 }
 
 .assemble <- function(pieces, output) {
@@ -247,7 +255,7 @@ run_epicrop_model <- function(
     ))
   }
 
-  empty <- data.table::data.table(
+  empty <- data.table(
     emergence = data.table::as.IDate(NA),
     AUDPC = NA_real_
   )
