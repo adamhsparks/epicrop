@@ -52,3 +52,4 @@
 ^man/dot-validate_RcW_matrix\.Rd$
 ^man/dot-is_boolean\.Rd$
 ^man/dot-validate_emergence\.Rd$
+^man/dot-is_ambiguous_numeric_date\.Rd$
