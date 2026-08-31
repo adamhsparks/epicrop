@@ -73,8 +73,8 @@ wth_list <- fetch_epicrop_weather_list(
 Now that we have a list of weather data for two seasons we will use `run_epicrop_model()` now to run `bacterial_blight()` for two seasons and create a single data frame of the two seasons.
 
 ```{r run-predict, message=FALSE}
-bb_2_seasons <- run_epicrop_model(model = bacterial_blight,
-                                  emergence = ymd,
+bb_2_seasons <- run_epicrop_model(model_fun = bacterial_blight,
+                                  emergence_date = ymd,
                                   wth_list = wth_list,
                                   window_days = duration)
 
@@ -164,4 +164,3 @@ run_epicrop_model(s_tritici_blotch,
                   window_days = 240L,
                   output = "audpc")
 ```
-

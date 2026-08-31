@@ -52,18 +52,15 @@ wth_list <- fetch_epicrop_weather_list(
   mode = "cross"
 )
 
-bb <- run_epicrop_model(
-  model = bacterial_blight,
-  emergence = ymd,
+bb_sim <- run_epicrop_model(
+  model_fun = bacterial_blight,
+  emergence_dates = ymd,
   wth_list = wth_list,
   window_days = 120L,
   output = "full"
 )
 
-# helper fn to create a data.table with location, emergence and location
-bb <- audpc_dt(bb)
-
-ggplot(bb, aes(x = lon, y = lat)) +
+ggplot(bb_sim, aes(x = lon, y = lat)) +
   annotation_map_tile(type = "cartolight", zoomin = 0) +
   geom_spatial_point(aes(size = AUDPC)) +
   geom_spatial_label_repel(
@@ -93,3 +90,5 @@ ggplot(bb, aes(x = lon, y = lat)) +
   xlim(c(75, 127)) +
   coord_sf(crs = 4326)
 ```
+
+![Rice bacterial blight area under the disease progress curve (AUDPC) values for an establishment date of June 30, 2000 at five locations, Mekong River Delta and Red River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program. Map base layer data is © OpenStreetMap contributors.](map-AUDPC-1.png)
