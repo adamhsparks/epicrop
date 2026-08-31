@@ -54,12 +54,34 @@ Custom parameter tables can be provided to override defaults.</p>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">brown_spot</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">brown_spot</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">leaf_blast</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">leaf_blast</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sheath_blight</span><span class="op">(</span></span>
 <span>  <span class="va">wth</span>,</span>
@@ -68,10 +90,22 @@ Custom parameter tables can be provided to override defaults.</p>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tungro</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">tungro</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">modified_kim_leaf_blast</span><span class="op">(</span></span>
 <span>  <span class="va">wth</span>,</span>
@@ -80,6 +114,8 @@ Custom parameter tables can be provided to override defaults.</p>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -90,10 +126,22 @@ Custom parameter tables can be provided to override defaults.</p>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">leaf_rust</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">leaf_rust</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">s_tritici_blotch</span><span class="op">(</span></span>
 <span>  <span class="va">wth</span>,</span>
@@ -102,28 +150,130 @@ Custom parameter tables can be provided to override defaults.</p>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bb</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">bb</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bs</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">bs</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">lb</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">lb</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sb</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">tg</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">tg</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">mk_lb</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">mk_lb</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">mk_sb</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">mk_sb</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">lr</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">lr</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">brown_rust</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">brown_rust</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">stb</span><span class="op">(</span><span class="va">wth</span>, <span class="va">emergence</span>, RcA <span class="op">=</span> <span class="cn">NULL</span>, RcT <span class="op">=</span> <span class="cn">NULL</span>, RRS <span class="op">=</span> <span class="cn">NULL</span>, RRG <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">stb</span><span class="op">(</span></span>
+<span>  <span class="va">wth</span>,</span>
+<span>  <span class="va">emergence</span>,</span>
+<span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -133,7 +283,11 @@ Custom parameter tables can be provided to override defaults.</p>
 <dl><dt id="arg-wth">wth<a class="anchor" aria-label="anchor" href="#arg-wth"></a></dt>
 <dd><p>a <code>data.frame</code> of class <code>epicrop.wth</code> from either <code><a href="get_wth.html">get_wth()</a></code> or
 <code><a href="format_wth.html">format_wth()</a></code> containing weather on a daily time-step with the following
-field names:</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (°C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>TMIN</em></td><td><strong>Optional</strong> Minimum daily temperature (°C), see TMIN/TMAX Details</td></tr><tr><td><em>TMAX</em></td><td><strong>Optional</strong> Maximum daily temperature (°C), see TMIN/TMAX Details</td></tr><tr><td><em>LAT</em></td><td><strong>Optional</strong> latitude of weather observation, see LAT/LON Details</td></tr><tr><td><em>LON</em></td><td><strong>Optional</strong> longitude of weather observation, see LAT/LON Details</td></tr></table></dd>
+field names:</p><table class="table table"><tr><td><strong>Field Name</strong></td><td><strong>Value</strong></td></tr><tr><td><em>YYYYMMDD</em></td><td>Date as Year Month Day (ISO8601)</td></tr><tr><td><em>DOY</em></td><td>Consecutive day of year, commonly called "Julian date"</td></tr><tr><td><em>TEMP</em></td><td>Mean daily temperature (degrees C)</td></tr><tr><td><em>RHUM</em></td><td>Mean daily relative humidity (%)</td></tr><tr><td><em>RAIN</em></td><td>Mean daily rainfall (mm)</td></tr><tr><td><em>TMIN</em></td><td><strong>Optional</strong> Minimum daily temperature (degrees C), see TMIN/TMAX</td></tr></table><p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a> Details</span></code></pre><p></p></div>
+<p><em>TMAX</em> | <strong>Optional</strong> Maximum daily temperature (degrees C), see TMIN/TMAX
+Details
+<em>LAT</em> | <strong>Optional</strong> latitude of weather observation, see LAT/LON Details
+<em>LON</em> | <strong>Optional</strong> longitude of weather observation, see LAT/LON Details</p></dd>
 
 
 <dt id="arg-emergence">emergence<a class="anchor" aria-label="anchor" href="#arg-emergence"></a></dt>
@@ -157,6 +311,18 @@ entered in <code>YYYY-MM-DD</code> format (character).</p></dd>
 <dd><p>Optional custom growth rate (scalar, vector, or table).</p></dd>
 
 
+<dt id="arg-rhlim">rhlim<a class="anchor" aria-label="anchor" href="#arg-rhlim"></a></dt>
+<dd><p>relative humidity value threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary <em>et al.</em> 2012. Savary
+<em>et al.</em> 2012 used <code>90</code>. Defaults to 90.</p></dd>
+
+
+<dt id="arg-rainlim">rainlim<a class="anchor" aria-label="anchor" href="#arg-rainlim"></a></dt>
+<dd><p>rainfall amount (mm) threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary <em>et al.</em> 2012. Savary
+<em>et al.</em> 2012 used <code>5</code>. Defaults to 5.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other parameters passed to <code><a href="seir.html">seir()</a></code> allowing the user to override
 the default values from published papers.</p></dd>
@@ -168,8 +334,8 @@ the default values from published papers.</p></dd>
 Modeling and mapping potential epidemics of rice diseases globally.
 <em>Crop Protection</em>, 34: 6-17. <a href="https://doi.org/10.1016/j.cropro.2011.11.009" class="external-link">doi:10.1016/j.cropro.2011.11.009</a></p>
 <p>Kim, K. H., Cho, J., Lee, Y. H., &amp; Lee, W. S. (2015).
-Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
-<em>Agricultural and Forest Meteorology</em>, 203: 191-207.
+Predicting potential epidemics of rice leaf blast and sheath blight in South
+Korea. <em>Agricultural and Forest Meteorology</em>, 203: 191-207.
 <a href="https://doi.org/10.1016/j.agrformet.2015.01.011" class="external-link">doi:10.1016/j.agrformet.2015.01.011</a></p>
 <p>Savary, S., Stetkiewicz, S., Brun, F., &amp; Willocquet, L. (2015).
 Modelling and mapping potential epidemics of wheat diseases.
@@ -190,7 +356,7 @@ Modelling and mapping potential epidemics of wheat diseases.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

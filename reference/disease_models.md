@@ -14,12 +14,34 @@ bacterial_blight(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
-brown_spot(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+brown_spot(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-leaf_blast(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+leaf_blast(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
 sheath_blight(
   wth,
@@ -28,10 +50,22 @@ sheath_blight(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
-tungro(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+tungro(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
 modified_kim_leaf_blast(
   wth,
@@ -40,6 +74,8 @@ modified_kim_leaf_blast(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
@@ -50,10 +86,22 @@ modified_kim_sheath_blight(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
-leaf_rust(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+leaf_rust(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
 s_tritici_blotch(
   wth,
@@ -62,28 +110,130 @@ s_tritici_blotch(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
-bb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+bb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-bs(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+bs(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-lb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+lb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-sb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+sb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-tg(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+tg(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-mk_lb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+mk_lb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-mk_sb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+mk_sb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-lr(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+lr(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-brown_rust(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+brown_rust(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-stb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+stb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 ```
 
 ## Arguments
@@ -102,13 +252,17 @@ stb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
   | **Field Name** | **Value** |
   | *YYYYMMDD* | Date as Year Month Day (ISO8601) |
   | *DOY* | Consecutive day of year, commonly called "Julian date" |
-  | *TEMP* | Mean daily temperature (°C) |
+  | *TEMP* | Mean daily temperature (degrees C) |
   | *RHUM* | Mean daily relative humidity (%) |
   | *RAIN* | Mean daily rainfall (mm) |
-  | *TMIN* | **Optional** Minimum daily temperature (°C), see TMIN/TMAX Details |
-  | *TMAX* | **Optional** Maximum daily temperature (°C), see TMIN/TMAX Details |
-  | *LAT* | **Optional** latitude of weather observation, see LAT/LON Details |
-  | *LON* | **Optional** longitude of weather observation, see LAT/LON Details |
+  | *TMIN* | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX |
+
+       Details
+
+  *TMAX* \| **Optional** Maximum daily temperature (degrees C), see
+  TMIN/TMAX Details *LAT* \| **Optional** latitude of weather
+  observation, see LAT/LON Details *LON* \| **Optional** longitude of
+  weather observation, see LAT/LON Details
 
 - emergence:
 
@@ -130,6 +284,18 @@ stb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
 - RRG:
 
   Optional custom growth rate (scalar, vector, or table).
+
+- rhlim:
+
+  relative humidity value threshold to decide whether leaves are wet or
+  not (numeric). Described in Table 1 of Savary *et al.* 2012. Savary
+  *et al.* 2012 used `90`. Defaults to 90.
+
+- rainlim:
+
+  rainfall amount (mm) threshold to decide whether leaves are wet or not
+  (numeric). Described in Table 1 of Savary *et al.* 2012. Savary *et
+  al.* 2012 used `5`. Defaults to 5.
 
 - ...:
 

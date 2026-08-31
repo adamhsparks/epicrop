@@ -96,5 +96,5 @@ wth_list <- fetch_epicrop_weather_list(years,
 #> ✖ You provided length 3
 #> ℹ Expected pairs of (longitude, latitude)
 run_epicrop_model(bacterial_blight, emergence, wth_list)
-#> Error: object 'wth_list' not found
+#> Error in rlang::exec(wth = data.table::copy(w_sub), emergence = ed, !!!dots,     !!!extra): Can't create call to non-callable object
 ```

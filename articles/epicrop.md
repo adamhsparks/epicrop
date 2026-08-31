@@ -54,10 +54,8 @@ implemented in the individual disease model functions.
 
 Load the library.
 
-``` r
-
-library(epicrop)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`epicrop`](https://codeberg.org/adamhsparks/epicrop)`)`
 
 #### Get weather data
 
@@ -68,16 +66,14 @@ which provides the data in a format suitable for use in the model and is
 freely available. See the help file for `naspower::get_power()` for more
 details of this functionality and details on the data (Sparks 2018).
 
-``` r
-
-# Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = c("2000-01-01", "2000-12-31")
-)
-
-wth
-```
+\
+`# Fetch weather for year 2000 season at the IRRI Zeigler Experiment Station`\
+`wth`` ``<-`` `[`get_wth`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)`(`\
+`  lonlat ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``121.25562``, ``14.6774``)``,`\
+`  dates ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"2000-01-01"``, ``"2000-12-31"``)`\
+`)`\
+\
+`wth`
 
     ## Key: <YYYYMMDD>
     ##        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON
@@ -104,45 +100,34 @@ model. See the help file for
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
 for more on the values returned.
 
-``` r
+\
+`# Predict bacterial blight intensity for the year 2000 wet season at IRRI`\
+`bb_wet`` ``<-`` `[`bacterial_blight`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)`(``wth``, emergence ``=`` ``"2000-07-01"``)`
 
-# Predict bacterial blight intensity for the year 2000 wet season at IRRI
-bb_wet <- bacterial_blight(wth, emergence = "2000-07-01")
-```
+\
+[`summary`](https://rdrr.io/r/base/summary.html)`(``bb_wet``)`
 
-``` r
-
-summary(bb_wet)
-```
-
-    ##      simday           dates                sites            latent      
-    ##  Min.   :  1.00   Min.   :2000-07-01   Min.   :  0.00   Min.   : 0.000  
-    ##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 16.28   1st Qu.: 0.000  
-    ##  Median : 60.50   Median :2000-08-29   Median : 64.21   Median : 1.000  
-    ##  Mean   : 60.50   Mean   :2000-08-29   Mean   : 57.02   Mean   : 3.744  
-    ##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.: 98.22   3rd Qu.: 5.080  
-    ##  Max.   :120.00   Max.   :2000-10-28   Max.   :100.00   Max.   :18.014  
-    ##    infectious        removed         senesced        rateinf            rlex  
-    ##  Min.   : 0.000   Min.   : 0.00   Min.   : 0.00   Min.   :0.0000   Min.   :0  
-    ##  1st Qu.: 1.000   1st Qu.: 0.00   1st Qu.: 0.00   1st Qu.:0.0000   1st Qu.:0  
-    ##  Median : 6.838   Median : 1.00   Median : 1.00   Median :0.0000   Median :0  
-    ##  Mean   :17.062   Mean   :12.88   Mean   :13.39   Mean   :0.5348   Mean   :0  
-    ##  3rd Qu.:34.146   3rd Qu.:19.56   3rd Qu.:21.82   3rd Qu.:0.6962   3rd Qu.:0  
-    ##  Max.   :53.168   Max.   :61.49   Max.   :62.04   Max.   :4.0939   Max.   :0  
-    ##    rtransfer         rremoved         rgrowth    rsenesced         diseased    
-    ##  Min.   :0.0000   Min.   :0.0000   Min.   :0   Min.   :0.0000   Min.   : 0.00  
-    ##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0   1st Qu.:0.0000   1st Qu.: 1.78  
-    ##  Median :0.0000   Median :0.0000   Median :0   Median :0.0000   Median :37.14  
-    ##  Mean   :0.5348   Mean   :0.5125   Mean   :0   Mean   :0.5170   Mean   :33.68  
-    ##  3rd Qu.:0.6962   3rd Qu.:0.6962   3rd Qu.:0   3rd Qu.:0.6962   3rd Qu.:64.18  
-    ##  Max.   :4.0939   Max.   :4.0939   Max.   :0   Max.   :4.0939   Max.   :64.69  
-    ##    intensity           lat             lon       
-    ##  Min.   :0.0000   Min.   :14.68   Min.   :121.3  
-    ##  1st Qu.:0.0178   1st Qu.:14.68   1st Qu.:121.3  
-    ##  Median :0.3602   Median :14.68   Median :121.3  
-    ##  Mean   :0.4158   Mean   :14.68   Mean   :121.3  
-    ##  3rd Qu.:0.7351   3rd Qu.:14.68   3rd Qu.:121.3  
-    ##  Max.   :1.0000   Max.   :14.68   Max.   :121.3
+    ##      simday           dates                sites            latent          infectious          removed           senesced         rateinf     
+    ##  Min.   :  1.00   Min.   :2000-07-01   Min.   :   0.0   Min.   :  0.000   Min.   :   0.000   Min.   :   0.00   Min.   :   1.0   Min.   : 0.00  
+    ##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 305.0   1st Qu.:  0.000   1st Qu.:   1.624   1st Qu.:   0.00   1st Qu.: 122.6   1st Qu.: 0.00  
+    ##  Median : 60.50   Median :2000-08-29   Median : 947.8   Median :  7.786   Median : 100.575   Median :   1.00   Median : 655.9   Median : 0.00  
+    ##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1017.3   Mean   : 75.026   Mean   : 470.055   Mean   : 205.17   Mean   : 845.9   Mean   :15.01  
+    ##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:1628.8   3rd Qu.:106.708   3rd Qu.: 948.202   3rd Qu.:  82.44   3rd Qu.:1214.3   3rd Qu.:19.94  
+    ##  Max.   :120.00   Max.   :2000-10-28   Max.   :2332.8   Max.   :449.126   Max.   :1630.717   Max.   :1571.07   Max.   :2824.4   Max.   :96.26  
+    ##       rlex     rtransfer        rremoved         rgrowth        rsenesced          diseased          intensity             lat       
+    ##  Min.   :0   Min.   : 0.00   Min.   : 0.000   Min.   : 0.00   Min.   :  0.000   Min.   :   0.000   Min.   :0.000000   Min.   :14.68  
+    ##  1st Qu.:0   1st Qu.: 0.00   1st Qu.: 0.000   1st Qu.:14.62   1st Qu.:  7.736   1st Qu.:   2.669   1st Qu.:0.003155   1st Qu.:14.68  
+    ##  Median :0   Median : 0.00   Median : 0.000   Median :22.46   Median : 17.757   Median : 227.860   Median :0.090450   Median :14.68  
+    ##  Mean   :0   Mean   :15.01   Mean   :13.092   Mean   :33.46   Mean   : 23.536   Mean   : 750.251   Mean   :0.317216   Mean   :14.68  
+    ##  3rd Qu.:0   3rd Qu.:19.94   3rd Qu.: 3.571   3rd Qu.:56.48   3rd Qu.: 23.216   3rd Qu.:1752.431   3rd Qu.:0.635283   3rd Qu.:14.68  
+    ##  Max.   :0   Max.   :96.26   Max.   :96.260   Max.   :79.30   Max.   :101.491   Max.   :1808.963   Max.   :1.000000   Max.   :14.68  
+    ##       lon       
+    ##  Min.   :121.3  
+    ##  1st Qu.:121.3  
+    ##  Median :121.3  
+    ##  Mean   :121.3  
+    ##  3rd Qu.:121.3  
+    ##  Max.   :121.3
 
 ### Plotting using {ggplot2}
 
@@ -150,39 +135,35 @@ The data are in a wide format by default and need to be converted to
 long format for use in {ggplot2} if you wish to plot more than one
 variable at a time.
 
-``` r
-
-library(ggplot2)
-library(tidyr)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`tidyr`](https://tidyr.tidyverse.org)`)`
 
 #### Wet season sites
 
 The model records the number of sites for each bin daily; this can be
 graphed as follows.
 
-``` r
-
-dat <- pivot_longer(
-  bb_wet,
-  cols = c("diseased", "removed", "latent", "infectious"),
-  names_to = "site",
-  values_to = "value"
-)
-
-ggplot(data = dat,
-       aes(
-         x = dates,
-         y = value,
-         shape = site,
-         linetype = site
-       )) +
-  labs(y = "Sites",
-       x = "Date") +
-  geom_line(aes(group = site, colour = site)) +
-  geom_point(aes(colour = site)) +
-  theme_classic()
-```
+\
+`dat`` ``<-`` `[`pivot_longer`](https://tidyr.tidyverse.org/reference/pivot_longer.html)`(`\
+`  ``bb_wet``,`\
+`  cols ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"diseased"``, ``"removed"``, ``"latent"``, ``"infectious"``)``,`\
+`  names_to ``=`` ``"site"``,`\
+`  values_to ``=`` ``"value"`\
+`)`\
+\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``dat``,`\
+`       `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(`\
+`         x ``=`` ``dates``,`\
+`         y ``=`` ``value``,`\
+`         shape ``=`` ``site``,`\
+`         linetype ``=`` ``site`\
+`       ``)``)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Sites"``,`\
+`       x ``=`` ``"Date"``)`` ``+`\
+`  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``group ``=`` ``site``, colour ``=`` ``site``)``)`` ``+`\
+`  `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``colour ``=`` ``site``)``)`` ``+`\
+`  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
 
 ![Site states over time for bacterial blight. Results for wet season
 year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to
@@ -200,17 +181,15 @@ Science Program.
 
 Plotting intensity over time does not require any data manipulation.
 
-``` r
-
-ggplot(data = bb_wet,
-       aes(x = dates,
-           y = intensity * 100)) +
-  labs(y = "Intensity (%)",
-       x = "Date") +
-  geom_line() +
-  geom_point() +
-  theme_classic()
-```
+\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``bb_wet``,`\
+`       `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``dates``,`\
+`           y ``=`` ``intensity`` ``*`` ``100``)``)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Intensity (%)"``,`\
+`       x ``=`` ``"Date"``)`` ``+`\
+`  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``)`` ``+`\
+`  `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(``)`` ``+`\
+`  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
 
 ![Wet season disease intensity over time for bacterial blight. Results
 for wet season year 2000 at IRRI Zeigler Experiment Station shown.
@@ -234,56 +213,45 @@ offered in {epicrop}. You can find the value in the `AUDPC` column. We
 can compare the dry season with the wet season by looking at the AUDPC
 values for both seasons.
 
-``` r
+\
+`bb_dry`` ``<-`` `[`bacterial_blight`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)`(``wth ``=`` ``wth``, emergence ``=`` ``"2000-01-05"``)`\
+[`summary`](https://rdrr.io/r/base/summary.html)`(``bb_dry``)`
 
-bb_dry <- bacterial_blight(wth = wth, emergence = "2000-01-05")
-summary(bb_dry)
-```
-
-    ##      simday           dates                sites            latent     
-    ##  Min.   :  1.00   Min.   :2000-01-05   Min.   :  0.00   Min.   : 0.00  
-    ##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 25.50   1st Qu.: 0.00  
-    ##  Median : 60.50   Median :2000-03-04   Median : 64.45   Median : 1.00  
-    ##  Mean   : 60.50   Mean   :2000-03-04   Mean   : 58.57   Mean   : 3.13  
-    ##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.: 97.56   3rd Qu.: 4.81  
-    ##  Max.   :120.00   Max.   :2000-05-03   Max.   :100.00   Max.   :21.80  
-    ##    infectious        removed         senesced        rateinf            rlex  
-    ##  Min.   : 0.000   Min.   : 0.00   Min.   : 0.00   Min.   :0.0000   Min.   :0  
-    ##  1st Qu.: 1.000   1st Qu.: 0.00   1st Qu.: 0.00   1st Qu.:0.0000   1st Qu.:0  
-    ##  Median : 8.491   Median : 1.00   Median : 1.00   Median :0.0000   Median :0  
-    ##  Mean   :14.181   Mean   :12.42   Mean   :12.85   Mean   :0.4471   Mean   :0  
-    ##  3rd Qu.:28.857   3rd Qu.:21.71   3rd Qu.:21.71   3rd Qu.:0.3144   3rd Qu.:0  
-    ##  Max.   :40.572   Max.   :51.11   Max.   :51.11   Max.   :7.0252   Max.   :0  
-    ##    rtransfer         rremoved        rgrowth    rsenesced        diseased     
-    ##  Min.   :0.0000   Min.   :0.000   Min.   :0   Min.   :0.000   Min.   : 0.000  
-    ##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0   1st Qu.:0.000   1st Qu.: 2.452  
-    ##  Median :0.0000   Median :0.000   Median :0   Median :0.000   Median :34.553  
-    ##  Mean   :0.4471   Mean   :0.426   Mean   :0   Mean   :0.426   Mean   :29.734  
-    ##  3rd Qu.:0.3144   3rd Qu.:0.000   3rd Qu.:0   3rd Qu.:0.000   3rd Qu.:53.122  
-    ##  Max.   :7.0252   Max.   :7.025   Max.   :0   Max.   :7.025   Max.   :53.933  
-    ##    intensity            lat             lon       
-    ##  Min.   :0.00000   Min.   :14.68   Min.   :121.3  
-    ##  1st Qu.:0.02447   1st Qu.:14.68   1st Qu.:121.3  
-    ##  Median :0.34238   Median :14.68   Median :121.3  
-    ##  Mean   :0.36664   Mean   :14.68   Mean   :121.3  
-    ##  3rd Qu.:0.55330   3rd Qu.:14.68   3rd Qu.:121.3  
-    ##  Max.   :1.00000   Max.   :14.68   Max.   :121.3
+    ##      simday           dates                sites            latent          infectious         removed           senesced     
+    ##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :   0.00   Min.   :   0.00   Min.   :   1.0  
+    ##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 681.8   1st Qu.:  0.000   1st Qu.:   1.00   1st Qu.:   0.00   1st Qu.: 122.7  
+    ##  Median : 60.50   Median :2000-03-04   Median :1244.4   Median :  4.716   Median :  73.54   Median :   1.00   Median : 652.6  
+    ##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1252.4   Mean   : 62.212   Mean   : 377.60   Mean   : 141.78   Mean   : 835.0  
+    ##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:1845.6   3rd Qu.:130.904   3rd Qu.: 835.86   3rd Qu.:  73.54   3rd Qu.:1292.1  
+    ##  Max.   :120.00   Max.   :2000-05-03   Max.   :2355.2   Max.   :314.544   Max.   :1201.11   Max.   :1134.29   Max.   :2637.2  
+    ##     rateinf              rlex     rtransfer           rremoved          rgrowth         rsenesced          diseased          intensity      
+    ##  Min.   :  0.0000   Min.   :0   Min.   :  0.0000   Min.   :  0.000   Min.   : 9.688   Min.   :  1.000   Min.   :   0.000   Min.   :0.00000  
+    ##  1st Qu.:  0.0000   1st Qu.:0   1st Qu.:  0.0000   1st Qu.:  0.000   1st Qu.:21.322   1st Qu.:  6.895   1st Qu.:   2.537   1st Qu.:0.00303  
+    ##  Median :  0.0000   Median :0   Median :  0.0000   Median :  0.000   Median :28.421   Median : 14.780   Median : 196.999   Median :0.07774  
+    ##  Mean   : 12.4423   Mean   :0   Mean   : 12.4423   Mean   :  9.452   Mean   :38.099   Mean   : 21.976   Mean   : 581.583   Mean   :0.19988  
+    ##  3rd Qu.:  0.7989   3rd Qu.:0   3rd Qu.:  0.7989   3rd Qu.:  0.000   3rd Qu.:57.194   3rd Qu.: 22.475   3rd Qu.:1333.224   3rd Qu.:0.44919  
+    ##  Max.   :168.6255   Max.   :0   Max.   :168.6255   Max.   :168.626   Max.   :78.713   Max.   :177.715   Max.   :1576.766   Max.   :0.54088  
+    ##       lat             lon       
+    ##  Min.   :14.68   Min.   :121.3  
+    ##  1st Qu.:14.68   1st Qu.:121.3  
+    ##  Median :14.68   Median :121.3  
+    ##  Mean   :14.68   Mean   :121.3  
+    ##  3rd Qu.:14.68   3rd Qu.:121.3  
+    ##  Max.   :14.68   Max.   :121.3
 
 #### Dry season intensity
 
 Check the disease progress curve for the dry season.
 
-``` r
-
-ggplot(data = bb_dry,
-       aes(x = dates,
-           y = intensity * 100)) +
-  labs(y = "Intensity (%)",
-       x = "Date") +
-  geom_line() +
-  geom_point() +
-  theme_classic()
-```
+\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``bb_dry``,`\
+`       `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``dates``,`\
+`           y ``=`` ``intensity`` ``*`` ``100``)``)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Intensity (%)"``,`\
+`       x ``=`` ``"Date"``)`` ``+`\
+`  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``)`` ``+`\
+`  `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(``)`` ``+`\
+`  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
 
 ![Dry season site states over time for bacterial blight. Results for dry
 season year 2000 at IRRI Zeigler Experiment Station shown. Weather data
@@ -301,25 +269,21 @@ The AUDPC values can be viewed directly from the attributes of the
 `data.table` outputs above, but we can also create a small helper
 function to extract them.
 
-``` r
+\
+`# Dry season`\
+[`get_audpc`](https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.md)`(``bb_dry``)`
 
-# Dry season
-get_audpc(bb_dry)
-```
+    ## [1] 23.78366
 
-    ## [1] 43.49663
+\
+`# Wet season`\
+[`get_audpc`](https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.md)`(``bb_wet``)`
 
-``` r
-
-# Wet season
-get_audpc(bb_wet)
-```
-
-    ## [1] 49.39145
+    ## [1] 37.56589
 
 The AUDPC of the wet season is greater than that of the dry season.
 Checking the data and referring to the curves, the wet season intensity
-reaches a peak value of 100% and the dry season tops out at 100%. So,
+reaches a peak value of 100% and the dry season tops out at 54%. So,
 this meets the expectations that the wet season AUDPC is higher than the
 dry season, which was predicted to have less disease intensity.
 

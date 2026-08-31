@@ -53,12 +53,10 @@ provided meet the model’s requirements.
 
 {epicrop} is not yet on CRAN. You can install it this way.
 
-``` r
-
-install.packages("epicrop",
-  repos = c("https://adamhsparks.r-universe.dev",
-            "https://cloud.r-project.org"))
-```
+\
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"epicrop"``,`\
+`  repos ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"https://adamhsparks.r-universe.dev"``,`\
+`            ``"https://cloud.r-project.org"``)``)`
 
 ## Get weather data
 
@@ -69,34 +67,32 @@ function to do this. Using it you can fetch weather data for any place
 in the world from 1983 to near present by providing the and latitude and
 dates or length of rice growing season as shown below.
 
-``` r
-
-library(epicrop)
-
-# Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI
-# Zeigler Experiment Station
-wth <- get_wth(
-  lonlat = c(121.25562, 14.6774),
-  dates = "2000-07-01",
-  duration = 120
-)
-
-wth
-#> Key: <YYYYMMDD>
-#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON
-#>          <IDat> <int> <num> <num> <num> <num> <num>   <num>    <num>
-#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556
-#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556
-#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556
-#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556
-#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556
-#>  ---                                                                
-#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556
-#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556
-#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556
-#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556
-#> 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`epicrop`](https://codeberg.org/adamhsparks/epicrop)`)`\
+\
+`# Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI`\
+`# Zeigler Experiment Station`\
+`wth`` ``<-`` `[`get_wth`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)`(`\
+`  lonlat ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``121.25562``, ``14.6774``)``,`\
+`  dates ``=`` ``"2000-07-01"``,`\
+`  duration ``=`` ``120`\
+`)`\
+\
+`wth`\
+`#> Key: <YYYYMMDD>`\
+`#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT      LON`\
+`#>          <IDat> <int> <num> <num> <num> <num> <num>   <num>    <num>`\
+`#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774 121.2556`\
+`#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774 121.2556`\
+`#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774 121.2556`\
+`#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774 121.2556`\
+`#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774 121.2556`\
+`#>  ---                                                                `\
+`#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774 121.2556`\
+`#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774 121.2556`\
+`#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774 121.2556`\
+`#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774 121.2556`\
+`#> 121: 2000-10-29   303 24.97 24.15 26.34 94.15 29.11 14.6774 121.2556`
 
 ## Modelling bacterial blight disease intensity
 
@@ -104,60 +100,56 @@ Once you have the weather data, run the model for any of the five rice
 diseases by providing the emergence or crop establishment date for
 transplanted rice.
 
-``` r
-
-bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
-
-bb_sim
-#>      simday      dates sites latent infectious  removed senesced rateinf  rlex
-#>       <int>     <IDat> <num>  <num>      <num>    <num>    <num>   <num> <num>
-#>   1:      1 2000-07-01   100      0   0.000000  0.00000  0.00000       0     0
-#>   2:      2 2000-07-02   100      0   0.000000  0.00000  0.00000       0     0
-#>   3:      3 2000-07-03   100      0   0.000000  0.00000  0.00000       0     0
-#>   4:      4 2000-07-04   100      0   0.000000  0.00000  0.00000       0     0
-#>   5:      5 2000-07-05   100      0   0.000000  0.00000  0.00000       0     0
-#>  ---                                                                          
-#> 116:    116 2000-10-24     0      0   6.717905 56.35040 57.27858       0     0
-#> 117:    117 2000-10-25     0      0   5.789721 57.27858 57.93887       0     0
-#> 118:    118 2000-10-26     0      0   5.129435 57.93887 58.55975       0     0
-#> 119:    119 2000-10-27     0      0   4.508549 58.55975 59.28986       0     0
-#> 120:    120 2000-10-28     0      0   3.778446 59.28986 60.01366       0     0
-#>      rtransfer  rremoved rgrowth rsenesced diseased intensity     lat      lon
-#>          <num>     <num>   <num>     <num>    <num>     <num>   <num>    <num>
-#>   1:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
-#>   2:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
-#>   3:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
-#>   4:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
-#>   5:         0 0.0000000       0 0.0000000   0.0000         0 14.6774 121.2556
-#>  ---                                                                          
-#> 116:         0 0.0000000       0 0.9281842 119.4187         1 14.6774 121.2556
-#> 117:         0 0.9281842       0 0.6602855 120.3469         1 14.6774 121.2556
-#> 118:         0 0.6602855       0 0.6208868 121.0072         1 14.6774 121.2556
-#> 119:         0 0.6208868       0 0.7301022 121.6281         1 14.6774 121.2556
-#> 120:         0 0.7301022       0 0.7238054 122.3582         1 14.6774 121.2556
-```
+\
+`bb_sim`` ``<-`` `[`bacterial_blight`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)`(``wth``, emergence ``=`` ``"2000-07-01"``)`\
+\
+`bb_sim`\
+`#>      simday      dates    sites latent infectious  removed    senesced rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased intensity`\
+`#>       <int>     <IDat>    <num>  <num>      <num>    <num>       <num>   <num> <num>     <num>    <num>    <num>     <num>    <num>     <num>`\
+`#>   1:      1 2000-07-01 100.0000      0     0.0000    0.000    1.000000       0     0         0  0.00000  9.68750  1.000000    0.000         0`\
+`#>   2:      2 2000-07-02 108.6875      0     0.0000    0.000    2.086875       0     0         0  0.00000 10.49959  1.086875    0.000         0`\
+`#>   3:      3 2000-07-03 118.1002      0     0.0000    0.000    3.267877       0     0         0  0.00000 11.37416  1.181002    0.000         0`\
+`#>   4:      4 2000-07-04 128.2934      0     0.0000    0.000    4.550811       0     0         0  0.00000 12.31499  1.282934    0.000         0`\
+`#>   5:      5 2000-07-05 139.3254      0     0.0000    0.000    5.944065       0     0         0  0.00000 13.32593  1.393254    0.000         0`\
+`#>  ---                                                                                                                                         `\
+`#> 116:    116 2000-10-24   0.0000      0   396.0528 1404.565 2665.037553       0     0         0 43.67864  0.00000 39.691810 1800.618         1`\
+`#> 117:    117 2000-10-25   0.0000      0   356.3610 1444.257 2712.120592       0     0         0 39.69181  0.00000 47.083039 1800.618         1`\
+`#> 118:    118 2000-10-26   0.0000      0   309.2779 1491.340 2755.012575       0     0         0 47.08304  0.00000 42.891982 1800.618         1`\
+`#> 119:    119 2000-10-27   0.0000      0   266.3860 1534.232 2791.854071       0     0         0 42.89198  0.00000 36.841497 1800.618         1`\
+`#> 120:    120 2000-10-28   0.0000      0   229.5445 1571.073 2824.358958       0     0         0 36.84150  0.00000 32.504887 1800.618         1`\
+`#>          lat      lon`\
+`#>        <num>    <num>`\
+`#>   1: 14.6774 121.2556`\
+`#>   2: 14.6774 121.2556`\
+`#>   3: 14.6774 121.2556`\
+`#>   4: 14.6774 121.2556`\
+`#>   5: 14.6774 121.2556`\
+`#>  ---                 `\
+`#> 116: 14.6774 121.2556`\
+`#> 117: 14.6774 121.2556`\
+`#> 118: 14.6774 121.2556`\
+`#> 119: 14.6774 121.2556`\
+`#> 120: 14.6774 121.2556`
 
 Lastly, you can visualise the result of the model run.
 
-``` r
-
-library(ggplot2)
-
-ggplot(
-  data = bb_sim,
-  aes(
-    x = dates,
-    y = intensity
-  )
-) +
-  labs(
-    y = "Intensity",
-    x = "Date"
-  ) +
-  geom_line() +
-  geom_point() +
-  theme_classic()
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
+\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(`\
+`  data ``=`` ``bb_sim``,`\
+`  `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(`\
+`    x ``=`` ``dates``,`\
+`    y ``=`` ``intensity`\
+`  ``)`\
+`)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`\
+`    y ``=`` ``"Intensity"``,`\
+`    x ``=`` ``"Date"`\
+`  ``)`` ``+`\
+`  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``)`` ``+`\
+`  `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(``)`` ``+`\
+`  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
 
 ![Bacterial blight disease progress over time. Results for wet season
 year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to
@@ -183,18 +175,20 @@ Science Program.
 
 ## Code Coverage
 
-    #> epicrop Coverage: 57.68%
-    #> R/build_epicrop_emergence.R: 0.00%
+    #> epicrop Coverage: 73.29%
     #> R/fetch_epicrop_weather_list.R: 0.00%
     #> R/run_epicrop_model.R: 0.00%
-    #> R/validation.R: 10.00%
-    #> R/seir.R: 77.40%
-    #> R/interpolation.R: 77.78%
-    #> R/get_wth.R: 81.16%
+    #> R/zzz.R: 0.00%
+    #> R/get_wth.R: 79.73%
+    #> R/interpolation.R: 80.17%
     #> R/format_wth.R: 93.15%
-    #> R/leaf_wetness.R: 97.22%
+    #> R/validation.R: 95.48%
+    #> R/leaf_wetness.R: 98.17%
     #> R/audpc.R: 98.28%
+    #> R/seir.R: 99.10%
+    #> R/build_epicrop_emergence.R: 100.00%
     #> R/disease_models.R: 100.00%
+    #> R/epi_get_params.R: 100.00%
 
 ## Code of Conduct
 

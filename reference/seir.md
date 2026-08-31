@@ -52,13 +52,17 @@ seir(
   | **Field Name** | **Value** |
   | *YYYYMMDD* | Date as Year Month Day (ISO8601) |
   | *DOY* | Consecutive day of year, commonly called "Julian date" |
-  | *TEMP* | Mean daily temperature (°C) |
+  | *TEMP* | Mean daily temperature (degrees C) |
   | *RHUM* | Mean daily relative humidity (%) |
   | *RAIN* | Mean daily rainfall (mm) |
-  | *TMIN* | **Optional** Minimum daily temperature (°C), see TMIN/TMAX Details |
-  | *TMAX* | **Optional** Maximum daily temperature (°C), see TMIN/TMAX Details |
-  | *LAT* | **Optional** latitude of weather observation, see LAT/LON Details |
-  | *LON* | **Optional** longitude of weather observation, see LAT/LON Details |
+  | *TMIN* | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX |
+
+       Details
+
+  *TMAX* \| **Optional** Maximum daily temperature (degrees C), see
+  TMIN/TMAX Details *LAT* \| **Optional** latitude of weather
+  observation, see LAT/LON Details *LON* \| **Optional** longitude of
+  weather observation, see LAT/LON Details
 
 - emergence:
 
@@ -100,8 +104,8 @@ seir(
 
   modifier for *Rc* (the basic infection rate corrected for removals)
   for temperature as a numeric two-column matrix with the first column
-  being temperature in °C and the second the modifier (bounded by 0 and
-  1). Described in Tables 1 and 2 of Savary *et al.* 2012.
+  being temperature in degrees C and the second the modifier (bounded by
+  0 and 1). Described in Tables 1 and 2 of Savary *et al.* 2012.
 
 - RcOpt:
 
@@ -190,9 +194,9 @@ seir(
 
 - thermal_time:
 
-  List with `base_temp` (°C) and `gdd_to_maturity` (°C·days). Only
-  required when `age_driver = "dvs"`. Determines how growing degree days
-  are accumulated and converted to development stage (DVS).
+  List with `base_temp` (degrees C) and `gdd_to_maturity` (degrees C
+  days). Only required when `age_driver = "dvs"`. Determines how growing
+  degree days are accumulated and converted to development stage (DVS).
 
 - infection_window:
 
