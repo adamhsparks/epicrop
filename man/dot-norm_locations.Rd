@@ -6,6 +6,13 @@
 \usage{
 .norm_locations(ll)
 }
+\arguments{
+\item{ll}{Location coordinates supplied as a numeric vector, matrix,
+data frame, or list of numeric longitude-latitude vectors.}
+}
+\value{
+A two-column numeric matrix with columns \code{LON} and \code{LAT}.
+}
 \description{
 Normalize Location Input to Standard Matrix Format
 }
