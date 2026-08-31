@@ -148,20 +148,69 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Normalize Location Input to Standard Matrix Format
+#'
+#' @param ll Location coordinates supplied as a numeric vector, matrix,
+#'   data frame, or list of numeric longitude-latitude vectors.
+#'
+#' @return A two-column numeric matrix with columns `LON` and `LAT`.
+#'
 #' @autoglobal
 #' @dev
 .norm_locations <- function(ll) {
-  # Convert list to matrix via data.table
   if (is.list(ll) && !is.data.frame(ll)) {
-    ll <- as.matrix(data.table::rbindlist(ll))
+    valid <- vapply(
+      ll,
+      function(x) {
+        is.numeric(x) &&
+          length(x) == 2L &&
+          all(is.finite(x))
+      },
+      logical(1L),
+      USE.NAMES = FALSE
+    )
+
+    if (!length(ll) || any(!valid)) {
+      cli::cli_abort(c(
+        "{.arg lonlat} list elements must be numeric longitude-latitude pairs.",
+        x = "Each element must be a finite numeric vector of length 2.",
+        i = "Example: {.code list(site = c(121.255669, 14.16742))}"
+      ))
+    }
+
+    location_names <- names(ll)
+    ll <- do.call(rbind, unname(ll))
+
+    if (
+      !is.null(location_names) &&
+        length(location_names) == nrow(ll) &&
+        all(nzchar(location_names))
+    ) {
+      rownames(ll) <- location_names
+    }
   }
 
-  # Convert data.frame to matrix
   if (is.data.frame(ll)) {
+    if (ncol(ll) != 2L) {
+      cli::cli_abort(c(
+        "{.arg lonlat} matrix/data.frame must have exactly 2 columns.",
+        x = "You provided {ncol(ll)} column{?s}.",
+        i = "Columns should be: [longitude, latitude]"
+      ))
+    }
+
+    numeric_columns <- vapply(ll, is.numeric, logical(1L))
+
+    if (any(!numeric_columns)) {
+      cli::cli_abort(c(
+        "{.arg lonlat} columns must be numeric.",
+        x = "Non-numeric column{?s}: {paste(names(ll)[!numeric_columns], collapse = ', ')}.",
+        i = "Columns should contain longitude and latitude values."
+      ))
+    }
+
     ll <- as.matrix(ll)
   }
 
-  # Validate matrix
   if (is.matrix(ll)) {
     if (ncol(ll) != 2L) {
       cli::cli_abort(c(
@@ -170,33 +219,53 @@ fetch_epicrop_weather_list <- function(
         i = "Columns should be: [longitude, latitude]"
       ))
     }
+
+    if (!is.numeric(ll)) {
+      cli::cli_abort(c(
+        "{.arg lonlat} matrix must be numeric.",
+        x = "You provided a matrix with storage mode {.val {storage.mode(ll)}}.",
+        i = "Columns should contain longitude and latitude values."
+      ))
+    }
+
+    if (any(!is.finite(ll))) {
+      cli::cli_abort(
+        "{.arg lonlat} must contain only finite longitude and latitude values."
+      )
+    }
+
     storage.mode(ll) <- "double"
     colnames(ll) <- c("LON", "LAT")
     return(ll)
   }
 
-  # Handle numeric vector
   if (is.numeric(ll)) {
     n <- length(ll)
-    if (n %% 2L != 0L) {
+
+    if (n == 0L || n %% 2L != 0L) {
       cli::cli_abort(c(
-        "{.arg lonlat} numeric vector must have even length.",
-        x = "You provided length {n}",
-        i = "Expected pairs of (longitude, latitude)"
+        "{.arg lonlat} numeric vector must have positive even length.",
+        x = "You provided length {n}.",
+        i = "Expected pairs of (longitude, latitude)."
       ))
     }
+
+    if (any(!is.finite(ll))) {
+      cli::cli_abort(
+        "{.arg lonlat} must contain only finite longitude and latitude values."
+      )
+    }
+
     ll <- matrix(ll, ncol = 2L, byrow = TRUE)
     storage.mode(ll) <- "double"
     colnames(ll) <- c("LON", "LAT")
     return(ll)
   }
 
-  # Invalid type
   cli::cli_abort(c(
     "{.arg lonlat} must be numeric, not {.cls {class(ll)}}.",
-    x = "You provided: {.val {ll}}",
-    i = "Expected format: {.code c(longitude, latitude)}",
-    i = "Example: {.code lonlat = c(121.255669, 14.16742)}"
+    i = "Expected format: {.code c(longitude, latitude)}.",
+    i = "Example: {.code lonlat = c(121.255669, 14.16742)}."
   ))
 }
 
@@ -441,17 +510,12 @@ fetch_epicrop_weather_list <- function(
     duration = task$duration
   )
 
-  # Split by calendar year using data.table
-  tab[, year := data.table::year(YYYYMMDD)]
-  yrs <- tab[, sort(unique(year))]
+  out <- split(
+    tab,
+    data.table::year(tab$YYYYMMDD),
+    keep.by = FALSE
+  )
 
-  out <- lapply(yrs, function(y) {
-    year_start <- data.table::as.IDate(sprintf("%d-01-01", y))
-    year_end <- data.table::as.IDate(sprintf("%d-12-31", y))
-    tab[YYYYMMDD %between% c(year_start, year_end)][, year := NULL]
-  })
-
-  names(out) <- as.character(yrs)
   class(out) <- c("epicrop.wth.list", "list")
   out
 }
