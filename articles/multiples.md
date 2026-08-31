@@ -64,11 +64,9 @@ for two seasons and create a single data frame of the two seasons.
 
 \
 `bb_2_seasons`` ``<-`` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(``model_fun ``=`` ``bacterial_blight``,`\
-`                                  emergence_date ``=`` ``ymd``,`\
+`                                  emergence_dates ``=`` ``ymd``,`\
 `                                  wth_list ``=`` ``wth_list``,`\
 `                                  window_days ``=`` ``duration``)`\
-`#> Warning in run_epicrop_model(model_fun = bacterial_blight, emergence_date = ymd, : partial argument`\
-`#> match of 'emergence_date' to 'emergence_dates'`\
 \
 `bb_2_seasons`\
 `#> Key: <emergence, AUDPC>`\
@@ -77,7 +75,7 @@ for two seasons and create a single data frame of the two seasons.
 `#> 1:       2000-06-30 33.35499`\
 `#> 2:       2001-06-30 23.27681`
 
-### Visualising differences in AUDPC between seasons
+### Visualising Differences in AUDPC Between Seasons
 
 A simple bar chart created using {ggplot2} is an effective way to
 visualise the difference between the two seasons.
@@ -101,7 +99,7 @@ Bacterial blight area under the disease progress curve (AUDPC) for the
 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
 Calabarzon, Philippines.
 
-### Simulating multiple seasons and establishment dates
+### Simulating Multiple Seasons and Establishment Dates
 
 #### Single Site with Multiple Dates
 

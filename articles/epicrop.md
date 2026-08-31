@@ -50,14 +50,14 @@ refer to (2012) for the development of the parameters that were used for
 the rice diseases as derived from the existing literature and are
 implemented in the individual disease model functions.
 
-#### Getting started
+#### Getting Started
 
 Load the library.
 
 \
 [`library`](https://rdrr.io/r/base/library.html)`(`[`epicrop`](https://codeberg.org/adamhsparks/epicrop)`)`
 
-#### Get weather data
+#### Get Weather Data
 
 The most simple way to use the model is to download weather data from
 NASA POWER using
@@ -90,7 +90,7 @@ details of this functionality and details on the data (Sparks 2018).
     ## 365: 2000-12-30   365 25.31 22.84 28.84 86.25  2.07 14.6774 121.2556
     ## 366: 2000-12-31   366 24.47 21.63 28.63 87.83  3.45 14.6774 121.2556
 
-#### Predict bacterial blight
+#### Predict Rice Bacterial Blight
 
 All of the helper family of functions work in exactly the same manner.
 You provide them with weather data and an emergence date, that falls
@@ -136,21 +136,17 @@ for more on the values returned.
     ##  3rd Qu.:121.3  
     ##  Max.   :121.3
 
-### Plotting using {ggplot2}
+### Plotting Using {ggplot2}
 
 The data are in a wide format by default and need to be converted to
 long format for use in {ggplot2} if you wish to plot more than one
 variable at a time.
 
 \
-[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`
-
-    ## Need help getting started? Try the R Graphics Cookbook: https://r-graphics.org
-
-\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
 [`library`](https://rdrr.io/r/base/library.html)`(`[`tidyr`](https://tidyr.tidyverse.org)`)`
 
-#### Wet season sites
+#### Wet Season Sites
 
 The model records the number of sites for each bin daily; this can be
 graphed as follows.
@@ -188,7 +184,7 @@ the model were obtained from the NASA Langley Research Center POWER
 Project funded through the NASA Earth Science Directorate Applied
 Science Program.
 
-#### Wet season intensity
+#### Wet Season Intensity
 
 Plotting intensity over time does not require any data manipulation.
 
@@ -214,7 +210,7 @@ data used to run the model were obtained from the NASA Langley Research
 Center POWER Project funded through the NASA Earth Science Directorate
 Applied Science Program.
 
-### Comparing epidemics
+### Comparing Epidemics
 
 The most common way to compare disease epidemics in botanical
 epidemiology is to use the area under the disease progress curve (AUDPC)
@@ -257,7 +253,7 @@ values for both seasons.
     ##  3rd Qu.:14.68   3rd Qu.:121.3  
     ##  Max.   :14.68   Max.   :121.3
 
-#### Dry season intensity
+#### Dry Season Intensity
 
 Check the disease progress curve for the dry season.
 

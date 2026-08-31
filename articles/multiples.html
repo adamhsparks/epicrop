@@ -128,11 +128,9 @@ last season of the last start date.</p>
 frame of the two seasons.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bb_2_seasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_epicrop_model.html">run_epicrop_model</a></span><span class="op">(</span>model_fun <span class="op">=</span> <span class="va">bacterial_blight</span>,</span>
-<span>                                  emergence_date <span class="op">=</span> <span class="va">ymd</span>,</span>
+<span>                                  emergence_dates <span class="op">=</span> <span class="va">ymd</span>,</span>
 <span>                                  wth_list <span class="op">=</span> <span class="va">wth_list</span>,</span>
 <span>                                  window_days <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in run_epicrop_model(model_fun = bacterial_blight, emergence_date = ymd, : partial argument</span></span>
-<span><span class="co">#&gt; match of 'emergence_date' to 'emergence_dates'</span></span>
 <span></span>
 <span><span class="va">bb_2_seasons</span></span>
 <span><span class="co">#&gt; Key: &lt;emergence, AUDPC&gt;</span></span>
@@ -142,7 +140,7 @@ frame of the two seasons.</p>
 <span><span class="co">#&gt; 2:       2001-06-30 23.27681</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="visualising-differences-in-audpc-between-seasons">Visualising differences in AUDPC between seasons<a class="anchor" aria-label="anchor" href="#visualising-differences-in-audpc-between-seasons"></a>
+<h3 id="visualising-differences-in-audpc-between-seasons">Visualising Differences in AUDPC Between Seasons<a class="anchor" aria-label="anchor" href="#visualising-differences-in-audpc-between-seasons"></a>
 </h3>
 <p>A simple bar chart created using {ggplot2} is an effective way to
 visualise the difference between the two seasons.</p>
@@ -163,7 +161,7 @@ Experiment Station in Calabarzon, Philippines.</div>
 </div>
 </div>
 <div class="section level3">
-<h3 id="simulating-multiple-seasons-and-establishment-dates">Simulating multiple seasons and establishment dates<a class="anchor" aria-label="anchor" href="#simulating-multiple-seasons-and-establishment-dates"></a>
+<h3 id="simulating-multiple-seasons-and-establishment-dates">Simulating Multiple Seasons and Establishment Dates<a class="anchor" aria-label="anchor" href="#simulating-multiple-seasons-and-establishment-dates"></a>
 </h3>
 <div class="section level4">
 <h4 id="single-site-with-multiple-dates">Single Site with Multiple Dates<a class="anchor" aria-label="anchor" href="#single-site-with-multiple-dates"></a>

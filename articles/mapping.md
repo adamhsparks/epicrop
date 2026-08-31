@@ -5,7 +5,7 @@ different seasons or different locations on disease levels. This
 vignette details how you can automate several runs of {epicrop} in R and
 visualise them on maps.
 
-## Map of AUDPC at multiple locations
+## Map of AUDPC at Multiple Locations
 
 In this example we will fetch data for the Mekong River Delta and Red
 River Delta in Vietnam; Prachin Buri, Thailand; Chennai, India and Nueva
