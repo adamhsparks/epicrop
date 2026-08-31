@@ -117,12 +117,7 @@ last season of the last start date.</p>
 <span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span>
 <span>  start_date <span class="op">=</span> <span class="va">emergence_date</span>,</span>
 <span>  duration <span class="op">=</span> <span class="va">duration</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A shallow copy of this data.table was taken so that := can add or</span></span>
-<span><span class="co">#&gt; remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar).</span></span>
-<span><span class="co">#&gt; Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set,</span></span>
-<span><span class="co">#&gt; ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't</span></span>
-<span><span class="co">#&gt; help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="using-a-helper-function-to-model-several-seasons">Using a Helper Function to Model Several Seasons<a class="anchor" aria-label="anchor" href="#using-a-helper-function-to-model-several-seasons"></a>
@@ -132,18 +127,19 @@ last season of the last start date.</p>
 <code><a href="../reference/disease_models.html">bacterial_blight()</a></code> for two seasons and create a single data
 frame of the two seasons.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bb_2_seasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_epicrop_model.html">run_epicrop_model</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">bacterial_blight</span>,</span>
-<span>                                  emergence <span class="op">=</span> <span class="va">ymd</span>,</span>
+<code class="sourceCode R"><span><span class="va">bb_2_seasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_epicrop_model.html">run_epicrop_model</a></span><span class="op">(</span>model_fun <span class="op">=</span> <span class="va">bacterial_blight</span>,</span>
+<span>                                  emergence_date <span class="op">=</span> <span class="va">ymd</span>,</span>
 <span>                                  wth_list <span class="op">=</span> <span class="va">wth_list</span>,</span>
 <span>                                  window_days <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'model' to 'model_fun'</span></span>
-<span><span class="co">#&gt; Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'emergence' to 'emergence_dates'</span></span>
-<span><span class="co">#&gt; Error in `rlang::exec()`:</span></span>
-<span><span class="co">#&gt; ! Can't create call to non-callable object</span></span>
+<span><span class="co">#&gt; Warning in run_epicrop_model(model_fun = bacterial_blight, emergence_date = ymd, : partial argument</span></span>
+<span><span class="co">#&gt; match of 'emergence_date' to 'emergence_dates'</span></span>
 <span></span>
 <span><span class="va">bb_2_seasons</span></span>
-<span><span class="co">#&gt; Error:</span></span>
-<span><span class="co">#&gt; ! object 'bb_2_seasons' not found</span></span></code></pre></div>
+<span><span class="co">#&gt; Key: &lt;emergence, AUDPC&gt;</span></span>
+<span><span class="co">#&gt;           emergence    AUDPC</span></span>
+<span><span class="co">#&gt;    &lt;epicrop.emerge&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt; 1:       2000-06-30 33.35499</span></span>
+<span><span class="co">#&gt; 2:       2001-06-30 23.27681</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="visualising-differences-in-audpc-between-seasons">Visualising differences in AUDPC between seasons<a class="anchor" aria-label="anchor" href="#visualising-differences-in-audpc-between-seasons"></a>
@@ -159,9 +155,12 @@ visualise the difference between the two seasons.</p>
 <span>           orientation <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Emergence (YYYY-MM-DD)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"AUDPC"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error:</span></span>
-<span><span class="co">#&gt; ! object 'bb_2_seasons' not found</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="graph_seasons-1.png" alt="Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."><div class="figcaption">Bacterial blight area under the disease progress
+curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler
+Experiment Station in Calabarzon, Philippines.</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="simulating-multiple-seasons-and-establishment-dates">Simulating multiple seasons and establishment dates<a class="anchor" aria-label="anchor" href="#simulating-multiple-seasons-and-establishment-dates"></a>
@@ -183,20 +182,78 @@ simplify running multiple establishment dates.</p>
 <span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span>years <span class="op">=</span> <span class="va">years</span>,</span>
 <span>                                       lonlat <span class="op">=</span> <span class="va">lonlat</span>,</span>
 <span>                                       start_date <span class="op">=</span> <span class="va">month_day</span>,</span>
-<span>                                       duration <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A shallow copy of this data.table was taken so that := can add or</span></span>
-<span><span class="co">#&gt; remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar).</span></span>
-<span><span class="co">#&gt; Avoid names&lt;- and attr&lt;- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set,</span></span>
-<span><span class="co">#&gt; ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't</span></span>
-<span><span class="co">#&gt; help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.</span></span></code></pre></div>
+<span>                                       duration <span class="op">=</span> <span class="va">duration</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="fu"><a href="../reference/run_epicrop_model.html">run_epicrop_model</a></span><span class="op">(</span><span class="va">bacterial_blight</span>,</span>
 <span>                   <span class="va">emergence</span>,</span>
 <span>                   <span class="va">wth_list</span>,</span>
 <span>                   window_days <span class="op">=</span> <span class="va">duration</span>,</span>
 <span>                   output <span class="op">=</span> <span class="st">"audpc"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `rlang::exec()`:</span></span>
-<span><span class="co">#&gt; ! Can't create call to non-callable object</span></span></code></pre></div>
+<span><span class="co">#&gt; Key: &lt;emergence, AUDPC&gt;</span></span>
+<span><span class="co">#&gt;            emergence    AUDPC</span></span>
+<span><span class="co">#&gt;     &lt;epicrop.emerge&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;  1:       2001-06-01 37.63796</span></span>
+<span><span class="co">#&gt;  2:       2001-06-14 33.40447</span></span>
+<span><span class="co">#&gt;  3:       2001-06-30 23.27681</span></span>
+<span><span class="co">#&gt;  4:       2002-06-01 34.64894</span></span>
+<span><span class="co">#&gt;  5:       2002-06-14 35.23461</span></span>
+<span><span class="co">#&gt;  6:       2002-06-30 36.63927</span></span>
+<span><span class="co">#&gt;  7:       2003-06-01 33.33186</span></span>
+<span><span class="co">#&gt;  8:       2003-06-14 35.91991</span></span>
+<span><span class="co">#&gt;  9:       2003-06-30 40.34007</span></span>
+<span><span class="co">#&gt; 10:       2004-06-01 36.58149</span></span>
+<span><span class="co">#&gt; 11:       2004-06-14 42.66673</span></span>
+<span><span class="co">#&gt; 12:       2004-06-30 29.54521</span></span>
+<span><span class="co">#&gt; 13:       2005-06-01 35.46168</span></span>
+<span><span class="co">#&gt; 14:       2005-06-14 32.94811</span></span>
+<span><span class="co">#&gt; 15:       2005-06-30 37.34664</span></span>
+<span><span class="co">#&gt; 16:       2006-06-01 42.72507</span></span>
+<span><span class="co">#&gt; 17:       2006-06-14 42.46803</span></span>
+<span><span class="co">#&gt; 18:       2006-06-30 33.49726</span></span>
+<span><span class="co">#&gt; 19:       2007-06-01 23.53191</span></span>
+<span><span class="co">#&gt; 20:       2007-06-14 22.14872</span></span>
+<span><span class="co">#&gt; 21:       2007-06-30 27.12497</span></span>
+<span><span class="co">#&gt; 22:       2008-06-01 27.30096</span></span>
+<span><span class="co">#&gt; 23:       2008-06-14 27.03446</span></span>
+<span><span class="co">#&gt; 24:       2008-06-30 31.68267</span></span>
+<span><span class="co">#&gt; 25:       2009-06-01 22.10567</span></span>
+<span><span class="co">#&gt; 26:       2009-06-14 26.35464</span></span>
+<span><span class="co">#&gt; 27:       2009-06-30 25.97842</span></span>
+<span><span class="co">#&gt; 28:       2010-06-01 34.74639</span></span>
+<span><span class="co">#&gt; 29:       2010-06-14 40.28505</span></span>
+<span><span class="co">#&gt; 30:       2010-06-30 38.72189</span></span>
+<span><span class="co">#&gt; 31:       2011-06-01 35.82841</span></span>
+<span><span class="co">#&gt; 32:       2011-06-14 39.77898</span></span>
+<span><span class="co">#&gt; 33:       2011-06-30 47.11856</span></span>
+<span><span class="co">#&gt; 34:       2012-06-01 42.56076</span></span>
+<span><span class="co">#&gt; 35:       2012-06-14 42.03287</span></span>
+<span><span class="co">#&gt; 36:       2012-06-30 45.05923</span></span>
+<span><span class="co">#&gt; 37:       2013-06-01 39.65612</span></span>
+<span><span class="co">#&gt; 38:       2013-06-14 40.31719</span></span>
+<span><span class="co">#&gt; 39:       2013-06-30 41.29252</span></span>
+<span><span class="co">#&gt; 40:       2014-06-01 27.77329</span></span>
+<span><span class="co">#&gt; 41:       2014-06-14 28.63167</span></span>
+<span><span class="co">#&gt; 42:       2014-06-30 27.68996</span></span>
+<span><span class="co">#&gt; 43:       2015-06-01 18.65482</span></span>
+<span><span class="co">#&gt; 44:       2015-06-14 23.87071</span></span>
+<span><span class="co">#&gt; 45:       2015-06-30 29.73648</span></span>
+<span><span class="co">#&gt; 46:       2016-06-01 27.79225</span></span>
+<span><span class="co">#&gt; 47:       2016-06-14 24.87684</span></span>
+<span><span class="co">#&gt; 48:       2016-06-30 27.06310</span></span>
+<span><span class="co">#&gt; 49:       2017-06-01 33.85670</span></span>
+<span><span class="co">#&gt; 50:       2017-06-14 30.61643</span></span>
+<span><span class="co">#&gt; 51:       2017-06-30 27.47632</span></span>
+<span><span class="co">#&gt; 52:       2018-06-01 41.48556</span></span>
+<span><span class="co">#&gt; 53:       2018-06-14 40.73465</span></span>
+<span><span class="co">#&gt; 54:       2018-06-30 32.12418</span></span>
+<span><span class="co">#&gt; 55:       2019-06-01 29.61033</span></span>
+<span><span class="co">#&gt; 56:       2019-06-14 28.35922</span></span>
+<span><span class="co">#&gt; 57:       2019-06-30 32.35699</span></span>
+<span><span class="co">#&gt; 58:       2020-06-01 23.17698</span></span>
+<span><span class="co">#&gt; 59:       2020-06-14 19.87281</span></span>
+<span><span class="co">#&gt; 60:       2020-06-30 22.84166</span></span>
+<span><span class="co">#&gt;            emergence    AUDPC</span></span>
+<span><span class="co">#&gt;     &lt;epicrop.emerge&gt;    &lt;num&gt;</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="multiple-sites-and-seasons">Multiple Sites and Seasons<a class="anchor" aria-label="anchor" href="#multiple-sites-and-seasons"></a>
@@ -226,8 +283,6 @@ season.</p>
 <span>  years <span class="op">=</span> <span class="va">years</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"cross"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `data.table::rbindlist()`:</span></span>
-<span><span class="co">#&gt; ! Item 1 of input is not a data.frame, data.table or list</span></span>
 <span></span>
 <span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_epicrop_emergence.html">build_epicrop_emergence</a></span><span class="op">(</span><span class="va">years</span>, <span class="va">start_date</span><span class="op">)</span></span></code></pre></div>
 <p>Examples of how to run the model sequentially and in parallel.</p>
@@ -237,8 +292,20 @@ season.</p>
 <span>                  <span class="va">wth_list</span>,</span>
 <span>                  window_days <span class="op">=</span> <span class="fl">240L</span>,</span>
 <span>                  output <span class="op">=</span> <span class="st">"audpc"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `rlang::exec()`:</span></span>
-<span><span class="co">#&gt; ! Can't create call to non-callable object</span></span></code></pre></div>
+<span><span class="co">#&gt;            emergence     AUDPC location</span></span>
+<span><span class="co">#&gt;     &lt;epicrop.emerge&gt;     &lt;num&gt;   &lt;char&gt;</span></span>
+<span><span class="co">#&gt;  1:       2020-04-15  7.674841 Merredin</span></span>
+<span><span class="co">#&gt;  2:       2020-05-01  4.031927 Merredin</span></span>
+<span><span class="co">#&gt;  3:       2021-04-15 12.952039 Merredin</span></span>
+<span><span class="co">#&gt;  4:       2021-05-01  7.472121 Merredin</span></span>
+<span><span class="co">#&gt;  5:       2020-04-15  7.309789 Corrigin</span></span>
+<span><span class="co">#&gt;  6:       2020-05-01  4.547591 Corrigin</span></span>
+<span><span class="co">#&gt;  7:       2021-04-15 12.922422 Corrigin</span></span>
+<span><span class="co">#&gt;  8:       2021-05-01  6.902683 Corrigin</span></span>
+<span><span class="co">#&gt;  9:       2020-04-15  1.736335 Tamworth</span></span>
+<span><span class="co">#&gt; 10:       2020-05-01  1.644464 Tamworth</span></span>
+<span><span class="co">#&gt; 11:       2021-04-15  3.699709 Tamworth</span></span>
+<span><span class="co">#&gt; 12:       2021-05-01  2.487648 Tamworth</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

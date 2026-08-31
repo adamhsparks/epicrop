@@ -107,20 +107,27 @@ for more on the values returned.
 \
 [`summary`](https://rdrr.io/r/base/summary.html)`(``bb_wet``)`
 
-    ##      simday           dates                sites            latent          infectious          removed           senesced         rateinf     
-    ##  Min.   :  1.00   Min.   :2000-07-01   Min.   :   0.0   Min.   :  0.000   Min.   :   0.000   Min.   :   0.00   Min.   :   1.0   Min.   : 0.00  
-    ##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 305.0   1st Qu.:  0.000   1st Qu.:   1.624   1st Qu.:   0.00   1st Qu.: 122.6   1st Qu.: 0.00  
-    ##  Median : 60.50   Median :2000-08-29   Median : 947.8   Median :  7.786   Median : 100.575   Median :   1.00   Median : 655.9   Median : 0.00  
-    ##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1017.3   Mean   : 75.026   Mean   : 470.055   Mean   : 205.17   Mean   : 845.9   Mean   :15.01  
-    ##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:1628.8   3rd Qu.:106.708   3rd Qu.: 948.202   3rd Qu.:  82.44   3rd Qu.:1214.3   3rd Qu.:19.94  
-    ##  Max.   :120.00   Max.   :2000-10-28   Max.   :2332.8   Max.   :449.126   Max.   :1630.717   Max.   :1571.07   Max.   :2824.4   Max.   :96.26  
-    ##       rlex     rtransfer        rremoved         rgrowth        rsenesced          diseased          intensity             lat       
-    ##  Min.   :0   Min.   : 0.00   Min.   : 0.000   Min.   : 0.00   Min.   :  0.000   Min.   :   0.000   Min.   :0.000000   Min.   :14.68  
-    ##  1st Qu.:0   1st Qu.: 0.00   1st Qu.: 0.000   1st Qu.:14.62   1st Qu.:  7.736   1st Qu.:   2.669   1st Qu.:0.003155   1st Qu.:14.68  
-    ##  Median :0   Median : 0.00   Median : 0.000   Median :22.46   Median : 17.757   Median : 227.860   Median :0.090450   Median :14.68  
-    ##  Mean   :0   Mean   :15.01   Mean   :13.092   Mean   :33.46   Mean   : 23.536   Mean   : 750.251   Mean   :0.317216   Mean   :14.68  
-    ##  3rd Qu.:0   3rd Qu.:19.94   3rd Qu.: 3.571   3rd Qu.:56.48   3rd Qu.: 23.216   3rd Qu.:1752.431   3rd Qu.:0.635283   3rd Qu.:14.68  
-    ##  Max.   :0   Max.   :96.26   Max.   :96.260   Max.   :79.30   Max.   :101.491   Max.   :1808.963   Max.   :1.000000   Max.   :14.68  
+    ##      simday           dates                sites            latent          infectious      
+    ##  Min.   :  1.00   Min.   :2000-07-01   Min.   :   0.0   Min.   :  0.000   Min.   :   0.000  
+    ##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 305.0   1st Qu.:  0.000   1st Qu.:   1.624  
+    ##  Median : 60.50   Median :2000-08-29   Median : 947.8   Median :  7.786   Median : 100.575  
+    ##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1017.3   Mean   : 75.026   Mean   : 470.055  
+    ##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:1628.8   3rd Qu.:106.708   3rd Qu.: 948.202  
+    ##  Max.   :120.00   Max.   :2000-10-28   Max.   :2332.8   Max.   :449.126   Max.   :1630.717  
+    ##     removed           senesced         rateinf           rlex     rtransfer        rremoved     
+    ##  Min.   :   0.00   Min.   :   1.0   Min.   : 0.00   Min.   :0   Min.   : 0.00   Min.   : 0.000  
+    ##  1st Qu.:   0.00   1st Qu.: 122.6   1st Qu.: 0.00   1st Qu.:0   1st Qu.: 0.00   1st Qu.: 0.000  
+    ##  Median :   1.00   Median : 655.9   Median : 0.00   Median :0   Median : 0.00   Median : 0.000  
+    ##  Mean   : 205.17   Mean   : 845.9   Mean   :15.01   Mean   :0   Mean   :15.01   Mean   :13.092  
+    ##  3rd Qu.:  82.44   3rd Qu.:1214.3   3rd Qu.:19.94   3rd Qu.:0   3rd Qu.:19.94   3rd Qu.: 3.571  
+    ##  Max.   :1571.07   Max.   :2824.4   Max.   :96.26   Max.   :0   Max.   :96.26   Max.   :96.260  
+    ##     rgrowth        rsenesced          diseased          intensity             lat       
+    ##  Min.   : 0.00   Min.   :  0.000   Min.   :   0.000   Min.   :0.000000   Min.   :14.68  
+    ##  1st Qu.:14.62   1st Qu.:  7.736   1st Qu.:   2.669   1st Qu.:0.003155   1st Qu.:14.68  
+    ##  Median :22.46   Median : 17.757   Median : 227.860   Median :0.090450   Median :14.68  
+    ##  Mean   :33.46   Mean   : 23.536   Mean   : 750.251   Mean   :0.317216   Mean   :14.68  
+    ##  3rd Qu.:56.48   3rd Qu.: 23.216   3rd Qu.:1752.431   3rd Qu.:0.635283   3rd Qu.:14.68  
+    ##  Max.   :79.30   Max.   :101.491   Max.   :1808.963   Max.   :1.000000   Max.   :14.68  
     ##       lon       
     ##  Min.   :121.3  
     ##  1st Qu.:121.3  
@@ -136,7 +143,11 @@ long format for use in {ggplot2} if you wish to plot more than one
 variable at a time.
 
 \
-[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`
+
+    ## Need help getting started? Try the R Graphics Cookbook: https://r-graphics.org
+
+\
 [`library`](https://rdrr.io/r/base/library.html)`(`[`tidyr`](https://tidyr.tidyverse.org)`)`
 
 #### Wet season sites
@@ -217,20 +228,27 @@ values for both seasons.
 `bb_dry`` ``<-`` `[`bacterial_blight`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)`(``wth ``=`` ``wth``, emergence ``=`` ``"2000-01-05"``)`\
 [`summary`](https://rdrr.io/r/base/summary.html)`(``bb_dry``)`
 
-    ##      simday           dates                sites            latent          infectious         removed           senesced     
-    ##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :   0.00   Min.   :   0.00   Min.   :   1.0  
-    ##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 681.8   1st Qu.:  0.000   1st Qu.:   1.00   1st Qu.:   0.00   1st Qu.: 122.7  
-    ##  Median : 60.50   Median :2000-03-04   Median :1244.4   Median :  4.716   Median :  73.54   Median :   1.00   Median : 652.6  
-    ##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1252.4   Mean   : 62.212   Mean   : 377.60   Mean   : 141.78   Mean   : 835.0  
-    ##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:1845.6   3rd Qu.:130.904   3rd Qu.: 835.86   3rd Qu.:  73.54   3rd Qu.:1292.1  
-    ##  Max.   :120.00   Max.   :2000-05-03   Max.   :2355.2   Max.   :314.544   Max.   :1201.11   Max.   :1134.29   Max.   :2637.2  
-    ##     rateinf              rlex     rtransfer           rremoved          rgrowth         rsenesced          diseased          intensity      
-    ##  Min.   :  0.0000   Min.   :0   Min.   :  0.0000   Min.   :  0.000   Min.   : 9.688   Min.   :  1.000   Min.   :   0.000   Min.   :0.00000  
-    ##  1st Qu.:  0.0000   1st Qu.:0   1st Qu.:  0.0000   1st Qu.:  0.000   1st Qu.:21.322   1st Qu.:  6.895   1st Qu.:   2.537   1st Qu.:0.00303  
-    ##  Median :  0.0000   Median :0   Median :  0.0000   Median :  0.000   Median :28.421   Median : 14.780   Median : 196.999   Median :0.07774  
-    ##  Mean   : 12.4423   Mean   :0   Mean   : 12.4423   Mean   :  9.452   Mean   :38.099   Mean   : 21.976   Mean   : 581.583   Mean   :0.19988  
-    ##  3rd Qu.:  0.7989   3rd Qu.:0   3rd Qu.:  0.7989   3rd Qu.:  0.000   3rd Qu.:57.194   3rd Qu.: 22.475   3rd Qu.:1333.224   3rd Qu.:0.44919  
-    ##  Max.   :168.6255   Max.   :0   Max.   :168.6255   Max.   :168.626   Max.   :78.713   Max.   :177.715   Max.   :1576.766   Max.   :0.54088  
+    ##      simday           dates                sites            latent          infectious     
+    ##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :   0.00  
+    ##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 681.8   1st Qu.:  0.000   1st Qu.:   1.00  
+    ##  Median : 60.50   Median :2000-03-04   Median :1244.4   Median :  4.716   Median :  73.54  
+    ##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1252.4   Mean   : 62.212   Mean   : 377.60  
+    ##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:1845.6   3rd Qu.:130.904   3rd Qu.: 835.86  
+    ##  Max.   :120.00   Max.   :2000-05-03   Max.   :2355.2   Max.   :314.544   Max.   :1201.11  
+    ##     removed           senesced         rateinf              rlex     rtransfer       
+    ##  Min.   :   0.00   Min.   :   1.0   Min.   :  0.0000   Min.   :0   Min.   :  0.0000  
+    ##  1st Qu.:   0.00   1st Qu.: 122.7   1st Qu.:  0.0000   1st Qu.:0   1st Qu.:  0.0000  
+    ##  Median :   1.00   Median : 652.6   Median :  0.0000   Median :0   Median :  0.0000  
+    ##  Mean   : 141.78   Mean   : 835.0   Mean   : 12.4423   Mean   :0   Mean   : 12.4423  
+    ##  3rd Qu.:  73.54   3rd Qu.:1292.1   3rd Qu.:  0.7989   3rd Qu.:0   3rd Qu.:  0.7989  
+    ##  Max.   :1134.29   Max.   :2637.2   Max.   :168.6255   Max.   :0   Max.   :168.6255  
+    ##     rremoved          rgrowth         rsenesced          diseased          intensity      
+    ##  Min.   :  0.000   Min.   : 9.688   Min.   :  1.000   Min.   :   0.000   Min.   :0.00000  
+    ##  1st Qu.:  0.000   1st Qu.:21.322   1st Qu.:  6.895   1st Qu.:   2.537   1st Qu.:0.00303  
+    ##  Median :  0.000   Median :28.421   Median : 14.780   Median : 196.999   Median :0.07774  
+    ##  Mean   :  9.452   Mean   :38.099   Mean   : 21.976   Mean   : 581.583   Mean   :0.19988  
+    ##  3rd Qu.:  0.000   3rd Qu.:57.194   3rd Qu.: 22.475   3rd Qu.:1333.224   3rd Qu.:0.44919  
+    ##  Max.   :168.626   Max.   :78.713   Max.   :177.715   Max.   :1576.766   Max.   :0.54088  
     ##       lat             lon       
     ##  Min.   :14.68   Min.   :121.3  
     ##  1st Qu.:14.68   1st Qu.:121.3  

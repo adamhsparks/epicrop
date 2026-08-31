@@ -52,12 +52,7 @@ end of the last season of the last start date.
 `  lonlat ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``121.255669``, ``14.16742``)``,`\
 `  start_date ``=`` ``emergence_date``,`\
 `  duration ``=`` ``duration`\
-`)`\
-`` #> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A shallow copy of this data.table was taken so that := can add or ``\
-`#> remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar).`\
-`#> Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set,`\
-`#> ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't`\
-`#> help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.`
+`)`
 
 ### Using a Helper Function to Model Several Seasons
 
@@ -68,18 +63,19 @@ now to run
 for two seasons and create a single data frame of the two seasons.
 
 \
-`bb_2_seasons`` ``<-`` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(``model ``=`` ``bacterial_blight``,`\
-`                                  emergence ``=`` ``ymd``,`\
+`bb_2_seasons`` ``<-`` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(``model_fun ``=`` ``bacterial_blight``,`\
+`                                  emergence_date ``=`` ``ymd``,`\
 `                                  wth_list ``=`` ``wth_list``,`\
 `                                  window_days ``=`` ``duration``)`\
-`#> Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'model' to 'model_fun'`\
-`#> Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'emergence' to 'emergence_dates'`\
-`` #> Error in `rlang::exec()`: ``\
-`#> ! Can't create call to non-callable object`\
+`#> Warning in run_epicrop_model(model_fun = bacterial_blight, emergence_date = ymd, : partial argument`\
+`#> match of 'emergence_date' to 'emergence_dates'`\
 \
 `bb_2_seasons`\
-`#> Error:`\
-`#> ! object 'bb_2_seasons' not found`
+`#> Key: <emergence, AUDPC>`\
+`#>           emergence    AUDPC`\
+`#>    <epicrop.emerge>    <num>`\
+`#> 1:       2000-06-30 33.35499`\
+`#> 2:       2001-06-30 23.27681`
 
 ### Visualising differences in AUDPC between seasons
 
@@ -95,9 +91,15 @@ visualise the difference between the two seasons.
 `           orientation ``=`` ``"y"``)`` ``+`\
 `  `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Emergence (YYYY-MM-DD)"``)`` ``+`\
 `  `[`xlab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"AUDPC"``)`` ``+`\
-`  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`\
-`#> Error:`\
-`#> ! object 'bb_2_seasons' not found`
+`  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
+
+![Bacterial blight area under the disease progress curve (AUDPC) for the
+2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
+Calabarzon, Philippines.](graph_seasons-1.png)
+
+Bacterial blight area under the disease progress curve (AUDPC) for the
+2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
+Calabarzon, Philippines.
 
 ### Simulating multiple seasons and establishment dates
 
@@ -119,12 +121,7 @@ is provided to simplify running multiple establishment dates.
 `wth_list`` ``<-`` `[`fetch_epicrop_weather_list`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)`(``years ``=`` ``years``,`\
 `                                       lonlat ``=`` ``lonlat``,`\
 `                                       start_date ``=`` ``month_day``,`\
-`                                       duration ``=`` ``duration``)`\
-`` #> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A shallow copy of this data.table was taken so that := can add or ``\
-`#> remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar).`\
-`#> Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set,`\
-`#> ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't`\
-`#> help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.`
+`                                       duration ``=`` ``duration``)`
 
 \
 ` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(``bacterial_blight``,`\
@@ -132,8 +129,71 @@ is provided to simplify running multiple establishment dates.
 `                   ``wth_list``,`\
 `                   window_days ``=`` ``duration``,`\
 `                   output ``=`` ``"audpc"``)`\
-`` #> Error in `rlang::exec()`: ``\
-`#> ! Can't create call to non-callable object`
+`#> Key: <emergence, AUDPC>`\
+`#>            emergence    AUDPC`\
+`#>     <epicrop.emerge>    <num>`\
+`#>  1:       2001-06-01 37.63796`\
+`#>  2:       2001-06-14 33.40447`\
+`#>  3:       2001-06-30 23.27681`\
+`#>  4:       2002-06-01 34.64894`\
+`#>  5:       2002-06-14 35.23461`\
+`#>  6:       2002-06-30 36.63927`\
+`#>  7:       2003-06-01 33.33186`\
+`#>  8:       2003-06-14 35.91991`\
+`#>  9:       2003-06-30 40.34007`\
+`#> 10:       2004-06-01 36.58149`\
+`#> 11:       2004-06-14 42.66673`\
+`#> 12:       2004-06-30 29.54521`\
+`#> 13:       2005-06-01 35.46168`\
+`#> 14:       2005-06-14 32.94811`\
+`#> 15:       2005-06-30 37.34664`\
+`#> 16:       2006-06-01 42.72507`\
+`#> 17:       2006-06-14 42.46803`\
+`#> 18:       2006-06-30 33.49726`\
+`#> 19:       2007-06-01 23.53191`\
+`#> 20:       2007-06-14 22.14872`\
+`#> 21:       2007-06-30 27.12497`\
+`#> 22:       2008-06-01 27.30096`\
+`#> 23:       2008-06-14 27.03446`\
+`#> 24:       2008-06-30 31.68267`\
+`#> 25:       2009-06-01 22.10567`\
+`#> 26:       2009-06-14 26.35464`\
+`#> 27:       2009-06-30 25.97842`\
+`#> 28:       2010-06-01 34.74639`\
+`#> 29:       2010-06-14 40.28505`\
+`#> 30:       2010-06-30 38.72189`\
+`#> 31:       2011-06-01 35.82841`\
+`#> 32:       2011-06-14 39.77898`\
+`#> 33:       2011-06-30 47.11856`\
+`#> 34:       2012-06-01 42.56076`\
+`#> 35:       2012-06-14 42.03287`\
+`#> 36:       2012-06-30 45.05923`\
+`#> 37:       2013-06-01 39.65612`\
+`#> 38:       2013-06-14 40.31719`\
+`#> 39:       2013-06-30 41.29252`\
+`#> 40:       2014-06-01 27.77329`\
+`#> 41:       2014-06-14 28.63167`\
+`#> 42:       2014-06-30 27.68996`\
+`#> 43:       2015-06-01 18.65482`\
+`#> 44:       2015-06-14 23.87071`\
+`#> 45:       2015-06-30 29.73648`\
+`#> 46:       2016-06-01 27.79225`\
+`#> 47:       2016-06-14 24.87684`\
+`#> 48:       2016-06-30 27.06310`\
+`#> 49:       2017-06-01 33.85670`\
+`#> 50:       2017-06-14 30.61643`\
+`#> 51:       2017-06-30 27.47632`\
+`#> 52:       2018-06-01 41.48556`\
+`#> 53:       2018-06-14 40.73465`\
+`#> 54:       2018-06-30 32.12418`\
+`#> 55:       2019-06-01 29.61033`\
+`#> 56:       2019-06-14 28.35922`\
+`#> 57:       2019-06-30 32.35699`\
+`#> 58:       2020-06-01 23.17698`\
+`#> 59:       2020-06-14 19.87281`\
+`#> 60:       2020-06-30 22.84166`\
+`#>            emergence    AUDPC`\
+`#>     <epicrop.emerge>    <num>`
 
 #### Multiple Sites and Seasons
 
@@ -164,8 +224,6 @@ with a 240 day growing season.
 `  years ``=`` ``years``,`\
 `  mode ``=`` ``"cross"`\
 `  ``)`\
-`` #> Error in `data.table::rbindlist()`: ``\
-`#> ! Item 1 of input is not a data.frame, data.table or list`\
 \
 `emergence`` ``<-`` `[`build_epicrop_emergence`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)`(``years``, ``start_date``)`
 
@@ -177,5 +235,17 @@ Examples of how to run the model sequentially and in parallel.
 `                  ``wth_list``,`\
 `                  window_days ``=`` ``240L``,`\
 `                  output ``=`` ``"audpc"``)`\
-`` #> Error in `rlang::exec()`: ``\
-`#> ! Can't create call to non-callable object`
+`#>            emergence     AUDPC location`\
+`#>     <epicrop.emerge>     <num>   <char>`\
+`#>  1:       2020-04-15  7.674841 Merredin`\
+`#>  2:       2020-05-01  4.031927 Merredin`\
+`#>  3:       2021-04-15 12.952039 Merredin`\
+`#>  4:       2021-05-01  7.472121 Merredin`\
+`#>  5:       2020-04-15  7.309789 Corrigin`\
+`#>  6:       2020-05-01  4.547591 Corrigin`\
+`#>  7:       2021-04-15 12.922422 Corrigin`\
+`#>  8:       2021-05-01  6.902683 Corrigin`\
+`#>  9:       2020-04-15  1.736335 Tamworth`\
+`#> 10:       2020-05-01  1.644464 Tamworth`\
+`#> 11:       2021-04-15  3.699709 Tamworth`\
+`#> 12:       2021-05-01  2.487648 Tamworth`

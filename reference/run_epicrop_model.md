@@ -92,9 +92,102 @@ wth_list <- fetch_epicrop_weather_list(years,
                                        lonlat,
                                        start_date = month_day,
                                        duration = duration)
-#> Error in .norm_locations(lonlat): `lonlat` numeric vector must have even length.
-#> ✖ You provided length 3
-#> ℹ Expected pairs of (longitude, latitude)
+#> Error in .norm_locations(lonlat): `lonlat` numeric vector must have positive even length.
+#> ✖ You provided length 3.
+#> ℹ Expected pairs of (longitude, latitude).
 run_epicrop_model(bacterial_blight, emergence, wth_list)
-#> Error in rlang::exec(wth = data.table::copy(w_sub), emergence = ed, !!!dots,     !!!extra): Can't create call to non-callable object
+#> Warning: Skipping 2001-06-01: no weather for year 2001.
+#> Warning: Skipping 2001-06-14: no weather for year 2001.
+#> Warning: Skipping 2001-06-30: no weather for year 2001.
+#> Warning: Skipping 2002-06-01: no weather for year 2002.
+#> Warning: Skipping 2002-06-14: no weather for year 2002.
+#> Warning: Skipping 2002-06-30: no weather for year 2002.
+#> Warning: Skipping 2003-06-01: no weather for year 2003.
+#> Warning: Skipping 2003-06-14: no weather for year 2003.
+#> Warning: Skipping 2003-06-30: no weather for year 2003.
+#> Warning: Skipping 2001-06-01: no weather for year 2001.
+#> Warning: Skipping 2001-06-14: no weather for year 2001.
+#> Warning: Skipping 2001-06-30: no weather for year 2001.
+#> Warning: Skipping 2002-06-01: no weather for year 2002.
+#> Warning: Skipping 2002-06-14: no weather for year 2002.
+#> Warning: Skipping 2002-06-30: no weather for year 2002.
+#> Warning: Skipping 2003-06-01: no weather for year 2003.
+#> Warning: Skipping 2003-06-14: no weather for year 2003.
+#> Warning: Skipping 2003-06-30: no weather for year 2003.
+#> Warning: Skipping 2001-06-01: no weather for year 2001.
+#> Warning: Skipping 2001-06-14: no weather for year 2001.
+#> Warning: Skipping 2001-06-30: no weather for year 2001.
+#> Warning: Skipping 2002-06-01: no weather for year 2002.
+#> Warning: Skipping 2002-06-14: no weather for year 2002.
+#> Warning: Skipping 2002-06-30: no weather for year 2002.
+#> Warning: Skipping 2003-06-01: no weather for year 2003.
+#> Warning: Skipping 2003-06-14: no weather for year 2003.
+#> Warning: Skipping 2003-06-30: no weather for year 2003.
+#> Warning: Skipping 2001-06-01: no weather for year 2001.
+#> Warning: Skipping 2001-06-14: no weather for year 2001.
+#> Warning: Skipping 2001-06-30: no weather for year 2001.
+#> Warning: Skipping 2002-06-01: no weather for year 2002.
+#> Warning: Skipping 2002-06-14: no weather for year 2002.
+#> Warning: Skipping 2002-06-30: no weather for year 2002.
+#> Warning: Skipping 2003-06-01: no weather for year 2003.
+#> Warning: Skipping 2003-06-14: no weather for year 2003.
+#> Warning: Skipping 2003-06-30: no weather for year 2003.
+#> Warning: Skipping 2001-06-01: no weather for year 2001.
+#> Warning: Skipping 2001-06-14: no weather for year 2001.
+#> Warning: Skipping 2001-06-30: no weather for year 2001.
+#> Warning: Skipping 2002-06-01: no weather for year 2002.
+#> Warning: Skipping 2002-06-14: no weather for year 2002.
+#> Warning: Skipping 2002-06-30: no weather for year 2002.
+#> Warning: Skipping 2003-06-01: no weather for year 2003.
+#> Warning: Skipping 2003-06-14: no weather for year 2003.
+#> Warning: Skipping 2003-06-30: no weather for year 2003.
+#>            emergence AUDPC     location
+#>     <epicrop.emerge> <num>       <char>
+#>  1:       2001-06-01    NA Mekong River
+#>  2:       2001-06-14    NA Mekong River
+#>  3:       2001-06-30    NA Mekong River
+#>  4:       2002-06-01    NA Mekong River
+#>  5:       2002-06-14    NA Mekong River
+#>  6:       2002-06-30    NA Mekong River
+#>  7:       2003-06-01    NA Mekong River
+#>  8:       2003-06-14    NA Mekong River
+#>  9:       2003-06-30    NA Mekong River
+#> 10:       2001-06-01    NA    Red River
+#> 11:       2001-06-14    NA    Red River
+#> 12:       2001-06-30    NA    Red River
+#> 13:       2002-06-01    NA    Red River
+#> 14:       2002-06-14    NA    Red River
+#> 15:       2002-06-30    NA    Red River
+#> 16:       2003-06-01    NA    Red River
+#> 17:       2003-06-14    NA    Red River
+#> 18:       2003-06-30    NA    Red River
+#> 19:       2001-06-01    NA Prachin Buri
+#> 20:       2001-06-14    NA Prachin Buri
+#> 21:       2001-06-30    NA Prachin Buri
+#> 22:       2002-06-01    NA Prachin Buri
+#> 23:       2002-06-14    NA Prachin Buri
+#> 24:       2002-06-30    NA Prachin Buri
+#> 25:       2003-06-01    NA Prachin Buri
+#> 26:       2003-06-14    NA Prachin Buri
+#> 27:       2003-06-30    NA Prachin Buri
+#> 28:       2001-06-01    NA      Chennai
+#> 29:       2001-06-14    NA      Chennai
+#> 30:       2001-06-30    NA      Chennai
+#> 31:       2002-06-01    NA      Chennai
+#> 32:       2002-06-14    NA      Chennai
+#> 33:       2002-06-30    NA      Chennai
+#> 34:       2003-06-01    NA      Chennai
+#> 35:       2003-06-14    NA      Chennai
+#> 36:       2003-06-30    NA      Chennai
+#> 37:       2001-06-01    NA  Neuva Ecija
+#> 38:       2001-06-14    NA  Neuva Ecija
+#> 39:       2001-06-30    NA  Neuva Ecija
+#> 40:       2002-06-01    NA  Neuva Ecija
+#> 41:       2002-06-14    NA  Neuva Ecija
+#> 42:       2002-06-30    NA  Neuva Ecija
+#> 43:       2003-06-01    NA  Neuva Ecija
+#> 44:       2003-06-14    NA  Neuva Ecija
+#> 45:       2003-06-30    NA  Neuva Ecija
+#>            emergence AUDPC     location
+#>     <epicrop.emerge> <num>       <char>
 ```

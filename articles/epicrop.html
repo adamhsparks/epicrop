@@ -161,20 +161,27 @@ the values returned.</p>
 <span><span class="va">bb_wet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_wet</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##      simday           dates                sites            latent          infectious          removed           senesced         rateinf     </span></span>
-<span><span class="co">##  Min.   :  1.00   Min.   :2000-07-01   Min.   :   0.0   Min.   :  0.000   Min.   :   0.000   Min.   :   0.00   Min.   :   1.0   Min.   : 0.00  </span></span>
-<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 305.0   1st Qu.:  0.000   1st Qu.:   1.624   1st Qu.:   0.00   1st Qu.: 122.6   1st Qu.: 0.00  </span></span>
-<span><span class="co">##  Median : 60.50   Median :2000-08-29   Median : 947.8   Median :  7.786   Median : 100.575   Median :   1.00   Median : 655.9   Median : 0.00  </span></span>
-<span><span class="co">##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1017.3   Mean   : 75.026   Mean   : 470.055   Mean   : 205.17   Mean   : 845.9   Mean   :15.01  </span></span>
-<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:1628.8   3rd Qu.:106.708   3rd Qu.: 948.202   3rd Qu.:  82.44   3rd Qu.:1214.3   3rd Qu.:19.94  </span></span>
-<span><span class="co">##  Max.   :120.00   Max.   :2000-10-28   Max.   :2332.8   Max.   :449.126   Max.   :1630.717   Max.   :1571.07   Max.   :2824.4   Max.   :96.26  </span></span>
-<span><span class="co">##       rlex     rtransfer        rremoved         rgrowth        rsenesced          diseased          intensity             lat       </span></span>
-<span><span class="co">##  Min.   :0   Min.   : 0.00   Min.   : 0.000   Min.   : 0.00   Min.   :  0.000   Min.   :   0.000   Min.   :0.000000   Min.   :14.68  </span></span>
-<span><span class="co">##  1st Qu.:0   1st Qu.: 0.00   1st Qu.: 0.000   1st Qu.:14.62   1st Qu.:  7.736   1st Qu.:   2.669   1st Qu.:0.003155   1st Qu.:14.68  </span></span>
-<span><span class="co">##  Median :0   Median : 0.00   Median : 0.000   Median :22.46   Median : 17.757   Median : 227.860   Median :0.090450   Median :14.68  </span></span>
-<span><span class="co">##  Mean   :0   Mean   :15.01   Mean   :13.092   Mean   :33.46   Mean   : 23.536   Mean   : 750.251   Mean   :0.317216   Mean   :14.68  </span></span>
-<span><span class="co">##  3rd Qu.:0   3rd Qu.:19.94   3rd Qu.: 3.571   3rd Qu.:56.48   3rd Qu.: 23.216   3rd Qu.:1752.431   3rd Qu.:0.635283   3rd Qu.:14.68  </span></span>
-<span><span class="co">##  Max.   :0   Max.   :96.26   Max.   :96.260   Max.   :79.30   Max.   :101.491   Max.   :1808.963   Max.   :1.000000   Max.   :14.68  </span></span>
+<pre><code><span><span class="co">##      simday           dates                sites            latent          infectious      </span></span>
+<span><span class="co">##  Min.   :  1.00   Min.   :2000-07-01   Min.   :   0.0   Min.   :  0.000   Min.   :   0.000  </span></span>
+<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-07-30   1st Qu.: 305.0   1st Qu.:  0.000   1st Qu.:   1.624  </span></span>
+<span><span class="co">##  Median : 60.50   Median :2000-08-29   Median : 947.8   Median :  7.786   Median : 100.575  </span></span>
+<span><span class="co">##  Mean   : 60.50   Mean   :2000-08-29   Mean   :1017.3   Mean   : 75.026   Mean   : 470.055  </span></span>
+<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-09-28   3rd Qu.:1628.8   3rd Qu.:106.708   3rd Qu.: 948.202  </span></span>
+<span><span class="co">##  Max.   :120.00   Max.   :2000-10-28   Max.   :2332.8   Max.   :449.126   Max.   :1630.717  </span></span>
+<span><span class="co">##     removed           senesced         rateinf           rlex     rtransfer        rremoved     </span></span>
+<span><span class="co">##  Min.   :   0.00   Min.   :   1.0   Min.   : 0.00   Min.   :0   Min.   : 0.00   Min.   : 0.000  </span></span>
+<span><span class="co">##  1st Qu.:   0.00   1st Qu.: 122.6   1st Qu.: 0.00   1st Qu.:0   1st Qu.: 0.00   1st Qu.: 0.000  </span></span>
+<span><span class="co">##  Median :   1.00   Median : 655.9   Median : 0.00   Median :0   Median : 0.00   Median : 0.000  </span></span>
+<span><span class="co">##  Mean   : 205.17   Mean   : 845.9   Mean   :15.01   Mean   :0   Mean   :15.01   Mean   :13.092  </span></span>
+<span><span class="co">##  3rd Qu.:  82.44   3rd Qu.:1214.3   3rd Qu.:19.94   3rd Qu.:0   3rd Qu.:19.94   3rd Qu.: 3.571  </span></span>
+<span><span class="co">##  Max.   :1571.07   Max.   :2824.4   Max.   :96.26   Max.   :0   Max.   :96.26   Max.   :96.260  </span></span>
+<span><span class="co">##     rgrowth        rsenesced          diseased          intensity             lat       </span></span>
+<span><span class="co">##  Min.   : 0.00   Min.   :  0.000   Min.   :   0.000   Min.   :0.000000   Min.   :14.68  </span></span>
+<span><span class="co">##  1st Qu.:14.62   1st Qu.:  7.736   1st Qu.:   2.669   1st Qu.:0.003155   1st Qu.:14.68  </span></span>
+<span><span class="co">##  Median :22.46   Median : 17.757   Median : 227.860   Median :0.090450   Median :14.68  </span></span>
+<span><span class="co">##  Mean   :33.46   Mean   : 23.536   Mean   : 750.251   Mean   :0.317216   Mean   :14.68  </span></span>
+<span><span class="co">##  3rd Qu.:56.48   3rd Qu.: 23.216   3rd Qu.:1752.431   3rd Qu.:0.635283   3rd Qu.:14.68  </span></span>
+<span><span class="co">##  Max.   :79.30   Max.   :101.491   Max.   :1808.963   Max.   :1.000000   Max.   :14.68  </span></span>
 <span><span class="co">##       lon       </span></span>
 <span><span class="co">##  Min.   :121.3  </span></span>
 <span><span class="co">##  1st Qu.:121.3  </span></span>
@@ -191,14 +198,16 @@ the values returned.</p>
 long format for use in {ggplot2} if you wish to plot more than one
 variable at a time.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Need help getting started? Try the R Graphics Cookbook: https://r-graphics.org</span></span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="wet-season-sites">Wet season sites<a class="anchor" aria-label="anchor" href="#wet-season-sites"></a>
 </h4>
 <p>The model records the number of sites for each bin daily; this can be
 graphed as follows.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
 <span>  <span class="va">bb_wet</span>,</span>
 <span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diseased"</span>, <span class="st">"removed"</span>, <span class="st">"latent"</span>, <span class="st">"infectious"</span><span class="op">)</span>,</span>
@@ -231,7 +240,7 @@ Science Directorate Applied Science Program.</div>
 </h4>
 <p>Plotting intensity over time does not require any data
 manipulation.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_wet</span>,</span>
 <span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,</span>
 <span>           y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -260,23 +269,30 @@ for a given simulated season is returned as a part of the output from
 any of the disease simulations offered in {epicrop}. You can find the
 value in the <code>AUDPC</code> column. We can compare the dry season
 with the wet season by looking at the AUDPC values for both seasons.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bb_dry</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/disease_models.html">bacterial_blight</a></span><span class="op">(</span>wth <span class="op">=</span> <span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-01-05"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##      simday           dates                sites            latent          infectious         removed           senesced     </span></span>
-<span><span class="co">##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :   0.00   Min.   :   0.00   Min.   :   1.0  </span></span>
-<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 681.8   1st Qu.:  0.000   1st Qu.:   1.00   1st Qu.:   0.00   1st Qu.: 122.7  </span></span>
-<span><span class="co">##  Median : 60.50   Median :2000-03-04   Median :1244.4   Median :  4.716   Median :  73.54   Median :   1.00   Median : 652.6  </span></span>
-<span><span class="co">##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1252.4   Mean   : 62.212   Mean   : 377.60   Mean   : 141.78   Mean   : 835.0  </span></span>
-<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:1845.6   3rd Qu.:130.904   3rd Qu.: 835.86   3rd Qu.:  73.54   3rd Qu.:1292.1  </span></span>
-<span><span class="co">##  Max.   :120.00   Max.   :2000-05-03   Max.   :2355.2   Max.   :314.544   Max.   :1201.11   Max.   :1134.29   Max.   :2637.2  </span></span>
-<span><span class="co">##     rateinf              rlex     rtransfer           rremoved          rgrowth         rsenesced          diseased          intensity      </span></span>
-<span><span class="co">##  Min.   :  0.0000   Min.   :0   Min.   :  0.0000   Min.   :  0.000   Min.   : 9.688   Min.   :  1.000   Min.   :   0.000   Min.   :0.00000  </span></span>
-<span><span class="co">##  1st Qu.:  0.0000   1st Qu.:0   1st Qu.:  0.0000   1st Qu.:  0.000   1st Qu.:21.322   1st Qu.:  6.895   1st Qu.:   2.537   1st Qu.:0.00303  </span></span>
-<span><span class="co">##  Median :  0.0000   Median :0   Median :  0.0000   Median :  0.000   Median :28.421   Median : 14.780   Median : 196.999   Median :0.07774  </span></span>
-<span><span class="co">##  Mean   : 12.4423   Mean   :0   Mean   : 12.4423   Mean   :  9.452   Mean   :38.099   Mean   : 21.976   Mean   : 581.583   Mean   :0.19988  </span></span>
-<span><span class="co">##  3rd Qu.:  0.7989   3rd Qu.:0   3rd Qu.:  0.7989   3rd Qu.:  0.000   3rd Qu.:57.194   3rd Qu.: 22.475   3rd Qu.:1333.224   3rd Qu.:0.44919  </span></span>
-<span><span class="co">##  Max.   :168.6255   Max.   :0   Max.   :168.6255   Max.   :168.626   Max.   :78.713   Max.   :177.715   Max.   :1576.766   Max.   :0.54088  </span></span>
+<pre><code><span><span class="co">##      simday           dates                sites            latent          infectious     </span></span>
+<span><span class="co">##  Min.   :  1.00   Min.   :2000-01-05   Min.   : 100.0   Min.   :  0.000   Min.   :   0.00  </span></span>
+<span><span class="co">##  1st Qu.: 30.75   1st Qu.:2000-02-03   1st Qu.: 681.8   1st Qu.:  0.000   1st Qu.:   1.00  </span></span>
+<span><span class="co">##  Median : 60.50   Median :2000-03-04   Median :1244.4   Median :  4.716   Median :  73.54  </span></span>
+<span><span class="co">##  Mean   : 60.50   Mean   :2000-03-04   Mean   :1252.4   Mean   : 62.212   Mean   : 377.60  </span></span>
+<span><span class="co">##  3rd Qu.: 90.25   3rd Qu.:2000-04-03   3rd Qu.:1845.6   3rd Qu.:130.904   3rd Qu.: 835.86  </span></span>
+<span><span class="co">##  Max.   :120.00   Max.   :2000-05-03   Max.   :2355.2   Max.   :314.544   Max.   :1201.11  </span></span>
+<span><span class="co">##     removed           senesced         rateinf              rlex     rtransfer       </span></span>
+<span><span class="co">##  Min.   :   0.00   Min.   :   1.0   Min.   :  0.0000   Min.   :0   Min.   :  0.0000  </span></span>
+<span><span class="co">##  1st Qu.:   0.00   1st Qu.: 122.7   1st Qu.:  0.0000   1st Qu.:0   1st Qu.:  0.0000  </span></span>
+<span><span class="co">##  Median :   1.00   Median : 652.6   Median :  0.0000   Median :0   Median :  0.0000  </span></span>
+<span><span class="co">##  Mean   : 141.78   Mean   : 835.0   Mean   : 12.4423   Mean   :0   Mean   : 12.4423  </span></span>
+<span><span class="co">##  3rd Qu.:  73.54   3rd Qu.:1292.1   3rd Qu.:  0.7989   3rd Qu.:0   3rd Qu.:  0.7989  </span></span>
+<span><span class="co">##  Max.   :1134.29   Max.   :2637.2   Max.   :168.6255   Max.   :0   Max.   :168.6255  </span></span>
+<span><span class="co">##     rremoved          rgrowth         rsenesced          diseased          intensity      </span></span>
+<span><span class="co">##  Min.   :  0.000   Min.   : 9.688   Min.   :  1.000   Min.   :   0.000   Min.   :0.00000  </span></span>
+<span><span class="co">##  1st Qu.:  0.000   1st Qu.:21.322   1st Qu.:  6.895   1st Qu.:   2.537   1st Qu.:0.00303  </span></span>
+<span><span class="co">##  Median :  0.000   Median :28.421   Median : 14.780   Median : 196.999   Median :0.07774  </span></span>
+<span><span class="co">##  Mean   :  9.452   Mean   :38.099   Mean   : 21.976   Mean   : 581.583   Mean   :0.19988  </span></span>
+<span><span class="co">##  3rd Qu.:  0.000   3rd Qu.:57.194   3rd Qu.: 22.475   3rd Qu.:1333.224   3rd Qu.:0.44919  </span></span>
+<span><span class="co">##  Max.   :168.626   Max.   :78.713   Max.   :177.715   Max.   :1576.766   Max.   :0.54088  </span></span>
 <span><span class="co">##       lat             lon       </span></span>
 <span><span class="co">##  Min.   :14.68   Min.   :121.3  </span></span>
 <span><span class="co">##  1st Qu.:14.68   1st Qu.:121.3  </span></span>
@@ -288,7 +304,7 @@ with the wet season by looking at the AUDPC values for both seasons.</p>
 <h4 id="dry-season-intensity">Dry season intensity<a class="anchor" aria-label="anchor" href="#dry-season-intensity"></a>
 </h4>
 <p>Check the disease progress curve for the dry season.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bb_dry</span>,</span>
 <span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span>,</span>
 <span>           y <span class="op">=</span> <span class="va">intensity</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -307,11 +323,11 @@ Science Directorate Applied Science Program.</div>
 <p>The AUDPC values can be viewed directly from the attributes of the
 <code>data.table</code> outputs above, but we can also create a small
 helper function to extract them.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dry season</span></span>
 <span><span class="fu"><a href="../reference/get_audpc.html">get_audpc</a></span><span class="op">(</span><span class="va">bb_dry</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 23.78366</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Wet season</span></span>
 <span><span class="fu"><a href="../reference/get_audpc.html">get_audpc</a></span><span class="op">(</span><span class="va">bb_wet</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 37.56589</span></span></code></pre>
