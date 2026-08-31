@@ -30,8 +30,8 @@ bacterial_blight(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
-  rhlim = 95,
-  rainlim = 10,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
@@ -138,8 +138,8 @@ bb(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
-  rhlim = 95,
-  rainlim = 10,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 

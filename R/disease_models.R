@@ -40,8 +40,8 @@ bacterial_blight <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
-  rhlim = 95,
-  rainlim = 10,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
   params <- epi_get_params("rice", "bacterial_blight")
@@ -54,8 +54,8 @@ bacterial_blight <- function(
     RRS = RRS %||% params$RRS, # 0.01 (Savary et al. 2012, Table 2)
     onset = 20L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 100L,
     I0 = 1L,
     RcOpt = 0.87,
@@ -325,7 +325,7 @@ leaf_rust <- function(
     H0 = 250L,
     I0 = 10L,
     RcOpt = 1.472,
-    RRLEX = 0,
+    RRLEX = 0.0,
     p = 7L,
     i = 31L,
     Sx = 750000L,
