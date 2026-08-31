@@ -30,12 +30,34 @@ bacterial_blight(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = 95,
+  rainlim = 10,
   ...
 )
 
-brown_spot(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+brown_spot(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-leaf_blast(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+leaf_blast(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
 sheath_blight(
   wth,
@@ -44,10 +66,22 @@ sheath_blight(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
-tungro(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+tungro(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
 modified_kim_leaf_blast(
   wth,
@@ -56,6 +90,8 @@ modified_kim_leaf_blast(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
@@ -66,10 +102,22 @@ modified_kim_sheath_blight(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
-leaf_rust(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+leaf_rust(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
 s_tritici_blotch(
   wth,
@@ -78,28 +126,130 @@ s_tritici_blotch(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 )
 
-bb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+bb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = 95,
+  rainlim = 10,
+  ...
+)
 
-bs(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+bs(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-lb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+lb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-sb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+sb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-tg(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+tg(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-mk_lb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+mk_lb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-mk_sb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+mk_sb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-lr(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+lr(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-brown_rust(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+brown_rust(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 
-stb(wth, emergence, RcA = NULL, RcT = NULL, RRS = NULL, RRG = NULL, ...)
+stb(
+  wth,
+  emergence,
+  RcA = NULL,
+  RcT = NULL,
+  RRS = NULL,
+  RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
+  ...
+)
 }
 \arguments{
 \item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or
@@ -134,6 +284,14 @@ entered in \code{YYYY-MM-DD} format (character).}
 
 \item{RRG}{Optional custom growth rate (scalar, vector, or table).}
 
+\item{rhlim}{relative humidity value threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used \code{90}. Defaults to 90.}
+
+\item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
+wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
+\emph{et al.} 2012 used \code{5}. Defaults to 5.}
+
 \item{...}{Other parameters passed to \code{seir()} allowing the user to override
 the default values from published papers.}
 }
@@ -147,8 +305,8 @@ Modeling and mapping potential epidemics of rice diseases globally.
 \emph{Crop Protection}, 34: 6-17. \doi{10.1016/j.cropro.2011.11.009}
 
 Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
-Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
-\emph{Agricultural and Forest Meteorology}, 203: 191-207.
+Predicting potential epidemics of rice leaf blast and sheath blight in South
+Korea. \emph{Agricultural and Forest Meteorology}, 203: 191-207.
 \doi{10.1016/j.agrformet.2015.01.011}
 
 Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
