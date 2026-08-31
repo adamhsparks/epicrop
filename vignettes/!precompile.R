@@ -4,6 +4,7 @@ library(devtools)
 library(here)
 library(fs)
 
+pak::pak() # ensure we have all dependencies
 install() # ensure we're using latest version of epicrop
 
 # --- knit and purl vignettes (inputs/outputs unchanged) ----------------------
