@@ -57,7 +57,6 @@
       RRS = 0
     )
   ),
-
   rice_modified_kim = list(
     leaf_blast = list(
       RcA = cbind(
@@ -69,7 +68,7 @@
         x = c(0, 10, 20, 30, 40, 50, 60, 70, 77),
         y = c(0.1, 0.2, 0.3, 0.4, 0.3, 0.2, 0.1, 0.05, 0)
       ),
-      RRS = 0.01 # unchanged from original leaf blast
+      RRS = 0.005
     ),
     sheath_blight = list(
       RcA = cbind(
@@ -87,7 +86,6 @@
       RRS = 0.005 # unchanged from original sheath blight
     )
   ),
-
   wheat = list(
     leaf_rust = list(
       RcA = cbind(
