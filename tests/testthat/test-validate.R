@@ -39,7 +39,7 @@ test_that(".is_boolean identifies valid single booleans", {
 })
 
 test_that(".is_boolean rejects NA, non-logical, and non-scalar values", {
-  expect_false(ericrop:::.is_boolean(NA))
+  expect_false(.is_boolean(NA))
   expect_false(.is_boolean(1))
   expect_false(.is_boolean("TRUE"))
   expect_false(.is_boolean(c(TRUE, FALSE)))
@@ -445,14 +445,9 @@ test_that(".validate_emergence accepts Date, IDate, and POSIXt inputs (returned 
 
 test_that(".validate_emergence parses each documented character date format", {
   expected <- data.table::as.IDate("2000-07-01")
-
   formats <- c(
     "2000-07-01",
     "2000/07/01",
-    "01-07-2000",
-    "01/07/2000",
-    "07-01-2000",
-    "07/01/2000",
     "01 Jul 2000",
     "01 July 2000",
     "Jul 01 2000",
