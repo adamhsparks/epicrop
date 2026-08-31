@@ -270,6 +270,7 @@
 #' @return A validated IDate object.
 #' @dev
 #' @autoglobal
+
 .validate_emergence <- function(x) {
   if (rlang::inherits_any(x, c("Date", "IDate", "POSIXt"))) {
     return(data.table::as.IDate(x))
@@ -291,7 +292,14 @@
 
     for (fmt in formats) {
       d <- suppressWarnings(data.table::as.IDate(x, format = fmt))
-      if (!is.na(d)) return(d)
+
+      if (
+        length(d) == 1L &&
+          !is.na(d) &&
+          identical(format(d, format = fmt), x)
+      ) {
+        return(d)
+      }
     }
 
     cli::cli_abort(
@@ -301,8 +309,10 @@
   }
 
   cli::cli_abort(
-    "{.var emergence} must be a Date, IDate, POSIXt, or character, not
-      {.cls {class(x)}}.",
+    paste(
+      "{.var emergence} must be a Date, IDate, POSIXt, or character,",
+      "not {.cls {class(x)}}."
+    ),
     call = rlang::caller_env()
   )
 }
