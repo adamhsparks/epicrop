@@ -1,22 +1,22 @@
 test_that(".calculate_audpc handles edge cases", {
   # Single day (no area)
-  expect_equal(epicrop:::.calculate_audpc(c(0)), 0)
+  expect_equal(.calculate_audpc(c(0)), 0)
 
   # Two days
-  result <- epicrop:::.calculate_audpc(c(0, 0.1))
+  result <- .calculate_audpc(c(0, 0.1))
   expect_true(result >= 0)
   expect_true(is.finite(result))
 
   # All zeros
-  expect_equal(epicrop:::.calculate_audpc(rep(0, 10)), 0)
+  expect_equal(.calculate_audpc(rep(0, 10)), 0)
 
   # Constant intensity
-  result <- epicrop:::.calculate_audpc(rep(0.5, 10))
+  result <- .calculate_audpc(rep(0.5, 10))
   expect_true(result > 0)
   expect_true(is.finite(result))
 
   # Increasing intensity
-  result <- epicrop:::.calculate_audpc(seq(0, 1, length.out = 10))
+  result <- .calculate_audpc(seq(0, 1, length.out = 10))
   expect_true(result > 0)
   expect_true(is.finite(result))
 })
@@ -24,18 +24,18 @@ test_that(".calculate_audpc handles edge cases", {
 test_that(".calculate_audpc uses trapezoidal rule correctly", {
   # Simple trapezoid: area = (b1 + b2) * h / 2
   # For intensity c(0, 1), with 1 day between: (0 + 1) * 1 / 2 = 0.5
-  result <- epicrop:::.calculate_audpc(c(0, 1))
+  result <- .calculate_audpc(c(0, 1))
   expect_equal(result, 0.5)
 
   # Rectangle: c(1, 1) over 1 day = 1
-  result <- epicrop:::.calculate_audpc(c(1, 1))
+  result <- .calculate_audpc(c(1, 1))
   expect_equal(result, 1)
 
   # Multiple days: c(0, 0.5, 1)
   # Day 1: (0 + 0.5)/2 = 0.25
   # Day 2: (0.5 + 1)/2 = 0.75
   # Total: 1.0
-  result <- epicrop:::.calculate_audpc(c(0, 0.5, 1))
+  result <- .calculate_audpc(c(0, 0.5, 1))
   expect_equal(result, 1.0)
 })
 
@@ -281,7 +281,7 @@ test_that("AUDPC is calculated from intensity column", {
     sim <- brown_spot(wth, emergence = "2000-07-01")
 
     # Manual calculation
-    manual_audpc <- epicrop:::.calculate_audpc(sim$intensity)
+    manual_audpc <- .calculate_audpc(sim$intensity)
     attr_audpc <- attr(sim, "AUDPC")
 
     expect_equal(manual_audpc, attr_audpc)

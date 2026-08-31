@@ -18,8 +18,8 @@
 #' *Crop Protection*, 34: 6-17. \doi{10.1016/j.cropro.2011.11.009}
 #'
 #' Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
-#' Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
-#' *Agricultural and Forest Meteorology*, 203: 191-207.
+#' Predicting potential epidemics of rice leaf blast and sheath blight in South
+#' Korea. *Agricultural and Forest Meteorology*, 203: 191-207.
 #' \doi{10.1016/j.agrformet.2015.01.011}
 #'
 #' Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
@@ -40,17 +40,22 @@ bacterial_blight <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("rice", "bacterial_blight")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_bacterial_blight,
-    RcT = RcT %||% .RcT_bacterial_blight,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG, # 0.1  (Savary et al. 2012, Table 2)
+    RRS = RRS %||% params$RRS, # 0.01 (Savary et al. 2012, Table 2)
     onset = 20L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 100L,
     I0 = 1L,
     RcOpt = 0.87,
@@ -73,17 +78,22 @@ brown_spot <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("rice", "brown_spot")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_brown_spot,
-    RcT = RcT %||% .RcT_brown_spot,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG, # 0.1  (Savary et al. 2012, Table 2)
+    RRS = RRS %||% params$RRS, # 0.01 (Savary et al. 2012, Table 2)
     onset = 20L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 600L,
     I0 = 1L,
     RcOpt = 0.61,
@@ -106,17 +116,22 @@ leaf_blast <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("rice", "leaf_blast")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_leaf_blast,
-    RcT = RcT %||% .RcT_leaf_blast,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG, # 0.1  (Savary et al. 2012, Table 2)
+    RRS = RRS %||% params$RRS, # 0.01 (Savary et al. 2012, Table 2)
     onset = 15L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 600L,
     I0 = 1L,
     RcOpt = 1.14,
@@ -139,17 +154,22 @@ sheath_blight <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("rice", "sheath_blight")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_sheath_blight,
-    RcT = RcT %||% .RcT_sheath_blight,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG, # 0.2   (Savary et al. 2012, Table 2)
+    RRS = RRS %||% params$RRS, # 0.005 (Savary et al. 2012, Table 2)
     onset = 30L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 25L,
     I0 = 1L,
     RcOpt = 0.46,
@@ -172,17 +192,22 @@ tungro <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("rice", "tungro")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_tungro,
-    RcT = RcT %||% .RcT_tungro,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG,
+    RRS = RRS %||% params$RRS,
     onset = 25L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 100L,
     I0 = 1L,
     RcOpt = 0.18,
@@ -205,18 +230,22 @@ modified_kim_leaf_blast <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("rice_modified_kim", "leaf_blast")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_modified_kim_leaf_blast,
-    RcT = RcT %||% .RcT_modified_kim_leaf_blast,
-    RRG = RRG %||% .RRG_modified_kim_leaf_blast,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG,
+    RRS = RRS %||% params$RRS, # 0.01 (unchanged from original leaf blast)
     onset = 15L,
     duration = 77L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 600L,
     I0 = 1L,
     RcOpt = 0.86,
@@ -239,18 +268,22 @@ modified_kim_sheath_blight <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("rice_modified_kim", "sheath_blight")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_modified_kim_sheath_blight,
-    RcT = RcT %||% .RcT_modified_kim_sheath_blight,
-    RRG = RRG %||% .RRG_modified_kim_sheath_blight,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG,
+    RRS = RRS %||% params$RRS, # 0.005 (unchanged from original sheath blight)
     onset = 30L,
     duration = 88L,
-    rhlim = 95L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 95L,
+    rainlim = rainlim %||% 5L,
     H0 = 90L,
     I0 = 1L,
     RcOpt = 0.58,
@@ -273,21 +306,26 @@ leaf_rust <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("wheat", "leaf_rust")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_leaf_rust,
-    RcT = RcT %||% .RcT_leaf_rust,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG,
+    RRS = RRS %||% params$RRPSN,
     onset = 20L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 250L,
     I0 = 10L,
     RcOpt = 1.472,
-    RRLEX = 0,
+    RRLEX = 0.0,
     p = 7L,
     i = 31L,
     Sx = 750000L,
@@ -308,17 +346,22 @@ s_tritici_blotch <- function(
   RcT = NULL,
   RRS = NULL,
   RRG = NULL,
+  rhlim = NULL,
+  rainlim = NULL,
   ...
 ) {
+  params <- epi_get_params("wheat", "s_tritici_blotch")
   seir(
     wth = wth,
     emergence = emergence,
-    RcA = RcA %||% .RcA_s_tritici_blotch,
-    RcT = RcT %||% .RcT_s_tritici_blotch,
+    RcA = RcA %||% params$RcA,
+    RcT = RcT %||% params$RcT,
+    RRG = RRG %||% params$RRG,
+    RRS = RRS %||% params$RRPSN,
     onset = 20L,
     duration = 120L,
-    rhlim = 90L,
-    rainlim = 5L,
+    rhlim = rhlim %||% 90L,
+    rainlim = rainlim %||% 5L,
     H0 = 250L,
     I0 = 15L,
     RcOpt = 1.17,

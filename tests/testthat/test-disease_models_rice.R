@@ -144,3 +144,111 @@ test_that("rice models are reproducible", {
   r2 <- run_model(bacterial_blight)
   expect_identical(r1, r2)
 })
+
+# ---- Custom RcA/RcT/RRG/RRS overrides actually change output --------------
+
+test_that("rice model functions respect custom RcA/RcT/RRG/RRS overrides", {
+  custom_RcA <- cbind(c(0, 120), c(0.1, 0.1))
+  custom_RcT <- cbind(c(15, 35), c(0.05, 0.05))
+
+  default_res <- run_model(bacterial_blight)
+  custom_res <- run_model(
+    bacterial_blight,
+    RcA = custom_RcA,
+    RcT = custom_RcT,
+    RRG = 0.5,
+    RRS = 0.5
+  )
+
+  expect_s3_class(custom_res, "epicrop.sim")
+  expect_false(identical(default_res$intensity, custom_res$intensity))
+})
+
+test_that("modified_kim models respect custom RcA/RcT/RRG/RRS overrides", {
+  default_res <- run_model(modified_kim_sheath_blight)
+  custom_res <- run_model(
+    modified_kim_sheath_blight,
+    RRG = 0.5,
+    RRS = 0.5
+  )
+
+  expect_s3_class(custom_res, "epicrop.sim")
+  expect_false(identical(default_res$rgrowth, custom_res$rgrowth))
+})
+
+# ---- Defaults trace back to .epi_params via epi_get_params -----------------
+
+test_that("rice model defaults match the underlying epi_params store", {
+  models <- list(
+    bacterial_blight = list(
+      fun = bacterial_blight,
+      crop = "rice",
+      disease = "bacterial_blight"
+    ),
+    brown_spot = list(
+      fun = brown_spot,
+      crop = "rice",
+      disease = "brown_spot"
+    ),
+    leaf_blast = list(
+      fun = leaf_blast,
+      crop = "rice",
+      disease = "leaf_blast"
+    ),
+    sheath_blight = list(
+      fun = sheath_blight,
+      crop = "rice",
+      disease = "sheath_blight"
+    ),
+    tungro = list(
+      fun = tungro,
+      crop = "rice",
+      disease = "tungro"
+    ),
+    modified_kim_leaf_blast = list(
+      fun = modified_kim_leaf_blast,
+      crop = "rice_modified_kim",
+      disease = "leaf_blast"
+    ),
+    modified_kim_sheath_blight = list(
+      fun = modified_kim_sheath_blight,
+      crop = "rice_modified_kim",
+      disease = "sheath_blight"
+    )
+  )
+
+  for (nm in names(models)) {
+    mdl <- models[[nm]]
+    params <- epi_get_params(mdl$crop, mdl$disease)
+
+    default_res <- run_model(mdl$fun)
+    explicit_res <- run_model(
+      mdl$fun,
+      RcA = params$RcA,
+      RcT = params$RcT,
+      RRG = params$RRG,
+      RRS = params$RRS
+    )
+
+    expect_identical(default_res, explicit_res)
+  }
+})
+
+# ---- ... passthrough: non-hardcoded args work, hardcoded ones collide -----
+
+test_that("rice models accept non-hardcoded seir arguments via ...", {
+  default_res <- run_model(brown_spot)
+  custom_res <- run_model(brown_spot, rhlim = 95, rainlim = 10)
+
+  expect_s3_class(custom_res, "epicrop.sim")
+  expect_identical(nrow(custom_res), nrow(default_res))
+})
+
+test_that("hardcoded seir arguments cannot be overridden via ... (rice)", {
+  # onset, duration, H0, I0, RcOpt, p, i, Sx, and a are all set explicitly
+  # inside each wrapper's seir() call, so passing them again via `...`
+  # produces a duplicate-argument error rather than silently overriding.
+  expect_error(run_model(bacterial_blight, RcOpt = 0.5), "formal argument")
+  expect_error(run_model(bacterial_blight, duration = 100), "formal argument")
+  expect_error(run_model(leaf_blast, onset = 10), "formal argument")
+})

@@ -2,7 +2,7 @@
 
 test_that(".interp handles scalar input", {
   age_vec <- 0:100
-  result <- epicrop:::.interp(0.8, age_vec)
+  result <- .interp(0.8, age_vec)
 
   expect_length(result, 101)
   expect_true(all(result == 0.8))
@@ -12,7 +12,7 @@ test_that(".interp handles vector input with matching length", {
   age_vec <- 0:10
   param_vec <- seq(1.0, 0.0, length.out = 11)
 
-  result <- epicrop:::.interp(param_vec, age_vec)
+  result <- .interp(param_vec, age_vec)
 
   expect_identical(result, param_vec)
 })
@@ -22,7 +22,7 @@ test_that(".interp rejects vector with mismatched length", {
   param_vec <- c(1.0, 0.8, 0.6)
 
   expect_error(
-    epicrop:::.interp(param_vec, age_vec),
+    .interp(param_vec, age_vec),
     regexp = "Vector length mismatch"
   )
 })
@@ -34,7 +34,7 @@ test_that(".interp handles matrix lookup table", {
   )
   age_vec <- c(0, 25, 50, 75, 100)
 
-  result <- epicrop:::.interp(param, age_vec)
+  result <- .interp(param, age_vec)
 
   expect_length(result, 5)
   expect_equal(result[1], 1.0)
@@ -51,7 +51,7 @@ test_that(".interp handles data.frame lookup table", {
   )
   age_vec <- c(0, 50, 100)
 
-  result <- epicrop:::.interp(param, age_vec)
+  result <- .interp(param, age_vec)
 
   expect_equal(result[1], 1.0)
   expect_equal(result[2], 0.5)
@@ -65,7 +65,7 @@ test_that(".interp extrapolates at boundaries", {
   )
   age_vec <- c(0, 10, 20, 50, 80, 90, 100)
 
-  result <- epicrop:::.interp(param, age_vec)
+  result <- .interp(param, age_vec)
 
   # Before first breakpoint - use first value
   expect_equal(result[1], 0.5)
@@ -82,7 +82,7 @@ test_that(".interp handles function input", {
   }
   age_vec <- c(0, 25, 50, 75, 100)
 
-  result <- epicrop:::.interp(param_func, age_vec)
+  result <- .interp(param_func, age_vec)
 
   expect_equal(result[1], 1.00)
   expect_equal(result[2], 0.75)
@@ -97,7 +97,7 @@ test_that(".interp sets negative function results to zero", {
   }
   age_vec <- c(0, 25, 50, 75, 100)
 
-  result <- epicrop:::.interp(param_func, age_vec)
+  result <- .interp(param_func, age_vec)
 
   expect_equal(result[1], 0.5)
   expect_equal(result[2], 0.0)
@@ -109,7 +109,7 @@ test_that(".interp rejects matrix with wrong number of columns", {
   age_vec <- 0:100
 
   expect_error(
-    epicrop:::.interp(param, age_vec)
+    .interp(param, age_vec)
   )
 })
 
@@ -121,7 +121,7 @@ test_that(".interp rejects non-numeric matrix columns", {
   age_vec <- 0:100
 
   expect_error(
-    epicrop:::.interp(param, age_vec)
+    .interp(param, age_vec)
   )
 })
 
@@ -129,7 +129,7 @@ test_that(".interp rejects unsupported types", {
   age_vec <- 0:100
 
   expect_error(
-    epicrop:::.interp(list(a = 1, b = 2), age_vec)
+    .interp(list(a = 1, b = 2), age_vec)
   )
 })
 
@@ -140,7 +140,7 @@ test_that(".interp handles function that fails", {
   age_vec <- 0:10
 
   expect_error(
-    epicrop:::.interp(bad_func, age_vec)
+    .interp(bad_func, age_vec)
   )
 })
 
@@ -151,7 +151,7 @@ test_that(".interp interpolates linearly", {
   )
   age_vec <- seq(0, 100, by = 10)
 
-  result <- epicrop:::.interp(param, age_vec)
+  result <- .interp(param, age_vec)
   expected <- seq(0.0, 1.0, by = 0.1)
 
   expect_equal(result, expected, tolerance = 1e-10)
@@ -165,7 +165,7 @@ test_that(".interp works with real disease model parameters", {
   )
   age_vec <- 0:120
 
-  result <- epicrop:::.interp(RcA, age_vec)
+  result <- .interp(RcA, age_vec)
 
   expect_length(result, 121)
   expect_equal(result[1], 1.0)
@@ -182,7 +182,7 @@ test_that(".interp works with temperature response", {
   )
   temps <- c(15, 17.5, 20, 22.5, 25, 27.5, 30, 32.5, 35)
 
-  result <- epicrop:::.interp(RcT, temps)
+  result <- .interp(RcT, temps)
 
   expect_length(result, 9)
   expect_equal(result[1], 0.0)
@@ -197,7 +197,7 @@ test_that(".interp handles non-uniform breakpoints", {
   )
   age_vec <- c(0, 2.5, 5, 7.5, 10, 50, 100, 120)
 
-  result <- epicrop:::.interp(param, age_vec)
+  result <- .interp(param, age_vec)
 
   expect_equal(result[1], 0.0)
   expect_equal(result[2], 0.5, tolerance = 1e-10)
@@ -213,7 +213,7 @@ test_that(".interp returns numeric vector", {
   param <- cbind(c(0, 100), c(1.0, 0.5))
   age_vec <- 0:10
 
-  result <- epicrop:::.interp(param, age_vec)
+  result <- .interp(param, age_vec)
 
   expect_type(result, "double")
   expect_true(is.vector(result))
@@ -224,7 +224,7 @@ test_that(".interp handles empty age vector", {
   param <- cbind(c(0, 100), c(1.0, 0.5))
   age_vec <- numeric(0)
 
-  result <- epicrop:::.interp(param, age_vec)
+  result <- .interp(param, age_vec)
 
   expect_length(result, 0)
 })
@@ -236,7 +236,7 @@ test_that(".interp handles complex function", {
   }
   age_vec <- c(0, 25, 50, 75, 100)
 
-  result <- epicrop:::.interp(param_func, age_vec)
+  result <- .interp(param_func, age_vec)
 
   expect_length(result, 5)
   expect_true(all(result >= 0))
