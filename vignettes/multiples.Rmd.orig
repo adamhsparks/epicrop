@@ -74,14 +74,14 @@ Now that we have a list of weather data for two seasons we will use `run_epicrop
 
 ```{r run-predict, message=FALSE}
 bb_2_seasons <- run_epicrop_model(model_fun = bacterial_blight,
-                                  emergence_date = ymd,
+                                  emergence_dates = ymd,
                                   wth_list = wth_list,
                                   window_days = duration)
 
 bb_2_seasons
 ```
 
-### Visualising differences in AUDPC between seasons
+### Visualising Differences in AUDPC Between Seasons
 
 A simple bar chart created using {ggplot2} is an effective way to visualise the difference between the two seasons.
 
@@ -97,7 +97,7 @@ ggplot(bb_2_seasons,
   theme_classic()
 ```
 
-### Simulating multiple seasons and establishment dates
+### Simulating Multiple Seasons and Establishment Dates
 
 #### Single Site with Multiple Dates
 

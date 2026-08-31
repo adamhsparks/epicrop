@@ -4,7 +4,7 @@ author: Adam H. Sparks
 output:
   rmarkdown::html_document:
     theme: journal
-bibliography: references.bib 
+bibliography: references.bib
 vignette: >
   %\VignetteIndexEntry{epicrop}
   %\VignetteEngine{knitr::rmarkdown}
@@ -43,7 +43,7 @@ The 'EPIWHEAT' model includes two wheat diseases, leaf rust (`leaf_rust()`) and 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `seir()` function.
 If you are interested in modelling other pathosystems, please refer to [-@Savary2012] for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
 
-### Getting started
+### Getting Started
 
 Load the library.
 
@@ -51,7 +51,7 @@ Load the library.
 library(epicrop)
 ```
 
-### Get weather data
+### Get Weather Data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
 See the help file for `naspower::get_power()` for more details of this functionality and details on the data [@Sparks2018].
@@ -66,7 +66,7 @@ wth <- get_wth(
 wth
 ```
 
-### Predict bacterial blight
+### Predict Rice Bacterial Blight
 
 All of the helper family of functions work in exactly the same manner.
 You provide them with weather data and an emergence date, that falls within the weather data provided, and they will return a data frame of disease intensity over the season and other values associated with the model.
@@ -81,7 +81,7 @@ bb_wet <- bacterial_blight(wth, emergence = "2000-07-01")
 summary(bb_wet)
 ```
 
-## Plotting using {ggplot2}
+## Plotting Using {ggplot2}
 
 The data are in a wide format by default and need to be converted to long format for use in {ggplot2} if you wish to plot more than one variable at a time.
 
@@ -90,7 +90,7 @@ library(ggplot2)
 library(tidyr)
 ```
 
-### Wet season sites
+### Wet Season Sites
 
 The model records the number of sites for each bin daily; this can be graphed as follows.
 
@@ -116,7 +116,7 @@ ggplot(data = dat,
   theme_classic()
 ```
 
-### Wet season intensity
+### Wet Season Intensity
 
 Plotting intensity over time does not require any data manipulation.
 
@@ -131,7 +131,7 @@ ggplot(data = bb_wet,
   theme_classic()
 ```
 
-## Comparing epidemics
+## Comparing Epidemics
 
 The most common way to compare disease epidemics in botanical epidemiology is to use the area under the disease progress curve (AUDPC) [@Shaner1977].
 The AUDPC value for a given simulated season is returned as a part of the output from any of the disease simulations offered in {epicrop}.
@@ -143,7 +143,7 @@ bb_dry <- bacterial_blight(wth = wth, emergence = "2000-01-05")
 summary(bb_dry)
 ```
 
-### Dry season intensity
+### Dry Season Intensity
 
 Check the disease progress curve for the dry season.
 
@@ -173,4 +173,3 @@ Checking the data and referring to the curves, the wet season intensity reaches 
 So, this meets the expectations that the wet season AUDPC is higher than the dry season, which was predicted to have less disease intensity.
 
 # References
-
