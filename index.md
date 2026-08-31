@@ -175,10 +175,9 @@ Science Program.
 
 ## Code Coverage
 
-    #> epicrop Coverage: 71.01%
+    #> epicrop Coverage: 71.36%
     #> R/fetch_epicrop_weather_list.R: 0.00%
     #> R/run_epicrop_model.R: 0.00%
-    #> R/zzz.R: 0.00%
     #> R/get_wth.R: 79.73%
     #> R/interpolation.R: 80.17%
     #> R/format_wth.R: 93.15%
