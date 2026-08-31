@@ -50,15 +50,11 @@ wth_list <- fetch_epicrop_weather_list(
   start_date = emergence_date,
   duration = duration
 )
-#> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A
-#> shallow copy of this data.table was taken so that := can add or remove 1
-#> columns by reference. At an earlier point, this data.table was copied by R (or
-#> was created manually using structure() or similar). Avoid names<- and attr<-
-#> which in R currently (and oddly) may copy the whole data.table. Use set* syntax
-#> instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual
-#> for data.table-agnostic packages to produce tables affected by this issue. If
-#> this message doesn't help, please report your use case to the data.table issue
-#> tracker so the root cause can be fixed or this message improved.
+#> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A shallow copy of this data.table was taken so that := can add or
+#> remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar).
+#> Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set,
+#> ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't
+#> help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.
 ```
 
 ### Using a Helper Function to Model Several Seasons
@@ -71,8 +67,10 @@ bb_2_seasons <- run_epicrop_model(model = bacterial_blight,
                                   emergence = ymd,
                                   wth_list = wth_list,
                                   window_days = duration)
-#> Error in `seir()`:
-#> ! formal argument "duration" matched by multiple actual arguments
+#> Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'model' to 'model_fun'
+#> Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'emergence' to 'emergence_dates'
+#> Error in `rlang::exec()`:
+#> ! Can't create call to non-callable object
 
 bb_2_seasons
 #> Error:
@@ -118,15 +116,11 @@ wth_list <- fetch_epicrop_weather_list(years = years,
                                        lonlat = lonlat,
                                        start_date = month_day,
                                        duration = duration)
-#> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A
-#> shallow copy of this data.table was taken so that := can add or remove 1
-#> columns by reference. At an earlier point, this data.table was copied by R (or
-#> was created manually using structure() or similar). Avoid names<- and attr<-
-#> which in R currently (and oddly) may copy the whole data.table. Use set* syntax
-#> instead to avoid copying: ?set, ?setnames and ?setattr. It's also not unusual
-#> for data.table-agnostic packages to produce tables affected by this issue. If
-#> this message doesn't help, please report your use case to the data.table issue
-#> tracker so the root cause can be fixed or this message improved.
+#> Warning in `[.data.table`(tab, , `:=`(year, data.table::year(YYYYMMDD))): A shallow copy of this data.table was taken so that := can add or
+#> remove 1 columns by reference. At an earlier point, this data.table was copied by R (or was created manually using structure() or similar).
+#> Avoid names<- and attr<- which in R currently (and oddly) may copy the whole data.table. Use set* syntax instead to avoid copying: ?set,
+#> ?setnames and ?setattr. It's also not unusual for data.table-agnostic packages to produce tables affected by this issue. If this message doesn't
+#> help, please report your use case to the data.table issue tracker so the root cause can be fixed or this message improved.
 ```
 
 
@@ -137,8 +131,8 @@ wth_list <- fetch_epicrop_weather_list(years = years,
                    wth_list,
                    window_days = duration,
                    output = "audpc")
-#> Error in `seir()`:
-#> ! formal argument "duration" matched by multiple actual arguments
+#> Error in `rlang::exec()`:
+#> ! Can't create call to non-callable object
 ```
 
 #### Multiple Sites and Seasons
@@ -181,7 +175,7 @@ run_epicrop_model(s_tritici_blotch,
                   wth_list,
                   window_days = 240L,
                   output = "audpc")
-#> Error in `seir()`:
-#> ! formal argument "duration" matched by multiple actual arguments
+#> Error in `rlang::exec()`:
+#> ! Can't create call to non-callable object
 ```
 

@@ -51,8 +51,6 @@ wth_list <- fetch_epicrop_weather_list(
   years = year,
   mode = "cross"
 )
-#> Error in `data.table::rbindlist()`:
-#> ! Item 1 of input is not a data.frame, data.table or list
 
 bb <- run_epicrop_model(
   model = bacterial_blight,
@@ -61,14 +59,9 @@ bb <- run_epicrop_model(
   window_days = 120L,
   output = "full"
 )
-#> Warning: Skipping 2000-06-30: no weather for required year 2000 (window
-#> 2000-06-30–2000-10-27).
 
 # helper fn to create a data.table with location, emergence and location
 bb <- audpc_dt(bb)
-#> Error in `audpc_dt()`:
-#> ! `x` must contain AUDPC value as attribute
-#> ℹ This should be automatically added by `seir()`
 
 ggplot(bb, aes(x = lon, y = lat)) +
   annotation_map_tile(type = "cartolight", zoomin = 0) +
@@ -99,9 +92,4 @@ ggplot(bb, aes(x = lon, y = lat)) +
   ylim(c(0, 25)) +
   xlim(c(75, 127)) +
   coord_sf(crs = 4326)
-#> Error in `ggplot2::geom_point()`:
-#> ! Problem while computing aesthetics.
-#> ℹ Error occurred in the 3rd layer.
-#> Caused by error:
-#> ! object 'AUDPC' not found
 ```
