@@ -43,6 +43,8 @@ capabilities.
 `  years ``=`` ``year``,`\
 `  mode ``=`` ``"cross"`\
 `)`\
+`` #> Error in `data.table::rbindlist()`: ``\
+`#> ! Item 1 of input is not a data.frame, data.table or list`\
 \
 `bb`` ``<-`` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(`\
 `  model ``=`` ``bacterial_blight``,`\
@@ -51,14 +53,20 @@ capabilities.
 `  window_days ``=`` ``120L``,`\
 `  output ``=`` ``"full"`\
 `)`\
+`#> Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'model' to 'model_fun'`\
+`#> Warning in run_epicrop_model(model = bacterial_blight, emergence = ymd, : partial argument match of 'emergence' to 'emergence_dates'`\
+`#> Warning: Skipping 2000-06-30: no weather for year 2000.`\
 \
 `# helper fn to create a data.table with location, emergence and location`\
 `bb`` ``<-`` `[`audpc_dt`](https://adamhsparks.codeberg.page/epicrop/reference/audpc_dt.md)`(``bb``)`\
+`` #> Error in `audpc_dt()`: ``\
+`` #> ! `x` must contain AUDPC value as attribute ``\
+`` #> ℹ This should be automatically added by `seir()` ``\
 \
 [`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``bb``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``lon``, y ``=`` ``lat``)``)`` ``+`\
-`  ``annotation_map_tile``(``type ``=`` ``"cartolight"``, zoomin ``=`` ``0``)`` ``+`\
-`  ``geom_spatial_point``(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``size ``=`` ``AUDPC``)``)`` ``+`\
-`  ``geom_spatial_label_repel``(`\
+`  `[`annotation_map_tile`](https://paleolimbot.github.io/ggspatial/reference/annotation_map_tile.html)`(``type ``=`` ``"cartolight"``, zoomin ``=`` ``0``)`` ``+`\
+`  `[`geom_spatial_point`](https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``size ``=`` ``AUDPC``)``)`` ``+`\
+`  `[`geom_spatial_label_repel`](https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html)`(`\
 `    `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``label ``=`` `[`paste`](https://rdrr.io/r/base/paste.html)`(``location``, `[`round`](https://rdrr.io/r/base/Round.html)`(``AUDPC``, ``0``)``, sep ``=`` ``", "``)``)``,`\
 `    box.padding ``=`` ``1``,`\
 `    size ``=`` ``3`\
@@ -83,4 +91,9 @@ capabilities.
 `  ``)`` ``+`\
 `  `[`ylim`](https://ggplot2.tidyverse.org/reference/lims.html)`(`[`c`](https://rdrr.io/r/base/c.html)`(``0``, ``25``)``)`` ``+`\
 `  `[`xlim`](https://ggplot2.tidyverse.org/reference/lims.html)`(`[`c`](https://rdrr.io/r/base/c.html)`(``75``, ``127``)``)`` ``+`\
-`  `[`coord_sf`](https://ggplot2.tidyverse.org/reference/ggsf.html)`(``crs ``=`` ``4326``)`
+`  `[`coord_sf`](https://ggplot2.tidyverse.org/reference/ggsf.html)`(``crs ``=`` ``4326``)`\
+`` #> Error in `ggplot2::geom_point()`: ``\
+`#> ! Problem while computing aesthetics.`\
+`#> ℹ Error occurred in the 3rd layer.`\
+`#> Caused by error:`\
+`#> ! object 'AUDPC' not found`
