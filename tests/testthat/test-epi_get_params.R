@@ -120,7 +120,7 @@ test_that(".epi_params is not exported from the package namespace", {
 
 test_that("epi_eval_param evaluates a scalar parameter by recycling", {
   expect_identical(epi_eval_param(0.1, at = c(1, 2, 3)), rep(0.1, 3))
-  expect_identical(epi_eval_param(5L, at = numeric(0)), numeric(0))
+  expect_identical(epi_eval_param(5L, at = integer(0)), integer(0))
 })
 
 test_that("epi_eval_param matches stats::approx(rule = 2) for table parameters", {
@@ -129,7 +129,7 @@ test_that("epi_eval_param matches stats::approx(rule = 2) for table parameters",
 
   expected <- stats::approx(tbl[, "x"], tbl[, "y"], xout = at, rule = 2)$y
 
-  expect_equal(epi_eval_param(tbl, at = at), expected)
+  expect_identical(epi_eval_param(tbl, at = at), expected)
 })
 
 test_that("epi_eval_param works on real stored parameter tables", {
@@ -139,7 +139,7 @@ test_that("epi_eval_param works on real stored parameter tables", {
   vals <- epi_eval_param(p$RcT, at = c(0, 15, 40))
   expect_length(vals, 3)
   expect_true(all(vals >= 0))
-  expect_equal(vals[2], max(p$RcT[, 2]))
+  expect_identical(vals[2], max(p$RcT[, 2]))
 })
 
 test_that("epi_eval_param errors for invalid parameter types", {

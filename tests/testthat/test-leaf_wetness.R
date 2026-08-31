@@ -28,7 +28,7 @@ test_that("setup: extended weather available", {
 }
 
 .expect_wetness_vector <- function(x, n) {
-  expect_numeric(x)
+  expect_true(typeof(x) %in% c("integer", "double"))
   expect_length(x, n)
   expect_true(all(is.finite(x)))
   expect_true(all(x >= 0L & x <= 24L))
@@ -316,7 +316,7 @@ test_that(".calculate_leaf_wetness with missing RAIN behaves like RAIN = 0 (bina
   res_missing <- .call_lw(wth = w_missing, weighted = FALSE)
   res_zero <- .call_lw(wth = w_explicit_zero, weighted = FALSE)
 
-  expect_equal(res_missing, res_zero)
+  expect_identical(res_missing, res_zero)
 })
 
 test_that(".calculate_leaf_wetness with missing RAIN behaves like RAIN = 0 (hourly path)", {
@@ -344,7 +344,7 @@ test_that(".calculate_leaf_wetness with missing RAIN behaves like RAIN = 0 (hour
   res_missing <- .call_lw(wth = w_missing, weighted = FALSE)
   res_zero <- .call_lw(wth = w_explicit_zero, weighted = FALSE)
 
-  expect_equal(res_missing, res_zero)
+  expect_identical(res_missing, res_zero)
 })
 
 # ---- rainlim edge case: near-zero threshold --------------------------------
@@ -373,18 +373,62 @@ test_that(".calculate_leaf_wetness combination logic is exact on a constructed e
   res <- .call_lw(wth = w, weighted = FALSE, rhlim = 90, rainlim = 5)
 
   # Row 1: RH >= rhlim -> fully wet (24h) regardless of rain
-  expect_equal(res[1], 24)
+  expect_identical(res[1], 24L)
   # Row 2: RH < rhlim but RAIN >= rainlim -> fully wet (24h) via binary rule
-  expect_equal(res[2], 24)
+  expect_identical(res[2], 24L)
 })
 
-# ---- weighted wetness is never larger than unweighted ----------------------
+# ---- weighted and unweighted wetness behave as designed --------------------
 
-test_that("weighted wetness never exceeds unweighted wetness for the same weather", {
-  unweighted <- .call_lw(wth = wth_formatted, weighted = FALSE)
-  weighted <- .call_lw(wth = wth_formatted, weighted = TRUE)
+test_that("weighted wetness remains valid but may exceed binary wetness", {
+  unweighted <- .call_lw(
+    wth = wth_formatted,
+    weighted = FALSE
+  )
 
-  expect_true(all(weighted <= unweighted + 1e-8))
+  weighted <- .call_lw(
+    wth = wth_formatted,
+    weighted = TRUE
+  )
+
+  .expect_wetness_vector(unweighted, nrow(wth_formatted))
+  .expect_wetness_vector(weighted, nrow(wth_formatted))
+
+  # Weighting should have an observable effect for suitable weather data.
+  expect_false(identical(weighted, unweighted))
+})
+
+test_that("weighted wetness gives partial credit below rhlim", {
+  rh <- c(75, 85, 90, 95)
+
+  weighted <- .calculate_weighted_hr_wet(
+    rh = rh,
+    rhlim = 90
+  )
+
+  unweighted <- as.double(rh >= 90)
+
+  expect_identical(weighted[1], 0)
+  expect_equal(weighted[2], 0.5, tolerance = 0.01)
+  expect_identical(weighted[3], 1)
+  expect_identical(weighted[4], 1)
+
+  expect_gt(weighted[2], unweighted[2])
+  expect_identical(weighted[c(1, 3, 4)], unweighted[c(1, 3, 4)])
+})
+
+test_that("weighted hourly wetness never exceeds full hourly wetness", {
+  rh <- seq(0, 100, by = 0.1)
+
+  weighted <- .calculate_weighted_hr_wet(
+    rh = rh,
+    rhlim = 90
+  )
+
+  expect_type(weighted, "double")
+  expect_true(all(is.finite(weighted)))
+  expect_true(all(weighted >= 0))
+  expect_true(all(weighted <= 1))
 })
 
 # ---- .diurnal_rh at extreme daily RH ---------------------------------------
@@ -443,11 +487,11 @@ test_that(".diurnal_temp stays within [tmin, tmax] bounds", {
 # ---- .day_length: DOY wraparound and polar extremes ------------------------
 
 test_that(".day_length wraps day-of-year values outside [1, 365]", {
-  expect_equal(
+  expect_identical(
     .day_length(lat = 45, doy = 366),
     .day_length(lat = 45, doy = 1)
   )
-  expect_equal(
+  expect_identical(
     .day_length(lat = 45, doy = 0),
     .day_length(lat = 45, doy = 365)
   )
