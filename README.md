@@ -6,7 +6,7 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 71%](https://img.shields.io/badge/code_coverage-71%25-green)](#code-coverage)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 71.4%](https://img.shields.io/badge/code_coverage-71.4%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
@@ -146,10 +146,9 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 71.01%
+#> epicrop Coverage: 71.36%
 #> R/fetch_epicrop_weather_list.R: 0.00%
 #> R/run_epicrop_model.R: 0.00%
-#> R/zzz.R: 0.00%
 #> R/get_wth.R: 79.73%
 #> R/interpolation.R: 80.17%
 #> R/format_wth.R: 93.15%
