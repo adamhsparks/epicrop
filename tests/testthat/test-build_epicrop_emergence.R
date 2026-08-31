@@ -49,15 +49,15 @@ test_that("build_epicrop_emergence handles a single year and single month_day", 
 test_that("build_epicrop_emergence tags output with class epicrop.emerge", {
   em <- build_epicrop_emergence(2001, "-06-01")
 
-  expect_true(inherits(em, "epicrop.emerge"))
+  expect_s3_class(em, "epicrop.emerge")
 })
 
 test_that("build_epicrop_emergence preserves IDate/Date classes alongside epicrop.emerge", {
   em <- build_epicrop_emergence(2001, "-06-01")
 
-  expect_true(inherits(em, "IDate"))
-  expect_true(inherits(em, "Date"))
-  expect_identical(class(em), c("epicrop.emerge", "IDate", "Date"))
+  expect_s3_class(em, "IDate")
+  expect_s3_class(em, "Date")
+  expect_s3_class(em, c("epicrop.emerge", "IDate", "Date"))
 })
 
 # ---- month_day normalization ("MM-DD" vs "-MM-DD") -------------------------
@@ -192,14 +192,14 @@ test_that("build_epicrop_emergence returns a zero-length result for empty years"
   em <- build_epicrop_emergence(integer(0), "-06-01")
 
   expect_length(em, 0)
-  expect_type(em, "epicrop.emerge")
+  expect_s3_class(em, "epicrop.emerge")
 })
 
 test_that("build_epicrop_emergence returns a zero-length result for empty month_day", {
   em <- build_epicrop_emergence(2001, character(0))
 
   expect_length(em, 0)
-  expect_type(em, "epicrop.emerge")
+  expect_s3_class(em, "epicrop.emerge")
 })
 
 # ---- Downstream usability ---------------------------------------------

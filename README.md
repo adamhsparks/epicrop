@@ -6,7 +6,7 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 59.3%](https://img.shields.io/badge/code_coverage-59.3%25-green)](#code-coverage)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 73.3%](https://img.shields.io/badge/code_coverage-73.3%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
@@ -79,32 +79,32 @@ Once you have the weather data, run the model for any of the five rice diseases 
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
 
 bb_sim
-#>      simday      dates sites latent infectious  removed senesced rateinf  rlex rtransfer
-#>       <int>     <IDat> <num>  <num>      <num>    <num>    <num>   <num> <num>     <num>
-#>   1:      1 2000-07-01   100      0  0.0000000  0.00000  0.00000       0     0         0
-#>   2:      2 2000-07-02   100      0  0.0000000  0.00000  0.00000       0     0         0
-#>   3:      3 2000-07-03   100      0  0.0000000  0.00000  0.00000       0     0         0
-#>   4:      4 2000-07-04   100      0  0.0000000  0.00000  0.00000       0     0         0
-#>   5:      5 2000-07-05   100      0  0.0000000  0.00000  0.00000       0     0         0
-#>  ---                                                                                    
-#> 116:    116 2000-10-24     0      0  1.7416555 62.12136 62.42681       0     0         0
-#> 117:    117 2000-10-25     0      0  1.4362032 62.42681 62.79072       0     0         0
-#> 118:    118 2000-10-26     0      0  1.0722962 62.79072 63.15235       0     0         0
-#> 119:    119 2000-10-27     0      0  0.7106639 63.15235 63.49950       0     0         0
-#> 120:    120 2000-10-28     0      0  0.3635142 63.49950 63.66720       0     0         0
-#>       rremoved rgrowth rsenesced diseased intensity     lat      lon
-#>          <num>   <num>     <num>    <num>     <num>   <num>    <num>
-#>   1: 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   2: 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   3: 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   4: 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>   5: 0.0000000       0 0.0000000  0.00000         0 14.6774 121.2556
-#>  ---                                                                
-#> 116: 0.3255049       0 0.3054523 63.86302         1 14.6774 121.2556
-#> 117: 0.3054523       0 0.3639070 63.86302         1 14.6774 121.2556
-#> 118: 0.3639070       0 0.3616323 63.86302         1 14.6774 121.2556
-#> 119: 0.3616323       0 0.3471497 63.86302         1 14.6774 121.2556
-#> 120: 0.3471497       0 0.1676978 63.86302         1 14.6774 121.2556
+#>      simday      dates    sites latent infectious  removed    senesced rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased intensity
+#>       <int>     <IDat>    <num>  <num>      <num>    <num>       <num>   <num> <num>     <num>    <num>    <num>     <num>    <num>     <num>
+#>   1:      1 2000-07-01 100.0000      0     0.0000    0.000    1.000000       0     0         0  0.00000  9.68750  1.000000    0.000         0
+#>   2:      2 2000-07-02 108.6875      0     0.0000    0.000    2.086875       0     0         0  0.00000 10.49959  1.086875    0.000         0
+#>   3:      3 2000-07-03 118.1002      0     0.0000    0.000    3.267877       0     0         0  0.00000 11.37416  1.181002    0.000         0
+#>   4:      4 2000-07-04 128.2934      0     0.0000    0.000    4.550811       0     0         0  0.00000 12.31499  1.282934    0.000         0
+#>   5:      5 2000-07-05 139.3254      0     0.0000    0.000    5.944065       0     0         0  0.00000 13.32593  1.393254    0.000         0
+#>  ---                                                                                                                                         
+#> 116:    116 2000-10-24   0.0000      0   396.0528 1404.565 2665.037553       0     0         0 43.67864  0.00000 39.691810 1800.618         1
+#> 117:    117 2000-10-25   0.0000      0   356.3610 1444.257 2712.120592       0     0         0 39.69181  0.00000 47.083039 1800.618         1
+#> 118:    118 2000-10-26   0.0000      0   309.2779 1491.340 2755.012575       0     0         0 47.08304  0.00000 42.891982 1800.618         1
+#> 119:    119 2000-10-27   0.0000      0   266.3860 1534.232 2791.854071       0     0         0 42.89198  0.00000 36.841497 1800.618         1
+#> 120:    120 2000-10-28   0.0000      0   229.5445 1571.073 2824.358958       0     0         0 36.84150  0.00000 32.504887 1800.618         1
+#>          lat      lon
+#>        <num>    <num>
+#>   1: 14.6774 121.2556
+#>   2: 14.6774 121.2556
+#>   3: 14.6774 121.2556
+#>   4: 14.6774 121.2556
+#>   5: 14.6774 121.2556
+#>  ---                 
+#> 116: 14.6774 121.2556
+#> 117: 14.6774 121.2556
+#> 118: 14.6774 121.2556
+#> 119: 14.6774 121.2556
+#> 120: 14.6774 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -146,19 +146,20 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 59.27%
-#> R/build_epicrop_emergence.R: 0.00%
+#> epicrop Coverage: 73.29%
 #> R/fetch_epicrop_weather_list.R: 0.00%
 #> R/run_epicrop_model.R: 0.00%
 #> R/zzz.R: 0.00%
-#> R/validation.R: 9.83%
 #> R/get_wth.R: 79.73%
 #> R/interpolation.R: 80.17%
 #> R/format_wth.R: 93.15%
-#> R/seir.R: 93.41%
-#> R/leaf_wetness.R: 97.25%
+#> R/validation.R: 95.48%
+#> R/leaf_wetness.R: 98.17%
 #> R/audpc.R: 98.28%
+#> R/seir.R: 99.10%
+#> R/build_epicrop_emergence.R: 100.00%
 #> R/disease_models.R: 100.00%
+#> R/epi_get_params.R: 100.00%
 ```
 
 ## Code of Conduct
