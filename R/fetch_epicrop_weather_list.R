@@ -119,8 +119,7 @@ fetch_epicrop_weather_list <- function(
 
   results <- lapply(tasks, .fetch_one_weather)
 
-  # Format and return
-  .format_results(results, tasks)
+  return(.format_results(results, tasks))
 }
 
 #' Validate Required Arguments
