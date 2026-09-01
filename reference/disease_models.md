@@ -255,14 +255,10 @@ stb(
   | *TEMP* | Mean daily temperature (degrees C) |
   | *RHUM* | Mean daily relative humidity (%) |
   | *RAIN* | Mean daily rainfall (mm) |
-  | *TMIN* | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX |
-
-       details for more
-
-  *TMAX* \| **Optional** Maximum daily temperature (degrees C), see
-  TMIN/TMAX details for more *LAT* \| **Optional** latitude of weather
-  observation, see LAT/LON details for more *LON* \| **Optional**
-  longitude of weather observation, see LAT/LON details for more
+  | *TMIN* | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX details for more |
+  | *TMAX* | **Optional** Maximum daily temperature (degrees C), see TMIN/TMAX details for more |
+  | *LAT* | **Optional** latitude of weather observation, see LAT/LON details for more |
+  | *LON* | **Optional** longitude of weather observation, see LAT/LON details for more |
 
 - emergence:
 
