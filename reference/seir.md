@@ -57,12 +57,12 @@ seir(
   | *RAIN* | Mean daily rainfall (mm) |
   | *TMIN* | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX |
 
-       Details
+       details for more
 
   *TMAX* \| **Optional** Maximum daily temperature (degrees C), see
-  TMIN/TMAX Details *LAT* \| **Optional** latitude of weather
-  observation, see LAT/LON Details *LON* \| **Optional** longitude of
-  weather observation, see LAT/LON Details
+  TMIN/TMAX details for more *LAT* \| **Optional** latitude of weather
+  observation, see LAT/LON details for more *LON* \| **Optional**
+  longitude of weather observation, see LAT/LON details for more
 
 - emergence:
 
@@ -78,7 +78,7 @@ seir(
 
 - duration:
 
-  simulation duration *i. e.*, growing season length (day, integer).
+  simulation duration *i.e.*, growing season length (day, integer).
   Described in Table 1 of Savary *et al.* 2012.
 
 - H0:
