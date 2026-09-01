@@ -41,19 +41,11 @@ field names:\tabular{rl}{
    \emph{TEMP} \tab Mean daily temperature (degrees C) \cr
    \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
    \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (degrees C), see TMIN/TMAX \cr
-}
-
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ details for more
-}\if{html}{\out{</div>}}
-
-\emph{TMAX} | \strong{Optional} Maximum daily temperature (degrees C), see TMIN/TMAX
-details for more
-\emph{LAT} | \strong{Optional} latitude of weather observation, see LAT/LON details
-for more
-\emph{LON} | \strong{Optional} longitude of weather observation, see LAT/LON details
-for more}
+   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (degrees C), see TMIN/TMAX details for more \cr
+   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (degrees C), see TMIN/TMAX details for more \cr
+   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON details for more \cr
+   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON details for more \cr
+}}
 
 \item{emergence}{Expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).}

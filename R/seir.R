@@ -16,14 +16,10 @@
 #'   _TEMP_ | Mean daily temperature (degrees C)
 #'   _RHUM_ | Mean daily relative humidity (%)
 #'   _RAIN_ | Mean daily rainfall (mm)
-#'   _TMIN_ | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX
-#'      details for more
-#'   _TMAX_ | **Optional** Maximum daily temperature (degrees C), see TMIN/TMAX
-#'      details for more
-#'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON details
-#'      for more
-#'   _LON_ | **Optional** longitude of weather observation, see LAT/LON details
-#'      for more
+#'   _TMIN_ | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX details for more
+#'   _TMAX_ | **Optional** Maximum daily temperature (degrees C), see TMIN/TMAX details for more
+#'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON details for more
+#'   _LON_ | **Optional** longitude of weather observation, see LAT/LON details for more
 #'
 #' @param emergence Expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).
