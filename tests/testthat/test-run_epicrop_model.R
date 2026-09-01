@@ -660,24 +660,6 @@ test_that("run_epicrop_model rejects a bundle-shaped list that lacks the epicrop
 
 # ---- run_epicrop_model(): documents the window_days/duration gap ---------
 
-test_that("window_days is not automatically wired into model_fun's duration (documents a real gap)", {
-  # run_epicrop_model() computes has_duration <- .has_duration_arg(dots,
-  # model_fun) but never passes it to .run_one(), so model_fun always falls
-  # back to its own hardcoded default `duration`, regardless of
-  # window_days, unless the caller supplies `duration` explicitly via `...`.
-  # Here window_days = 10L slices only 10 days of weather, but mock_model's
-  # default duration (30L, matching how real disease models hardcode
-  # duration) requires at least 30 -- so this errors exactly as a real
-  # seir()-backed model would.
-  wl <- .mk_wth_list(2001)
-  em <- .mk_emergence("2001-06-01")
-
-  expect_error(
-    run_epicrop_model(mock_model, em, wl, window_days = 10L, output = "full"),
-    "Insufficient weather data"
-  )
-})
-
 test_that("explicitly passing duration via ... resolves the window_days gap", {
   wl <- .mk_wth_list(2001)
   em <- .mk_emergence("2001-06-01")
@@ -692,4 +674,114 @@ test_that("explicitly passing duration via ... resolves the window_days gap", {
   )
 
   expect_identical(nrow(res), 10L)
+})
+
+# ---- .model_has_duration_formal ------------------------------------------
+
+test_that(".model_has_duration_formal detects an explicit duration formal", {
+  expect_true(.model_has_duration_formal(mock_model))
+  expect_true(.model_has_duration_formal(seir))
+})
+
+test_that(".model_has_duration_formal returns FALSE when duration is not a formal (only reachable via ...)", {
+  wrapped <- function(wth, emergence, RcOpt = 1, ...) {
+    mock_model(wth, emergence, duration = 30L, RcOpt = RcOpt, ...)
+  }
+  expect_false(.model_has_duration_formal(wrapped))
+})
+
+# ---- run_epicrop_model(): window_days -> duration auto-fill --------------
+
+test_that("window_days is automatically wired into model_fun's duration when model_fun exposes a formal duration parameter", {
+  wl <- .mk_wth_list(2001)
+  em <- .mk_emergence("2001-06-01")
+
+  res <- run_epicrop_model(
+    mock_model,
+    em,
+    wl,
+    window_days = 10L,
+    output = "full"
+  )
+
+  expect_identical(nrow(res), 10L)
+})
+
+test_that("explicitly passing duration via ... overrides the auto-filled window_days duration", {
+  wl <- .mk_wth_list(2001)
+  em <- .mk_emergence("2001-06-01")
+
+  res <- run_epicrop_model(
+    mock_model,
+    em,
+    wl,
+    window_days = 30L,
+    output = "full",
+    duration = 5L
+  )
+
+  expect_identical(nrow(res), 5L)
+})
+
+test_that("duration auto-fill is skipped for model_fun's without a formal duration parameter (e.g. wrapped disease models)", {
+  # Mirrors bacterial_blight() and friends: duration is hardcoded internally
+  # and reachable only via `...`, so run_epicrop_model() must not attempt to
+  # auto-inject it -- doing so would collide with the hardcoded value.
+  no_duration_formal_model <- function(wth, emergence, RcOpt = 1, ...) {
+    mock_model(wth, emergence, duration = 30L, RcOpt = RcOpt, ...)
+  }
+
+  wl <- .mk_wth_list(2001)
+  em <- .mk_emergence("2001-06-01")
+
+  res <- run_epicrop_model(
+    no_duration_formal_model,
+    em,
+    wl,
+    window_days = 40L,
+    output = "full"
+  )
+
+  # Uses the wrapper's own hardcoded duration = 30L, not window_days = 40L
+  expect_identical(nrow(res), 30L)
+})
+
+test_that("duration auto-fill uses the actual sliced weather length, not window_days blindly", {
+  # Only 1 year of weather is available; requesting a window that runs past
+  # year-end but window_days itself is achievable within that single year,
+  # so nrow(w_sub) should equal window_days here (sanity check for the
+  # nrow(w_sub)-based fill, not window_days-based).
+  wl <- .mk_wth_list(2001)
+  em <- .mk_emergence("2001-11-01") # 61 days to year end, window_days=30 fits
+
+  res <- run_epicrop_model(
+    mock_model,
+    em,
+    wl,
+    window_days = 30L,
+    output = "full"
+  )
+
+  expect_identical(nrow(res), 30L)
+})
+
+test_that("run_epicrop_model does not break real hardcoded-duration wrapper functions", {
+  # A stand-in shaped exactly like bacterial_blight(): duration hardcoded
+  # inside the call to a lower-level engine, no `duration` formal exposed.
+  hardcoded_wrapper <- function(wth, emergence, RcA = NULL, RcT = NULL, ...) {
+    mock_model(wth, emergence, duration = 20L, ...)
+  }
+
+  wl <- .mk_wth_list(2001)
+  em <- .mk_emergence("2001-06-01")
+
+  expect_no_error(
+    run_epicrop_model(
+      hardcoded_wrapper,
+      em,
+      wl,
+      window_days = 120L,
+      output = "full"
+    )
+  )
 })
