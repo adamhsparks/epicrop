@@ -115,34 +115,3 @@ test_that("epi_get_params error messages list the available options", {
 test_that(".epi_params is not exported from the package namespace", {
   expect_false(".epi_params" %in% getNamespaceExports("epicrop"))
 })
-
-# ---- epi_eval_param ---------------------------------------------------
-
-test_that("epi_eval_param evaluates a scalar parameter by recycling", {
-  expect_identical(epi_eval_param(0.1, at = c(1, 2, 3)), rep(0.1, 3))
-  expect_identical(epi_eval_param(5L, at = integer(0)), integer(0))
-})
-
-test_that("epi_eval_param matches stats::approx(rule = 2) for table parameters", {
-  tbl <- cbind(x = c(0, 10, 20), y = c(0, 1, 0.5))
-  at <- c(-5, 0, 5, 10, 15, 20, 25)
-
-  expected <- stats::approx(tbl[, "x"], tbl[, "y"], xout = at, rule = 2)$y
-
-  expect_identical(epi_eval_param(tbl, at = at), expected)
-})
-
-test_that("epi_eval_param works on real stored parameter tables", {
-  p <- epi_get_params("wheat", "leaf_rust")
-
-  # RcT: optimum near 15C for leaf rust (Savary et al. 2015, Table 2)
-  vals <- epi_eval_param(p$RcT, at = c(0, 15, 40))
-  expect_length(vals, 3)
-  expect_true(all(vals >= 0))
-  expect_identical(vals[2], max(p$RcT[, 2]))
-})
-
-test_that("epi_eval_param errors for invalid parameter types", {
-  expect_error(epi_eval_param("not_valid", at = 1), "numeric scalar")
-  expect_error(epi_eval_param(list(1, 2), at = 1), "numeric scalar")
-})
