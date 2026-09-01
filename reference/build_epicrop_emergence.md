@@ -15,13 +15,13 @@ build_epicrop_emergence(years, month_day)
 
 - years:
 
-  Integer vector of years (e.g., `2001:2003`).
+  Integer vector of years (*e.g.*, `2001:2003`).
 
 - month_day:
 
-  Character vector of month-day strings in the form `"-MM-DD"` (e.g.,
+  Character vector of month-day strings in the form `"-MM-DD"` (*e.g.*,
   `c("-06-01", "-06-14")`). If a string is supplied without a leading
-  dash (e.g., `"06-01"`), callers should normalize it in advance; this
+  dash (*e.g.*, `"06-01"`), callers should normalize it in advance; this
   helper expects the leading `-` as part of the format `"YYYY-MM-DD"`.
 
 ## Value

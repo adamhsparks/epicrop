@@ -22,9 +22,9 @@ with a minimal [reprex](https://www.tidyverse.org/help/#reprex).
 - We recommend the tidyverse [style guide](http://style.tidyverse.org).
   You can use the [styler](https://CRAN.R-project.org/package=styler)
   package or the [Air
-  formatter](https://posit-dev.github.io/air/formatter.html) to apply
-  these styles, but please don’t restyle code that has nothing to do
-  with your PR.
+  formatter](https://posit-dev.github.io/air/formatter.html) to a
+- pply these styles, but please don’t restyle code that has nothing to
+  do with your PR.
 - We use [roxygen2](https://cran.r-project.org/package=roxygen2).
 - We use [testthat](https://cran.r-project.org/package=testthat).
   Contributions with test cases included are easier to accept.
