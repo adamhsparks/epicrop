@@ -293,6 +293,17 @@ the default values from published papers.}
 Helper functions with pre-loaded parameter tables for optimal performance.
 Custom parameter tables can be provided to override defaults.
 }
+\section{TMIN/TMAX Details}{
+
+
+If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
+\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
+24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
+\code{RcW} to calculate a value between 0 and 1 for the whole day. When
+\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
+to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
+}
+
 \references{
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. (2012).
 Modeling and mapping potential epidemics of rice diseases globally.
