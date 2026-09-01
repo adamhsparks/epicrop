@@ -1,33 +1,3 @@
-#' Validate Weather Data
-#' @autoglobal
-#' @dev
-.validate_weather <- function(wth) {
-  if (!rlang::inherits_any(wth, "epicrop.wth")) {
-    cli::cli_abort(
-      c(
-        "{.var wth} must be an object of class {.cls epicrop.wth}.",
-        i = "Use {.fn get_wth} or {.fn format_wth} to create one."
-      ),
-      call = rlang::caller_env()
-    )
-  }
-
-  required <- c("YYYYMMDD", "TEMP", "RAIN")
-  missing <- setdiff(required, names(wth))
-
-  if (length(missing) > 0L) {
-    cli::cli_abort(
-      c(
-        "Missing required columns in {.var wth}:",
-        x = "{.val {missing}}"
-      ),
-      call = rlang::caller_env()
-    )
-  }
-
-  invisible(TRUE)
-}
-
 #' Validate scalar parameters
 #' @autoglobal
 #' @dev

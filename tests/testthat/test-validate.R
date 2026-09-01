@@ -110,40 +110,6 @@ test_that(".validate_param_range error message includes parameter name and value
   expect_match(conditionMessage(err), "-5")
 })
 
-# ---- .validate_weather ---------------------------------------------------
-
-test_that(".validate_weather accepts a well-formed epicrop.wth object", {
-  expect_true(.validate_weather(wth_formatted))
-})
-
-test_that(".validate_weather rejects objects without class epicrop.wth", {
-  wth_bad_class <- as.data.frame(wth_formatted)
-  expect_error(.validate_weather(wth_bad_class), "epicrop.wth")
-})
-
-test_that(".validate_weather errors when required columns are missing", {
-  w <- data.table::copy(wth_formatted)
-  w[, TEMP := NULL]
-  expect_error(.validate_weather(w), "TEMP")
-
-  w2 <- data.table::copy(wth_formatted)
-  w2[, RAIN := NULL]
-  expect_error(.validate_weather(w2), "RAIN")
-
-  w3 <- data.table::copy(wth_formatted)
-  w3[, YYYYMMDD := NULL]
-  expect_error(.validate_weather(w3), "YYYYMMDD")
-})
-
-test_that(".validate_weather lists all missing columns at once", {
-  w <- data.table::data.table(RHUM = 80)
-  class(w) <- c("epicrop.wth", class(w))
-  err <- tryCatch(.validate_weather(w), error = function(e) e)
-  expect_match(conditionMessage(err), "YYYYMMDD")
-  expect_match(conditionMessage(err), "TEMP")
-  expect_match(conditionMessage(err), "RAIN")
-})
-
 # ---- .validate_scalars: individual parameter ranges ------------------------
 
 test_that(".validate_scalars accepts valid defaults", {
