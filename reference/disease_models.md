@@ -300,6 +300,22 @@ stb(
   allowing the user to override the default values from published
   papers.
 
+## TMIN/TMAX Details
+
+If `simple_wetness` is set to `FALSE`, the function will use the `TMIN`
+and `TMAX` columns in the `wth` object to calculate the leaf wetness
+value for 24 hours of the day using the `rhlim` and `rainlim` values and
+then uses `RcW` to calculate a value between 0 and 1 for the whole day.
+When `simple_wetness` is set to `TRUE`, the function only sets the leaf
+wetness to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
+
+## LAT/LON Details
+
+If the `wth` object provides `LAT` and `LON` columns, these will be
+included in the output for mapping purposes. Both values must be
+present. These columns are provided by default when using
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
+
 ## References
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
