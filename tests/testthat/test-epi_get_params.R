@@ -26,8 +26,8 @@ test_that("epi_get_params RcA/RcT tables are 2-column numeric matrices", {
         tbl <- p[[nm]]
         expect_true(is.matrix(tbl) || is.data.frame(tbl))
         expect_identical(ncol(tbl), 2L)
-        expect_true(is.numeric(tbl[, 1]))
-        expect_true(is.numeric(tbl[, 2]))
+        expect_type(tbl[, 1], "double")
+        expect_type(tbl[, 2], "double")
       }
     }
   }

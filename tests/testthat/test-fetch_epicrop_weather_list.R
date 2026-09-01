@@ -627,19 +627,15 @@ test_that(".format_results wraps multiple results into a named epicrop.wth.bundl
 
   out <- .format_results(list(fake_result, fake_result), tasks)
 
-  expect_true(inherits(out, "epicrop.wth.bundle"))
-  expect_true(inherits(out, "epicrop.wth.list"))
-  expect_identical(
-    names(out),
+  expect_s3_class(out, "epicrop.wth.bundle")
+  expect_s3_class(out, "epicrop.wth.list")
+  expect_named(
+    out,
     c("siteA__2000-06-01__120d", "siteB__2000-07-01__90d")
   )
 })
 
 # ---- .fetch_one_weather: isolated with a mocked get_wth() -----------
-# get_wth() itself hits the network; here we mock it so this test verifies
-# only .fetch_one_weather()'s splitting/classing logic, not the fetch.
-# Adjust `.package` below if get_wth() is re-exported from elsewhere (e.g.
-# {nasapower}) rather than defined directly in {epicrop}.
 
 test_that(".fetch_one_weather splits a fetched weather table into a per-year named list", {
   fake_wth <- data.table::data.table(

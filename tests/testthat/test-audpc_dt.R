@@ -111,10 +111,10 @@ vcr::use_cassette("audpc_dt_tests", {
 
     audpc_attr <- attr(sim, "AUDPC")
     expect_type(audpc_attr, "double")
-    expect_true(audpc_attr > 0)
+    expect_gt(audpc_attr, 0)
 
     result <- audpc_dt(sim)
-    expect_equal(result$AUDPC, audpc_attr)
+    expect_identical(result$AUDPC, audpc_attr)
   })
 
   test_that("audpc_dt does not modify input by reference", {
@@ -127,8 +127,8 @@ vcr::use_cassette("audpc_dt_tests", {
     result <- audpc_dt(sim)
 
     expect_identical(data.table::key(sim), original_key)
-    expect_identical(names(sim), original_names)
-    expect_equal(nrow(sim), original_nrow)
+    expect_named(sim, original_names)
+    expect_identical(sim, original_nrow)
   })
 
   test_that("audpc_dt works with multiple disease models", {
@@ -149,9 +149,9 @@ vcr::use_cassette("audpc_dt_tests", {
     expect_s3_class(lb_result, "data.table")
     expect_s3_class(sb_result, "data.table")
 
-    expect_true(bb_result$AUDPC > 0)
-    expect_true(lb_result$AUDPC > 0)
-    expect_true(sb_result$AUDPC > 0)
+    expect_gt(bb_result$AUDPC, 0)
+    expect_gt(lb_result$AUDPC, 0)
+    expect_gt(sb_result$AUDPC, 0)
 
     expect_false(isTRUE(all.equal(bb_result$AUDPC, lb_result$AUDPC)))
   })

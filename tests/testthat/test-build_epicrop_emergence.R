@@ -20,8 +20,12 @@ test_that("build_epicrop_emergence produces one date per year x month_day combin
   expect_setequal(
     as.character(em),
     c(
-      "2001-06-01", "2001-06-14", "2001-06-30",
-      "2002-06-01", "2002-06-14", "2002-06-30"
+      "2001-06-01",
+      "2001-06-14",
+      "2001-06-30",
+      "2002-06-01",
+      "2002-06-14",
+      "2002-06-30"
     )
   )
 })
@@ -208,7 +212,7 @@ test_that("build_epicrop_emergence output supports standard Date operations", {
   em <- build_epicrop_emergence(2001:2002, c("-06-01", "-06-14"))
 
   expect_true(all(data.table::year(em) %in% 2001:2002))
-  expect_true(is.numeric(as.numeric(em)))
+  expect_type(as.numeric(em), "double")
   expect_identical(
     as.character(min(em)),
     as.character(em[1])

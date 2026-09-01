@@ -212,7 +212,7 @@ test_that(".run_one returns emergence/AUDPC for output = 'audpc' with valid weat
   expect_s3_class(res, "data.table")
   expect_named(res, c("emergence", "AUDPC"))
   expect_identical(res$emergence, ed)
-  expect_true(is.numeric(res$AUDPC))
+  expect_type(res$AUDPC, "double")
 })
 
 test_that(".run_one returns NA AUDPC for output = 'audpc' when weather is missing", {

@@ -66,9 +66,9 @@ test_that("AUDPC calculation handles minimal simulations", {
     expect_s3_class(sim, "epicrop.sim")
 
     audpc_val <- attr(sim, "AUDPC")
-    expect_true(is.numeric(audpc_val))
+    expect_type(audpc_val, "double")
     expect_true(is.finite(audpc_val))
-    expect_true(audpc_val >= 0)
+    expect_gt(audpc_val, 0)
   })
 })
 
@@ -140,11 +140,11 @@ test_that("AUDPC is calculated for all disease models", {
     tg <- tungro(wth, emergence = "2000-07-01")
 
     # All should have AUDPC attribute
-    expect_true(!is.null(attr(bb, "AUDPC")))
-    expect_true(!is.null(attr(bs, "AUDPC")))
-    expect_true(!is.null(attr(lb, "AUDPC")))
-    expect_true(!is.null(attr(sb, "AUDPC")))
-    expect_true(!is.null(attr(tg, "AUDPC")))
+    expect_false(is.null(attr(bb, "AUDPC")))
+    expect_false(is.null(attr(bs, "AUDPC")))
+    expect_false(is.null(attr(lb, "AUDPC")))
+    expect_false(is.null(attr(sb, "AUDPC")))
+    expect_false(is.null(attr(tg, "AUDPC")))
 
     # All should be positive and finite
     expect_true(attr(bb, "AUDPC") > 0 && is.finite(attr(bb, "AUDPC")))
@@ -161,7 +161,7 @@ test_that("AUDPC is calculated for all disease models", {
       attr(sb, "AUDPC"),
       attr(tg, "AUDPC")
     )
-    expect_true(length(unique(audpc_values)) > 1)
+    expect_gt(length(unique(audpc_values)), 1)
   })
 })
 
