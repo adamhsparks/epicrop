@@ -102,7 +102,10 @@ fetch_epicrop_weather_list <- function(
   # Process start dates
   sd_char <- .process_start_dates(start_date, years)
 
-  # Build tasks
+  # `mode` only controls how locations and dates are paired when building the
+  # *candidate* set of date/duration windows (pairwise recycling vs. full
+  # location x date cross join); it must not change how weather ends up
+  # fetched and bundled.
   tasks <- .build_tasks(
     locations,
     location_names,
@@ -112,11 +115,7 @@ fetch_epicrop_weather_list <- function(
     mode
   )
 
-  # Only collapse in pairwise mode (efficient API calls per location)
-  # In cross mode, keep all location × date combinations separate
-  if (mode == "pairwise") {
-    tasks <- .collapse_tasks_by_location(tasks)
-  }
+  tasks <- .collapse_tasks_by_location(tasks)
 
   results <- lapply(tasks, .fetch_one_weather)
 
