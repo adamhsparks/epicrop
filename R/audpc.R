@@ -21,16 +21,16 @@
 #'
 #' @references
 #' Shaner G., and R.E. Finney, 1977. The effect of nitrogen fertilization on the
-#' expression of slow-mildewing resistance in Knox wheat. **Phytopathology**
+#' expression of slow-mildewing resistance in Knox wheat. *Phytopathology*
 #' 67: 1051–1056.
 #'
 #' Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
 #' Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-#' Disease Progress over Time. **The Plant Health Instructor**.
+#' Disease Progress over Time. *The Plant Health Instructor*.
 #' \doi{10.1094/PHI-A-2008-0129-02}.
 #'
-#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. **The Study of Plant
-#' Disease Epidemics**. American Phytopathological Society, St. Paul, MN.
+#' Madden, L. V., G. Hughes, and F. van den Bosch. 2007. *The Study of Plant
+#' Disease Epidemics*. American Phytopathological Society, St. Paul, MN.
 #' \doi{doi.org/10.1094/9780890545058}.
 #' @dev
 
