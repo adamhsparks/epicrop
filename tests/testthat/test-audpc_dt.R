@@ -128,7 +128,7 @@ vcr::use_cassette("audpc_dt_tests", {
 
     expect_identical(data.table::key(sim), original_key)
     expect_named(sim, original_names)
-    expect_identical(sim, original_nrow)
+    expect_identical(nrow(sim), original_nrow)
   })
 
   test_that("audpc_dt works with multiple disease models", {
