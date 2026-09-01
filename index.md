@@ -3,7 +3,7 @@
 A fork of
 [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim)
 (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary
-*et al.* 2012) for rice diseases easier to use and to implement the
+*et al.* 2012) for rice diseases easier to use and to implement the
 EPIWHEAT model in the same R package. This version provides easy to use
 functions to fetch weather data from NASA POWER, via the
 [{nasapower}](https://cran.r-project.org/package=nasapower) package
@@ -11,36 +11,28 @@ functions to fetch weather data from NASA POWER, via the
 a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks
 1971) function,
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
-The legacy `SEIR()` in {cropsim} uses a non-canonical formula for
-“diseased” ([it accumulates “infectious” twice via
-`sum(infectious)`](https://github.com/r-forge/cropsim/blob/7b7a035a612f9386112d8d49ec21724500d7f88e/pkg/cropsim/R/SEIR.R#L118C1-L120C60)).
 The modern core of
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-in {epicrop} was changed to the canonical formula
-(`diseased = latent + infectious + removed`), which reduced modern
-diseased and COFR relative to legacy. So, please be aware that the
-legacy `SEIR()` and the modern
+in {epicrop} uses a different numerical integration approach than the
+legacy `SEIR()` in {cropsim}. While both implement the canonical SEIR
+formula (diseased = latent + infectious + removed), the modern version
+uses cumulative delay windows instead of forward Euler integration. This
+results in different dynamics and typically lower AUDPC values.
+Additionally, the modern
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-will give different results for the same parameters, and that the modern
-[`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-is more consistent with the canonical SEIR model. This modern core of
-[`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-is also now 1 indexed, which is more consistent with R’s indexing and
-makes it easier to understand the model’s parameters and outputs when
-developing new models based on this core. The original `SEIR()` is 0
-indexed, which is as it was used in the original EPIRICE model and
-published in Savary *et al.* (2012) and the legacy `SEIR()` in
-{cropsim}.
+is 1-indexed (standard R convention) while the legacy `SEIR()` is
+0-indexed (as in the original EPIRICE publication by Savary *et al.*
+2012).
 
-This package implements the original EPIRICE model as detailed in Savary
-*et al.* (2012), which introduces the model and uses it to model global
+This package implements the EPIRICE model first published in Savary *et
+al.* (2012), which introduces the model and uses it to model global
 epidemics of rice diseases illustrating the risk of bacterial blight,
 brown spot, leaf blast, sheath blight and rice tungro disease.
 Additional models included for rice are adapted from Kim *et al.* (2015)
 for rice sheath blight and leaf blast.
 
-The original EPIWHEAT model as presented in Savary *et al.* (2015) is
-also included in this implementation and can be used to model potential
+The EPIWHEAT model first published in Savary *et al.* (2015) is also
+included in this implementation and can be used to model potential
 epidemics of two wheat diseases, leaf rust and Septoria tritici blotch,
 is also included in this package.
 
@@ -54,9 +46,10 @@ provided meet the model’s requirements.
 {epicrop} is not yet on CRAN. You can install it this way.
 
 \
-[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"epicrop"``,`\
-`  repos ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"https://adamhsparks.r-universe.dev"``,`\
-`            ``"https://cloud.r-project.org"``)``)`
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(`\
+`  ``"epicrop"``,`\
+`  repos ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"https://adamhsparks.r-universe.dev"``, ``"https://cloud.r-project.org"``)`\
+`)`
 
 ## Get weather data
 
@@ -104,32 +97,32 @@ transplanted rice.
 `bb_sim`` ``<-`` `[`bacterial_blight`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)`(``wth``, emergence ``=`` ``"2000-07-01"``)`\
 \
 `bb_sim`\
-`#>      simday      dates    sites latent infectious  removed    senesced rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased intensity     lat`\
-`#>       <int>     <IDat>    <num>  <num>      <num>    <num>       <num>   <num> <num>     <num>    <num>    <num>     <num>    <num>     <num>   <num>`\
-`#>   1:      1 2000-07-01 100.0000      0     0.0000    0.000    1.000000       0     0         0  0.00000  9.68750  1.000000    0.000         0 14.6774`\
-`#>   2:      2 2000-07-02 108.6875      0     0.0000    0.000    2.086875       0     0         0  0.00000 10.49959  1.086875    0.000         0 14.6774`\
-`#>   3:      3 2000-07-03 118.1002      0     0.0000    0.000    3.267877       0     0         0  0.00000 11.37416  1.181002    0.000         0 14.6774`\
-`#>   4:      4 2000-07-04 128.2934      0     0.0000    0.000    4.550811       0     0         0  0.00000 12.31499  1.282934    0.000         0 14.6774`\
-`#>   5:      5 2000-07-05 139.3254      0     0.0000    0.000    5.944065       0     0         0  0.00000 13.32593  1.393254    0.000         0 14.6774`\
-`#>  ---                                                                                                                                                 `\
-`#> 116:    116 2000-10-24   0.0000      0   396.0528 1404.565 2665.037553       0     0         0 43.67864  0.00000 39.691810 1800.618         1 14.6774`\
-`#> 117:    117 2000-10-25   0.0000      0   356.3610 1444.257 2712.120592       0     0         0 39.69181  0.00000 47.083039 1800.618         1 14.6774`\
-`#> 118:    118 2000-10-26   0.0000      0   309.2779 1491.340 2755.012575       0     0         0 47.08304  0.00000 42.891982 1800.618         1 14.6774`\
-`#> 119:    119 2000-10-27   0.0000      0   266.3860 1534.232 2791.854071       0     0         0 42.89198  0.00000 36.841497 1800.618         1 14.6774`\
-`#> 120:    120 2000-10-28   0.0000      0   229.5445 1571.073 2824.358958       0     0         0 36.84150  0.00000 32.504887 1800.618         1 14.6774`\
-`#>           lon`\
-`#>         <num>`\
-`#>   1: 121.2556`\
-`#>   2: 121.2556`\
-`#>   3: 121.2556`\
-`#>   4: 121.2556`\
-`#>   5: 121.2556`\
-`#>  ---         `\
-`#> 116: 121.2556`\
-`#> 117: 121.2556`\
-`#> 118: 121.2556`\
-`#> 119: 121.2556`\
-`#> 120: 121.2556`
+`#>      simday      dates    sites latent infectious  removed    senesced rateinf  rlex`\
+`#>       <int>     <IDat>    <num>  <num>      <num>    <num>       <num>   <num> <num>`\
+`#>   1:      1 2000-07-01 100.0000      0     0.0000    0.000    1.000000       0     0`\
+`#>   2:      2 2000-07-02 108.6875      0     0.0000    0.000    2.086875       0     0`\
+`#>   3:      3 2000-07-03 118.1002      0     0.0000    0.000    3.267877       0     0`\
+`#>   4:      4 2000-07-04 128.2934      0     0.0000    0.000    4.550811       0     0`\
+`#>   5:      5 2000-07-05 139.3254      0     0.0000    0.000    5.944065       0     0`\
+`#>  ---                                                                                `\
+`#> 116:    116 2000-10-24   0.0000      0   396.0528 1404.565 2665.037553       0     0`\
+`#> 117:    117 2000-10-25   0.0000      0   356.3610 1444.257 2712.120592       0     0`\
+`#> 118:    118 2000-10-26   0.0000      0   309.2779 1491.340 2755.012575       0     0`\
+`#> 119:    119 2000-10-27   0.0000      0   266.3860 1534.232 2791.854071       0     0`\
+`#> 120:    120 2000-10-28   0.0000      0   229.5445 1571.073 2824.358958       0     0`\
+`#>      rtransfer rremoved  rgrowth rsenesced diseased intensity     lat      lon`\
+`#>          <num>    <num>    <num>     <num>    <num>     <num>   <num>    <num>`\
+`#>   1:         0  0.00000  9.68750  1.000000    0.000         0 14.6774 121.2556`\
+`#>   2:         0  0.00000 10.49959  1.086875    0.000         0 14.6774 121.2556`\
+`#>   3:         0  0.00000 11.37416  1.181002    0.000         0 14.6774 121.2556`\
+`#>   4:         0  0.00000 12.31499  1.282934    0.000         0 14.6774 121.2556`\
+`#>   5:         0  0.00000 13.32593  1.393254    0.000         0 14.6774 121.2556`\
+`#>  ---                                                                          `\
+`#> 116:         0 43.67864  0.00000 39.691810 1800.618         1 14.6774 121.2556`\
+`#> 117:         0 39.69181  0.00000 47.083039 1800.618         1 14.6774 121.2556`\
+`#> 118:         0 47.08304  0.00000 42.891982 1800.618         1 14.6774 121.2556`\
+`#> 119:         0 42.89198  0.00000 36.841497 1800.618         1 14.6774 121.2556`\
+`#> 120:         0 36.84150  0.00000 32.504887 1800.618         1 14.6774 121.2556`
 
 Lastly, you can visualise the result of the model run.
 
