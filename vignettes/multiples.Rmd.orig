@@ -16,14 +16,16 @@ vignette: >
 ```{r setup, include = FALSE}
 suggested_packages <- "ggplot2"
 
-knitr::opts_chunk$set(eval = all(
-  vapply(
-    suggested_packages,
-    requireNamespace,
-    quietly = TRUE,
-    FUN.VALUE = FALSE
+knitr::opts_chunk$set(
+  eval = all(
+    vapply(
+      suggested_packages,
+      requireNamespace,
+      quietly = TRUE,
+      FUN.VALUE = FALSE
+    )
   )
-))
+)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -73,10 +75,12 @@ wth_list <- fetch_epicrop_weather_list(
 Now that we have a list of weather data for two seasons we will use `run_epicrop_model()` now to run `bacterial_blight()` for two seasons and create a single data frame of the two seasons.
 
 ```{r run-predict, message=FALSE}
-bb_2_seasons <- run_epicrop_model(model_fun = bacterial_blight,
-                                  emergence_dates = ymd,
-                                  wth_list = wth_list,
-                                  window_days = duration)
+bb_2_seasons <- run_epicrop_model(
+  model_fun = bacterial_blight,
+  emergence_dates = ymd,
+  wth_list = wth_list,
+  window_days = duration
+)
 
 bb_2_seasons
 ```
@@ -87,11 +91,8 @@ A simple bar chart created using {ggplot2} is an effective way to visualise the 
 
 ```{r graph_seasons, fig.cap="Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines."}
 library(ggplot2)
-ggplot(bb_2_seasons,
-       aes(y = as.factor(emergence),
-           x = AUDPC)) +
-  geom_col(width = 0.5,
-           orientation = "y") +
+ggplot(bb_2_seasons, aes(y = as.factor(emergence), x = AUDPC)) +
+  geom_col(width = 0.5, orientation = "y") +
   ylab("Emergence (YYYY-MM-DD)") +
   xlab("AUDPC") +
   theme_classic()
@@ -112,19 +113,23 @@ duration <- 120L
 emergence <- build_epicrop_emergence(years, month_day)
 
 # select 200 days duration to allow for multiple seasonal runs on same data
-wth_list <- fetch_epicrop_weather_list(years = years,
-                                       lonlat = lonlat,
-                                       start_date = month_day,
-                                       duration = duration)
+wth_list <- fetch_epicrop_weather_list(
+  years = years,
+  lonlat = lonlat,
+  start_date = month_day,
+  duration = duration
+)
 ```
 
 
 ```{r sequential-establishment}
- run_epicrop_model(bacterial_blight,
-                   emergence,
-                   wth_list,
-                   window_days = duration,
-                   output = "audpc")
+ run_epicrop_model(
+   bacterial_blight,
+   emergence,
+   wth_list,
+   window_days = duration,
+   output = "audpc"
+ )
 ```
 
 #### Multiple Sites and Seasons
@@ -150,17 +155,15 @@ wth_list <- fetch_epicrop_weather_list(
   duration = 240L,
   years = years,
   mode = "cross"
-  )
+)
 
 emergence <- build_epicrop_emergence(years, start_date)
-```
 
-Examples of how to run the model sequentially and in parallel.
-
-```{r stb-multiple}
-run_epicrop_model(s_tritici_blotch,
-                  emergence,
-                  wth_list,
-                  window_days = 240L,
-                  output = "audpc")
+run_epicrop_model(
+  s_tritici_blotch,
+  emergence,
+  wth_list,
+  window_days = 240L,
+  output = "audpc"
+)
 ```
