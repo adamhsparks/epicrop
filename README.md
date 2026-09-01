@@ -173,7 +173,7 @@ By contributing to this project, you agree to abide by its terms.
 
 # References
 
-Brun François, David Makowski, Daniel Wallach, and James W Jones.
+François Brun, David Makowski, Daniel Wallach, and James W Jones.
 (2018).
 *ZeBook: Working with Dynamic Models for Agriculture and Environment*.
 DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
@@ -184,8 +184,7 @@ Predicting potential epidemics of rice leaf blast and sheath blight in South Kor
 *Agricultural and Forest Meteorology*, 203: 191-207.
 DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
 
-Robert J.
-Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
+Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
 *cropsim*.
 (2009).
 Simulation modeling of crops and their diseases.
@@ -208,14 +207,12 @@ Adam Sparks.
 nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R.
 *Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Jan C.
-Zadoks.
+Jan C Zadoks.
 (1971).
 Systems Analysis and the Dynamics of Epidemics.
 *Phytopathology* 61:600.
 DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
-Wallach, Daniel, David Makowski, James W.
-Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*.
+Wallach, Daniel, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*.
 Academic Press.
 DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
