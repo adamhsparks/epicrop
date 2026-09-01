@@ -1059,7 +1059,7 @@ test_that("seir falls back to YYYYMMDD when wth lacks a dates column", {
   )
 
   expect_s3_class(result, "epicrop.sim")
-  expect_true(!any(is.na(result$dates)))
+  expect_true(!anyNA(result$dates))
 })
 
 # ---- infection_window: thermal_time fallback and actual restriction -------

@@ -489,7 +489,7 @@ test_that("Edge cases handled correctly", {
   )
 
   # Should produce valid results (automatically sorted)
-  expect_true(!any(is.na(opt_unsorted$intensity)))
+  expect_true(!anyNA(opt_unsorted$intensity))
   expect_true(all(opt_unsorted$intensity >= 0))
   expect_true(all(opt_unsorted$intensity <= 1))
   message("  ✓ Unsorted user table: PASSED")
