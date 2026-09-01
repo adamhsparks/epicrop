@@ -1,52 +1,3 @@
-#' Validate All Simulation Inputs
-#'
-#' Central validation function for `seir()` parameters
-#' @autoglobal
-#' @dev
-.validate_all_inputs <- function(
-  wth,
-  emergence,
-  onset,
-  duration,
-  rhlim,
-  rainlim,
-  H0,
-  I0,
-  RcOpt,
-  Sx,
-  a,
-  steps_per_day,
-  simple_wetness,
-  age_driver,
-  RcW
-) {
-  .validate_weather(wth)
-  .validate_emergence(emergence)
-
-  .validate_scalars(
-    onset = onset,
-    duration = duration,
-    rhlim = rhlim,
-    rainlim = rainlim,
-    H0 = H0,
-    RcOpt = RcOpt,
-    Sx = Sx,
-    a = a,
-    steps_per_day = steps_per_day
-  )
-
-  if (!.is_boolean(simple_wetness)) {
-    cli::cli_abort(
-      "{.var simple_wetness} must be {.code TRUE} or {.code FALSE}.",
-      call = rlang::caller_env()
-    )
-  }
-
-  .validate_wetness_params(simple_wetness, wth, RcW)
-
-  invisible(TRUE)
-}
-
 #' Validate Weather Data
 #' @autoglobal
 #' @dev
@@ -281,8 +232,7 @@
       cli::cli_abort(
         c(
           x = "{.var emergence} is an ambiguous numeric date.",
-          i =
-            "Use an unambiguous format such as {.val 2000-07-01}
+          i = "Use an unambiguous format such as {.val 2000-07-01}
             {.val 31/01/2000}, or {.val 07/31/2000}."
         ),
         call = rlang::caller_env()

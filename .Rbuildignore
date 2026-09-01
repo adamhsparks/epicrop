@@ -27,7 +27,6 @@
 
 ^man/dot-calculate_audpc\.Rd$
 ^man/epi_get_params\.Rd$
-^man/epi_eval_param\.Rd$
 ^man/dot-validate_required_args\.Rd$
 ^man/dot-norm_locations\.Rd$
 ^man/dot-resolve_location_names\.Rd$
@@ -52,7 +51,6 @@
 ^man/dot-calculate_weighted_hr_wet\.Rd$
 ^man/dot-run_bundle\.Rd$
 ^man/dot-calculate_dvs\.Rd$
-^man/dot-validate_all_inputs\.Rd$
 ^man/dot-validate_weather\.Rd$
 ^man/dot-validate_scalars\.Rd$
 ^man/dot-validate_param_range\.Rd$
