@@ -17,11 +17,13 @@
 #'   _RHUM_ | Mean daily relative humidity (%)
 #'   _RAIN_ | Mean daily rainfall (mm)
 #'   _TMIN_ | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX
-#'      Details
+#'      details for more
 #'   _TMAX_ | **Optional** Maximum daily temperature (degrees C), see TMIN/TMAX
-#'      Details
-#'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON Details
-#'   _LON_ | **Optional** longitude of weather observation, see LAT/LON Details
+#'      details for more
+#'   _LAT_ | **Optional** latitude of weather observation, see LAT/LON details
+#'      for more
+#'   _LON_ | **Optional** longitude of weather observation, see LAT/LON details
+#'      for more
 #'
 #' @param emergence Expected date of plant emergence (or transplanting for rice)
 #'  entered in `YYYY-MM-DD` format (character).
@@ -29,46 +31,46 @@
 #'  emergence date (day, integer). For this modern seir() variant onset is
 #'  1-indexed (1 = emergence day). When comparing with legacy SEIR(),
 #'  translate as legacy_onset = onset - 1.
-#' @param duration simulation duration *i. e.*, growing season length (day,
-#'  integer). Described in Table 1 of Savary _et al._ 2012.
+#' @param duration simulation duration *i.e.*, growing season length (day,
+#'  integer). Described in Table 1 of Savary *et al.* 2012.
 #' @param H0 initial number of plant's healthy sites (integer). Described in
-#'  Table 1 of Savary _et al._ 2012.
+#'  Table 1 of Savary *et al.* 2012.
 #' @param I0 initial number of infective sites (scalar integer). Described in
-#'  Table 1 of Savary _et al._ 2012. I0 is injected as new infections (become
+#'  Table 1 of Savary *et al.* 2012. I0 is injected as new infections (become
 #'  infectious after `p` days).
 #' @param RcA modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for crop age as a numeric two-column matrix with the first column
 #'  being the crop age in days (0 to `duration-1`) or DVS (0 to 2) and the
 #'  second being the modifier (bounded by 0 and 1). Described in Tables 1 and 2
-#'  of Savary _et al._ 2012.
+#'  of Savary *et al.* 2012.
 #' @param RcT modifier for _Rc_ (the basic infection rate corrected for
 #'  removals) for temperature as a numeric two-column matrix with the first
 #'  column being temperature in degrees C and the second the modifier (bounded
-#'  by 0 and 1). Described in Tables 1 and 2 of Savary _et al._ 2012.
+#'  by 0 and 1). Described in Tables 1 and 2 of Savary *et al.* 2012.
 #' @param RcOpt potential basic infection rate corrected for removals (numeric).
-#'  Described in Table 1 of Savary _et al._ 2012. This value can be modified
+#'  Described in Table 1 of Savary *et al.* 2012. This value can be modified
 #'  to reflect crop cultivar resistance ratings as well, see Kim _et al. _ 2015
 #'  for more details.
 #' @param p duration of latent period (day, integer or function of temperature).
-#'  Described in Table 1 of Savary _et al._ 2012.
+#'  Described in Table 1 of Savary *et al.* 2012.
 #' @param i duration of infectious period (day, integer or function of
-#'  temperature). Described in Table 1 of Savary _et al._ 2012.
+#'  temperature). Described in Table 1 of Savary *et al.* 2012.
 #' @param Sx maximum number of sites (integer). Described in Table 1 of Savary
-#'  _et al._ 2012.
+#'  *et al.* 2012.
 #' @param RRS relative rate of physiological senescence (numeric, vector, or
-#'  function of DVS). Described in Table 1 of Savary _et al._ 2012.
+#'  function of DVS). Described in Table 1 of Savary *et al.* 2012.
 #' @param RRG relative rate of growth (numeric, vector, or function of time).
-#'  Described in Table 1 of Savary _et al._ 2012.
+#'  Described in Table 1 of Savary *et al.* 2012.
 #' @param a aggregation coefficient, values are from 1 to >1 (numeric or
-#'  function of DVS). Described in Table 1 of Savary _et al._ 2012 and Table 1
-#'  of Savary _et al._ 2015. See further details in **_a_ - Aggregation**
+#'  function of DVS). Described in Table 1 of Savary *et al.* 2012 and Table 1
+#'  of Savary *et al.* 2015. See further details in **_a_ - Aggregation**
 #'  section. Defaults to 1.
 #' @param rhlim relative humidity value threshold to decide whether leaves are
-#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
-#'  _et al._ 2012 used `90`. Defaults to 90.
+#'  wet or not (numeric). Described in Table 1 of Savary *et al.* 2012. Savary
+#'  *et al.* 2012 used `90`. Defaults to 90.
 #' @param rainlim rainfall amount (mm) threshold to decide whether leaves are
-#'  wet or not (numeric). Described in Table 1 of Savary _et al._ 2012. Savary
-#'  _et al._ 2012 used `5`. Defaults to 5.
+#'  wet or not (numeric). Described in Table 1 of Savary *et al.* 2012. Savary
+#'  *et al.* 2012 used `5`. Defaults to 5.
 #' @param RcW Optional modifier for _Rc_ to calculate leaf wetness effect
 #'  from 1 if wet to 0 if dry.  This is a numeric two-column matrix with the
 #'  first column being hours (0 to 24) and the second the modifier (bounded by 0
@@ -170,7 +172,7 @@
 #' aggregation with new infections occurring at random among the healthy sites.
 #' When _a_ is greater than `1` there is aggregation in the disease occurrence,
 #' the pathogen is unable to access the entire population of healthy sites,
-#' which results in disease aggregation.  Refer to Savary _et al._ (2012) for
+#' which results in disease aggregation.  Refer to Savary *et al.* (2012) for
 #' greater detail.
 #'
 #' @section TMIN/TMAX Details:

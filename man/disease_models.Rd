@@ -265,13 +265,15 @@ field names:\tabular{rl}{
 }
 
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ Details
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ details for more
 }\if{html}{\out{</div>}}
 
 \emph{TMAX} | \strong{Optional} Maximum daily temperature (degrees C), see TMIN/TMAX
-Details
-\emph{LAT} | \strong{Optional} latitude of weather observation, see LAT/LON Details
-\emph{LON} | \strong{Optional} longitude of weather observation, see LAT/LON Details}
+details for more
+\emph{LAT} | \strong{Optional} latitude of weather observation, see LAT/LON details
+for more
+\emph{LON} | \strong{Optional} longitude of weather observation, see LAT/LON details
+for more}
 
 \item{emergence}{Expected date of plant emergence (or transplanting for rice)
 entered in \code{YYYY-MM-DD} format (character).}
