@@ -5,11 +5,11 @@
 #' tagged with class `epicrop.emerge` for downstream use with
 #' [run_epicrop_model()].
 #'
-#' @param years Integer vector of years (e.g., `2001:2003`).
+#' @param years Integer vector of years (*e.g.*, `2001:2003`).
 #' @param month_day Character vector of month-day strings in the form `"-MM-DD"`
-#'   (e.g., `c("-06-01", "-06-14")`). If a string is supplied without a leading
-#'   dash (e.g., `"06-01"`), callers should normalize it in advance; this helper
-#'   expects the leading `-` as part of the format `"YYYY-MM-DD"`.
+#'   (*e.g.*, `c("-06-01", "-06-14")`). If a string is supplied without a
+#'   leading dash (*e.g.*, `"06-01"`), callers should normalize it in advance;
+#'   this helper expects the leading `-` as part of the format `"YYYY-MM-DD"`.
 #'
 #' @returns A sorted vector of [data.table::IDate] emergence dates with class
 #'   `epicrop.emerge` (*i.e.*, `inherits(x, "epicrop.emerge")` will be `TRUE`).

@@ -7,12 +7,12 @@
 build_epicrop_emergence(years, month_day)
 }
 \arguments{
-\item{years}{Integer vector of years (e.g., \code{2001:2003}).}
+\item{years}{Integer vector of years (\emph{e.g.}, \code{2001:2003}).}
 
 \item{month_day}{Character vector of month-day strings in the form \code{"-MM-DD"}
-(e.g., \code{c("-06-01", "-06-14")}). If a string is supplied without a leading
-dash (e.g., \code{"06-01"}), callers should normalize it in advance; this helper
-expects the leading \code{-} as part of the format \code{"YYYY-MM-DD"}.}
+(\emph{e.g.}, \code{c("-06-01", "-06-14")}). If a string is supplied without a
+leading dash (\emph{e.g.}, \code{"06-01"}), callers should normalize it in advance;
+this helper expects the leading \code{-} as part of the format \code{"YYYY-MM-DD"}.}
 }
 \value{
 A sorted vector of \link[data.table:IDate]{data.table::IDate} emergence dates with class
