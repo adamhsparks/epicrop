@@ -1,3 +1,58 @@
+# ---- Local fixtures (kept in this file, not helper-mocks.R, so this file's
+# tests don't depend on helper-file load order/content) --------------------
+
+.fake_get_wth <- function(lonlat, dates, duration) {
+  start <- data.table::as.IDate(dates)
+  dt <- data.table::data.table(
+    YYYYMMDD = start + seq_len(duration) - 1L,
+    TEMP = 25,
+    RAIN = 1,
+    RHUM = 80,
+    TMIN = 20,
+    TMAX = 30
+  )
+  class(dt) <- c("epicrop.wth", class(dt))
+  dt
+}
+
+# A lightweight stand-in for a real epicrop disease model (e.g.
+# bacterial_blight()). Mimics seir()'s real contract: errors if the
+# emergence date isn't present in the weather, or if there isn't enough
+# weather left after emergence to cover `duration`.
+mock_model <- function(
+  wth,
+  emergence,
+  duration = 30L,
+  RcOpt = 1,
+  fail = FALSE,
+  ...
+) {
+  if (fail) {
+    stop("mock model failure")
+  }
+
+  i0 <- which(wth$YYYYMMDD == data.table::as.IDate(emergence))
+  if (!length(i0)) {
+    cli::cli_abort("Emergence date not found in weather data")
+  }
+  if ((nrow(wth) - i0 + 1L) < duration) {
+    cli::cli_abort(
+      "Insufficient weather data to run {duration} days after emergence"
+    )
+  }
+
+  w <- wth[i0:(i0 + duration - 1L)]
+  out <- data.table::data.table(
+    simday = seq_len(duration),
+    dates = w$YYYYMMDD,
+    intensity = seq(0, 0.5, length.out = duration),
+    RcOpt = RcOpt
+  )
+  data.table::setattr(out, "AUDPC", sum(out$intensity))
+  data.table::setattr(out, "class", c("epicrop.sim", class(out)))
+  out[]
+}
+
 # ---- .validate_required_args -----------------------------------------
 
 test_that(".validate_required_args errors when lonlat is missing", {
@@ -714,23 +769,6 @@ test_that("fetch_epicrop_weather_list returns an epicrop.wth.bundle for multiple
   expect_true(all(grepl("^IRRI_ZES__|^Metro_Manila__", names(result))))
 })
 
-test_that("fetch_epicrop_weather_list returns all location x date combinations in cross mode", {
-  vcr::use_cassette("fetch_epicrop_weather_list-multi-location-cross", {
-    result <- fetch_epicrop_weather_list(
-      lonlat = rbind(
-        IRRI_ZES = c(121.255669, 14.16742),
-        Metro_Manila = c(120.985, 14.6042)
-      ),
-      start_date = c("2000-06-30", "2000-07-14"),
-      duration = 10L,
-      mode = "cross"
-    )
-  })
-
-  expect_s3_class(result, "epicrop.wth.bundle")
-  expect_length(result, 4L) # 2 locations x 2 dates
-})
-
 test_that("fetch_epicrop_weather_list computes an efficient covering window for repeated month-day start dates", {
   vcr::use_cassette("fetch_epicrop_weather_list-md-years-coverage", {
     result <- fetch_epicrop_weather_list(
@@ -746,4 +784,161 @@ test_that("fetch_epicrop_weather_list computes an efficient covering window for 
   # documented efficient-API-call design.
   expect_s3_class(result, "epicrop.wth.list")
   expect_setequal(names(result), c("2001", "2002"))
+})
+
+# ---- fetch_epicrop_weather_list(): end-to-end, mocked get_wth() ----------
+
+test_that("fetch_epicrop_weather_list returns a single epicrop.wth.list for one location/date", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  result <- fetch_epicrop_weather_list(
+    lonlat = c(121.255669, 14.16742),
+    start_date = "2000-06-30",
+    duration = 10L
+  )
+
+  expect_s3_class(result, "epicrop.wth.list")
+  expect_false(inherits(result, "epicrop.wth.bundle"))
+
+  total_rows <- sum(vapply(result, nrow, integer(1)))
+  expect_identical(total_rows, 10L)
+})
+
+test_that("fetch_epicrop_weather_list splits a cross-year window into two year buckets", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  result <- fetch_epicrop_weather_list(
+    lonlat = c(121.255669, 14.16742),
+    start_date = "2000-12-28",
+    duration = 10L
+  )
+
+  expect_setequal(names(result), c("2000", "2001"))
+  expect_identical(nrow(result[["2000"]]), 4L)
+  expect_identical(nrow(result[["2001"]]), 6L)
+})
+
+test_that("fetch_epicrop_weather_list returns an epicrop.wth.bundle for multiple locations (pairwise)", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  result <- fetch_epicrop_weather_list(
+    lonlat = rbind(
+      IRRI_ZES = c(121.255669, 14.16742),
+      Metro_Manila = c(120.985, 14.6042)
+    ),
+    start_date = c("2000-06-30", "2000-07-14"),
+    duration = 10L,
+    mode = "pairwise"
+  )
+
+  expect_s3_class(result, "epicrop.wth.bundle")
+  expect_length(result, 2L)
+  expect_true(all(grepl("^IRRI_ZES__|^Metro_Manila__", names(result))))
+})
+
+test_that("fetch_epicrop_weather_list returns one bundle entry per location in cross mode too", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  result <- fetch_epicrop_weather_list(
+    lonlat = rbind(
+      IRRI_ZES = c(121.255669, 14.16742),
+      Metro_Manila = c(120.985, 14.6042)
+    ),
+    start_date = c("2000-06-30", "2000-07-14"),
+    duration = 10L,
+    mode = "cross"
+  )
+
+  expect_s3_class(result, "epicrop.wth.bundle")
+  # One collapsed entry per location (2), NOT per location x date (4) --
+  # this is the exact behavior the earlier bug violated.
+  expect_length(result, 2L)
+  labels <- sub("__.*$", "", names(result))
+  expect_setequal(labels, c("IRRI_ZES", "Metro_Manila"))
+})
+
+test_that("fetch_epicrop_weather_list computes an efficient covering window for repeated month-day start dates", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  result <- fetch_epicrop_weather_list(
+    lonlat = c(121.255669, 14.16742),
+    start_date = c("-06-01", "-06-14", "-06-30"),
+    duration = 5L,
+    years = 2001:2002
+  )
+
+  expect_s3_class(result, "epicrop.wth.list")
+  expect_setequal(names(result), c("2001", "2002"))
+})
+
+test_that("fetch_epicrop_weather_list collapses per-location even in cross mode", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  locs <- list(
+    Merredin = c(118.28, -31.48),
+    Corrigin = c(117.87, -32.33)
+  )
+
+  result <- fetch_epicrop_weather_list(
+    lonlat = locs,
+    start_date = c("-04-15", "-05-13"),
+    duration = 100L,
+    years = 2019:2020,
+    mode = "cross"
+  )
+
+  expect_s3_class(result, "epicrop.wth.bundle")
+  expect_length(result, 2L)
+
+  labels <- sub("__.*$", "", names(result))
+  expect_setequal(labels, c("Merredin", "Corrigin"))
+})
+
+test_that("collapsed cross-mode bundle covers the full span needed by every date pattern", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  result <- fetch_epicrop_weather_list(
+    lonlat = list(Merredin = c(118.28, -31.48)),
+    start_date = c("-04-15", "-05-13"),
+    duration = 100L,
+    years = 2019:2020,
+    mode = "cross"
+  )
+
+  all_dates <- unlist(lapply(result, function(y) as.character(y$YYYYMMDD)))
+
+  years <- 2019:2020
+  patterns <- c("-04-15", "-05-13")
+  expected_starts <- as.character(build_epicrop_emergence(years, patterns))
+
+  expect_true(all(expected_starts %in% all_dates))
+})
+
+test_that("run_epicrop_model succeeds end-to-end against a cross-mode weather bundle (regression for reported bug)", {
+  testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
+
+  years <- 2019:2020
+  patterns <- c("-04-15", "-05-13")
+
+  wth_list <- fetch_epicrop_weather_list(
+    lonlat = list(Merredin = c(118.28, -31.48), Corrigin = c(117.87, -32.33)),
+    start_date = patterns,
+    duration = 120L,
+    years = years,
+    mode = "cross"
+  )
+
+  emergence <- build_epicrop_emergence(years, patterns)
+
+  res <- run_epicrop_model(
+    mock_model,
+    emergence,
+    wth_list,
+    window_days = 30L,
+    output = "audpc"
+  )
+
+  # No emergence date should silently fail to find weather now
+  expect_false(any(is.na(res$AUDPC)))
+  expect_identical(nrow(res), length(emergence) * 2L) # x2 locations
 })
