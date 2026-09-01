@@ -504,7 +504,7 @@ test_that("seir maintains mass balance", {
   )
 
   # Check mass balance (allowing for numerical precision)
-  for (i in 1:nrow(result)) {
+  for (i in seq_len(nrow(result))) {
     total <- result$sites[i] +
       result$latent[i] +
       result$infectious[i] +
@@ -1059,7 +1059,7 @@ test_that("seir falls back to YYYYMMDD when wth lacks a dates column", {
   )
 
   expect_s3_class(result, "epicrop.sim")
-  expect_true(all(!is.na(result$dates)))
+  expect_true(!any(is.na(result$dates)))
 })
 
 # ---- infection_window: thermal_time fallback and actual restriction -------

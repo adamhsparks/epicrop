@@ -489,7 +489,7 @@ test_that("Edge cases handled correctly", {
   )
 
   # Should produce valid results (automatically sorted)
-  expect_true(all(!is.na(opt_unsorted$intensity)))
+  expect_true(!any(is.na(opt_unsorted$intensity)))
   expect_true(all(opt_unsorted$intensity >= 0))
   expect_true(all(opt_unsorted$intensity <= 1))
   message("  ✓ Unsorted user table: PASSED")
@@ -738,7 +738,7 @@ test_that("Mass balance maintained in both versions", {
   )
 
   # For each day, check mass balance
-  for (day in 1:nrow(result)) {
+  for (day in seq_len(nrow(result))) {
     total_sites <- result$sites[day] +
       result$latent[day] +
       result$infectious[day] +

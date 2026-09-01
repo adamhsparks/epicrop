@@ -169,7 +169,7 @@ fetch_epicrop_weather_list <- function(
       USE.NAMES = FALSE
     )
 
-    if (!length(ll) || any(!valid)) {
+    if (!length(ll) || !all(valid)) {
       cli::cli_abort(c(
         "{.arg lonlat} list elements must be numeric longitude-latitude pairs.",
         x = "Each element must be a finite numeric vector of length 2.",
@@ -200,7 +200,7 @@ fetch_epicrop_weather_list <- function(
 
     numeric_columns <- vapply(ll, is.numeric, logical(1L))
 
-    if (any(!numeric_columns)) {
+    if (!all(numeric_columns)) {
       cli::cli_abort(c(
         "{.arg lonlat} columns must be numeric.",
         x = "Non-numeric column{?s}: {paste(names(ll)[!numeric_columns], collapse = ', ')}.",
@@ -228,7 +228,7 @@ fetch_epicrop_weather_list <- function(
       ))
     }
 
-    if (any(!is.finite(ll))) {
+    if (!all(is.finite(ll))) {
       cli::cli_abort(
         "{.arg lonlat} must contain only finite longitude and latitude values."
       )
@@ -250,7 +250,7 @@ fetch_epicrop_weather_list <- function(
       ))
     }
 
-    if (any(!is.finite(ll))) {
+    if (!all(is.finite(ll))) {
       cli::cli_abort(
         "{.arg lonlat} must contain only finite longitude and latitude values."
       )
