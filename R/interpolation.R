@@ -225,10 +225,10 @@
 #' @importFrom digest digest
 #' @autoglobal
 #' @dev
-.memo_fast_interp_approx_digest <- memoise::memoise(
+.memo_fast_interp_approx_digest <- memoise(
   function(mat, xout) {
-    mat_hash <- digest::digest(as.numeric(mat))
-    xout_hash <- digest::digest(as.numeric(xout))
+    mat_hash <- digest(as.numeric(mat))
+    xout_hash <- digest(as.numeric(xout))
     .fast_interp_approx_internal(mat, xout)
   }
 )
