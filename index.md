@@ -11,6 +11,17 @@ functions to fetch weather data from NASA POWER, via the
 a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks
 1971) function,
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
+This package implements the EPIRICE model first published in Savary *et
+al.* (2012), which introduces the model and uses it to model global
+epidemics of rice diseases illustrating the risk of bacterial blight,
+brown spot, leaf blast, sheath blight and rice tungro disease.
+Additional models included for rice are adapted from Kim *et al.* (2015)
+for rice sheath blight and leaf blast. The EPIWHEAT model first
+published in Savary *et al.* (2015) is also included in this
+implementation and can be used to model potential epidemics of two wheat
+diseases, leaf rust and Septoria tritici blotch, is also included in
+this package.
+
 The modern core of
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
 in {epicrop} uses a different numerical integration approach than the
@@ -23,18 +34,6 @@ Additionally, the modern
 is 1-indexed (standard R convention) while the legacy `SEIR()` is
 0-indexed (as in the original EPIRICE publication by Savary *et al.*
 2012).
-
-This package implements the EPIRICE model first published in Savary *et
-al.* (2012), which introduces the model and uses it to model global
-epidemics of rice diseases illustrating the risk of bacterial blight,
-brown spot, leaf blast, sheath blight and rice tungro disease.
-Additional models included for rice are adapted from Kim *et al.* (2015)
-for rice sheath blight and leaf blast.
-
-The EPIWHEAT model first published in Savary *et al.* (2015) is also
-included in this implementation and can be used to model potential
-epidemics of two wheat diseases, leaf rust and Septoria tritici blotch,
-is also included in this package.
 
 Users may also provide their own parameters to the generic
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
