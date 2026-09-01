@@ -171,24 +171,6 @@ run_epicrop_model <- function(
   data.table::rbindlist(pieces, use.names = TRUE, fill = TRUE)
 }
 
-
-.has_duration_arg <- function(dots, model_fun) {
-  nms <- rlang::names2(dots)[nzchar(rlang::names2(dots))]
-  fmls <- setdiff(rlang::fn_fmls_names(model_fun) %||% character(), "...")
-  if ("duration" %in% nms) {
-    return(TRUE)
-  }
-  any(vapply(
-    nms,
-    function(nm) {
-      hits <- startsWith(fmls, nm)
-      sum(hits) == 1L && fmls[hits] == "duration"
-    },
-    logical(1),
-    USE.NAMES = FALSE
-  ))
-}
-
 .model_has_duration_formal <- function(model_fun) {
   # Check if 'duration' is an explicit formal parameter
   fmls <- rlang::fn_fmls_names(model_fun) %||% character()

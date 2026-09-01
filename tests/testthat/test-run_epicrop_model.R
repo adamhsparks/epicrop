@@ -121,29 +121,6 @@ test_that(".is_wth_bundle returns TRUE when only some names are 4-digit years", 
   expect_true(.is_wth_bundle(wl))
 })
 
-# ---- .has_duration_arg ---------------------------------------------------
-
-test_that(".has_duration_arg detects an exact 'duration' argument in dots", {
-  dots <- rlang::dots_list(duration = 100, .named = TRUE)
-  expect_true(.has_duration_arg(dots, mock_model))
-})
-
-test_that(".has_duration_arg detects a uniquely prefix-matching argument name", {
-  # "dur" prefix-matches only "duration" among mock_model's formals
-  dots <- rlang::dots_list(dur = 100, .named = TRUE)
-  expect_true(.has_duration_arg(dots, mock_model))
-})
-
-test_that(".has_duration_arg returns FALSE when no dots name matches 'duration'", {
-  dots <- rlang::dots_list(RcOpt = 0.5, .named = TRUE)
-  expect_false(.has_duration_arg(dots, mock_model))
-})
-
-test_that(".has_duration_arg returns FALSE for empty dots", {
-  dots <- rlang::dots_list(.named = TRUE)
-  expect_false(.has_duration_arg(dots, mock_model))
-})
-
 # ---- .slice_weather -------------------------------------------------
 
 test_that(".slice_weather returns exactly window_days rows within a single year", {
