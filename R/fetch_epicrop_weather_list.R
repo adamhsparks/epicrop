@@ -82,6 +82,7 @@
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
+
 fetch_epicrop_weather_list <- function(
   lonlat,
   start_date,
@@ -101,7 +102,7 @@ fetch_epicrop_weather_list <- function(
   # Process start dates
   sd_char <- .process_start_dates(start_date, years)
 
-  # Build, collapse, and execute tasks
+  # Build tasks
   tasks <- .build_tasks(
     locations,
     location_names,
@@ -110,7 +111,13 @@ fetch_epicrop_weather_list <- function(
     years,
     mode
   )
-  tasks <- .collapse_tasks_by_location(tasks)
+
+  # Only collapse in pairwise mode (efficient API calls per location)
+  # In cross mode, keep all location × date combinations separate
+  if (mode == "pairwise") {
+    tasks <- .collapse_tasks_by_location(tasks)
+  }
+
   results <- lapply(tasks, .fetch_one_weather)
 
   # Format and return
@@ -307,7 +314,11 @@ fetch_epicrop_weather_list <- function(
 #' @dev
 .normalize_md <- function(x_chr) {
   vapply(
-    strsplit(sub("^-?", "", gsub("/", "-", x_chr)), "-", fixed = TRUE),
+    strsplit(
+      sub("^-?", "", gsub("/", "-", x_chr, fixed = TRUE)),
+      "-",
+      fixed = TRUE
+    ),
     function(p) sprintf("%02d-%02d", as.integer(p[1L]), as.integer(p[2L])),
     character(1L),
     USE.NAMES = FALSE
@@ -350,26 +361,25 @@ fetch_epicrop_weather_list <- function(
   n_locations <- nrow(locations)
   n_dates <- length(sd_char)
 
+  # Validate duration before any processing
+  if (!rlang::is_integerish(duration, finite = TRUE) || any(duration <= 0L)) {
+    cli::cli_abort("{.arg duration} must contain positive integers (days).")
+  }
+
   # Create index combinations based on mode
   if (mode == "pairwise") {
     max_len <- max(n_locations, n_dates)
     location_idx <- rep_len(seq_len(n_locations), max_len)
     date_idx <- rep_len(seq_len(n_dates), max_len)
   } else {
-    # Cross mode
     location_idx <- rep(seq_len(n_locations), each = n_dates)
     date_idx <- rep(seq_len(n_dates), times = n_locations)
   }
 
-  # Recycle duration
+  # Recycle duration to match task count
   dur_vec <- rep_len(as.integer(duration), length(location_idx))
 
-  # Validate duration
-  if (any(!rlang::is_integerish(dur_vec, finite = TRUE) | dur_vec <= 0L)) {
-    cli::cli_abort("{.arg duration} must contain positive integers (days).")
-  }
-
-  # Build tasks vectorized
+  # Build tasks
   Map(
     function(loc_i, date_i, dur) {
       .create_single_task(
@@ -415,16 +425,18 @@ fetch_epicrop_weather_list <- function(
 #' @autoglobal
 #' @dev
 .resolve_date_and_duration <- function(d_str, dur, years) {
-  # Check if month-day only format
   if (grepl("^\\d{2}-\\d{2}$", d_str)) {
     return(.cover_from_md_years(d_str, years, dur))
   }
 
-  # Parse as full date
-  start_idate <- data.table::as.IDate(d_str)
+  start_idate <- tryCatch(
+    data.table::as.IDate(d_str),
+    error = function(e) NA_integer_
+  )
+
   if (is.na(start_idate)) {
     cli::cli_abort(c(
-      "Cannot parse {.arg start_date} value {.val {d_str}} as a valid date.",
+      x = "Cannot parse {.arg start_date} value {.val {d_str}} as a valid date.",
       i = "Expected format: YYYY-MM-DD",
       i = "Example: {.code \"2000-06-30\"}"
     ))
@@ -439,13 +451,16 @@ fetch_epicrop_weather_list <- function(
 .cover_from_md_years <- function(md_mmdd, yrs, window_days) {
   if (is.null(yrs) || length(yrs) == 0L) {
     cli::cli_abort(c(
-      "When {.arg start_date} is month-day only, you must provide
-      {.arg years}.",
+      "When {.arg start_date} is month-day only, you must provide {.arg years}.",
       i = "Example: {.code years = 2001:2003}"
     ))
   }
 
-  em <- data.table::as.IDate(sprintf("%04d-%s", as.integer(yrs), md_mmdd))
+  em <- tryCatch(
+    data.table::as.IDate(sprintf("%04d-%s", as.integer(yrs), md_mmdd)),
+    error = function(e) data.table::as.IDate(NA)
+  )
+
   if (anyNA(em)) {
     cli::cli_abort(c(
       "Failed to construct valid dates from {.arg years} and month-day
@@ -463,16 +478,6 @@ fetch_epicrop_weather_list <- function(
   )
 }
 
-#' Collapse Tasks by Location for Efficient API Calls
-#' @autoglobal
-#' @dev
-.collapse_tasks_by_location <- function(tasks) {
-  by_location <- split(
-    tasks,
-    vapply(tasks, `[[`, integer(1L), "location_id", USE.NAMES = FALSE)
-  )
-  unname(lapply(by_location, .collapse_one_location))
-}
 
 #' Collapse Tasks for One Location
 #' @autoglobal
@@ -499,6 +504,17 @@ fetch_epicrop_weather_list <- function(
     start_chr = as.character(s_min),
     duration = as.integer(e_max - s_min + 1L)
   )
+}
+
+#' Collapse Tasks by Location for Efficient API Calls
+#' @autoglobal
+#' @dev
+.collapse_tasks_by_location <- function(tasks) {
+  by_location <- split(
+    tasks,
+    vapply(tasks, `[[`, integer(1L), "location_id", USE.NAMES = FALSE)
+  )
+  unname(lapply(by_location, .collapse_one_location))
 }
 
 #' Fetch Weather Data for One Task

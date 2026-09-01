@@ -69,7 +69,11 @@ run_epicrop_model <- function(
   }
 
   dots <- rlang::dots_list(..., .named = TRUE)
-  has_duration <- .has_duration_arg(dots, model_fun)
+
+  # Auto-fill duration from window_days if the model exposes it as a formal
+  if (.model_has_duration_formal(model_fun) && !("duration" %in% names(dots))) {
+    dots$duration <- window_days
+  }
   pieces <- lapply(emergence_dates, function(ed) {
     .run_one(
       ed,
@@ -153,6 +157,12 @@ run_epicrop_model <- function(
     logical(1),
     USE.NAMES = FALSE
   ))
+}
+
+.model_has_duration_formal <- function(model_fun) {
+  # Check if 'duration' is an explicit formal parameter
+  fmls <- rlang::fn_fmls_names(model_fun) %||% character()
+  "duration" %in% fmls
 }
 
 .slice_weather <- function(ed, wth_list, window_days) {

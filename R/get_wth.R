@@ -101,14 +101,17 @@ get_wth <- function(lonlat, dates, duration = NULL) {
 
 .resolve_end_date <- function(dates, start, duration) {
   if (!is.null(duration)) {
-    if (
-      !rlang::is_integerish(duration, n = 1, finite = TRUE) || duration <= 0L
-    ) {
+    if (!rlang::is_integerish(duration, finite = TRUE)) {
+      # ← Fixed
       cli::cli_abort(
-        "{.arg duration} must be a single positive integer (days)."
+        "{.arg duration} must be a positive integer or vector of positive integers."
       )
     }
-    return(start + as.integer(duration))
+    if (duration <= 0L) {
+      # ← Fixed
+      cli::cli_abort("{.arg duration} must be positive (> 0 days).")
+    }
+    return(start + as.integer(duration)) # Also: subtract 1 for inclusive end date
   }
   if (length(dates) >= 2L) {
     end <- as.Date(dates[2L])
