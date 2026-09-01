@@ -304,6 +304,14 @@ If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code
 to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
 }
 
+\section{LAT/LON Details}{
+
+
+If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
+in the output for mapping purposes.  Both values must be present.  These
+columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
+}
+
 \references{
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. (2012).
 Modeling and mapping potential epidemics of rice diseases globally.

@@ -14,6 +14,8 @@
 #'
 #' @inheritSection seir TMIN/TMAX Details
 #'
+#' @inheritSection seir LAT/LON Details
+#'
 #' @references
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. (2012).
 #' Modeling and mapping potential epidemics of rice diseases globally.
