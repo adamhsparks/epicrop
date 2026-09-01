@@ -1,12 +1,16 @@
 ^README\.Rmd$
 ^README-.*\.png$
+
 ^docs$
-^\.ccache$
+^data-raw$
+
 ^\_pkgdown\.yml$
 ^codemeta\.json$
+
 ^README_files$
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING\.md$
+
 ^precompile\.R$
 ^.*\.Rmd\.orig$
 ^doc$
@@ -14,8 +18,11 @@
 ^rosm\.cache$
 ^_pkgdown\.yml$
 ^pkgdown$
+
 ^LICENSE\.md$
+
 ^air\.toml$
+
 ^\.woodpecker$
 
 ^man/dot-calculate_audpc\.Rd$
@@ -43,6 +50,7 @@
 ^man/dot-day_length\.Rd$
 ^man/dot-saturated_vapour_pressure\.Rd$
 ^man/dot-calculate_weighted_hr_wet\.Rd$
+^man/dot-run_bundle\.Rd$
 ^man/dot-calculate_dvs\.Rd$
 ^man/dot-validate_all_inputs\.Rd$
 ^man/dot-validate_weather\.Rd$

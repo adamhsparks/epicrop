@@ -2,11 +2,57 @@
 % Please edit documentation in R/interpolation.R
 \name{.memo_fast_interp_approx_digest}
 \alias{.memo_fast_interp_approx_digest}
-\title{Memoised wrapper for interpolation using content-based hashing}
+\title{Memoised Wrapper for Fast Interpolation with Content-Based Hashing}
 \usage{
 .memo_fast_interp_approx_digest(mat, xout)
 }
+\arguments{
+\item{mat}{A numeric 2-column matrix with x-values (column 1) and
+y-values (column 2) defining the lookup table.}
+
+\item{xout}{Numeric vector of x-coordinates to interpolate at.}
+}
+\value{
+A numeric vector of interpolated y-values, computed via
+\code{.fast_interp_approx_internal()}.
+}
 \description{
-Memoised wrapper for interpolation using content-based hashing
+A memoised version of linear interpolation that caches results based on
+the content (values) of the input matrix and x-coordinates, not their
+object identity. Uses \code{\link[digest:digest]{digest::digest()}} to compute content hashes,
+enabling cache hits across function calls even when inputs are
+reconstructed.
+}
+\details{
+\strong{Caching strategy:}
+\itemize{
+\item Converts \code{mat} to numeric vector and computes SHA1 hash via
+\code{\link[digest:digest]{digest::digest()}}
+\item Converts \code{xout} to numeric vector and computes SHA1 hash
+\item Combines hashes as memo key; cache hit if both match previous call
+\item Fallback to \code{.fast_interp_approx_internal()} if miss
+}
+
+\strong{Performance:} Useful when:
+\itemize{
+\item The same lookup tables and x-coordinates are reused across many calls
+\item Object identity changes but values remain constant
+\item Interpolation cost is high relative to hashing overhead
+}
+
+\strong{Limitations:}
+\itemize{
+\item Hashing overhead (~1-10 µs per call) may exceed interpolation time
+for small inputs
+\item Memo cache grows unbounded (no size limit by default)
+\item Not thread-safe with default memoise settings
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[memoise:memoise]{memoise::memoise()}} for memoisation mechanics
+\item \code{\link[digest:digest]{digest::digest()}} for content-based hashing
+\item \code{.fast_interp_approx_internal()} for the underlying interpolation
+}
 }
 \keyword{internal}

@@ -40,3 +40,5 @@ importFrom(data.table,
   .SD,
   data.table
 )
+importFrom(digest,digest)
+importFrom(memoise,memoise)

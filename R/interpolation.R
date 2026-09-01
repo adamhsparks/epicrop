@@ -182,14 +182,53 @@
   result
 }
 
-#' Memoised wrapper for interpolation using content-based hashing
+#' Memoised Wrapper for Fast Interpolation with Content-Based Hashing
+#'
+#' A memoised version of linear interpolation that caches results based on
+#' the content (values) of the input matrix and x-coordinates, not their
+#' object identity. Uses [digest::digest()] to compute content hashes,
+#' enabling cache hits across function calls even when inputs are
+#' reconstructed.
+#'
+#' @param mat A numeric 2-column matrix with x-values (column 1) and
+#'   y-values (column 2) defining the lookup table.
+#' @param xout Numeric vector of x-coordinates to interpolate at.
+#'
+#' @returns A numeric vector of interpolated y-values, computed via
+#'   `.fast_interp_approx_internal()`.
+#'
+#' @details
+#' **Caching strategy:**
+#' * Converts `mat` to numeric vector and computes SHA1 hash via
+#'   [digest::digest()]
+#' * Converts `xout` to numeric vector and computes SHA1 hash
+#' * Combines hashes as memo key; cache hit if both match previous call
+#' * Fallback to `.fast_interp_approx_internal()` if miss
+#'
+#' **Performance:** Useful when:
+#' * The same lookup tables and x-coordinates are reused across many calls
+#' * Object identity changes but values remain constant
+#' * Interpolation cost is high relative to hashing overhead
+#'
+#' **Limitations:**
+#' * Hashing overhead (~1-10 µs per call) may exceed interpolation time
+#'   for small inputs
+#' * Memo cache grows unbounded (no size limit by default)
+#' * Not thread-safe with default memoise settings
+#'
+#' @seealso
+#' * [memoise::memoise()] for memoisation mechanics
+#' * [digest::digest()] for content-based hashing
+#' * `.fast_interp_approx_internal()` for the underlying interpolation
+#'
+#' @importFrom memoise memoise
+#' @importFrom digest digest
 #' @autoglobal
 #' @dev
 .memo_fast_interp_approx_digest <- memoise::memoise(
   function(mat, xout) {
     mat_hash <- digest::digest(as.numeric(mat))
     xout_hash <- digest::digest(as.numeric(xout))
-    # Only used for cache key; actual computation does not use hashes
     .fast_interp_approx_internal(mat, xout)
   }
 )

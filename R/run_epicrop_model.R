@@ -111,6 +111,35 @@ run_epicrop_model <- function(
     !all(grepl("^\\d{4}$", rlang::names2(wth_list)))
 }
 
+#' Run epicrop Model Across a Weather Bundle
+#'
+#' Internal helper that processes a weather bundle (multiple locations or
+#' location-date combinations) by executing [run_epicrop_model()] separately
+#' for each bundled weather list and combining results with location labels.
+#'
+#' @param model_fun Function. An \pkg{epicrop} model function.
+#' @param emergence_dates Vector of emergence dates (class `epicrop.emerge`).
+#' @param wth_list An `epicrop.wth.bundle`; a named list of `epicrop.wth.list`
+#'   objects.
+#' @param window_days Integer. Days after emergence to include (default 120L).
+#' @param output Character. `"audpc"` or `"full"`.
+#' @param ... Additional arguments forwarded to `model_fun`.
+#'
+#' @return A [data.table::data.table] with results from all bundled locations
+#'   combined row-wise, with an additional `location` column identifying the
+#'   source bundle member.
+#'
+#' @details
+#' The function extracts location labels from the bundle's names (text before
+#' `"__"` delimiter) and generates default labels (`location01`, `location02`,
+#' etc.) for any unnamed or empty-named entries. Each bundled weather list is
+#' processed independently via [run_epicrop_model()], then results are
+#' combined using [data.table::rbindlist()].
+#'
+#' @seealso [run_epicrop_model()], [fetch_epicrop_weather_list()]
+#'
+#' @autoglobal
+#' @dev
 .run_bundle <- function(
   model_fun,
   emergence_dates,
@@ -141,6 +170,7 @@ run_epicrop_model <- function(
 
   data.table::rbindlist(pieces, use.names = TRUE, fill = TRUE)
 }
+
 
 .has_duration_arg <- function(dots, model_fun) {
   nms <- rlang::names2(dots)[nzchar(rlang::names2(dots))]
