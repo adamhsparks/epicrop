@@ -7,13 +7,69 @@
 .norm_locations(ll)
 }
 \arguments{
-\item{ll}{Location coordinates supplied as a numeric vector, matrix,
-data frame, or list of numeric longitude-latitude vectors.}
+\item{ll}{Location coordinates in one of the following formats:
+\itemize{
+\item Numeric vector of length 2: \code{c(lon, lat)} for a single location
+\item Numeric vector of length 2n: \code{c(lon1, lat1, lon2, lat2, ...)} for
+n locations
+\item 2-column matrix or data frame: each row is \code{c(lon, lat)}
+\item List of numeric vectors: each element is \code{c(lon, lat)}. If named,
+names are preserved as row names.
+}}
 }
 \value{
-A two-column numeric matrix with columns \code{LON} and \code{LAT}.
+A numeric 2-column matrix with:
+\itemize{
+\item Column names: \code{"LON"}, \code{"LAT"}
+\item Row names preserved from input if available
+\item Storage mode: \code{"double"}
+\item All values finite and valid coordinates
+}
 }
 \description{
-Normalize Location Input to Standard Matrix Format
+Converts various location input formats (numeric vector, matrix, data frame,
+or list of pairs) to a standard 2-column numeric matrix with columns LON and LAT.
+Preserves row names where available and validates all coordinates are finite.
+}
+\details{
+\strong{Input processing order:}
+\enumerate{
+\item List (non-data.frame): Validate elements, extract names, convert to matrix
+\item Data frame: Validate 2 columns and numeric type, convert to matrix
+\item Matrix: Validate 2 columns and numeric type, set column names
+\item Numeric vector: Validate even length, reshape to 2 columns
+}
+
+\strong{Validation:}
+\itemize{
+\item All coordinates must be finite (no NA, Inf, or NaN)
+\item Matrix must have exactly 2 columns
+\item Numeric vector must have even length (length >= 2)
+\item List elements must be numeric vectors of length 2 with finite values
+}
+
+\strong{Errors:} Aborts with informative messages if input format is invalid
+or coordinates are non-finite.
+}
+\examples{
+# Single location as vector
+.norm_locations(c(121.255669, 14.16742))
+
+# Multiple locations as vector
+.norm_locations(c(121.255669, 14.16742, 120.985, 14.6042))
+
+# Named matrix
+locs <- rbind(
+  "IRRI_ZES" = c(121.255669, 14.16742),
+  "Metro_Manila" = c(120.985, 14.6042)
+)
+.norm_locations(locs)
+
+# Named list
+.norm_locations(list(
+  site1 = c(121.255669, 14.16742),
+  site2 = c(120.985, 14.6042)
+))
+
 }
 \keyword{internal}

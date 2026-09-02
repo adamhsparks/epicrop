@@ -154,119 +154,231 @@ fetch_epicrop_weather_list <- function(
 
 #' Normalize Location Input to Standard Matrix Format
 #'
-#' @param ll Location coordinates supplied as a numeric vector, matrix,
-#'   data frame, or list of numeric longitude-latitude vectors.
+#' Converts various location input formats (numeric vector, matrix, data frame,
+#' or list of pairs) to a standard 2-column numeric matrix with columns LON and LAT.
+#' Preserves row names where available and validates all coordinates are finite.
 #'
-#' @return A two-column numeric matrix with columns `LON` and `LAT`.
+#' @param ll Location coordinates in one of the following formats:
+#'   * Numeric vector of length 2: `c(lon, lat)` for a single location
+#'   * Numeric vector of length 2n: `c(lon1, lat1, lon2, lat2, ...)` for
+#'     n locations
+#'   * 2-column matrix or data frame: each row is `c(lon, lat)`
+#'   * List of numeric vectors: each element is `c(lon, lat)`. If named,
+#'     names are preserved as row names.
+#'
+#' @returns A numeric 2-column matrix with:
+#'   * Column names: `"LON"`, `"LAT"`
+#'   * Row names preserved from input if available
+#'   * Storage mode: `"double"`
+#'   * All values finite and valid coordinates
+#'
+#' @details
+#' **Input processing order:**
+#' 1. List (non-data.frame): Validate elements, extract names, convert to matrix
+#' 2. Data frame: Validate 2 columns and numeric type, convert to matrix
+#' 3. Matrix: Validate 2 columns and numeric type, set column names
+#' 4. Numeric vector: Validate even length, reshape to 2 columns
+#'
+#' **Validation:**
+#' * All coordinates must be finite (no NA, Inf, or NaN)
+#' * Matrix must have exactly 2 columns
+#' * Numeric vector must have even length (length >= 2)
+#' * List elements must be numeric vectors of length 2 with finite values
+#'
+#' **Errors:** Aborts with informative messages if input format is invalid
+#' or coordinates are non-finite.
+#'
+#' @examples
+#' # Single location as vector
+#' .norm_locations(c(121.255669, 14.16742))
+#'
+#' # Multiple locations as vector
+#' .norm_locations(c(121.255669, 14.16742, 120.985, 14.6042))
+#'
+#' # Named matrix
+#' locs <- rbind(
+#'   "IRRI_ZES" = c(121.255669, 14.16742),
+#'   "Metro_Manila" = c(120.985, 14.6042)
+#' )
+#' .norm_locations(locs)
+#'
+#' # Named list
+#' .norm_locations(list(
+#'   site1 = c(121.255669, 14.16742),
+#'   site2 = c(120.985, 14.6042)
+#' ))
 #'
 #' @autoglobal
 #' @dev
 .norm_locations <- function(ll) {
   if (is.list(ll) && !is.data.frame(ll)) {
-    valid <- vapply(
-      ll,
-      function(x) {
-        is.numeric(x) &&
-          length(x) == 2L &&
-          all(is.finite(x))
-      },
-      logical(1L),
-      USE.NAMES = FALSE
+    ll <- .process_location_list(ll)
+  } else if (is.data.frame(ll)) {
+    ll <- .process_location_dataframe(ll)
+  } else if (is.matrix(ll)) {
+    ll <- .process_location_matrix(ll)
+  } else if (is.numeric(ll)) {
+    ll <- .process_location_vector(ll)
+  } else {
+    .abort_invalid_location_type(ll)
+  }
+
+  # Finalize: ensure double storage mode and column names
+  storage.mode(ll) <- "double"
+  colnames(ll) <- c("LON", "LAT")
+  ll
+}
+
+#' Process Location List Input
+#'
+#' Validates and converts a list of coordinate pairs to a matrix.
+#'
+#' @param ll A list where each element is a numeric vector of length 2.
+#'
+#' @returns A numeric matrix with row names preserved if available.
+#'
+#' @autoglobal
+#' @dev
+.process_location_list <- function(ll) {
+  valid <- vapply(
+    ll,
+    function(x) {
+      is.numeric(x) && length(x) == 2L && all(is.finite(x))
+    },
+    logical(1L),
+    USE.NAMES = FALSE
+  )
+
+  if (!length(ll) || !all(valid)) {
+    cli::cli_abort(c(
+      "{.arg lonlat} list elements must be numeric longitude-latitude pairs.",
+      x = "Each element must be a finite numeric vector of length 2.",
+      i = "Example: {.code list(site = c(121.255669, 14.16742))}"
+    ))
+  }
+
+  location_names <- names(ll)
+  mat <- do.call(rbind, unname(ll))
+
+  # Preserve rownames if all are non-empty
+  if (
+    !is.null(location_names) &&
+      length(location_names) == nrow(mat) &&
+      all(nzchar(location_names))
+  ) {
+    rownames(mat) <- location_names
+  }
+
+  mat
+}
+
+#' Process Location Data Frame Input
+#'
+#' Validates and converts a data frame to a location matrix.
+#'
+#' @param ll A data frame with exactly 2 numeric columns.
+#'
+#' @returns A numeric matrix.
+#'
+#' @autoglobal
+#' @dev
+.process_location_dataframe <- function(ll) {
+  if (ncol(ll) != 2L) {
+    cli::cli_abort(c(
+      "{.arg lonlat} matrix/data.frame must have exactly 2 columns.",
+      x = "You provided {ncol(ll)} column{?s}.",
+      i = "Columns should be: [longitude, latitude]"
+    ))
+  }
+
+  numeric_columns <- vapply(ll, is.numeric, logical(1L))
+
+  if (!all(numeric_columns)) {
+    cli::cli_abort(c(
+      "{.arg lonlat} columns must be numeric.",
+      x = "Non-numeric column{?s}: {paste(names(ll)[!numeric_columns], collapse = ', ')}.",
+      i = "Columns should contain longitude and latitude values."
+    ))
+  }
+
+  as.matrix(ll)
+}
+
+#' Process Location Matrix Input
+#'
+#' Validates a matrix of coordinate pairs.
+#'
+#' @param ll A numeric matrix with exactly 2 columns.
+#'
+#' @returns The validated matrix.
+#'
+#' @autoglobal
+#' @dev
+.process_location_matrix <- function(ll) {
+  if (ncol(ll) != 2L) {
+    cli::cli_abort(c(
+      "{.arg lonlat} matrix/data.frame must have exactly 2 columns.",
+      x = "You provided {ncol(ll)} column{?s}.",
+      i = "Columns should be: [longitude, latitude]"
+    ))
+  }
+
+  if (!is.numeric(ll)) {
+    cli::cli_abort(c(
+      "{.arg lonlat} matrix must be numeric.",
+      x = "You provided a matrix with storage mode {.val {storage.mode(ll)}}.",
+      i = "Columns should contain longitude and latitude values."
+    ))
+  }
+
+  if (!all(is.finite(ll))) {
+    cli::cli_abort(
+      "{.arg lonlat} must contain only finite longitude and latitude values."
     )
-
-    if (!length(ll) || !all(valid)) {
-      cli::cli_abort(c(
-        "{.arg lonlat} list elements must be numeric longitude-latitude pairs.",
-        x = "Each element must be a finite numeric vector of length 2.",
-        i = "Example: {.code list(site = c(121.255669, 14.16742))}"
-      ))
-    }
-
-    location_names <- names(ll)
-    ll <- do.call(rbind, unname(ll))
-
-    if (
-      !is.null(location_names) &&
-        length(location_names) == nrow(ll) &&
-        all(nzchar(location_names))
-    ) {
-      rownames(ll) <- location_names
-    }
   }
 
-  if (is.data.frame(ll)) {
-    if (ncol(ll) != 2L) {
-      cli::cli_abort(c(
-        "{.arg lonlat} matrix/data.frame must have exactly 2 columns.",
-        x = "You provided {ncol(ll)} column{?s}.",
-        i = "Columns should be: [longitude, latitude]"
-      ))
-    }
+  ll
+}
 
-    numeric_columns <- vapply(ll, is.numeric, logical(1L))
+#' Process Location Numeric Vector Input
+#'
+#' Validates and reshapes a numeric vector of coordinate pairs.
+#'
+#' @param ll A numeric vector of even length (lon1, lat1, lon2, lat2, ...).
+#'
+#' @returns A 2-column matrix with one pair per row.
+#'
+#' @autoglobal
+#' @dev
+.process_location_vector <- function(ll) {
+  n <- length(ll)
 
-    if (!all(numeric_columns)) {
-      cli::cli_abort(c(
-        "{.arg lonlat} columns must be numeric.",
-        x = "Non-numeric column{?s}: {paste(names(ll)[!numeric_columns], collapse = ', ')}.",
-        i = "Columns should contain longitude and latitude values."
-      ))
-    }
-
-    ll <- as.matrix(ll)
+  if (n == 0L || n %% 2L != 0L) {
+    cli::cli_abort(c(
+      "{.arg lonlat} numeric vector must have positive even length.",
+      x = "You provided length {n}.",
+      i = "Expected pairs of (longitude, latitude)."
+    ))
   }
 
-  if (is.matrix(ll)) {
-    if (ncol(ll) != 2L) {
-      cli::cli_abort(c(
-        "{.arg lonlat} matrix/data.frame must have exactly 2 columns.",
-        x = "You provided {ncol(ll)} column{?s}.",
-        i = "Columns should be: [longitude, latitude]"
-      ))
-    }
-
-    if (!is.numeric(ll)) {
-      cli::cli_abort(c(
-        "{.arg lonlat} matrix must be numeric.",
-        x = "You provided a matrix with storage mode {.val {storage.mode(ll)}}.",
-        i = "Columns should contain longitude and latitude values."
-      ))
-    }
-
-    if (!all(is.finite(ll))) {
-      cli::cli_abort(
-        "{.arg lonlat} must contain only finite longitude and latitude values."
-      )
-    }
-
-    storage.mode(ll) <- "double"
-    colnames(ll) <- c("LON", "LAT")
-    return(ll)
+  if (!all(is.finite(ll))) {
+    cli::cli_abort(
+      "{.arg lonlat} must contain only finite longitude and latitude values."
+    )
   }
 
-  if (is.numeric(ll)) {
-    n <- length(ll)
+  matrix(ll, ncol = 2L, byrow = TRUE)
+}
 
-    if (n == 0L || n %% 2L != 0L) {
-      cli::cli_abort(c(
-        "{.arg lonlat} numeric vector must have positive even length.",
-        x = "You provided length {n}.",
-        i = "Expected pairs of (longitude, latitude)."
-      ))
-    }
-
-    if (!all(is.finite(ll))) {
-      cli::cli_abort(
-        "{.arg lonlat} must contain only finite longitude and latitude values."
-      )
-    }
-
-    ll <- matrix(ll, ncol = 2L, byrow = TRUE)
-    storage.mode(ll) <- "double"
-    colnames(ll) <- c("LON", "LAT")
-    return(ll)
-  }
-
+#' Abort on Invalid Location Type
+#'
+#' Helper to provide consistent error message for unsupported input types.
+#'
+#' @param ll The invalid input object.
+#'
+#' @autoglobal
+#' @dev
+.abort_invalid_location_type <- function(ll) {
   cli::cli_abort(c(
     "{.arg lonlat} must be numeric, not {.cls {class(ll)}}.",
     i = "Expected format: {.code c(longitude, latitude)}.",

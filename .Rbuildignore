@@ -29,6 +29,11 @@
 ^man/epi_get_params\.Rd$
 ^man/dot-validate_required_args\.Rd$
 ^man/dot-norm_locations\.Rd$
+^man/dot-process_location_list\.Rd$
+^man/dot-process_location_dataframe\.Rd$
+^man/dot-process_location_matrix\.Rd$
+^man/dot-process_location_vector\.Rd$
+^man/dot-abort_invalid_location_type\.Rd$
 ^man/dot-resolve_location_names\.Rd$
 ^man/dot-is_md_only\.Rd$
 ^man/dot-normalize_md\.Rd$
