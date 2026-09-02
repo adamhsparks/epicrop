@@ -14,5 +14,19 @@ A numeric matrix with row names preserved if available.
 }
 \description{
 Validates and converts a list of coordinate pairs to a matrix.
+Each element must be a numeric vector of length 2 with finite values.
+}
+\details{
+Errors if any element is not a length-2 numeric vector with
+finite values. Row names are preserved if the list is named and all
+names are non-empty.
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+.process_location_list(list(
+  IRRI = c(121.255669, 14.16742),
+  Manila = c(120.985, 14.6042)
+))
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

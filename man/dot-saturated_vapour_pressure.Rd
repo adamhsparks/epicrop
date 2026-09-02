@@ -2,22 +2,48 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.saturated_vapour_pressure}
 \alias{.saturated_vapour_pressure}
-\title{Calculate saturated vapour pressure}
+\title{Calculate Saturated Vapor Pressure}
 \usage{
 .saturated_vapour_pressure(tmp)
 }
 \arguments{
-\item{tmp}{Temperature (°C).}
+\item{tmp}{Temperature (degrees C; scalar or vector).}
 }
 \value{
-Saturated vapour pressure (kPa).
+Saturated vapour pressure (kPa; scalar or vector).
 }
 \description{
-Calculate saturated vapour pressure
+Computes saturated vapour pressure from temperature using the Alduchov and
+Eskridge (1996) formula, valid from -40 to +50 degrees C.
+}
+\section{Formula}{
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{es = 0.61094 * exp((17.625 * T) / (T + 243.04))
+}\if{html}{\out{</div>}}
+
+where T is temperature in degrees C and es is in kilopascals (kPa).
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Vapor pressure curve over typical temperature range
+temps <- seq(0, 40, by = 5)
+es <- .saturated_vapour_pressure(temps)
+plot(temps, es, type = "b", xlab = "Temperature (degrees C)",
+     ylab = "es (kPa)",
+     main = "Saturated Vapor Pressure")
+
+# Rapid increase at higher temps (why RH drops in afternoon)
+es_20 <- .saturated_vapour_pressure(20)
+es_30 <- .saturated_vapour_pressure(30)
+es_30 / es_20  # ~1.5x increase for 10 degrees C rise
+\dontshow{\}) # examplesIf}
 }
 \references{
-Alduchov and Eskridge (1996) J. Appl. Meteor. 35:601-609.
-\doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
+Alduchov, O. A., and R. E. Eskridge (1996). Improved Magnus form
+approximation of saturation vapour pressure. \emph{J. Appl. Meteor.}, 35:
+601-609. \doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
 }
 \author{
 Adam H. Sparks

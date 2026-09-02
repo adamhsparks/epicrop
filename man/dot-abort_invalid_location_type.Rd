@@ -9,7 +9,10 @@
 \arguments{
 \item{ll}{The invalid input object.}
 }
+\value{
+Does not return; aborts with error message.
+}
 \description{
-Helper to provide consistent error message for unsupported input types.
+Provides a consistent error message for unsupported location input types.
 }
 \keyword{internal}

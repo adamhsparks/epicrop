@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{fetch_epicrop_weather_list}
 \alias{fetch_epicrop_weather_list}
-\title{Fetch weather once (single or multiple locations) and split by calendar year}
+\title{Fetch Weather for One or More Locations and Split by Calendar Year}
 \usage{
 fetch_epicrop_weather_list(
   lonlat,
@@ -14,61 +14,78 @@ fetch_epicrop_weather_list(
 )
 }
 \arguments{
-\item{lonlat}{Numeric length‑2 vector \code{c(lon, lat)}, OR multiple locations
-as: numeric vector of length \verb{2n}, a 2‑column matrix/data.frame, or a list
-of numeric length‑2 vectors.}
+\item{lonlat}{Numeric length-2 vector \code{c(lon, lat)}, OR multiple locations
+as: numeric vector of length \verb{2n}, a 2-column matrix/data.frame, or a list
+of numeric length-2 vectors.}
 
 \item{start_date}{A starting date (character \code{"YYYY-MM-DD"}, \link{Date}, or
-\link[data.table:IDate]{data.table::IDate}) \strong{or} a month–day string like \code{"06-30"} (leading
+\link[data.table:IDate]{data.table::IDate}) \strong{or} a month-day string like \code{"06-30"} (leading
 \code{"-"} optional) used together with \code{years}.}
 
 \item{duration}{Integer(s). Number of days to retrieve \strong{from} \code{start_date}
 (inclusive). Single value or vector (recycled).}
 
 \item{years}{Optional integer vector of years. \strong{Required} if \code{start_date}
-contains any month–day values without a year.}
+contains any month-day values without a year.}
 
 \item{mode}{Character scalar: \code{"pairwise"} (default) pairs locations and
-dates by position (recycling length-1), or \code{"cross"} forms all combinations
-(locations × dates).}
+dates by position (recycling length-1), or \code{"cross"} forms all
+combinations (locations × dates).}
 
 \item{location_names}{Optional character names for locations (length = number
 of unique locations).}
 }
 \value{
 \itemize{
-\item If only one (location, start, duration) is requested: an
-\code{epicrop.wth.list}.
+\item If only one (location, start, duration) is requested: an \code{epicrop.wth.list}.
 \item Otherwise: an \code{epicrop.wth.bundle} (a named list of \code{epicrop.wth.list}).
 }
 }
 \description{
-Retrieve one or more continuous blocks of weather for one or more locations
-from given start dates and durations, then split each result into a named
-list of per‑year tables. Each (location, start, duration) result is an
-\code{epicrop.wth.list}. The top-level return is an \code{epicrop.wth.bundle} when
+Retrieves one or more continuous blocks of weather data for one or more
+locations from given start dates and durations, then splits each result into
+a named list of per-year tables. Each (location, start, duration) result is
+an \code{epicrop.wth.list}. The top-level return is an \code{epicrop.wth.bundle} when
 multiple requests are processed, otherwise a single \code{epicrop.wth.list}.
 }
-\details{
-\subsection{Flexible inputs}{
+\section{Flexible Input Formats}{
+
+
+\strong{Locations (\code{lonlat}):}
 \itemize{
-\item \code{lonlat}: a single numeric vector, \code{c(lon, lat)}; or multiple locations as
-a numeric vector of length \verb{2n}, or a 2‑column matrix/data.frame, or a list
-of \code{list(c(lon, lat))}.
-\item \code{start_date}: a single \code{"YYYY-MM-DD"} (or \code{Date}/\code{IDate}), or a vector of
-the same; or a month–day string like \code{"06-30"} or \code{"6-30"} (leading \code{"-"}
-optional) provided together with \code{years}.
-\item \code{duration}: single integer or a vector (recycled); interpreted as inclusive
-days to fetch (\code{end = start + duration - 1}).
-\item \code{years}: only used when \code{start_date} lacks a year. We compute a \strong{cover
-window} per distinct month–day: \code{start = min(paste(years, md))},
-\code{end = max(paste(years, md)) + (duration - 1)}.
+\item Single numeric vector: \code{c(lon, lat)}
+\item Multiple locations as: numeric vector of length \verb{2n}, a 2-column
+matrix/data.frame, or a list of \code{list(c(lon, lat))}
+}
+
+\strong{Start dates (\code{start_date}):}
+\itemize{
+\item Full ISO date: \code{"2000-06-30"} or \code{Date}/\code{IDate} object
+\item Month-day string: \code{"06-30"}, \code{"6-30"}, \code{"-06-30"} (with \code{years} parameter)
+\item Vector of dates (recycled in pairwise mode or crossed in cross mode)
+}
+
+\strong{Duration:}
+\itemize{
+\item Single integer or vector (recycled)
+\item Interpreted as inclusive days: \code{end = start + duration - 1}
+}
+
+\strong{Years (optional):}
+\itemize{
+\item Only used when \code{start_date} contains month-day values without a year
+\item Computes a \strong{cover window} per distinct month-day:
+\itemize{
+\item \code{start = min(paste(years, md))}
+\item \code{end = max(paste(years, md)) + (duration - 1)}
+}
+\item Enables efficient API calls: fetching once per year for multiple dates
 }
 }
-}
+
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-# Single location, month-day start date (any of "6/30", "-06-30", "06-30")
+# Single location, month-day start date
 w1 <- fetch_epicrop_weather_list(
   lonlat     = c(121.255669, 14.16742),
   start_date = "6/30",
@@ -83,7 +100,7 @@ w2 <- fetch_epicrop_weather_list(
   duration   = 120L
 )
 
-# Multiple locations × multiple dates (cross mode), mixed inputs
+# Multiple locations × multiple dates (cross mode)
 locations <- rbind(
   "IRRI_ZES" = c(121.255669, 14.16742),
   "Metro_Manila" = c(120.985, 14.6042)
@@ -96,15 +113,13 @@ w3 <- fetch_epicrop_weather_list(
   mode       = "cross"
 )
 
-# Multiple start dates for same location across years (efficient API calls)
+# Multiple start dates for same location (efficient: 3 API calls, 1 per year)
 w4 <- fetch_epicrop_weather_list(
   lonlat     = c(121.255669, 14.16742),
   start_date = c("-06-01", "-06-14", "-06-30"),
   duration   = 90L,
   years      = 2001:2003
 )
-# This makes only 3 API calls (one per year), fetching from earliest to
-# latest start date + duration
 \dontshow{\}) # examplesIf}
 }
 \author{

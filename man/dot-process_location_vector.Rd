@@ -7,12 +7,22 @@
 .process_location_vector(ll)
 }
 \arguments{
-\item{ll}{A numeric vector of even length (lon1, lat1, lon2, lat2, ...).}
+\item{ll}{A numeric vector of even length with finite values.}
 }
 \value{
-A 2-column matrix with one pair per row.
+A 2-column matrix with one coordinate pair per row.
 }
 \description{
-Validates and reshapes a numeric vector of coordinate pairs.
+Validates and reshapes a numeric vector of coordinate pairs into a matrix.
+Vector must have even length (lon1, lat1, lon2, lat2, ...).
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Single location
+.process_location_vector(c(121.255669, 14.16742))
+
+# Multiple locations
+.process_location_vector(c(121.255669, 14.16742, 120.985, 14.6042))
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

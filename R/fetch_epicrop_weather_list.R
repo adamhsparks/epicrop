@@ -1,47 +1,56 @@
-#' Fetch weather once (single or multiple locations) and split by calendar year
+#' Fetch Weather for One or More Locations and Split by Calendar Year
 #'
-#' Retrieve one or more continuous blocks of weather for one or more locations
-#' from given start dates and durations, then split each result into a named
-#' list of per‑year tables. Each (location, start, duration) result is an
-#' `epicrop.wth.list`. The top-level return is an `epicrop.wth.bundle` when
+#' Retrieves one or more continuous blocks of weather data for one or more
+#' locations from given start dates and durations, then splits each result into
+#' a named list of per-year tables. Each (location, start, duration) result is
+#' an `epicrop.wth.list`. The top-level return is an `epicrop.wth.bundle` when
 #' multiple requests are processed, otherwise a single `epicrop.wth.list`.
 #'
-#' ## Flexible inputs
-#' * `lonlat`: a single numeric vector, `c(lon, lat)`; or multiple locations as
-#'   a numeric vector of length `2n`, or a 2‑column matrix/data.frame, or a list
-#'   of `list(c(lon, lat))`.
-#' * `start_date`: a single `"YYYY-MM-DD"` (or `Date`/`IDate`), or a vector of
-#'   the same; or a month–day string like `"06-30"` or `"6-30"` (leading `"-"`
-#'   optional) provided together with `years`.
-#' * `duration`: single integer or a vector (recycled); interpreted as inclusive
-#'   days to fetch (`end = start + duration - 1`).
-#' * `years`: only used when `start_date` lacks a year. We compute a **cover
-#'   window** per distinct month–day: `start = min(paste(years, md))`,
-#'   `end = max(paste(years, md)) + (duration - 1)`.
+#' @section Flexible Input Formats:
 #'
-#' @param lonlat Numeric length‑2 vector `c(lon, lat)`, OR multiple locations
-#'   as: numeric vector of length `2n`, a 2‑column matrix/data.frame, or a list
-#'   of numeric length‑2 vectors.
+#' **Locations (`lonlat`):**
+#' - Single numeric vector: `c(lon, lat)`
+#' - Multiple locations as: numeric vector of length `2n`, a 2-column
+#'   matrix/data.frame, or a list of `list(c(lon, lat))`
+#'
+#' **Start dates (`start_date`):**
+#' - Full ISO date: `"2000-06-30"` or `Date`/`IDate` object
+#' - Month-day string: `"06-30"`, `"6-30"`, `"-06-30"` (with `years` parameter)
+#' - Vector of dates (recycled in pairwise mode or crossed in cross mode)
+#'
+#' **Duration:**
+#' - Single integer or vector (recycled)
+#' - Interpreted as inclusive days: `end = start + duration - 1`
+#'
+#' **Years (optional):**
+#' - Only used when `start_date` contains month-day values without a year
+#' - Computes a **cover window** per distinct month-day:
+#'   - `start = min(paste(years, md))`
+#'   - `end = max(paste(years, md)) + (duration - 1)`
+#' - Enables efficient API calls: fetching once per year for multiple dates
+#'
+#' @param lonlat Numeric length-2 vector `c(lon, lat)`, OR multiple locations
+#'   as: numeric vector of length `2n`, a 2-column matrix/data.frame, or a list
+#'   of numeric length-2 vectors.
 #' @param start_date A starting date (character `"YYYY-MM-DD"`, [Date], or
-#'   [data.table::IDate]) **or** a month–day string like `"06-30"` (leading
+#'   [data.table::IDate]) **or** a month-day string like `"06-30"` (leading
 #'   `"-"` optional) used together with `years`.
 #' @param duration Integer(s). Number of days to retrieve **from** `start_date`
 #'   (inclusive). Single value or vector (recycled).
 #' @param years Optional integer vector of years. **Required** if `start_date`
-#'   contains any month–day values without a year.
+#'   contains any month-day values without a year.
 #' @param mode Character scalar: `"pairwise"` (default) pairs locations and
-#'   dates by position (recycling length-1), or `"cross"` forms all combinations
-#'   (locations × dates).
+#'   dates by position (recycling length-1), or `"cross"` forms all
+#'   combinations (locations × dates).
 #' @param location_names Optional character names for locations (length = number
 #'   of unique locations).
 #'
-#' @return
-#' * If only one (location, start, duration) is requested: an
-#'  `epicrop.wth.list`.
-#' * Otherwise: an `epicrop.wth.bundle` (a named list of `epicrop.wth.list`).
+#' @returns
+#' - If only one (location, start, duration) is requested: an `epicrop.wth.list`.
+#' - Otherwise: an `epicrop.wth.bundle` (a named list of `epicrop.wth.list`).
 #'
 #' @examplesIf interactive()
-#' # Single location, month-day start date (any of "6/30", "-06-30", "06-30")
+#' # Single location, month-day start date
 #' w1 <- fetch_epicrop_weather_list(
 #'   lonlat     = c(121.255669, 14.16742),
 #'   start_date = "6/30",
@@ -56,7 +65,7 @@
 #'   duration   = 120L
 #' )
 #'
-#' # Multiple locations × multiple dates (cross mode), mixed inputs
+#' # Multiple locations × multiple dates (cross mode)
 #' locations <- rbind(
 #'   "IRRI_ZES" = c(121.255669, 14.16742),
 #'   "Metro_Manila" = c(120.985, 14.6042)
@@ -69,20 +78,17 @@
 #'   mode       = "cross"
 #' )
 #'
-#' # Multiple start dates for same location across years (efficient API calls)
+#' # Multiple start dates for same location (efficient: 3 API calls, 1 per year)
 #' w4 <- fetch_epicrop_weather_list(
 #'   lonlat     = c(121.255669, 14.16742),
 #'   start_date = c("-06-01", "-06-14", "-06-30"),
 #'   duration   = 90L,
 #'   years      = 2001:2003
 #' )
-#' # This makes only 3 API calls (one per year), fetching from earliest to
-#' # latest start date + duration
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
-
 fetch_epicrop_weather_list <- function(
   lonlat,
   start_date,
@@ -102,10 +108,7 @@ fetch_epicrop_weather_list <- function(
   # Process start dates
   sd_char <- .process_start_dates(start_date, years)
 
-  # `mode` only controls how locations and dates are paired when building the
-  # *candidate* set of date/duration windows (pairwise recycling vs. full
-  # location x date cross join); it must not change how weather ends up
-  # fetched and bundled.
+  # Build tasks: mode controls location/date pairing in candidate set
   tasks <- .build_tasks(
     locations,
     location_names,
@@ -115,14 +118,35 @@ fetch_epicrop_weather_list <- function(
     mode
   )
 
+  # Collapse tasks by location for efficient API calls
   tasks <- .collapse_tasks_by_location(tasks)
 
+  # Fetch weather data
   results <- lapply(tasks, .fetch_one_weather)
 
   return(.format_results(results, tasks))
 }
 
-#' Validate Required Arguments
+#' Validate Required Arguments for Weather Fetching
+#'
+#' Checks that `lonlat`, `start_date`, and `duration` are provided and aborts
+#' with helpful error messages if any are missing. Called early in
+#' [fetch_epicrop_weather_list()] to fail fast.
+#'
+#' @param lonlat Numeric coordinates or matrix of coordinates (required).
+#' @param start_date A date string or vector of dates (required).
+#' @param duration Integer or vector of integers specifying days (required).
+#'
+#' @returns NULL (invisibly). Called for side effects (validation/abort).
+#'
+#' @examplesIf interactive()
+#' # This would trigger validation (not normally called directly)
+#' .validate_required_args(
+#'   c(121.255669, 14.16742),
+#'   "2000-06-30",
+#'   120L
+#' )
+#'
 #' @autoglobal
 #' @dev
 .validate_required_args <- function(lonlat, start_date, duration) {
@@ -138,8 +162,7 @@ fetch_epicrop_weather_list <- function(
     cli::cli_abort(c(
       "{.arg start_date} is required.",
       i = "Provide a date string or vector of dates.",
-      i = "Examples: {.code \"2000-06-30\"} or
-      {.code c(\"-06-01\", \"-06-14\")}"
+      i = "Examples: {.code \"2000-06-30\"} or {.code c(\"-06-01\", \"-06-14\")}"
     ))
   }
 
@@ -155,8 +178,21 @@ fetch_epicrop_weather_list <- function(
 #' Normalize Location Input to Standard Matrix Format
 #'
 #' Converts various location input formats (numeric vector, matrix, data frame,
-#' or list of pairs) to a standard 2-column numeric matrix with columns LON and LAT.
-#' Preserves row names where available and validates all coordinates are finite.
+#' or list of pairs) to a standard 2-column numeric matrix with columns LON
+#' and LAT. Preserves row names where available and validates all coordinates
+#' are finite.
+#'
+#' @section Input Processing:
+#' 1. **List** (non-data.frame): Validate elements, extract names, convert to matrix
+#' 2. **Data frame**: Validate 2 columns and numeric type, convert to matrix
+#' 3. **Matrix**: Validate 2 columns and numeric type, set column names
+#' 4. **Numeric vector**: Validate even length, reshape to 2 columns
+#'
+#' @section Validation:
+#' - All coordinates must be finite (no NA, Inf, or NaN)
+#' - Matrix must have exactly 2 columns
+#' - Numeric vector must have even length (length >= 2)
+#' - List elements must be numeric vectors of length 2 with finite values
 #'
 #' @param ll Location coordinates in one of the following formats:
 #'   * Numeric vector of length 2: `c(lon, lat)` for a single location
@@ -172,23 +208,7 @@ fetch_epicrop_weather_list <- function(
 #'   * Storage mode: `"double"`
 #'   * All values finite and valid coordinates
 #'
-#' @details
-#' **Input processing order:**
-#' 1. List (non-data.frame): Validate elements, extract names, convert to matrix
-#' 2. Data frame: Validate 2 columns and numeric type, convert to matrix
-#' 3. Matrix: Validate 2 columns and numeric type, set column names
-#' 4. Numeric vector: Validate even length, reshape to 2 columns
-#'
-#' **Validation:**
-#' * All coordinates must be finite (no NA, Inf, or NaN)
-#' * Matrix must have exactly 2 columns
-#' * Numeric vector must have even length (length >= 2)
-#' * List elements must be numeric vectors of length 2 with finite values
-#'
-#' **Errors:** Aborts with informative messages if input format is invalid
-#' or coordinates are non-finite.
-#'
-#' @examples
+#' @examplesIf interactive()
 #' # Single location as vector
 #' .norm_locations(c(121.255669, 14.16742))
 #'
@@ -232,10 +252,21 @@ fetch_epicrop_weather_list <- function(
 #' Process Location List Input
 #'
 #' Validates and converts a list of coordinate pairs to a matrix.
+#' Each element must be a numeric vector of length 2 with finite values.
 #'
 #' @param ll A list where each element is a numeric vector of length 2.
 #'
 #' @returns A numeric matrix with row names preserved if available.
+#'
+#' @details Errors if any element is not a length-2 numeric vector with
+#'   finite values. Row names are preserved if the list is named and all
+#'   names are non-empty.
+#'
+#' @examplesIf interactive()
+#' .process_location_list(list(
+#'   IRRI = c(121.255669, 14.16742),
+#'   Manila = c(120.985, 14.6042)
+#' ))
 #'
 #' @autoglobal
 #' @dev
@@ -275,10 +306,18 @@ fetch_epicrop_weather_list <- function(
 #' Process Location Data Frame Input
 #'
 #' Validates and converts a data frame to a location matrix.
+#' Ensures exactly 2 numeric columns (longitude, latitude).
 #'
 #' @param ll A data frame with exactly 2 numeric columns.
 #'
-#' @returns A numeric matrix.
+#' @returns A numeric matrix with row names (if any) preserved.
+#'
+#' @examplesIf interactive()
+#' locations <- data.frame(
+#'   lon = c(121.255669, 120.985),
+#'   lat = c(14.16742, 14.6042)
+#' )
+#' .process_location_dataframe(locations)
 #'
 #' @autoglobal
 #' @dev
@@ -306,11 +345,19 @@ fetch_epicrop_weather_list <- function(
 
 #' Process Location Matrix Input
 #'
-#' Validates a matrix of coordinate pairs.
+#' Validates a matrix of coordinate pairs. Checks for exactly 2 columns,
+#' numeric storage, and finite coordinate values.
 #'
 #' @param ll A numeric matrix with exactly 2 columns.
 #'
-#' @returns The validated matrix.
+#' @returns The validated matrix unchanged.
+#'
+#' @examplesIf interactive()
+#' locations <- rbind(
+#'   c(121.255669, 14.16742),
+#'   c(120.985, 14.6042)
+#' )
+#' .process_location_matrix(locations)
 #'
 #' @autoglobal
 #' @dev
@@ -342,11 +389,19 @@ fetch_epicrop_weather_list <- function(
 
 #' Process Location Numeric Vector Input
 #'
-#' Validates and reshapes a numeric vector of coordinate pairs.
+#' Validates and reshapes a numeric vector of coordinate pairs into a matrix.
+#' Vector must have even length (lon1, lat1, lon2, lat2, ...).
 #'
-#' @param ll A numeric vector of even length (lon1, lat1, lon2, lat2, ...).
+#' @param ll A numeric vector of even length with finite values.
 #'
-#' @returns A 2-column matrix with one pair per row.
+#' @returns A 2-column matrix with one coordinate pair per row.
+#'
+#' @examplesIf interactive()
+#' # Single location
+#' .process_location_vector(c(121.255669, 14.16742))
+#'
+#' # Multiple locations
+#' .process_location_vector(c(121.255669, 14.16742, 120.985, 14.6042))
 #'
 #' @autoglobal
 #' @dev
@@ -372,9 +427,11 @@ fetch_epicrop_weather_list <- function(
 
 #' Abort on Invalid Location Type
 #'
-#' Helper to provide consistent error message for unsupported input types.
+#' Provides a consistent error message for unsupported location input types.
 #'
 #' @param ll The invalid input object.
+#'
+#' @returns Does not return; aborts with error message.
 #'
 #' @autoglobal
 #' @dev
@@ -386,7 +443,34 @@ fetch_epicrop_weather_list <- function(
   ))
 }
 
-#' Resolve Location Names
+#' Resolve Location Names from Matrix and Inputs
+#'
+#' Determines appropriate names for locations by checking user-provided names,
+#' rownames from the location matrix, or generating default names.
+#'
+#' @section Priority:
+#' 1. User-provided `location_names` (must match number of locations)
+#' 2. Non-empty rownames from `locations` matrix
+#' 3. Auto-generated names: `location01`, `location02`, ...
+#'
+#' @param locations A numeric 2-column matrix (LON, LAT).
+#' @param location_names Optional character vector of location names.
+#'
+#' @returns A character vector of location names with length equal to the
+#'   number of rows in `locations`.
+#'
+#' @examplesIf interactive()
+#' locations <- rbind(
+#'   "IRRI_ZES" = c(121.255669, 14.16742),
+#'   "Metro_Manila" = c(120.985, 14.6042)
+#' )
+#'
+#' # Uses rownames by default
+#' .resolve_location_names(locations, NULL)
+#'
+#' # Overrides with user names
+#' .resolve_location_names(locations, c("Site A", "Site B"))
+#'
 #' @autoglobal
 #' @dev
 .resolve_location_names <- function(locations, location_names) {
@@ -396,8 +480,7 @@ fetch_epicrop_weather_list <- function(
     if (length(location_names) != n_locations) {
       cli::cli_abort(c(
         "{.arg location_names} length must equal number of locations.",
-        x = "You provided {length(location_names)} name{?s} for
-        {n_locations} location{?s}."
+        x = "You provided {length(location_names)} name{?s} for {n_locations} location{?s}."
       ))
     }
     return(location_names)
@@ -413,22 +496,61 @@ fetch_epicrop_weather_list <- function(
   sprintf("location%02d", seq_len(n_locations))
 }
 
-#' Check if Date String is Month-Day Only Format
+#' Detect Month-Day Only Date Strings
+#'
+#' Identifies date strings that contain only month and day without a year,
+#' in formats like `"06-30"`, `"-06-30"`, or `"6/30"`.
+#'
+#' @section Patterns Matched:
+#' - `"06-30"` or `"-06-30"` (with optional leading dash)
+#' - `"6-30"` or `"-6-30"` (single-digit month/day)
+#' - Regex: `^-?\\d{1,2}[-/]\\d{1,2}$`
+#' - Excludes full ISO dates (`YYYY-MM-DD`)
+#'
+#' @param x_chr Character vector of date strings.
+#'
+#' @returns Logical vector indicating which elements are month-day only.
+#'
+#' @examplesIf interactive()
+#' .is_md_only(c("06-30", "2000-06-30", "6/30", "-06-30"))
+#' # [1]  TRUE FALSE  TRUE  TRUE
+#'
+#' @autoglobal
 #' @dev
 .is_md_only <- function(x_chr) {
   grepl("^-?\\d{1,2}[-/]\\d{1,2}$", x_chr) &
     !grepl("^\\d{4}-\\d{2}-\\d{2}$", x_chr)
 }
 
-#' Normalize Month-Day Strings to MM-DD Format
+#' Normalize Month-Day Strings to Standard MM-DD Format
+#'
+#' Converts month-day strings in various formats (`"6/30"`, `"-06-30"`, etc.)
+#' to a consistent `"MM-DD"` format with zero-padded digits.
+#'
+#' @section Transformations:
+#' - Slashes or dashes as separators (normalized to dashes)
+#' - Optional leading dash (removed)
+#' - Single or double-digit month/day (zero-padded)
+#'
+#' @param x_chr Character vector of month-day strings (with optional leading
+#'   dash or slash separator).
+#'
+#' @returns Character vector in `"MM-DD"` format (e.g., `"06-30"`).
+#'
+#' @examplesIf interactive()
+#' .normalize_md(c("6/30", "-6-30", "06-30"))
+#' # [1] "06-30" "06-30" "06-30"
+#'
+#' @autoglobal
 #' @dev
 .normalize_md <- function(x_chr) {
+  # Remove leading dash if present, normalize separators
+  cleaned <- sub("^-", "", x_chr)
+  cleaned <- gsub("/", "-", cleaned, fixed = TRUE)
+
+  # Split on dash and pad with zeros
   vapply(
-    strsplit(
-      sub("^-?", "", gsub("/", "-", x_chr, fixed = TRUE)),
-      "-",
-      fixed = TRUE
-    ),
+    strsplit(cleaned, "-", fixed = TRUE),
     function(p) sprintf("%02d-%02d", as.integer(p[1L]), as.integer(p[2L])),
     character(1L),
     USE.NAMES = FALSE
@@ -436,6 +558,23 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Process Start Dates to Character Format
+#'
+#' Converts start dates to character format and normalizes month-day strings.
+#' Month-day dates require the `years` parameter to construct complete date ranges.
+#'
+#' @param start_date Character, `Date`, or `IDate` vector of start dates.
+#' @param years Optional integer vector of years. Required if `start_date`
+#'   contains month-day values.
+#'
+#' @returns Character vector of start dates in `"YYYY-MM-DD"` or `"MM-DD"` format.
+#'
+#' @details Month-day strings are normalized to `"MM-DD"` format. Full dates
+#'   are converted to character strings. If month-day values are found but
+#'   `years` is NULL, an error is raised.
+#'
+#' @examplesIf interactive()
+#' .process_start_dates(c("2000-06-30", "-06-30"), c(2000, 2001))
+#'
 #' @autoglobal
 #' @dev
 .process_start_dates <- function(start_date, years) {
@@ -444,8 +583,7 @@ fetch_epicrop_weather_list <- function(
 
   if (any(md_idx) && is.null(years)) {
     cli::cli_abort(c(
-      "When {.arg start_date} is month-day only (e.g., '06-30'), you must
-      provide {.arg years}.",
+      "When {.arg start_date} is month-day only (e.g., '06-30'), you must provide {.arg years}.",
       i = "Example: {.code years = 2001:2003}"
     ))
   }
@@ -458,6 +596,31 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Build Task List for Weather Fetching
+#'
+#' Constructs a list of (location, start_date, duration) tasks based on
+#' input locations, dates, and pairing mode.
+#'
+#' @section Pairing Modes:
+#' - **pairwise** (default): Recycles locations and dates by position.
+#'   - `locations[1]` × `dates[1]`, `locations[2]` × `dates[2]`, etc.
+#'   - Excess elements are recycled.
+#' - **cross**: Forms all combinations.
+#'   - Every location × every date combination.
+#'
+#' @param locations A numeric 2-column matrix (LON, LAT).
+#' @param location_names Character vector of location names.
+#' @param sd_char Character vector of start dates.
+#' @param duration Integer or vector of durations.
+#' @param years Optional integer vector of years.
+#' @param mode Pairing mode: `"pairwise"` or `"cross"`.
+#'
+#' @returns A list of task objects (lists) with elements:
+#'   * `location_id`: integer index
+#'   * `location_name`: character name
+#'   * `lonlat`: numeric vector c(lon, lat)
+#'   * `start_chr`: character start date
+#'   * `duration`: integer duration (days)
+#'
 #' @autoglobal
 #' @dev
 .build_tasks <- function(
@@ -482,6 +645,7 @@ fetch_epicrop_weather_list <- function(
     location_idx <- rep_len(seq_len(n_locations), max_len)
     date_idx <- rep_len(seq_len(n_dates), max_len)
   } else {
+    # cross mode
     location_idx <- rep(seq_len(n_locations), each = n_dates)
     date_idx <- rep(seq_len(n_dates), times = n_locations)
   }
@@ -509,6 +673,24 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Create a Single Task for Weather Fetching
+#'
+#' Constructs a single task object with resolved date and duration information.
+#'
+#' @param locations A numeric 2-column matrix (LON, LAT).
+#' @param location_names Character vector of location names.
+#' @param loc_idx Integer location index.
+#' @param sd_char Character vector of start dates.
+#' @param date_idx Integer date index.
+#' @param dur Integer duration (days).
+#' @param years Optional integer vector of years.
+#'
+#' @returns A list with task information:
+#'   * `location_id`: integer index
+#'   * `location_name`: character name
+#'   * `lonlat`: numeric vector c(lon, lat)
+#'   * `start_chr`: character start date
+#'   * `duration`: integer duration
+#'
 #' @autoglobal
 #' @dev
 .create_single_task <- function(
@@ -532,6 +714,22 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Resolve Date String and Calculate Duration
+#'
+#' Converts date strings to a standard start date character and duration.
+#' Handles both full ISO dates and month-day strings with year ranges.
+#'
+#' @param d_str Character start date (ISO format or month-day only).
+#' @param dur Integer duration (days).
+#' @param years Optional integer vector of years.
+#'
+#' @returns A list with:
+#'   * `start_chr`: character start date in `"YYYY-MM-DD"` format
+#'   * `duration`: integer duration (days)
+#'
+#' @details
+#' If `d_str` is in `"MM-DD"` format, constructs a cover window using `years`.
+#' Otherwise, parses as ISO date using [data.table::as.IDate()].
+#'
 #' @autoglobal
 #' @dev
 .resolve_date_and_duration <- function(d_str, dur, years) {
@@ -556,6 +754,32 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Calculate Date Coverage Window from Month-Day and Years
+#'
+#' Constructs a date range that covers all occurrences of a given month-day
+#' across a range of years, plus the specified duration.
+#'
+#' @section Logic:
+#' 1. Paste year with month-day string to create dates for each year
+#' 2. Find earliest start date: `min(all_dates)`
+#' 3. Find latest end date: `max(all_dates) + (duration - 1)`
+#' 4. Return: `list(start_chr, duration_to_cover_window)`
+#'
+#' @param md_mmdd Character month-day in `"MM-DD"` format.
+#' @param yrs Integer vector of years.
+#' @param window_days Integer duration (days) from each start date.
+#'
+#' @returns A list with:
+#'   * `start_chr`: character earliest start date in `"YYYY-MM-DD"` format
+#'   * `duration`: integer days needed to cover all years and duration
+#'
+#' @details
+#' This is used to efficiently fetch weather in a single API call that covers
+#' multiple year windows. For example, fetching "06-01 to 08-30" for years
+#' 2000:2002 requires one call from 2000-06-01 to 2002-08-30.
+#'
+#' @examplesIf interactive()
+#' .cover_from_md_years("06-30", 2000:2001, 90L)
+#'
 #' @autoglobal
 #' @dev
 .cover_from_md_years <- function(md_mmdd, yrs, window_days) {
@@ -573,8 +797,7 @@ fetch_epicrop_weather_list <- function(
 
   if (anyNA(em)) {
     cli::cli_abort(c(
-      "Failed to construct valid dates from {.arg years} and month-day
-      {.val {md_mmdd}}.",
+      "Failed to construct valid dates from {.arg years} and month-day {.val {md_mmdd}}.",
       i = "Check that month-day values are valid (e.g., not 02-30)."
     ))
   }
@@ -588,8 +811,35 @@ fetch_epicrop_weather_list <- function(
   )
 }
 
-
-#' Collapse Tasks for One Location
+#' Collapse Multiple Tasks for One Location
+#'
+#' Merges multiple tasks (start_date/duration combinations) for a single
+#' location into one consolidated task with the minimum start date and
+#' maximum end date. This ensures efficient API calls.
+#'
+#' @param tsks A list of task objects for the same location.
+#'
+#' @returns A single task list with:
+#'   * `location_id`: unchanged
+#'   * `location_name`: unchanged
+#'   * `lonlat`: unchanged
+#'   * `start_chr`: earliest start date
+#'   * `duration`: days to cover latest end date
+#'
+#' @details
+#' Used to combine multiple requested date ranges into one API fetch.
+#' Reduces redundant requests for the same location.
+#'
+#' @examplesIf interactive()
+#' # Multiple tasks for same location across years
+#' tasks <- list(
+#'   list(location_id = 1, location_name = "Site1", lonlat = c(0, 0),
+#'        start_chr = "2000-06-01", duration = 90L),
+#'   list(location_id = 1, location_name = "Site1", lonlat = c(0, 0),
+#'        start_chr = "2001-06-01", duration = 90L)
+#' )
+#' .collapse_one_location(tasks)
+#'
 #' @autoglobal
 #' @dev
 .collapse_one_location <- function(tsks) {
@@ -617,6 +867,20 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Collapse Tasks by Location for Efficient API Calls
+#'
+#' Groups tasks by location and collapses each group into a single task.
+#' This minimizes the number of API calls required to fetch all data.
+#'
+#' @param tasks A list of task objects (from [.build_tasks()]).
+#'
+#' @returns A list of collapsed tasks, one per unique location.
+#'
+#' @details
+#' By combining all date ranges for a single location, we can fetch the
+#' entire date span in one API call, then extract individual results later.
+#' This is especially efficient when fetching multiple years or multiple
+#' start dates for the same location.
+#'
 #' @autoglobal
 #' @dev
 .collapse_tasks_by_location <- function(tasks) {
@@ -628,6 +892,28 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Fetch Weather Data for One Task
+#'
+#' Calls the API to fetch weather data for a single (location, start, duration)
+#' task and splits the result by calendar year into a named list.
+#'
+#' @section Return Structure:
+#' The weather table is split by `data.table::year(YYYYMMDD)` into a list.
+#' Each list element is a table for one calendar year, named by the year.
+#' The result is classed as `epicrop.wth.list`.
+#'
+#' @param task A task object (from [.create_single_task()]) with:
+#'   * `lonlat`: numeric vector c(lon, lat)
+#'   * `start_chr`: character start date
+#'   * `duration`: integer duration
+#'
+#' @returns An `epicrop.wth.list` object: a named list of weather tables,
+#'   one per year. Names are year strings (e.g., "2000", "2001").
+#'
+#' @details
+#' This function calls [get_wth()] to fetch data, then splits by year.
+#' It is called internally by [fetch_epicrop_weather_list()].
+#'
+#' @autoglobal
 #' @dev
 .fetch_one_weather <- function(task) {
   tab <- get_wth(
@@ -647,6 +933,22 @@ fetch_epicrop_weather_list <- function(
 }
 
 #' Format Results for Return
+#'
+#' Prepares final results in the appropriate class and structure.
+#'
+#' @section Output Structure:
+#' - If only one (location, start, duration) combination:
+#'   returns the `epicrop.wth.list` directly.
+#' - If multiple combinations:
+#'   returns an `epicrop.wth.bundle` (a named list of `epicrop.wth.list`)
+#'   with keys like `"location01__2000-01-01__365d"`.
+#'
+#' @param results A list of `epicrop.wth.list` objects (from [.fetch_one_weather()]).
+#' @param tasks A list of task objects (from [.collapse_tasks_by_location()]).
+#'
+#' @returns Either an `epicrop.wth.list` or an `epicrop.wth.bundle` object.
+#'
+#' @autoglobal
 #' @dev
 .format_results <- function(results, tasks) {
   if (length(results) == 1L) {

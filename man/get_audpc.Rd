@@ -2,17 +2,92 @@
 % Please edit documentation in R/audpc.R
 \name{get_audpc}
 \alias{get_audpc}
-\title{Get AUDPC from epicrop.sim Object}
+\title{Extract AUDPC Value from Disease Model Output}
 \usage{
 get_audpc(x)
 }
 \arguments{
-\item{x}{An \code{epicrop.sim} object}
+\item{x}{An \code{epicrop.sim} object returned by \code{\link[=seir]{seir()}}, \code{\link[=bacterial_blight]{bacterial_blight()}},
+\code{\link[=leaf_blast]{leaf_blast()}}, or other disease model functions.}
 }
 \value{
-Numeric AUDPC value
+Numeric AUDPC value (double).
 }
 \description{
-Get the \acronym{AUDPC} value from an \pkg{epicrop} model run object's
-attributes for use in analysis, mapping, or reporting.
+Retrieves the pre-calculated Area Under the Disease Progress Curve (AUDPC)
+from an \code{epicrop.sim} object. AUDPC is automatically computed by \code{\link[=seir]{seir()}}
+and stored as an object attribute.
+}
+\section{Purpose}{
+
+
+This function provides a safe, documented way to access AUDPC without
+directly querying attributes. It includes validation to ensure the object
+is a valid model result with a calculated AUDPC.
+}
+
+\section{AUDPC Interpretation}{
+
+
+AUDPC values:
+\itemize{
+\item Near 0: Minimal disease throughout season (resistant or unfavorable conditions)
+\item Mid-range: Moderate disease development
+\item Near duration: Severe, sustained disease pressure
+}
+
+Typical ranges depend on disease and duration:
+\itemize{
+\item 120-day rice season: 0-120 (perfect health to constant epidemic)
+\item 240-day wheat season: 0-240
+}
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Example 1: Basic usage - extract AUDPC from model output
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+sim <- bacterial_blight(wth, emergence = "2000-06-30")
+audpc <- get_audpc(sim)
+print(paste("Bacterial blight AUDPC:", round(audpc, 2)))
+
+# Example 2: Compare AUDPC across multiple diseases
+diseases <- list(
+  bb = bacterial_blight(wth, emergence = "2000-06-30"),
+  bs = brown_spot(wth, emergence = "2000-06-30"),
+  lb = leaf_blast(wth, emergence = "2000-06-30"),
+  sb = sheath_blight(wth, emergence = "2000-06-30")
+)
+
+audpc_values <- data.frame(
+  disease = names(diseases),
+  AUDPC = sapply(diseases, get_audpc)
+)
+print(audpc_values)
+# Identify most damaging disease
+worst <- audpc_values[which.max(audpc_values$AUDPC), ]
+print(paste("Most severe:", worst$disease, "AUDPC =", round(worst$AUDPC, 1)))
+
+# Example 3: Use in analysis pipeline
+locations <- list(
+  IRRI = c(121.25562, 14.6774),
+  Manila = c(120.985, 14.6042)
+)
+
+audpc_by_location <- sapply(locations, function(lonlat) {
+  wth <- get_wth(lonlat = lonlat, dates = "2000-06-30", duration = 120L)
+  sim <- leaf_blast(wth, emergence = "2000-06-30")
+  get_audpc(sim)
+})
+
+print(audpc_by_location)
+\dontshow{\}) # examplesIf}
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }

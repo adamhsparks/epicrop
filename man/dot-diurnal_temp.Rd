@@ -2,27 +2,60 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.diurnal_temp}
 \alias{.diurnal_temp}
-\title{Calculate hourly temperature for a given day or multiple days}
+\title{Calculate Hourly Temperature for a Given Day}
 \usage{
 .diurnal_temp(lat, doy, tmin, tmax)
 }
 \arguments{
-\item{lat}{Latitude (scalar or vector).}
+\item{lat}{Latitude (degrees; scalar or vector).}
 
-\item{doy}{Day of year (scalar or vector).}
+\item{doy}{Day of year (1-365; scalar or vector).}
 
-\item{tmin}{Minimum temperature (scalar or vector).}
+\item{tmin}{Minimum daily temperature (degrees C; scalar or vector).}
 
-\item{tmax}{Maximum temperature (scalar or vector).}
+\item{tmax}{Maximum daily temperature (degrees C; scalar or vector).}
 }
 \value{
-Numeric vector of 24 hourly temperatures for single day, or
-numeric vector of 24*n hourly temperatures for multiple days.
+Numeric vector of 24 hourly temperatures (for single day or
+vectorized 24*n values for multiple days).
 }
 \description{
-Calculate hourly temperature for a given day or multiple days
+Computes a full diurnal temperature curve from minimum, maximum, and mean
+temperatures using a sine wave (day) and exponential decay (night) model.
+}
+\section{Algorithm}{
+
+
+Temperature varies sinusoidally during the day (sunrise to sunset) and
+exponentially decays at night. Day length depends on latitude and day of year.
+The model ensures continuity at sunrise and sunset.
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Single day: latitude 14N, DOY 182 (Jul 1), Tmin=20, Tmax=30
+hourly_temp <- .diurnal_temp(
+  lat = 14.16742,
+  doy = 182,
+  tmin = 20,
+  tmax = 30
+)
+plot(1:24, hourly_temp, type = "l", ylim = c(15, 35),
+     xlab = "Hour of Day", ylab = "Temperature (degrees C)",
+     main = "Diurnal Temperature Curve")
+abline(h = c(20, 30), col = "red", lty = 2)
+
+# Multiple days (vectorized)
+hourly_temps <- .diurnal_temp(
+  lat = rep(14.16742, 3),
+  doy = 182:184,
+  tmin = c(20, 19, 21),
+  tmax = c(30, 32, 29)
+)
+length(hourly_temps)  # Should be 24 * 3 = 72
+\dontshow{\}) # examplesIf}
 }
 \author{
-Robert J. Hijmans with modifications by Adam H. Sparks
+Robert J. Hijmans (original); Adam H. Sparks (modifications)
 }
 \keyword{internal}

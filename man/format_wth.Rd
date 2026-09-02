@@ -7,111 +7,286 @@
 format_wth(wth, date, temp, rhum, rain, tmin, tmax, lat, lon)
 }
 \arguments{
-\item{wth}{A \code{\link[=data.frame]{data.frame()}} object containing the weather data for
-formatting.}
+\item{wth}{A \code{\link[=data.frame]{data.frame()}} or \code{\link[data.table:data.table]{data.table::data.table()}} containing raw
+weather observations. Must have one row per day with no gaps.}
 
-\item{date}{The column name indicating the field containing the date values.}
+\item{date}{Character. Name of column in \code{wth} containing dates. Dates
+should be in ISO format (YYYY-MM-DD), integer (YYYYMMDD), or already
+Date class. Required.}
 
-\item{temp}{The column name indicating the field containing the average daily
-temperature values.}
+\item{temp}{Character. Name of column containing mean daily temperature
+(degrees C). Required.}
 
-\item{rhum}{The column name indicating the field containing the average daily
-relative humidity.}
+\item{rhum}{Character. Name of column containing mean daily relative
+humidity (\%). Required.}
 
-\item{rain}{The column name indicating the field containing the total daily
-rainfall.}
+\item{rain}{Character. Name of column containing total daily rainfall (mm).
+Required.}
 
-\item{tmin}{The column name indicating the field containing the minimum daily
-temperature (optional).}
+\item{tmin}{Character. Name of column containing minimum daily temperature
+(degrees C). Optional; required only if using \code{simple_wetness = FALSE}
+in \code{\link[=seir]{seir()}}.}
 
-\item{tmax}{The column name indicating the field containing the maximum daily
-temperature.}
+\item{tmax}{Character. Name of column containing maximum daily temperature
+(degrees C). Optional; required only if using \code{simple_wetness = FALSE}
+in \code{\link[=seir]{seir()}}.}
 
-\item{lat}{The column name indicating the field containing the latitude of
-the observation data (optional).}
+\item{lat}{Character. Name of column containing latitude (degrees).
+Optional; improves hourly wetness calculation and enables mapping.}
 
-\item{lon}{The column name indicating the field containing the longitude of
-the observation data (optional).}
+\item{lon}{Character. Name of column containing longitude (degrees).
+Optional; enables spatial mapping of results.}
 }
 \value{
-An \code{epicrop.wth} object, a data frame compatible with a
-\code{\link[data.table:data.table]{data.table::data.table()}}, suitable for use in \pkg{epicrop}.
+An \code{epicrop.wth} object (\code{\link[data.table:data.table]{data.table::data.table()}} subclass)
+containing reformatted weather data. Compatible with \code{\link[=seir]{seir()}} and all
+disease model functions (\code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=leaf_blast]{leaf_blast()}}, etc.).
+Automatically includes DOY (day of year) derived from date.
 }
 \description{
-Formats an existing \code{\link[=data.frame]{data.frame()}} of weather data for use in \pkg{epicrop}.
-Only the data necessary for use in the model is returned and the columns
-are renamed to values expected by the model.  The data are assumed to be on
-a daily time-step. For converting sub-daily weather data to daily, see
-\code{\link[cropgrowdays:daily_mean]{cropgrowdays::daily_mean()}}.
+Reformats an existing \code{\link[=data.frame]{data.frame()}} of weather data into the standard
+\pkg{epicrop} format for use in \code{\link[=seir]{seir()}} and disease model functions.
+Selects and renames columns to match model expectations, validates data
+quality (no gaps, no duplicates), and adds derived fields (DOY).
 }
 \details{
-\subsection{Required values}{
+\subsection{Data Source Examples}{
 
-Weather data must be a daily time-step and contain the following values,
+Common data sources and required column names:
 \itemize{
-\item full date including year, month and day,
-\item average daily temperature,
-\item average daily relative humidity,
-\item total daily rainfall
+\item \strong{NASA POWER} (via \code{\link[nasapower:get_power]{nasapower::get_power()}}): Use \code{date = "YYYYMMDD"},
+\code{temp = "T2M"}, \code{rhum = "RH2M"}, \code{rain = "PRECTOTCORR"}, etc.
+\item \strong{CHIRPS rainfall} (via \code{\link[chirps:get_chirps]{chirps::get_chirps()}}): Combine with
+temperature data from another source
+\item \strong{Local weather station data}: Map station file columns to parameter names
 }
 }
 
-\subsection{Optional values}{
-
-The following values are optional and the model can be run by default without
-them.
+\subsection{Caveats}{
 \itemize{
-\item average minimum daily temperature (only used if \code{simple_wetness == FALSE})
-\item average maximum daily temperature (only used if \code{simple_wetness == FALSE})
-\item Latitude (only used if \code{simple_wetness == FALSE} and for mapping outputs)
-\item Longitude (only used for mapping outputs)\tabular{rl}{
-   \strong{Field Name} \tab \strong{Value} \cr
-   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
-   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
-   \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{TMIN} \tab Daily minimum temperature (°C) \cr
-   \emph{TMAX} \tab Daily maximum temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
-   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{LAT} \tab Latitude of area of interest \cr
-   \emph{LON} \tab Longitude of area of interest. \cr
+\item Sub-daily weather data must be aggregated to daily first. See
+\code{\link[cropgrowdays:daily_mean]{cropgrowdays::daily_mean()}} for hourly data aggregation.
+\item Dates must be complete and continuous (no missing days). Interpolation
+is not performed.
+\item Temperature, RH, and rainfall must be numeric (integers or floats).
+Character/factor columns cause errors.
+\item For \code{simple_wetness = FALSE} in \code{\link[=seir]{seir()}}, both TMIN and TMAX are required.
+}
+}
+}
+\section{Input Requirements}{
+
+
+Weather data must contain \strong{daily observations} (one row per day) with these
+required columns (names arbitrary):
+\itemize{
+\item \strong{Date} column with full date (year, month, day)
+\item \strong{Temperature} column with mean daily temperature (degrees C)
+\item \strong{Relative humidity} column with mean daily RH (\%)
+\item \strong{Rainfall} column with total daily precipitation (mm)
 }
 
+Optional columns that enhance model functionality:
+\itemize{
+\item \strong{Minimum temperature} (degrees C; required if \code{simple_wetness = FALSE})
+\item \strong{Maximum temperature} (degrees C; required if \code{simple_wetness = FALSE})
+\item \strong{Latitude} (degrees; used for hourly wetness and mapping)
+\item \strong{Longitude} (degrees; used for mapping and spatial analysis)
 }
 }
+
+\section{Data Validation}{
+
+
+This function validates that:
+\enumerate{
+\item All required columns exist in the input data.frame
+\item No duplicate dates are present
+\item Dates form a contiguous sequence with no gaps (true daily data)
+\item Date column is properly formatted as Date class
 }
+
+If validation fails, detailed error messages pinpoint the issue.
+}
+
+\section{Output Format}{
+
+
+Returns a \code{\link[data.table:data.table]{data.table::data.table()}} with class \code{epicrop.wth} containing
+the following columns (in order):\tabular{rl}{
+   \strong{Column} \tab \strong{Description} \cr
+   YYYYMMDD \tab Date (ISO 8601 format, Date class) \cr
+   DOY \tab Day of year (1-365/366, integer) \cr
+   TEMP \tab Mean daily temperature (degrees C) \cr
+   TMIN \tab Minimum daily temperature (degrees C) [optional] \cr
+   TMAX \tab Maximum daily temperature (degrees C) [optional] \cr
+   RHUM \tab Mean daily relative humidity (\%) \cr
+   RAIN \tab Total daily rainfall (mm) \cr
+   LAT \tab Latitude [optional] \cr
+   LON \tab Longitude [optional] \cr
+}
+}
+
 \examples{
-# Get weather data from the POWER API, using the `get_wth()` function,
-# this is for example purposes only as it is NOT necessary to reformat
-# the data provided by `get_wth()`.
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Example 1: Format weather from NASA POWER API
+# (Requires nasapower package; this example shows typical usage)
 
-library(nasapower)
-w <- get_power(
-  lonlat = c(121.25562, 14.6674),
-  dates = c("2000-06-30", "2000-12-31"),
-  community = "AG",
-  pars = c(
-    "T2M",
-    "T2M_MIN",
-    "T2M_MAX",
-    "RH2M",
-    "PRECTOTCORR"
-  ),
-  temporal_api = "DAILY"
+# Simulated POWER data (in practice from get_power())
+wth_raw <- data.frame(
+  DATE = seq(as.Date("2000-06-30"), as.Date("2000-12-31"), by = "day"),
+  TAVG = rnorm(185, mean = 25, sd = 3),
+  TMIN = rnorm(185, mean = 20, sd = 3),
+  TMAX = rnorm(185, mean = 30, sd = 3),
+  RH = rnorm(185, mean = 80, sd = 10),
+  PRECIP = rgamma(185, shape = 2, rate = 0.5),
+  LAT = 14.6774,
+  LON = 121.25562
 )
 
-format_wth(
-  wth = w,
-  date = "YYYYMMDD",
-  temp = "T2M",
-  rhum = "RH2M",
-  rain = "PRECTOTCORR",
-  tmin = "T2M_MIN",
-  tmax = "T2M_MAX",
+# Format for epicrop
+wth <- format_wth(
+  wth = wth_raw,
+  date = "DATE",
+  temp = "TAVG",
+  tmin = "TMIN",
+  tmax = "TMAX",
+  rhum = "RH",
+  rain = "PRECIP",
   lat = "LAT",
   lon = "LON"
 )
 
+# Check class and structure
+class(wth)
+head(wth)
+# Ready for use in disease models
+sim <- bacterial_blight(wth, emergence = "2000-07-01")
+
+# Example 2: Minimal data (no lat/lon, no TMIN/TMAX)
+# Only requires temp, rhum, rain (simple_wetness = TRUE)
+wth_minimal <- data.frame(
+  obs_date = seq(as.Date("2000-06-30"), as.Date("2000-08-28"), by = "day"),
+  mean_temp = rnorm(60, mean = 25, sd = 2),
+  mean_rh = rnorm(60, mean = 85, sd = 5),
+  daily_rain = rpois(60, lambda = 3)
+)
+
+wth_fmt <- format_wth(
+  wth = wth_minimal,
+  date = "obs_date",
+  temp = "mean_temp",
+  rhum = "mean_rh",
+  rain = "daily_rain"
+)
+
+# Simulate with binary wetness (no hourly calculation)
+sim <- leaf_blast(wth_fmt, emergence = "2000-07-01", simple_wetness = TRUE)
+
+# Example 3: Integer date format (YYYYMMDD)
+wth_int_date <- data.frame(
+  date_int = c(20000630L, 20000701L, 20000702L),
+  temp = c(25, 26, 24),
+  rhum = c(85, 80, 90),
+  rain = c(5, 0, 8)
+)
+
+# Convert to character first (data.table will handle conversion)
+wth_int_date$date_int <- as.character(wth_int_date$date_int)
+
+wth_formatted <- format_wth(
+  wth = wth_int_date,
+  date = "date_int",
+  temp = "temp",
+  rhum = "rhum",
+  rain = "rain"
+)
+
+# Example 4: Subset and format existing epicrop.wth
+# (e.g., use only part of a longer dataset)
+wth_full <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = c("2000-06-30", "2000-12-31")
+)
+
+# Subset to June-July only
+wth_subset <- wth_full[month(YYYYMMDD) \%in\% 6:7]
+
+# Re-validate formatting
+wth_check <- format_wth(
+  wth = wth_subset,
+  date = "YYYYMMDD",
+  temp = "TEMP",
+  rhum = "RHUM",
+  rain = "RAIN",
+  tmin = "TMIN",
+  tmax = "TMAX",
+  lat = "LAT",
+  lon = "LON"
+)
+
+# Example 5: Error handling - demonstrating validation
+# This will fail (missing column)
+\dontrun{
+bad_wth <- data.frame(
+  date = seq(as.Date("2000-06-30"), as.Date("2000-07-05"), by = "day"),
+  temp = c(25, 26, 24, 25, 27, 26),
+  rhum = c(85, 80, 90, 85, 75, 80)
+  # Missing 'rain' column!
+)
+
+format_wth(
+  wth = bad_wth,
+  date = "date",
+  temp = "temp",
+  rhum = "rhum",
+  rain = "rain"  # This column doesn't exist
+)
+# Error: The following columns are not in wth: rain
+}
+
+# This will fail (duplicate dates)
+\dontrun{
+dup_wth <- data.frame(
+  date = c(as.Date("2000-06-30"), as.Date("2000-06-30"), as.Date("2000-07-01")),
+  temp = c(25, 26, 24),
+  rhum = c(85, 80, 90),
+  rain = c(5, 0, 8)
+)
+
+format_wth(
+  wth = dup_wth,
+  date = "date",
+  temp = "temp",
+  rhum = "rhum",
+  rain = "rain"
+)
+# Error: Weather data contains duplicate dates
+}
+
+# This will fail (gaps in dates)
+\dontrun{
+gap_wth <- data.frame(
+  date = c(
+    as.Date("2000-06-30"),
+    as.Date("2000-07-01"),  # Skip July 1
+    as.Date("2000-07-03")   # Gap of 2 days!
+  ),
+  temp = c(25, 24, 26),
+  rhum = c(85, 90, 80),
+  rain = c(5, 8, 0)
+)
+
+format_wth(
+  wth = gap_wth,
+  date = "date",
+  temp = "temp",
+  rhum = "rhum",
+  rain = "rain"
+)
+# Error: Weather data is not on a daily time-step or has gaps
+}
+\dontshow{\}) # examplesIf}
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

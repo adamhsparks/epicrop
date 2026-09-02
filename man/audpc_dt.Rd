@@ -7,18 +7,120 @@
 audpc_dt(x)
 }
 \arguments{
-\item{x}{An \code{epicrop.sim} object from \code{\link[=seir]{seir()}} or disease model functions.}
+\item{x}{An \code{epicrop.sim} object from \code{\link[=seir]{seir()}}, disease model functions
+(\code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=leaf_blast]{leaf_blast()}}, etc.), or \code{\link[=run_epicrop_model]{run_epicrop_model()}}
+with \code{output = "full"}.}
 }
 \value{
-A \code{\link[data.table:data.table]{data.table::data.table()}} with columns:
+A \code{\link[data.table:data.table]{data.table::data.table()}} with one row containing:
 \itemize{
-\item \code{lat}: Latitude (if available)
-\item \code{lon}: Longitude (if available)
-\item \code{AUDPC}: Area under disease progress curve
-\item \code{emergence}: Emergence date (as character)
+\item \code{lat}: Latitude (double; NA if not available)
+\item \code{lon}: Longitude (double; NA if not available)
+\item \code{AUDPC}: Area under disease progress curve (double)
+\item \code{emergence}: Emergence date (character, "YYYY-MM-DD")
 }
+
+Table is keyed on \code{emergence} for efficient operations.
 }
 \description{
-Extracts Area Under Disease Progress Curve (AUDPC) values along with
-location and emergence date information from an epicrop.sim object.
+Extracts the Area Under Disease Progress Curve (AUDPC) from an epicrop
+simulation output along with spatial (lat/lon) and temporal (emergence) metadata.
+Returns a compact summary table suitable for analysis, mapping, or reporting.
+}
+\section{Output Structure}{
+
+
+The returned \code{\link[data.table:data.table]{data.table::data.table()}} includes:
+\itemize{
+\item \strong{lat}: Latitude (if available in the model object)
+\item \strong{lon}: Longitude (if available in the model object)
+\item \strong{AUDPC}: Area under disease progress curve (numeric)
+\item \strong{emergence}: Emergence date as character (YYYY-MM-DD)
+}
+
+Columns are present only if the corresponding data exist in the input object.
+The table is keyed on \code{emergence} for efficient sorting and joining.
+}
+
+\section{Use Cases}{
+
+\itemize{
+\item \strong{Batch processing:} Quickly summarize results from \code{\link[=run_epicrop_model]{run_epicrop_model()}}
+\item \strong{Mapping:} Combine with spatial data for disease risk mapping
+\item \strong{Reporting:} Generate summary tables for publications or extension
+\item \strong{Analysis:} Join with cultivar, management, or climate data
+}
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Example 1: Extract AUDPC summary from single model run
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+sim <- bacterial_blight(wth, emergence = "2000-06-30")
+summary_table <- audpc_dt(sim)
+print(summary_table)
+# Output includes lat, lon, AUDPC, emergence
+
+# Example 2: Batch summarize multiple emergence dates
+emergence_dates <- seq(as.Date("2000-06-15"), as.Date("2000-07-15"), by = 7)
+summaries <- lapply(emergence_dates, function(ed) {
+  sim <- bacterial_blight(wth, emergence = as.character(ed))
+  audpc_dt(sim)
+})
+summary_all <- data.table::rbindlist(summaries)
+print(summary_all)
+
+# Example 3: Compare multiple locations and emergence dates
+locations <- data.frame(
+  name = c("IRRI", "Manila"),
+  lon = c(121.25562, 120.985),
+  lat = c(14.6774, 14.6042)
+)
+
+emergence_dates <- c("2000-06-30", "2000-07-15")
+
+results <- expand.grid(
+  location = locations$name,
+  emergence = emergence_dates,
+  stringsAsFactors = FALSE
+)
+
+results$AUDPC <- mapply(function(loc_name, em_date) {
+  loc <- locations[locations$name == loc_name, ]
+  wth <- get_wth(
+    lonlat = c(loc$lon, loc$lat),
+    dates = em_date,
+    duration = 120L
+  )
+  sim <- leaf_blast(wth, emergence = em_date)
+  get_audpc(sim)
+}, results$location, results$emergence)
+
+print(results)
+# Identify highest risk scenario
+worst <- results[which.max(results$AUDPC), ]
+sprintf("Highest risk: \%s, emergence \%s, AUDPC = \%.1f",
+        worst$location, worst$emergence, worst$AUDPC)
+
+# Example 4: Export for mapping or further analysis
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = "2000-06-30",
+  duration = 120L
+)
+sim <- brown_spot(wth, emergence = "2000-06-30")
+summary_dt <- audpc_dt(sim)
+
+# Easy to write to CSV or merge with other datasets
+# data.table::fwrite(summary_dt, "audpc_summary.csv")
+# spatial_data <- merge(spatial_data, summary_dt, by = c("lat", "lon"))
+\dontshow{\}) # examplesIf}
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }

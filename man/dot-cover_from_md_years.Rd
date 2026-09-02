@@ -6,7 +6,42 @@
 \usage{
 .cover_from_md_years(md_mmdd, yrs, window_days)
 }
+\arguments{
+\item{md_mmdd}{Character month-day in \code{"MM-DD"} format.}
+
+\item{yrs}{Integer vector of years.}
+
+\item{window_days}{Integer duration (days) from each start date.}
+}
+\value{
+A list with:
+\itemize{
+\item \code{start_chr}: character earliest start date in \code{"YYYY-MM-DD"} format
+\item \code{duration}: integer days needed to cover all years and duration
+}
+}
 \description{
-Calculate Date Coverage Window from Month-Day and Years
+Constructs a date range that covers all occurrences of a given month-day
+across a range of years, plus the specified duration.
+}
+\details{
+This is used to efficiently fetch weather in a single API call that covers
+multiple year windows. For example, fetching "06-01 to 08-30" for years
+2000:2002 requires one call from 2000-06-01 to 2002-08-30.
+}
+\section{Logic}{
+
+\enumerate{
+\item Paste year with month-day string to create dates for each year
+\item Find earliest start date: \code{min(all_dates)}
+\item Find latest end date: \code{max(all_dates) + (duration - 1)}
+\item Return: \code{list(start_chr, duration_to_cover_window)}
+}
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+.cover_from_md_years("06-30", 2000:2001, 90L)
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

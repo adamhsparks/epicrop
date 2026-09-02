@@ -2,61 +2,228 @@
 % Please edit documentation in R/get_wth.R
 \name{get_wth}
 \alias{get_wth}
-\title{Get Weather Data for Modelling Disease}
+\title{Get Weather Data for Disease Modelling}
 \usage{
 get_wth(lonlat, dates, duration = NULL)
 }
 \arguments{
-\item{lonlat}{A numeric vector of geographic coordinates for a cell or region
-entered as lon (x), lat (y) coordinates.}
+\item{lonlat}{Numeric vector of coordinates as \code{c(longitude, latitude)}.
+Longitude: -180 to 180 degrees (West/East)
+Latitude: -90 to 90 degrees (South/North)
+Example: \code{c(121.255669, 14.167425)} for IRRI, Philippines}
 
-\item{dates}{A character vector of start and end dates in that order.}
+\item{dates}{Character vector of start date and optional end date, or
+character scalar start date. Format: \code{"YYYY-MM-DD"} (ISO 8601).
+\itemize{
+\item Length 1: Use with \code{duration} parameter
+\item Length 2+: First is start, second is end; \code{duration} parameter ignored
+}}
 
-\item{duration}{A numeric value indicating how many days a single
-growing season being simulated is to be.  If this is used, only the start
-date will be used and the end date will be ignored if supplied.  This must
-match the \code{duration} parameter value passed along to \code{\link[=seir]{seir()}} or any
-of the \code{predict} family of functions.}
+\item{duration}{Optional integer. Number of days to retrieve (inclusive).
+Only used if \code{dates} is a single start date. Ignored if \code{dates} has
+length >= 2. Must be positive (> 0).
+If not provided and \code{dates} has only one element, an error is raised.}
 }
 \value{
-A \code{epicrop.wth}, a data frame based on a \code{\link[data.table:data.table]{data.table::data.table()}},
-object suitable for use in \pkg{epicrop} containing weather data, dates and
-geolocation information (LAT/LON values) with the following columns:\tabular{rl}{
-   \strong{Field Name} \tab \strong{Value} \cr
-   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
-   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
-   \emph{TEMP} \tab Mean daily temperature (°C) \cr
-   \emph{TMIN} \tab Daily minimum temperature (°C) \cr
-   \emph{TMAX} \tab Daily maximum temperature (°C) \cr
-   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
-   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{LAT} \tab Latitude of area of interest \cr
-   \emph{LON} \tab Longitude of area of interest. \cr
+An \code{epicrop.wth} object (\code{\link[data.table:data.table]{data.table::data.table()}} subclass)
+containing daily weather data with columns:\tabular{rll}{
+   \strong{Column} \tab \strong{Description} \tab \strong{Units} \cr
+   YYYYMMDD \tab Date \tab ISO 8601 (YYYY-MM-DD) \cr
+   DOY \tab Day of year \tab Integer (1-365/366) \cr
+   TEMP \tab Mean daily temperature \tab Degrees C \cr
+   TMIN \tab Minimum daily temperature \tab Degrees C \cr
+   TMAX \tab Maximum daily temperature \tab Degrees C \cr
+   RHUM \tab Mean daily relative humidity \tab Percent (0-100) \cr
+   RAIN \tab Total daily rainfall \tab Millimeters \cr
+   LAT \tab Latitude of query location \tab Degrees (-90 to 90) \cr
+   LON \tab Longitude of query location \tab Degrees (-180 to 180) \cr
 }
+
+
+Ready for direct use in \code{\link[=seir]{seir()}}, \code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=leaf_blast]{leaf_blast()}},
+and other disease models.
 }
 \description{
-This function is a wrapper for the \code{\link[nasapower:get_power]{nasapower::get_power()}} with predefined
-parameters suitable for use in \pkg{epicrop}.
+Retrieves daily weather data from the NASA POWER database and formats it
+for use in \code{\link[=seir]{seir()}} and \pkg{epicrop} disease models. This function wraps
+\code{\link[nasapower:get_power]{nasapower::get_power()}} with predefined parameters optimized for
+epidemiological modeling.
 }
+\section{Data Source}{
+
+
+Weather data are obtained from NASA's Prediction of Worldwide Energy Resource
+(POWER) database, which provides global daily weather data from 1984 onwards
+at 0.5-degree spatial resolution. See \code{\link[nasapower:get_power]{nasapower::get_power()}} for details.
+
+POWER data are derived from satellite and reanalysis sources and may differ
+from local weather station observations. For critical analyses, consider
+comparing with ground-truth data from your region.
+}
+
+\section{Retrieved Variables}{
+
+
+This function automatically retrieves:
+\itemize{
+\item \strong{T2M}: Mean daily temperature (2-meter height)
+\item \strong{T2M_MIN}: Daily minimum temperature
+\item \strong{T2M_MAX}: Daily maximum temperature
+\item \strong{RH2M}: Mean daily relative humidity (2-meter height)
+\item \strong{PRECTOTCORR}: Daily precipitation (bias-corrected)
+}
+
+All variables are returned in standard units: temperature in degrees C,
+humidity in \%, rainfall in mm.
+}
+
+\section{Date Handling}{
+
+
+Two methods for specifying the weather window:
+\enumerate{
+\item \strong{Start and end dates} (character vector): \code{dates = c("2000-06-30", "2000-12-31")}
+\item \strong{Start date + duration} (integer): \verb{dates = "2000-06-30", duration = 120}
+}
+
+Duration is interpreted as inclusive days: \code{end = start + duration - 1}.
+For example, \code{duration = 120} starting on June 30 ends on October 27 (120 days
+total).
+}
+
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-
-# get weather for IRRI Zeigler Experiment Station in wet season 2000 from the
-# default NASA POWER data.
-power <- get_wth(
-  lonlat = c(121.25562, 14.6774),
+# Example 1: Get weather for a date range
+# IRRI Zeigler Experiment Station, wet season 2000
+wth_range <- get_wth(
+  lonlat = c(121.255669, 14.167425),
   dates = c("2000-06-30", "2000-12-31")
 )
+head(wth_range)
+nrow(wth_range)  # Number of days
 
-# get 120 days of weather for IRRI Zeigler Experiment Station in wet season
-# 2000 by specifying the duration but not the end-date and specifying to use
-# POWER data.
-power <- get_wth(
-  lonlat = c(121.25562, 14.6774),
+# Example 2: Get weather by start date and duration
+# 120-day window from June 30, 2000
+wth_duration <- get_wth(
+  lonlat = c(121.255669, 14.167425),
+  dates = "2000-06-30",
+  duration = 120L
+)
+nrow(wth_duration)  # Should be 120 rows
+
+# Example 3: Verify both methods return equivalent data
+# (within floating-point precision)
+all.equal(wth_range[1:120], wth_duration)
+
+# Example 4: Use retrieved weather in disease model
+wth <- get_wth(
+  lonlat = c(121.255669, 14.167425),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+# Run bacterial blight model
+bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
+head(bb_sim)
+plot(bb_sim$simday, bb_sim$intensity, type = "l",
+     xlab = "Days After Emergence", ylab = "Disease Intensity")
+
+# Example 5: Multiple locations - compare disease risk
+locations <- data.frame(
+  name = c("IRRI_Laguna", "BRRI_Gazipur", "CIMMYT_Mexico"),
+  lon = c(121.255669, 90.2167, -99.1828),
+  lat = c(14.167425, 24.0028, 19.1296)
+)
+
+# Get weather for each location
+wth_list <- lapply(1:nrow(locations), function(i) {
+  get_wth(
+    lonlat = c(locations$lon[i], locations$lat[i]),
+    dates = "2000-06-30",
+    duration = 120L
+  )
+})
+names(wth_list) <- locations$name
+
+# Run leaf blast model at each location
+lb_results <- lapply(wth_list, function(w) {
+  leaf_blast(w, emergence = "2000-07-01")
+})
+
+# Compare AUDPC (disease intensity summary)
+audpc_comparison <- data.frame(
+  location = names(lb_results),
+  AUDPC = sapply(lb_results, function(x) attr(x, "AUDPC"))
+)
+print(audpc_comparison)
+
+# Example 6: Cross-year comparison (same location, different years)
+years <- 2000:2002
+wth_by_year <- lapply(years, function(y) {
+  get_wth(
+    lonlat = c(121.255669, 14.167425),
+    dates = paste0(y, "-06-30"),
+    duration = 120L
+  )
+})
+names(wth_by_year) <- as.character(years)
+
+# Run model for each year
+bb_by_year <- lapply(wth_by_year, function(w) {
+  bacterial_blight(w, emergence = unique(w$YYYYMMDD)[1])
+})
+
+# Compare disease progression across years
+plot_data <- data.table::rbindlist(
+  lapply(seq_along(bb_by_year), function(i) {
+    data.frame(
+      year = names(bb_by_year)[i],
+      simday = bb_by_year[[i]]$simday,
+      intensity = bb_by_year[[i]]$intensity
+    )
+  })
+)
+plot(plot_data$simday, plot_data$intensity,
+     col = as.factor(plot_data$year), pch = 16)
+legend("topleft", legend = names(bb_by_year),
+       col = seq_along(bb_by_year), pch = 16)
+
+# Example 7: Error handling
+\dontrun{
+# This will fail (invalid coordinates)
+get_wth(
+  lonlat = c(200, 95),  # Out of range
   dates = "2000-06-30",
   duration = 120
 )
+# Error: Longitude must be in [-180, 180], got 200
+
+# This will fail (invalid date format)
+get_wth(
+  lonlat = c(121.255669, 14.167425),
+  dates = "30-06-2000",  # Wrong format
+  duration = 120
+)
+# Error: dates[1] must be an ISO date ('YYYY-MM-DD')
+
+# This will fail (missing date specification)
+get_wth(
+  lonlat = c(121.255669, 14.167425),
+  dates = "2000-06-30"  # No end date or duration
+)
+# Error: Provide dates as c(start, end) or supply duration
+}
 \dontshow{\}) # examplesIf}
+}
+\references{
+NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide
+Energy Resource. Funded by NASA's Applied Science Program.
+https://power.larc.nasa.gov/
+
+Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia,
+S. D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and Epidemiology
+in R: Disease Progress over Time. \emph{The Plant Health Instructor}.
+\doi{10.1094/PHI-A-2008-0129-02}.
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

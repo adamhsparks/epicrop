@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_epicrop_model.R
 \name{run_epicrop_model}
 \alias{run_epicrop_model}
-\title{Run an epicrop disease model across emergence dates and/or locations}
+\title{Run an epicrop Disease Model Across Emergence Dates and Locations}
 \usage{
 run_epicrop_model(
   model_fun,
@@ -14,57 +14,219 @@ run_epicrop_model(
 )
 }
 \arguments{
-\item{model_fun}{Function. An \pkg{epicrop} model function (\emph{e.g.},
-\code{\link[=bacterial_blight]{bacterial_blight()}}).}
-
-\item{emergence_dates}{Vector of dates (character "YYYY-MM-DD", Date, or
-IDate).}
-
-\item{wth_list}{Named list of weather \link[data.table:data.table]{data.table::data.table}s with
-one per year; \code{names(wth_list)} must be year strings (\emph{e.g.}, "2001").
-Each table must have a \code{YYYYMMDD} column (Date/IDate/ISO/"YYYYMMDD").}
-
-\item{window_days}{Integer. Days after emergence to include (default 120L).
-The slicer returns exactly \code{window_days} rows when data are available.}
-
-\item{output}{Character. "audpc" (compact summary using \code{\link[=get_audpc]{get_audpc()}})
-or "full" (return full model outputs per date, with \code{emergence} added).
-Defaults to "audpc".}
-
-\item{...}{Additional arguments forwarded to \code{model_fun}.}
-}
-\value{
-A \link[data.table:data.table]{data.table::data.table}. When \code{output = "audpc"}:
-columns \code{emergence} (IDate) and \code{AUDPC} (numeric).
-When \code{output = "full"}: full model output columns plus \code{emergence}, and
-an \code{AUDPC} column preserved per emergence date.
-}
-\description{
-A unified helper that executes any \pkg{epicrop} model (\emph{e.g.},
+\item{model_fun}{Function. An \pkg{epicrop} model function such as:
 \code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=brown_spot]{brown_spot()}}, \code{\link[=leaf_blast]{leaf_blast()}}, \code{\link[=sheath_blight]{sheath_blight()}},
 \code{\link[=tungro]{tungro()}}, \code{\link[=modified_kim_leaf_blast]{modified_kim_leaf_blast()}}, \code{\link[=modified_kim_sheath_blight]{modified_kim_sheath_blight()}},
-\code{\link[=leaf_rust]{leaf_rust()}}, or \code{\link[=s_tritici_blotch]{s_tritici_blotch()}}) over a set of emergence dates, using
-a list of per-year weather \code{data.table}s. Handles within-year and cross-year
-windows without globally binding weather.
+\code{\link[=leaf_rust]{leaf_rust()}}, or \code{\link[=s_tritici_blotch]{s_tritici_blotch()}}.}
+
+\item{emergence_dates}{Vector of emergence dates (character \code{"YYYY-MM-DD"},
+\link{Date}, or \link[data.table:IDate]{data.table::IDate}; must be of class \code{epicrop.emerge} from
+\code{\link[=build_epicrop_emergence]{build_epicrop_emergence()}}).}
+
+\item{wth_list}{Named list of weather \link[data.table:data.table]{data.table::data.table}s, one per
+year.
+\itemize{
+\item \strong{Names} must be year strings (\emph{e.g.}, \code{"2001"}, \code{"2002"})
+\item Each table must have a \code{YYYYMMDD} column (Date, IDate, or ISO string)
+\item Typically created by \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}
+\item Can also be an \code{epicrop.wth.bundle} (multiple locations)
+}}
+
+\item{window_days}{Integer. Days after emergence to simulate (default 120L).
+The model will run for exactly \code{window_days} rows when sufficient weather
+is available. If \code{emergence_dates} is at year-end, spans into next year.}
+
+\item{output}{Character. Output format:
+\itemize{
+\item \code{"audpc"} (default): Compact summary with emergence date and AUDPC
+\item \code{"full"}: All daily model columns plus \code{emergence} and \code{AUDPC}
+}}
+
+\item{...}{Additional arguments forwarded to \code{model_fun} (e.g., \code{RcOpt},
+\code{simple_wetness}, custom modifier tables). Overrides model defaults.}
 }
+\value{
+A \link[data.table:data.table]{data.table::data.table}:
+\itemize{
+\item If \code{output = "audpc"}:
+\itemize{
+\item Columns: \code{emergence} (IDate), \code{AUDPC} (numeric)
+\item One row per emergence date
+\item \code{AUDPC = NA_real_} if weather data are insufficient
+}
+\item If \code{output = "full"}:
+\itemize{
+\item All columns from the disease model (sites, latent, infectious, etc.)
+\item Plus \code{emergence} (IDate) and \code{AUDPC} (numeric)
+\item Multiple rows per emergence date (one per simulated day)
+\item Class set to \code{epicrop.sim} for S3 methods
+}
+\item If \code{wth_list} is a bundle (multiple locations):
+\itemize{
+\item Additional \code{location} column identifying source bundle member
+}
+}
+}
+\description{
+A unified interface to execute any \pkg{epicrop} disease model
+(\code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=brown_spot]{brown_spot()}}, \code{\link[=leaf_blast]{leaf_blast()}}, etc.) over multiple
+emergence dates and/or locations. Handles cross-year and within-year weather
+windows automatically without global weather binding.
+}
+\section{Workflow}{
+
+
+This function bridges \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} (weather prep) and
+\code{\link[=build_epicrop_emergence]{build_epicrop_emergence()}} (emergence date generation) with disease models.
+For each emergence date, it:
+\enumerate{
+\item Slices weather data spanning emergence to emergence + \code{window_days - 1}
+\item Handles year boundaries (e.g., Dec 15 – Jan 15)
+\item Executes the model with the sliced weather
+\item Returns either a compact AUDPC summary or full daily progression
+}
+
+Supports weather bundles (multiple locations) by processing each location
+independently and combining results with a \code{location} column.
+}
+
+\section{Cross-Year Windows}{
+
+
+When an emergence date + \code{window_days} spans two calendar years (e.g.,
+Dec 15 – Feb 15), the function automatically:
+\itemize{
+\item Fetches weather from both years
+\item Stitches them in chronological order
+\item Returns a contiguous window
+}
+
+Missing data (no weather for a required year) produces a warning and
+\code{AUDPC = NA_real_}.
+}
+
+\section{Bundle Processing}{
+
+
+If \code{wth_list} is an \code{epicrop.wth.bundle} (from \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}
+with multiple locations or location-date pairs):
+\itemize{
+\item Each bundled weather object is processed independently
+\item Results are combined with a \code{location} column
+\item Location labels extracted from bundle names (text before \code{"__"})
+}
+}
+
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# --- Example 1: Single location, multiple emergence dates ---
+
+# Build emergence dates (every 15 days, June–July, years 2001–2003)
 years <- 2001:2003
-month_day <- c("-06-01", "-06-14", "-06-30")
+month_days <- c("-06-01", "-06-15", "-07-01")
+emergence <- build_epicrop_emergence(years, month_days)
+
+# Fetch weather (one year per element)
 lonlat <- c(121.255669, 14.16742)
-duration <- 120L
-emergence <- build_epicrop_emergence(years, month_day)
+wth_list <- fetch_epicrop_weather_list(
+  lonlat = lonlat,
+  start_date = month_days,
+  duration = 120L,
+  years = years
+)
 
-wth_list <- fetch_epicrop_weather_list(years,
-                                       lonlat,
-                                       start_date = month_day,
-                                       duration = duration)
-run_epicrop_model(bacterial_blight, emergence, wth_list)
+# Run leaf blast model across all emergence dates
+results <- run_epicrop_model(
+  model_fun = leaf_blast,
+  emergence_dates = emergence,
+  wth_list = wth_list,
+  window_days = 120L,
+  output = "audpc"
+)
+head(results)
 
+# --- Example 2: Full progression output for detailed analysis ---
+
+full_results <- run_epicrop_model(
+  model_fun = leaf_blast,
+  emergence_dates = emergence[1:5],  # First 5 dates
+  wth_list = wth_list,
+  window_days = 120L,
+  output = "full"
+)
+
+# Plot disease progression for first emergence date
+first_date <- emergence[1]
+sub <- full_results[emergence == first_date]
+plot(sub$simday, sub$intensity, type = "l",
+     main = paste("Leaf Blast:", first_date),
+     xlab = "Days After Emergence", ylab = "Disease Intensity")
+
+# --- Example 3: Sensitivity analysis (modify RcOpt) ---
+
+# Susceptible cultivar
+susceptible <- run_epicrop_model(
+  model_fun = leaf_blast,
+  emergence_dates = emergence,
+  wth_list = wth_list,
+  window_days = 120L,
+  output = "audpc",
+  RcOpt = 1.14  # Default
+)
+
+# Resistant cultivar (lower infection rate)
+resistant <- run_epicrop_model(
+  model_fun = leaf_blast,
+  emergence_dates = emergence,
+  wth_list = wth_list,
+  window_days = 120L,
+  output = "audpc",
+  RcOpt = 0.8  # Lower
+)
+
+comparison <- data.table(
+  emergence = susceptible$emergence,
+  susceptible_AUDPC = susceptible$AUDPC,
+  resistant_AUDPC = resistant$AUDPC
+)
+comparison[, reduction := 1 - (resistant_AUDPC / susceptible_AUDPC)]
+print(comparison)
+
+# --- Example 4: Bundle processing (multiple locations) ---
+
+locations <- rbind(
+  "IRRI" = c(121.255669, 14.16742),
+  "Laguna" = c(121.2, 14.1)
+)
+
+wth_bundle <- fetch_epicrop_weather_list(
+  lonlat = locations,
+  start_date = month_days,
+  duration = 120L,
+  years = years,
+  mode = "cross"  # All location × date combinations
+)
+
+bundle_results <- run_epicrop_model(
+  model_fun = leaf_blast,
+  emergence_dates = emergence,
+  wth_list = wth_bundle,
+  window_days = 120L,
+  output = "audpc"
+)
+
+# Results now have a 'location' column
+bundle_results[, .N, by = location]
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-fetch_epicrop_weather_list, build_epicrop_emergence
+\itemize{
+\item \code{\link[=build_epicrop_emergence]{build_epicrop_emergence()}} – Construct emergence date vectors
+\item \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} – Prepare weather data
+\item \code{\link[=get_audpc]{get_audpc()}} – Extract/compute AUDPC from results
+\item \code{\link[=seir]{seir()}} – Core SEIR model
+\item \code{\link[=leaf_blast]{leaf_blast()}}, \code{\link[=sheath_blight]{sheath_blight()}}, etc. – Individual disease models
+}
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

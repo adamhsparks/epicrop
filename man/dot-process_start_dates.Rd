@@ -6,7 +6,27 @@
 \usage{
 .process_start_dates(start_date, years)
 }
+\arguments{
+\item{start_date}{Character, \code{Date}, or \code{IDate} vector of start dates.}
+
+\item{years}{Optional integer vector of years. Required if \code{start_date}
+contains month-day values.}
+}
+\value{
+Character vector of start dates in \code{"YYYY-MM-DD"} or \code{"MM-DD"} format.
+}
 \description{
-Process Start Dates to Character Format
+Converts start dates to character format and normalizes month-day strings.
+Month-day dates require the \code{years} parameter to construct complete date ranges.
+}
+\details{
+Month-day strings are normalized to \code{"MM-DD"} format. Full dates
+are converted to character strings. If month-day values are found but
+\code{years} is NULL, an error is raised.
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+.process_start_dates(c("2000-06-30", "-06-30"), c(2000, 2001))
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

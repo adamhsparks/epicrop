@@ -2,23 +2,138 @@
 % Please edit documentation in R/epi_get_params.R
 \name{epi_get_params}
 \alias{epi_get_params}
-\title{Retrieve internal parameter set for a crop/disease combination}
+\title{Retrieve Internal Parameter Set for a Crop/Disease Combination}
 \usage{
 epi_get_params(crop, disease)
 }
 \arguments{
-\item{crop}{Character. One of \code{names(.epi_params)}, e.g. "rice",
-"rice_modified_kim", "wheat".}
+\item{crop}{Character. Crop name (case-insensitive). One of:
+\itemize{
+\item \code{"rice"} – Savary et al. (2012) parameterization
+\item \code{"rice_modified_kim"} – Kim et al. (2015) simplifications
+\item \code{"wheat"} – Savary et al. (2015) parameterization
+}}
 
-\item{disease}{Character. One of \code{names(.epi_params[[crop]])}.}
+\item{disease}{Character. Disease name (case-insensitive). Must be a
+registered disease for the specified crop. Examples:
+\itemize{
+\item Rice: \code{"bacterial_blight"}, \code{"brown_spot"}, \code{"leaf_blast"},
+\code{"sheath_blight"}, \code{"tungro"}
+\item Wheat: \code{"leaf_rust"}, \code{"s_tritici_blotch"}
+}}
 }
 \value{
-A named list of parameters (\code{RcA}, \code{RcT}, \code{RRG}, and either \code{RRS}
-or \code{RRPSN} depending on crop). Matrix-valued entries are 2-column
-(\code{x}, \code{y}) interpolation tables; scalar entries are constants.
+A named list of disease-specific SEIR parameters:
+\itemize{
+\item \code{RcA}: Age modifier (matrix or scalar)
+\item \code{RcT}: Temperature modifier (matrix or scalar)
+\item \code{RRG}: Relative growth rate (numeric)
+\item \code{RRS} or \code{RRPSN}: Relative senescence rate (numeric)
+}
+
+Matrix-valued entries are 2-column interpolation tables suitable for
+\code{\link[=.interp]{.interp()}}. Scalar entries are constants applied uniformly.
 }
 \description{
-Retrieve internal parameter set for a crop/disease combination
+Looks up pre-calibrated SEIR model parameters from the internal parameter
+database for a given crop and disease. Used by disease-specific helper
+functions (\code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=leaf_blast]{leaf_blast()}}, etc.) to avoid hardcoding
+published parameter values.
+}
+\section{Parameter Database}{
+
+
+The internal \code{.epi_params} list is organized hierarchically:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{.epi_params
+  $rice
+    $bacterial_blight -> list(RcA, RcT, RRG, RRS)
+    $brown_spot       -> list(RcA, RcT, RRG, RRS)
+    $leaf_blast       -> list(RcA, RcT, RRG, RRS)
+    ...
+  $rice_modified_kim
+    $leaf_blast       -> list(RcA, RcT, RRG, RRS)
+    $sheath_blight    -> list(RcA, RcT, RRG, RRS)
+  $wheat
+    $leaf_rust        -> list(RcA, RcT, RRG, RRPSN)
+    $s_tritici_blotch -> list(RcA, RcT, RRG, RRPSN)
+}\if{html}{\out{</div>}}
+}
+
+\section{Parameter Contents}{
+
+
+Each parameter set is a named list containing:
+\itemize{
+\item \strong{RcA}: Age-based infection rate modifier (2-column matrix or numeric)
+\item \strong{RcT}: Temperature-based infection rate modifier (2-column matrix or
+numeric)
+\item \strong{RRG}: Relative growth rate (numeric scalar or vector)
+\item \strong{RRS} (rice) or \strong{RRPSN} (wheat): Relative senescence rate (numeric
+scalar or vector)
+}
+
+Matrix values use interpolation format: Column 1 is the x-axis (age/temp),
+Column 2 is the y-axis (modifier 0-1).
+}
+
+\section{Typical Use}{
+
+
+Not normally called directly. Instead, use disease-specific functions:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# This internally calls epi_get_params("rice", "leaf_blast")
+sim <- leaf_blast(wth, emergence = "2000-06-30")
+
+# To override defaults, pass parameters directly:
+sim <- leaf_blast(wth, emergence = "2000-06-30", RcOpt = 0.8)
+}\if{html}{\out{</div>}}
+
+Direct use is only necessary when implementing new disease functions or
+modifying parameter sets programmatically.
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Example 1: Retrieve rice leaf blast parameters
+params_lb <- epi_get_params("rice", "leaf_blast")
+str(params_lb)
+# List of 4
+# $ RcA : num [1:3, 1:2] 0 60 120 0.05 0.6 ...
+# $ RcT : num [1:5, 1:2] 15 20 25 30 35 ...
+# $ RRG : num 0.1
+# $ RRS : num 0.01
+
+# Example 2: Compare parameters across crop variants
+params_savary <- epi_get_params("rice", "leaf_blast")
+params_kim <- epi_get_params("rice_modified_kim", "leaf_blast")
+
+# Check parameter differences
+cat("Savary RcOpt would use RcT:\n")
+print(params_savary$RcT)
+cat("\nKim RcT:\n")
+print(params_kim$RcT)
+
+# Example 3: Inspect wheat parameters
+wheat_stb <- epi_get_params("wheat", "s_tritici_blotch")
+cat("Wheat STB uses RRPSN for senescence:\n")
+print(wheat_stb$RRPSN)
+
+# Example 4: List all available diseases for a crop
+rice_diseases <- names(.epi_params$rice)
+cat("Rice diseases in database:\n")
+print(rice_diseases)
+
+# Example 5: Programmatic parameter modification
+# Get defaults, then override
+params <- epi_get_params("rice", "sheath_blight")
+params$RRG <- 0.15  # Modify growth rate
+# Pass to seir() via disease function:
+# sim <- sheath_blight(wth, emergence, RRG = params$RRG)
+\dontshow{\}) # examplesIf}
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
 }
 \keyword{internal}
 \keyword{internal}

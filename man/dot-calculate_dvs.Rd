@@ -2,19 +2,50 @@
 % Please edit documentation in R/seir.R
 \name{.calculate_dvs}
 \alias{.calculate_dvs}
-\title{Calculate development stage (DVS)}
+\title{Calculate Development Stage (DVS) from Thermal Time}
 \usage{
 .calculate_dvs(w, thermal_time)
 }
 \arguments{
-\item{w}{Weather data with TEMP column.}
+\item{w}{Weather data with a \code{TEMP} column (data.frame or data.table).}
 
-\item{thermal_time}{List with base_temp and gdd_to_maturity.}
+\item{thermal_time}{List with thermal accumulation parameters:
+\itemize{
+\item \code{base_temp}: Base temperature for GDD accumulation (°C)
+\item \code{gdd_to_maturity}: Cumulative GDD required to reach DVS = 2 (°C·days)
+}}
 }
 \value{
-Numeric vector of DVS (0-2).
+Numeric vector of DVS values (0–2), length = nrow(w).
 }
 \description{
-Calculate development stage (DVS)
+Computes growing degree days (GDD) cumulative sum and converts to a
+normalized development stage (DVS) on scale 0–2 (emergence to maturity).
+}
+\details{
+\strong{Validation:} Checks that \code{w} is a data.frame or data.table with a \code{TEMP}
+column (no NAs), and \code{thermal_time} is a list with valid numeric fields.
+}
+\section{DVS Calculation}{
+
+
+Development stage is computed as:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{GDD = cumsum(max(TEMP - base_temp, 0))
+DVS = min(2, 2 × GDD / gdd_to_maturity)
+}\if{html}{\out{</div>}}
+
+At maturity (GDD = gdd_to_maturity), DVS reaches 2.
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Create sample weather and thermal parameters
+w <- data.frame(TEMP = c(15, 20, 25, 30, 25, 20, 15, 10))
+thermal_time <- list(base_temp = 10, gdd_to_maturity = 300)
+dvs <- .calculate_dvs(w, thermal_time)
+head(dvs)
+# [1] 0.0000000 0.01666667 0.05000000 0.10000000 0.15000000 0.19666667
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

@@ -6,7 +6,26 @@
 \usage{
 .format_results(results, tasks)
 }
-\description{
-Format Results for Return
+\arguments{
+\item{results}{A list of \code{epicrop.wth.list} objects (from \code{\link[=.fetch_one_weather]{.fetch_one_weather()}}).}
+
+\item{tasks}{A list of task objects (from \code{\link[=.collapse_tasks_by_location]{.collapse_tasks_by_location()}}).}
 }
+\value{
+Either an \code{epicrop.wth.list} or an \code{epicrop.wth.bundle} object.
+}
+\description{
+Prepares final results in the appropriate class and structure.
+}
+\section{Output Structure}{
+
+\itemize{
+\item If only one (location, start, duration) combination:
+returns the \code{epicrop.wth.list} directly.
+\item If multiple combinations:
+returns an \code{epicrop.wth.bundle} (a named list of \code{epicrop.wth.list})
+with keys like \code{"location01__2000-01-01__365d"}.
+}
+}
+
 \keyword{internal}

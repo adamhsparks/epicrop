@@ -2,11 +2,42 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{.collapse_one_location}
 \alias{.collapse_one_location}
-\title{Collapse Tasks for One Location}
+\title{Collapse Multiple Tasks for One Location}
 \usage{
 .collapse_one_location(tsks)
 }
+\arguments{
+\item{tsks}{A list of task objects for the same location.}
+}
+\value{
+A single task list with:
+\itemize{
+\item \code{location_id}: unchanged
+\item \code{location_name}: unchanged
+\item \code{lonlat}: unchanged
+\item \code{start_chr}: earliest start date
+\item \code{duration}: days to cover latest end date
+}
+}
 \description{
-Collapse Tasks for One Location
+Merges multiple tasks (start_date/duration combinations) for a single
+location into one consolidated task with the minimum start date and
+maximum end date. This ensures efficient API calls.
+}
+\details{
+Used to combine multiple requested date ranges into one API fetch.
+Reduces redundant requests for the same location.
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Multiple tasks for same location across years
+tasks <- list(
+  list(location_id = 1, location_name = "Site1", lonlat = c(0, 0),
+       start_chr = "2000-06-01", duration = 90L),
+  list(location_id = 1, location_name = "Site1", lonlat = c(0, 0),
+       start_chr = "2001-06-01", duration = 90L)
+)
+.collapse_one_location(tasks)
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

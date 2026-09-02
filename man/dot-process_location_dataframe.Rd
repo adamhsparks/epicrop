@@ -10,9 +10,19 @@
 \item{ll}{A data frame with exactly 2 numeric columns.}
 }
 \value{
-A numeric matrix.
+A numeric matrix with row names (if any) preserved.
 }
 \description{
 Validates and converts a data frame to a location matrix.
+Ensures exactly 2 numeric columns (longitude, latitude).
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+locations <- data.frame(
+  lon = c(121.255669, 120.985),
+  lat = c(14.16742, 14.6042)
+)
+.process_location_dataframe(locations)
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

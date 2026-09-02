@@ -28,30 +28,32 @@ A numeric 2-column matrix with:
 }
 \description{
 Converts various location input formats (numeric vector, matrix, data frame,
-or list of pairs) to a standard 2-column numeric matrix with columns LON and LAT.
-Preserves row names where available and validates all coordinates are finite.
+or list of pairs) to a standard 2-column numeric matrix with columns LON
+and LAT. Preserves row names where available and validates all coordinates
+are finite.
 }
-\details{
-\strong{Input processing order:}
+\section{Input Processing}{
+
 \enumerate{
-\item List (non-data.frame): Validate elements, extract names, convert to matrix
-\item Data frame: Validate 2 columns and numeric type, convert to matrix
-\item Matrix: Validate 2 columns and numeric type, set column names
-\item Numeric vector: Validate even length, reshape to 2 columns
+\item \strong{List} (non-data.frame): Validate elements, extract names, convert to matrix
+\item \strong{Data frame}: Validate 2 columns and numeric type, convert to matrix
+\item \strong{Matrix}: Validate 2 columns and numeric type, set column names
+\item \strong{Numeric vector}: Validate even length, reshape to 2 columns
+}
 }
 
-\strong{Validation:}
+\section{Validation}{
+
 \itemize{
 \item All coordinates must be finite (no NA, Inf, or NaN)
 \item Matrix must have exactly 2 columns
 \item Numeric vector must have even length (length >= 2)
 \item List elements must be numeric vectors of length 2 with finite values
 }
-
-\strong{Errors:} Aborts with informative messages if input format is invalid
-or coordinates are non-finite.
 }
+
 \examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Single location as vector
 .norm_locations(c(121.255669, 14.16742))
 
@@ -70,6 +72,6 @@ locs <- rbind(
   site1 = c(121.255669, 14.16742),
   site2 = c(120.985, 14.6042)
 ))
-
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

@@ -2,17 +2,34 @@
 % Please edit documentation in R/validation.R
 \name{.validate_emergence}
 \alias{.validate_emergence}
-\title{Validates Dates, Normally the Emergence Date}
+\title{Validate and Parse Emergence Date}
 \usage{
 .validate_emergence(x)
 }
 \arguments{
-\item{x}{a date input (character, Date, IDate, POSIXct).}
+\item{x}{A date input: character string, \link{Date}, \link[data.table:IDate]{data.table::IDate},
+or \link{POSIXt} object.}
 }
 \value{
-A validated IDate object.
+An \link[data.table:IDate]{data.table::IDate} object if valid. Aborts with informative
+error message otherwise.
 }
 \description{
-Validates Dates, Normally the Emergence Date
+Converts various date formats (character, Date, IDate, POSIXt) to a
+validated IDate object. Supports multiple date string formats and rejects
+ambiguous numeric dates (e.g., "07/01/2000").
+}
+\details{
+\strong{Date string formats accepted:}
+\itemize{
+\item ISO standard: \code{"2000-07-01"}, \code{"2000/07/01"}
+\item European: \code{"01-07-2000"}, \code{"01/07/2000"}
+\item US: \code{"07-01-2000"}, \code{"07/01/2000"}
+\item Named month: \code{"01 Jul 2000"}, \code{"1 July 2000"}, \code{"Jul 01 2000"}
+}
+
+\strong{Ambiguous dates rejected:} Dates where both first and second numeric
+components are <= 12 (e.g., \code{"07/01/2000"}) are rejected to prevent
+misinterpretation as either July 1 or January 7.
 }
 \keyword{internal}

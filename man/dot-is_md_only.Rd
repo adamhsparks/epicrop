@@ -2,11 +2,34 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{.is_md_only}
 \alias{.is_md_only}
-\title{Check if Date String is Month-Day Only Format}
+\title{Detect Month-Day Only Date Strings}
 \usage{
 .is_md_only(x_chr)
 }
+\arguments{
+\item{x_chr}{Character vector of date strings.}
+}
+\value{
+Logical vector indicating which elements are month-day only.
+}
 \description{
-Check if Date String is Month-Day Only Format
+Identifies date strings that contain only month and day without a year,
+in formats like \code{"06-30"}, \code{"-06-30"}, or \code{"6/30"}.
+}
+\section{Patterns Matched}{
+
+\itemize{
+\item \code{"06-30"} or \code{"-06-30"} (with optional leading dash)
+\item \code{"6-30"} or \code{"-6-30"} (single-digit month/day)
+\item Regex: \verb{^-?\\\\d\{1,2\}[-/]\\\\d\{1,2\}$}
+\item Excludes full ISO dates (\code{YYYY-MM-DD})
+}
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+.is_md_only(c("06-30", "2000-06-30", "6/30", "-06-30"))
+# [1]  TRUE FALSE  TRUE  TRUE
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

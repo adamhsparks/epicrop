@@ -14,7 +14,32 @@
   years
 )
 }
+\arguments{
+\item{locations}{A numeric 2-column matrix (LON, LAT).}
+
+\item{location_names}{Character vector of location names.}
+
+\item{loc_idx}{Integer location index.}
+
+\item{sd_char}{Character vector of start dates.}
+
+\item{date_idx}{Integer date index.}
+
+\item{dur}{Integer duration (days).}
+
+\item{years}{Optional integer vector of years.}
+}
+\value{
+A list with task information:
+\itemize{
+\item \code{location_id}: integer index
+\item \code{location_name}: character name
+\item \code{lonlat}: numeric vector c(lon, lat)
+\item \code{start_chr}: character start date
+\item \code{duration}: integer duration
+}
+}
 \description{
-Create a Single Task for Weather Fetching
+Constructs a single task object with resolved date and duration information.
 }
 \keyword{internal}

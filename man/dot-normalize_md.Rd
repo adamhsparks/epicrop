@@ -2,11 +2,34 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{.normalize_md}
 \alias{.normalize_md}
-\title{Normalize Month-Day Strings to MM-DD Format}
+\title{Normalize Month-Day Strings to Standard MM-DD Format}
 \usage{
 .normalize_md(x_chr)
 }
+\arguments{
+\item{x_chr}{Character vector of month-day strings (with optional leading
+dash or slash separator).}
+}
+\value{
+Character vector in \code{"MM-DD"} format (e.g., \code{"06-30"}).
+}
 \description{
-Normalize Month-Day Strings to MM-DD Format
+Converts month-day strings in various formats (\code{"6/30"}, \code{"-06-30"}, etc.)
+to a consistent \code{"MM-DD"} format with zero-padded digits.
+}
+\section{Transformations}{
+
+\itemize{
+\item Slashes or dashes as separators (normalized to dashes)
+\item Optional leading dash (removed)
+\item Single or double-digit month/day (zero-padded)
+}
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+.normalize_md(c("6/30", "-6-30", "06-30"))
+# [1] "06-30" "06-30" "06-30"
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

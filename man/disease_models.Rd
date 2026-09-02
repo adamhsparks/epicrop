@@ -252,79 +252,426 @@ stb(
 )
 }
 \arguments{
-\item{wth}{a \code{data.frame} of class \code{epicrop.wth} from either \code{\link[=get_wth]{get_wth()}} or
-\code{\link[=format_wth]{format_wth()}} containing weather on a daily time-step with the following
-field names:\tabular{rl}{
-   \strong{Field Name} \tab \strong{Value} \cr
-   \emph{YYYYMMDD} \tab Date as Year Month Day (ISO8601) \cr
-   \emph{DOY} \tab Consecutive day of year, commonly called "Julian date" \cr
-   \emph{TEMP} \tab Mean daily temperature (degrees C) \cr
-   \emph{RHUM} \tab Mean daily relative humidity (\%) \cr
-   \emph{RAIN} \tab Mean daily rainfall (mm) \cr
-   \emph{TMIN} \tab \strong{Optional} Minimum daily temperature (degrees C), see TMIN/TMAX details for more \cr
-   \emph{TMAX} \tab \strong{Optional} Maximum daily temperature (degrees C), see TMIN/TMAX details for more \cr
-   \emph{LAT} \tab \strong{Optional} latitude of weather observation, see LAT/LON details for more \cr
-   \emph{LON} \tab \strong{Optional} longitude of weather observation, see LAT/LON details for more \cr
+\item{wth}{A \code{data.frame} of class \code{epicrop.wth} from \code{\link[=get_wth]{get_wth()}} or
+\code{\link[=format_wth]{format_wth()}} containing daily weather data with columns:
+
+\strong{Required Columns:}\tabular{ll}{
+   Column \tab Description \cr
+   YYYYMMDD \tab Date (ISO 8601: YYYYMMDD) \cr
+   DOY \tab Day of year (1–366) \cr
+   TEMP \tab Mean daily temperature (°C) \cr
+   RHUM \tab Mean daily relative humidity (\%) \cr
+   RAIN \tab Daily rainfall (mm) \cr
+}
+
+
+\strong{Optional Columns (for advanced features):}\tabular{ll}{
+   Column \tab Purpose \cr
+   TMIN \tab Minimum daily temperature (°C); required if \code{simple_wetness = FALSE} \cr
+   TMAX \tab Maximum daily temperature (°C); required if \code{simple_wetness = FALSE} \cr
+   LAT \tab Latitude; required if \code{simple_wetness = FALSE} \cr
+   LON \tab Longitude; included in output if present \cr
 }}
 
-\item{emergence}{Expected date of plant emergence (or transplanting for rice)
-entered in \code{YYYY-MM-DD} format (character).}
+\item{emergence}{Plant emergence (transplanting for rice) date in \code{YYYY-MM-DD}
+format (character).}
 
-\item{RcA}{Optional custom age modifier table (2-column matrix).}
+\item{RcA}{Optional custom age modifier table (2-column numeric matrix).
+Overrides the published default for this disease.}
 
-\item{RcT}{Optional custom temperature modifier table (2-column matrix).}
+\item{RcT}{Optional custom temperature modifier table (2-column numeric matrix).
+Overrides the published default for this disease.}
 
-\item{RRS}{Optional custom senescence rate (scalar, vector, or function).}
+\item{RRS}{Optional custom relative senescence rate (scalar numeric, vector,
+function, or matrix). Overrides the published default.}
 
-\item{RRG}{Optional custom growth rate (scalar, vector, or table).}
+\item{RRG}{Optional custom relative growth rate (scalar numeric, vector, or
+function). Overrides the published default.}
 
-\item{rhlim}{relative humidity value threshold to decide whether leaves are
-wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
-\emph{et al.} 2012 used \code{90}. Defaults to 90.}
+\item{rhlim}{Optional override for relative humidity threshold (\%) for leaf
+wetness. Defaults to disease-specific value (typically 90).}
 
-\item{rainlim}{rainfall amount (mm) threshold to decide whether leaves are
-wet or not (numeric). Described in Table 1 of Savary \emph{et al.} 2012. Savary
-\emph{et al.} 2012 used \code{5}. Defaults to 5.}
+\item{rainlim}{Optional override for rainfall threshold (mm) for leaf wetness.
+Defaults to disease-specific value (typically 5).}
 
-\item{...}{Other parameters passed to \code{seir()} allowing the user to override
-the default values from published papers.}
+\item{...}{Additional parameters passed to \code{\link[=seir]{seir()}}, allowing full
+customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
+simple_wetness, etc.).}
+}
+\value{
+A \code{\link[data.table:data.table]{data.table::data.table()}} of class \code{epicrop.sim} with disease
+progression over time. See \code{\link[=seir]{seir()}} for output details.
 }
 \description{
-Helper functions with pre-loaded parameter tables for optimal performance.
-Custom parameter tables can be provided to override defaults.
+Convenience wrappers around \code{\link[=seir]{seir()}} with pre-configured parameter tables
+for well-characterized crop diseases. Each function encapsulates parameters
+from published epidemiological studies, allowing one-line disease simulations.
+
+\code{bacterial_blight()} models rice bacterial blight (\emph{Xanthomonas oryzae}
+pv. \emph{oryzae}). The disease requires high humidity and warm temperatures
+(optimum 25–30°C) and is most severe in the Philippines and Asia-Pacific
+region.
+
+\code{brown_spot()} models rice brown spot (\emph{Bipolaris oryzae}). A seed-borne
+fungal disease prevalent in tropical and subtropical regions, particularly
+damaging to older rice varieties.
+
+\code{leaf_blast()} models rice leaf blast (\emph{Magnaporthe oryzae}). The most
+economically important rice disease worldwide, favored by cool (25°C),
+wet conditions. Rapid disease progression can cause total crop loss.
+
+\code{sheath_blight()} models rice sheath blight (\emph{Rhizoctonia solani}).
+A soil-borne disease that infects the leaf sheath; can cause catastrophic
+damage in high-N fertilized crops.
+
+\code{tungro()} models rice tungro, a viral disease complex (Tungro bacilliform
+and Tungro spherical viruses) transmitted by the insect vector
+\emph{Nephotettix} spp. Vector populations increase with temperature and
+humidity; disease pressure peaks mid-season.
+
+\code{modified_kim_leaf_blast()} models rice leaf blast using parameters from
+Kim et al. (2015), calibrated for South Korean rice cultivars and growing
+conditions. Offers a simplified (DVS-free) alternative to the standard
+Savary model.
+
+\code{modified_kim_sheath_blight()} models rice sheath blight using parameters
+from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
+slightly higher humidity threshold (95\%) reflecting Korean monsoon climate.
+
+\code{leaf_rust()} models wheat leaf rust (\emph{Puccinia triticina}). A major wheat
+pathogen globally, favored by moderate temperatures (15–25°C) and high
+humidity. Uses DVS-based age driver to account for vernalization effects.
+
+\code{s_tritici_blotch()} models wheat Septoria tritici blotch (\emph{Zymoseptoria
+tritici}), a major wheat pathogen in temperate regions. Features lesion
+expansion (direct H→I pathway) allowing rapid canopy senescence.
+DVS-based modeling accounts for developmental susceptibility.
+
+\code{bb()} is an alias for \code{\link[=bacterial_blight]{bacterial_blight()}}.
+
+\code{bs()} is an alias for \code{\link[=brown_spot]{brown_spot()}}.
+
+\code{lb()} is an alias for \code{\link[=leaf_blast]{leaf_blast()}}.
+
+\code{sb()} is an alias for \code{\link[=sheath_blight]{sheath_blight()}}.
+
+\code{tg()} is an alias for \code{\link[=tungro]{tungro()}}.
+
+\code{mk_lb()} is an alias for \code{\link[=modified_kim_leaf_blast]{modified_kim_leaf_blast()}}.
+
+\code{mk_sb()} is an alias for \code{\link[=modified_kim_sheath_blight]{modified_kim_sheath_blight()}}.
+
+\code{lr()} is an alias for \code{\link[=leaf_rust]{leaf_rust()}}.
+
+\code{brown_rust()} is an alias for \code{\link[=leaf_rust]{leaf_rust()}}.
+
+\code{stb()} is an alias for \code{\link[=s_tritici_blotch]{s_tritici_blotch()}}.
 }
+\details{
+All functions support parameter override via \code{...} arguments, enabling
+sensitivity analysis and custom cultivar/environment modeling.
+}
+\section{Available Models}{
+
+
+\strong{Rice Diseases (Savary et al. 2012):}
+\itemize{
+\item \code{\link[=bacterial_blight]{bacterial_blight()}} – Bacterial blight (\emph{Xanthomonas oryzae} pv. \emph{oryzae})
+\item \code{\link[=brown_spot]{brown_spot()}} – Brown spot (\emph{Bipolaris oryzae})
+\item \code{\link[=leaf_blast]{leaf_blast()}} – Leaf blast (\emph{Magnaporthe oryzae})
+\item \code{\link[=sheath_blight]{sheath_blight()}} – Sheath blight (\emph{Rhizoctonia solani})
+\item \code{\link[=tungro]{tungro()}} – Tungro (viral, vector-borne)
+}
+
+\strong{Rice Diseases (Kim et al. 2015 modifications):}
+\itemize{
+\item \code{\link[=modified_kim_leaf_blast]{modified_kim_leaf_blast()}} – Cultivar-adjusted leaf blast
+\item \code{\link[=modified_kim_sheath_blight]{modified_kim_sheath_blight()}} – Cultivar-adjusted sheath blight
+}
+
+\strong{Wheat Diseases (Savary et al. 2015):}
+\itemize{
+\item \code{\link[=leaf_rust]{leaf_rust()}} – Leaf rust (\emph{Puccinia triticina})
+\item \code{\link[=s_tritici_blotch]{s_tritici_blotch()}} – Septoria tritici blotch (\emph{Zymoseptoria tritici})
+}
+}
+
+\section{Parameter Sources}{
+
+
+\strong{Rice models} use baseline parameters from:
+\itemize{
+\item Savary et al. (2012) – Original parameterization across 3 rice growing
+seasons in the Philippines
+\item Kim et al. (2015) – Simplified (DVS-free) versions calibrated for Korean
+rice cultivars
+}
+
+\strong{Wheat models} use:
+\itemize{
+\item Savary et al. (2015) – Pan-European calibration; uses DVS-based age driver
+to account for vernalization and photoperiod effects
+}
+}
+
 \section{TMIN/TMAX Details}{
 
 
-If \code{simple_wetness} is set to \code{FALSE}, the function will use the \code{TMIN} and
-\code{TMAX} columns in the \code{wth} object to calculate the leaf wetness value for
-24 hours of the day using the \code{rhlim} and \code{rainlim} values and then uses
-\code{RcW} to calculate a value between 0 and 1 for the whole day. When
-\code{simple_wetness} is set to \code{TRUE}, the function only sets the leaf wetness
-to 0 or 1 for the day based on the \code{rhlim} and \code{rainlim} values.
+When \code{simple_wetness = FALSE}, the function calculates hourly leaf wetness
+for 24 hours using \code{TMIN}, \code{TMAX}, \code{LAT}, and \code{DOY} in the \code{wth} object.
+The \code{rhlim} and \code{rainlim} thresholds determine wet hours. A leaf-wetness
+modifier (\code{RcW}) converts wet hours to a 0–1 \emph{Rc} scale.
+
+When \code{simple_wetness = TRUE}, this calculation is skipped; leaf wetness is
+binary (0 or 1) based solely on daily \code{RHUM} and \code{RAIN}.
 }
 
 \section{LAT/LON Details}{
 
 
-If the \code{wth} object provides \code{LAT} and \code{LON} columns, these will be included
-in the output for mapping purposes.  Both values must be present.  These
-columns are provided by default when using \code{\link[=get_wth]{get_wth()}}.
+If the \code{wth} object contains \code{LAT} and \code{LON} columns, they are appended to
+each row of the output for mapping or spatial analysis. Both must be present
+to be included. By default, \code{\link[=get_wth]{get_wth()}} and \code{\link[=format_wth]{format_wth()}} provide these.
 }
 
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Fetch weather data for a location in the Philippines
+wth <- get_wth(
+  lonlat = c(121.255669, 14.16742),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+# Run bacterial blight model with default parameters (Savary et al. 2012)
+bb_sim <- bacterial_blight(
+  wth = wth,
+  emergence = "2000-06-30"
+)
+
+# Inspect results
+head(bb_sim)
+plot(bb_sim$simday, bb_sim$intensity, type = "l",
+     main = "Rice Bacterial Blight Progression",
+     xlab = "Days", ylab = "Disease Intensity")
+
+# Override onset and duration for early planting scenario
+bb_early <- bacterial_blight(
+  wth = wth,
+  emergence = "2000-06-15",  # Earlier emergence
+  onset = 15,                 # Disease starts sooner
+  duration = 100              # Shorter season
+)
+
+# Sensitivity: test resistance modification (lower RcOpt)
+bb_resistant <- bacterial_blight(
+  wth = wth,
+  emergence = "2000-06-30",
+  RcOpt = 0.5  # Reduced from default 0.87 for resistant cultivar
+)
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate brown spot for a standard rice season
+wth <- get_wth(
+  lonlat = c(121.255669, 14.16742),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+bs_sim <- brown_spot(
+  wth = wth,
+  emergence = "2000-06-30"
+)
+
+# Brown spot develops slowly compared to leaf blast
+plot(bs_sim$simday, bs_sim$intensity, type = "l",
+     main = "Rice Brown Spot Progression",
+     xlab = "Days After Emergence", ylab = "Disease Intensity")
+
+# Override H0 (initial healthy sites) for sensitivity analysis
+bs_high_inoculum <- brown_spot(
+  wth = wth,
+  emergence = "2000-06-30",
+  H0 = 1200  # Higher initial canopy size
+)
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate leaf blast under favorable conditions
+wth <- get_wth(
+  lonlat = c(121.255669, 14.16742),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+lb_sim <- leaf_blast(
+  wth = wth,
+  emergence = "2000-06-30"
+)
+
+# Leaf blast shows rapid increase in intensity after onset
+plot(lb_sim$simday, lb_sim$intensity, type = "l", ylim = c(0, 1),
+     main = "Rice Leaf Blast Progression",
+     xlab = "Days After Emergence", ylab = "Disease Intensity")
+
+# Test cultivar resistance (lower RcOpt)
+lb_resistant <- leaf_blast(
+  wth = wth,
+  emergence = "2000-06-30",
+  RcOpt = 0.8  # Reduced infection rate
+)
+lines(lb_resistant$simday, lb_resistant$intensity, col = "blue", lty = 2)
+legend("topright", c("Susceptible", "Resistant"), lty = c(1, 2))
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate sheath blight in high-N environment
+wth <- get_wth(
+  lonlat = c(121.255669, 14.16742),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+sb_sim <- sheath_blight(
+  wth = wth,
+  emergence = "2000-06-30"
+)
+
+# Sheath blight has long infectious period and delayed onset
+plot(sb_sim$simday, sb_sim$intensity, type = "l", ylim = c(0, 1),
+     main = "Rice Sheath Blight Progression",
+     xlab = "Days After Emergence", ylab = "Disease Intensity")
+
+# Compare low and high aggregation (spatial clustering)
+sb_low_agg <- sheath_blight(
+  wth = wth,
+  emergence = "2000-06-30",
+  a = 1.5  # Less aggregated spread
+)
+lines(sb_low_agg$simday, sb_low_agg$intensity, col = "red", lty = 2)
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate tungro (vector-borne viral disease)
+wth <- get_wth(
+  lonlat = c(121.255669, 14.16742),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+tg_sim <- tungro(
+  wth = wth,
+  emergence = "2000-06-30"
+)
+
+# Tungro shows plateau phase (low Sx due to limited vector population)
+plot(tg_sim$simday, tg_sim$intensity, type = "l",
+     main = "Rice Tungro Progression",
+     xlab = "Days After Emergence", ylab = "Disease Intensity")
+
+# Compare early vs. late planting (different vector phenology)
+tg_late <- tungro(
+  wth = wth,
+  emergence = "2000-07-30",
+  onset = 40  # Later vector arrival
+)
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate using Kim et al. (2015) cultivar-adjusted parameters
+wth <- get_wth(
+  lonlat = c(126.9780, 37.5665),  # Seoul, South Korea
+  dates = "2000-06-01",
+  duration = 77L
+)
+
+kim_lb <- modified_kim_leaf_blast(
+  wth = wth,
+  emergence = "2000-06-01"
+)
+
+# Kim version has shorter duration and higher Sx (larger canopy model)
+plot(kim_lb$simday, kim_lb$intensity, type = "l",
+     main = "Rice Leaf Blast (Kim et al. 2015)",
+     xlab = "Days", ylab = "Intensity")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate sheath blight with Kim et al. (2015) parameters
+wth <- get_wth(
+  lonlat = c(126.9780, 37.5665),
+  dates = "2000-06-01",
+  duration = 88L
+)
+
+kim_sb <- modified_kim_sheath_blight(
+  wth = wth,
+  emergence = "2000-06-01"
+)
+
+plot(kim_sb$simday, kim_sb$intensity, type = "l",
+     main = "Rice Sheath Blight (Kim et al. 2015)",
+     xlab = "Days", ylab = "Intensity")
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate wheat leaf rust with DVS (development stage) modeling
+wth <- get_wth(
+  lonlat = c(8.5, 50.1),  # Example: France
+  dates = "2000-10-15",   # Winter wheat sowing
+  duration = 240L         # Full growing season
+)
+
+lr_sim <- leaf_rust(
+  wth = wth,
+  emergence = "2000-10-15"
+)
+
+# Leaf rust shows gradual progression across growing season
+plot(lr_sim$simday, lr_sim$intensity, type = "l",
+     main = "Wheat Leaf Rust Progression (DVS-based)",
+     xlab = "Days After Sowing", ylab = "Disease Intensity")
+
+# DVS-based models can apply infection windows (e.g., grain-fill only)
+# See ?seir for infection_window parameter
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Simulate Septoria tritici blotch with lesion expansion
+wth <- get_wth(
+  lonlat = c(8.5, 50.1),
+  dates = "2000-10-15",
+  duration = 240L
+)
+
+stb_sim <- s_tritici_blotch(
+  wth = wth,
+  emergence = "2000-10-15"
+)
+
+# STB shows accelerated progression due to lesion expansion (RRLEX = 0.09)
+plot(stb_sim$simday, stb_sim$intensity, type = "l",
+     main = "Wheat Septoria tritici Blotch (with Lesion Expansion)",
+     xlab = "Days After Sowing", ylab = "Disease Intensity")
+
+# Compare lesion expansion contribution
+stb_no_lex <- s_tritici_blotch(
+  wth = wth,
+  emergence = "2000-10-15",
+  RRLEX = 0  # Disable lesion expansion to see effect
+)
+lines(stb_no_lex$simday, stb_no_lex$intensity, col = "blue", lty = 2)
+legend("topleft", c("With Lesion Expansion", "Without Lesion Expansion"),
+       lty = c(1, 2), col = c("black", "blue"))
+\dontshow{\}) # examplesIf}
+}
 \references{
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. (2012).
 Modeling and mapping potential epidemics of rice diseases globally.
-\emph{Crop Protection}, 34: 6-17. \doi{10.1016/j.cropro.2011.11.009}
+\emph{Crop Protection}, 34: 6–17.
+\doi{10.1016/j.cropro.2011.11.009}
 
-Kim, K. H., Cho, J., Lee, Y. H., & Lee, W. S. (2015).
+Kim, K. H., Cho, J., Lee, Y. H., and Lee, W. S. (2015).
 Predicting potential epidemics of rice leaf blast and sheath blight in South
-Korea. \emph{Agricultural and Forest Meteorology}, 203: 191-207.
+Korea. \emph{Agricultural and Forest Meteorology}, 203: 191–207.
 \doi{10.1016/j.agrformet.2015.01.011}
 
-Savary, S., Stetkiewicz, S., Brun, F., & Willocquet, L. (2015).
+Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. (2015).
 Modelling and mapping potential epidemics of wheat diseases.
-\emph{European Journal of Plant Pathology}, 142: 771-790.
+\emph{European Journal of Plant Pathology}, 142: 771–790.
 \doi{10.1007/s10658-015-0650-7}
 }
 \author{

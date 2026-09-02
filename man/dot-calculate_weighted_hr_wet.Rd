@@ -2,20 +2,51 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.calculate_weighted_hr_wet}
 \alias{.calculate_weighted_hr_wet}
-\title{Calculate weighted hourly leaf wetness}
+\title{Calculate Weighted Hourly Leaf Wetness}
 \usage{
 .calculate_weighted_hr_wet(rh, rhlim)
 }
 \arguments{
-\item{rh}{Hourly RH values (\%).}
+\item{rh}{Hourly relative humidity (\%; scalar or vector, 0-100).}
 
-\item{rhlim}{RH threshold for full wetness (\%).}
+\item{rhlim}{Relative humidity threshold for full wetness (\%, >= 80).}
 }
 \value{
-Weighted wetness values [0, 1].
+Numeric vector of weights (0-1) for each RH value.
 }
 \description{
-Calculate weighted hourly leaf wetness
+Converts hourly relative humidity to a weighted wetness value (0-1),
+transitioning smoothly from 0 at 80\% RH to 1 at \code{rhlim}\% RH.
+}
+\section{Weighting Scheme}{
+
+\itemize{
+\item RH < 80\%: weight = 0 (no wetness)
+\item 80\% <= RH < rhlim\%: weight = (RH - 80) / (rhlim - 80) (linear transition)
+\item RH >= rhlim\%: weight = 1 (fully wet)
+}
+
+This creates a smooth response where partial wetness at intermediate RH
+values contributes proportionally to the daily wet-hour total.
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Weighted response curve
+rh_vals <- 0:100
+weights <- .calculate_weighted_hr_wet(rh_vals, rhlim = 90)
+plot(rh_vals, weights, type = "l", ylim = c(0, 1),
+     xlab = "Hourly RH (\%)", ylab = "Wetness Weight",
+     main = "Weighted Wetness (rhlim = 90\%)")
+abline(v = c(80, 90), col = c("blue", "red"), lty = 2)
+abline(h = c(0, 1), col = "gray", lty = 3)
+
+# Compare unweighted vs weighted
+rh_test <- c(75, 85, 90, 95)
+unweighted <- as.numeric(rh_test >= 90)  # 0, 0, 1, 1
+weighted <- .calculate_weighted_hr_wet(rh_test, rhlim = 90)
+cbind(RH = rh_test, unweighted, weighted)
+\dontshow{\}) # examplesIf}
 }
 \author{
 Adam H. Sparks

@@ -31,11 +31,55 @@ location-date combinations) by executing \code{\link[=run_epicrop_model]{run_epi
 for each bundled weather list and combining results with location labels.
 }
 \details{
-The function extracts location labels from the bundle's names (text before
-\code{"__"} delimiter) and generates default labels (\code{location01}, \code{location02},
-etc.) for any unnamed or empty-named entries. Each bundled weather list is
-processed independently via \code{\link[=run_epicrop_model]{run_epicrop_model()}}, then results are
-combined using \code{\link[data.table:rbindlist]{data.table::rbindlist()}}.
+The function extracts location labels from the bundle's names by taking the
+text before the \code{"__"} delimiter (used by \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}).
+For unnamed or empty-named entries, generates default labels (\code{location01},
+\code{location02}, etc.).
+
+Each bundled weather list is processed independently via \code{\link[=run_epicrop_model]{run_epicrop_model()}},
+then results are combined using \code{\link[data.table:rbindlist]{data.table::rbindlist()}} with automatic
+column alignment.
+}
+\section{Algorithm}{
+
+\enumerate{
+\item Extract bundle member names; generate labels for unnamed entries
+\item For each bundle member (location or location-date):
+\itemize{
+\item Call \code{\link[=run_epicrop_model]{run_epicrop_model()}} with the sub-list
+\item Add a \code{location} column to the result
+}
+\item Combine all results via \code{\link[data.table:rbindlist]{data.table::rbindlist()}}
+}
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Typically called indirectly via [run_epicrop_model()] when wth_list is
+# an epicrop.wth.bundle, but can be called directly:
+
+locations <- rbind(
+  "Site1" = c(121.255669, 14.16742),
+  "Site2" = c(121.3, 14.2)
+)
+emergence <- build_epicrop_emergence(2001:2003, "-06-30")
+wth_bundle <- fetch_epicrop_weather_list(
+  lonlat = locations,
+  start_date = "-06-30",
+  duration = 120L,
+  years = 2001:2003,
+  mode = "cross"
+)
+
+results <- .run_bundle(
+  leaf_blast,
+  emergence,
+  wth_bundle,
+  window_days = 120L,
+  output = "audpc"
+)
+# Results now include a 'location' column
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=run_epicrop_model]{run_epicrop_model()}}, \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}

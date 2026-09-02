@@ -6,7 +6,46 @@
 \usage{
 .build_tasks(locations, location_names, sd_char, duration, years, mode)
 }
-\description{
-Build Task List for Weather Fetching
+\arguments{
+\item{locations}{A numeric 2-column matrix (LON, LAT).}
+
+\item{location_names}{Character vector of location names.}
+
+\item{sd_char}{Character vector of start dates.}
+
+\item{duration}{Integer or vector of durations.}
+
+\item{years}{Optional integer vector of years.}
+
+\item{mode}{Pairing mode: \code{"pairwise"} or \code{"cross"}.}
 }
+\value{
+A list of task objects (lists) with elements:
+\itemize{
+\item \code{location_id}: integer index
+\item \code{location_name}: character name
+\item \code{lonlat}: numeric vector c(lon, lat)
+\item \code{start_chr}: character start date
+\item \code{duration}: integer duration (days)
+}
+}
+\description{
+Constructs a list of (location, start_date, duration) tasks based on
+input locations, dates, and pairing mode.
+}
+\section{Pairing Modes}{
+
+\itemize{
+\item \strong{pairwise} (default): Recycles locations and dates by position.
+\itemize{
+\item \code{locations[1]} × \code{dates[1]}, \code{locations[2]} × \code{dates[2]}, etc.
+\item Excess elements are recycled.
+}
+\item \strong{cross}: Forms all combinations.
+\itemize{
+\item Every location × every date combination.
+}
+}
+}
+
 \keyword{internal}

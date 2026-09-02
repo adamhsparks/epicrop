@@ -1,9 +1,28 @@
-#' Validates Dates, Normally the Emergence Date
-#' @param x a date input (character, Date, IDate, POSIXct).
-#' @return A validated IDate object.
-#' @dev
+#' Validate and Parse Emergence Date
+#'
+#' Converts various date formats (character, Date, IDate, POSIXt) to a
+#' validated IDate object. Supports multiple date string formats and rejects
+#' ambiguous numeric dates (e.g., "07/01/2000").
+#'
+#' @param x A date input: character string, [Date], [data.table::IDate],
+#'   or [POSIXt] object.
+#'
+#' @returns An [data.table::IDate] object if valid. Aborts with informative
+#'   error message otherwise.
+#'
+#' @details
+#' **Date string formats accepted:**
+#' * ISO standard: `"2000-07-01"`, `"2000/07/01"`
+#' * European: `"01-07-2000"`, `"01/07/2000"`
+#' * US: `"07-01-2000"`, `"07/01/2000"`
+#' * Named month: `"01 Jul 2000"`, `"1 July 2000"`, `"Jul 01 2000"`
+#'
+#' **Ambiguous dates rejected:** Dates where both first and second numeric
+#' components are <= 12 (e.g., `"07/01/2000"`) are rejected to prevent
+#' misinterpretation as either July 1 or January 7.
+#'
 #' @autoglobal
-
+#' @dev
 .validate_emergence <- function(x) {
   if (rlang::inherits_any(x, c("Date", "IDate", "POSIXt"))) {
     return(data.table::as.IDate(x))
@@ -61,41 +80,40 @@
   )
 }
 
-#' Identify ambiguous numeric date strings
+#' Identify Ambiguous Numeric Date Strings
 #'
-#' Detects character date values that can be interpreted as either
-#' day-month-year or month-day-year because both the first and second
-#' numeric components are less than or equal to 12.
+#' Detects character date values that can be interpreted ambiguously as either
+#' day-month-year or month-day-year because both the first and second numeric
+#' components are less than or equal to 12.
 #'
-#' Ambiguous dates should not be parsed automatically because their
-#' intended meaning cannot be determined reliably. For example,
-#' `"07/01/2000"` could represent either 7 January 2000 or
-#' 1 July 2000.
+#' Ambiguous dates should not be parsed automatically because their intended
+#' meaning cannot be determined reliably. For example, `"07/01/2000"` could
+#' represent either 7 January 2000 or 1 July 2000.
 #'
 #' @param x A character scalar containing a potential date value.
 #'
-#' @return A single logical value. Returns `TRUE` if `x` is an ambiguous
+#' @returns A single logical value. Returns `TRUE` if `x` is an ambiguous
 #'   numeric date of the form `dd/mm/yy`, `mm/dd/yy`, `dd-mm-yy`, or
 #'   `mm-dd-yy` where both the first and second components are less than
 #'   or equal to 12. Returns `FALSE` otherwise.
 #'
 #' @examples
 #' .is_ambiguous_numeric_date("07/01/2000")
-#' # TRUE
+#' # TRUE (could be July 1 or January 7)
 #'
 #' .is_ambiguous_numeric_date("01-07-2000")
 #' # TRUE
 #'
 #' .is_ambiguous_numeric_date("31/01/2000")
-#' # FALSE
+#' # FALSE (31 > 12, clearly day-month-year)
 #'
 #' .is_ambiguous_numeric_date("07/31/2000")
-#' # FALSE
+#' # FALSE (31 > 12, clearly month-day-year)
 #'
 #' .is_ambiguous_numeric_date("2000-07-01")
-#' # FALSE
+#' # FALSE (ISO format with year first)
 #'
-#' @keywords internal
+#' @autoglobal
 #' @dev
 .is_ambiguous_numeric_date <- function(x) {
   parts <- strsplit(x, "[-/]")[[1L]]

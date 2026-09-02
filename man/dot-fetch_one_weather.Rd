@@ -6,7 +6,31 @@
 \usage{
 .fetch_one_weather(task)
 }
-\description{
-Fetch Weather Data for One Task
+\arguments{
+\item{task}{A task object (from \code{\link[=.create_single_task]{.create_single_task()}}) with:
+\itemize{
+\item \code{lonlat}: numeric vector c(lon, lat)
+\item \code{start_chr}: character start date
+\item \code{duration}: integer duration
+}}
 }
+\value{
+An \code{epicrop.wth.list} object: a named list of weather tables,
+one per year. Names are year strings (e.g., "2000", "2001").
+}
+\description{
+Calls the API to fetch weather data for a single (location, start, duration)
+task and splits the result by calendar year into a named list.
+}
+\details{
+This function calls \code{\link[=get_wth]{get_wth()}} to fetch data, then splits by year.
+It is called internally by \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}.
+}
+\section{Return Structure}{
+
+The weather table is split by \code{data.table::year(YYYYMMDD)} into a list.
+Each list element is a table for one calendar year, named by the year.
+The result is classed as \code{epicrop.wth.list}.
+}
+
 \keyword{internal}

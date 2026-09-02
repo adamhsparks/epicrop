@@ -2,57 +2,108 @@
 % Please edit documentation in R/interpolation.R
 \name{.memo_fast_interp_approx_digest}
 \alias{.memo_fast_interp_approx_digest}
-\title{Memoised Wrapper for Fast Interpolation with Content-Based Hashing}
+\title{Memoised Fast Interpolation with Content-Based Hashing}
 \usage{
 .memo_fast_interp_approx_digest(mat, xout)
 }
 \arguments{
-\item{mat}{A numeric 2-column matrix with x-values (column 1) and
-y-values (column 2) defining the lookup table.}
+\item{mat}{Numeric 2-column matrix with x (col 1) and y (col 2).}
 
 \item{xout}{Numeric vector of x-coordinates to interpolate at.}
 }
 \value{
-A numeric vector of interpolated y-values, computed via
-\code{.fast_interp_approx_internal()}.
+Numeric vector of interpolated y-values.
 }
 \description{
-A memoised version of linear interpolation that caches results based on
-the content (values) of the input matrix and x-coordinates, not their
-object identity. Uses \code{\link[digest:digest]{digest::digest()}} to compute content hashes,
-enabling cache hits across function calls even when inputs are
-reconstructed.
+A memoised version of \code{\link[=.fast_interp_approx_internal]{.fast_interp_approx_internal()}} that caches results
+based on content hashing. Enables efficient reuse when the same lookup
+tables and x-coordinates recur across multiple function calls, even if
+the objects are reconstructed.
 }
-\details{
-\strong{Caching strategy:}
-\itemize{
-\item Converts \code{mat} to numeric vector and computes SHA1 hash via
+\section{Caching Strategy}{
+
+
+Instead of caching by object identity (memory address), this function:
+\enumerate{
+\item Converts \code{mat} (matrix) to numeric vector and computes SHA1 hash via
 \code{\link[digest:digest]{digest::digest()}}
-\item Converts \code{xout} to numeric vector and computes SHA1 hash
-\item Combines hashes as memo key; cache hit if both match previous call
-\item Fallback to \code{.fast_interp_approx_internal()} if miss
+\item Converts \code{xout} (output x-coords) to numeric vector and computes SHA1
+hash
+\item Uses combined hash as memo key
+\item On cache hit, returns cached result directly
+\item On cache miss, calls \code{\link[=.fast_interp_approx_internal]{.fast_interp_approx_internal()}} and caches result
 }
 
-\strong{Performance:} Useful when:
-\itemize{
-\item The same lookup tables and x-coordinates are reused across many calls
-\item Object identity changes but values remain constant
-\item Interpolation cost is high relative to hashing overhead
+This approach enables cross-call reuse even when matrices and vectors are
+reconstructed (new objects with same values).
 }
 
-\strong{Limitations:}
+\section{Performance}{
+
+
+\strong{When to use:}
 \itemize{
-\item Hashing overhead (~1-10 µs per call) may exceed interpolation time
-for small inputs
+\item Same lookup tables repeated across multiple \code{\link[=seir]{seir()}} runs
+\item Same disease models run on many locations/dates
+\item Interpolation involves large x-coordinate grids
+}
+
+\strong{When not worth it:}
+\itemize{
+\item One-off calls or unique matrices each time
+\item Very small matrices/xout (hashing overhead dominates)
+\item Real-time systems with strict latency requirements
+}
+
+Hashing typically costs 1-10 microseconds per call. Interpolation itself
+is already very fast (~1 microsecond). Cache hit saves ~1 microsecond
+but costs 1-10 microseconds in hashing.
+}
+
+\section{Limitations}{
+
+\itemize{
 \item Memo cache grows unbounded (no size limit by default)
-\item Not thread-safe with default memoise settings
+\item Not thread-safe with default \code{\link[memoise:memoise]{memoise::memoise()}} settings
+\item Hash collisions (SHA1) extremely rare but not impossible
+\item Cache persists for session lifetime; restart R to clear
 }
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Example 1: Repeated interpolation with same lookup table
+RcA <- rbind(c(0, 0.05), c(60, 0.6), c(120, 0.6))
+
+# First call: computes and caches
+age_vec1 <- 0:119
+result1 <- .memo_fast_interp_approx_digest(RcA, age_vec1)
+
+# Second call: same matrix, same xout -> cache hit (fast)
+age_vec2 <- 0:119
+result2 <- .memo_fast_interp_approx_digest(RcA, age_vec2)
+identical(result1, result2)  # TRUE
+
+# Third call: same matrix, different xout -> cache miss (recomputes)
+age_vec3 <- 0:100
+result3 <- .memo_fast_interp_approx_digest(RcA, age_vec3)
+length(result3)  # 101 (different from result1)
+
+# Example 2: Demonstrate content-based caching
+# Reconstructed matrix with same values -> cache hit
+RcA_reconstructed <- rbind(c(0, 0.05), c(60, 0.6), c(120, 0.6))
+
+# Same xout as result1
+result4 <- .memo_fast_interp_approx_digest(RcA_reconstructed, 0:119)
+identical(result1, result4)  # TRUE (content same, so cache hit)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \itemize{
-\item \code{\link[memoise:memoise]{memoise::memoise()}} for memoisation mechanics
-\item \code{\link[digest:digest]{digest::digest()}} for content-based hashing
-\item \code{.fast_interp_approx_internal()} for the underlying interpolation
+\item \code{\link[memoise:memoise]{memoise::memoise()}} for memoisation mechanics and cache control
+\item \code{\link[digest:digest]{digest::digest()}} for content-based hashing algorithm (SHA1 by default)
+\item \code{\link[=.fast_interp_approx_internal]{.fast_interp_approx_internal()}} for underlying interpolation
+\item \code{\link[stats:approx]{stats::approx()}} for comparison (non-memoised, R's standard interpolation)
 }
 }
 \keyword{internal}

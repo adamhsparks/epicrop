@@ -2,45 +2,118 @@
 % Please edit documentation in R/audpc.R
 \name{.calculate_audpc}
 \alias{.calculate_audpc}
-\title{Calculate the Area Under the Disease Progress Curve (AUDPC)}
+\title{Calculate Area Under the Disease Progress Curve (AUDPC)}
 \usage{
 .calculate_audpc(intensity)
 }
 \arguments{
-\item{intensity}{A \code{vector} of disease intensity from \code{\link[=seir]{seir()}}.}
+\item{intensity}{Numeric vector of daily disease intensity values
+(typically from \code{\link[=seir]{seir()}} output). Values should be bounded [0, 1] where
+0 = no disease, 1 = complete infection. Length >= 2 required.}
 }
 \value{
-A \code{numeric} value as \code{double}.
+Numeric value (double) representing the area under the disease
+progress curve. Returns 0 if \code{intensity} has fewer than 2 observations.
 }
 \description{
-This function is used to return the AUDPC in the output of \code{\link[=seir]{seir()}}.
-Not to be used alone as it assumes that there is always only one day between
-observations so it takes shortcuts in the calculation of the values.
+Computes the Area Under the Disease Progress Curve (AUDPC) from daily
+disease intensity values using the trapezoidal rule. This function is
+designed to work with \code{\link[=seir]{seir()}} output where observations are equally spaced
+(one day apart).
 }
+\section{AUDPC Details}{
+
+
+AUDPC is a standard epidemiological metric summarizing cumulative disease
+intensity over time. It:
+\itemize{
+\item Ranges from 0 (no disease) to duration (maximum disease throughout)
+\item Accounts for both disease severity and duration
+\item Enables comparison across different growing seasons, locations, or cultivars
+\item Is commonly used in cultivar resistance screening and management trials
+}
+
+The trapezoidal rule approximates the area under the curve:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{AUDPC = sum((intensity[i] + intensity[i+1]) / 2) for all consecutive days
+}\if{html}{\out{</div>}}
+}
+
+\section{When to Use}{
+
+\itemize{
+\item \strong{Direct use (rare):} Only when you have a vector of daily intensity
+values from \code{\link[=seir]{seir()}} and want the AUDPC
+\item \strong{Typical use:} Access via \code{\link[=get_audpc]{get_audpc()}} or \code{\link[=audpc_dt]{audpc_dt()}} on model output
+(AUDPC is automatically calculated and stored as an attribute)
+}
+}
+
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-# get weather for IRRI Zeigler Experiment Station in wet season 2000
+# Example 1: Fetch weather and run disease model
 wth <- get_wth(
   lonlat = c(121.25562, 14.6774),
-  dates = c("2000-06-30", "2000-12-31")
+  dates = "2000-06-30",
+  duration = 120L
 )
-bb <- bacterial_blight(wth, emergence = "2000-07-01")
-.calculate_audpc(intensity = bb$intensity)
+
+# Run bacterial blight model
+bb_sim <- bacterial_blight(wth, emergence = "2000-06-30")
+
+# Calculate AUDPC from intensity vector (already in object attribute)
+audpc_value <- .calculate_audpc(intensity = bb_sim$intensity)
+print(audpc_value)
+
+# Compare with automatic calculation via get_audpc()
+audpc_attr <- get_audpc(bb_sim)
+all.equal(audpc_value, audpc_attr)  # Should be TRUE
+
+# Example 2: Effect of disease severity on AUDPC
+# Mild disease (slow progression)
+mild <- seq(0, 0.3, length.out = 120)
+audpc_mild <- .calculate_audpc(mild)
+
+# Severe disease (rapid progression)
+severe <- seq(0, 1.0, length.out = 120)
+audpc_severe <- .calculate_audpc(severe)
+
+cbind(Scenario = c("Mild", "Severe"),
+      AUDPC = c(audpc_mild, audpc_severe))
+
+# Example 3: Compare resistant vs susceptible cultivars
+wth <- get_wth(
+  lonlat = c(121.25562, 14.6774),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+# Susceptible cultivar (default parameters)
+susceptible <- leaf_blast(wth, emergence = "2000-06-30")
+audpc_sus <- get_audpc(susceptible)
+
+# Resistant cultivar (lower infection rate)
+resistant <- leaf_blast(wth, emergence = "2000-06-30", RcOpt = 0.8)
+audpc_res <- get_audpc(resistant)
+
+# Calculate resistance benefit
+reduction <- (audpc_sus - audpc_res) / audpc_sus * 100
+sprintf("Resistant cultivar reduces AUDPC by \%.1f\%\%", reduction)
 \dontshow{\}) # examplesIf}
 }
 \references{
-Shaner G., and R.E. Finney, 1977. The effect of nitrogen fertilization on the
-expression of slow-mildewing resistance in Knox wheat. \emph{Phytopathology}
-67: 1051–1056.
+Shaner, G., and R. E. Finney. 1977. The effect of nitrogen fertilization on
+the expression of slow-mildewing resistance in Knox wheat.
+\emph{Phytopathology}, 67: 1051-1056.
 
-Sparks, A.H., P.D. Esker, M. Bates, W. Dall' Acqua, Z. Guo, V. Segovia, S.D.
-Silwal, S. Tolos, and K.A. Garrett, 2008. Ecology and Epidemiology in R:
-Disease Progress over Time. \emph{The Plant Health Instructor}.
+Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia,
+S. D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and Epidemiology
+in R: Disease Progress over Time. \emph{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
 
 Madden, L. V., G. Hughes, and F. van den Bosch. 2007. \emph{The Study of Plant
 Disease Epidemics}. American Phytopathological Society, St. Paul, MN.
-\doi{doi.org/10.1094/9780890545058}.
+\doi{10.1094/9780890545058}.
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

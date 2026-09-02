@@ -2,11 +2,33 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{.validate_required_args}
 \alias{.validate_required_args}
-\title{Validate Required Arguments}
+\title{Validate Required Arguments for Weather Fetching}
 \usage{
 .validate_required_args(lonlat, start_date, duration)
 }
+\arguments{
+\item{lonlat}{Numeric coordinates or matrix of coordinates (required).}
+
+\item{start_date}{A date string or vector of dates (required).}
+
+\item{duration}{Integer or vector of integers specifying days (required).}
+}
+\value{
+NULL (invisibly). Called for side effects (validation/abort).
+}
 \description{
-Validate Required Arguments
+Checks that \code{lonlat}, \code{start_date}, and \code{duration} are provided and aborts
+with helpful error messages if any are missing. Called early in
+\code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} to fail fast.
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# This would trigger validation (not normally called directly)
+.validate_required_args(
+  c(121.255669, 14.16742),
+  "2000-06-30",
+  120L
+)
+\dontshow{\}) # examplesIf}
 }
 \keyword{internal}

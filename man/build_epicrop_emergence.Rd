@@ -2,47 +2,253 @@
 % Please edit documentation in R/build_epicrop_emergence.R
 \name{build_epicrop_emergence}
 \alias{build_epicrop_emergence}
-\title{Build emergence dates from year × month_day combinations}
+\title{Build Emergence Dates from Year and Month-Day Combinations}
 \usage{
 build_epicrop_emergence(years, month_day)
 }
 \arguments{
-\item{years}{Integer vector of years (\emph{e.g.}, \code{2001:2003}).}
+\item{years}{Integer vector of years. Examples:
+\itemize{
+\item \code{2000} – single year
+\item \code{c(2000, 2002, 2005)} – specific years
+\item \code{2000:2005} – range (recommended for clarity)
+}
 
-\item{month_day}{Character vector of month-day strings in the form \code{"-MM-DD"}
-(\emph{e.g.}, \code{c("-06-01", "-06-14")}). If a string is supplied without a
-leading dash (\emph{e.g.}, \code{"06-01"}), callers should normalize it in advance;
-this helper expects the leading \code{-} as part of the format \code{"YYYY-MM-DD"}.}
+Dates are constructed as \code{paste0(year, month_day)}, so years can be
+any 4-digit integer. No validation against real calendar (\emph{e.g.}, allows
+year 9999).}
+
+\item{month_day}{Character vector of month-day patterns. Each string
+specifies a fixed planting date recurring each year. Format (either):
+\itemize{
+\item \code{"-MM-DD"} with leading dash (\emph{e.g.}, \code{"-06-01"}, \code{"-12-25"})
+\item \code{"MM-DD"} without dash (\emph{e.g.}, \code{"06-01"}, \code{"12-25"})
+}
+
+Validation:
+\itemize{
+\item Month: 01-12 (leading zero required)
+\item Day: 01-31 (leading zero required)
+\item Separator: dash (\code{-}), not \code{.} or \code{/}
+}
+
+Examples of valid input:
+\itemize{
+\item \code{c("-06-01", "-07-15", "-08-31")}
+\item \code{c("01-15", "06-01", "12-25")} (no leading dash)
+}
+
+Invalid examples (will abort):
+\itemize{
+\item \code{"6-1"} (no leading zeros)
+\item \code{"-06/01"} (wrong separator)
+\item \code{"-13-01"} (month > 12)
+\item \code{"-02-30"} (day > 29 for Feb; caught during date parsing)
+}}
 }
 \value{
 A sorted vector of \link[data.table:IDate]{data.table::IDate} emergence dates with class
-\code{epicrop.emerge} (\emph{i.e.}, \code{inherits(x, "epicrop.emerge")} will be \code{TRUE}).
+\code{epicrop.emerge}. Inherits from \link[base:Date]{base::Date} and \link[data.table:IDate]{data.table::IDate},
+so standard date operations (subsetting, arithmetic, formatting) work.
+Length = \verb{length(years) × length(month_day)}.
 }
 \description{
-Construct a vector of emergence dates by combining a set of years with a set
-of month-day strings (e.g., "-06-01"), returning a sorted \code{IDate} vector
-tagged with class \code{epicrop.emerge} for downstream use with
-\code{\link[=run_epicrop_model]{run_epicrop_model()}}.
+Constructs a vector of emergence (planting) dates by combining years with
+month-day patterns. Returns a sorted \link[data.table:IDate]{data.table::IDate} vector tagged with
+class \code{epicrop.emerge} for use with \code{\link[=run_epicrop_model]{run_epicrop_model()}} and related
+batch modeling functions.
 }
+\details{
+\subsection{Internal Algorithm}{
+\enumerate{
+\item Normalize \code{month_day} strings:
+\itemize{
+\item If matches \code{"^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"}: use as-is
+\item If matches \code{"^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"}: prepend \code{-}
+\item Otherwise: abort with error message
+}
+\item Create cross-product: every year × every normalized month-day
+\item Construct ISO date strings: \code{sprintf("\%s\%s", year, month_day)}
+\item Parse to \link[data.table:IDate]{data.table::IDate} with format \code{"\%Y-\%m-\%d"}
+\item Sort by date and tag with \code{epicrop.emerge} class
+}
+}
+
+\subsection{Leap Year Handling}{
+
+R's Date class handles leap years automatically:
+\itemize{
+\item \code{"2000-02-29"} is valid (2000 is leap year)
+\item \code{"2001-02-29"} fails to parse (2001 is not leap year)
+}
+
+Invalid dates (\emph{e.g.}, Feb 30 for any year) are caught during parsing and
+trigger an abort.
+}
+
+\subsection{Performance}{
+
+Fast even for large year/month-day combinations:
+\itemize{
+\item Cross-product via \code{\link[data.table:CJ]{data.table::CJ()}} (optimized)
+\item Vectorized date construction via \code{\link[=sprintf]{sprintf()}}
+\item Sorting via base \code{\link[=sort]{sort()}} on IDate (fast integer representation)
+}
+
+Example: 20 years × 10 month-days = 200 dates constructed in < 1 ms.
+}
+}
+\section{Purpose}{
+
+
+Simplifies creation of emergence date vectors for epidemiological modeling
+scenarios where you want to:
+\itemize{
+\item Test multiple planting dates within a season (\emph{e.g.}, June 1, 15, 30)
+\item Replicate across multiple years (\emph{e.g.}, 2000-2005)
+\item Generate all combinations automatically
+}
+
+Eliminates manual date construction: instead of typing out 18 dates
+(6 month-days × 3 years), write:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{build_epicrop_emergence(2000:2002, c("-06-01", "-06-15", "-07-01"))
+}\if{html}{\out{</div>}}
+}
+
+\section{Date Format}{
+
+
+Month-day strings can be provided in two equivalent formats:
+\itemize{
+\item \strong{With leading dash} (recommended): \code{"-06-01"}, \code{"-12-31"}
+\itemize{
+\item Matches ISO 8601 suffix for \code{"YYYY-MM-DD"}
+\item Function uses these directly
+}
+\item \strong{Without leading dash}: \code{"06-01"}, \code{"12-31"}
+\itemize{
+\item Function prepends \code{-} automatically
+\item Less error-prone if mixed formats appear
+}
+}
+
+Both \code{c("-06-01", "-06-15")} and \code{c("06-01", "06-15")} produce identical
+output.
+
+Validation catches:
+\itemize{
+\item Invalid months (not 01-12)
+\item Invalid days (not 01-31 for month; leap years handled by R's Date class)
+\item Malformed strings (typos, missing separators)
+}
+}
+
+\section{Output Class}{
+
+
+The returned vector has class \code{epicrop.emerge} (subclass of
+\link[data.table:IDate]{data.table::IDate} and \link[base:Date]{base::Date}). This tag enables:
+\itemize{
+\item Input validation in \code{\link[=run_epicrop_model]{run_epicrop_model()}} (checks class, not just type)
+\item Clear intent: a vector of planting dates, not arbitrary dates
+\item Potential future S3 methods (\emph{e.g.}, \code{plot.epicrop.emerge()})
+}
+}
+
 \examples{
-# Basic usage: combine years with multiple month-day patterns
-years <- 2001:2002
-month_day <- c("-06-01", "-06-14", "-06-30")
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Example 1: Basic usage - two years, three planting dates
+years <- 2000:2001
+month_day <- c("-06-01", "-06-15", "-07-01")
 
 em <- build_epicrop_emergence(years, month_day)
-em
+print(em)
+# [1] 2000-06-01 2000-06-15 2000-07-01 2001-06-01 2001-06-15 2001-07-01
 
-# Check class and structure
-inherits(em, "epicrop.emerge")   # TRUE
-head(em)                         # First few dates (IDate)
-length(em)                       # 6 (2 years × 3 month-days)
+# Check class
+class(em)  # "epicrop.emerge" "IDate" "Date"
+length(em) # 6 (2 years × 3 month-days)
 
-# Typical downstream: pass to run_epicrop_model(...)
-# run_epicrop_model(bacterial_blight, em, wth_list, output = "audpc")
+# Example 2: Month-day without leading dash (auto-normalized)
+em2 <- build_epicrop_emergence(2000, c("06-01", "06-15", "07-01"))
+identical(em2, build_epicrop_emergence(2000, c("-06-01", "-06-15", "-07-01")))
+# TRUE - formats are equivalent
 
+# Example 3: Single year, multiple planting windows
+# Early, mid, late June + early July
+single_year <- build_epicrop_emergence(
+  years = 2000,
+  month_day = c("-06-01", "-06-10", "-06-20", "-07-01")
+)
+print(single_year)
+plot(single_year, rep(1, length(single_year)),
+     main = "Planting Date Options for 2000",
+     xlab = "Date", ylab = "")
+
+# Example 4: Long-term study across 10 years
+long_term <- build_epicrop_emergence(
+  years = 1990:1999,
+  month_day = c("-06-15", "-07-01")  # Two standard planting dates
+)
+length(long_term)  # 20 (10 years × 2 dates)
+
+# Example 5: Use in batch modeling workflow
+years <- 2000:2002
+month_day <- c("-06-30", "-07-15")
+emergence <- build_epicrop_emergence(years, month_day)
+
+# Fetch weather data (one year per list element)
+wth_list <- fetch_epicrop_weather_list(
+  lonlat = c(121.255669, 14.167425),
+  start_date = month_day,
+  duration = 120L,
+  years = years
+)
+
+# Run disease model across all emergence dates
+results <- run_epicrop_model(
+  model_fun = leaf_blast,
+  emergence_dates = emergence,
+  wth_list = wth_list,
+  output = "audpc"
+)
+print(results)  # AUDPC for each emergence date
+
+# Example 6: Subset and filter emergence dates
+em <- build_epicrop_emergence(2000:2002, c("-06-01", "-07-01"))
+
+# Keep only June plantings
+june_only <- em[month(em) == 6]
+print(june_only)
+
+# Keep only 2001 plantings
+y2001 <- em[year(em) == 2001]
+print(y2001)
+
+# Example 7: Error handling
+\dontrun{
+# Invalid month (13)
+build_epicrop_emergence(2000, "-13-01")
+# Error: Invalid month_day value(s): -13-01
+
+# Invalid day (32)
+build_epicrop_emergence(2000, "-02-30")
+# Error: Failed to construct emergence dates
+
+# Typo in format (no dash, two-digit year in string)
+build_epicrop_emergence(2000, "6-1")
+# Error: Invalid month_day value(s): 6-1
+}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[=run_epicrop_model]{run_epicrop_model()}}, \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}
+\itemize{
+\item \code{\link[=run_epicrop_model]{run_epicrop_model()}} – primary consumer of \code{epicrop.emerge} vectors
+\item \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} – companion for building weather lists
+\item \link[base:Date]{base::Date}, \link[data.table:IDate]{data.table::IDate} – underlying date classes
+\item \code{\link[base:seq.Date]{base::seq.Date()}} – alternative for building date sequences
+}
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

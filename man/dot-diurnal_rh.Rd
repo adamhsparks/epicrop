@@ -2,28 +2,61 @@
 % Please edit documentation in R/leaf_wetness.R
 \name{.diurnal_rh}
 \alias{.diurnal_rh}
-\title{Calculate hourly relative humidity for a given day}
+\title{Calculate Hourly Relative Humidity for a Given Day}
 \usage{
 .diurnal_rh(rh, tmin, tmax, tmp, lat, doy)
 }
 \arguments{
-\item{rh}{Mean daily relative humidity.}
+\item{rh}{Mean daily relative humidity (\%).}
 
-\item{tmin}{Minimum temperature.}
+\item{tmin}{Minimum daily temperature (C).}
 
-\item{tmax}{Maximum temperature.}
+\item{tmax}{Maximum daily temperature (C).}
 
-\item{tmp}{Mean daily temperature.}
+\item{tmp}{Mean daily temperature (C).}
 
-\item{lat}{Latitude.}
+\item{lat}{Latitude (degrees).}
 
-\item{doy}{Day of year.}
+\item{doy}{Day of year (1-365).}
 }
 \value{
-List of numeric vectors (one per day, 24 values each).
+List of numeric vectors (one per day, 24 values each representing
+hourly RH \%).
 }
 \description{
-Calculate hourly relative humidity for a given day
+Derives hourly relative humidity from daily mean RH and hourly temperature
+by maintaining constant vapour pressure (VP) throughout the day.
+}
+\section{Algorithm}{
+
+\enumerate{
+\item Compute vapour pressure from mean RH and mean temperature (constant all
+day)
+\item Compute hourly saturated vapour pressure using diurnal temperature
+\item Hourly RH = \eqn{100 * (VP / saturated VP)}, clamped to [0, 100]
+}
+
+This accounts for the inverse relationship between temperature and RH even
+when actual water vapour content is unchanged.
+}
+
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+# Calculate hourly RH for 3 days
+rh_list <- .diurnal_rh(
+  rh = c(80, 85, 90),           # Mean daily RH (\%)
+  tmin = c(20, 19, 21),         # Min temp (C)
+  tmax = c(30, 32, 29),         # Max temp (C)
+  tmp = c(25, 25.5, 25),        # Mean temp (C)
+  lat = c(14.16742, 14.16742, 14.16742),  # Latitude
+  doy = c(182, 183, 184)        # Day of year
+)
+
+# Each element is 24-hour RH profile
+str(rh_list)
+plot(1:24, rh_list[[1]], type = "l", ylim = c(0, 100),
+     xlab = "Hour of Day", ylab = "Relative Humidity (\%)")
+\dontshow{\}) # examplesIf}
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com}

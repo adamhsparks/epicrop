@@ -6,7 +6,26 @@
 \usage{
 .resolve_date_and_duration(d_str, dur, years)
 }
+\arguments{
+\item{d_str}{Character start date (ISO format or month-day only).}
+
+\item{dur}{Integer duration (days).}
+
+\item{years}{Optional integer vector of years.}
+}
+\value{
+A list with:
+\itemize{
+\item \code{start_chr}: character start date in \code{"YYYY-MM-DD"} format
+\item \code{duration}: integer duration (days)
+}
+}
 \description{
-Resolve Date String and Calculate Duration
+Converts date strings to a standard start date character and duration.
+Handles both full ISO dates and month-day strings with year ranges.
+}
+\details{
+If \code{d_str} is in \code{"MM-DD"} format, constructs a cover window using \code{years}.
+Otherwise, parses as ISO date using \code{\link[data.table:as.IDate]{data.table::as.IDate()}}.
 }
 \keyword{internal}

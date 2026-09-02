@@ -2,7 +2,7 @@
 % Please edit documentation in R/validation.R
 \name{.is_ambiguous_numeric_date}
 \alias{.is_ambiguous_numeric_date}
-\title{Identify ambiguous numeric date strings}
+\title{Identify Ambiguous Numeric Date Strings}
 \usage{
 .is_ambiguous_numeric_date(x)
 }
@@ -16,32 +16,30 @@ numeric date of the form \code{dd/mm/yy}, \code{mm/dd/yy}, \code{dd-mm-yy}, or
 or equal to 12. Returns \code{FALSE} otherwise.
 }
 \description{
-Detects character date values that can be interpreted as either
-day-month-year or month-day-year because both the first and second
-numeric components are less than or equal to 12.
+Detects character date values that can be interpreted ambiguously as either
+day-month-year or month-day-year because both the first and second numeric
+components are less than or equal to 12.
 }
 \details{
-Ambiguous dates should not be parsed automatically because their
-intended meaning cannot be determined reliably. For example,
-\code{"07/01/2000"} could represent either 7 January 2000 or
-1 July 2000.
+Ambiguous dates should not be parsed automatically because their intended
+meaning cannot be determined reliably. For example, \code{"07/01/2000"} could
+represent either 7 January 2000 or 1 July 2000.
 }
 \examples{
 .is_ambiguous_numeric_date("07/01/2000")
-# TRUE
+# TRUE (could be July 1 or January 7)
 
 .is_ambiguous_numeric_date("01-07-2000")
 # TRUE
 
 .is_ambiguous_numeric_date("31/01/2000")
-# FALSE
+# FALSE (31 > 12, clearly day-month-year)
 
 .is_ambiguous_numeric_date("07/31/2000")
-# FALSE
+# FALSE (31 > 12, clearly month-day-year)
 
 .is_ambiguous_numeric_date("2000-07-01")
-# FALSE
+# FALSE (ISO format with year first)
 
 }
-\keyword{internal}
 \keyword{internal}
