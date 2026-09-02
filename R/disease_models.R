@@ -28,7 +28,8 @@
 #' @inheritParams seir
 #' @param RcA Optional custom age modifier table (2-column numeric matrix).
 #'   Overrides the published default for this disease.
-#' @param RcT Optional custom temperature modifier table (2-column numeric matrix).
+#' @param RcT Optional custom temperature modifier table (2-column numeric
+#'   matrix).
 #'   Overrides the published default for this disease.
 #' @param RRG Optional custom relative growth rate (scalar numeric, vector, or
 #'   function). Overrides the published default.
@@ -36,8 +37,8 @@
 #'   function, or matrix). Overrides the published default.
 #' @param rhlim Optional override for relative humidity threshold (%) for leaf
 #'   wetness. Defaults to disease-specific value (typically 90).
-#' @param rainlim Optional override for rainfall threshold (mm) for leaf wetness.
-#'   Defaults to disease-specific value (typically 5).
+#' @param rainlim Optional override for rainfall threshold (mm) for leaf
+#'   wetness. Defaults to disease-specific value (typically 5).
 #' @param ... Additional parameters passed to [seir()], allowing full
 #'   customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 #'   simple_wetness, etc.).
@@ -109,20 +110,6 @@ NULL
 #'      main = "Rice Bacterial Blight Progression",
 #'      xlab = "Days", ylab = "Disease Intensity")
 #'
-#' # Override onset and duration for early planting scenario
-#' bb_early <- bacterial_blight(
-#'   wth = wth,
-#'   emergence = "2000-06-15",  # Earlier emergence
-#'   onset = 15,                 # Disease starts sooner
-#'   duration = 100              # Shorter season
-#' )
-#'
-#' # Sensitivity: test resistance modification (lower RcOpt)
-#' bb_resistant <- bacterial_blight(
-#'   wth = wth,
-#'   emergence = "2000-06-30",
-#'   RcOpt = 0.5  # Reduced from default 0.87 for resistant cultivar
-#' )
 #'
 bacterial_blight <- function(
   wth,
@@ -293,7 +280,6 @@ leaf_blast <- function(
 #' damage in high-N fertilized crops.
 #'
 #' @examplesIf interactive()
-#' # Simulate sheath blight in high-N environment
 #' wth <- get_wth(
 #'   lonlat = c(121.255669, 14.16742),
 #'   dates = "2000-06-30",
@@ -309,14 +295,6 @@ leaf_blast <- function(
 #' plot(sb_sim$simday, sb_sim$intensity, type = "l", ylim = c(0, 1),
 #'      main = "Rice Sheath Blight Progression",
 #'      xlab = "Days After Emergence", ylab = "Disease Intensity")
-#'
-#' # Compare low and high aggregation (spatial clustering)
-#' sb_low_agg <- sheath_blight(
-#'   wth = wth,
-#'   emergence = "2000-06-30",
-#'   a = 1.5  # Less aggregated spread
-#' )
-#' lines(sb_low_agg$simday, sb_low_agg$intensity, col = "red", lty = 2)
 #'
 sheath_blight <- function(
   wth,

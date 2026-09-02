@@ -281,7 +281,8 @@ format (character).}
 \item{RcA}{Optional custom age modifier table (2-column numeric matrix).
 Overrides the published default for this disease.}
 
-\item{RcT}{Optional custom temperature modifier table (2-column numeric matrix).
+\item{RcT}{Optional custom temperature modifier table (2-column numeric
+matrix).
 Overrides the published default for this disease.}
 
 \item{RRS}{Optional custom relative senescence rate (scalar numeric, vector,
@@ -293,8 +294,8 @@ function). Overrides the published default.}
 \item{rhlim}{Optional override for relative humidity threshold (\%) for leaf
 wetness. Defaults to disease-specific value (typically 90).}
 
-\item{rainlim}{Optional override for rainfall threshold (mm) for leaf wetness.
-Defaults to disease-specific value (typically 5).}
+\item{rainlim}{Optional override for rainfall threshold (mm) for leaf
+wetness. Defaults to disease-specific value (typically 5).}
 
 \item{...}{Additional parameters passed to \code{\link[=seir]{seir()}}, allowing full
 customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
@@ -465,20 +466,6 @@ plot(bb_sim$simday, bb_sim$intensity, type = "l",
      main = "Rice Bacterial Blight Progression",
      xlab = "Days", ylab = "Disease Intensity")
 
-# Override onset and duration for early planting scenario
-bb_early <- bacterial_blight(
-  wth = wth,
-  emergence = "2000-06-15",  # Earlier emergence
-  onset = 15,                 # Disease starts sooner
-  duration = 100              # Shorter season
-)
-
-# Sensitivity: test resistance modification (lower RcOpt)
-bb_resistant <- bacterial_blight(
-  wth = wth,
-  emergence = "2000-06-30",
-  RcOpt = 0.5  # Reduced from default 0.87 for resistant cultivar
-)
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Simulate brown spot for a standard rice season
@@ -517,7 +504,6 @@ plot(lb_sim$simday, lb_sim$intensity, type = "l", ylim = c(0, 1),
      xlab = "Days After Emergence", ylab = "Disease Intensity")
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-# Simulate sheath blight in high-N environment
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
   dates = "2000-06-30",
@@ -533,14 +519,6 @@ sb_sim <- sheath_blight(
 plot(sb_sim$simday, sb_sim$intensity, type = "l", ylim = c(0, 1),
      main = "Rice Sheath Blight Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
-# Compare low and high aggregation (spatial clustering)
-sb_low_agg <- sheath_blight(
-  wth = wth,
-  emergence = "2000-06-30",
-  a = 1.5  # Less aggregated spread
-)
-lines(sb_low_agg$simday, sb_low_agg$intensity, col = "red", lty = 2)
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Simulate tungro (vector-borne viral disease)
