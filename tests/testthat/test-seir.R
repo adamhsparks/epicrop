@@ -18,7 +18,7 @@ test_that("seir runs with minimal valid inputs", {
 
   expect_s3_class(result, "epicrop.sim")
   expect_s3_class(result, "data.table")
-  expect_identical(nrow(result), 120)
+  expect_identical(nrow(result), 120L)
   expect_true(all(result$sites >= 0))
   expect_true(all(result$latent >= 0))
   expect_true(all(result$infectious >= 0))
@@ -1059,7 +1059,7 @@ test_that("seir falls back to YYYYMMDD when wth lacks a dates column", {
   )
 
   expect_s3_class(result, "epicrop.sim")
-  expect_true(!anyNA(result$dates))
+  expect_false(anyNA(result$dates))
 })
 
 # ---- infection_window: thermal_time fallback and actual restriction -------
