@@ -47,7 +47,7 @@ if (dir_exists(fig_dir)) {
 # helper to replace in-place
 replace_figure_path <- function(path) {
   x <- readLines(path, warn = FALSE)
-  x <- gsub("\\(figure/", "(", x)
+  x <- gsub("\\(figure/", "(", x, fixed = TRUE)
   writeLines(x, path)
   invisible(path)
 }
