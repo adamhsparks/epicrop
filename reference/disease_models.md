@@ -616,14 +616,6 @@ plot(tg_sim$simday, tg_sim$intensity, type = "l",
      main = "Rice Tungro Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
 
-
-# Compare early vs. late planting (different vector phenology)
-tg_late <- tungro(
-  wth = wth,
-  emergence = "2000-07-30",
-  onset = 40  # Later vector arrival
-)
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 25L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 100L, I0 = 1L, RcOpt = 0.18,     p = 6L, i = 120L, Sx = 100L, a = 1L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "onset" matched by multiple actual arguments
 # Simulate using Kim et al. (2015) cultivar-adjusted parameters
 wth <- get_wth(
   lonlat = c(126.9780, 37.5665),  # Seoul, South Korea
