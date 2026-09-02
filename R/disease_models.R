@@ -618,33 +618,46 @@ leaf_rust <- function(
 #' DVS-based modeling accounts for developmental susceptibility.
 #'
 #' @examplesIf interactive()
-#' # Simulate Septoria tritici blotch with lesion expansion
+#' # Example: Septoria tritici blotch - compare lesion expansion effect
+#'
+#' # Fetch weather for a wheat-growing region (France, Oct-May season)
 #' wth <- get_wth(
 #'   lonlat = c(8.5, 50.1),
 #'   dates = "2000-10-15",
 #'   duration = 240L
 #' )
 #'
-#' stb_sim <- s_tritici_blotch(
+#' # Simulate with lesion expansion (default RRLEX = 0.09)
+#' stb_with_lex <- s_tritici_blotch(
 #'   wth = wth,
 #'   emergence = "2000-10-15"
 #' )
 #'
-#' # STB shows accelerated progression due to lesion expansion (RRLEX = 0.09)
-#' plot(stb_sim$simday, stb_sim$intensity, type = "l",
-#'      main = "Wheat Septoria tritici Blotch (with Lesion Expansion)",
-#'      xlab = "Days After Sowing", ylab = "Disease Intensity")
-#'
-#' # Compare lesion expansion contribution
+#' # Simulate without lesion expansion (RRLEX = 0)
 #' stb_no_lex <- s_tritici_blotch(
 #'   wth = wth,
 #'   emergence = "2000-10-15",
-#'   RRLEX = 0  # Disable lesion expansion to see effect
+#'   RRLEX = 0
 #' )
-#' lines(stb_no_lex$simday, stb_no_lex$intensity, col = "blue", lty = 2)
-#' legend("topleft", c("With Lesion Expansion", "Without Lesion Expansion"),
-#'        lty = c(1, 2), col = c("black", "blue"))
 #'
+#' # Create single plot with both lines for comparison
+#' plot(stb_with_lex$simday, stb_with_lex$intensity,
+#'      type = "l", col = "black", lty = 1,
+#'      main = "Wheat Septoria tritici Blotch: Lesion Expansion Effect",
+#'      xlab = "Days After Sowing",
+#'      ylab = "Disease Intensity",
+#'      ylim = c(0, 1))
+#'
+#' # Add comparison line (without lesion expansion)
+#' lines(stb_no_lex$simday, stb_no_lex$intensity,
+#'       col = "blue", lty = 2)
+#'
+#' # Add legend
+#' legend("topleft",
+#'        c("With Lesion Expansion (RRLEX = 0.09)",
+#'          "Without Lesion Expansion (RRLEX = 0)"),
+#'        lty = c(1, 2),
+#'        col = c("black", "blue"))
 s_tritici_blotch <- function(
   wth,
   emergence,
