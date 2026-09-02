@@ -626,7 +626,6 @@ s_tritici_blotch <- function(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
-  RRLEX = NULL,
   ...
 ) {
   params <- epi_get_params("wheat", "s_tritici_blotch")
@@ -637,7 +636,7 @@ s_tritici_blotch <- function(
     RcT = RcT %||% params$RcT,
     RRG = RRG %||% params$RRG,
     RRS = RRS %||% params$RRPSN,
-    RRLEX = RRLEX %||% params$RRLEX,
+    RRLEX = params$RRLEX,
     onset = 20L,
     duration = 120L,
     rhlim = rhlim %||% 90L,
