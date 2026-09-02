@@ -626,37 +626,17 @@ wth <- get_wth(
   duration = 240L
 )
 
-# Simulate with lesion expansion (default RRLEX = 0.09)
-stb_with_lex <- s_tritici_blotch(
+stb <- s_tritici_blotch(
   wth = wth,
   emergence = "2000-10-15"
 )
 
-# Simulate without lesion expansion (RRLEX = 0)
-stb_no_lex <- s_tritici_blotch(
-  wth = wth,
-  emergence = "2000-10-15",
-  RRLEX = 0
-)
-
 # Create single plot with both lines for comparison
-plot(stb_with_lex$simday, stb_with_lex$intensity,
+plot(stb$simday, stb$intensity,
      type = "l", col = "black", lty = 1,
-     main = "Wheat Septoria tritici Blotch: Lesion Expansion Effect",
+     main = "Wheat Septoria tritici Blotch",
      xlab = "Days After Sowing",
-     ylab = "Disease Intensity",
-     ylim = c(0, 1))
-
-# Add comparison line (without lesion expansion)
-lines(stb_no_lex$simday, stb_no_lex$intensity,
-      col = "blue", lty = 2)
-
-# Add legend
-legend("topleft",
-       c("With Lesion Expansion (RRLEX = 0.09)",
-         "Without Lesion Expansion (RRLEX = 0)"),
-       lty = c(1, 2),
-       col = c("black", "blue"))
+     ylab = "Disease Intensity")
 \dontshow{\}) # examplesIf}
 }
 \references{
