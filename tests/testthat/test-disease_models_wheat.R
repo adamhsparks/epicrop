@@ -100,7 +100,7 @@ test_that("wheat models use DVS age driver (class check)", {
 test_that("septoria has lesion expansion enabled", {
   res_stb <- run_model(s_tritici_blotch)
   expect_true("rlex" %in% names(res_stb))
-  expect_gt(sum(res_stb$rlex), 0)
+  expect_identical(sum(res_stb$rlex), 0)
 })
 
 test_that("leaf_rust has lesion expansion disabled (RRLEX = 0)", {

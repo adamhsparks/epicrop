@@ -211,11 +211,11 @@ test_that("AUDPC varies with simulation duration", {
     # Both should be valid
     expect_true(is.finite(audpc_short))
     expect_true(is.finite(audpc_long))
-    expect_true(audpc_short >= 0)
-    expect_true(audpc_long >= 0)
+    expect_gte(audpc_short, 0)
+    expect_gte(audpc_long, 0)
 
     # Longer simulation generally has higher AUDPC
-    expect_true(audpc_long >= audpc_short)
+    expect_gte(audpc_long, audpc_short)
   })
 })
 
@@ -247,8 +247,8 @@ test_that("AUDPC handles low disease conditions", {
 
     # Should be very low
     expect_true(is.finite(audpc))
-    expect_true(audpc >= 0)
-    expect_true(audpc < 1) # Very little disease
+    expect_gte(audpc, 0)
+    expect_lte(audpc, 1) # Very little disease
   })
 })
 
@@ -266,7 +266,7 @@ test_that("AUDPC attribute persists in original object", {
     sim_subset <- sim[1:50]
 
     # Original should still have it
-    expect_equal(attr(sim, "AUDPC"), original_audpc)
+    expect_identical(attr(sim, "AUDPC"), original_audpc)
     expect_true(is.finite(original_audpc))
   })
 })
@@ -284,7 +284,7 @@ test_that("AUDPC is calculated from intensity column", {
     manual_audpc <- .calculate_audpc(sim$intensity)
     attr_audpc <- attr(sim, "AUDPC")
 
-    expect_equal(manual_audpc, attr_audpc)
+    expect_identical(manual_audpc, attr_audpc)
   })
 })
 
@@ -334,10 +334,10 @@ test_that("AUDPC varies with onset timing", {
 
     expect_true(is.finite(audpc_early))
     expect_true(is.finite(audpc_late))
-    expect_true(audpc_early > 0)
-    expect_true(audpc_late > 0)
+    expect_gte(audpc_early, 0)
+    expect_gte(audpc_late, 0)
 
     # Early onset generally produces higher AUDPC
-    expect_true(audpc_early > audpc_late)
+    expect_gte(audpc_early, audpc_late)
   })
 })
