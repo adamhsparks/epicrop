@@ -128,6 +128,7 @@ s_tritici_blotch(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
+  RRLEX = NULL,
   ...
 )
 
@@ -248,6 +249,7 @@ stb(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
+  RRLEX = NULL,
   ...
 )
 }
@@ -297,6 +299,14 @@ Defaults to disease-specific value (typically 5).}
 \item{...}{Additional parameters passed to \code{\link[=seir]{seir()}}, allowing full
 customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 simple_wetness, etc.).}
+
+\item{RRLEX}{Rate of lesion expansion (numeric, vector, or function).
+Allows direct H→I conversion bypassing the latent period. Can be:
+\itemize{
+\item Scalar or vector: constant or age-dependent rate
+\item Function: \code{f(TEMP)} or \code{f(DVS)} for temperature/age-dependent expansion
+Set to 0 (default) for standard SEIR (no lesion expansion).
+}}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of class \code{epicrop.sim} with disease
@@ -317,7 +327,7 @@ fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.
 
 \code{leaf_blast()} models rice leaf blast (\emph{Magnaporthe oryzae}). The most
-economically important rice disease worldwide, favored by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°C),
 wet conditions. Rapid disease progression can cause total crop loss.
 
 \code{sheath_blight()} models rice sheath blight (\emph{Rhizoctonia solani}).
@@ -339,7 +349,7 @@ from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95\%) reflecting Korean monsoon climate.
 
 \code{leaf_rust()} models wheat leaf rust (\emph{Puccinia triticina}). A major wheat
-pathogen globally, favored by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25°C) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.
 
 \code{s_tritici_blotch()} models wheat Septoria tritici blotch (\emph{Zymoseptoria
@@ -487,16 +497,9 @@ bs_sim <- brown_spot(
 plot(bs_sim$simday, bs_sim$intensity, type = "l",
      main = "Rice Brown Spot Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
-# Override H0 (initial healthy sites) for sensitivity analysis
-bs_high_inoculum <- brown_spot(
-  wth = wth,
-  emergence = "2000-06-30",
-  H0 = 1200  # Higher initial canopy size
-)
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-# Simulate leaf blast under favorable conditions
+# Simulate leaf blast under favourable conditions
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
   dates = "2000-06-30",
@@ -512,15 +515,6 @@ lb_sim <- leaf_blast(
 plot(lb_sim$simday, lb_sim$intensity, type = "l", ylim = c(0, 1),
      main = "Rice Leaf Blast Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
-# Test cultivar resistance (lower RcOpt)
-lb_resistant <- leaf_blast(
-  wth = wth,
-  emergence = "2000-06-30",
-  RcOpt = 0.8  # Reduced infection rate
-)
-lines(lb_resistant$simday, lb_resistant$intensity, col = "blue", lty = 2)
-legend("topright", c("Susceptible", "Resistant"), lty = c(1, 2))
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Simulate sheath blight in high-N environment

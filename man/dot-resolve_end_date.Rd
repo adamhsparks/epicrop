@@ -14,28 +14,28 @@
 \item{duration}{Integer duration (days) or NULL.}
 }
 \value{
-Date object representing the end date.
+Date object representing the end date (inclusive).
 }
 \description{
 Determines the end date for weather retrieval using either:
 \enumerate{
 \item An explicit end date (from \code{dates} vector), or
-\item Duration calculation (start + duration - 1)
+\item Duration calculation (start + duration)
 }
 }
 \details{
-Duration is inclusive: \code{end = start + duration - 1} means the window spans
+Duration interpretation: \code{end = start + duration} means the window spans
 exactly \code{duration} days.
 
-Example: start = 2000-06-30, duration = 120 gives end = 2000-10-27
-(June 30 through October 27 = 120 days)
+Example: start = 2000-06-30, duration = 3 gives end = 2000-07-02
+(June 30, July 1, July 2 = 3 days total)
 }
 \section{Logic}{
 
 
 Priority order:
 \enumerate{
-\item If \code{duration} is provided (not NULL), use start + duration - 1
+\item If \code{duration} is provided (not NULL), use start + duration
 \item Else if \code{dates} has length >= 2, use \code{dates[2]} as end
 \item Else abort (neither duration nor end date provided)
 }
@@ -45,9 +45,10 @@ Priority order:
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 start <- as.Date("2000-06-30")
 
-# Using duration
-end1 <- .resolve_end_date(c("2000-06-30"), start, duration = 120L)
-print(end1)  # 2000-10-27
+# Using duration = 3
+end1 <- .resolve_end_date(c("2000-06-30"), start, duration = 3L)
+print(end1)  # 2000-07-02
+# Days: 06-30, 07-01, 07-02 (3 days)
 
 # Using explicit end date
 end2 <- .resolve_end_date(c("2000-06-30", "2000-12-31"), start, NULL)
