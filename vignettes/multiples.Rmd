@@ -58,10 +58,12 @@ Now that we have a list of weather data for two seasons we will use `run_epicrop
 
 
 ``` r
-bb_2_seasons <- run_epicrop_model(model_fun = bacterial_blight,
-                                  emergence_dates = ymd,
-                                  wth_list = wth_list,
-                                  window_days = duration)
+bb_2_seasons <- run_epicrop_model(
+  model_fun = bacterial_blight,
+  emergence_dates = ymd,
+  wth_list = wth_list,
+  window_days = duration
+)
 
 bb_2_seasons
 #> Key: <emergence, AUDPC>
@@ -78,11 +80,8 @@ A simple bar chart created using {ggplot2} is an effective way to visualise the 
 
 ``` r
 library(ggplot2)
-ggplot(bb_2_seasons,
-       aes(y = as.factor(emergence),
-           x = AUDPC)) +
-  geom_col(width = 0.5,
-           orientation = "y") +
+ggplot(bb_2_seasons, aes(y = as.factor(emergence), x = AUDPC)) +
+  geom_col(width = 0.5, orientation = "y") +
   ylab("Emergence (YYYY-MM-DD)") +
   xlab("AUDPC") +
   theme_classic()
@@ -106,20 +105,24 @@ duration <- 120L
 emergence <- build_epicrop_emergence(years, month_day)
 
 # select 200 days duration to allow for multiple seasonal runs on same data
-wth_list <- fetch_epicrop_weather_list(years = years,
-                                       lonlat = lonlat,
-                                       start_date = month_day,
-                                       duration = duration)
+wth_list <- fetch_epicrop_weather_list(
+  years = years,
+  lonlat = lonlat,
+  start_date = month_day,
+  duration = duration
+)
 ```
 
 
 
 ``` r
- run_epicrop_model(bacterial_blight,
-                   emergence,
-                   wth_list,
-                   window_days = duration,
-                   output = "audpc")
+ run_epicrop_model(
+   bacterial_blight,
+   emergence,
+   wth_list,
+   window_days = duration,
+   output = "audpc"
+ )
 #> Key: <emergence, AUDPC>
 #>            emergence    AUDPC
 #>     <epicrop.emerge>    <num>
@@ -211,20 +214,17 @@ wth_list <- fetch_epicrop_weather_list(
   duration = 240L,
   years = years,
   mode = "cross"
-  )
+)
 
 emergence <- build_epicrop_emergence(years, start_date)
-```
 
-Examples of how to run the model sequentially and in parallel.
-
-
-``` r
-run_epicrop_model(s_tritici_blotch,
-                  emergence,
-                  wth_list,
-                  window_days = 240L,
-                  output = "audpc")
+run_epicrop_model(
+  s_tritici_blotch,
+  emergence,
+  wth_list,
+  window_days = 240L,
+  output = "audpc"
+)
 #>            emergence     AUDPC location
 #>     <epicrop.emerge>     <num>   <char>
 #>  1:       2020-04-15  7.674841 Merredin
