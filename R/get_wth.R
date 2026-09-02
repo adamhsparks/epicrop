@@ -310,34 +310,35 @@ get_wth <- function(lonlat, dates, duration = NULL) {
 #'
 #' Determines the end date for weather retrieval using either:
 #' 1. An explicit end date (from `dates` vector), or
-#' 2. Duration calculation (start + duration - 1)
+#' 2. Duration calculation (start + duration)
 #'
 #' @section Logic:
 #'
 #' Priority order:
-#' 1. If `duration` is provided (not NULL), use start + duration - 1
-#' 2. Else if `dates` has length >= 2, use `dates[2]` as end
+#' 1. If `duration` is provided (not NULL), use start + duration
+#' 2. Else if `dates` has length >= 2, use dates[2] as end
 #' 3. Else abort (neither duration nor end date provided)
 #'
 #' @param dates Character vector of dates from user input.
 #' @param start Date start date (already parsed as Date class).
 #' @param duration Integer duration (days) or NULL.
 #'
-#' @returns Date object representing the end date.
+#' @returns Date object representing the end date (inclusive).
 #'
 #' @details
-#' Duration is inclusive: `end = start + duration - 1` means the window spans
+#' Duration interpretation: `end = start + duration` means the window spans
 #' exactly `duration` days.
 #'
-#' Example: start = 2000-06-30, duration = 120 gives end = 2000-10-27
-#' (June 30 through October 27 = 120 days)
+#' Example: start = 2000-06-30, duration = 3 gives end = 2000-07-02
+#' (June 30, July 1, July 2 = 3 days total)
 #'
 #' @examplesIf interactive()
 #' start <- as.Date("2000-06-30")
 #'
-#' # Using duration
-#' end1 <- .resolve_end_date(c("2000-06-30"), start, duration = 120L)
-#' print(end1)  # 2000-10-27
+#' # Using duration = 3
+#' end1 <- .resolve_end_date(c("2000-06-30"), start, duration = 3L)
+#' print(end1)  # 2000-07-02
+#' # Days: 06-30, 07-01, 07-02 (3 days)
 #'
 #' # Using explicit end date
 #' end2 <- .resolve_end_date(c("2000-06-30", "2000-12-31"), start, NULL)
@@ -357,8 +358,10 @@ get_wth <- function(lonlat, dates, duration = NULL) {
       cli::cli_abort("{.arg duration} must be positive (> 0 days).")
     }
 
-    # Inclusive duration: end = start + duration - 1
-    return(start + (as.integer(duration[1L]) - 1L))
+    # Duration: end = start + duration
+    # Example: start=2000-06-30, duration=3 -> end=2000-07-02
+    # Days spanned: 06-30, 07-01, 07-02 (3 days)
+    return(start + as.integer(duration[1L]))
   }
 
   if (length(dates) >= 2L) {
