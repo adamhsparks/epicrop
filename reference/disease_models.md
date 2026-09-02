@@ -556,7 +556,6 @@ plot(lb_sim$simday, lb_sim$intensity, type = "l", ylim = c(0, 1),
      main = "Rice Leaf Blast Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
 
-# Simulate sheath blight in high-N environment
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
   dates = "2000-06-30",
@@ -573,16 +572,6 @@ plot(sb_sim$simday, sb_sim$intensity, type = "l", ylim = c(0, 1),
      main = "Rice Sheath Blight Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
 
-
-# Compare low and high aggregation (spatial clustering)
-sb_low_agg <- sheath_blight(
-  wth = wth,
-  emergence = "2000-06-30",
-  a = 1.5  # Less aggregated spread
-)
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 30L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 25L, I0 = 1L, RcOpt = 0.46,     p = 3L, i = 120L, Sx = 800L, a = 2.8, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "a" matched by multiple actual arguments
-lines(sb_low_agg$simday, sb_low_agg$intensity, col = "red", lty = 2)
-#> Error: object 'sb_low_agg' not found
 # Simulate tungro (vector-borne viral disease)
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
