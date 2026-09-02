@@ -316,7 +316,7 @@ get_wth <- function(lonlat, dates, duration = NULL) {
 #'
 #' Priority order:
 #' 1. If `duration` is provided (not NULL), use start + duration
-#' 2. Else if `dates` has length >= 2, use dates[2] as end
+#' 2. Else if `dates` has length >= 2, use `dates[2]` as end
 #' 3. Else abort (neither duration nor end date provided)
 #'
 #' @param dates Character vector of dates from user input.
