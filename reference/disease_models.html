@@ -10,7 +10,7 @@ brown_spot() models rice brown spot (Bipolaris oryzae). A seed-borne
 fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.
 leaf_blast() models rice leaf blast (Magnaporthe oryzae). The most
-economically important rice disease worldwide, favored by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°C),
 wet conditions. Rapid disease progression can cause total crop loss.
 sheath_blight() models rice sheath blight (Rhizoctonia solani).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
@@ -27,7 +27,7 @@ modified_kim_sheath_blight() models rice sheath blight using parameters
 from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95%) reflecting Korean monsoon climate.
 leaf_rust() models wheat leaf rust (Puccinia triticina). A major wheat
-pathogen globally, favored by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25°C) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.
 s_tritici_blotch() models wheat Septoria tritici blotch (Zymoseptoria
 tritici), a major wheat pathogen in temperate regions. Features lesion
@@ -53,7 +53,7 @@ brown_spot() models rice brown spot (Bipolaris oryzae). A seed-borne
 fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.
 leaf_blast() models rice leaf blast (Magnaporthe oryzae). The most
-economically important rice disease worldwide, favored by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°C),
 wet conditions. Rapid disease progression can cause total crop loss.
 sheath_blight() models rice sheath blight (Rhizoctonia solani).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
@@ -70,7 +70,7 @@ modified_kim_sheath_blight() models rice sheath blight using parameters
 from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95%) reflecting Korean monsoon climate.
 leaf_rust() models wheat leaf rust (Puccinia triticina). A major wheat
-pathogen globally, favored by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25°C) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.
 s_tritici_blotch() models wheat Septoria tritici blotch (Zymoseptoria
 tritici), a major wheat pathogen in temperate regions. Features lesion
@@ -136,7 +136,7 @@ region.</p>
 fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.</p>
 <p><code>leaf_blast()</code> models rice leaf blast (<em>Magnaporthe oryzae</em>). The most
-economically important rice disease worldwide, favored by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°C),
 wet conditions. Rapid disease progression can cause total crop loss.</p>
 <p><code>sheath_blight()</code> models rice sheath blight (<em>Rhizoctonia solani</em>).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
@@ -153,7 +153,7 @@ Savary model.</p>
 from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95%) reflecting Korean monsoon climate.</p>
 <p><code>leaf_rust()</code> models wheat leaf rust (<em>Puccinia triticina</em>). A major wheat
-pathogen globally, favored by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25°C) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.</p>
 <p><code>s_tritici_blotch()</code> models wheat Septoria tritici blotch (<em>Zymoseptoria
 tritici</em>), a major wheat pathogen in temperate regions. Features lesion
@@ -278,6 +278,7 @@ DVS-based modeling accounts for developmental susceptibility.</p>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRLEX <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -398,6 +399,7 @@ DVS-based modeling accounts for developmental susceptibility.</p>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRLEX <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -451,6 +453,14 @@ Defaults to disease-specific value (typically 5).</p></dd>
 <dd><p>Additional parameters passed to <code><a href="seir.html">seir()</a></code>, allowing full
 customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 simple_wetness, etc.).</p></dd>
+
+
+<dt id="arg-rrlex">RRLEX<a class="anchor" aria-label="anchor" href="#arg-rrlex"></a></dt>
+<dd><p>Rate of lesion expansion (numeric, vector, or function).
+Allows direct H→I conversion bypassing the latent period. Can be:</p><ul><li><p>Scalar or vector: constant or age-dependent rate</p></li>
+<li><p>Function: <code>f(TEMP)</code> or <code>f(DVS)</code> for temperature/age-dependent expansion
+Set to 0 (default) for standard SEIR (no lesion expansion).</p></li>
+</ul></dd>
 
 </dl></div>
     <div class="section level2">
@@ -602,15 +612,7 @@ Modelling and mapping potential epidemics of wheat diseases.
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Rice Brown Spot Progression"</span>,</span></span>
 <span class="r-in"><span>     xlab <span class="op">=</span> <span class="st">"Days After Emergence"</span>, ylab <span class="op">=</span> <span class="st">"Disease Intensity"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="disease_models-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Override H0 (initial healthy sites) for sensitivity analysis</span></span></span>
-<span class="r-in"><span><span class="va">bs_high_inoculum</span> <span class="op">&lt;-</span> <span class="fu">brown_spot</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  wth <span class="op">=</span> <span class="va">wth</span>,</span></span>
-<span class="r-in"><span>  emergence <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span></span>
-<span class="r-in"><span>  H0 <span class="op">=</span> <span class="fl">1200</span>  <span class="co"># Higher initial canopy size</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 20L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 0.61,     p = 6L, i = 19L, a = 1L, Sx = 100000L, simple_wetness = TRUE,     age_driver = "day", ...):</span> formal argument "H0" matched by multiple actual arguments</span>
-<span class="r-in"><span><span class="co"># Simulate leaf blast under favorable conditions</span></span></span>
+<span class="r-in"><span><span class="co"># Simulate leaf blast under favourable conditions</span></span></span>
 <span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dates <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span></span>
@@ -626,17 +628,6 @@ Modelling and mapping potential epidemics of wheat diseases.
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">lb_sim</span><span class="op">$</span><span class="va">simday</span>, <span class="va">lb_sim</span><span class="op">$</span><span class="va">intensity</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Rice Leaf Blast Progression"</span>,</span></span>
 <span class="r-in"><span>     xlab <span class="op">=</span> <span class="st">"Days After Emergence"</span>, ylab <span class="op">=</span> <span class="st">"Disease Intensity"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Test cultivar resistance (lower RcOpt)</span></span></span>
-<span class="r-in"><span><span class="va">lb_resistant</span> <span class="op">&lt;-</span> <span class="fu">leaf_blast</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  wth <span class="op">=</span> <span class="va">wth</span>,</span></span>
-<span class="r-in"><span>  emergence <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span></span>
-<span class="r-in"><span>  RcOpt <span class="op">=</span> <span class="fl">0.8</span>  <span class="co"># Reduced infection rate</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...):</span> formal argument "RcOpt" matched by multiple actual arguments</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">lb_resistant</span><span class="op">$</span><span class="va">simday</span>, <span class="va">lb_resistant</span><span class="op">$</span><span class="va">intensity</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'lb_resistant' not found</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topright"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Susceptible"</span>, <span class="st">"Resistant"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="disease_models-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Simulate sheath blight in high-N environment</span></span></span>
 <span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>
@@ -766,9 +757,7 @@ Modelling and mapping potential epidemics of wheat diseases.
 <span class="r-in"><span>  emergence <span class="op">=</span> <span class="st">"2000-10-15"</span>,</span></span>
 <span class="r-in"><span>  RRLEX <span class="op">=</span> <span class="fl">0</span>  <span class="co"># Disable lesion expansion to see effect</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRPSN, onset = 20L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 250L, I0 = 15L,     RcOpt = 1.17, RRLEX = 0.09, p = 11L, i = 18L, Sx = 174000L,     a = 1L, age_driver = "dvs", thermal_time = list(base_temp = 0,         gdd_to_maturity = 1500), simple_wetness = TRUE, ...):</span> formal argument "RRLEX" matched by multiple actual arguments</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">stb_no_lex</span><span class="op">$</span><span class="va">simday</span>, <span class="va">stb_no_lex</span><span class="op">$</span><span class="va">intensity</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'stb_no_lex' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"With Lesion Expansion"</span>, <span class="st">"Without Lesion Expansion"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>       lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="disease_models-9.png" alt="" width="700" height="433"></span>

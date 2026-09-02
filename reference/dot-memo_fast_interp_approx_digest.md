@@ -106,21 +106,18 @@ RcA <- rbind(c(0, 0.05), c(60, 0.6), c(120, 0.6))
 # First call: computes and caches
 age_vec1 <- 0:119
 result1 <- .memo_fast_interp_approx_digest(RcA, age_vec1)
-#> Error in .memo_fast_interp_approx_digest(RcA, age_vec1): could not find function ".memo_fast_interp_approx_digest"
 
 # Second call: same matrix, same xout -> cache hit (fast)
 age_vec2 <- 0:119
 result2 <- .memo_fast_interp_approx_digest(RcA, age_vec2)
-#> Error in .memo_fast_interp_approx_digest(RcA, age_vec2): could not find function ".memo_fast_interp_approx_digest"
 identical(result1, result2)  # TRUE
-#> Error: object 'result1' not found
+#> [1] TRUE
 
 # Third call: same matrix, different xout -> cache miss (recomputes)
 age_vec3 <- 0:100
 result3 <- .memo_fast_interp_approx_digest(RcA, age_vec3)
-#> Error in .memo_fast_interp_approx_digest(RcA, age_vec3): could not find function ".memo_fast_interp_approx_digest"
 length(result3)  # 101 (different from result1)
-#> Error: object 'result3' not found
+#> [1] 101
 
 # Example 2: Demonstrate content-based caching
 # Reconstructed matrix with same values -> cache hit
@@ -128,7 +125,6 @@ RcA_reconstructed <- rbind(c(0, 0.05), c(60, 0.6), c(120, 0.6))
 
 # Same xout as result1
 result4 <- .memo_fast_interp_approx_digest(RcA_reconstructed, 0:119)
-#> Error in .memo_fast_interp_approx_digest(RcA_reconstructed, 0:119): could not find function ".memo_fast_interp_approx_digest"
 identical(result1, result4)  # TRUE (content same, so cache hit)
-#> Error: object 'result1' not found
+#> [1] TRUE
 ```

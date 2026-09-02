@@ -129,21 +129,18 @@ but costs 1-10 microseconds in hashing.</p>
 <span class="r-in"><span><span class="co"># First call: computes and caches</span></span></span>
 <span class="r-in"><span><span class="va">age_vec1</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">119</span></span></span>
 <span class="r-in"><span><span class="va">result1</span> <span class="op">&lt;-</span> <span class="fu">.memo_fast_interp_approx_digest</span><span class="op">(</span><span class="va">RcA</span>, <span class="va">age_vec1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .memo_fast_interp_approx_digest(RcA, age_vec1):</span> could not find function ".memo_fast_interp_approx_digest"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Second call: same matrix, same xout -&gt; cache hit (fast)</span></span></span>
 <span class="r-in"><span><span class="va">age_vec2</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">119</span></span></span>
 <span class="r-in"><span><span class="va">result2</span> <span class="op">&lt;-</span> <span class="fu">.memo_fast_interp_approx_digest</span><span class="op">(</span><span class="va">RcA</span>, <span class="va">age_vec2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .memo_fast_interp_approx_digest(RcA, age_vec2):</span> could not find function ".memo_fast_interp_approx_digest"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">result1</span>, <span class="va">result2</span><span class="op">)</span>  <span class="co"># TRUE</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'result1' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Third call: same matrix, different xout -&gt; cache miss (recomputes)</span></span></span>
 <span class="r-in"><span><span class="va">age_vec3</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="va">result3</span> <span class="op">&lt;-</span> <span class="fu">.memo_fast_interp_approx_digest</span><span class="op">(</span><span class="va">RcA</span>, <span class="va">age_vec3</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .memo_fast_interp_approx_digest(RcA, age_vec3):</span> could not find function ".memo_fast_interp_approx_digest"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">result3</span><span class="op">)</span>  <span class="co"># 101 (different from result1)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'result3' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 101</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Demonstrate content-based caching</span></span></span>
 <span class="r-in"><span><span class="co"># Reconstructed matrix with same values -&gt; cache hit</span></span></span>
@@ -151,9 +148,8 @@ but costs 1-10 microseconds in hashing.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Same xout as result1</span></span></span>
 <span class="r-in"><span><span class="va">result4</span> <span class="op">&lt;-</span> <span class="fu">.memo_fast_interp_approx_digest</span><span class="op">(</span><span class="va">RcA_reconstructed</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">119</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .memo_fast_interp_approx_digest(RcA_reconstructed, 0:119):</span> could not find function ".memo_fast_interp_approx_digest"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">result1</span>, <span class="va">result4</span><span class="op">)</span>  <span class="co"># TRUE (content same, so cache hit)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'result1' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

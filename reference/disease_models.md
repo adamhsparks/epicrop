@@ -16,7 +16,7 @@ fungal disease prevalent in tropical and subtropical regions,
 particularly damaging to older rice varieties.
 
 `leaf_blast()` models rice leaf blast (*Magnaporthe oryzae*). The most
-economically important rice disease worldwide, favored by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°C),
 wet conditions. Rapid disease progression can cause total crop loss.
 
 `sheath_blight()` models rice sheath blight (*Rhizoctonia solani*). A
@@ -39,7 +39,7 @@ cultivars. Uses slightly higher humidity threshold (95%) reflecting
 Korean monsoon climate.
 
 `leaf_rust()` models wheat leaf rust (*Puccinia triticina*). A major
-wheat pathogen globally, favored by moderate temperatures (15–25°C) and
+wheat pathogen globally, favoured by moderate temperatures (15–25°C) and
 high humidity. Uses DVS-based age driver to account for vernalization
 effects.
 
@@ -176,6 +176,7 @@ s_tritici_blotch(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
+  RRLEX = NULL,
   ...
 )
 
@@ -296,6 +297,7 @@ stb(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
+  RRLEX = NULL,
   ...
 )
 ```
@@ -372,6 +374,17 @@ stb(
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md),
   allowing full customization of any parameter (onset, duration, H0, I0,
   p, i, Sx, a, simple_wetness, etc.).
+
+- RRLEX:
+
+  Rate of lesion expansion (numeric, vector, or function). Allows direct
+  H→I conversion bypassing the latent period. Can be:
+
+  - Scalar or vector: constant or age-dependent rate
+
+  - Function: `f(TEMP)` or `f(DVS)` for temperature/age-dependent
+    expansion Set to 0 (default) for standard SEIR (no lesion
+    expansion).
 
 ## Value
 
@@ -542,15 +555,7 @@ plot(bs_sim$simday, bs_sim$intensity, type = "l",
      main = "Rice Brown Spot Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
 
-
-# Override H0 (initial healthy sites) for sensitivity analysis
-bs_high_inoculum <- brown_spot(
-  wth = wth,
-  emergence = "2000-06-30",
-  H0 = 1200  # Higher initial canopy size
-)
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 20L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 0.61,     p = 6L, i = 19L, a = 1L, Sx = 100000L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "H0" matched by multiple actual arguments
-# Simulate leaf blast under favorable conditions
+# Simulate leaf blast under favourable conditions
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
   dates = "2000-06-30",
@@ -566,17 +571,6 @@ lb_sim <- leaf_blast(
 plot(lb_sim$simday, lb_sim$intensity, type = "l", ylim = c(0, 1),
      main = "Rice Leaf Blast Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
-# Test cultivar resistance (lower RcOpt)
-lb_resistant <- leaf_blast(
-  wth = wth,
-  emergence = "2000-06-30",
-  RcOpt = 0.8  # Reduced infection rate
-)
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "RcOpt" matched by multiple actual arguments
-lines(lb_resistant$simday, lb_resistant$intensity, col = "blue", lty = 2)
-#> Error: object 'lb_resistant' not found
-legend("topright", c("Susceptible", "Resistant"), lty = c(1, 2))
 
 # Simulate sheath blight in high-N environment
 wth <- get_wth(
@@ -706,9 +700,7 @@ stb_no_lex <- s_tritici_blotch(
   emergence = "2000-10-15",
   RRLEX = 0  # Disable lesion expansion to see effect
 )
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRPSN, onset = 20L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 250L, I0 = 15L,     RcOpt = 1.17, RRLEX = 0.09, p = 11L, i = 18L, Sx = 174000L,     a = 1L, age_driver = "dvs", thermal_time = list(base_temp = 0,         gdd_to_maturity = 1500), simple_wetness = TRUE, ...): formal argument "RRLEX" matched by multiple actual arguments
 lines(stb_no_lex$simday, stb_no_lex$intensity, col = "blue", lty = 2)
-#> Error: object 'stb_no_lex' not found
 legend("topleft", c("With Lesion Expansion", "Without Lesion Expansion"),
        lty = c(1, 2), col = c("black", "blue"))
 ```
