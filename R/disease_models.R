@@ -186,13 +186,6 @@ bacterial_blight <- function(
 #'      main = "Rice Brown Spot Progression",
 #'      xlab = "Days After Emergence", ylab = "Disease Intensity")
 #'
-#' # Override H0 (initial healthy sites) for sensitivity analysis
-#' bs_high_inoculum <- brown_spot(
-#'   wth = wth,
-#'   emergence = "2000-06-30",
-#'   H0 = 1200  # Higher initial canopy size
-#' )
-#'
 brown_spot <- function(
   wth,
   emergence,
@@ -234,11 +227,11 @@ brown_spot <- function(
 #'
 #' @description
 #' `leaf_blast()` models rice leaf blast (*Magnaporthe oryzae*). The most
-#' economically important rice disease worldwide, favored by cool (25°C),
+#' economically important rice disease worldwide, favoured by cool (25°C),
 #' wet conditions. Rapid disease progression can cause total crop loss.
 #'
 #' @examplesIf interactive()
-#' # Simulate leaf blast under favorable conditions
+#' # Simulate leaf blast under favourable conditions
 #' wth <- get_wth(
 #'   lonlat = c(121.255669, 14.16742),
 #'   dates = "2000-06-30",
@@ -254,15 +247,6 @@ brown_spot <- function(
 #' plot(lb_sim$simday, lb_sim$intensity, type = "l", ylim = c(0, 1),
 #'      main = "Rice Leaf Blast Progression",
 #'      xlab = "Days After Emergence", ylab = "Disease Intensity")
-#'
-#' # Test cultivar resistance (lower RcOpt)
-#' lb_resistant <- leaf_blast(
-#'   wth = wth,
-#'   emergence = "2000-06-30",
-#'   RcOpt = 0.8  # Reduced infection rate
-#' )
-#' lines(lb_resistant$simday, lb_resistant$intensity, col = "blue", lty = 2)
-#' legend("topright", c("Susceptible", "Resistant"), lty = c(1, 2))
 #'
 leaf_blast <- function(
   wth,
@@ -569,7 +553,7 @@ modified_kim_sheath_blight <- function(
 #'
 #' @description
 #' `leaf_rust()` models wheat leaf rust (*Puccinia triticina*). A major wheat
-#' pathogen globally, favored by moderate temperatures (15–25°C) and high
+#' pathogen globally, favoured by moderate temperatures (15–25°C) and high
 #' humidity. Uses DVS-based age driver to account for vernalization effects.
 #'
 #' @examplesIf interactive()
@@ -677,6 +661,7 @@ s_tritici_blotch <- function(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
+  RRLEX = NULL,
   ...
 ) {
   params <- epi_get_params("wheat", "s_tritici_blotch")
@@ -687,6 +672,7 @@ s_tritici_blotch <- function(
     RcT = RcT %||% params$RcT,
     RRG = RRG %||% params$RRG,
     RRS = RRS %||% params$RRPSN,
+    RRLEX = RRLEX %||% params$RRLEX,
     onset = 20L,
     duration = 120L,
     rhlim = rhlim %||% 90L,
@@ -694,7 +680,6 @@ s_tritici_blotch <- function(
     H0 = 250L,
     I0 = 15L,
     RcOpt = 1.17,
-    RRLEX = 0.09,
     p = 11L,
     i = 18L,
     Sx = 174000L,
