@@ -522,22 +522,6 @@ plot(bb_sim$simday, bb_sim$intensity, type = "l",
      xlab = "Days", ylab = "Disease Intensity")
 
 
-# Override onset and duration for early planting scenario
-bb_early <- bacterial_blight(
-  wth = wth,
-  emergence = "2000-06-15",  # Earlier emergence
-  onset = 15,                 # Disease starts sooner
-  duration = 100              # Shorter season
-)
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 20L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 100L, I0 = 1L, RcOpt = 0.87,     p = 5L, i = 30L, Sx = 3200L, a = 4L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "onset" matched by multiple actual arguments
-
-# Sensitivity: test resistance modification (lower RcOpt)
-bb_resistant <- bacterial_blight(
-  wth = wth,
-  emergence = "2000-06-30",
-  RcOpt = 0.5  # Reduced from default 0.87 for resistant cultivar
-)
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 20L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 100L, I0 = 1L, RcOpt = 0.87,     p = 5L, i = 30L, Sx = 3200L, a = 4L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "RcOpt" matched by multiple actual arguments
 # Simulate brown spot for a standard rice season
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
