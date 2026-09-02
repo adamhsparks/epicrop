@@ -128,7 +128,6 @@ s_tritici_blotch(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
-  RRLEX = NULL,
   ...
 )
 
@@ -249,7 +248,6 @@ stb(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
-  RRLEX = NULL,
   ...
 )
 }
@@ -300,14 +298,6 @@ wetness. Defaults to disease-specific value (typically 5).}
 \item{...}{Additional parameters passed to \code{\link[=seir]{seir()}}, allowing full
 customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 simple_wetness, etc.).}
-
-\item{RRLEX}{Rate of lesion expansion (numeric, vector, or function).
-Allows direct H→I conversion bypassing the latent period. Can be:
-\itemize{
-\item Scalar or vector: constant or age-dependent rate
-\item Function: \code{f(TEMP)} or \code{f(DVS)} for temperature/age-dependent expansion
-Set to 0 (default) for standard SEIR (no lesion expansion).
-}}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of class \code{epicrop.sim} with disease
