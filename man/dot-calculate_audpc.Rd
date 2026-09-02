@@ -29,7 +29,8 @@ intensity over time. It:
 \itemize{
 \item Ranges from 0 (no disease) to duration (maximum disease throughout)
 \item Accounts for both disease severity and duration
-\item Enables comparison across different growing seasons, locations, or cultivars
+\item Enables comparison across different growing seasons, locations, or
+cultivars
 \item Is commonly used in cultivar resistance screening and management trials
 }
 

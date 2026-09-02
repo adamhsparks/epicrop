@@ -11,7 +11,8 @@
 #' intensity over time. It:
 #' * Ranges from 0 (no disease) to duration (maximum disease throughout)
 #' * Accounts for both disease severity and duration
-#' * Enables comparison across different growing seasons, locations, or cultivars
+#' * Enables comparison across different growing seasons, locations, or
+#'    cultivars
 #' * Is commonly used in cultivar resistance screening and management trials
 #'
 #' The trapezoidal rule approximates the area under the curve:
