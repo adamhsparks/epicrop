@@ -176,7 +176,6 @@ s_tritici_blotch(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
-  RRLEX = NULL,
   ...
 )
 
@@ -297,7 +296,6 @@ stb(
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
-  RRLEX = NULL,
   ...
 )
 ```
@@ -374,17 +372,6 @@ stb(
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md),
   allowing full customization of any parameter (onset, duration, H0, I0,
   p, i, Sx, a, simple_wetness, etc.).
-
-- RRLEX:
-
-  Rate of lesion expansion (numeric, vector, or function). Allows direct
-  H→I conversion bypassing the latent period. Can be:
-
-  - Scalar or vector: constant or age-dependent rate
-
-  - Function: `f(TEMP)` or `f(DVS)` for temperature/age-dependent
-    expansion Set to 0 (default) for standard SEIR (no lesion
-    expansion).
 
 ## Value
 

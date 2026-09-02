@@ -80,13 +80,11 @@ audpc_values <- data.frame(
   AUDPC = sapply(diseases, get_audpc)
 )
 print(audpc_values)
-#> # Data frame like object (class data.frame) 2 x 4:
-#>   │disease│AUDPC
-#>   │<chr>  │<dbl>
-#> bb│bb     │37.74
-#> bs│bs     │ 0.98
-#> lb│lb     │40.75
-#> sb│sb     │29.02
+#>    disease      AUDPC
+#> bb      bb 37.7406263
+#> bs      bs  0.9795647
+#> lb      lb 40.7539326
+#> sb      sb 29.0220116
 # Identify most damaging disease
 worst <- audpc_values[which.max(audpc_values$AUDPC), ]
 print(paste("Most severe:", worst$disease, "AUDPC =", round(worst$AUDPC, 1)))

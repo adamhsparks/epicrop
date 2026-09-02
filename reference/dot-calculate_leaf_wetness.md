@@ -107,9 +107,9 @@ wet_hours <- .calculate_leaf_wetness(
   rainlim = 5,
   weighted_wetness = FALSE
 )
-#> Error in .calculate_leaf_wetness(wth = wth, rhlim = 90, rainlim = 5, weighted_wetness = FALSE): could not find function ".calculate_leaf_wetness"
 summary(wet_hours)
-#> Error: object 'wet_hours' not found
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>   10.00   11.50   13.00   13.27   14.50   18.00 
 # Typical range: 0-24 hours per day
 
 # Example 2: Weighted wetness for more sensitive pathogen model
@@ -119,29 +119,34 @@ wet_weighted <- .calculate_leaf_wetness(
   rainlim = 5,
   weighted_wetness = TRUE
 )
-#> Error in .calculate_leaf_wetness(wth = wth, rhlim = 90, rainlim = 5, weighted_wetness = TRUE): could not find function ".calculate_leaf_wetness"
 head(cbind(wth$YYYYMMDD, wet_hours, wet_weighted), 10)
-#> Error: object 'wet_hours' not found
+#>             wet_hours wet_weighted
+#>  [1,] 11138        12           14
+#>  [2,] 11139        14           18
+#>  [3,] 11140        10           13
+#>  [4,] 11141        17           21
+#>  [5,] 11142        13           18
+#>  [6,] 11143        15           20
+#>  [7,] 11144        10           13
+#>  [8,] 11145        11           15
+#>  [9,] 11146        12           15
+#> [10,] 11147        14           20
 
 # Example 3: Using with RcW curve for infection rate
 # Linear relationship: 0 hours = 0 modifier, 24 hours = 1 modifier
 wet_hrs <- .calculate_leaf_wetness(wth, rhlim = 90, rainlim = 5)
-#> Error in .calculate_leaf_wetness(wth, rhlim = 90, rainlim = 5): could not find function ".calculate_leaf_wetness"
 Rc_wet <- pmin(1, wet_hrs / 24)  # Linear interpolation
-#> Error: object 'wet_hrs' not found
 plot(wth$DOY, wet_hrs, type = "l", xlab = "Day of Year", ylab = "Wet-Hours")
-#> Error: object 'wet_hrs' not found
+
 
 # Example 4: Effect of rainfall
 # Create synthetic weather with same RH but varying rain
 wth_dry <- wth[RAIN < 2]
 wth_wet <- wth[RAIN >= 2]
 wet_dry <- .calculate_leaf_wetness(wth_dry, rhlim = 90, rainlim = 5)
-#> Error in .calculate_leaf_wetness(wth_dry, rhlim = 90, rainlim = 5): could not find function ".calculate_leaf_wetness"
 wet_rain <- .calculate_leaf_wetness(wth_wet, rhlim = 90, rainlim = 5)
-#> Error in .calculate_leaf_wetness(wth_wet, rhlim = 90, rainlim = 5): could not find function ".calculate_leaf_wetness"
 mean(wet_dry, na.rm = TRUE)  # Without rain
-#> Error: object 'wet_dry' not found
+#> [1] NaN
 mean(wet_rain, na.rm = TRUE) # With rain
-#> Error: object 'wet_rain' not found
+#> [1] 13.27273
 ```

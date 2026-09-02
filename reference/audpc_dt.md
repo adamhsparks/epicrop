@@ -132,13 +132,11 @@ results$AUDPC <- mapply(function(loc_name, em_date) {
 }, results$location, results$emergence)
 
 print(results)
-#> # Data frame like object (class data.frame) 3 x 4:
-#>  │location│emergence │AUDPC
-#>  │<chr>   │<chr>     │<dbl>
-#> 1│IRRI    │2000-06-30│   41
-#> 2│Manila  │2000-06-30│   41
-#> 3│IRRI    │2000-07-15│   38
-#> 4│Manila  │2000-07-15│   38
+#>   location  emergence    AUDPC
+#> 1     IRRI 2000-06-30 40.75393
+#> 2   Manila 2000-06-30 40.75393
+#> 3     IRRI 2000-07-15 37.65884
+#> 4   Manila 2000-07-15 37.65884
 # Identify highest risk scenario
 worst <- results[which.max(results$AUDPC), ]
 sprintf("Highest risk: %s, emergence %s, AUDPC = %.1f",

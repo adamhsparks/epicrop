@@ -278,7 +278,6 @@ DVS-based modeling accounts for developmental susceptibility.</p>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  RRLEX <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -399,7 +398,6 @@ DVS-based modeling accounts for developmental susceptibility.</p>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  RRLEX <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -454,14 +452,6 @@ wetness. Defaults to disease-specific value (typically 5).</p></dd>
 <dd><p>Additional parameters passed to <code><a href="seir.html">seir()</a></code>, allowing full
 customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 simple_wetness, etc.).</p></dd>
-
-
-<dt id="arg-rrlex">RRLEX<a class="anchor" aria-label="anchor" href="#arg-rrlex"></a></dt>
-<dd><p>Rate of lesion expansion (numeric, vector, or function).
-Allows direct H→I conversion bypassing the latent period. Can be:</p><ul><li><p>Scalar or vector: constant or age-dependent rate</p></li>
-<li><p>Function: <code>f(TEMP)</code> or <code>f(DVS)</code> for temperature/age-dependent expansion
-Set to 0 (default) for standard SEIR (no lesion expansion).</p></li>
-</ul></dd>
 
 </dl></div>
     <div class="section level2">

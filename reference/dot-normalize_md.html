@@ -75,7 +75,7 @@ dash or slash separator).</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">.normalize_md</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"6/30"</span>, <span class="st">"-6-30"</span>, <span class="st">"06-30"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .normalize_md(c("6/30", "-6-30", "06-30")):</span> could not find function ".normalize_md"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "06-30" "06-30" "06-30"</span>
 <span class="r-in"><span><span class="co"># [1] "06-30" "06-30" "06-30"</span></span></span>
 </code></pre></div>
     </div>

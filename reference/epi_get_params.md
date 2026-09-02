@@ -108,9 +108,18 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 ``` r
 # Example 1: Retrieve rice leaf blast parameters
 params_lb <- epi_get_params("rice", "leaf_blast")
-#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 str(params_lb)
-#> Error: object 'params_lb' not found
+#> List of 4
+#>  $ RcA: num [1:7, 1:2] 0 20 40 60 80 100 120 1 1 0.98 ...
+#>   ..- attr(*, "dimnames")=List of 2
+#>   .. ..$ : NULL
+#>   .. ..$ : chr [1:2] "x" "y"
+#>  $ RcT: num [1:5, 1:2] 15 20 25 30 35 0 0.5 1 0.6 0.2
+#>   ..- attr(*, "dimnames")=List of 2
+#>   .. ..$ : NULL
+#>   .. ..$ : chr [1:2] "x" "y"
+#>  $ RRG: num 0.1
+#>  $ RRS: num 0.01
 # List of 4
 # $ RcA : num [1:3, 1:2] 0 60 120 0.05 0.6 ...
 # $ RcT : num [1:5, 1:2] 15 20 25 30 35 ...
@@ -119,43 +128,54 @@ str(params_lb)
 
 # Example 2: Compare parameters across crop variants
 params_savary <- epi_get_params("rice", "leaf_blast")
-#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 params_kim <- epi_get_params("rice_modified_kim", "leaf_blast")
-#> Error in epi_get_params("rice_modified_kim", "leaf_blast"): could not find function "epi_get_params"
 
 # Check parameter differences
 cat("Savary RcOpt would use RcT:\n")
 #> Savary RcOpt would use RcT:
 print(params_savary$RcT)
-#> Error: object 'params_savary' not found
+#>       x   y
+#> [1,] 15 0.0
+#> [2,] 20 0.5
+#> [3,] 25 1.0
+#> [4,] 30 0.6
+#> [5,] 35 0.2
 cat("\nKim RcT:\n")
 #> 
 #> Kim RcT:
 print(params_kim$RcT)
-#> Error: object 'params_kim' not found
+#>       x   y
+#> [1,] 15 0.0
+#> [2,] 20 0.5
+#> [3,] 25 1.0
+#> [4,] 30 0.6
+#> [5,] 35 0.2
 
 # Example 3: Inspect wheat parameters
 wheat_stb <- epi_get_params("wheat", "s_tritici_blotch")
-#> Error in epi_get_params("wheat", "s_tritici_blotch"): could not find function "epi_get_params"
 cat("Wheat STB uses RRPSN for senescence:\n")
 #> Wheat STB uses RRPSN for senescence:
 print(wheat_stb$RRPSN)
-#> Error: object 'wheat_stb' not found
+#>        x    y
+#> [1,] 0.0 0.00
+#> [2,] 1.0 0.00
+#> [3,] 1.2 0.01
+#> [4,] 1.6 0.04
+#> [5,] 1.8 0.10
+#> [6,] 2.0 0.10
 
 # Example 4: List all available diseases for a crop
 rice_diseases <- names(.epi_params$rice)
-#> Error: object '.epi_params' not found
 cat("Rice diseases in database:\n")
 #> Rice diseases in database:
 print(rice_diseases)
-#> Error: object 'rice_diseases' not found
+#> [1] "bacterial_blight" "brown_spot"       "leaf_blast"       "sheath_blight"   
+#> [5] "tungro"          
 
 # Example 5: Programmatic parameter modification
 # Get defaults, then override
 params <- epi_get_params("rice", "sheath_blight")
-#> Error in epi_get_params("rice", "sheath_blight"): could not find function "epi_get_params"
 params$RRG <- 0.15  # Modify growth rate
-#> Error: object 'params' not found
 # Pass to seir() via disease function:
 # sim <- sheath_blight(wth, emergence, RRG = params$RRG)
 ```
