@@ -18,7 +18,7 @@ test_that("seir runs with minimal valid inputs", {
 
   expect_s3_class(result, "epicrop.sim")
   expect_s3_class(result, "data.table")
-  expect_equal(nrow(result), 120)
+  expect_identical(nrow(result), 120)
   expect_true(all(result$sites >= 0))
   expect_true(all(result$latent >= 0))
   expect_true(all(result$infectious >= 0))
@@ -61,7 +61,7 @@ test_that("seir output has correct structure", {
   )
 
   expect_true(all(expected_cols %in% names(result)))
-  expect_true(!is.null(attr(result, "AUDPC")))
+  expect_false(is.null(attr(result, "AUDPC")))
   expect_type(attr(result, "AUDPC"), "double")
 })
 

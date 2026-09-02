@@ -344,7 +344,7 @@ test_that(".assemble includes NA-AUDPC placeholder rows from NULL pieces", {
   res <- .assemble(pieces, output = "audpc")
 
   expect_true(anyNA(res$AUDPC))
-  expect_true(!all(is.na(res$AUDPC)))
+  expect_false(all(is.na(res$AUDPC)))
 })
 
 test_that(".assemble returns a single NA row when all audpc pieces are NULL", {
