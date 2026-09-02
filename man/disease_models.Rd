@@ -559,13 +559,6 @@ tg_sim <- tungro(
 plot(tg_sim$simday, tg_sim$intensity, type = "l",
      main = "Rice Tungro Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
-# Compare early vs. late planting (different vector phenology)
-tg_late <- tungro(
-  wth = wth,
-  emergence = "2000-07-30",
-  onset = 40  # Later vector arrival
-)
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Simulate using Kim et al. (2015) cultivar-adjusted parameters

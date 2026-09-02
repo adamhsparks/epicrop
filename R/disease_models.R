@@ -381,13 +381,6 @@ sheath_blight <- function(
 #'      main = "Rice Tungro Progression",
 #'      xlab = "Days After Emergence", ylab = "Disease Intensity")
 #'
-#' # Compare early vs. late planting (different vector phenology)
-#' tg_late <- tungro(
-#'   wth = wth,
-#'   emergence = "2000-07-30",
-#'   onset = 40  # Later vector arrival
-#' )
-#'
 tungro <- function(
   wth,
   emergence,
