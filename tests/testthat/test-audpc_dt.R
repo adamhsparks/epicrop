@@ -49,7 +49,7 @@ vcr::use_cassette("audpc_dt_tests", {
     expect_true("emergence" %in% names(result))
     expect_type(result$AUDPC, "double")
     expect_type(result$emergence, "character")
-    expect_equal(nrow(result), 1L)
+    expect_identical(nrow(result), 1L)
   })
 
   test_that("audpc_dt includes spatial columns when available", {
@@ -93,16 +93,16 @@ vcr::use_cassette("audpc_dt_tests", {
 
     audpc_idx <- which(actual_cols == "AUDPC")
     emerg_idx <- which(actual_cols == "emergence")
-    expect_true(audpc_idx < emerg_idx)
+    expect_lt(audpc_idx, emerg_idx)
 
     if ("lat" %in% actual_cols) {
       lat_idx <- which(actual_cols == "lat")
-      expect_true(lat_idx < audpc_idx)
+      expect_lt(lat_idx, audpc_idx)
     }
 
     if ("lon" %in% actual_cols) {
       lon_idx <- which(actual_cols == "lon")
-      expect_true(lon_idx < audpc_idx)
+      expect_lt(lon_idx, audpc_idx)
     }
   })
 
