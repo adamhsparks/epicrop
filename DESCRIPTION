@@ -51,6 +51,7 @@ Imports:
     nasapower (>= 4.0),
     rlang
 Suggests:
+    chirps,
     cropgrowdays,
     ggplot2,
     ggrepel,
