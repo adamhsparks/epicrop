@@ -1,9 +1,9 @@
 # Susceptible-Exposed-Infectious-Removed (SEIR) Model Framework with Lesion Expansion
 
-This function is originally used by specific disease models in ‘EPIRICE’
-and ‘EPIWHEAT’ to model disease intensity of several rice diseases and
-two wheat diseases respectively. Given proper values it can be used with
-other pathosystems as well.
+A dynamical systems model for plant disease epidemiology that tracks
+disease progression through latent, infectious, and removed stages.
+Supports flexible aging (day or development stage), lesion expansion,
+and hourly leaf wetness calculations.
 
 ## Usage
 
@@ -40,299 +40,378 @@ seir(
 
 - wth:
 
-  a `data.frame` of class `epicrop.wth` from either
+  A `data.frame` of class `epicrop.wth` from
   [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
   or
   [`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
-  containing weather on a daily time-step with the following field
-  names:
+  containing daily weather data with columns:
+
+  **Required Columns:**
+
+  |          |                                  |
+  |----------|----------------------------------|
+  | Column   | Description                      |
+  | YYYYMMDD | Date (ISO 8601: YYYYMMDD)        |
+  | DOY      | Day of year (1–366)              |
+  | TEMP     | Mean daily temperature (°C)      |
+  | RHUM     | Mean daily relative humidity (%) |
+  | RAIN     | Daily rainfall (mm)              |
+
+  **Optional Columns (for advanced features):**
 
   |  |  |
   |----|----|
-  | **Field Name** | **Value** |
-  | *YYYYMMDD* | Date as Year Month Day (ISO8601) |
-  | *DOY* | Consecutive day of year, commonly called "Julian date" |
-  | *TEMP* | Mean daily temperature (degrees C) |
-  | *RHUM* | Mean daily relative humidity (%) |
-  | *RAIN* | Mean daily rainfall (mm) |
-  | *TMIN* | **Optional** Minimum daily temperature (degrees C), see TMIN/TMAX details for more |
-  | *TMAX* | **Optional** Maximum daily temperature (degrees C), see TMIN/TMAX details for more |
-  | *LAT* | **Optional** latitude of weather observation, see LAT/LON details for more |
-  | *LON* | **Optional** longitude of weather observation, see LAT/LON details for more |
+  | Column | Purpose |
+  | TMIN | Minimum daily temperature (°C); required if `simple_wetness = FALSE` |
+  | TMAX | Maximum daily temperature (°C); required if `simple_wetness = FALSE` |
+  | LAT | Latitude; required if `simple_wetness = FALSE` |
+  | LON | Longitude; included in output if present |
 
 - emergence:
 
-  Expected date of plant emergence (or transplanting for rice) entered
-  in `YYYY-MM-DD` format (character).
+  Plant emergence (transplanting for rice) date in `YYYY-MM-DD` format
+  (character).
 
 - onset:
 
-  expected number of days until the onset of disease after emergence
-  date (day, integer). For this modern seir() variant onset is 1-indexed
-  (1 = emergence day). When comparing with legacy SEIR(), translate as
-  legacy_onset = onset - 1.
+  Days until disease onset **after emergence date** (1-indexed integer).
+  Value of 1 means disease begins on emergence day. When comparing with
+  legacy SEIR(), use `legacy_onset = onset - 1`.
 
 - duration:
 
-  simulation duration *i.e.*, growing season length (day, integer).
-  Described in Table 1 of Savary *et al.* 2012.
+  Growing season length / simulation duration (integer days). Table 1 in
+  Savary *et al.* (2012) discusses typical ranges per crop.
 
 - H0:
 
-  initial number of plant's healthy sites (integer). Described in Table
-  1 of Savary *et al.* 2012.
+  Initial healthy sites (integer). Starting condition for compartment H
+  at emergence. Typically 1000 or proportional to plant canopy size.
 
 - I0:
 
-  initial number of infective sites (scalar integer). Described in Table
-  1 of Savary *et al.* 2012. I0 is injected as new infections (become
-  infectious after `p` days).
+  Initial infective sites (integer). Inoculum at `onset` day. Becomes
+  infectious after `p` days.
 
 - RcA:
 
-  modifier for *Rc* (the basic infection rate corrected for removals)
-  for crop age as a numeric two-column matrix with the first column
-  being the crop age in days (0 to `duration-1`) or DVS (0 to 2) and the
-  second being the modifier (bounded by 0 and 1). Described in Tables 1
-  and 2 of Savary *et al.* 2012.
+  Age-based modifier for basic infection rate *Rc* (numeric matrix).
+  Two-column format:
+
+  - Column 1: crop age (days 0 to `duration-1` if `age_driver="day"`; or
+    DVS 0–2 if `age_driver="dvs"`)
+
+  - Column 2: modifier (0–1, bounded) Tables 1 and 2 in Savary *et al.*
+    (2012).
 
 - RcT:
 
-  modifier for *Rc* (the basic infection rate corrected for removals)
-  for temperature as a numeric two-column matrix with the first column
-  being temperature in degrees C and the second the modifier (bounded by
-  0 and 1). Described in Tables 1 and 2 of Savary *et al.* 2012.
+  Temperature modifier for *Rc* (numeric matrix). Two-column format:
+
+  - Column 1: temperature (°C)
+
+  - Column 2: modifier (0–1, bounded) Tables 1 and 2 in Savary *et al.*
+    (2012).
 
 - RcOpt:
 
-  potential basic infection rate corrected for removals (numeric).
-  Described in Table 1 of Savary *et al.* 2012. This value can be
-  modified to reflect crop cultivar resistance ratings as well, see Kim
-  \_et al. \_ 2015 for more details.
+  Potential infection rate (numeric scalar, unbounded). *Rc* corrected
+  for removals and optimal conditions. Can be modified to reflect
+  cultivar resistance (see Kim *et al.* 2015 for details).
 
 - p:
 
-  duration of latent period (day, integer or function of temperature).
-  Described in Table 1 of Savary *et al.* 2012.
+  Latent period duration (days). Can be:
+
+  - Integer: constant duration across growing season
+
+  - Numeric vector: interpolated against age values
+
+  - Function: `f(TEMP)` to calculate latent days based on daily
+    temperature Table 1 in Savary *et al.* (2012).
 
 - i:
 
-  duration of infectious period (day, integer or function of
-  temperature). Described in Table 1 of Savary *et al.* 2012.
+  Infectious period duration (days). Same flexibility as `p`. Table 1 in
+  Savary *et al.* (2012).
 
 - Sx:
 
-  maximum number of sites (integer). Described in Table 1 of Savary *et
-  al.* 2012.
+  Maximum number of sites per plant/unit canopy (integer). Carrying
+  capacity constraining growth. Table 1 in Savary *et al.* (2012).
 
 - a:
 
-  aggregation coefficient, values are from 1 to \>1 (numeric or function
-  of DVS). Described in Table 1 of Savary *et al.* 2012 and Table 1 of
-  Savary *et al.* 2015. See further details in ***a* - Aggregation**
-  section. Defaults to 1.
+  Aggregation coefficient (numeric, vector, or function). Controls
+  spatial aggregation of infection:
+
+  - `a = 1`: random infection (binomial); default
+
+  - `a > 1`: aggregated infection (negative binomial) See ***a* -
+    Aggregation Details** for full explanation. Can be interpolated
+    against age. Defaults to 1.
 
 - rhlim:
 
-  relative humidity value threshold to decide whether leaves are wet or
-  not (numeric). Described in Table 1 of Savary *et al.* 2012. Savary
-  *et al.* 2012 used `90`. Defaults to 90.
+  Relative humidity threshold (%) for leaf wetness (numeric). If
+  `RHUM >= rhlim` or `RAIN >= rainlim`, leaves are wet. Savary *et
+  al.* (2012) used 90. Defaults to 90.
 
 - rainlim:
 
-  rainfall amount (mm) threshold to decide whether leaves are wet or not
-  (numeric). Described in Table 1 of Savary *et al.* 2012. Savary *et
-  al.* 2012 used `5`. Defaults to 5.
+  Rainfall threshold (mm) for leaf wetness (numeric). If
+  `RAIN >= rainlim`, leaves are wet regardless of RH. Savary *et
+  al.* (2012) used 5. Defaults to 5.
 
 - RRS:
 
-  relative rate of physiological senescence (numeric, vector, or
-  function of DVS). Described in Table 1 of Savary *et al.* 2012.
+  Relative rate of physiological senescence (numeric, vector, or
+  function). Causes healthy sites to senesce independent of disease. Can
+  be:
+
+  - Scalar: constant rate (per day)
+
+  - Vector or matrix: interpolated against age or DVS
+
+  - Function: `f(DVS_or_days)` for dynamic senescence Table 1 in Savary
+    *et al.* (2012).
 
 - RRG:
 
-  relative rate of growth (numeric, vector, or function of time).
-  Described in Table 1 of Savary *et al.* 2012.
+  Relative rate of growth of healthy sites (numeric, vector, or
+  function). Can be:
+
+  - Scalar: constant growth rate
+
+  - Vector or matrix: interpolated against age or DVS
+
+  - Function: `f(time)` for flexible growth curves Table 1 in Savary *et
+    al.* (2012).
 
 - RcW:
 
-  Optional modifier for *Rc* to calculate leaf wetness effect from 1 if
-  wet to 0 if dry. This is a numeric two-column matrix with the first
-  column being hours (0 to 24) and the second the modifier (bounded by 0
-  and 1). Used when `simple_wetness = FALSE` (hourly/derived wetness).
-  If `NULL` (default), a linear relationship is used where 0 hours wet =
-  0 and 24 hours wet = 1. Ignored if `simple_wetness = TRUE`.
+  Optional modifier curve for leaf wetness effect (numeric matrix). Only
+  used when `simple_wetness = FALSE` (hourly wetness calculation).
+  Two-column format:
+
+  - Column 1: hours of wetness (0–24)
+
+  - Column 2: *Rc* modifier (0–1, bounded) If `NULL` (default), linear
+    relationship: 0 hrs → modifier 0; 24 hrs → 1. Ignored if
+    `simple_wetness = TRUE`.
 
 - RRLEX:
 
-  Rate of lesion expansion (scalar, vector, or function). Allows healthy
-  sites to be directly converted to infectious sites without passing
-  through latent stage. Set to 0 (default) for standard SEIR behavior.
+  Rate of lesion expansion (numeric, vector, or function). Allows direct
+  H→I conversion bypassing the latent period. Can be:
+
+  - Scalar or vector: constant or age-dependent rate
+
+  - Function: `f(TEMP)` or `f(DVS)` for temperature/age-dependent
+    expansion Set to 0 (default) for standard SEIR (no lesion
+    expansion).
 
 - simple_wetness:
 
-  Logical. If `TRUE` (default), uses binary wetness calculation (0 or 1)
-  based on `rhlim` and `rainlim` thresholds. If `FALSE`, uses hourly
-  wetness duration calculation (requires TMIN, TMAX, LAT, DOY in `wth`)
-  and applies `RcW` curve.
+  Logical. Leaf wetness calculation method:
+
+  - `TRUE` (default): Binary (0 or 1) based on `rhlim` and `rainlim`
+    thresholds
+
+  - `FALSE`: Hourly calculation (requires TMIN, TMAX, LAT, DOY in
+    `wth`); applies `RcW` curve to 0–24 hour range
 
 - weighted_wetness:
 
-  Logical. If `TRUE`, compute weighted hourly wetness (0 to 24); if
-  `FALSE`, count hours where hourly RH \>= rhlim (0 to 24). Only used
-  when `simple_wetness = FALSE`. Defaults to FALSE.
+  Logical. Only used when `simple_wetness = FALSE`.
+
+  - `FALSE` (default): Count hours where hourly RH ≥ `rhlim` (0–24)
+
+  - `TRUE`: Compute weighted average RH over 24-hour day Defaults to
+    FALSE.
 
 - age_driver:
 
-  Character. Use "day" (default, 0-indexed days from emergence) or "dvs"
-  (development stage 0-2) for age-based modifiers in `RcA`. When "dvs",
-  `thermal_time` parameter is required. Defaults to "day".
+  Character. Age variable for modifiers:
+
+  - `"day"` (default): 0-indexed days from emergence; `RcA` and `RRS`
+    are functions of days
+
+  - `"dvs"`: Development stage (0–2); `RcA` and `RRS` are functions of
+    DVS; requires `thermal_time` parameter
 
 - thermal_time:
 
-  List with `base_temp` (degrees C) and `gdd_to_maturity` (degrees C
-  days). Only required when `age_driver = "dvs"`. Determines how growing
-  degree days are accumulated and converted to development stage (DVS).
+  List with thermal accumulation parameters (required if
+  `age_driver = "dvs"`). Must contain:
+
+  - `base_temp`: Base temperature for GDD accumulation (°C)
+
+  - `gdd_to_maturity`: Growing degree-days to reach maturity (°C·days)
+    Internally computed as DVS = min(2, 2 × GDD / gdd_to_maturity).
 
 - infection_window:
 
-  Optional list defining DVS-based infection window:
+  Optional list restricting disease onset to a DVS window. Must contain:
 
-  - `dvs_start`: DVS when susceptibility begins
+  - `dvs_start`: DVS when susceptibility begins (0–2)
 
-  - `dvs_end`: DVS when susceptibility ends
+  - `dvs_end`: DVS when susceptibility ends (0–2)
 
-  - `base_temp`: Base temperature for GDD (optional, uses thermal_time
-    if present)
+  - `base_temp` (optional): Base temperature for GDD (overrides
+    `thermal_time` if present)
 
-  - `gdd_to_maturity`: GDD to maturity (optional, uses thermal_time if
-    present)
+  - `gdd_to_maturity` (optional): GDD to maturity (overrides
+    `thermal_time` if present) When set, *Rc* is multiplied by 0 outside
+    the window, preventing infection.
 
 ## Value
 
 A
 [`data.table::data.table()`](https://rdrr.io/pkg/data.table/man/data.table.html)
-object containing the following columns:
+object of class `epicrop.sim` with one row per day and columns:
 
-- simday:
+**State Variables** (compartment sizes at end of day):
 
-  Day of simulation (1-indexed, where 1 is the emergence date)
+- `simday`: Simulation day (1-indexed; 1 = emergence day)
 
-- dates:
+- `dates`: Calendar date (Date class)
 
-  Date of simulation (Date class)
+- `sites`: Healthy sites remaining
 
-- sites:
+- `latent`: Latent (E) sites
 
-  Total number of healthy sites present on day "x"
+- `infectious`: Infectious (I) sites
 
-- latent:
+- `removed`: Removed (R) sites
 
-  Number of latent sites present on day "x"
+- `senesced`: Senesced sites
 
-- infectious:
+**Flow Variables** (daily rate/change):
 
-  Number of infectious sites present on day "x"
+- `rateinf`: New infections (H→E) on this day
 
-- removed:
+- `rlex`: Lesion expansion (H→I directly) on this day
 
-  Number of removed sites present on day "x"
+- `rtransfer`: Transfer from latent to infectious (E→I) on this day
 
-- senesced:
+- `rremoved`: Transfer from infectious to removed (I→R) on this day
 
-  Number of senesced sites present on day "x"
+- `rgrowth`: Growth of healthy sites on this day
 
-- rateinf:
+- `rsenesced`: Senescence of healthy sites on this day
 
-  Rate of infection (new infections on day "x")
+**Derived Variables**:
 
-- rlex:
+- `diseased`: Total diseased sites (latent + infectious + removed)
 
-  Rate of lesion expansion (healthy sites converted to infectious via
-  direct expansion on day "x")
+- `intensity`: Proportion diseased = (latent + infectious) / (sites +
+  latent + infectious); excludes removed and senesced
 
-- rtransfer:
+- `lat`: Latitude (if provided by `wth`)
 
-  Rate of transfer from latent to infectious sites on day "x"
+- `lon`: Longitude (if provided by `wth`)
 
-- rremoved:
+**Area Under Disease Progress Curve (AUDPC):** Accessed via
+`attr(result, "AUDPC")`. Computed from `intensity` using the trapezoidal
+rule over all days.
 
-  Rate of removal from infectious to removed sites on day "x"
+## Details
 
-- rgrowth:
+This function originated from specific disease models in ‘EPIRICE’ and
+‘EPIWHEAT’ to model disease intensity of several rice diseases and two
+wheat diseases respectively. Given proper values it can be used with
+other pathosystems as well.
 
-  Rate of growth of healthy sites on day "x"
+## Model Structure
 
-- rsenesced:
+The model tracks five site compartments over time:
 
-  Rate of senescence of healthy sites on day "x"
+- **Healthy sites (H)**: Susceptible to infection
 
-- diseased:
+- **Latent sites (E)**: Infected but not yet infectious (duration = `p`
+  days)
 
-  Number of diseased (latent + infectious + removed) sites on day "x"
+- **Infectious sites (I)**: Can transmit infection (duration = `i` days)
 
-- intensity:
+- **Removed sites (R)**: Diseased but no longer infectious
 
-  Proportion of diseased sites (latent + infectious) per total living
-  sites (excludes removed and senesced) on day "x"
+- **Senesced sites (S)**: Physiologically dead
 
-- lat:
+Daily transitions are driven by:
 
-  Latitude value if provided by the `wth` object
+- Infection rate: `Rc × I × (1 - D/Sx)^a` (corrected for crowding &
+  aggregation)
 
-- lon:
+- Latency progression: E→I after `p` days
 
-  Longitude value if provided by the `wth` object
+- Recovery: I→R after `i` days
 
-The returned object also has an attribute `AUDPC` (accessed via
-`attr(result, "AUDPC")`) containing the area under the disease progress
-curve for the entire simulation, calculated using the trapezoidal rule.
+- Growth: H increases based on `RRG` (if room available)
 
-## Output Structure
+- Senescence: H and R decrease based on `RRS`
 
-The output is organized into three categories:
+- Lesion expansion (optional): H→I directly via `RRLEX`
 
-**State Variables** (stocks at end of each day):
+## Mass Balance
 
-- `sites`, `latent`, `infectious`, `removed`, `senesced`
+At any day, the constraint is:
 
-**Flow Variables** (rates/changes during each day):
+    sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t]
+      = H0 + cumulative_growth[t] - cumulative_senescence[t]
 
-- `rateinf`, `rlex`, `rtransfer`, `rremoved`, `rgrowth`, `rsenesced`
-
-**Derived Variables** (calculated from states):
-
-- `diseased`, `intensity`
-
-**Mass Balance:** At any day:
-`sites + latent + infectious + removed + senesced` should equal initial
-sites (H0) plus cumulative growth minus cumulative senescence
-(accounting for numerical precision).
+Accumulated growth is `sum(rgrowth)` and accumulated senescence is
+`sum(rsenesced)`. Small numerical deviations may occur due to
+floating-point arithmetic.
 
 ## *a* – Aggregation Details
 
-When *a* is set to `1` the assumption is that that there is no disease
-aggregation with new infections occurring at random among the healthy
-sites. When *a* is greater than `1` there is aggregation in the disease
-occurrence, the pathogen is unable to access the entire population of
-healthy sites, which results in disease aggregation. Refer to Savary *et
-al.* (2012) for greater detail.
+The infection rate is computed as:
+
+    new_infections = I × Rc × (1 - D/Sx)^a
+
+where D = diseased sites, Sx = carrying capacity, and `a` is the
+aggregation coefficient:
+
+- **a = 1** (random, binomial): Assumes pathogen can access all healthy
+  sites equally. Maximum infection rate per unit of disease.
+
+- **a \> 1** (aggregated, negative binomial): Pathogen cannot access all
+  healthy sites; infections cluster spatially. Reduces effective
+  infection rate. Refer to Savary *et al.* (2012) for biological
+  interpretation and fitting guidance.
 
 ## TMIN/TMAX Details
 
-If `simple_wetness` is set to `FALSE`, the function will use the `TMIN`
-and `TMAX` columns in the `wth` object to calculate the leaf wetness
-value for 24 hours of the day using the `rhlim` and `rainlim` values and
-then uses `RcW` to calculate a value between 0 and 1 for the whole day.
-When `simple_wetness` is set to `TRUE`, the function only sets the leaf
-wetness to 0 or 1 for the day based on the `rhlim` and `rainlim` values.
+When `simple_wetness = FALSE`, the function calculates hourly leaf
+wetness for 24 hours using `TMIN`, `TMAX`, `LAT`, and `DOY` in the `wth`
+object. The `rhlim` and `rainlim` thresholds determine wet hours. A
+leaf-wetness modifier (`RcW`) converts wet hours to a 0–1 *Rc* scale.
+
+When `simple_wetness = TRUE`, this calculation is skipped; leaf wetness
+is binary (0 or 1) based solely on daily `RHUM` and `RAIN`.
 
 ## LAT/LON Details
 
-If the `wth` object provides `LAT` and `LON` columns, these will be
-included in the output for mapping purposes. Both values must be
-present. These columns are provided by default when using
-[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
+If the `wth` object contains `LAT` and `LON` columns, they are appended
+to each row of the output for mapping or spatial analysis. Both must be
+present to be included. By default,
+[`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
+and
+[`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
+provide these.
+
+## Lesion Expansion Dynamics
+
+When `RRLEX > 0`, the model adds a direct pathway H→I, bypassing
+latency:
+
+    rlex[t] = RRLEX × I[t] × (1 - D/Sx)
+
+Lesion expansion is computed in a two-stage update to avoid circular
+dependency: (1) compute pre-expansion infectious sites, (2) compute
+rlex, (3) finalize infectious count. This ensures that *Rc*-driven
+infections and lesion expansion are properly sequenced.
 
 ## References
 
@@ -348,35 +427,130 @@ Plant Disease Epidemics*. American Phytopathological Society, St. Paul,
 MN. [doi:10.1094/9780890545058](https://doi.org/10.1094/9780890545058) .
 
 Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
-Modeling and mapping potential epidemics of rice diseases globally.
-*Crop Protection*, Volume 34, 2012, Pages 6-17, ISSN 0261-2194
+2012. Modeling and mapping potential epidemics of rice diseases
+globally. *Crop Protection*, 34, 6–17.
 [doi:10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009)
 .
 
+Kim, K.-S., A. H. Sparks, P. S. Neshev, S. Channing, P. S. Ojiambo, and
+K. A. Garrett. 2015. A narrative review of the efficacy of management
+strategies for bacterial spot of citrus. *Frontiers in Plant Science*,
+6, 1043.
+
 ## See also
 
-Disease-specific helper functions:
+**Disease-specific helper functions:**
 
-- [`bacterial_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+- [`bacterial_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Rice bacterial blight
 
-- [`brown_spot()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+- [`brown_spot()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Rice brown spot
 
-- [`leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+- [`leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Rice leaf blast
 
-- [`sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+- [`sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Rice sheath blight
 
-- [`tungro()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+- [`tungro()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Rice tungro
 
-- [`modified_kim_leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+- [`modified_kim_leaf_blast()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Cultivar-adjusted leaf blast
 
-- [`modified_kim_sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
+- [`modified_kim_sheath_blight()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Cultivar-adjusted sheath blight
 
-- [`leaf_rust()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md),
-  and
+- [`leaf_rust()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Wheat leaf rust
 
-- [`s_tritici_blotch()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md).
+- [`s_tritici_blotch()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
+  – Wheat septoria tritici blotch
+
+**Utilities:**
+
+- [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
+  – Fetch weather data
+
+- [`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
+  – Format weather data
 
 ## Author
 
-Adam H. Sparks, <adamhsparks@gmail.com> from original by Robert J.
-Hijmans, Rene Pangga and Jorrel Aunario.
+Adam H. Sparks, <adamhsparks@gmail.com> from original code by Robert J.
+Hijmans, Rene Pangga, and Jorrel Aunario.
+
+## Examples
+
+``` r
+# Create sample weather data
+wth <- get_wth(
+  lonlat = c(121.255669, 14.16742),
+  dates = "2000-06-30",
+  duration = 120L
+)
+
+# Run SEIR model with standard parameters (rice leaf blast example)
+res <- seir(
+  wth = wth,
+  emergence = "2000-06-30",
+  onset = 20,      # disease begins on day 20
+  duration = 120,  # 120-day growing season
+  H0 = 1000,       # 1000 initial healthy sites
+  I0 = 1,          # 1 initial infected site
+  RcA = rbind(c(0, 0.1), c(120, 0.1)),     # age modifier (constant 0.1)
+  RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25°C)
+  RcOpt = 0.5,     # infection rate optimum
+  p = 5,           # 5-day latent period
+  i = 10,          # 10-day infectious period
+  Sx = 10000,      # max 10,000 sites per plant
+  a = 1,           # random infection (no aggregation)
+  rhlim = 90,      # wetness threshold at 90% RH
+  rainlim = 5      # or 5mm rain
+)
+
+# Inspect results
+head(res)
+#>    simday      dates sites latent infectious removed senesced rateinf  rlex
+#>     <int>     <IDat> <num>  <num>      <num>   <num>    <num>   <num> <num>
+#> 1:      1 2000-06-30  1000      0          0       0        0       0     0
+#> 2:      2 2000-07-01  1000      0          0       0        0       0     0
+#> 3:      3 2000-07-02  1000      0          0       0        0       0     0
+#> 4:      4 2000-07-03  1000      0          0       0        0       0     0
+#> 5:      5 2000-07-04  1000      0          0       0        0       0     0
+#> 6:      6 2000-07-05  1000      0          0       0        0       0     0
+#>    rtransfer rremoved rgrowth rsenesced diseased intensity      lat      lon
+#>        <num>    <num>   <num>     <num>    <num>     <num>    <num>    <num>
+#> 1:         0        0       0         0        0         0 14.16742 121.2557
+#> 2:         0        0       0         0        0         0 14.16742 121.2557
+#> 3:         0        0       0         0        0         0 14.16742 121.2557
+#> 4:         0        0       0         0        0         0 14.16742 121.2557
+#> 5:         0        0       0         0        0         0 14.16742 121.2557
+#> 6:         0        0       0         0        0         0 14.16742 121.2557
+attr(res, "AUDPC")  # area under disease progress curve
+#> [1] 0.02033845
+
+# Example with lesion expansion (H→I bypass)
+res_lex <- seir(
+  wth = wth,
+  emergence = "2000-06-30",
+  onset = 20,
+  duration = 120,
+  H0 = 1000,
+  I0 = 1,
+  RcA = rbind(c(0, 0.1), c(120, 0.1)),
+  RcT = rbind(c(25, 1), c(30, 1)),
+  RcOpt = 0.5,
+  p = 5,
+  i = 10,
+  Sx = 10000,
+  RRLEX = 0.01     # lesion expansion rate (1% per infectious site per day)
+)
+
+# Compare disease intensity with and without lesion expansion
+plot(res$simday, res$intensity, type = "l", main = "SEIR Model Comparison")
+lines(res_lex$simday, res_lex$intensity, col = "red", lty = 2)
+legend("topright", c("Standard SEIR", "With Lesion Expansion"),
+       lty = c(1, 2), col = c("black", "red"))
+```

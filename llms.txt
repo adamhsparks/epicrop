@@ -276,9 +276,9 @@ using pre-defined models
 ## Helper Functions for Multiple Simulations
 
 - [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)
-  : Run an epicrop disease model across emergence dates and/or locations
+  : Run an epicrop Disease Model Across Emergence Dates and Locations
 - [`build_epicrop_emergence()`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)
-  : Build emergence dates from year × month_day combinations
+  : Build Emergence Dates from Year and Month-Day Combinations
 - [`audpc_dt()`](https://adamhsparks.codeberg.page/epicrop/reference/audpc_dt.md)
   : Extract AUDPC Summary as data.table
 
@@ -296,10 +296,9 @@ function that drives {epicrop}
 Functions for fetching and formatting weather data for use in {epicrop}
 
 - [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
-  : Get Weather Data for Modelling Disease
+  : Get Weather Data for Disease Modelling
 - [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
-  : Fetch weather once (single or multiple locations) and split by
-  calendar year
+  : Fetch Weather for One or More Locations and Split by Calendar Year
 - [`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
   : Format Weather Data for Use in seir() Simulations
 
@@ -308,7 +307,7 @@ Functions for fetching and formatting weather data for use in {epicrop}
 Other functions
 
 - [`get_audpc()`](https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.md)
-  : Get AUDPC from epicrop.sim Object
+  : Extract AUDPC Value from Disease Model Output
 
 # Articles
 

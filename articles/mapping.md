@@ -88,8 +88,7 @@ Mekong River Delta and Red River Delta in Vietnam; Prachin Buri,
 Thailand; Chennai, India and Nueva Ecija, in the Philippines. These data
 were obtained from the NASA Langley Research Center POWER Project funded
 through the NASA Earth Science Directorate Applied Science Program. Map
-base layer data is © OpenStreetMap
-contributors.](figure/map-AUDPC-1.png)
+base layer data is © OpenStreetMap contributors.](map-AUDPC-1.png)
 
 Rice bacterial blight area under the disease progress curve (AUDPC)
 values for an establishment date of June 30, 2000 at five locations,

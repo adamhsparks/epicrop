@@ -90,17 +90,58 @@ source bundle member.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function extracts location labels from the bundle's names (text before
-<code>"__"</code> delimiter) and generates default labels (<code>location01</code>, <code>location02</code>,
-etc.) for any unnamed or empty-named entries. Each bundled weather list is
-processed independently via <code><a href="run_epicrop_model.html">run_epicrop_model()</a></code>, then results are
-combined using <code><a href="https://rdrr.io/pkg/data.table/man/rbindlist.html" class="external-link">data.table::rbindlist()</a></code>.</p>
+    <p>The function extracts location labels from the bundle's names by taking the
+text before the <code>"__"</code> delimiter (used by <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code>).
+For unnamed or empty-named entries, generates default labels (<code>location01</code>,
+<code>location02</code>, etc.).</p>
+<p>Each bundled weather list is processed independently via <code><a href="run_epicrop_model.html">run_epicrop_model()</a></code>,
+then results are combined using <code><a href="https://rdrr.io/pkg/data.table/man/rbindlist.html" class="external-link">data.table::rbindlist()</a></code> with automatic
+column alignment.</p>
     </div>
+    <div class="section level2">
+    <h2 id="algorithm">Algorithm<a class="anchor" aria-label="anchor" href="#algorithm"></a></h2>
+
+
+<ol><li><p>Extract bundle member names; generate labels for unnamed entries</p></li>
+<li><p>For each bundle member (location or location-date):</p><ul><li><p>Call <code><a href="run_epicrop_model.html">run_epicrop_model()</a></code> with the sub-list</p></li>
+<li><p>Add a <code>location</code> column to the result</p></li>
+</ul></li>
+<li><p>Combine all results via <code><a href="https://rdrr.io/pkg/data.table/man/rbindlist.html" class="external-link">data.table::rbindlist()</a></code></p></li>
+</ol></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="run_epicrop_model.html">run_epicrop_model()</a></code>, <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Typically called indirectly via [run_epicrop_model()] when wth_list is</span></span></span>
+<span class="r-in"><span><span class="co"># an epicrop.wth.bundle, but can be called directly:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"Site1"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Site2"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.3</span>, <span class="fl">14.2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="fu"><a href="build_epicrop_emergence.html">build_epicrop_emergence</a></span><span class="op">(</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2003</span>, <span class="st">"-06-30"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wth_bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  lonlat <span class="op">=</span> <span class="va">locations</span>,</span></span>
+<span class="r-in"><span>  start_date <span class="op">=</span> <span class="st">"-06-30"</span>,</span></span>
+<span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120L</span>,</span></span>
+<span class="r-in"><span>  years <span class="op">=</span> <span class="fl">2001</span><span class="op">:</span><span class="fl">2003</span>,</span></span>
+<span class="r-in"><span>  mode <span class="op">=</span> <span class="st">"cross"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">.run_bundle</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">leaf_blast</span>,</span></span>
+<span class="r-in"><span>  <span class="va">emergence</span>,</span></span>
+<span class="r-in"><span>  <span class="va">wth_bundle</span>,</span></span>
+<span class="r-in"><span>  window_days <span class="op">=</span> <span class="fl">120L</span>,</span></span>
+<span class="r-in"><span>  output <span class="op">=</span> <span class="st">"audpc"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .run_bundle(leaf_blast, emergence, wth_bundle, window_days = 120L,     output = "audpc"):</span> could not find function ".run_bundle"</span>
+<span class="r-in"><span><span class="co"># Results now include a 'location' column</span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

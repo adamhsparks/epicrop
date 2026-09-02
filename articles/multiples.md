@@ -63,10 +63,12 @@ now to run
 for two seasons and create a single data frame of the two seasons.
 
 \
-`bb_2_seasons`` ``<-`` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(``model_fun ``=`` ``bacterial_blight``,`\
-`                                  emergence_dates ``=`` ``ymd``,`\
-`                                  wth_list ``=`` ``wth_list``,`\
-`                                  window_days ``=`` ``duration``)`\
+`bb_2_seasons`` ``<-`` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(`\
+`  model_fun ``=`` ``bacterial_blight``,`\
+`  emergence_dates ``=`` ``ymd``,`\
+`  wth_list ``=`` ``wth_list``,`\
+`  window_days ``=`` ``duration`\
+`)`\
 \
 `bb_2_seasons`\
 `#> Key: <emergence, AUDPC>`\
@@ -82,11 +84,8 @@ visualise the difference between the two seasons.
 
 \
 [`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
-[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``bb_2_seasons``,`\
-`       `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``y ``=`` `[`as.factor`](https://rdrr.io/r/base/factor.html)`(``emergence``)``,`\
-`           x ``=`` ``AUDPC``)``)`` ``+`\
-`  `[`geom_col`](https://ggplot2.tidyverse.org/reference/geom_bar.html)`(``width ``=`` ``0.5``,`\
-`           orientation ``=`` ``"y"``)`` ``+`\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``bb_2_seasons``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``y ``=`` `[`as.factor`](https://rdrr.io/r/base/factor.html)`(``emergence``)``, x ``=`` ``AUDPC``)``)`` ``+`\
+`  `[`geom_col`](https://ggplot2.tidyverse.org/reference/geom_bar.html)`(``width ``=`` ``0.5``, orientation ``=`` ``"y"``)`` ``+`\
 `  `[`ylab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"Emergence (YYYY-MM-DD)"``)`` ``+`\
 `  `[`xlab`](https://ggplot2.tidyverse.org/reference/labs.html)`(``"AUDPC"``)`` ``+`\
 `  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
@@ -116,17 +115,21 @@ is provided to simplify running multiple establishment dates.
 `emergence`` ``<-`` `[`build_epicrop_emergence`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)`(``years``, ``month_day``)`\
 \
 `# select 200 days duration to allow for multiple seasonal runs on same data`\
-`wth_list`` ``<-`` `[`fetch_epicrop_weather_list`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)`(``years ``=`` ``years``,`\
-`                                       lonlat ``=`` ``lonlat``,`\
-`                                       start_date ``=`` ``month_day``,`\
-`                                       duration ``=`` ``duration``)`
+`wth_list`` ``<-`` `[`fetch_epicrop_weather_list`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)`(`\
+`  years ``=`` ``years``,`\
+`  lonlat ``=`` ``lonlat``,`\
+`  start_date ``=`` ``month_day``,`\
+`  duration ``=`` ``duration`\
+`)`
 
 \
-` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(``bacterial_blight``,`\
-`                   ``emergence``,`\
-`                   ``wth_list``,`\
-`                   window_days ``=`` ``duration``,`\
-`                   output ``=`` ``"audpc"``)`\
+` `[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(`\
+`   ``bacterial_blight``,`\
+`   ``emergence``,`\
+`   ``wth_list``,`\
+`   window_days ``=`` ``duration``,`\
+`   output ``=`` ``"audpc"`\
+` ``)`\
 `#> Key: <emergence, AUDPC>`\
 `#>            emergence    AUDPC`\
 `#>     <epicrop.emerge>    <num>`\
@@ -221,18 +224,17 @@ with a 240 day growing season.
 `  duration ``=`` ``240L``,`\
 `  years ``=`` ``years``,`\
 `  mode ``=`` ``"cross"`\
-`  ``)`\
+`)`\
 \
-`emergence`` ``<-`` `[`build_epicrop_emergence`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)`(``years``, ``start_date``)`
-
-Examples of how to run the model sequentially and in parallel.
-
+`emergence`` ``<-`` `[`build_epicrop_emergence`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)`(``years``, ``start_date``)`\
 \
-[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(``s_tritici_blotch``,`\
-`                  ``emergence``,`\
-`                  ``wth_list``,`\
-`                  window_days ``=`` ``240L``,`\
-`                  output ``=`` ``"audpc"``)`\
+[`run_epicrop_model`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)`(`\
+`  ``s_tritici_blotch``,`\
+`  ``emergence``,`\
+`  ``wth_list``,`\
+`  window_days ``=`` ``240L``,`\
+`  output ``=`` ``"audpc"`\
+`)`\
 `#>            emergence     AUDPC location`\
 `#>     <epicrop.emerge>     <num>   <char>`\
 `#>  1:       2020-04-15  7.674841 Merredin`\

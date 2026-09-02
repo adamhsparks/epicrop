@@ -1,8 +1,8 @@
-# Fetch weather once (single or multiple locations) and split by calendar year
+# Fetch Weather for One or More Locations and Split by Calendar Year
 
-Retrieve one or more continuous blocks of weather for one or more
-locations from given start dates and durations, then split each result
-into a named list of per‑year tables. Each (location, start, duration)
+Retrieves one or more continuous blocks of weather data for one or more
+locations from given start dates and durations, then splits each result
+into a named list of per-year tables. Each (location, start, duration)
 result is an `epicrop.wth.list`. The top-level return is an
 `epicrop.wth.bundle` when multiple requests are processed, otherwise a
 single `epicrop.wth.list`.
@@ -24,16 +24,16 @@ fetch_epicrop_weather_list(
 
 - lonlat:
 
-  Numeric length‑2 vector `c(lon, lat)`, OR multiple locations as:
-  numeric vector of length `2n`, a 2‑column matrix/data.frame, or a list
-  of numeric length‑2 vectors.
+  Numeric length-2 vector `c(lon, lat)`, OR multiple locations as:
+  numeric vector of length `2n`, a 2-column matrix/data.frame, or a list
+  of numeric length-2 vectors.
 
 - start_date:
 
   A starting date (character `"YYYY-MM-DD"`,
   [Date](https://rdrr.io/r/base/Dates.html), or
   [data.table::IDate](https://rdrr.io/pkg/data.table/man/IDateTime.html))
-  **or** a month–day string like `"06-30"` (leading `"-"` optional) used
+  **or** a month-day string like `"06-30"` (leading `"-"` optional) used
   together with `years`.
 
 - duration:
@@ -44,7 +44,7 @@ fetch_epicrop_weather_list(
 - years:
 
   Optional integer vector of years. **Required** if `start_date`
-  contains any month–day values without a year.
+  contains any month-day values without a year.
 
 - mode:
 
@@ -65,25 +65,41 @@ fetch_epicrop_weather_list(
 - Otherwise: an `epicrop.wth.bundle` (a named list of
   `epicrop.wth.list`).
 
-## Details
+## Flexible Input Formats
 
-### Flexible inputs
+**Locations (`lonlat`):**
 
-- `lonlat`: a single numeric vector, `c(lon, lat)`; or multiple
-  locations as a numeric vector of length `2n`, or a 2‑column
-  matrix/data.frame, or a list of `list(c(lon, lat))`.
+- Single numeric vector: `c(lon, lat)`
 
-- `start_date`: a single `"YYYY-MM-DD"` (or `Date`/`IDate`), or a vector
-  of the same; or a month–day string like `"06-30"` or `"6-30"` (leading
-  `"-"` optional) provided together with `years`.
+- Multiple locations as: numeric vector of length `2n`, a 2-column
+  matrix/data.frame, or a list of `list(c(lon, lat))`
 
-- `duration`: single integer or a vector (recycled); interpreted as
-  inclusive days to fetch (`end = start + duration - 1`).
+**Start dates (`start_date`):**
 
-- `years`: only used when `start_date` lacks a year. We compute a
-  **cover window** per distinct month–day:
-  `start = min(paste(years, md))`,
-  `end = max(paste(years, md)) + (duration - 1)`.
+- Full ISO date: `"2000-06-30"` or `Date`/`IDate` object
+
+- Month-day string: `"06-30"`, `"6-30"`, `"-06-30"` (with `years`
+  parameter)
+
+- Vector of dates (recycled in pairwise mode or crossed in cross mode)
+
+**Duration:**
+
+- Single integer or vector (recycled)
+
+- Interpreted as inclusive days: `end = start + duration - 1`
+
+**Years (optional):**
+
+- Only used when `start_date` contains month-day values without a year
+
+- Computes a **cover window** per distinct month-day:
+
+  - `start = min(paste(years, md))`
+
+  - `end = max(paste(years, md)) + (duration - 1)`
+
+- Enables efficient API calls: fetching once per year for multiple dates
 
 ## Author
 
@@ -92,7 +108,7 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 ## Examples
 
 ``` r
-# Single location, month-day start date (any of "6/30", "-06-30", "06-30")
+# Single location, month-day start date
 w1 <- fetch_epicrop_weather_list(
   lonlat     = c(121.255669, 14.16742),
   start_date = "6/30",
@@ -107,7 +123,7 @@ w2 <- fetch_epicrop_weather_list(
   duration   = 120L
 )
 
-# Multiple locations × multiple dates (cross mode), mixed inputs
+# Multiple locations × multiple dates (cross mode)
 locations <- rbind(
   "IRRI_ZES" = c(121.255669, 14.16742),
   "Metro_Manila" = c(120.985, 14.6042)
@@ -120,13 +136,11 @@ w3 <- fetch_epicrop_weather_list(
   mode       = "cross"
 )
 
-# Multiple start dates for same location across years (efficient API calls)
+# Multiple start dates for same location (efficient: 3 API calls, 1 per year)
 w4 <- fetch_epicrop_weather_list(
   lonlat     = c(121.255669, 14.16742),
   start_date = c("-06-01", "-06-14", "-06-30"),
   duration   = 90L,
   years      = 2001:2003
 )
-# This makes only 3 API calls (one per year), fetching from earliest to
-# latest start date + duration
 ```
