@@ -30,11 +30,11 @@ Computes linear interpolation between consecutive x-y points:
 \eqn{y_interp = y[i] + w * (y[i+1] - y[i])}
 where \eqn{w = (x - x[i]) / (x[i+1] - x[i])}
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{
 Boundary handling:
-* `x < min(x_vec)`: \eqn{y = y[1]}
-* `x > max(x_vec)`: \eqn{y = y[n]}
-}\if{html}{\out{</div>}}
+\itemize{
+\item \code{x < min(x_vec)}: \eqn{y = y[1]}
+\item \code{x > max(x_vec)}: \eqn{y = y[n]}
+}
 }
 
 \keyword{internal}

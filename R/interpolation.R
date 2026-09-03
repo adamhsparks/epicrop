@@ -481,7 +481,6 @@
 #'
 #' \eqn{y_interp = y[i] + w * (y[i+1] - y[i])}
 #' where \eqn{w = (x - x[i]) / (x[i+1] - x[i])}
-#' ```
 #'
 #' Boundary handling:
 #' * `x < min(x_vec)`: \eqn{y = y[1]}
