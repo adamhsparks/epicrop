@@ -355,23 +355,17 @@ Daily transitions are driven by:
 
 ## Mass Balance
 
-At any day, the constraint is:
-
-    sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t]
-      = H0 + cumulative_growth[t] - cumulative_senescence[t]
-
-Accumulated growth is `sum(rgrowth)` and accumulated senescence is
-`sum(rsenesced)`. Small numerical deviations may occur due to
-floating-point arithmetic.
+At any day, the constraint is: \\sites\[t\] + latent\[t\] +
+infectious\[t\] + removed\[t\] + senesced\[t\] = H0 +
+cumulative_growth\[t\] - cumulative_senescence\[t\]\\ Accumulated growth
+is `sum(rgrowth)` and accumulated senescence is `sum(rsenesced)`. Small
+numerical deviations may occur due to floating-point arithmetic.
 
 ## *a* – Aggregation Details
 
-The infection rate is computed as:
-
-    new_infections = I × Rc × (1 - D/Sx)^a
-
-where D = diseased sites, Sx = carrying capacity, and `a` is the
-aggregation coefficient:
+The infection rate is computed as: \\new_infections = I × Rc × (1 -
+D/Sx)^a\\ where D = diseased sites, Sx = carrying capacity, and `a` is
+the aggregation coefficient:
 
 - **a = 1** (random, binomial): Assumes pathogen can access all healthy
   sites equally. Maximum infection rate per unit of disease.

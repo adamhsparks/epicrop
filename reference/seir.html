@@ -314,10 +314,10 @@ pathosystems as well.</p>
 
 
 
-<p>At any day, the constraint is:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>sites[t] <span class="sc">+</span> latent[t] <span class="sc">+</span> infectious[t] <span class="sc">+</span> removed[t] <span class="sc">+</span> senesced[t]</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="ot">=</span> H0 <span class="sc">+</span> cumulative_growth[t] <span class="sc">-</span> cumulative_senescence[t]</span></code></pre><p></p></div>
-<p>Accumulated growth is <code>sum(rgrowth)</code> and accumulated senescence is
+<p>At any day, the constraint is:
+\(sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t]
+  = H0 + cumulative_growth[t] - cumulative_senescence[t]\)
+Accumulated growth is <code>sum(rgrowth)</code> and accumulated senescence is
 <code>sum(rsenesced)</code>. Small numerical deviations may occur due to floating-point
 arithmetic.</p>
     </div>
@@ -326,9 +326,9 @@ arithmetic.</p>
 
 
 
-<p>The infection rate is computed as:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>new_infections <span class="ot">=</span> I × Rc × (<span class="dv">1</span> <span class="sc">-</span> D<span class="sc">/</span>Sx)<span class="sc">^</span>a</span></code></pre><p></p></div>
-<p>where D = diseased sites, Sx = carrying capacity, and <code>a</code> is the aggregation
+<p>The infection rate is computed as:
+\(new_infections = I × Rc × (1 - D/Sx)^a\)
+where D = diseased sites, Sx = carrying capacity, and <code>a</code> is the aggregation
 coefficient:</p><ul><li><p><strong>a = 1</strong> (random, binomial): Assumes pathogen can access all healthy sites
 equally. Maximum infection rate per unit of disease.</p></li>
 <li><p><strong>a &gt; 1</strong> (aggregated, negative binomial): Pathogen cannot access all
