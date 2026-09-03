@@ -265,36 +265,29 @@ results <- run_epicrop_model(
   wth_list = wth_list,
   output = "audpc"
 )
-#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 print(results)  # AUDPC for each emergence date
-#> ── Package Doctor - Diagnosis Summary ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-#> Patient: reference
-#> Examined: 2026-09-03 12:57:30.581681
-#> Doctor version: 0.1.0
-#> 
-#> CODE ISSUES: HEALTHY
-#> DESCRIPTION ISSUES: 1 failing check
-#> DOCUMENTATION ISSUES: 1 failing check
-#> GENERAL ISSUES: HEALTHY
-#> POLICY ISSUES: HEALTHY
-#> 
-#> ! Overall health: NEEDS ATTENTION (25 issues)
-#> Run `summary()`, `issues()`, or `prescribe()` for details
+#> Key: <emergence, AUDPC>
+#>           emergence    AUDPC
+#>    <epicrop.emerge>    <num>
+#> 1:       2000-06-30 39.08646
+#> 2:       2000-07-15 37.25022
+#> 3:       2001-06-30 38.98097
+#> 4:       2001-07-15 42.57670
+#> 5:       2002-06-30 38.30150
+#> 6:       2002-07-15 39.27781
 
 # Example 6: Subset and filter emergence dates
 em <- build_epicrop_emergence(2000:2002, c("-06-01", "-07-01"))
 
 # Keep only June plantings
 june_only <- em[month(em) == 6]
-#> Error in month(em): could not find function "month"
 print(june_only)
-#> Error: object 'june_only' not found
+#> [1] "2000-06-01" "2001-06-01" "2002-06-01"
 
 # Keep only 2001 plantings
 y2001 <- em[year(em) == 2001]
-#> Error in year(em): could not find function "year"
 print(y2001)
-#> Error: object 'y2001' not found
+#> [1] "2001-06-01" "2001-07-01"
 
 # Example 7: Error handling
 if (FALSE) { # \dontrun{

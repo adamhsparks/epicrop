@@ -228,7 +228,6 @@ head(wth)
 #> 6: 121.2556
 # Ready for use in disease models
 sim <- bacterial_blight(wth, emergence = "2000-07-01")
-#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 
 # Example 2: Minimal data (no lat/lon, no TMIN/TMAX)
 # Only requires temp, rhum, rain (simple_wetness = TRUE)
@@ -249,7 +248,7 @@ wth_fmt <- format_wth(
 
 # Simulate with binary wetness (no hourly calculation)
 sim <- leaf_blast(wth_fmt, emergence = "2000-07-01", simple_wetness = TRUE)
-#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
+#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "simple_wetness" matched by multiple actual arguments
 
 # Example 3: Integer date format (YYYYMMDD)
 wth_int_date <- data.frame(
@@ -280,7 +279,6 @@ wth_full <- get_wth(
 
 # Subset to June-July only
 wth_subset <- wth_full[month(YYYYMMDD) %in% 6:7]
-#> Error in month(YYYYMMDD): could not find function "month"
 
 # Re-validate formatting
 wth_check <- format_wth(
@@ -294,7 +292,8 @@ wth_check <- format_wth(
   lat = "LAT",
   lon = "LON"
 )
-#> Error: object 'wth_subset' not found
+#> Warning: `wth` is already an <epicrop.wth> object.
+#> ℹ No formatting is necessary; returning as-is.
 
 # Example 5: Error handling - demonstrating validation
 # This will fail (missing column)

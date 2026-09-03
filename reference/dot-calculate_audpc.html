@@ -126,12 +126,11 @@ Disease Epidemics</em>. American Phytopathological Society, St. Paul, MN.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Run bacterial blight model</span></span></span>
 <span class="r-in"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-06-30"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "bacterial_blight"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate AUDPC from intensity vector (already in object attribute)</span></span></span>
 <span class="r-in"><span><span class="va">audpc_value</span> <span class="op">&lt;-</span> <span class="fu">.calculate_audpc</span><span class="op">(</span>intensity <span class="op">=</span> <span class="va">bb_sim</span><span class="op">$</span><span class="va">intensity</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">audpc_value</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 37.56589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 37.74063</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compare with automatic calculation via get_audpc()</span></span></span>
 <span class="r-in"><span><span class="va">audpc_attr</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_audpc.html">get_audpc</a></span><span class="op">(</span><span class="va">bb_sim</span><span class="op">)</span></span></span>
@@ -162,19 +161,17 @@ Disease Epidemics</em>. American Phytopathological Society, St. Paul, MN.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Susceptible cultivar (default parameters)</span></span></span>
 <span class="r-in"><span><span class="va">susceptible</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">leaf_blast</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-06-30"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "leaf_blast"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span><span class="va">audpc_sus</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_audpc.html">get_audpc</a></span><span class="op">(</span><span class="va">susceptible</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'susceptible' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Resistant cultivar (lower infection rate)</span></span></span>
 <span class="r-in"><span><span class="va">resistant</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">leaf_blast</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-06-30"</span>, RcOpt <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "leaf_blast"):</span> could not find function "epi_get_params"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...):</span> formal argument "RcOpt" matched by multiple actual arguments</span>
 <span class="r-in"><span><span class="va">audpc_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_audpc.html">get_audpc</a></span><span class="op">(</span><span class="va">resistant</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'resistant' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate resistance benefit</span></span></span>
 <span class="r-in"><span><span class="va">reduction</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">audpc_sus</span> <span class="op">-</span> <span class="va">audpc_res</span><span class="op">)</span> <span class="op">/</span> <span class="va">audpc_sus</span> <span class="op">*</span> <span class="fl">100</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'audpc_sus' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'audpc_res' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Resistant cultivar reduces AUDPC by %.1f%%"</span>, <span class="va">reduction</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'reduction' not found</span>
 </code></pre></div>

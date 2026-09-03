@@ -63,11 +63,9 @@ wth <- get_wth(
 )
 
 sim <- bacterial_blight(wth, emergence = "2000-06-30")
-#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 audpc <- get_audpc(sim)
-#> Error: object 'sim' not found
 print(paste("Bacterial blight AUDPC:", round(audpc, 2)))
-#> Error: object 'audpc' not found
+#> [1] "Bacterial blight AUDPC: 37.74"
 
 # Example 2: Compare AUDPC across multiple diseases
 diseases <- list(
@@ -76,20 +74,21 @@ diseases <- list(
   lb = leaf_blast(wth, emergence = "2000-06-30"),
   sb = sheath_blight(wth, emergence = "2000-06-30")
 )
-#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 
 audpc_values <- data.frame(
   disease = names(diseases),
   AUDPC = sapply(diseases, get_audpc)
 )
-#> Error: object 'diseases' not found
 print(audpc_values)
-#> Error: object 'audpc_values' not found
+#>    disease      AUDPC
+#> bb      bb 37.7406263
+#> bs      bs  0.9795647
+#> lb      lb 40.7539326
+#> sb      sb 29.0220116
 # Identify most damaging disease
 worst <- audpc_values[which.max(audpc_values$AUDPC), ]
-#> Error: object 'audpc_values' not found
 print(paste("Most severe:", worst$disease, "AUDPC =", round(worst$AUDPC, 1)))
-#> Error: object 'worst' not found
+#> [1] "Most severe: lb AUDPC = 40.8"
 
 # Example 3: Use in analysis pipeline
 locations <- list(
@@ -102,8 +101,8 @@ audpc_by_location <- sapply(locations, function(lonlat) {
   sim <- leaf_blast(wth, emergence = "2000-06-30")
   get_audpc(sim)
 })
-#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 print(audpc_by_location)
-#> Error: object 'audpc_by_location' not found
+#>     IRRI   Manila 
+#> 40.75393 40.75393 
 ```

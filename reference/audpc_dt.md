@@ -84,11 +84,12 @@ wth <- get_wth(
 )
 
 sim <- bacterial_blight(wth, emergence = "2000-06-30")
-#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 summary_table <- audpc_dt(sim)
-#> Error: object 'sim' not found
 print(summary_table)
-#> Error: object 'summary_table' not found
+#> Key: <emergence>
+#>        lat      lon    AUDPC  emergence
+#>      <num>    <num>    <num>     <char>
+#> 1: 14.6774 121.2556 37.74063 2000-06-30
 # Output includes lat, lon, AUDPC, emergence
 
 # Example 2: Batch summarize multiple emergence dates
@@ -97,11 +98,12 @@ summaries <- lapply(emergence_dates, function(ed) {
   sim <- bacterial_blight(wth, emergence = as.character(ed))
   audpc_dt(sim)
 })
-#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Emergence date not found in weather data
+#> ✖ Emergence 2000-06-15 not in range 2000-06-30--2000-10-28
 summary_all <- data.table::rbindlist(summaries)
 #> Error: object 'summaries' not found
 print(summary_all)
-#> Error: object 'summary_all' not found
+#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'print': object 'summary_all' not found
 
 # Example 3: Compare multiple locations and emergence dates
 locations <- data.frame(
@@ -128,21 +130,18 @@ results$AUDPC <- mapply(function(loc_name, em_date) {
   sim <- leaf_blast(wth, emergence = em_date)
   get_audpc(sim)
 }, results$location, results$emergence)
-#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 print(results)
-#> # Data frame like object (class data.frame) 2 x 4:
-#>  │location│emergence 
-#>  │<chr>   │<chr>     
-#> 1│IRRI    │2000-06-30
-#> 2│Manila  │2000-06-30
-#> 3│IRRI    │2000-07-15
-#> 4│Manila  │2000-07-15
+#>   location  emergence    AUDPC
+#> 1     IRRI 2000-06-30 40.75393
+#> 2   Manila 2000-06-30 40.75393
+#> 3     IRRI 2000-07-15 37.65884
+#> 4   Manila 2000-07-15 37.65884
 # Identify highest risk scenario
 worst <- results[which.max(results$AUDPC), ]
 sprintf("Highest risk: %s, emergence %s, AUDPC = %.1f",
         worst$location, worst$emergence, worst$AUDPC)
-#> character(0)
+#> [1] "Highest risk: IRRI, emergence 2000-06-30, AUDPC = 40.8"
 
 # Example 4: Export for mapping or further analysis
 wth <- get_wth(
@@ -151,7 +150,5 @@ wth <- get_wth(
   duration = 120L
 )
 sim <- brown_spot(wth, emergence = "2000-06-30")
-#> Error in epi_get_params("rice", "brown_spot"): could not find function "epi_get_params"
 summary_dt <- audpc_dt(sim)
-#> Error: object 'sim' not found
 ```
