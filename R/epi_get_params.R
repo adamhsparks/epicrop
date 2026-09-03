@@ -72,7 +72,7 @@
 #'
 #' @examplesIf interactive()
 #' # Example 1: Retrieve rice leaf blast parameters
-#' params_lb <- epi_get_params("rice", "leaf_blast")
+#' params_lb <- .epi_get_params("rice", "leaf_blast")
 #' str(params_lb)
 #' # List of 4
 #' # $ RcA : num [1:3, 1:2] 0 60 120 0.05 0.6 ...
@@ -81,8 +81,8 @@
 #' # $ RRS : num 0.01
 #'
 #' # Example 2: Compare parameters across crop variants
-#' params_savary <- epi_get_params("rice", "leaf_blast")
-#' params_kim <- epi_get_params("rice_modified_kim", "leaf_blast")
+#' params_savary <- .epi_get_params("rice", "leaf_blast")
+#' params_kim <- .epi_get_params("rice_modified_kim", "leaf_blast")
 #'
 #' # Check parameter differences
 #' cat("Savary RcOpt would use RcT:\n")
@@ -91,7 +91,7 @@
 #' print(params_kim$RcT)
 #'
 #' # Example 3: Inspect wheat parameters
-#' wheat_stb <- epi_get_params("wheat", "s_tritici_blotch")
+#' wheat_stb <- .epi_get_params("wheat", "s_tritici_blotch")
 #' cat("Wheat STB uses RRPSN for senescence:\n")
 #' print(wheat_stb$RRPSN)
 #'
@@ -102,7 +102,7 @@
 #'
 #' # Example 5: Programmatic parameter modification
 #' # Get defaults, then override
-#' params <- epi_get_params("rice", "sheath_blight")
+#' params <- .epi_get_params("rice", "sheath_blight")
 #' params$RRG <- 0.15  # Modify growth rate
 #' # Pass to seir() via disease function:
 #' # sim <- sheath_blight(wth, emergence, RRG = params$RRG)
