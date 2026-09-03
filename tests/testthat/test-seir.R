@@ -87,7 +87,7 @@ test_that("seir handles functions for p and i", {
   )
 
   expect_s3_class(result, "epicrop.sim")
-  expect_equal(nrow(result), 120)
+  expect_identical(nrow(result), 120L)
 })
 
 test_that("seir handles RRS and RRG parameters", {
@@ -198,7 +198,7 @@ test_that("seir handles simple_wetness = FALSE", {
   )
 
   expect_s3_class(result, "epicrop.sim")
-  expect_equal(nrow(result), 120)
+  expect_identical(nrow(result), 120L)
 })
 
 test_that("seir handles RcW parameter", {
@@ -534,7 +534,7 @@ test_that("seir calculates diseased correctly", {
   )
 
   expected_diseased <- result$latent + result$infectious + result$removed
-  expect_equal(result$diseased, expected_diseased)
+  expect_identical(result$diseased, expected_diseased)
 })
 
 test_that("seir calculates intensity correctly", {
@@ -562,7 +562,7 @@ test_that("seir calculates intensity correctly", {
     0
   )
 
-  expect_equal(result$intensity, expected_intensity)
+  expect_identical(result$intensity, expected_intensity)
 })
 
 test_that(".calculate_dvs works correctly", {
@@ -661,10 +661,10 @@ test_that("seir accepts onset at the first and last day of the simulation", {
   )
 
   first <- rlang::exec(seir, !!!args, onset = 1)
-  expect_equal(first$rateinf[1], 1)
+  expect_identical(first$rateinf[1], 1)
 
   last <- rlang::exec(seir, !!!args, onset = 120)
-  expect_equal(last$rateinf[120], 1)
+  expect_identical(last$rateinf[120], 1)
 })
 
 # ---- duration warning boundary ---------------------------------------------
@@ -880,7 +880,7 @@ test_that("seir ignores weighted_wetness when simple_wetness = TRUE", {
 
 test_that("seir accepts p and i as vectors matching duration", {
   wth <- wth_formatted
-  duration <- 120
+  duration <- 120L
 
   result <- seir(
     wth = wth,
@@ -898,7 +898,7 @@ test_that("seir accepts p and i as vectors matching duration", {
   )
 
   expect_s3_class(result, "epicrop.sim")
-  expect_equal(nrow(result), duration)
+  expect_identical(nrow(result), duration)
 })
 
 test_that("seir errors when p/i vector length does not match duration", {
@@ -1180,7 +1180,7 @@ test_that("seir sites obey the exact rate equation (no lesion expansion)", {
         result$rateinf[t - 1] -
         result$rsenesced[t - 1]
     )
-    expect_equal(result$sites[t], expected_sites, tolerance = 1e-8)
+    expect_identical(result$sites[t], expected_sites, tolerance = 1e-8)
   }
 })
 
@@ -1214,6 +1214,6 @@ test_that("seir sites obey the exact rate equation (with lesion expansion)", {
         result$rsenesced[t - 1] -
         result$rlex[t - 1]
     )
-    expect_equal(result$sites[t], expected_sites, tolerance = 1e-8)
+    expect_identical(result$sites[t], expected_sites, tolerance = 1e-8)
   }
 })

@@ -8,7 +8,7 @@ test_that(".calculate_audpc handles edge cases", {
   expect_true(is.finite(result))
 
   # All zeros
-  expect_equal(.calculate_audpc(rep(0, 10)), 0)
+  expect_identical(.calculate_audpc(rep(0, 10)), 0)
 
   # Constant intensity
   result <- .calculate_audpc(rep(0.5, 10))
@@ -17,7 +17,7 @@ test_that(".calculate_audpc handles edge cases", {
 
   # Increasing intensity
   result <- .calculate_audpc(seq(0, 1, length.out = 10))
-  expect_equal(result, 4.5)
+  expect_identical(result, 4.5)
   expect_true(is.finite(result))
 })
 
@@ -36,7 +36,7 @@ test_that(".calculate_audpc uses trapezoidal rule correctly", {
   # Day 2: (0.5 + 1)/2 = 0.75
   # Total: 1.0
   result <- .calculate_audpc(c(0, 0.5, 1))
-  expect_equal(result, 1.0)
+  expect_identical(result, 1.0)
 })
 
 test_that("AUDPC calculation handles minimal simulations", {
