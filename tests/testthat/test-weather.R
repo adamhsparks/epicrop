@@ -130,6 +130,6 @@ test_that("format_wth accepts consecutive daily data", {
   )
 
   expect_s3_class(result, "epicrop.wth")
-  expect_equal(nrow(result), 30)
+  expect_identical(nrow(result), 30L)
   expect_true(all(diff(result$YYYYMMDD) == 1))
 })
