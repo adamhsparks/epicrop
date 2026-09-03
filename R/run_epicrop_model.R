@@ -525,86 +525,11 @@ run_epicrop_model <- function(
   }
 }
 
-#' Run Model for a Single Emergence Date
-#'
-#' Internal workhorse that executes a disease model for one emergence date,
-#' slices weather data as needed, and returns results (AUDPC or full).
-#'
-#' @section Logic:
-#'
-#' 1. Slice weather via [.slice_weather()]
-#' 2. If no weather found, return NA (AUDPC) or NULL (full)
-#' 3. Otherwise, invoke model with sliced weather + forwarded arguments
-#' 4. Extract AUDPC attribute and return in requested format
-#'
-#' @param ed Emergence date (IDate).
-#' @param model_fun Function. Disease model to run.
-#' @param wth_list Named list of weather tables.
-#' @param window_days Integer. Days to fetch.
-#' @param dots List of arguments to forward to `model_fun` (from `...`).
-#' @param output Character. `"audpc"` or `"full"`.
-#'
-#' @returns A [data.table::data.table]:
-#' * If `output = "audpc"`: one row with `emergence` and `AUDPC`
-#' * If `output = "full"`: full model output (one row per day) plus `emergence`
-#'   and `AUDPC` columns
-#' * NULL if weather data are insufficient (full output only)
-#'
-#' @autoglobal
-#' @dev
-.run_one <- function(
-  ed,
-  model_fun,
-  wth_list,
-  window_days,
-  dots,
-  output
-) {
-  w_sub <- .slice_weather(ed, wth_list, window_days)
-
-  if (is.null(w_sub)) {
-    return(
-      if (output == "audpc") {
-        data.table::data.table(
-          emergence = ed,
-          AUDPC = NA_real_
-        )
-      } else {
-        NULL
-      }
-    )
-  }
-
-  result <- rlang::exec(
-    model_fun,
-    wth = data.table::copy(w_sub),
-    emergence = ed,
-    !!!dots
-  )
-
-  audpc <- attr(result, "AUDPC", exact = TRUE)
-
-  if (output == "audpc") {
-    return(data.table::data.table(
-      emergence = ed,
-      AUDPC = audpc
-    ))
-  }
-
-  result <- data.table::copy(result)
-  result[, `:=`(
-    emergence = ed,
-    AUDPC = audpc
-  )]
-
-  result[]
-}
-
 #' Assemble Results from Multiple Runs
 #'
-#' Combines results from [.run_one()] across all emergence dates into a single
-#' output table. Handles NULL entries, deduplication (AUDPC mode), and class
-#' assignment.
+#' Combines results from multiple model runs across all emergence dates into a
+#' single output table. Handles `NULL` entries, deduplication (AUDPC mode), and
+#' class assignment.
 #'
 #' @section Logic:
 #'
@@ -618,10 +543,11 @@ run_epicrop_model <- function(
 #' * Filters out NULL entries (failed runs due to missing weather)
 #' * Sets class to `epicrop.sim` for S3 methods
 #'
-#' @param pieces List of [data.table::data.table]s from [.run_one()].
+#' @param pieces List of [data.table::data.table]s.
 #' @param output Character. `"audpc"` or `"full"`.
 #'
-#' @returns A [data.table::data.table] (or empty template if all pieces are NULL).
+#' @returns A [data.table::data.table] (or empty template if all pieces are
+#'  `NULL`).
 #'
 #' @autoglobal
 #' @dev
