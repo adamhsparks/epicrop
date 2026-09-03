@@ -5,7 +5,7 @@
 #' from published epidemiological studies, allowing one-line disease simulations.
 #'
 #' All functions support parameter override via `...` arguments, enabling
-#' sensitivity analysis and custom cultivar/environment modeling.
+#' sensitivity analysis and custom cultivar/environment modelling.
 #'
 #' @section Available Models:
 #'
@@ -528,7 +528,7 @@ modified_kim_sheath_blight <- function(
 #' humidity. Uses DVS-based age driver to account for vernalization effects.
 #'
 #' @examplesIf interactive()
-#' # Simulate wheat leaf rust with DVS (development stage) modeling
+#' # Simulate wheat leaf rust with DVS (development stage) modelling
 #' wth <- get_wth(
 #'   lonlat = c(8.5, 50.1),  # Example: France
 #'   dates = "2000-10-15",   # Winter wheat sowing
@@ -544,9 +544,6 @@ modified_kim_sheath_blight <- function(
 #' plot(lr_sim$simday, lr_sim$intensity, type = "l",
 #'      main = "Wheat Leaf Rust Progression (DVS-based)",
 #'      xlab = "Days After Sowing", ylab = "Disease Intensity")
-#'
-#' # DVS-based models can apply infection windows (e.g., grain-fill only)
-#' # See ?seir for infection_window parameter
 #'
 leaf_rust <- function(
   wth,
@@ -593,7 +590,7 @@ leaf_rust <- function(
 #' `s_tritici_blotch()` models wheat Septoria tritici blotch (*Zymoseptoria
 #' tritici*), a major wheat pathogen in temperate regions. Features lesion
 #' expansion (direct H→I pathway) allowing rapid canopy senescence.
-#' DVS-based modeling accounts for developmental susceptibility.
+#' DVS-based modelling accounts for developmental susceptibility.
 #'
 #' @examplesIf interactive()
 #' # Example: Septoria tritici blotch - compare lesion expansion effect

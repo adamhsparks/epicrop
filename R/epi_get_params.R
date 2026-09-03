@@ -107,12 +107,12 @@
 #' # Pass to seir() via disease function:
 #' # sim <- sheath_blight(wth, emergence, RRG = params$RRG)
 #'
-#' @keywords internal
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @keywords internal
 #' @dev
-epi_get_params <- function(crop, disease) {
+
+.epi_get_params <- function(crop, disease) {
   crop <- tolower(crop)
   disease <- tolower(disease)
 

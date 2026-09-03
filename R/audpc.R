@@ -192,7 +192,8 @@ get_audpc <- function(x) {
   if (!inherits(x, "epicrop.sim")) {
     cli::cli_abort(c(
       "{.arg x} must be an {.cls epicrop.sim} object",
-      i = "Created by {.fun seir} or disease-specific helper functions like {.fun bacterial_blight}, {.fun leaf_blast}, etc."
+      i = "Created by {.fun seir} or disease-specific helper functions like
+      {.fun bacterial_blight}, {.fun leaf_blast}, etc."
     ))
   }
 
@@ -307,10 +308,6 @@ get_audpc <- function(x) {
 #' sim <- brown_spot(wth, emergence = "2000-06-30")
 #' summary_dt <- audpc_dt(sim)
 #'
-#' # Easy to write to CSV or merge with other datasets
-#' # data.table::fwrite(summary_dt, "audpc_summary.csv")
-#' # spatial_data <- merge(spatial_data, summary_dt, by = c("lat", "lon"))
-#'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
@@ -319,7 +316,8 @@ audpc_dt <- function(x) {
   if (!inherits(x, "epicrop.sim")) {
     cli::cli_abort(c(
       "{.arg x} must be an {.cls epicrop.sim} object",
-      i = "Created by {.fun seir} or disease-specific helper functions like {.fun bacterial_blight}, {.fun leaf_blast}, etc."
+      i = "Created by {.fun seir} or disease-specific helper functions like
+      {.fun bacterial_blight}, {.fun leaf_blast}, etc."
     ))
   }
 

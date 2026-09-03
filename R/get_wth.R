@@ -3,7 +3,7 @@
 #' Retrieves daily weather data from the NASA POWER database and formats it
 #' for use in [seir()] and \pkg{epicrop} disease models. This function wraps
 #' [nasapower::get_power()] with predefined parameters optimized for
-#' epidemiological modeling.
+#' epidemiological modelling.
 #'
 #' @section Data Source:
 #'

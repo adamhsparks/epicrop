@@ -3,11 +3,11 @@
 #' Constructs a vector of emergence (planting) dates by combining years with
 #' month-day patterns. Returns a sorted [data.table::IDate] vector tagged with
 #' class `epicrop.emerge` for use with [run_epicrop_model()] and related
-#' batch modeling functions.
+#' batch modelling functions.
 #'
 #' @section Purpose:
 #'
-#' Simplifies creation of emergence date vectors for epidemiological modeling
+#' Simplifies creation of emergence date vectors for epidemiological modelling
 #' scenarios where you want to:
 #' * Test multiple planting dates within a season (*e.g.*, June 1, 15, 30)
 #' * Replicate across multiple years (*e.g.*, 2000-2005)
@@ -95,7 +95,6 @@
 #' # Example 2: Month-day without leading dash (auto-normalized)
 #' em2 <- build_epicrop_emergence(2000, c("06-01", "06-15", "07-01"))
 #' identical(em2, build_epicrop_emergence(2000, c("-06-01", "-06-15", "-07-01")))
-#' # TRUE - formats are equivalent
 #'
 #' # Example 3: Single year, multiple planting windows
 #' # Early, mid, late June + early July
@@ -115,7 +114,7 @@
 #' )
 #' length(long_term)  # 20 (10 years × 2 dates)
 #'
-#' # Example 5: Use in batch modeling workflow
+#' # Example 5: Use in batch modelling workflow
 #' years <- 2000:2002
 #' month_day <- c("-06-30", "-07-15")
 #' emergence <- build_epicrop_emergence(years, month_day)

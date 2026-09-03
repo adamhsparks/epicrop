@@ -56,7 +56,7 @@ Length = \verb{length(years) × length(month_day)}.
 Constructs a vector of emergence (planting) dates by combining years with
 month-day patterns. Returns a sorted \link[data.table:IDate]{data.table::IDate} vector tagged with
 class \code{epicrop.emerge} for use with \code{\link[=run_epicrop_model]{run_epicrop_model()}} and related
-batch modeling functions.
+batch modelling functions.
 }
 \details{
 \subsection{Internal Algorithm}{
@@ -101,7 +101,7 @@ Example: 20 years × 10 month-days = 200 dates constructed in < 1 ms.
 \section{Purpose}{
 
 
-Simplifies creation of emergence date vectors for epidemiological modeling
+Simplifies creation of emergence date vectors for epidemiological modelling
 scenarios where you want to:
 \itemize{
 \item Test multiple planting dates within a season (\emph{e.g.}, June 1, 15, 30)
@@ -173,7 +173,6 @@ length(em) # 6 (2 years × 3 month-days)
 # Example 2: Month-day without leading dash (auto-normalized)
 em2 <- build_epicrop_emergence(2000, c("06-01", "06-15", "07-01"))
 identical(em2, build_epicrop_emergence(2000, c("-06-01", "-06-15", "-07-01")))
-# TRUE - formats are equivalent
 
 # Example 3: Single year, multiple planting windows
 # Early, mid, late June + early July
@@ -193,7 +192,7 @@ long_term <- build_epicrop_emergence(
 )
 length(long_term)  # 20 (10 years × 2 dates)
 
-# Example 5: Use in batch modeling workflow
+# Example 5: Use in batch modelling workflow
 years <- 2000:2002
 month_day <- c("-06-30", "-07-15")
 emergence <- build_epicrop_emergence(years, month_day)

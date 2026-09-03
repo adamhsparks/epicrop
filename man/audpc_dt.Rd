@@ -115,10 +115,6 @@ wth <- get_wth(
 )
 sim <- brown_spot(wth, emergence = "2000-06-30")
 summary_dt <- audpc_dt(sim)
-
-# Easy to write to CSV or merge with other datasets
-# data.table::fwrite(summary_dt, "audpc_summary.csv")
-# spatial_data <- merge(spatial_data, summary_dt, by = c("lat", "lon"))
 \dontshow{\}) # examplesIf}
 }
 \author{
