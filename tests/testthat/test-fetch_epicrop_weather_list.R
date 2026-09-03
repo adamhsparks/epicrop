@@ -935,6 +935,6 @@ test_that("run_epicrop_model succeeds end-to-end against a cross-mode weather bu
   )
 
   # No emergence date should silently fail to find weather now
-  expect_false(any(is.na(res$AUDPC)))
+  expect_false(anyNA(res$AUDPC))
   expect_identical(nrow(res), length(emergence) * 2L) # x2 locations
 })
