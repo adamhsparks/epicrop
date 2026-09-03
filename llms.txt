@@ -4,17 +4,18 @@ A fork of
 [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim)
 (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary
 *et al.* 2012) for rice diseases easier to use and to implement the
-EPIWHEAT model in the same R package. This version provides easy to use
+EPIWHEAT model in the same R package. This package provides easy to use
 functions to fetch weather data from NASA POWER, via the
 [{nasapower}](https://cran.r-project.org/package=nasapower) package
 (Sparks 2018) and predict disease intensity of five rice diseases using
 a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks
 1971) function,
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
-This package implements the EPIRICE model first published in Savary *et
-al.* (2012), which introduces the model and uses it to model global
-epidemics of rice diseases illustrating the risk of bacterial blight,
-brown spot, leaf blast, sheath blight and rice tungro disease.
+
+This package fully implements the EPIRICE model first published in
+Savary *et al.* (2012), which introduces the model and uses it to model
+global epidemics of rice diseases illustrating the risk of bacterial
+blight, brown spot, leaf blast, sheath blight and rice tungro disease.
 Additional models included for rice are adapted from Kim *et al.* (2015)
 for rice sheath blight and leaf blast. The EPIWHEAT model first
 published in Savary *et al.* (2015) that was used to model potential
@@ -33,6 +34,16 @@ Additionally, the modern
 is 1-indexed (standard R convention) while the legacy `SEIR()` is
 0-indexed (as in the original EPIRICE publication by Savary *et al.*
 2012).
+
+Scripts are available in `inst` that benchmark and validate this version
+against the original EPIRICE. As the original EPIWHEAT code is not
+available, no such comparisons are possible. I have recreated this as
+closely as possible to the original, while fixing minor bugs and
+implementing more efficient routines. In benchmarking this iteration is
+up to 57% faster in seasonal disease calculations than the original
+EPIRICE. This varies by OS and hardware, but the gains should be notable
+across large datasets, *e.g.*, several years of global data as in Savary
+*et al.* 2012.
 
 Users may also provide their own parameters to the generic
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
