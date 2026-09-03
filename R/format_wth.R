@@ -283,17 +283,17 @@ format_wth <- function(
   # Convert to data.table (copy if already data.table to avoid side effects)
   if (data.table::is.data.table(wth)) {
     w <- data.table::copy(wth)
-  } else 
+  } else {
     w <- data.table::as.data.table(wth)
   }
 
   # Build column mapping for renaming
   # Structure: new_name = old_name
   col_map <- c(
-    "YYYYMMDD" = date,
-    "TEMP" = temp,
-    "RHUM" = rhum,
-    "RAIN" = rain
+    YYYYMMDD = date,
+    TEMP = temp,
+    RHUM = rhum,
+    RAIN = rain
   )
 
   # Add optional columns if provided (check with missing())
