@@ -7,9 +7,9 @@ utils::globalVariables(c(
   "YYYYMMDD", # <.postprocess_wth>
   "location", # <.run_bundle>
   "YYYYMMDD", # <.slice_weather>
-  "dates", # <seir>
-  "YYYYMMDD", # <seir>
-  "lat", # <seir>
-  "lon", # <seir>
+  "dates", # <.window_weather>
+  "YYYYMMDD", # <.window_weather>
+  "lat", # <.finalize_output>
+  "lon", # <.finalize_output>
   NULL
 ))
