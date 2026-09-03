@@ -1,6 +1,6 @@
 # ---- Coverage of every crop/disease pair -----------------------------------
 
-test_that("epi_get_params retrieves parameters for every crop/disease pair", {
+test_that(".epi_get_params retrieves parameters for every crop/disease pair", {
   crops <- names(.epi_params)
   expect_gt(length(crops), 0)
 
@@ -9,7 +9,7 @@ test_that("epi_get_params retrieves parameters for every crop/disease pair", {
     expect_gt(length(diseases), 0)
 
     for (disease in diseases) {
-      p <- epi_get_params(crop, disease)
+      p <- .epi_get_params(crop, disease)
       expect_type(p, "list")
       expect_true(all(c("RcA", "RcT", "RRG") %in% names(p)))
       # Rice diseases use RRS; wheat diseases use RRPSN
@@ -18,10 +18,10 @@ test_that("epi_get_params retrieves parameters for every crop/disease pair", {
   }
 })
 
-test_that("epi_get_params RcA/RcT tables are 2-column numeric matrices", {
+test_that(".epi_get_params RcA/RcT tables are 2-column numeric matrices", {
   for (crop in names(.epi_params)) {
     for (disease in names(.epi_params[[crop]])) {
-      p <- epi_get_params(crop, disease)
+      p <- .epi_get_params(crop, disease)
       for (nm in c("RcA", "RcT")) {
         tbl <- p[[nm]]
         expect_true(is.matrix(tbl) || is.data.frame(tbl))
@@ -33,10 +33,10 @@ test_that("epi_get_params RcA/RcT tables are 2-column numeric matrices", {
   }
 })
 
-test_that("epi_get_params RRG/RRS/RRPSN entries are scalar or 2-col tables", {
+test_that(".epi_get_params RRG/RRS/RRPSN entries are scalar or 2-col tables", {
   for (crop in names(.epi_params)) {
     for (disease in names(.epi_params[[crop]])) {
-      p <- epi_get_params(crop, disease)
+      p <- .epi_get_params(crop, disease)
       rate_names <- intersect(c("RRG", "RRS", "RRPSN"), names(p))
       for (nm in rate_names) {
         val <- p[[nm]]
@@ -58,52 +58,52 @@ test_that("epi_get_params RRG/RRS/RRPSN entries are scalar or 2-col tables", {
 
 # ---- Lookup behaviour --------------------------------------------------
 
-test_that("epi_get_params is case-insensitive for crop and disease", {
-  p_lower <- epi_get_params("rice", "leaf_blast")
-  p_upper <- epi_get_params("RICE", "LEAF_BLAST")
-  p_mixed <- epi_get_params("Rice", "Leaf_Blast")
+test_that(".epi_get_params is case-insensitive for crop and disease", {
+  p_lower <- .epi_get_params("rice", "leaf_blast")
+  p_upper <- .epi_get_params("RICE", "LEAF_BLAST")
+  p_mixed <- .epi_get_params("Rice", "Leaf_Blast")
 
   expect_identical(p_lower, p_upper)
   expect_identical(p_lower, p_mixed)
 })
 
-test_that("epi_get_params returns the exact objects stored in .epi_params", {
+test_that(".epi_get_params returns the exact objects stored in .epi_params", {
   expect_identical(
-    epi_get_params("rice", "tungro"),
+    .epi_get_params("rice", "tungro"),
     .epi_params$rice$tungro
   )
   expect_identical(
-    epi_get_params("wheat", "s_tritici_blotch"),
+    .epi_get_params("wheat", "s_tritici_blotch"),
     .epi_params$wheat$s_tritici_blotch
   )
   expect_identical(
-    epi_get_params("rice_modified_kim", "sheath_blight"),
+    .epi_get_params("rice_modified_kim", "sheath_blight"),
     .epi_params$rice_modified_kim$sheath_blight
   )
 })
 
 # ---- Error handling ----------------------------------------------------
 
-test_that("epi_get_params errors informatively for unknown crop", {
-  expect_error(epi_get_params("barley", "leaf_blast"), "Unknown crop")
-  expect_error(epi_get_params("barley", "leaf_blast"), "barley")
+test_that(".epi_get_params errors informatively for unknown crop", {
+  expect_error(.epi_get_params("barley", "leaf_blast"), "Unknown crop")
+  expect_error(.epi_get_params("barley", "leaf_blast"), "barley")
 })
 
-test_that("epi_get_params errors informatively for unknown disease", {
-  expect_error(epi_get_params("rice", "stem_rust"), "Unknown disease")
-  expect_error(epi_get_params("rice", "stem_rust"), "stem_rust")
+test_that(".epi_get_params errors informatively for unknown disease", {
+  expect_error(.epi_get_params("rice", "stem_rust"), "Unknown disease")
+  expect_error(.epi_get_params("rice", "stem_rust"), "stem_rust")
 })
 
-test_that("epi_get_params error messages list the available options", {
+test_that(".epi_get_params error messages list the available options", {
   err <- tryCatch(
-    epi_get_params("wheat", "not_a_disease"),
+    .epi_get_params("wheat", "not_a_disease"),
     error = function(e) e
   )
   expect_match(conditionMessage(err), "leaf_rust")
   expect_match(conditionMessage(err), "s_tritici_blotch")
 
   err2 <- tryCatch(
-    epi_get_params("not_a_crop", "x"),
+    .epi_get_params("not_a_crop", "x"),
     error = function(e) e
   )
   expect_match(conditionMessage(err2), "rice")

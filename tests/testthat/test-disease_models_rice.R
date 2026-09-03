@@ -219,7 +219,7 @@ test_that("rice model defaults match the underlying epi_params store", {
 
   for (nm in names(models)) {
     mdl <- models[[nm]]
-    params <- epi_get_params(mdl$crop, mdl$disease)
+    params <- .epi_get_params(mdl$crop, mdl$disease)
 
     default_res <- run_model(mdl$fun)
     explicit_res <- run_model(
