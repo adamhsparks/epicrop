@@ -363,7 +363,7 @@
 
 #' Fast Linear Interpolation with Boundary Handling
 #'
-#' Core interpolation algorithm using [base::findInterval()] and vectorized
+#' Core interpolation algorithm using [base::findInterval()] and vectorised
 #' linear interpolation. Matches [stats::approx()] with `rule = 2` exactly.
 #'
 #' @section Algorithm:
@@ -385,7 +385,7 @@
 #' @details
 #' Internally calls:
 #' 1. [.prep_xy()] to sort/deduplicate
-#' 2. [.interpolate()] to perform vectorized interpolation
+#' 2. [.interpolate()] to perform vectorised interpolation
 #'
 #' Edge cases:
 #' * Empty `xout`: returns numeric(0)
@@ -461,7 +461,8 @@
   }
 
   # Remove duplicate x-values (keep first y)
-  if (any(dup <- duplicated(x))) {
+  dup <- duplicated(x)
+  if (any(dup)) {
     x <- x[!dup]
     y <- y[!dup]
   }
@@ -469,9 +470,9 @@
   list(x = x, y = y)
 }
 
-#' Perform Vectorized Linear Interpolation
+#' Perform Vectorised Linear Interpolation
 #'
-#' Core vectorized interpolation using pre-sorted x-y points and output
+#' Core vectorised interpolation using pre-sorted x-y points and output
 #' x-coordinates. Uses [base::findInterval()] for efficiency.
 #'
 #' @section Method:

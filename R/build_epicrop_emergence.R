@@ -226,7 +226,7 @@ build_epicrop_emergence <- function(years, month_day) {
   g <- data.table::CJ(years = years, month_day = md, sorted = FALSE)
 
   # Construct ISO date strings and parse to IDate
-  # sprintf() is vectorized; constructs "YYYY-MM-DD" for each row
+  # sprintf() is vectorised; constructs "YYYY-MM-DD" for each row
   dates <- data.table::as.IDate(
     sprintf("%s%s", g$years, g$month_day),
     format = "%Y-%m-%d"

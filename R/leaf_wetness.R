@@ -268,7 +268,7 @@
 #' @param tmax Maximum daily temperature (degrees C; scalar or vector).
 #'
 #' @returns Numeric vector of 24 hourly temperatures (for single day or
-#'   vectorized 24*n values for multiple days).
+#'   vectorised 24*n values for multiple days).
 #'
 #' @examplesIf interactive()
 #' # Single day: latitude 14N, DOY 182 (Jul 1), Tmin=20, Tmax=30
@@ -283,7 +283,7 @@
 #'      main = "Diurnal Temperature Curve")
 #' abline(h = c(20, 30), col = "red", lty = 2)
 #'
-#' # Multiple days (vectorized)
+#' # Multiple days (vectorised)
 #' hourly_temps <- .diurnal_temp(
 #'   lat = rep(14.16742, 3),
 #'   doy = 182:184,
@@ -309,7 +309,7 @@
   tmin <- rep_len(tmin, n)
   tmax <- rep_len(tmax, n)
 
-  # Calculate day length parameters (vectorized)
+  # Calculate day length parameters (vectorised)
   dayl <- .day_length(lat, doy)
   nightl <- 24 - dayl
   cs_1 <- 0.5 * dayl
