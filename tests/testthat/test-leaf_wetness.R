@@ -200,7 +200,7 @@ test_that(".diurnal_temp returns 24-hour temperatures (single day) and supports 
   expect_length(res3, 72)
 })
 
-test_that(".day_length returns reasonable daylight hours and is vectorized", {
+test_that(".day_length returns reasonable daylight hours and is vectorised", {
   r1 <- .day_length(lat = 14.6774, doy = 182)
   expect_length(r1, 1)
   expect_gt(r1, 0)

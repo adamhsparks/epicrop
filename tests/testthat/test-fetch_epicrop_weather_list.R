@@ -295,7 +295,7 @@ test_that(".is_md_only correctly classifies month-day-only vs full-date strings"
   expect_false(.is_md_only("not-a-date"))
 })
 
-test_that(".is_md_only is vectorized", {
+test_that(".is_md_only is vectorised", {
   res <- .is_md_only(c("06-30", "2000-06-30", "-6-1"))
   expect_identical(res, c(TRUE, FALSE, TRUE))
 })
@@ -308,7 +308,7 @@ test_that(".normalize_md zero-pads month and day and strips leading dash/slash s
   expect_identical(.normalize_md("-6/3"), "06-03")
 })
 
-test_that(".normalize_md is vectorized", {
+test_that(".normalize_md is vectorised", {
   res <- .normalize_md(c("6-1", "-06-30", "12/25"))
   expect_identical(res, c("06-01", "06-30", "12-25"))
 })
