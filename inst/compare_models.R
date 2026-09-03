@@ -9,11 +9,8 @@
 
 library(epicrop)
 library(cropsim) # Legacy SEIR models
-library(meteor) # Weather data retrieval
 library(data.table) # For data manipulation
 library(ggplot2) # Visualization
-library(patchwork) # Multi-panel plots
-library(ggrepel) # Text labels on plots
 library(data.table)
 
 # =============================================================================
