@@ -24,7 +24,8 @@ Table is keyed on \code{emergence} for efficient operations.
 }
 \description{
 Extracts the Area Under Disease Progress Curve (AUDPC) from an epicrop
-simulation output along with spatial (lat/lon) and temporal (emergence) metadata.
+simulation output along with spatial (lat/lon) and temporal (emergence)
+metadata.
 Returns a compact summary table suitable for analysis, mapping, or reporting.
 }
 \section{Output Structure}{
