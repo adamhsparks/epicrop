@@ -36,8 +36,8 @@ cultivars
 
 The trapezoidal rule approximates the area under the curve:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{AUDPC = sum((intensity[i] + intensity[i+1]) / 2) for all consecutive days
-}\if{html}{\out{</div>}}
+\eqn{AUDPC = sum((intensity[i] + intensity[i+1]) / 2)}
+for all consecutive days
 }
 
 \section{When to Use}{
