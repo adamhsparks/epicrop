@@ -123,7 +123,7 @@ bacterial_blight <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("rice", "bacterial_blight")
+  params <- .epi_get_params("rice", "bacterial_blight")
   seir(
     wth = wth,
     emergence = emergence,
@@ -185,7 +185,7 @@ brown_spot <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("rice", "brown_spot")
+  params <- .epi_get_params("rice", "brown_spot")
   seir(
     wth = wth,
     emergence = emergence,
@@ -247,7 +247,7 @@ leaf_blast <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("rice", "leaf_blast")
+  params <- .epi_get_params("rice", "leaf_blast")
   seir(
     wth = wth,
     emergence = emergence,
@@ -308,7 +308,7 @@ sheath_blight <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("rice", "sheath_blight")
+  params <- .epi_get_params("rice", "sheath_blight")
   seir(
     wth = wth,
     emergence = emergence,
@@ -371,7 +371,7 @@ tungro <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("rice", "tungro")
+  params <- .epi_get_params("rice", "tungro")
   seir(
     wth = wth,
     emergence = emergence,
@@ -434,7 +434,7 @@ modified_kim_leaf_blast <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("rice_modified_kim", "leaf_blast")
+  params <- .epi_get_params("rice_modified_kim", "leaf_blast")
   seir(
     wth = wth,
     emergence = emergence,
@@ -495,7 +495,7 @@ modified_kim_sheath_blight <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("rice_modified_kim", "sheath_blight")
+  params <- .epi_get_params("rice_modified_kim", "sheath_blight")
   seir(
     wth = wth,
     emergence = emergence,
@@ -557,7 +557,7 @@ leaf_rust <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("wheat", "leaf_rust")
+  params <- .epi_get_params("wheat", "leaf_rust")
   seir(
     wth = wth,
     emergence = emergence,
@@ -626,7 +626,7 @@ s_tritici_blotch <- function(
   rainlim = NULL,
   ...
 ) {
-  params <- epi_get_params("wheat", "s_tritici_blotch")
+  params <- .epi_get_params("wheat", "s_tritici_blotch")
   seir(
     wth = wth,
     emergence = emergence,
