@@ -46,7 +46,7 @@ effects.
 `s_tritici_blotch()` models wheat Septoria tritici blotch (*Zymoseptoria
 tritici*), a major wheat pathogen in temperate regions. Features lesion
 expansion (direct H→I pathway) allowing rapid canopy senescence.
-DVS-based modeling accounts for developmental susceptibility.
+DVS-based modelling accounts for developmental susceptibility.
 
 `bb()` is an alias for `bacterial_blight()`.
 
@@ -384,7 +384,7 @@ for output details.
 ## Details
 
 All functions support parameter override via `...` arguments, enabling
-sensitivity analysis and custom cultivar/environment modeling.
+sensitivity analysis and custom cultivar/environment modelling.
 
 ## Available Models
 
@@ -485,25 +485,26 @@ bb_sim <- bacterial_blight(
   wth = wth,
   emergence = "2000-06-30"
 )
+#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 
 # Inspect results
 head(bb_sim)
 #>    simday      dates    sites latent infectious removed senesced rateinf  rlex
 #>     <int>     <IDat>    <num>  <num>      <num>   <num>    <num>   <num> <num>
-#> 1:      1 2000-06-30 100.0000      0          0       0 1.000000       0     0
-#> 2:      2 2000-07-01 108.6875      0          0       0 2.086875       0     0
-#> 3:      3 2000-07-02 118.1002      0          0       0 3.267877       0     0
-#> 4:      4 2000-07-03 128.2934      0          0       0 4.550811       0     0
-#> 5:      5 2000-07-04 139.3254      0          0       0 5.944065       0     0
-#> 6:      6 2000-07-05 151.2581      0          0       0 7.456646       0     0
-#>    rtransfer rremoved  rgrowth rsenesced diseased intensity      lat      lon
-#>        <num>    <num>    <num>     <num>    <num>     <num>    <num>    <num>
-#> 1:         0        0  9.68750  1.000000        0         0 14.16742 121.2557
-#> 2:         0        0 10.49959  1.086875        0         0 14.16742 121.2557
-#> 3:         0        0 11.37416  1.181002        0         0 14.16742 121.2557
-#> 4:         0        0 12.31499  1.282934        0         0 14.16742 121.2557
-#> 5:         0        0 13.32593  1.393254        0         0 14.16742 121.2557
-#> 6:         0        0 14.41084  1.512581        0         0 14.16742 121.2557
+#> 1:      1 2000-07-01 100.0000      0          0       0 1.000000       0     0
+#> 2:      2 2000-07-02 108.6875      0          0       0 2.086875       0     0
+#> 3:      3 2000-07-03 118.1002      0          0       0 3.267877       0     0
+#> 4:      4 2000-07-04 128.2934      0          0       0 4.550811       0     0
+#> 5:      5 2000-07-05 139.3254      0          0       0 5.944065       0     0
+#> 6:      6 2000-07-06 151.2581      0          0       0 7.456646       0     0
+#>    rtransfer rremoved  rgrowth rsenesced diseased intensity     lat      lon
+#>        <num>    <num>    <num>     <num>    <num>     <num>   <num>    <num>
+#> 1:         0        0  9.68750  1.000000        0         0 14.6774 121.2556
+#> 2:         0        0 10.49959  1.086875        0         0 14.6774 121.2556
+#> 3:         0        0 11.37416  1.181002        0         0 14.6774 121.2556
+#> 4:         0        0 12.31499  1.282934        0         0 14.6774 121.2556
+#> 5:         0        0 13.32593  1.393254        0         0 14.6774 121.2556
+#> 6:         0        0 14.41084  1.512581        0         0 14.6774 121.2556
 plot(bb_sim$simday, bb_sim$intensity, type = "l",
      main = "Rice Bacterial Blight Progression",
      xlab = "Days", ylab = "Disease Intensity")
@@ -520,12 +521,13 @@ bs_sim <- brown_spot(
   wth = wth,
   emergence = "2000-06-30"
 )
+#> Error in epi_get_params("rice", "brown_spot"): could not find function "epi_get_params"
 
 # Brown spot develops slowly compared to leaf blast
 plot(bs_sim$simday, bs_sim$intensity, type = "l",
      main = "Rice Brown Spot Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
+#> Error: object 'bs_sim' not found
 # Simulate leaf blast under favourable conditions
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
@@ -537,12 +539,13 @@ lb_sim <- leaf_blast(
   wth = wth,
   emergence = "2000-06-30"
 )
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 # Leaf blast shows rapid increase in intensity after onset
 plot(lb_sim$simday, lb_sim$intensity, type = "l", ylim = c(0, 1),
      main = "Rice Leaf Blast Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
+#> Error: object 'lb_sim' not found
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
   dates = "2000-06-30",
@@ -553,12 +556,13 @@ sb_sim <- sheath_blight(
   wth = wth,
   emergence = "2000-06-30"
 )
+#> Error in epi_get_params("rice", "sheath_blight"): could not find function "epi_get_params"
 
 # Sheath blight has long infectious period and delayed onset
 plot(sb_sim$simday, sb_sim$intensity, type = "l", ylim = c(0, 1),
      main = "Rice Sheath Blight Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
+#> Error: object 'sb_sim' not found
 # Simulate tungro (vector-borne viral disease)
 wth <- get_wth(
   lonlat = c(121.255669, 14.16742),
@@ -570,12 +574,13 @@ tg_sim <- tungro(
   wth = wth,
   emergence = "2000-06-30"
 )
+#> Error in epi_get_params("rice", "tungro"): could not find function "epi_get_params"
 
 # Tungro shows plateau phase (low Sx due to limited vector population)
 plot(tg_sim$simday, tg_sim$intensity, type = "l",
      main = "Rice Tungro Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
+#> Error: object 'tg_sim' not found
 # Simulate using Kim et al. (2015) cultivar-adjusted parameters
 wth <- get_wth(
   lonlat = c(126.9780, 37.5665),  # Seoul, South Korea
@@ -587,12 +592,13 @@ kim_lb <- modified_kim_leaf_blast(
   wth = wth,
   emergence = "2000-06-01"
 )
+#> Error in epi_get_params("rice_modified_kim", "leaf_blast"): could not find function "epi_get_params"
 
 # Kim version has shorter duration and higher Sx (larger canopy model)
 plot(kim_lb$simday, kim_lb$intensity, type = "l",
      main = "Rice Leaf Blast (Kim et al. 2015)",
      xlab = "Days", ylab = "Intensity")
-
+#> Error: object 'kim_lb' not found
 # Simulate sheath blight with Kim et al. (2015) parameters
 wth <- get_wth(
   lonlat = c(126.9780, 37.5665),
@@ -604,12 +610,13 @@ kim_sb <- modified_kim_sheath_blight(
   wth = wth,
   emergence = "2000-06-01"
 )
+#> Error in epi_get_params("rice_modified_kim", "sheath_blight"): could not find function "epi_get_params"
 
 plot(kim_sb$simday, kim_sb$intensity, type = "l",
      main = "Rice Sheath Blight (Kim et al. 2015)",
      xlab = "Days", ylab = "Intensity")
-
-# Simulate wheat leaf rust with DVS (development stage) modeling
+#> Error: object 'kim_sb' not found
+# Simulate wheat leaf rust with DVS (development stage) modelling
 wth <- get_wth(
   lonlat = c(8.5, 50.1),  # Example: France
   dates = "2000-10-15",   # Winter wheat sowing
@@ -620,15 +627,13 @@ lr_sim <- leaf_rust(
   wth = wth,
   emergence = "2000-10-15"
 )
+#> Error in epi_get_params("wheat", "leaf_rust"): could not find function "epi_get_params"
 
 # Leaf rust shows gradual progression across growing season
 plot(lr_sim$simday, lr_sim$intensity, type = "l",
      main = "Wheat Leaf Rust Progression (DVS-based)",
      xlab = "Days After Sowing", ylab = "Disease Intensity")
-
-
-# DVS-based models can apply infection windows (e.g., grain-fill only)
-# See ?seir for infection_window parameter
+#> Error: object 'lr_sim' not found
 # Example: Septoria tritici blotch - compare lesion expansion effect
 
 # Fetch weather for a wheat-growing region (France, Oct-May season)
@@ -642,6 +647,7 @@ stb <- s_tritici_blotch(
   wth = wth,
   emergence = "2000-10-15"
 )
+#> Error in epi_get_params("wheat", "s_tritici_blotch"): could not find function "epi_get_params"
 
 # Create single plot with both lines for comparison
 plot(stb$simday, stb$intensity,
@@ -649,4 +655,5 @@ plot(stb$simday, stb$intensity,
      main = "Wheat Septoria tritici Blotch",
      xlab = "Days After Sowing",
      ylab = "Disease Intensity")
+#> Error in stb$simday: object of type 'closure' is not subsettable
 ```

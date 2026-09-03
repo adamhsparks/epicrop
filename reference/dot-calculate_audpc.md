@@ -93,11 +93,12 @@ wth <- get_wth(
 
 # Run bacterial blight model
 bb_sim <- bacterial_blight(wth, emergence = "2000-06-30")
+#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 
 # Calculate AUDPC from intensity vector (already in object attribute)
 audpc_value <- .calculate_audpc(intensity = bb_sim$intensity)
 print(audpc_value)
-#> [1] 37.74063
+#> [1] 37.56589
 
 # Compare with automatic calculation via get_audpc()
 audpc_attr <- get_audpc(bb_sim)
@@ -128,17 +129,19 @@ wth <- get_wth(
 
 # Susceptible cultivar (default parameters)
 susceptible <- leaf_blast(wth, emergence = "2000-06-30")
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 audpc_sus <- get_audpc(susceptible)
+#> Error: object 'susceptible' not found
 
 # Resistant cultivar (lower infection rate)
 resistant <- leaf_blast(wth, emergence = "2000-06-30", RcOpt = 0.8)
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "RcOpt" matched by multiple actual arguments
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 audpc_res <- get_audpc(resistant)
 #> Error: object 'resistant' not found
 
 # Calculate resistance benefit
 reduction <- (audpc_sus - audpc_res) / audpc_sus * 100
-#> Error: object 'audpc_res' not found
+#> Error: object 'audpc_sus' not found
 sprintf("Resistant cultivar reduces AUDPC by %.1f%%", reduction)
 #> Error: object 'reduction' not found
 ```

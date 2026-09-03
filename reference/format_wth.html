@@ -232,6 +232,7 @@ the following columns (in order):</p><table class="table table"><tr><td><strong>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6: 121.2556</span>
 <span class="r-in"><span><span class="co"># Ready for use in disease models</span></span></span>
 <span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "bacterial_blight"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Minimal data (no lat/lon, no TMIN/TMAX)</span></span></span>
 <span class="r-in"><span><span class="co"># Only requires temp, rhum, rain (simple_wetness = TRUE)</span></span></span>
@@ -252,7 +253,7 @@ the following columns (in order):</p><table class="table table"><tr><td><strong>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Simulate with binary wetness (no hourly calculation)</span></span></span>
 <span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">leaf_blast</a></span><span class="op">(</span><span class="va">wth_fmt</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span>, simple_wetness <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...):</span> formal argument "simple_wetness" matched by multiple actual arguments</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "leaf_blast"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Integer date format (YYYYMMDD)</span></span></span>
 <span class="r-in"><span><span class="va">wth_int_date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>

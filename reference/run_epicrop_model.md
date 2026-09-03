@@ -203,16 +203,49 @@ results <- run_epicrop_model(
   window_days = 120L,
   output = "audpc"
 )
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 head(results)
-#> Key: <emergence, AUDPC>
-#>           emergence    AUDPC
-#>    <epicrop.emerge>    <num>
-#> 1:       2001-06-01 38.19575
-#> 2:       2001-06-15 36.86150
-#> 3:       2001-07-01 43.86372
-#> 4:       2002-06-01 40.34144
-#> 5:       2002-06-15 38.03268
-#> 6:       2002-07-01 37.42458
+#> $code_issues
+#> ── Diagnostic Category Results ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ✔ All 13 checks passed
+#> 
+#> $description_issues
+#> ── Diagnostic Category Results ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ! 1 of 16 checks failed
+#> Failed checks:
+#> acronyms: 3 issues
+#> 
+#> $documentation_issues
+#> ── Diagnostic Category Results ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ! 1 of 8 checks failed
+#> Failed checks:
+#> commented_examples: 22 issues
+#> 
+#> $general_issues
+#> ── Diagnostic Category Results ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ✔ All 4 checks passed
+#> 
+#> $policy_issues
+#> ── Diagnostic Category Results ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ✔ All 4 checks passed
+#> 
+#> $metadata
+#> $metadata$package_path
+#> [1] "."
+#> 
+#> $metadata$diagnosis_time
+#> [1] "2026-09-03 12:57:30 AWST"
+#> 
+#> $metadata$total_issues
+#> [1] 25
+#> 
+#> $metadata$failed_checks
+#> [1] 2
+#> 
+#> $metadata$checktor_version
+#> [1] '0.1.0'
+#> 
+#> 
 
 # --- Example 2: Full progression output for detailed analysis ---
 
@@ -223,14 +256,16 @@ full_results <- run_epicrop_model(
   window_days = 120L,
   output = "full"
 )
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 # Plot disease progression for first emergence date
 first_date <- emergence[1]
 sub <- full_results[emergence == first_date]
+#> Error: object 'full_results' not found
 plot(sub$simday, sub$intensity, type = "l",
      main = paste("Leaf Blast:", first_date),
      xlab = "Days After Emergence", ylab = "Disease Intensity")
-
+#> Error in sub$simday: object of type 'closure' is not subsettable
 
 # --- Example 3: Sensitivity analysis (modify RcOpt) ---
 
@@ -243,7 +278,7 @@ susceptible <- run_epicrop_model(
   output = "audpc",
   RcOpt = 1.14  # Default
 )
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "RcOpt" matched by multiple actual arguments
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 # Resistant cultivar (lower infection rate)
 resistant <- run_epicrop_model(
@@ -254,7 +289,7 @@ resistant <- run_epicrop_model(
   output = "audpc",
   RcOpt = 0.8  # Lower
 )
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 15L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 600L, I0 = 1L, RcOpt = 1.14,     p = 5L, i = 20L, a = 1L, Sx = 30000L, simple_wetness = TRUE,     age_driver = "day", ...): formal argument "RcOpt" matched by multiple actual arguments
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 comparison <- data.table(
   emergence = susceptible$emergence,
@@ -289,11 +324,9 @@ bundle_results <- run_epicrop_model(
   window_days = 120L,
   output = "audpc"
 )
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 # Results now have a 'location' column
 bundle_results[, .N, by = location]
-#>    location     N
-#>      <char> <int>
-#> 1:     IRRI     9
-#> 2:   Laguna     9
+#> Error: object 'bundle_results' not found
 ```

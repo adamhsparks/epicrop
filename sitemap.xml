@@ -33,6 +33,7 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-diurnal_rh.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-diurnal_temp.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-drop_na_rows.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-epi_get_params.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-expand_daily.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-fast_interp_approx_internal.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-fetch_one_weather.html</loc></url>
@@ -74,7 +75,6 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-validate_required_args.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-validate_run_inputs.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-window_weather.html</loc></url>
-<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/epi_get_params.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/epicrop-package.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/format_wth.html</loc></url>

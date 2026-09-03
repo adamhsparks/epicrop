@@ -105,5 +105,6 @@ results <- .run_bundle(
   window_days = 120L,
   output = "audpc"
 )
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 # Results now include a 'location' column
 ```

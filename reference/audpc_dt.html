@@ -107,12 +107,11 @@ The table is keyed on <code>emergence</code> for efficient sorting and joining.<
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-06-30"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "bacterial_blight"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span><span class="va">summary_table</span> <span class="op">&lt;-</span> <span class="fu">audpc_dt</span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'sim' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">summary_table</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;emergence&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        lat      lon    AUDPC  emergence</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      &lt;num&gt;    &lt;num&gt;    &lt;num&gt;     &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 14.6774 121.2556 37.74063 2000-06-30</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'summary_table' not found</span>
 <span class="r-in"><span><span class="co"># Output includes lat, lon, AUDPC, emergence</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Batch summarize multiple emergence dates</span></span></span>
@@ -121,8 +120,7 @@ The table is keyed on <code>emergence</code> for efficient sorting and joining.<
 <span class="r-in"><span>  <span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">ed</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu">audpc_dt</span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .window_weather(wth = wth, emergence = emergence, duration = duration):</span> Emergence date not found in weather data</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Emergence <span style="color: #0000BB;">2000-06-15</span> not in range <span style="color: #0000BB;">2000-06-30</span>--<span style="color: #0000BB;">2000-10-28</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "bacterial_blight"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span><span class="va">summary_all</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/rbindlist.html" class="external-link">rbindlist</a></span><span class="op">(</span><span class="va">summaries</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'summaries' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">summary_all</span><span class="op">)</span></span></span>
@@ -153,20 +151,21 @@ The table is keyed on <code>emergence</code> for efficient sorting and joining.<
 <span class="r-in"><span>  <span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">leaf_blast</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="va">em_date</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="get_audpc.html">get_audpc</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span>, <span class="va">results</span><span class="op">$</span><span class="va">location</span>, <span class="va">results</span><span class="op">$</span><span class="va">emergence</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "leaf_blast"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555; font-style: italic;"># Data frame like object (class data.frame) 3 x 4:</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000000; background-color: #BBBBBB; font-weight: bold;"> │location│emergence │AUDPC</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  │<span style="font-style: italic;">&lt;chr&gt;   </span>│<span style="font-style: italic;">&lt;chr&gt;     </span>│<span style="font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">1</span>│<span style="font-style: italic;">IRRI    </span>│<span style="font-style: italic;">2000-06-30</span>│   41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">2</span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">Manila  </span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">2000-06-30</span><span style="background-color: #1C1C1C;">│   41</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">3</span>│<span style="font-style: italic;">IRRI    </span>│<span style="font-style: italic;">2000-07-15</span>│   38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">4</span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">Manila  </span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">2000-07-15</span><span style="background-color: #1C1C1C;">│   38</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555; font-style: italic;"># Data frame like object (class data.frame) 2 x 4:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000000; background-color: #BBBBBB; font-weight: bold;"> │location│emergence </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  │<span style="font-style: italic;">&lt;chr&gt;   </span>│<span style="font-style: italic;">&lt;chr&gt;     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">1</span>│<span style="font-style: italic;">IRRI    </span>│<span style="font-style: italic;">2000-06-30</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">2</span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">Manila  </span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">2000-06-30</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">3</span>│<span style="font-style: italic;">IRRI    </span>│<span style="font-style: italic;">2000-07-15</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">4</span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">Manila  </span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">2000-07-15</span></span>
 <span class="r-in"><span><span class="co"># Identify highest risk scenario</span></span></span>
 <span class="r-in"><span><span class="va">worst</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"Highest risk: %s, emergence %s, AUDPC = %.1f"</span>,</span></span>
 <span class="r-in"><span>        <span class="va">worst</span><span class="op">$</span><span class="va">location</span>, <span class="va">worst</span><span class="op">$</span><span class="va">emergence</span>, <span class="va">worst</span><span class="op">$</span><span class="va">AUDPC</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Highest risk: IRRI, emergence 2000-06-30, AUDPC = 40.8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: Export for mapping or further analysis</span></span></span>
 <span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>
@@ -175,11 +174,9 @@ The table is keyed on <code>emergence</code> for efficient sorting and joining.<
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120L</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">brown_spot</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-06-30"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in epi_get_params("rice", "brown_spot"):</span> could not find function "epi_get_params"</span>
 <span class="r-in"><span><span class="va">summary_dt</span> <span class="op">&lt;-</span> <span class="fu">audpc_dt</span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Easy to write to CSV or merge with other datasets</span></span></span>
-<span class="r-in"><span><span class="co"># data.table::fwrite(summary_dt, "audpc_summary.csv")</span></span></span>
-<span class="r-in"><span><span class="co"># spatial_data &lt;- merge(spatial_data, summary_dt, by = c("lat", "lon"))</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'sim' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

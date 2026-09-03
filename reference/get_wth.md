@@ -5,7 +5,7 @@ for use in
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
 and epicrop disease models. This function wraps
 [`nasapower::get_power()`](https://docs.ropensci.org/nasapower/reference/get_power.html)
-with predefined parameters optimized for epidemiological modeling.
+with predefined parameters optimized for epidemiological modelling.
 
 ## Usage
 
@@ -170,6 +170,7 @@ wth <- get_wth(
 
 # Run bacterial blight model
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
+#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 head(bb_sim)
 #>    simday      dates    sites latent infectious removed senesced rateinf  rlex
 #>     <int>     <IDat>    <num>  <num>      <num>   <num>    <num>   <num> <num>
@@ -179,14 +180,14 @@ head(bb_sim)
 #> 4:      4 2000-07-04 128.2934      0          0       0 4.550811       0     0
 #> 5:      5 2000-07-05 139.3254      0          0       0 5.944065       0     0
 #> 6:      6 2000-07-06 151.2581      0          0       0 7.456646       0     0
-#>    rtransfer rremoved  rgrowth rsenesced diseased intensity      lat      lon
-#>        <num>    <num>    <num>     <num>    <num>     <num>    <num>    <num>
-#> 1:         0        0  9.68750  1.000000        0         0 14.16742 121.2557
-#> 2:         0        0 10.49959  1.086875        0         0 14.16742 121.2557
-#> 3:         0        0 11.37416  1.181002        0         0 14.16742 121.2557
-#> 4:         0        0 12.31499  1.282934        0         0 14.16742 121.2557
-#> 5:         0        0 13.32593  1.393254        0         0 14.16742 121.2557
-#> 6:         0        0 14.41084  1.512581        0         0 14.16742 121.2557
+#>    rtransfer rremoved  rgrowth rsenesced diseased intensity     lat      lon
+#>        <num>    <num>    <num>     <num>    <num>     <num>   <num>    <num>
+#> 1:         0        0  9.68750  1.000000        0         0 14.6774 121.2556
+#> 2:         0        0 10.49959  1.086875        0         0 14.6774 121.2556
+#> 3:         0        0 11.37416  1.181002        0         0 14.6774 121.2556
+#> 4:         0        0 12.31499  1.282934        0         0 14.6774 121.2556
+#> 5:         0        0 13.32593  1.393254        0         0 14.6774 121.2556
+#> 6:         0        0 14.41084  1.512581        0         0 14.6774 121.2556
 plot(bb_sim$simday, bb_sim$intensity, type = "l",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
 
@@ -212,19 +213,16 @@ names(wth_list) <- locations$name
 lb_results <- lapply(wth_list, function(w) {
   leaf_blast(w, emergence = "2000-07-01")
 })
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 
 # Compare AUDPC (disease intensity summary)
 audpc_comparison <- data.frame(
   location = names(lb_results),
   AUDPC = sapply(lb_results, function(x) attr(x, "AUDPC"))
 )
+#> Error: object 'lb_results' not found
 print(audpc_comparison)
-#> # Data frame like object (class data.frame) 2 x 3:
-#>              │location     │AUDPC 
-#>              │<chr>        │<dbl> 
-#>   IRRI_Laguna│IRRI_Laguna  │39.449
-#>  BRRI_Gazipur│BRRI_Gazipur │41.452
-#> CIMMYT_Mexico│CIMMYT_Mexico│ 0.035
+#> Error: object 'audpc_comparison' not found
 
 # Example 6: Cross-year comparison (same location, different years)
 years <- 2000:2002
@@ -241,6 +239,7 @@ names(wth_by_year) <- as.character(years)
 bb_by_year <- lapply(wth_by_year, function(w) {
   bacterial_blight(w, emergence = unique(w$YYYYMMDD)[1])
 })
+#> Error in epi_get_params("rice", "bacterial_blight"): could not find function "epi_get_params"
 
 # Compare disease progression across years
 plot_data <- data.table::rbindlist(
@@ -252,11 +251,13 @@ plot_data <- data.table::rbindlist(
     )
   })
 )
+#> Error: object 'bb_by_year' not found
 plot(plot_data$simday, plot_data$intensity,
      col = as.factor(plot_data$year), pch = 16)
+#> Error: object 'plot_data' not found
 legend("topleft", legend = names(bb_by_year),
        col = seq_along(bb_by_year), pch = 16)
-
+#> Error: object 'bb_by_year' not found
 
 # Example 7: Error handling
 if (FALSE) { # \dontrun{

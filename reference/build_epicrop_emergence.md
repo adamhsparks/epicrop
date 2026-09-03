@@ -5,7 +5,7 @@ with month-day patterns. Returns a sorted
 [data.table::IDate](https://rdrr.io/pkg/data.table/man/IDateTime.html)
 vector tagged with class `epicrop.emerge` for use with
 [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)
-and related batch modeling functions.
+and related batch modelling functions.
 
 ## Usage
 
@@ -126,7 +126,7 @@ Example: 20 years × 10 month-days = 200 dates constructed in \< 1 ms.
 ## Purpose
 
 Simplifies creation of emergence date vectors for epidemiological
-modeling scenarios where you want to:
+modelling scenarios where you want to:
 
 - Test multiple planting dates within a season (*e.g.*, June 1, 15, 30)
 
@@ -223,7 +223,6 @@ length(em) # 6 (2 years × 3 month-days)
 em2 <- build_epicrop_emergence(2000, c("06-01", "06-15", "07-01"))
 identical(em2, build_epicrop_emergence(2000, c("-06-01", "-06-15", "-07-01")))
 #> [1] TRUE
-# TRUE - formats are equivalent
 
 # Example 3: Single year, multiple planting windows
 # Early, mid, late June + early July
@@ -246,7 +245,7 @@ long_term <- build_epicrop_emergence(
 length(long_term)  # 20 (10 years × 2 dates)
 #> [1] 20
 
-# Example 5: Use in batch modeling workflow
+# Example 5: Use in batch modelling workflow
 years <- 2000:2002
 month_day <- c("-06-30", "-07-15")
 emergence <- build_epicrop_emergence(years, month_day)
@@ -266,16 +265,21 @@ results <- run_epicrop_model(
   wth_list = wth_list,
   output = "audpc"
 )
+#> Error in epi_get_params("rice", "leaf_blast"): could not find function "epi_get_params"
 print(results)  # AUDPC for each emergence date
-#> Key: <emergence, AUDPC>
-#>           emergence    AUDPC
-#>    <epicrop.emerge>    <num>
-#> 1:       2000-06-30 39.08646
-#> 2:       2000-07-15 37.25022
-#> 3:       2001-06-30 38.98097
-#> 4:       2001-07-15 42.57670
-#> 5:       2002-06-30 38.30150
-#> 6:       2002-07-15 39.27781
+#> ── Package Doctor - Diagnosis Summary ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> Patient: reference
+#> Examined: 2026-09-03 12:57:30.581681
+#> Doctor version: 0.1.0
+#> 
+#> CODE ISSUES: HEALTHY
+#> DESCRIPTION ISSUES: 1 failing check
+#> DOCUMENTATION ISSUES: 1 failing check
+#> GENERAL ISSUES: HEALTHY
+#> POLICY ISSUES: HEALTHY
+#> 
+#> ! Overall health: NEEDS ATTENTION (25 issues)
+#> Run `summary()`, `issues()`, or `prescribe()` for details
 
 # Example 6: Subset and filter emergence dates
 em <- build_epicrop_emergence(2000:2002, c("-06-01", "-07-01"))
