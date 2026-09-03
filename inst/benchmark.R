@@ -3,6 +3,7 @@
 #' Performance comparison of the two implementations using microbenchmark.
 #' Run with: source("tests/benchmarks/benchmark_seir_implementations.R")
 
+# pak::pak("adamhsparks/cropsim/pkg/cropsim")
 library(microbenchmark)
 library(data.table)
 library(ggplot2)
