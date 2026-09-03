@@ -83,7 +83,8 @@ intensity over time. It:</p><ul><li><p>Ranges from 0 (no disease) to duration (m
 cultivars</p></li>
 <li><p>Is commonly used in cultivar resistance screening and management trials</p></li>
 </ul><p>The trapezoidal rule approximates the area under the curve:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>AUDPC <span class="ot">=</span> <span class="fu">sum</span>((intensity[i] <span class="sc">+</span> intensity[i<span class="sc">+</span><span class="dv">1</span>]) <span class="sc">/</span> <span class="dv">2</span>) <span class="cf">for</span> all consecutive days</span></code></pre><p></p></div>
+<p>\(AUDPC = sum((intensity[i] + intensity[i+1]) / 2)\)
+for all consecutive days</p>
     </div>
     <div class="section level2">
     <h2 id="when-to-use">When to Use<a class="anchor" aria-label="anchor" href="#when-to-use"></a></h2>

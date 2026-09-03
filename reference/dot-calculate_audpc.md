@@ -43,7 +43,8 @@ disease intensity over time. It:
 
 The trapezoidal rule approximates the area under the curve:
 
-    AUDPC = sum((intensity[i] + intensity[i+1]) / 2) for all consecutive days
+\\AUDPC = sum((intensity\[i\] + intensity\[i+1\]) / 2)\\ for all
+consecutive days
 
 ## When to Use
 
