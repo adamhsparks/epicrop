@@ -16,9 +16,9 @@
 #' * Is commonly used in cultivar resistance screening and management trials
 #'
 #' The trapezoidal rule approximates the area under the curve:
-#' ```
-#' AUDPC = sum((intensity[i] + intensity[i+1]) / 2) for all consecutive days
-#' ```
+#'
+#' \eqn{AUDPC = sum((intensity[i] + intensity[i+1]) / 2)}
+#'  for all consecutive days
 #'
 #' @section When to Use:
 #'
