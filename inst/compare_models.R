@@ -5,6 +5,8 @@
 # on identical weather data and produces detailed numerical and visual comparisons.
 # =============================================================================
 
+# pak::pak("adamhsparks/cropsim/pkg/cropsim")
+
 library(epicrop)
 library(cropsim) # Legacy SEIR models
 library(meteor) # Weather data retrieval
