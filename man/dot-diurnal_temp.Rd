@@ -17,7 +17,7 @@
 }
 \value{
 Numeric vector of 24 hourly temperatures (for single day or
-vectorized 24*n values for multiple days).
+vectorised 24*n values for multiple days).
 }
 \description{
 Computes a full diurnal temperature curve from minimum, maximum, and mean
@@ -45,7 +45,7 @@ plot(1:24, hourly_temp, type = "l", ylim = c(15, 35),
      main = "Diurnal Temperature Curve")
 abline(h = c(20, 30), col = "red", lty = 2)
 
-# Multiple days (vectorized)
+# Multiple days (vectorised)
 hourly_temps <- .diurnal_temp(
   lat = rep(14.16742, 3),
   doy = 182:184,

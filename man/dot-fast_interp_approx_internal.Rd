@@ -16,14 +16,14 @@ Rows may be unordered or contain duplicates.}
 Numeric vector of interpolated y-values.
 }
 \description{
-Core interpolation algorithm using \code{\link[base:findInterval]{base::findInterval()}} and vectorized
+Core interpolation algorithm using \code{\link[base:findInterval]{base::findInterval()}} and vectorised
 linear interpolation. Matches \code{\link[stats:approx]{stats::approx()}} with \code{rule = 2} exactly.
 }
 \details{
 Internally calls:
 \enumerate{
 \item \code{\link[=.prep_xy]{.prep_xy()}} to sort/deduplicate
-\item \code{\link[=.interpolate]{.interpolate()}} to perform vectorized interpolation
+\item \code{\link[=.interpolate]{.interpolate()}} to perform vectorised interpolation
 }
 
 Edge cases:

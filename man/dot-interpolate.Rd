@@ -2,7 +2,7 @@
 % Please edit documentation in R/interpolation.R
 \name{.interpolate}
 \alias{.interpolate}
-\title{Perform Vectorized Linear Interpolation}
+\title{Perform Vectorised Linear Interpolation}
 \usage{
 .interpolate(x, y, n, xout)
 }
@@ -19,7 +19,7 @@
 Numeric vector of interpolated y-values.
 }
 \description{
-Core vectorized interpolation using pre-sorted x-y points and output
+Core vectorised interpolation using pre-sorted x-y points and output
 x-coordinates. Uses \code{\link[base:findInterval]{base::findInterval()}} for efficiency.
 }
 \section{Method}{
