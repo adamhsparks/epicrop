@@ -89,7 +89,7 @@ test_that("rice model snapshot is stable", {
 
   snap$dates <- as.character(snap$dates)
   num <- vapply(snap, is.numeric, logical(1))
-  snap[num] <- lapply(snap[num], function(x) round(x, 4))
+  snap[num] <- lapply(snap[num], round, 4)
 
   expect_snapshot_value(snap, style = "json2")
 })

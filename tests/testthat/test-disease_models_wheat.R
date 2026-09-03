@@ -121,7 +121,7 @@ test_that("leaf_rust snapshot is stable", {
   # Stabilize types/precision
   snap$dates <- as.character(snap$dates)
   num <- vapply(snap, is.numeric, logical(1))
-  snap[num] <- lapply(snap[num], function(x) round(x, 4))
+  snap[num] <- lapply(snap[num], round, 4)
 
   expect_snapshot_value(snap, style = "json2")
 })
