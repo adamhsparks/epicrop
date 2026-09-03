@@ -49,3 +49,4 @@ head(dvs)
 \dontshow{\}) # examplesIf}
 }
 \keyword{internal}
+\keyword{internal}

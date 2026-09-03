@@ -160,7 +160,8 @@ Set to 0 (default) for standard SEIR (no lesion expansion).
 
 \item{simple_wetness}{Logical. Leaf wetness calculation method:
 \itemize{
-\item \code{TRUE} (default): Binary (0 or 1) based on \code{rhlim} and \code{rainlim} thresholds
+\item \code{TRUE} (default): Binary (0 or 1) based on \code{rhlim} and \code{rainlim}
+thresholds
 \item \code{FALSE}: Hourly calculation (requires TMIN, TMAX, LAT, DOY in \code{wth});
 applies \code{RcW} curve to 0–24 hour range
 }}
@@ -332,8 +333,7 @@ to be included. By default, \code{\link[=get_wth]{get_wth()}} and \code{\link[=f
 
 When \code{RRLEX > 0}, the model adds a direct pathway H→I, bypassing latency:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{rlex[t] = RRLEX × I[t] × (1 - D/Sx)
-}\if{html}{\out{</div>}}
+\eqn{rlex[t] = RRLEX × I[t] × (1 - D/Sx)}
 
 Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute rlex,
@@ -411,10 +411,6 @@ Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. 2012.
 Modeling and mapping potential epidemics of rice diseases globally.
 \emph{Crop Protection}, 34, 6–17.
 \doi{10.1016/j.cropro.2011.11.009}.
-
-Kim, K.-S., A. H. Sparks, P. S. Neshev, S. Channing, P. S. Ojiambo, and
-K. A. Garrett. 2015. A narrative review of the efficacy of management
-strategies for bacterial spot of citrus. \emph{Frontiers in Plant Science}, 6, 1043.
 }
 \seealso{
 \strong{Disease-specific helper functions:}

@@ -7,17 +7,18 @@
 .assemble(pieces, output)
 }
 \arguments{
-\item{pieces}{List of \link[data.table:data.table]{data.table::data.table}s from \code{\link[=.run_one]{.run_one()}}.}
+\item{pieces}{List of \link[data.table:data.table]{data.table::data.table}s.}
 
 \item{output}{Character. \code{"audpc"} or \code{"full"}.}
 }
 \value{
-A \link[data.table:data.table]{data.table::data.table} (or empty template if all pieces are NULL).
+A \link[data.table:data.table]{data.table::data.table} (or empty template if all pieces are
+\code{NULL}).
 }
 \description{
-Combines results from \code{\link[=.run_one]{.run_one()}} across all emergence dates into a single
-output table. Handles NULL entries, deduplication (AUDPC mode), and class
-assignment.
+Combines results from multiple model runs across all emergence dates into a
+single output table. Handles \code{NULL} entries, deduplication (AUDPC mode), and
+class assignment.
 }
 \section{Logic}{
 

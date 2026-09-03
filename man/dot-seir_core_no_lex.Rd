@@ -74,3 +74,4 @@ compartments based on infection rate, latency exit, and recovery.
 }
 
 \keyword{internal}
+\keyword{internal}
