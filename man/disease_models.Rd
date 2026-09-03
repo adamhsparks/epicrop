@@ -306,7 +306,8 @@ progression over time. See \code{\link[=seir]{seir()}} for output details.
 \description{
 Convenience wrappers around \code{\link[=seir]{seir()}} with pre-configured parameter tables
 for well-characterized crop diseases. Each function encapsulates parameters
-from published epidemiological studies, allowing one-line disease simulations.
+from published epidemiological studies, allowing one-line disease
+simulations.
 
 \code{bacterial_blight()} models rice bacterial blight (\emph{Xanthomonas oryzae}
 pv. \emph{oryzae}). The disease requires high humidity and warm temperatures

@@ -2,7 +2,8 @@
 #'
 #' Convenience wrappers around [seir()] with pre-configured parameter tables
 #' for well-characterized crop diseases. Each function encapsulates parameters
-#' from published epidemiological studies, allowing one-line disease simulations.
+#' from published epidemiological studies, allowing one-line disease
+#' simulations.
 #'
 #' All functions support parameter override via `...` arguments, enabling
 #' sensitivity analysis and custom cultivar/environment modelling.
