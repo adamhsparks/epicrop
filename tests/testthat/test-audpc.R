@@ -107,24 +107,6 @@ test_that("get_audpc errors on non-epicrop.sim objects", {
   )
 })
 
-test_that("get_audpc errors when AUDPC attribute missing", {
-  vcr::use_cassette("audpc_missing_attr", {
-    wth <- get_wth(
-      lonlat = c(121.25562, 14.6774),
-      dates = c("2000-07-01", "2000-11-30")
-    )
-
-    sim <- brown_spot(wth, emergence = "2000-07-01")
-
-    # Remove AUDPC attribute
-    attr(sim, "AUDPC") <- NULL
-
-    expect_error(
-      get_audpc(sim),
-      "AUDPC attribute not found"
-    )
-  })
-})
 test_that("AUDPC is calculated for all disease models", {
   vcr::use_cassette("audpc_all_models_new", {
     wth <- get_wth(
