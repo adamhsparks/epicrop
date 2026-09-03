@@ -281,10 +281,10 @@ format_wth <- function(
   rlang::check_required(c(wth, date, temp, rhum, rain))
 
   # Convert to data.table (copy if already data.table to avoid side effects)
-  if (!data.table::is.data.table(wth)) {
-    w <- data.table::as.data.table(wth)
-  } else {
+  if (data.table::is.data.table(wth)) {
     w <- data.table::copy(wth)
+  } else 
+    w <- data.table::as.data.table(wth)
   }
 
   # Build column mapping for renaming
