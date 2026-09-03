@@ -197,22 +197,14 @@ get_audpc <- function(x) {
     ))
   }
 
-  audpc <- attr(x, "AUDPC", exact = TRUE)
-
-  if (is.null(audpc)) {
-    cli::cli_abort(c(
-      "AUDPC attribute not found in {.arg x}",
-      i = "This should be automatically calculated by {.fun seir}"
-    ))
-  }
-
-  audpc
+  return(attr(x, "AUDPC", exact = TRUE))
 }
 
 #' Extract AUDPC Summary as data.table
 #'
 #' Extracts the Area Under Disease Progress Curve (AUDPC) from an epicrop
-#' simulation output along with spatial (lat/lon) and temporal (emergence) metadata.
+#' simulation output along with spatial (lat/lon) and temporal (emergence)
+#'  metadata.
 #' Returns a compact summary table suitable for analysis, mapping, or reporting.
 #'
 #' @section Output Structure:
