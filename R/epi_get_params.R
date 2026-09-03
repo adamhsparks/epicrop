@@ -110,6 +110,7 @@
 #' @keywords internal
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
+#' @keywords internal
 #' @dev
 epi_get_params <- function(crop, disease) {
   crop <- tolower(crop)

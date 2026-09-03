@@ -278,11 +278,8 @@ Daily transitions are driven by:
 
 
 At any day, the constraint is:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t]
-  = H0 + cumulative_growth[t] - cumulative_senescence[t]
-}\if{html}{\out{</div>}}
-
+\eqn{sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t]
+  = H0 + cumulative_growth[t] - cumulative_senescence[t]}
 Accumulated growth is \code{sum(rgrowth)} and accumulated senescence is
 \code{sum(rsenesced)}. Small numerical deviations may occur due to floating-point
 arithmetic.
@@ -292,10 +289,7 @@ arithmetic.
 
 
 The infection rate is computed as:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{new_infections = I × Rc × (1 - D/Sx)^a
-}\if{html}{\out{</div>}}
-
+\eqn{new_infections = I × Rc × (1 - D/Sx)^a}
 where D = diseased sites, Sx = carrying capacity, and \code{a} is the aggregation
 coefficient:
 \itemize{
