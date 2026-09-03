@@ -98,7 +98,7 @@ summaries <- lapply(emergence_dates, function(ed) {
   sim <- bacterial_blight(wth, emergence = as.character(ed))
   audpc_dt(sim)
 })
-#> Error in seir(wth = wth, emergence = emergence, RcA = RcA %||% params$RcA,     RcT = RcT %||% params$RcT, RRG = RRG %||% params$RRG, RRS = RRS %||%         params$RRS, onset = 20L, duration = 120L, rhlim = rhlim %||%         90L, rainlim = rainlim %||% 5L, H0 = 100L, I0 = 1L, RcOpt = 0.87,     p = 5L, i = 30L, Sx = 3200L, a = 4L, simple_wetness = TRUE,     age_driver = "day", ...): Emergence date not found in weather data
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Emergence date not found in weather data
 #> ✖ Emergence 2000-06-15 not in range 2000-06-30--2000-10-28
 summary_all <- data.table::rbindlist(summaries)
 #> Error: object 'summaries' not found
@@ -132,11 +132,13 @@ results$AUDPC <- mapply(function(loc_name, em_date) {
 }, results$location, results$emergence)
 
 print(results)
-#>   location  emergence    AUDPC
-#> 1     IRRI 2000-06-30 40.75393
-#> 2   Manila 2000-06-30 40.75393
-#> 3     IRRI 2000-07-15 37.65884
-#> 4   Manila 2000-07-15 37.65884
+#> # Data frame like object (class data.frame) 3 x 4:
+#>  │location│emergence │AUDPC
+#>  │<chr>   │<chr>     │<dbl>
+#> 1│IRRI    │2000-06-30│   41
+#> 2│Manila  │2000-06-30│   41
+#> 3│IRRI    │2000-07-15│   38
+#> 4│Manila  │2000-07-15│   38
 # Identify highest risk scenario
 worst <- results[which.max(results$AUDPC), ]
 sprintf("Highest risk: %s, emergence %s, AUDPC = %.1f",

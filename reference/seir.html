@@ -217,7 +217,8 @@ Set to 0 (default) for standard SEIR (no lesion expansion).</p></li>
 
 
 <dt id="arg-simple-wetness">simple_wetness<a class="anchor" aria-label="anchor" href="#arg-simple-wetness"></a></dt>
-<dd><p>Logical. Leaf wetness calculation method:</p><ul><li><p><code>TRUE</code> (default): Binary (0 or 1) based on <code>rhlim</code> and <code>rainlim</code> thresholds</p></li>
+<dd><p>Logical. Leaf wetness calculation method:</p><ul><li><p><code>TRUE</code> (default): Binary (0 or 1) based on <code>rhlim</code> and <code>rainlim</code>
+thresholds</p></li>
 <li><p><code>FALSE</code>: Hourly calculation (requires TMIN, TMAX, LAT, DOY in <code>wth</code>);
 applies <code>RcW</code> curve to 0–24 hour range</p></li>
 </ul></dd>
@@ -362,7 +363,7 @@ to be included. By default, <code><a href="get_wth.html">get_wth()</a></code> an
 
 
 <p>When <code>RRLEX &gt; 0</code>, the model adds a direct pathway H→I, bypassing latency:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>rlex[t] <span class="ot">=</span> RRLEX × I[t] × (<span class="dv">1</span> <span class="sc">-</span> D<span class="sc">/</span>Sx)</span></code></pre><p></p></div>
+<p>\(rlex[t] = RRLEX × I[t] × (1 - D/Sx)\)</p>
 <p>Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute rlex,
 (3) finalize infectious count. This ensures that <em>Rc</em>-driven infections and
@@ -384,9 +385,6 @@ Modeling and mapping potential epidemics of rice diseases globally.
 <em>Crop Protection</em>, 34, 6–17.
 <a href="https://doi.org/10.1016/j.cropro.2011.11.009" class="external-link">doi:10.1016/j.cropro.2011.11.009</a>
 .</p>
-<p>Kim, K.-S., A. H. Sparks, P. S. Neshev, S. Channing, P. S. Ojiambo, and
-K. A. Garrett. 2015. A narrative review of the efficacy of management
-strategies for bacterial spot of citrus. <em>Frontiers in Plant Science</em>, 6, 1043.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

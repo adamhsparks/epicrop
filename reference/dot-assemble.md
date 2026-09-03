@@ -1,9 +1,8 @@
 # Assemble Results from Multiple Runs
 
-Combines results from
-[`.run_one()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-run_one.md)
-across all emergence dates into a single output table. Handles NULL
-entries, deduplication (AUDPC mode), and class assignment.
+Combines results from multiple model runs across all emergence dates
+into a single output table. Handles `NULL` entries, deduplication (AUDPC
+mode), and class assignment.
 
 ## Usage
 
@@ -16,9 +15,7 @@ entries, deduplication (AUDPC mode), and class assignment.
 - pieces:
 
   List of
-  [data.table::data.table](https://rdrr.io/pkg/data.table/man/data.table.html)s
-  from
-  [`.run_one()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-run_one.md).
+  [data.table::data.table](https://rdrr.io/pkg/data.table/man/data.table.html)s.
 
 - output:
 
@@ -28,7 +25,7 @@ entries, deduplication (AUDPC mode), and class assignment.
 
 A
 [data.table::data.table](https://rdrr.io/pkg/data.table/man/data.table.html)
-(or empty template if all pieces are NULL).
+(or empty template if all pieces are `NULL`).
 
 ## Logic
 

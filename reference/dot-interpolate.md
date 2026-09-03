@@ -1,6 +1,6 @@
-# Perform Vectorized Linear Interpolation
+# Perform Vectorised Linear Interpolation
 
-Core vectorized interpolation using pre-sorted x-y points and output
+Core vectorised interpolation using pre-sorted x-y points and output
 x-coordinates. Uses
 [`base::findInterval()`](https://rdrr.io/r/base/findInterval.html) for
 efficiency.
@@ -40,6 +40,8 @@ Computes linear interpolation between consecutive x-y points:
 \\y_interp = y\[i\] + w \* (y\[i+1\] - y\[i\])\\ where \\w = (x -
 x\[i\]) / (x\[i+1\] - x\[i\])\\
 
-    Boundary handling:
-    * `x < min(x_vec)`: \eqn{y = y[1]}
-    * `x > max(x_vec)`: \eqn{y = y[n]}
+Boundary handling:
+
+- `x < min(x_vec)`: \\y = y\[1\]\\
+
+- `x > max(x_vec)`: \\y = y\[n\]\\

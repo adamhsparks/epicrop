@@ -30,7 +30,7 @@ model.
 
 ## Value
 
-Numeric vector of 24 hourly temperatures (for single day or vectorized
+Numeric vector of 24 hourly temperatures (for single day or vectorised
 24\*n values for multiple days).
 
 ## Algorithm
@@ -59,7 +59,7 @@ plot(1:24, hourly_temp, type = "l", ylim = c(15, 35),
 abline(h = c(20, 30), col = "red", lty = 2)
 
 
-# Multiple days (vectorized)
+# Multiple days (vectorised)
 hourly_temps <- .diurnal_temp(
   lat = rep(14.16742, 3),
   doy = 182:184,

@@ -2,7 +2,7 @@
 
 Core interpolation algorithm using
 [`base::findInterval()`](https://rdrr.io/r/base/findInterval.html) and
-vectorized linear interpolation. Matches
+vectorised linear interpolation. Matches
 [`stats::approx()`](https://rdrr.io/r/stats/approxfun.html) with
 `rule = 2` exactly.
 
@@ -35,7 +35,7 @@ Internally calls:
     to sort/deduplicate
 
 2.  [`.interpolate()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-interpolate.md)
-    to perform vectorized interpolation
+    to perform vectorised interpolation
 
 Edge cases:
 

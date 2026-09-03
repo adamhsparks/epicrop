@@ -406,7 +406,7 @@ provide these.
 When `RRLEX > 0`, the model adds a direct pathway H→I, bypassing
 latency:
 
-    rlex[t] = RRLEX × I[t] × (1 - D/Sx)
+\\rlex\[t\] = RRLEX × I\[t\] × (1 - D/Sx)\\
 
 Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute
@@ -431,11 +431,6 @@ Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J.
 globally. *Crop Protection*, 34, 6–17.
 [doi:10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009)
 .
-
-Kim, K.-S., A. H. Sparks, P. S. Neshev, S. Channing, P. S. Ojiambo, and
-K. A. Garrett. 2015. A narrative review of the efficacy of management
-strategies for bacterial spot of citrus. *Frontiers in Plant Science*,
-6, 1043.
 
 ## See also
 
