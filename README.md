@@ -6,7 +6,7 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 96.4%](https://img.shields.io/badge/code_coverage-96.4%25-green)](#code-coverage)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) [![Code Coverage: 96%](https://img.shields.io/badge/code_coverage-96%25-green)](#code-coverage)
 
 <!-- badges: end -->
 
@@ -14,7 +14,7 @@ A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim
 This version provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018) and predict disease intensity of five rice diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, `seir()`.
 This package implements the EPIRICE model first published in Savary *et al.* (2012), which introduces the model and uses it to model global epidemics of rice diseases illustrating the risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro disease.
 Additional models included for rice are adapted from Kim *et al.* (2015) for rice sheath blight and leaf blast.
-The EPIWHEAT model first published in Savary *et al.* (2015) is also included in this implementation and can be used to model potential epidemics of two wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.
+The EPIWHEAT model first published in Savary *et al.* (2015) that was used to model potential epidemics of two wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.
 
 The modern core of `seir()` in {epicrop} uses a different numerical integration approach than the legacy `SEIR()` in {cropsim}.
 While both implement the canonical SEIR formula (diseased = latent + infectious + removed), the modern version uses cumulative delay windows instead of forward Euler integration.
@@ -78,32 +78,32 @@ Once you have the weather data, run the model for any of the five rice diseases 
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
 
 bb_sim
-#>      simday      dates    sites latent infectious  removed    senesced rateinf  rlex rtransfer rremoved  rgrowth
-#>       <int>     <IDat>    <num>  <num>      <num>    <num>       <num>   <num> <num>     <num>    <num>    <num>
-#>   1:      1 2000-07-01 100.0000      0     0.0000    0.000    1.000000       0     0         0  0.00000  9.68750
-#>   2:      2 2000-07-02 108.6875      0     0.0000    0.000    2.086875       0     0         0  0.00000 10.49959
-#>   3:      3 2000-07-03 118.1002      0     0.0000    0.000    3.267877       0     0         0  0.00000 11.37416
-#>   4:      4 2000-07-04 128.2934      0     0.0000    0.000    4.550811       0     0         0  0.00000 12.31499
-#>   5:      5 2000-07-05 139.3254      0     0.0000    0.000    5.944065       0     0         0  0.00000 13.32593
-#>  ---                                                                                                            
-#> 116:    116 2000-10-24   0.0000      0   396.0528 1404.565 2665.037553       0     0         0 43.67864  0.00000
-#> 117:    117 2000-10-25   0.0000      0   356.3610 1444.257 2712.120592       0     0         0 39.69181  0.00000
-#> 118:    118 2000-10-26   0.0000      0   309.2779 1491.340 2755.012575       0     0         0 47.08304  0.00000
-#> 119:    119 2000-10-27   0.0000      0   266.3860 1534.232 2791.854071       0     0         0 42.89198  0.00000
-#> 120:    120 2000-10-28   0.0000      0   229.5445 1571.073 2824.358958       0     0         0 36.84150  0.00000
-#>      rsenesced diseased intensity     lat      lon
-#>          <num>    <num>     <num>   <num>    <num>
-#>   1:  1.000000    0.000         0 14.6774 121.2556
-#>   2:  1.086875    0.000         0 14.6774 121.2556
-#>   3:  1.181002    0.000         0 14.6774 121.2556
-#>   4:  1.282934    0.000         0 14.6774 121.2556
-#>   5:  1.393254    0.000         0 14.6774 121.2556
-#>  ---                                              
-#> 116: 39.691810 1800.618         1 14.6774 121.2556
-#> 117: 47.083039 1800.618         1 14.6774 121.2556
-#> 118: 42.891982 1800.618         1 14.6774 121.2556
-#> 119: 36.841497 1800.618         1 14.6774 121.2556
-#> 120: 32.504887 1800.618         1 14.6774 121.2556
+#>      simday      dates    sites latent infectious  removed    senesced rateinf  rlex rtransfer rremoved  rgrowth rsenesced diseased intensity     lat
+#>       <int>     <IDat>    <num>  <num>      <num>    <num>       <num>   <num> <num>     <num>    <num>    <num>     <num>    <num>     <num>   <num>
+#>   1:      1 2000-07-01 100.0000      0     0.0000    0.000    1.000000       0     0         0  0.00000  9.68750  1.000000    0.000         0 14.6774
+#>   2:      2 2000-07-02 108.6875      0     0.0000    0.000    2.086875       0     0         0  0.00000 10.49959  1.086875    0.000         0 14.6774
+#>   3:      3 2000-07-03 118.1002      0     0.0000    0.000    3.267877       0     0         0  0.00000 11.37416  1.181002    0.000         0 14.6774
+#>   4:      4 2000-07-04 128.2934      0     0.0000    0.000    4.550811       0     0         0  0.00000 12.31499  1.282934    0.000         0 14.6774
+#>   5:      5 2000-07-05 139.3254      0     0.0000    0.000    5.944065       0     0         0  0.00000 13.32593  1.393254    0.000         0 14.6774
+#>  ---                                                                                                                                                 
+#> 116:    116 2000-10-24   0.0000      0   396.0528 1404.565 2665.037553       0     0         0 43.67864  0.00000 39.691810 1800.618         1 14.6774
+#> 117:    117 2000-10-25   0.0000      0   356.3610 1444.257 2712.120592       0     0         0 39.69181  0.00000 47.083039 1800.618         1 14.6774
+#> 118:    118 2000-10-26   0.0000      0   309.2779 1491.340 2755.012575       0     0         0 47.08304  0.00000 42.891982 1800.618         1 14.6774
+#> 119:    119 2000-10-27   0.0000      0   266.3860 1534.232 2791.854071       0     0         0 42.89198  0.00000 36.841497 1800.618         1 14.6774
+#> 120:    120 2000-10-28   0.0000      0   229.5445 1571.073 2824.358958       0     0         0 36.84150  0.00000 32.504887 1800.618         1 14.6774
+#>           lon
+#>         <num>
+#>   1: 121.2556
+#>   2: 121.2556
+#>   3: 121.2556
+#>   4: 121.2556
+#>   5: 121.2556
+#>  ---         
+#> 116: 121.2556
+#> 117: 121.2556
+#> 118: 121.2556
+#> 119: 121.2556
+#> 120: 121.2556
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -145,19 +145,19 @@ ggplot(
 
 
 ```
-#> epicrop Coverage: 96.42%
-#> R/get_wth.R: 78.95%
-#> R/interpolation.R: 80.17%
-#> R/format_wth.R: 93.15%
-#> R/validation.R: 95.48%
-#> R/leaf_wetness.R: 98.17%
-#> R/audpc.R: 98.28%
-#> R/seir.R: 99.10%
+#> epicrop Coverage: 96.00%
+#> R/get_wth.R: 77.22%
+#> R/interpolation.R: 80.34%
+#> R/validation.R: 84.62%
+#> R/format_wth.R: 91.18%
+#> R/leaf_wetness.R: 97.54%
+#> R/audpc.R: 98.00%
+#> R/run_epicrop_model.R: 99.26%
+#> R/seir.R: 99.32%
 #> R/build_epicrop_emergence.R: 100.00%
 #> R/disease_models.R: 100.00%
 #> R/epi_get_params.R: 100.00%
 #> R/fetch_epicrop_weather_list.R: 100.00%
-#> R/run_epicrop_model.R: 100.00%
 ```
 
 ## Code of Conduct
