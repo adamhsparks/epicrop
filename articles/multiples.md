@@ -92,7 +92,7 @@ visualise the difference between the two seasons.
 
 ![Bacterial blight area under the disease progress curve (AUDPC) for the
 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
-Calabarzon, Philippines.](graph_seasons-1.png)
+Calabarzon, Philippines.](figure/graph_seasons-1.png)
 
 Bacterial blight area under the disease progress curve (AUDPC) for the
 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
@@ -235,17 +235,17 @@ with a 240 day growing season.
 `  window_days ``=`` ``240L``,`\
 `  output ``=`` ``"audpc"`\
 `)`\
-`#>            emergence     AUDPC location`\
-`#>     <epicrop.emerge>     <num>   <char>`\
-`#>  1:       2020-04-15  7.674841 Merredin`\
-`#>  2:       2020-05-01  4.031927 Merredin`\
-`#>  3:       2021-04-15 12.952039 Merredin`\
-`#>  4:       2021-05-01  7.472121 Merredin`\
-`#>  5:       2020-04-15  7.309789 Corrigin`\
-`#>  6:       2020-05-01  4.547591 Corrigin`\
-`#>  7:       2021-04-15 12.922422 Corrigin`\
-`#>  8:       2021-05-01  6.902683 Corrigin`\
-`#>  9:       2020-04-15  1.736335 Tamworth`\
-`#> 10:       2020-05-01  1.644464 Tamworth`\
-`#> 11:       2021-04-15  3.699709 Tamworth`\
-`#> 12:       2021-05-01  2.487648 Tamworth`
+`#>            emergence      AUDPC location`\
+`#>     <epicrop.emerge>      <num>   <char>`\
+`#>  1:       2020-04-15 0.12638274 Merredin`\
+`#>  2:       2020-05-01 0.10437605 Merredin`\
+`#>  3:       2021-04-15 0.16522873 Merredin`\
+`#>  4:       2021-05-01 0.11348725 Merredin`\
+`#>  5:       2020-04-15 0.12254255 Corrigin`\
+`#>  6:       2020-05-01 0.10658289 Corrigin`\
+`#>  7:       2021-04-15 0.18790666 Corrigin`\
+`#>  8:       2021-05-01 0.11734482 Corrigin`\
+`#>  9:       2020-04-15 0.10126323 Tamworth`\
+`#> 10:       2020-05-01 0.09860009 Tamworth`\
+`#> 11:       2021-04-15 0.10325174 Tamworth`\
+`#> 12:       2021-05-01 0.10705749 Tamworth`

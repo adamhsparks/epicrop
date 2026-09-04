@@ -35,7 +35,7 @@ Kim versions provide leaf blast and sheath blight models that include
 additional weather parameters and modified equations to better reflect
 disease progress under certain environmental conditions on the Korean
 Peninsula. The ‘EPIWHEAT’ model includes two wheat diseases, leaf rust
-([`leaf_rust()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md))
+([`leaf_rust()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)
 and septoria tritici blotch
 ([`s_tritici_blotch()`](https://adamhsparks.codeberg.page/epicrop/reference/disease_models.md)),
 with default values derived from the literature suitable for modelling
@@ -129,11 +129,7 @@ long format for use in {ggplot2} if you wish to plot more than one
 variable at a time.
 
 \
-[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`
-
-    ## Use suppressPackageStartupMessages() to eliminate package startup messages
-
-\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
 [`library`](https://rdrr.io/r/base/library.html)`(`[`tidyr`](https://tidyr.tidyverse.org)`)`
 
 #### Wet Season Sites
@@ -149,15 +145,16 @@ graphed as follows.
 `  values_to ``=`` ``"value"`\
 `)`\
 \
-[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``dat``,`\
-`       `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(`\
-`         x ``=`` ``dates``,`\
-`         y ``=`` ``value``,`\
-`         shape ``=`` ``site``,`\
-`         linetype ``=`` ``site`\
-`       ``)``)`` ``+`\
-`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Sites"``,`\
-`       x ``=`` ``"Date"``)`` ``+`\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(`\
+`  data ``=`` ``dat``,`\
+`  `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(`\
+`    x ``=`` ``dates``,`\
+`    y ``=`` ``value``,`\
+`    shape ``=`` ``site``,`\
+`    linetype ``=`` ``site`\
+`  ``)`\
+`)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Sites"``, x ``=`` ``"Date"``)`` ``+`\
 `  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``group ``=`` ``site``, colour ``=`` ``site``)``)`` ``+`\
 `  `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``colour ``=`` ``site``)``)`` ``+`\
 `  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
@@ -166,7 +163,7 @@ graphed as follows.
 year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to
 run the model were obtained from the NASA Langley Research Center POWER
 Project funded through the NASA Earth Science Directorate Applied
-Science Program.](wet_plot_sites-1.png)
+Science Program.](figure/wet_plot_sites-1.png)
 
 Site states over time for bacterial blight. Results for wet season year
 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run
@@ -179,11 +176,8 @@ Science Program.
 Plotting intensity over time does not require any data manipulation.
 
 \
-[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``bb_wet``,`\
-`       `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``dates``,`\
-`           y ``=`` ``intensity`` ``*`` ``100``)``)`` ``+`\
-`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Intensity (%)"``,`\
-`       x ``=`` ``"Date"``)`` ``+`\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``bb_wet``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``dates``, y ``=`` ``intensity`` ``*`` ``100``)``)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Intensity (%)"``, x ``=`` ``"Date"``)`` ``+`\
 `  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``)`` ``+`\
 `  `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(``)`` ``+`\
 `  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
@@ -192,7 +186,7 @@ Plotting intensity over time does not require any data manipulation.
 for wet season year 2000 at IRRI Zeigler Experiment Station shown.
 Weather data used to run the model were obtained from the NASA Langley
 Research Center POWER Project funded through the NASA Earth Science
-Directorate Applied Science Program.](wet_plot_intensity-1.png)
+Directorate Applied Science Program.](figure/wet_plot_intensity-1.png)
 
 Wet season disease intensity over time for bacterial blight. Results for
 wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather
@@ -234,11 +228,8 @@ values for both seasons.
 Check the disease progress curve for the dry season.
 
 \
-[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``bb_dry``,`\
-`       `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``dates``,`\
-`           y ``=`` ``intensity`` ``*`` ``100``)``)`` ``+`\
-`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Intensity (%)"``,`\
-`       x ``=`` ``"Date"``)`` ``+`\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``data ``=`` ``bb_dry``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``dates``, y ``=`` ``intensity`` ``*`` ``100``)``)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(``y ``=`` ``"Intensity (%)"``, x ``=`` ``"Date"``)`` ``+`\
 `  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``)`` ``+`\
 `  `[`geom_point`](https://ggplot2.tidyverse.org/reference/geom_point.html)`(``)`` ``+`\
 `  `[`theme_classic`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`
@@ -247,7 +238,7 @@ Check the disease progress curve for the dry season.
 season year 2000 at IRRI Zeigler Experiment Station shown. Weather data
 used to run the model were obtained from the NASA Langley Research
 Center POWER Project funded through the NASA Earth Science Directorate
-Applied Science Program.](dry_plot_intensity-1.png)
+Applied Science Program.](figure/dry_plot_intensity-1.png)
 
 Dry season site states over time for bacterial blight. Results for dry
 season year 2000 at IRRI Zeigler Experiment Station shown. Weather data
