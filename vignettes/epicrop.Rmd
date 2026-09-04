@@ -39,6 +39,12 @@ Load the library.
 library(epicrop)
 ```
 
+```
+## Registered S3 method overwritten by 'data.table':
+##   method           from   
+##   print.data.table colorDF
+```
+
 ### Get Weather Data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.

@@ -21,16 +21,18 @@ suggested_packages <-
     "ggspatial"
   )
 
-knitr::opts_chunk$set(eval = all(
-  vapply(
-    suggested_packages,
-    requireNamespace,
-    quietly = TRUE,
-    FUN.VALUE = FALSE
+knitr::opts_chunk$set(
+  eval = all(
+    vapply(
+      suggested_packages,
+      requireNamespace,
+      quietly = TRUE,
+      FUN.VALUE = FALSE
+    )
   )
-))
+)
 
-opts_knit$set(progress=FALSE)
+opts_knit$set(progress = FALSE)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -82,7 +84,7 @@ bb_sim <- run_epicrop_model(
 )
 
 ggplot(bb_sim, aes(x = lon, y = lat)) +
-  annotation_map_tile(type = "cartolight", zoomin = 0) +
+  annotation_map_tile(type = "osm", zoomin = 0) +
   geom_spatial_point(aes(size = AUDPC)) +
   geom_spatial_label_repel(
     aes(label = paste(location, round(AUDPC, 0), sep = ", ")),
