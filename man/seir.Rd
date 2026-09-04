@@ -53,8 +53,8 @@ seir(
    LON \tab Longitude; included in output if present \cr
 }}
 
-\item{emergence}{Plant emergence (transplanting for rice) date in \code{YYYY-MM-DD}
-format (character).}
+\item{emergence}{Plant emergence (transplanting for rice) date in
+\code{YYYY-MM-DD} format (character).}
 
 \item{onset}{Days until disease onset \strong{after emergence date} (1-indexed
 integer). Value of 1 means disease begins on emergence day. When comparing
@@ -265,7 +265,8 @@ The model tracks five site compartments over time:
 
 Daily transitions are driven by:
 \itemize{
-\item Infection rate: \verb{Rc × I × (1 - D/Sx)^a} (corrected for crowding & aggregation)
+\item Infection rate: \verb{Rc × I × (1 - D/Sx)^a} (corrected for crowding &
+aggregation)
 \item Latency progression: E→I after \code{p} days
 \item Recovery: I→R after \code{i} days
 \item Growth: H increases based on \code{RRG} (if room available)

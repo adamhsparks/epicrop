@@ -273,8 +273,8 @@ stb(
    LON \tab Longitude; included in output if present \cr
 }}
 
-\item{emergence}{Plant emergence (transplanting for rice) date in \code{YYYY-MM-DD}
-format (character).}
+\item{emergence}{Plant emergence (transplanting for rice) date in
+\code{YYYY-MM-DD} format (character).}
 
 \item{RcA}{Optional custom age modifier table (2-column numeric matrix).
 Overrides the published default for this disease.}

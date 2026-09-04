@@ -20,7 +20,8 @@
 #' * **Senesced sites (S)**: Physiologically dead
 #'
 #' Daily transitions are driven by:
-#' * Infection rate: `Rc × I × (1 - D/Sx)^a` (corrected for crowding & aggregation)
+#' * Infection rate: `Rc × I × (1 - D/Sx)^a` (corrected for crowding &
+#'    aggregation)
 #' * Latency progression: E→I after `p` days
 #' * Recovery: I→R after `i` days
 #' * Growth: H increases based on `RRG` (if room available)
@@ -47,8 +48,8 @@
 #'   | LAT | Latitude; required if `simple_wetness = FALSE` |
 #'   | LON | Longitude; included in output if present |
 #'
-#' @param emergence Plant emergence (transplanting for rice) date in `YYYY-MM-DD`
-#'   format (character).
+#' @param emergence Plant emergence (transplanting for rice) date in
+#'   `YYYY-MM-DD` format (character).
 #' @param onset Days until disease onset **after emergence date** (1-indexed
 #'   integer). Value of 1 means disease begins on emergence day. When comparing
 #'   with legacy SEIR(), use `legacy_onset = onset - 1`.
