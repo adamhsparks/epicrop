@@ -129,29 +129,28 @@ Disease Epidemics</em>. American Phytopathological Society, St. Paul, MN.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate AUDPC from intensity vector (already in object attribute)</span></span></span>
 <span class="r-in"><span><span class="va">audpc_value</span> <span class="op">&lt;-</span> <span class="fu">.calculate_audpc</span><span class="op">(</span>intensity <span class="op">=</span> <span class="va">bb_sim</span><span class="op">$</span><span class="va">intensity</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_audpc(intensity = bb_sim$intensity):</span> could not find function ".calculate_audpc"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">audpc_value</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'audpc_value' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 37.74063</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compare with automatic calculation via get_audpc()</span></span></span>
 <span class="r-in"><span><span class="va">audpc_attr</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_audpc.html">get_audpc</a></span><span class="op">(</span><span class="va">bb_sim</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">audpc_value</span>, <span class="va">audpc_attr</span><span class="op">)</span>  <span class="co"># Should be TRUE</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'audpc_value' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Effect of disease severity on AUDPC</span></span></span>
 <span class="r-in"><span><span class="co"># Mild disease (slow progression)</span></span></span>
 <span class="r-in"><span><span class="va">mild</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, length.out <span class="op">=</span> <span class="fl">120</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">audpc_mild</span> <span class="op">&lt;-</span> <span class="fu">.calculate_audpc</span><span class="op">(</span><span class="va">mild</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_audpc(mild):</span> could not find function ".calculate_audpc"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Severe disease (rapid progression)</span></span></span>
 <span class="r-in"><span><span class="va">severe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.0</span>, length.out <span class="op">=</span> <span class="fl">120</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">audpc_severe</span> <span class="op">&lt;-</span> <span class="fu">.calculate_audpc</span><span class="op">(</span><span class="va">severe</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_audpc(severe):</span> could not find function ".calculate_audpc"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>Scenario <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Mild"</span>, <span class="st">"Severe"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>      AUDPC <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">audpc_mild</span>, <span class="va">audpc_severe</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'audpc_mild' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Scenario AUDPC  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "Mild"   "17.85"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] "Severe" "59.5" </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Compare resistant vs susceptible cultivars</span></span></span>
 <span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>

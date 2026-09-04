@@ -57,6 +57,10 @@ Load the library.
 \
 [`library`](https://rdrr.io/r/base/library.html)`(`[`epicrop`](https://codeberg.org/adamhsparks/epicrop)`)`
 
+    ## Registered S3 method overwritten by 'data.table':
+    ##   method           from   
+    ##   print.data.table colorDF
+
 #### Get Weather Data
 
 The most simple way to use the model is to download weather data from

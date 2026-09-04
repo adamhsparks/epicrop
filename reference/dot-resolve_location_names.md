@@ -42,9 +42,9 @@ locations <- rbind(
 
 # Uses rownames by default
 .resolve_location_names(locations, NULL)
-#> Error in .resolve_location_names(locations, NULL): could not find function ".resolve_location_names"
+#> [1] "IRRI_ZES"     "Metro_Manila"
 
 # Overrides with user names
 .resolve_location_names(locations, c("Site A", "Site B"))
-#> Error in .resolve_location_names(locations, c("Site A", "Site B")): could not find function ".resolve_location_names"
+#> [1] "Site A" "Site B"
 ```
