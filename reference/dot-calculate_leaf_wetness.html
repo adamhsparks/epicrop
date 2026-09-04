@@ -143,9 +143,9 @@ is constant.</p>
 <span class="r-in"><span>  rainlim <span class="op">=</span> <span class="fl">5</span>,</span></span>
 <span class="r-in"><span>  weighted_wetness <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_leaf_wetness(wth = wth, rhlim = 90, rainlim = 5, weighted_wetness = FALSE):</span> could not find function ".calculate_leaf_wetness"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">wet_hours</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   10.00   11.50   13.00   13.27   14.50   18.00 </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wet_hours' not found</span>
 <span class="r-in"><span><span class="co"># Typical range: 0-24 hours per day</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Weighted wetness for more sensitive pathogen model</span></span></span>
@@ -155,36 +155,31 @@ is constant.</p>
 <span class="r-in"><span>  rainlim <span class="op">=</span> <span class="fl">5</span>,</span></span>
 <span class="r-in"><span>  weighted_wetness <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_leaf_wetness(wth = wth, rhlim = 90, rainlim = 5, weighted_wetness = TRUE):</span> could not find function ".calculate_leaf_wetness"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">wth</span><span class="op">$</span><span class="va">YYYYMMDD</span>, <span class="va">wet_hours</span>, <span class="va">wet_weighted</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             wet_hours wet_weighted</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 11138        12           14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 11139        14           18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 11140        10           13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 11141        17           21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 11142        13           18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 11143        15           20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 11144        10           13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 11145        11           15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 11146        12           15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 11147        14           20</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wet_hours' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Using with RcW curve for infection rate</span></span></span>
 <span class="r-in"><span><span class="co"># Linear relationship: 0 hours = 0 modifier, 24 hours = 1 modifier</span></span></span>
 <span class="r-in"><span><span class="va">wet_hrs</span> <span class="op">&lt;-</span> <span class="fu">.calculate_leaf_wetness</span><span class="op">(</span><span class="va">wth</span>, rhlim <span class="op">=</span> <span class="fl">90</span>, rainlim <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_leaf_wetness(wth, rhlim = 90, rainlim = 5):</span> could not find function ".calculate_leaf_wetness"</span>
 <span class="r-in"><span><span class="va">Rc_wet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">wet_hrs</span> <span class="op">/</span> <span class="fl">24</span><span class="op">)</span>  <span class="co"># Linear interpolation</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wet_hrs' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wth</span><span class="op">$</span><span class="va">DOY</span>, <span class="va">wet_hrs</span>, type <span class="op">=</span> <span class="st">"l"</span>, xlab <span class="op">=</span> <span class="st">"Day of Year"</span>, ylab <span class="op">=</span> <span class="st">"Wet-Hours"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="dot-calculate_leaf_wetness-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wet_hrs' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: Effect of rainfall</span></span></span>
 <span class="r-in"><span><span class="co"># Create synthetic weather with same RH but varying rain</span></span></span>
 <span class="r-in"><span><span class="va">wth_dry</span> <span class="op">&lt;-</span> <span class="va">wth</span><span class="op">[</span><span class="va">RAIN</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">wth_wet</span> <span class="op">&lt;-</span> <span class="va">wth</span><span class="op">[</span><span class="va">RAIN</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">wet_dry</span> <span class="op">&lt;-</span> <span class="fu">.calculate_leaf_wetness</span><span class="op">(</span><span class="va">wth_dry</span>, rhlim <span class="op">=</span> <span class="fl">90</span>, rainlim <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_leaf_wetness(wth_dry, rhlim = 90, rainlim = 5):</span> could not find function ".calculate_leaf_wetness"</span>
 <span class="r-in"><span><span class="va">wet_rain</span> <span class="op">&lt;-</span> <span class="fu">.calculate_leaf_wetness</span><span class="op">(</span><span class="va">wth_wet</span>, rhlim <span class="op">=</span> <span class="fl">90</span>, rainlim <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .calculate_leaf_wetness(wth_wet, rhlim = 90, rainlim = 5):</span> could not find function ".calculate_leaf_wetness"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">wet_dry</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># Without rain</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NaN</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wet_dry' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">wet_rain</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># With rain</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 13.27273</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wet_rain' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -32,7 +32,5 @@ non-empty.
   IRRI = c(121.255669, 14.16742),
   Manila = c(120.985, 14.6042)
 ))
-#>            [,1]     [,2]
-#> IRRI   121.2557 14.16742
-#> Manila 120.9850 14.60420
+#> Error in .process_location_list(list(IRRI = c(121.255669, 14.16742), Manila = c(120.985,     14.6042))): could not find function ".process_location_list"
 ```

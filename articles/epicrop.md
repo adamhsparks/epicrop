@@ -57,10 +57,6 @@ Load the library.
 \
 [`library`](https://rdrr.io/r/base/library.html)`(`[`epicrop`](https://codeberg.org/adamhsparks/epicrop)`)`
 
-    ## Registered S3 method overwritten by 'data.table':
-    ##   method           from   
-    ##   print.data.table colorDF
-
 #### Get Weather Data
 
 The most simple way to use the model is to download weather data from
@@ -167,7 +163,7 @@ graphed as follows.
 year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to
 run the model were obtained from the NASA Langley Research Center POWER
 Project funded through the NASA Earth Science Directorate Applied
-Science Program.](figure/wet_plot_sites-1.png)
+Science Program.](wet_plot_sites-1.png)
 
 Site states over time for bacterial blight. Results for wet season year
 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run
@@ -190,7 +186,7 @@ Plotting intensity over time does not require any data manipulation.
 for wet season year 2000 at IRRI Zeigler Experiment Station shown.
 Weather data used to run the model were obtained from the NASA Langley
 Research Center POWER Project funded through the NASA Earth Science
-Directorate Applied Science Program.](figure/wet_plot_intensity-1.png)
+Directorate Applied Science Program.](wet_plot_intensity-1.png)
 
 Wet season disease intensity over time for bacterial blight. Results for
 wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather
@@ -242,7 +238,7 @@ Check the disease progress curve for the dry season.
 season year 2000 at IRRI Zeigler Experiment Station shown. Weather data
 used to run the model were obtained from the NASA Langley Research
 Center POWER Project funded through the NASA Earth Science Directorate
-Applied Science Program.](figure/dry_plot_intensity-1.png)
+Applied Science Program.](dry_plot_intensity-1.png)
 
 Dry season site states over time for bacterial blight. Results for dry
 season year 2000 at IRRI Zeigler Experiment Station shown. Weather data

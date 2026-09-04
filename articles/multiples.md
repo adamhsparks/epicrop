@@ -92,7 +92,7 @@ visualise the difference between the two seasons.
 
 ![Bacterial blight area under the disease progress curve (AUDPC) for the
 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in
-Calabarzon, Philippines.](figure/graph_seasons-1.png)
+Calabarzon, Philippines.](graph_seasons-1.png)
 
 Bacterial blight area under the disease progress curve (AUDPC) for the
 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in

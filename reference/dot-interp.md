@@ -141,8 +141,9 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 # Example 1: Scalar parameter
 age <- 0:119
 RRG_scalar <- .interp(0.1, age_vec = age)
+#> Error in .interp(0.1, age_vec = age): could not find function ".interp"
 head(RRG_scalar)  # [1] 0.1 0.1 0.1 0.1 0.1 0.1
-#> [1] 0.1 0.1 0.1 0.1 0.1 0.1
+#> Error: object 'RRG_scalar' not found
 
 # Example 2: Lookup table (matrix)
 RcA <- rbind(
@@ -151,17 +152,19 @@ RcA <- rbind(
   c(120, 0.6)    # Day 120: modifier = 0.6
 )
 RcA_interp <- .interp(RcA, age_vec = age)
+#> Error in .interp(RcA, age_vec = age): could not find function ".interp"
 plot(age, RcA_interp, type = "l",
      xlab = "Days After Emergence", ylab = "Age Modifier (RcA)")
-
+#> Error: object 'RcA_interp' not found
 # Shows ramp-up from 0 to 60 days, plateau after 60 days
 
 # Example 3: Vector parameter (age-dependent growth)
 RRG_vec <- c(rep(0.05, 30), rep(0.1, 60), rep(0.05, 30))
 RRG_interp <- .interp(RRG_vec, age_vec = age)
+#> Error in .interp(RRG_vec, age_vec = age): could not find function ".interp"
 plot(age, RRG_interp, type = "s",
      xlab = "Days", ylab = "Relative Growth Rate")
-
+#> Error: object 'RRG_interp' not found
 # Shows different growth rates for early, mid, and late season
 
 # Example 4: Function-based parameter (temperature-dependent)
@@ -173,10 +176,11 @@ RcT_fn <- function(temp) {
 }
 temps <- seq(10, 40, by = 1)
 RcT_interp <- .interp(RcT_fn, age_vec = temps)
+#> Error in .interp(RcT_fn, age_vec = temps): could not find function ".interp"
 plot(temps, RcT_interp, type = "b",
      xlab = "Temperature (degrees C)", ylab = "Temperature Modifier (RcT)",
      main = "Typical Bell Curve for Fungal Pathogen")
-
+#> Error: object 'RcT_interp' not found
 
 # Example 5: Matrix with unsorted rows and duplicates
 # (function handles reordering and deduplication automatically)
@@ -187,6 +191,7 @@ RcA_messy <- rbind(
   c(120, 0.6)
 )
 RcA_clean <- .interp(RcA_messy, age_vec = age)
+#> Error in .interp(RcA_messy, age_vec = age): could not find function ".interp"
 # Internally sorted to: 0->0.05, 60->0.6, 120->0.6
 
 # Example 6: Comparing DVS-based vs day-based aging
@@ -198,6 +203,8 @@ RcA_dvs <- rbind(
   c(2.0, 0.2)    # DVS 2 (maturity/senescence)
 )
 RcA_interp_dvs <- .interp(RcA_dvs, age_vec = dvs)
+#> Error in .interp(RcA_dvs, age_vec = dvs): could not find function ".interp"
 plot(dvs, RcA_interp_dvs, type = "l",
      xlab = "Development Stage (DVS)", ylab = "Age Modifier")
+#> Error: object 'RcA_interp_dvs' not found
 ```
