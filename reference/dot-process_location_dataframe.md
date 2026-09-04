@@ -27,7 +27,5 @@ locations <- data.frame(
   lat = c(14.16742, 14.6042)
 )
 .process_location_dataframe(locations)
-#>           lon      lat
-#> [1,] 121.2557 14.16742
-#> [2,] 120.9850 14.60420
+#> Error in .process_location_dataframe(locations): could not find function ".process_location_dataframe"
 ```

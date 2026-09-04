@@ -103,7 +103,7 @@ summaries <- lapply(emergence_dates, function(ed) {
 summary_all <- data.table::rbindlist(summaries)
 #> Error: object 'summaries' not found
 print(summary_all)
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'print': object 'summary_all' not found
+#> Error: object 'summary_all' not found
 
 # Example 3: Compare multiple locations and emergence dates
 locations <- data.frame(
@@ -132,11 +132,13 @@ results$AUDPC <- mapply(function(loc_name, em_date) {
 }, results$location, results$emergence)
 
 print(results)
-#>   location  emergence    AUDPC
-#> 1     IRRI 2000-06-30 40.75393
-#> 2   Manila 2000-06-30 40.75393
-#> 3     IRRI 2000-07-15 37.65884
-#> 4   Manila 2000-07-15 37.65884
+#> # Data frame like object (class data.frame) 3 x 4:
+#>  │location│emergence │AUDPC
+#>  │<chr>   │<chr>     │<dbl>
+#> 1│IRRI    │2000-06-30│   41
+#> 2│Manila  │2000-06-30│   41
+#> 3│IRRI    │2000-07-15│   38
+#> 4│Manila  │2000-07-15│   38
 # Identify highest risk scenario
 worst <- results[which.max(results$AUDPC), ]
 sprintf("Highest risk: %s, emergence %s, AUDPC = %.1f",

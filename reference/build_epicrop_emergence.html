@@ -263,13 +263,15 @@ output.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Keep only June plantings</span></span></span>
 <span class="r-in"><span><span class="va">june_only</span> <span class="op">&lt;-</span> <span class="va">em</span><span class="op">[</span><span class="fu">month</span><span class="op">(</span><span class="va">em</span><span class="op">)</span> <span class="op">==</span> <span class="fl">6</span><span class="op">]</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in month(em):</span> could not find function "month"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">june_only</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2000-06-01" "2001-06-01" "2002-06-01"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'june_only' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Keep only 2001 plantings</span></span></span>
 <span class="r-in"><span><span class="va">y2001</span> <span class="op">&lt;-</span> <span class="va">em</span><span class="op">[</span><span class="fu">year</span><span class="op">(</span><span class="va">em</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2001</span><span class="op">]</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in year(em):</span> could not find function "year"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">y2001</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2001-06-01" "2001-07-01"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'y2001' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 7: Error handling</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>

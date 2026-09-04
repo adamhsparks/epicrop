@@ -261,11 +261,11 @@ comparison <- data.table(
   susceptible_AUDPC = susceptible$AUDPC,
   resistant_AUDPC = resistant$AUDPC
 )
-#> Error: object 'susceptible' not found
+#> Error in data.table(emergence = susceptible$emergence, susceptible_AUDPC = susceptible$AUDPC,     resistant_AUDPC = resistant$AUDPC): could not find function "data.table"
 comparison[, reduction := 1 - (resistant_AUDPC / susceptible_AUDPC)]
 #> Error: object 'comparison' not found
 print(comparison)
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'print': object 'comparison' not found
+#> Error: object 'comparison' not found
 
 # --- Example 4: Bundle processing (multiple locations) ---
 

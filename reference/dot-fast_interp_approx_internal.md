@@ -72,14 +72,9 @@ Edge cases:
 mat <- rbind(c(0, 0.05), c(60, 0.6), c(120, 0.6))
 xout <- c(0, 30, 60, 90, 120, 150)
 y_interp <- .fast_interp_approx_internal(mat, xout)
+#> Error in .fast_interp_approx_internal(mat, xout): could not find function ".fast_interp_approx_internal"
 print(cbind(xout, y_interp))
-#>      xout y_interp
-#> [1,]    0    0.050
-#> [2,]   30    0.325
-#> [3,]   60    0.600
-#> [4,]   90    0.600
-#> [5,]  120    0.600
-#> [6,]  150    0.600
+#> Error: object 'y_interp' not found
 #      xout y_interp
 # [1,]    0     0.05     (exact match)
 # [2,]   30     0.325    (linear interp: 0.05 + 30/60 * (0.6-0.05))

@@ -46,19 +46,5 @@ tasks <- list(
        start_chr = "2001-06-01", duration = 90L)
 )
 .collapse_one_location(tasks)
-#> $location_id
-#> [1] 1
-#> 
-#> $location_name
-#> [1] "Site1"
-#> 
-#> $lonlat
-#> [1] 0 0
-#> 
-#> $start_chr
-#> [1] "2000-06-01"
-#> 
-#> $duration
-#> [1] 455
-#> 
+#> Error in .collapse_one_location(tasks): could not find function ".collapse_one_location"
 ```

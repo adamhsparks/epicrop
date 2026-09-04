@@ -32,6 +32,6 @@ Character vector in `"MM-DD"` format (e.g., `"06-30"`).
 
 ``` r
 .normalize_md(c("6/30", "-6-30", "06-30"))
-#> [1] "06-30" "06-30" "06-30"
+#> Error in .normalize_md(c("6/30", "-6-30", "06-30")): could not find function ".normalize_md"
 # [1] "06-30" "06-30" "06-30"
 ```

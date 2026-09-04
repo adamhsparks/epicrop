@@ -76,6 +76,7 @@ wth_list <- list("2000" = w_2000, "2001" = w_2001)
 # Extract window spanning Dec 2000 – Jan 2001
 ed <- as.Date("2000-12-15")
 sliced <- .slice_weather(ed, wth_list, window_days = 35L)
+#> Error in .slice_weather(ed, wth_list, window_days = 35L): could not find function ".slice_weather"
 nrow(sliced)  # Should be close to 35 if data available
-#> [1] 35
+#> Error: object 'sliced' not found
 ```

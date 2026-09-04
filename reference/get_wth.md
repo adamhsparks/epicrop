@@ -219,10 +219,12 @@ audpc_comparison <- data.frame(
   AUDPC = sapply(lb_results, function(x) attr(x, "AUDPC"))
 )
 print(audpc_comparison)
-#>                    location       AUDPC
-#> IRRI_Laguna     IRRI_Laguna 39.44852236
-#> BRRI_Gazipur   BRRI_Gazipur 41.45249286
-#> CIMMYT_Mexico CIMMYT_Mexico  0.03523766
+#> # Data frame like object (class data.frame) 2 x 3:
+#>              │location     │AUDPC 
+#>              │<chr>        │<dbl> 
+#>   IRRI_Laguna│IRRI_Laguna  │39.449
+#>  BRRI_Gazipur│BRRI_Gazipur │41.452
+#> CIMMYT_Mexico│CIMMYT_Mexico│ 0.035
 
 # Example 6: Cross-year comparison (same location, different years)
 years <- 2000:2002
