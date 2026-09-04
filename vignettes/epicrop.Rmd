@@ -25,7 +25,7 @@ A function, `get_wth()`, is provided to simplify downloading weather data via th
 
 For 'EPIRICE', default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`bacterial_blight()`); brown spot (`brown_spot()`); leaf blast (`leaf_blast()`); sheath blight (`sheath_blight()`) and tungro (`tungro()`) and two modified by Kim _et al._ [-@Kim2015], (`modified_kim_leaf_blast()` and `helper_modified_kim_sheath_blight()`), are provided.
 The modified Kim versions provide leaf blast and sheath blight models that include additional weather parameters and modified equations to better reflect disease progress under certain environmental conditions on the Korean Peninsula.
-The 'EPIWHEAT' model includes two wheat diseases, leaf rust (`leaf_rust()`) and septoria tritici blotch (`s_tritici_blotch()`), with default values derived from the literature suitable for modelling unmanaged disease intensity of these diseases.
+The 'EPIWHEAT' model includes two wheat diseases, leaf rust (`leaf_rust()` and septoria tritici blotch (`s_tritici_blotch()`), with default values derived from the literature suitable for modelling unmanaged disease intensity of these diseases.
 
 Using the package functions is designed to be straightforward for modelling rice disease risks, but flexible enough to accommodate other pathosystems using the `seir()` function.
 If you are interested in modelling other pathosystems, please refer to [-@Savary2012] for the development of the parameters that were used for the rice diseases as derived from the existing literature and are implemented in the individual disease model functions.
@@ -113,13 +113,6 @@ The data are in a wide format by default and need to be converted to long format
 
 ``` r
 library(ggplot2)
-```
-
-```
-## Use suppressPackageStartupMessages() to eliminate package startup messages
-```
-
-``` r
 library(tidyr)
 ```
 
@@ -136,21 +129,22 @@ dat <- pivot_longer(
   values_to = "value"
 )
 
-ggplot(data = dat,
-       aes(
-         x = dates,
-         y = value,
-         shape = site,
-         linetype = site
-       )) +
-  labs(y = "Sites",
-       x = "Date") +
+ggplot(
+  data = dat,
+  aes(
+    x = dates,
+    y = value,
+    shape = site,
+    linetype = site
+  )
+) +
+  labs(y = "Sites", x = "Date") +
   geom_line(aes(group = site, colour = site)) +
   geom_point(aes(colour = site)) +
   theme_classic()
 ```
 
-![Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](wet_plot_sites-1.png)
+![Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](figure/wet_plot_sites-1.png)
 
 ### Wet Season Intensity
 
@@ -158,17 +152,14 @@ Plotting intensity over time does not require any data manipulation.
 
 
 ``` r
-ggplot(data = bb_wet,
-       aes(x = dates,
-           y = intensity * 100)) +
-  labs(y = "Intensity (%)",
-       x = "Date") +
+ggplot(data = bb_wet, aes(x = dates, y = intensity * 100)) +
+  labs(y = "Intensity (%)", x = "Date") +
   geom_line() +
   geom_point() +
   theme_classic()
 ```
 
-![Wet season disease intensity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.  Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](wet_plot_intensity-1.png)
+![Wet season disease intensity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.  Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](figure/wet_plot_intensity-1.png)
 
 ## Comparing Epidemics
 
@@ -206,17 +197,14 @@ Check the disease progress curve for the dry season.
 
 
 ``` r
-ggplot(data = bb_dry,
-       aes(x = dates,
-           y = intensity * 100)) +
-  labs(y = "Intensity (%)",
-       x = "Date") +
+ggplot(data = bb_dry, aes(x = dates, y = intensity * 100)) +
+  labs(y = "Intensity (%)", x = "Date") +
   geom_line() +
   geom_point() +
   theme_classic()
 ```
 
-![Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](dry_plot_intensity-1.png)
+![Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](figure/dry_plot_intensity-1.png)
 
 The AUDPC values can be viewed directly from the attributes of the `data.table` outputs above, but we can also create a small helper function to extract them.
 
