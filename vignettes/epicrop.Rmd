@@ -39,12 +39,6 @@ Load the library.
 library(epicrop)
 ```
 
-```
-## Registered S3 method overwritten by 'data.table':
-##   method           from   
-##   print.data.table colorDF
-```
-
 ### Get Weather Data
 
 The most simple way to use the model is to download weather data from NASA POWER using `get_wth()`, which provides the data in a format suitable for use in the model and is freely available.
@@ -150,7 +144,7 @@ ggplot(
   theme_classic()
 ```
 
-![Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](figure/wet_plot_sites-1.png)
+![Site states over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](wet_plot_sites-1.png)
 
 ### Wet Season Intensity
 
@@ -165,7 +159,7 @@ ggplot(data = bb_wet, aes(x = dates, y = intensity * 100)) +
   theme_classic()
 ```
 
-![Wet season disease intensity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.  Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](figure/wet_plot_intensity-1.png)
+![Wet season disease intensity over time for bacterial blight. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.  Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](wet_plot_intensity-1.png)
 
 ## Comparing Epidemics
 
@@ -210,7 +204,7 @@ ggplot(data = bb_dry, aes(x = dates, y = intensity * 100)) +
   theme_classic()
 ```
 
-![Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](figure/dry_plot_intensity-1.png)
+![Dry season site states over time for bacterial blight. Results for dry season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.](dry_plot_intensity-1.png)
 
 The AUDPC values can be viewed directly from the attributes of the `data.table` outputs above, but we can also create a small helper function to extract them.
 

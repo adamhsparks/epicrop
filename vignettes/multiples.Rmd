@@ -87,7 +87,7 @@ ggplot(bb_2_seasons, aes(y = as.factor(emergence), x = AUDPC)) +
   theme_classic()
 ```
 
-![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](figure/graph_seasons-1.png)
+![Bacterial blight area under the disease progress curve (AUDPC) for the 2000 and 2001 wet seasons at the IRRI Zeigler Experiment Station in Calabarzon, Philippines.](graph_seasons-1.png)
 
 ### Simulating Multiple Seasons and Establishment Dates
 
