@@ -243,7 +243,8 @@ requires <code>thermal_time</code> parameter</p></li>
 <dd><p>List with thermal accumulation parameters (required if
 <code>age_driver = "dvs"</code>). Must contain:</p><ul><li><p><code>base_temp</code>: Base temperature for GDD accumulation (°C)</p></li>
 <li><p><code>gdd_to_maturity</code>: Growing degree-days to reach maturity (°C·days)
-Internally computed as DVS = min(2, 2 × GDD / gdd_to_maturity).</p></li>
+Internally computed as:
+$$DVS = \min\left(2,\ 2 \times \frac{\text{GDD}}{\text{gdd to maturity}}\right)$$</p></li>
 </ul></dd>
 
 

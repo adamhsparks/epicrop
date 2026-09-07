@@ -248,7 +248,8 @@ seir(
   - `base_temp`: Base temperature for GDD accumulation (°C)
 
   - `gdd_to_maturity`: Growing degree-days to reach maturity (°C·days)
-    Internally computed as DVS = min(2, 2 × GDD / gdd_to_maturity).
+    Internally computed as: \$\$DVS = \min\left(2,\\ 2 \times
+    \frac{\text{GDD}}{\text{gdd to maturity}}\right)\$\$
 
 - infection_window:
 
