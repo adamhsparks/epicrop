@@ -23,7 +23,7 @@ A \code{\link[data.table:data.table]{data.table::data.table()}} with one row con
 Table is keyed on \code{emergence} for efficient operations.
 }
 \description{
-Extracts the Area Under Disease Progress Curve (AUDPC) from an epicrop
+Extracts the Area Under Disease Progress Curve (AUDPC) from an \pkg{epicrop}
 simulation output along with spatial (lat/lon) and temporal (emergence)
 metadata.
 Returns a compact summary table suitable for analysis, mapping, or reporting.

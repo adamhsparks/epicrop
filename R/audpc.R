@@ -202,7 +202,7 @@ get_audpc <- function(x) {
 
 #' Extract AUDPC Summary as data.table
 #'
-#' Extracts the Area Under Disease Progress Curve (AUDPC) from an epicrop
+#' Extracts the Area Under Disease Progress Curve (AUDPC) from an \pkg{epicrop}
 #' simulation output along with spatial (lat/lon) and temporal (emergence)
 #'  metadata.
 #' Returns a compact summary table suitable for analysis, mapping, or reporting.
