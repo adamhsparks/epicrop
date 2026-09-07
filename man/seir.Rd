@@ -170,7 +170,7 @@ applies \code{RcW} curve to 0–24 hour range
 \itemize{
 \item \code{FALSE} (default): Count hours where hourly RH ≥ \code{rhlim} (0–24)
 \item \code{TRUE}: Compute weighted average RH over 24-hour day
-Defaults to FALSE.
+Defaults to \code{FALSE}.
 }}
 
 \item{age_driver}{Character. Age variable for modifiers:
@@ -186,7 +186,8 @@ requires \code{thermal_time} parameter
 \itemize{
 \item \code{base_temp}: Base temperature for GDD accumulation (°C)
 \item \code{gdd_to_maturity}: Growing degree-days to reach maturity (°C·days)
-Internally computed as DVS = min(2, 2 × GDD / gdd_to_maturity).
+Internally computed as:
+\deqn{DVS = \min\left(2,\ 2 \times \frac{\text{GDD}}{\text{gdd to maturity}}\right)}{DVS = min(2, 2 * GDD / gdd_to_maturity)}
 }}
 
 \item{infection_window}{Optional list restricting disease onset to a DVS

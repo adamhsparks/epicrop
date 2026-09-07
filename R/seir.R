@@ -127,7 +127,7 @@
 #' @param weighted_wetness Logical. Only used when `simple_wetness = FALSE`.
 #'   * `FALSE` (default): Count hours where hourly RH ≥ `rhlim` (0–24)
 #'   * `TRUE`: Compute weighted average RH over 24-hour day
-#'   Defaults to FALSE.
+#'   Defaults to `FALSE`.
 #' @param age_driver Character. Age variable for modifiers:
 #'   * `"day"` (default): 0-indexed days from emergence; `RcA` and `RRS` are
 #'     functions of days
@@ -137,7 +137,8 @@
 #'   `age_driver = "dvs"`). Must contain:
 #'   * `base_temp`: Base temperature for GDD accumulation (°C)
 #'   * `gdd_to_maturity`: Growing degree-days to reach maturity (°C·days)
-#'   Internally computed as DVS = min(2, 2 × GDD / gdd_to_maturity).
+#'   Internally computed as:
+#'    \deqn{DVS = \min\left(2,\ 2 \times \frac{\text{GDD}}{\text{gdd to maturity}}\right)}{DVS = min(2, 2 * GDD / gdd_to_maturity)}
 #' @param infection_window Optional list restricting disease onset to a DVS
 #'   window. Must contain:
 #'   * `dvs_start`: DVS when susceptibility begins (0–2)
