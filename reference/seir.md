@@ -228,7 +228,7 @@ seir(
   - `FALSE` (default): Count hours where hourly RH ≥ `rhlim` (0–24)
 
   - `TRUE`: Compute weighted average RH over 24-hour day Defaults to
-    FALSE.
+    `FALSE`.
 
 - age_driver:
 
