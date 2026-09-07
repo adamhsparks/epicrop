@@ -279,8 +279,10 @@ aggregation)
 
 
 At any day, the constraint is:
-\eqn{sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t]
-  = H0 + cumulative_growth[t] - cumulative_senescence[t]}
+#' \deqn{
+  \text{sites}_t + \text{latent}_t + \text{infectious}_t + \text{removed}_t + \text{senesced}_t
+  = H_0 + \text{growth}_t - \text{senescence}_t
+}{sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t] = H0 + cumulative_growth[t] - cumulative_senescence[t]}
 Accumulated growth is \code{sum(rgrowth)} and accumulated senescence is
 \code{sum(rsenesced)}. Small numerical deviations may occur due to floating-point
 arithmetic.
@@ -290,9 +292,9 @@ arithmetic.
 
 
 The infection rate is computed as:
-\eqn{new_infections = I × Rc × (1 - D/Sx)^a}
-where D = diseased sites, Sx = carrying capacity, and \code{a} is the aggregation
-coefficient:
+\deqn{\text{new infections} = I \times R_c \times \left(1 - \frac{D}{S_x}\right)^a}{new_infections = I * Rc * (1 - D/Sx)^a}
+where \code{D} = diseased sites, \code{Sx} = carrying capacity, and \code{a} is the
+aggregation coefficient:
 \itemize{
 \item \strong{a = 1} (random, binomial): Assumes pathogen can access all healthy sites
 equally. Maximum infection rate per unit of disease.
@@ -327,8 +329,7 @@ to be included. By default, \code{\link[=get_wth]{get_wth()}} and \code{\link[=f
 
 
 When \code{RRLEX > 0}, the model adds a direct pathway H→I, bypassing latency:
-
-\eqn{rlex[t] = RRLEX × I[t] × (1 - D/Sx)}
+\deqn{\text{rlex}_t = RRLEX \times I_t \times \left(1 - \frac{D}{S_x}\right)}{rlex[t] = RRLEX * I[t] * (1 - D/Sx)}'
 
 Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute rlex,

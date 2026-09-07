@@ -32,8 +32,8 @@ by maintaining constant vapour pressure (VP) throughout the day.
 \enumerate{
 \item Compute vapour pressure from mean RH and mean temperature (constant all
 day)
-\item Compute hourly saturated vapour pressure using diurnal temperature
-\item Hourly RH = \eqn{100 * (VP / saturated VP)}, clamped to [0, 100]
+\item Compute hourly saturated vapour pressure using diurnal temperature:
+\deqn{\%RH = 100 \times \frac{\text{VP}}{\text{VP}_{sat}}}{Hourly RH = 100 * (VP / saturated VP)}'
 }
 
 This accounts for the inverse relationship between temperature and RH even
