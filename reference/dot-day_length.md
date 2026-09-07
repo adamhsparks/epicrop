@@ -57,13 +57,16 @@ for (lat in lats) {
   dayl <- .day_length(lat, doy_range)
   lines(doy_range, dayl, label = paste("Lat", lat))
 }
-#> Error in .day_length(lat, doy_range): could not find function ".day_length"
+#> Warning: "label" is not a graphical parameter
+#> Warning: "label" is not a graphical parameter
+#> Warning: "label" is not a graphical parameter
+#> Warning: "label" is not a graphical parameter
 legend("right", paste("Lat", lats), lty = 1:4)
 
 
 # Extremes: minimum daylight at winter solstice (DOY 355)
 .day_length(lat = 60, doy = 355)  # High latitude: ~5-6 hours
-#> Error in .day_length(lat = 60, doy = 355): could not find function ".day_length"
+#> [1] 5.866997
 .day_length(lat = 0, doy = 355)   # Equator: ~12 hours (constant)
-#> Error in .day_length(lat = 0, doy = 355): could not find function ".day_length"
+#> [1] 12.1211
 ```

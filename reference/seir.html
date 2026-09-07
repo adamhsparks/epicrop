@@ -92,8 +92,8 @@ calculations.</p>
 
 
 <dt id="arg-emergence">emergence<a class="anchor" aria-label="anchor" href="#arg-emergence"></a></dt>
-<dd><p>Plant emergence (transplanting for rice) date in <code>YYYY-MM-DD</code>
-format (character).</p></dd>
+<dd><p>Plant emergence (transplanting for rice) date in
+<code>YYYY-MM-DD</code> format (character).</p></dd>
 
 
 <dt id="arg-onset">onset<a class="anchor" aria-label="anchor" href="#arg-onset"></a></dt>
@@ -302,7 +302,8 @@ pathosystems as well.</p>
 <li><p><strong>Infectious sites (I)</strong>: Can transmit infection (duration = <code>i</code> days)</p></li>
 <li><p><strong>Removed sites (R)</strong>: Diseased but no longer infectious</p></li>
 <li><p><strong>Senesced sites (S)</strong>: Physiologically dead</p></li>
-</ul><p>Daily transitions are driven by:</p><ul><li><p>Infection rate: <code>Rc × I × (1 - D/Sx)^a</code> (corrected for crowding &amp; aggregation)</p></li>
+</ul><p>Daily transitions are driven by:</p><ul><li><p>Infection rate: <code>Rc × I × (1 - D/Sx)^a</code> (corrected for crowding &amp;
+aggregation)</p></li>
 <li><p>Latency progression: E→I after <code>p</code> days</p></li>
 <li><p>Recovery: I→R after <code>i</code> days</p></li>
 <li><p>Growth: H increases based on <code>RRG</code> (if room available)</p></li>
@@ -315,8 +316,10 @@ pathosystems as well.</p>
 
 
 <p>At any day, the constraint is:
-\(sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t]
-  = H0 + cumulative_growth[t] - cumulative_senescence[t]\)
+#' $$
+  \text{sites}_t + \text{latent}_t + \text{infectious}_t + \text{removed}_t + \text{senesced}_t
+  = H_0 + \text{growth}_t - \text{senescence}_t
+$$
 Accumulated growth is <code>sum(rgrowth)</code> and accumulated senescence is
 <code>sum(rsenesced)</code>. Small numerical deviations may occur due to floating-point
 arithmetic.</p>
@@ -327,9 +330,9 @@ arithmetic.</p>
 
 
 <p>The infection rate is computed as:
-\(new_infections = I × Rc × (1 - D/Sx)^a\)
-where D = diseased sites, Sx = carrying capacity, and <code>a</code> is the aggregation
-coefficient:</p><ul><li><p><strong>a = 1</strong> (random, binomial): Assumes pathogen can access all healthy sites
+$$\text{new infections} = I \times R_c \times \left(1 - \frac{D}{S_x}\right)^a$$
+where <code>D</code> = diseased sites, <code>Sx</code> = carrying capacity, and <code>a</code> is the
+aggregation coefficient:</p><ul><li><p><strong>a = 1</strong> (random, binomial): Assumes pathogen can access all healthy sites
 equally. Maximum infection rate per unit of disease.</p></li>
 <li><p><strong>a &gt; 1</strong> (aggregated, negative binomial): Pathogen cannot access all
 healthy sites; infections cluster spatially. Reduces effective infection
@@ -362,8 +365,8 @@ to be included. By default, <code><a href="get_wth.html">get_wth()</a></code> an
 
 
 
-<p>When <code>RRLEX &gt; 0</code>, the model adds a direct pathway H→I, bypassing latency:</p>
-<p>\(rlex[t] = RRLEX × I[t] × (1 - D/Sx)\)</p>
+<p>When <code>RRLEX &gt; 0</code>, the model adds a direct pathway H→I, bypassing latency:
+$$\text{rlex}_t = RRLEX \times I_t \times \left(1 - \frac{D}{S_x}\right)$$'</p>
 <p>Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute rlex,
 (3) finalize infectious count. This ensures that <em>Rc</em>-driven infections and
