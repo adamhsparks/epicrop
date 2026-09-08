@@ -330,7 +330,7 @@ to be included. By default, \code{\link[=get_wth]{get_wth()}} and \code{\link[=f
 
 
 When \code{RRLEX > 0}, the model adds a direct pathway H→I, bypassing latency:
-\deqn{\text{rlex}_t = RRLEX \times I_t \times \left(1 - \frac{D}{S_x}\right)}{rlex[t] = RRLEX * I[t] * (1 - D/Sx)}'
+\deqn{\text{rlex}_t = RRLEX \times I_t \times \left(1 - \frac{D}{S_x}\right)}{rlex[t] = RRLEX * I[t] * (1 - D/Sx)}
 
 Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute rlex,
