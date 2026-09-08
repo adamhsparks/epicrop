@@ -20,8 +20,8 @@
 #' * **Senesced sites (S)**: Physiologically dead
 #'
 #' Daily transitions are driven by:
-#' * Infection rate: `Rc × I × (1 - D/Sx)^a` (corrected for crowding &
-#'    aggregation)
+#' * Infection rate: \eqn{R_c \times I \times \left(1 - \frac{D}{S_x}\right)^a}{Rc * I * (1 - D/Sx)^a}
+#'    (corrected for crowding & aggregation)
 #' * Latency progression: E→I after `p` days
 #' * Recovery: I→R after `i` days
 #' * Growth: H increases based on `RRG` (if room available)

@@ -266,8 +266,8 @@ The model tracks five site compartments over time:
 
 Daily transitions are driven by:
 \itemize{
-\item Infection rate: \verb{Rc × I × (1 - D/Sx)^a} (corrected for crowding &
-aggregation)
+\item Infection rate: \eqn{R_c \times I \times \left(1 - \frac{D}{S_x}\right)^a}{Rc * I * (1 - D/Sx)^a}
+(corrected for crowding & aggregation)
 \item Latency progression: E→I after \code{p} days
 \item Recovery: I→R after \code{i} days
 \item Growth: H increases based on \code{RRG} (if room available)
