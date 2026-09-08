@@ -8,16 +8,17 @@ epidemiological studies, allowing one-line disease simulations.
 
 `bacterial_blight()` models rice bacterial blight (*Xanthomonas oryzae*
 pv. *oryzae*). The disease requires high humidity and warm temperatures
-(optimum 25–30°C) and is most severe in the Philippines and Asia-Pacific
-region.
+(optimum 25–30°.RC) and is most severe in the Philippines and
+Asia-Pacific region.
 
 `brown_spot()` models rice brown spot (*Bipolaris oryzae*). A seed-borne
 fungal disease prevalent in tropical and subtropical regions,
 particularly damaging to older rice varieties.
 
 `leaf_blast()` models rice leaf blast (*Magnaporthe oryzae*). The most
-economically important rice disease worldwide, favoured by cool (25°C),
-wet conditions. Rapid disease progression can cause total crop loss.
+economically important rice disease worldwide, favoured by cool
+(25°.RC), wet conditions. Rapid disease progression can cause total crop
+loss.
 
 `sheath_blight()` models rice sheath blight (*Rhizoctonia solani*). A
 soil-borne disease that infects the leaf sheath; can cause catastrophic
@@ -39,9 +40,9 @@ cultivars. Uses slightly higher humidity threshold (95%) reflecting
 Korean monsoon climate.
 
 `leaf_rust()` models wheat leaf rust (*Puccinia triticina*). A major
-wheat pathogen globally, favoured by moderate temperatures (15–25°C) and
-high humidity. Uses DVS-based age driver to account for vernalization
-effects.
+wheat pathogen globally, favoured by moderate temperatures (15–25°.RC)
+and high humidity. Uses DVS-based age driver to account for
+vernalization effects.
 
 `s_tritici_blotch()` models wheat Septoria tritici blotch (*Zymoseptoria
 tritici*), a major wheat pathogen in temperate regions. Features lesion
@@ -317,7 +318,7 @@ stb(
   | Column   | Description                      |
   | YYYYMMDD | Date (ISO 8601: YYYYMMDD)        |
   | DOY      | Day of year (1–366)              |
-  | TEMP     | Mean daily temperature (°C)      |
+  | TEMP     | Mean daily temperature (°.RC)    |
   | RHUM     | Mean daily relative humidity (%) |
   | RAIN     | Daily rainfall (mm)              |
 
@@ -326,8 +327,8 @@ stb(
   |  |  |
   |----|----|
   | Column | Purpose |
-  | TMIN | Minimum daily temperature (°C); required if `simple_wetness = FALSE` |
-  | TMAX | Maximum daily temperature (°C); required if `simple_wetness = FALSE` |
+  | TMIN | Minimum daily temperature (°.RC); required if `simple_wetness = FALSE` |
+  | TMAX | Maximum daily temperature (°.RC); required if `simple_wetness = FALSE` |
   | LAT | Latitude; required if `simple_wetness = FALSE` |
   | LON | Longitude; included in output if present |
 

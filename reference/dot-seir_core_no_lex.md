@@ -62,7 +62,7 @@ using efficient cumulative sum techniques to avoid O(n²) nested loops.
 
 - a_vals:
 
-  Daily aggregation coefficient (numeric vector, ≥ 1).
+  Daily aggregation coefficient (numeric vector, \>= 1).
 
 - Sx:
 

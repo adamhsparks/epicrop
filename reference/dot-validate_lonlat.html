@@ -78,9 +78,9 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Valid coordinates</span></span></span>
 <span class="r-in"><span><span class="fu">.validate_lonlat</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.167425</span><span class="op">)</span><span class="op">)</span>  <span class="co"># IRRI, Philippines</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .validate_lonlat(c(121.255669, 14.167425)):</span> could not find function ".validate_lonlat"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 121.25567  14.16742</span>
 <span class="r-in"><span><span class="fu">.validate_lonlat</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">99.1828</span>, <span class="fl">19.1296</span><span class="op">)</span><span class="op">)</span>      <span class="co"># CIMMYT, Mexico</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .validate_lonlat(c(-99.1828, 19.1296)):</span> could not find function ".validate_lonlat"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -99.1828  19.1296</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Invalid (will error)</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>

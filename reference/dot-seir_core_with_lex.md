@@ -67,7 +67,7 @@ sites to become infectious without passing through the latent stage.
 
 - a_vals:
 
-  Daily aggregation coefficient (numeric vector, ≥ 1).
+  Daily aggregation coefficient (numeric vector, \>= 1).
 
 - Sx:
 

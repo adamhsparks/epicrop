@@ -119,9 +119,8 @@ missing data), the shorter window is returned.</p>
 <span class="r-in"><span><span class="co"># Extract window spanning Dec 2000 – Jan 2001</span></span></span>
 <span class="r-in"><span><span class="va">ed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-12-15"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sliced</span> <span class="op">&lt;-</span> <span class="fu">.slice_weather</span><span class="op">(</span><span class="va">ed</span>, <span class="va">wth_list</span>, window_days <span class="op">=</span> <span class="fl">35L</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .slice_weather(ed, wth_list, window_days = 35L):</span> could not find function ".slice_weather"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sliced</span><span class="op">)</span>  <span class="co"># Should be close to 35 if data available</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'sliced' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 35</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

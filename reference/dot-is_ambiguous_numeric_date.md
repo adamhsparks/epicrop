@@ -33,22 +33,22 @@ intended meaning cannot be determined reliably. For example,
 
 ``` r
 .is_ambiguous_numeric_date("07/01/2000")
-#> Error in .is_ambiguous_numeric_date("07/01/2000"): could not find function ".is_ambiguous_numeric_date"
+#> [1] TRUE
 # TRUE (could be July 1 or January 7)
 
 .is_ambiguous_numeric_date("01-07-2000")
-#> Error in .is_ambiguous_numeric_date("01-07-2000"): could not find function ".is_ambiguous_numeric_date"
+#> [1] TRUE
 # TRUE
 
 .is_ambiguous_numeric_date("31/01/2000")
-#> Error in .is_ambiguous_numeric_date("31/01/2000"): could not find function ".is_ambiguous_numeric_date"
+#> [1] FALSE
 # FALSE (31 > 12, clearly day-month-year)
 
 .is_ambiguous_numeric_date("07/31/2000")
-#> Error in .is_ambiguous_numeric_date("07/31/2000"): could not find function ".is_ambiguous_numeric_date"
+#> [1] FALSE
 # FALSE (31 > 12, clearly month-day-year)
 
 .is_ambiguous_numeric_date("2000-07-01")
-#> Error in .is_ambiguous_numeric_date("2000-07-01"): could not find function ".is_ambiguous_numeric_date"
+#> [1] FALSE
 # FALSE (ISO format with year first)
 ```

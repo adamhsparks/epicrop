@@ -68,12 +68,13 @@ rh_list <- .diurnal_rh(
   lat = c(14.16742, 14.16742, 14.16742),  # Latitude
   doy = c(182, 183, 184)        # Day of year
 )
-#> Error in .diurnal_rh(rh = c(80, 85, 90), tmin = c(20, 19, 21), tmax = c(30,     32, 29), tmp = c(25, 25.5, 25), lat = c(14.16742, 14.16742,     14.16742), doy = c(182, 183, 184)): could not find function ".diurnal_rh"
 
 # Each element is 24-hour RH profile
 str(rh_list)
-#> Error: object 'rh_list' not found
+#> List of 3
+#>  $ : num [1:24] 100 100 100 100 100 ...
+#>  $ : num [1:24] 100 100 100 100 100 ...
+#>  $ : num [1:24] 100 100 100 100 100 ...
 plot(1:24, rh_list[[1]], type = "l", ylim = c(0, 100),
      xlab = "Hour of Day", ylab = "Relative Humidity (%)")
-#> Error: object 'rh_list' not found
 ```

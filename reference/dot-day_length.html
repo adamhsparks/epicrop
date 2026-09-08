@@ -108,15 +108,18 @@ year. <em>Ecological Modeling</em>, 80:87-95.
 <span class="r-in"><span>  <span class="va">dayl</span> <span class="op">&lt;-</span> <span class="fu">.day_length</span><span class="op">(</span><span class="va">lat</span>, <span class="va">doy_range</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">doy_range</span>, <span class="va">dayl</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Lat"</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .day_length(lat, doy_range):</span> could not find function ".day_length"</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>"label" is not a graphical parameter</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>"label" is not a graphical parameter</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>"label" is not a graphical parameter</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>"label" is not a graphical parameter</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Lat"</span>, <span class="va">lats</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="dot-day_length-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extremes: minimum daylight at winter solstice (DOY 355)</span></span></span>
 <span class="r-in"><span><span class="fu">.day_length</span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">60</span>, doy <span class="op">=</span> <span class="fl">355</span><span class="op">)</span>  <span class="co"># High latitude: ~5-6 hours</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .day_length(lat = 60, doy = 355):</span> could not find function ".day_length"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.866997</span>
 <span class="r-in"><span><span class="fu">.day_length</span><span class="op">(</span>lat <span class="op">=</span> <span class="fl">0</span>, doy <span class="op">=</span> <span class="fl">355</span><span class="op">)</span>   <span class="co"># Equator: ~12 hours (constant)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .day_length(lat = 0, doy = 355):</span> could not find function ".day_length"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12.1211</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

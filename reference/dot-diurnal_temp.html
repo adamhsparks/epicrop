@@ -104,13 +104,11 @@ The model ensures continuity at sunrise and sunset.</p>
 <span class="r-in"><span>  tmin <span class="op">=</span> <span class="fl">20</span>,</span></span>
 <span class="r-in"><span>  tmax <span class="op">=</span> <span class="fl">30</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .diurnal_temp(lat = 14.16742, doy = 182, tmin = 20, tmax = 30):</span> could not find function ".diurnal_temp"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span>, <span class="va">hourly_temp</span>, type <span class="op">=</span> <span class="st">"l"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">35</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     xlab <span class="op">=</span> <span class="st">"Hour of Day"</span>, ylab <span class="op">=</span> <span class="st">"Temperature (degrees C)"</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Diurnal Temperature Curve"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'hourly_temp' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...):</span> plot.new has not been called yet</span>
+<span class="r-plt img"><img src="dot-diurnal_temp-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Multiple days (vectorised)</span></span></span>
 <span class="r-in"><span><span class="va">hourly_temps</span> <span class="op">&lt;-</span> <span class="fu">.diurnal_temp</span><span class="op">(</span></span></span>
@@ -119,9 +117,8 @@ The model ensures continuity at sunrise and sunset.</p>
 <span class="r-in"><span>  tmin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">19</span>, <span class="fl">21</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  tmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">32</span>, <span class="fl">29</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .diurnal_temp(lat = rep(14.16742, 3), doy = 182:184, tmin = c(20,     19, 21), tmax = c(30, 32, 29)):</span> could not find function ".diurnal_temp"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">hourly_temps</span><span class="op">)</span>  <span class="co"># Should be 24 * 3 = 72</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'hourly_temps' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 72</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

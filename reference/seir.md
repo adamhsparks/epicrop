@@ -53,7 +53,7 @@ seir(
   | Column   | Description                      |
   | YYYYMMDD | Date (ISO 8601: YYYYMMDD)        |
   | DOY      | Day of year (1–366)              |
-  | TEMP     | Mean daily temperature (°C)      |
+  | TEMP     | Mean daily temperature (°.RC)    |
   | RHUM     | Mean daily relative humidity (%) |
   | RAIN     | Daily rainfall (mm)              |
 
@@ -62,8 +62,8 @@ seir(
   |  |  |
   |----|----|
   | Column | Purpose |
-  | TMIN | Minimum daily temperature (°C); required if `simple_wetness = FALSE` |
-  | TMAX | Maximum daily temperature (°C); required if `simple_wetness = FALSE` |
+  | TMIN | Minimum daily temperature (°.RC); required if `simple_wetness = FALSE` |
+  | TMAX | Maximum daily temperature (°.RC); required if `simple_wetness = FALSE` |
   | LAT | Latitude; required if `simple_wetness = FALSE` |
   | LON | Longitude; included in output if present |
 
@@ -108,7 +108,7 @@ seir(
 
   Temperature modifier for *Rc* (numeric matrix). Two-column format:
 
-  - Column 1: temperature (°C)
+  - Column 1: temperature (°.RC)
 
   - Column 2: modifier (0–1, bounded) Tables 1 and 2 in Savary *et al.*
     (2012).
@@ -225,7 +225,7 @@ seir(
 
   Logical. Only used when `simple_wetness = FALSE`.
 
-  - `FALSE` (default): Count hours where hourly RH ≥ `rhlim` (0–24)
+  - `FALSE` (default): Count hours where hourly RH \>= `rhlim` (0–24)
 
   - `TRUE`: Compute weighted average RH over 24-hour day Defaults to
     `FALSE`.
@@ -245,9 +245,9 @@ seir(
   List with thermal accumulation parameters (required if
   `age_driver = "dvs"`). Must contain:
 
-  - `base_temp`: Base temperature for GDD accumulation (°C)
+  - `base_temp`: Base temperature for GDD accumulation (°.RC)
 
-  - `gdd_to_maturity`: Growing degree-days to reach maturity (°C·days)
+  - `gdd_to_maturity`: Growing degree-days to reach maturity (°.RC·days)
     Internally computed as: \$\$DVS = \min\left(2,\\ 2 \times
     \frac{\text{GDD}}{\text{gdd to maturity}}\right)\$\$
 
@@ -498,7 +498,7 @@ res <- seir(
   H0 = 1000,       # 1000 initial healthy sites
   I0 = 1,          # 1 initial infected site
   RcA = rbind(c(0, 0.1), c(120, 0.1)),     # age modifier (constant 0.1)
-  RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25°C)
+  RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25\ifelse{latex}{\out{$^\circ$}}{°}.RC)
   RcOpt = 0.5,     # infection rate optimum
   p = 5,           # 5-day latent period
   i = 10,          # 10-day infectious period

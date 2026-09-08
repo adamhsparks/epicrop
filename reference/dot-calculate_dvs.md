@@ -19,10 +19,10 @@ normalized development stage (DVS) on scale 0–2 (emergence to maturity).
 
   List with thermal accumulation parameters:
 
-  - `base_temp`: Base temperature for GDD accumulation (°C)
+  - `base_temp`: Base temperature for GDD accumulation (°.RC)
 
   - `gdd_to_maturity`: Cumulative GDD required to reach DVS = 2
-    (°C·days)
+    (°.RC·days)
 
 ## Value
 
@@ -50,8 +50,7 @@ At maturity (GDD = gdd_to_maturity), DVS reaches 2.
 w <- data.frame(TEMP = c(15, 20, 25, 30, 25, 20, 15, 10))
 thermal_time <- list(base_temp = 10, gdd_to_maturity = 300)
 dvs <- .calculate_dvs(w, thermal_time)
-#> Error in .calculate_dvs(w, thermal_time): could not find function ".calculate_dvs"
 head(dvs)
-#> Error: object 'dvs' not found
+#> [1] 0.03333333 0.10000000 0.20000000 0.33333333 0.43333333 0.50000000
 # [1] 0.0000000 0.01666667 0.05000000 0.10000000 0.15000000 0.19666667
 ```

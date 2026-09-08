@@ -45,21 +45,21 @@ Adam H. Sparks
 # Weighted response curve
 rh_vals <- 0:100
 weights <- .calculate_weighted_hr_wet(rh_vals, rhlim = 90)
-#> Error in .calculate_weighted_hr_wet(rh_vals, rhlim = 90): could not find function ".calculate_weighted_hr_wet"
 plot(rh_vals, weights, type = "l", ylim = c(0, 1),
      xlab = "Hourly RH (%)", ylab = "Wetness Weight",
      main = "Weighted Wetness (rhlim = 90%)")
-#> Error in xy.coords(x, y, xlabel, ylabel, log): 'x' and 'y' lengths differ
 abline(v = c(80, 90), col = c("blue", "red"), lty = 2)
-#> Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
 abline(h = c(0, 1), col = "gray", lty = 3)
-#> Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+
 
 # Compare unweighted vs weighted
 rh_test <- c(75, 85, 90, 95)
 unweighted <- as.numeric(rh_test >= 90)  # 0, 0, 1, 1
 weighted <- .calculate_weighted_hr_wet(rh_test, rhlim = 90)
-#> Error in .calculate_weighted_hr_wet(rh_test, rhlim = 90): could not find function ".calculate_weighted_hr_wet"
 cbind(RH = rh_test, unweighted, weighted)
-#> Error: object 'weighted' not found
+#>      RH unweighted weighted
+#> [1,] 75          0      0.0
+#> [2,] 85          0      0.5
+#> [3,] 90          1      1.0
+#> [4,] 95          1      1.0
 ```

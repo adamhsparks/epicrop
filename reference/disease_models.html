@@ -11,13 +11,13 @@ from published epidemiological studies, allowing one-line disease
 simulations.
 bacterial_blight() models rice bacterial blight (Xanthomonas oryzae
 pv. oryzae). The disease requires high humidity and warm temperatures
-(optimum 25–30°C) and is most severe in the Philippines and Asia-Pacific
+(optimum 25–30°.RC) and is most severe in the Philippines and Asia-Pacific
 region.
 brown_spot() models rice brown spot (Bipolaris oryzae). A seed-borne
 fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.
 leaf_blast() models rice leaf blast (Magnaporthe oryzae). The most
-economically important rice disease worldwide, favoured by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°.RC),
 wet conditions. Rapid disease progression can cause total crop loss.
 sheath_blight() models rice sheath blight (Rhizoctonia solani).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
@@ -34,7 +34,7 @@ modified_kim_sheath_blight() models rice sheath blight using parameters
 from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95%) reflecting Korean monsoon climate.
 leaf_rust() models wheat leaf rust (Puccinia triticina). A major wheat
-pathogen globally, favoured by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25°.RC) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.
 s_tritici_blotch() models wheat Septoria tritici blotch (Zymoseptoria
 tritici), a major wheat pathogen in temperate regions. Features lesion
@@ -55,13 +55,13 @@ from published epidemiological studies, allowing one-line disease
 simulations.
 bacterial_blight() models rice bacterial blight (Xanthomonas oryzae
 pv. oryzae). The disease requires high humidity and warm temperatures
-(optimum 25–30°C) and is most severe in the Philippines and Asia-Pacific
+(optimum 25–30°.RC) and is most severe in the Philippines and Asia-Pacific
 region.
 brown_spot() models rice brown spot (Bipolaris oryzae). A seed-borne
 fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.
 leaf_blast() models rice leaf blast (Magnaporthe oryzae). The most
-economically important rice disease worldwide, favoured by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°.RC),
 wet conditions. Rapid disease progression can cause total crop loss.
 sheath_blight() models rice sheath blight (Rhizoctonia solani).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
@@ -78,7 +78,7 @@ modified_kim_sheath_blight() models rice sheath blight using parameters
 from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95%) reflecting Korean monsoon climate.
 leaf_rust() models wheat leaf rust (Puccinia triticina). A major wheat
-pathogen globally, favoured by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25°.RC) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.
 s_tritici_blotch() models wheat Septoria tritici blotch (Zymoseptoria
 tritici), a major wheat pathogen in temperate regions. Features lesion
@@ -139,13 +139,13 @@ from published epidemiological studies, allowing one-line disease
 simulations.</p>
 <p><code>bacterial_blight()</code> models rice bacterial blight (<em>Xanthomonas oryzae</em>
 pv. <em>oryzae</em>). The disease requires high humidity and warm temperatures
-(optimum 25–30°C) and is most severe in the Philippines and Asia-Pacific
+(optimum 25–30°.RC) and is most severe in the Philippines and Asia-Pacific
 region.</p>
 <p><code>brown_spot()</code> models rice brown spot (<em>Bipolaris oryzae</em>). A seed-borne
 fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.</p>
 <p><code>leaf_blast()</code> models rice leaf blast (<em>Magnaporthe oryzae</em>). The most
-economically important rice disease worldwide, favoured by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25°.RC),
 wet conditions. Rapid disease progression can cause total crop loss.</p>
 <p><code>sheath_blight()</code> models rice sheath blight (<em>Rhizoctonia solani</em>).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
@@ -162,7 +162,7 @@ Savary model.</p>
 from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95%) reflecting Korean monsoon climate.</p>
 <p><code>leaf_rust()</code> models wheat leaf rust (<em>Puccinia triticina</em>). A major wheat
-pathogen globally, favoured by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25°.RC) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.</p>
 <p><code>s_tritici_blotch()</code> models wheat Septoria tritici blotch (<em>Zymoseptoria
 tritici</em>), a major wheat pathogen in temperate regions. Features lesion
@@ -418,7 +418,7 @@ DVS-based modelling accounts for developmental susceptibility.</p>
 <dl><dt id="arg-wth">wth<a class="anchor" aria-label="anchor" href="#arg-wth"></a></dt>
 <dd><p>A <code>data.frame</code> of class <code>epicrop.wth</code> from <code><a href="get_wth.html">get_wth()</a></code> or
 <code><a href="format_wth.html">format_wth()</a></code> containing daily weather data with columns:</p>
-<p><strong>Required Columns:</strong></p><table class="table table"><tr><td>Column</td><td>Description</td></tr><tr><td>YYYYMMDD</td><td>Date (ISO 8601: YYYYMMDD)</td></tr><tr><td>DOY</td><td>Day of year (1–366)</td></tr><tr><td>TEMP</td><td>Mean daily temperature (°C)</td></tr><tr><td>RHUM</td><td>Mean daily relative humidity (%)</td></tr><tr><td>RAIN</td><td>Daily rainfall (mm)</td></tr></table><p><strong>Optional Columns (for advanced features):</strong></p><table class="table table"><tr><td>Column</td><td>Purpose</td></tr><tr><td>TMIN</td><td>Minimum daily temperature (°C); required if <code>simple_wetness = FALSE</code></td></tr><tr><td>TMAX</td><td>Maximum daily temperature (°C); required if <code>simple_wetness = FALSE</code></td></tr><tr><td>LAT</td><td>Latitude; required if <code>simple_wetness = FALSE</code></td></tr><tr><td>LON</td><td>Longitude; included in output if present</td></tr></table></dd>
+<p><strong>Required Columns:</strong></p><table class="table table"><tr><td>Column</td><td>Description</td></tr><tr><td>YYYYMMDD</td><td>Date (ISO 8601: YYYYMMDD)</td></tr><tr><td>DOY</td><td>Day of year (1–366)</td></tr><tr><td>TEMP</td><td>Mean daily temperature (°.RC)</td></tr><tr><td>RHUM</td><td>Mean daily relative humidity (%)</td></tr><tr><td>RAIN</td><td>Daily rainfall (mm)</td></tr></table><p><strong>Optional Columns (for advanced features):</strong></p><table class="table table"><tr><td>Column</td><td>Purpose</td></tr><tr><td>TMIN</td><td>Minimum daily temperature (°.RC); required if <code>simple_wetness = FALSE</code></td></tr><tr><td>TMAX</td><td>Maximum daily temperature (°.RC); required if <code>simple_wetness = FALSE</code></td></tr><tr><td>LAT</td><td>Latitude; required if <code>simple_wetness = FALSE</code></td></tr><tr><td>LON</td><td>Longitude; included in output if present</td></tr></table></dd>
 
 
 <dt id="arg-emergence">emergence<a class="anchor" aria-label="anchor" href="#arg-emergence"></a></dt>
