@@ -264,7 +264,7 @@ comparison <- data.table(
 #> Error: object 'susceptible' not found
 comparison[, reduction := 1 - (resistant_AUDPC / susceptible_AUDPC)]
 #> Error: object 'comparison' not found
-print(comparison)
+comparison
 #> Error: object 'comparison' not found
 
 # --- Example 4: Bundle processing (multiple locations) ---

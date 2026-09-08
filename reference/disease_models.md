@@ -24,15 +24,14 @@ loss.
 soil-borne disease that infects the leaf sheath; can cause catastrophic
 damage in high-N fertilized crops.
 
-`tungro()` models rice tungro, a viral disease complex (Tungro
-bacilliform and Tungro spherical viruses) transmitted by the insect
+`tungro()` models rice tungro, a viral disease complex (*Tungro
+bacilliform* and *Tungro spherical viruses*) transmitted by the insect
 vector *Nephotettix* spp. Vector populations increase with temperature
 and humidity; disease pressure peaks mid-season.
 
 `modified_kim_leaf_blast()` models rice leaf blast using parameters from
 Kim *et al.* (2015), calibrated for South Korean rice cultivars and
-growing conditions. Offers a simplified (DVS-free) alternative to the
-standard Savary model.
+growing conditions.
 
 `modified_kim_sheath_blight()` models rice sheath blight using
 parameters from Kim *et al.* (2015), calibrated for South Korean rice
@@ -41,8 +40,8 @@ Korean monsoon climate.
 
 `leaf_rust()` models wheat leaf rust (*Puccinia triticina*). A major
 wheat pathogen globally, favoured by moderate temperatures (15–25°.RC)
-and high humidity. Uses DVS-based age driver to account for
-vernalization effects.
+and high humidity. \#' DVS-based modelling accounts for developmental
+susceptibility.
 
 `s_tritici_blotch()` models wheat Septoria tritici blotch (*Zymoseptoria
 tritici*), a major wheat pathogen in temperate regions. Features lesion

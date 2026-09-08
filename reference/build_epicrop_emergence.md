@@ -229,7 +229,7 @@ single_year <- build_epicrop_emergence(
   years = 2000,
   month_day = c("-06-01", "-06-10", "-06-20", "-07-01")
 )
-print(single_year)
+single_year
 #> [1] "2000-06-01" "2000-06-10" "2000-06-20" "2000-07-01"
 plot(single_year, rep(1, length(single_year)),
      main = "Planting Date Options for 2000",
@@ -264,7 +264,7 @@ results <- run_epicrop_model(
   wth_list = wth_list,
   output = "audpc"
 )
-print(results)  # AUDPC for each emergence date
+results  # AUDPC for each emergence date
 #> Key: <emergence, AUDPC>
 #>           emergence    AUDPC
 #>    <epicrop.emerge>    <num>
@@ -281,13 +281,13 @@ em <- build_epicrop_emergence(2000:2002, c("-06-01", "-07-01"))
 # Keep only June plantings
 june_only <- em[month(em) == 6]
 #> Error in month(em): could not find function "month"
-print(june_only)
+june_only
 #> Error: object 'june_only' not found
 
 # Keep only 2001 plantings
 y2001 <- em[year(em) == 2001]
 #> Error in year(em): could not find function "year"
-print(y2001)
+y2001
 #> Error: object 'y2001' not found
 
 # Example 7: Error handling

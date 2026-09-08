@@ -72,7 +72,7 @@ Edge cases:
 mat <- rbind(c(0, 0.05), c(60, 0.6), c(120, 0.6))
 xout <- c(0, 30, 60, 90, 120, 150)
 y_interp <- .fast_interp_approx_internal(mat, xout)
-print(cbind(xout, y_interp))
+cbind(xout, y_interp)
 #>      xout y_interp
 #> [1,]    0    0.050
 #> [2,]   30    0.325
@@ -80,11 +80,4 @@ print(cbind(xout, y_interp))
 #> [4,]   90    0.600
 #> [5,]  120    0.600
 #> [6,]  150    0.600
-#      xout y_interp
-# [1,]    0     0.05     (exact match)
-# [2,]   30     0.325    (linear interp: 0.05 + 30/60 * (0.6-0.05))
-# [3,]   60     0.6      (exact match)
-# [4,]   90     0.6      (plateau)
-# [5,]  120     0.6      (exact match)
-# [6,]  150     0.6      (extrapolated)
 ```

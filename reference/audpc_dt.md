@@ -85,7 +85,7 @@ wth <- get_wth(
 
 sim <- bacterial_blight(wth, emergence = "2000-06-30")
 summary_table <- audpc_dt(sim)
-print(summary_table)
+summary_table
 #> Key: <emergence>
 #>        lat      lon    AUDPC  emergence
 #>      <num>    <num>    <num>     <char>
@@ -102,7 +102,7 @@ summaries <- lapply(emergence_dates, function(ed) {
 #> ✖ Emergence 2000-06-15 not in range 2000-06-30--2000-10-28
 summary_all <- data.table::rbindlist(summaries)
 #> Error: object 'summaries' not found
-print(summary_all)
+summary_all
 #> Error: object 'summary_all' not found
 
 # Example 3: Compare multiple locations and emergence dates
@@ -131,7 +131,7 @@ results$AUDPC <- mapply(function(loc_name, em_date) {
   get_audpc(sim)
 }, results$location, results$emergence)
 
-print(results)
+results
 #> # Data frame like object (class data.frame) 3 x 4:
 #>  │location│emergence │AUDPC
 #>  │<chr>   │<chr>     │<dbl>

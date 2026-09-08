@@ -218,7 +218,7 @@ audpc_comparison <- data.frame(
   location = names(lb_results),
   AUDPC = sapply(lb_results, function(x) attr(x, "AUDPC"))
 )
-print(audpc_comparison)
+audpc_comparison
 #> # Data frame like object (class data.frame) 2 x 3:
 #>              │location     │AUDPC 
 #>              │<chr>        │<dbl> 

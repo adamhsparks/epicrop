@@ -64,7 +64,7 @@ wth <- get_wth(
 
 sim <- bacterial_blight(wth, emergence = "2000-06-30")
 audpc <- get_audpc(sim)
-print(paste("Bacterial blight AUDPC:", round(audpc, 2)))
+paste("Bacterial blight AUDPC:", round(audpc, 2))
 #> [1] "Bacterial blight AUDPC: 37.74"
 
 # Example 2: Compare AUDPC across multiple diseases
@@ -79,7 +79,7 @@ audpc_values <- data.frame(
   disease = names(diseases),
   AUDPC = sapply(diseases, get_audpc)
 )
-print(audpc_values)
+audpc_values
 #> # Data frame like object (class data.frame) 2 x 4:
 #>   │disease│AUDPC
 #>   │<chr>  │<dbl>
@@ -89,7 +89,7 @@ print(audpc_values)
 #> sb│sb     │29.02
 # Identify most damaging disease
 worst <- audpc_values[which.max(audpc_values$AUDPC), ]
-print(paste("Most severe:", worst$disease, "AUDPC =", round(worst$AUDPC, 1)))
+paste("Most severe:", worst$disease, "AUDPC =", round(worst$AUDPC, 1))
 #> [1] "Most severe: lb AUDPC = 40.8"
 
 # Example 3: Use in analysis pipeline
@@ -104,7 +104,7 @@ audpc_by_location <- sapply(locations, function(lonlat) {
   get_audpc(sim)
 })
 
-print(audpc_by_location)
+audpc_by_location
 #>     IRRI   Manila 
 #> 40.75393 40.75393 
 ```
