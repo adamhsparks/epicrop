@@ -19,11 +19,11 @@ etc.) to avoid hardcoding published parameter values.
 
   Character. Crop name (case-insensitive). One of:
 
-  - `"rice"` – Savary et al. (2012) parameterization
+  - `"rice"` – Savary *et al.* (2012) parameterization
 
-  - `"rice_modified_kim"` – Kim et al. (2015) simplifications
+  - `"rice_modified_kim"` – Kim *et al.* (2015) simplifications
 
-  - `"wheat"` – Savary et al. (2015) parameterization
+  - `"wheat"` – Savary *et al.* (2015) parameterization
 
 - disease:
 

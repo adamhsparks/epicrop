@@ -30,12 +30,12 @@ vector *Nephotettix* spp. Vector populations increase with temperature
 and humidity; disease pressure peaks mid-season.
 
 `modified_kim_leaf_blast()` models rice leaf blast using parameters from
-Kim et al. (2015), calibrated for South Korean rice cultivars and
+Kim *et al.* (2015), calibrated for South Korean rice cultivars and
 growing conditions. Offers a simplified (DVS-free) alternative to the
 standard Savary model.
 
 `modified_kim_sheath_blight()` models rice sheath blight using
-parameters from Kim et al. (2015), calibrated for South Korean rice
+parameters from Kim *et al.* (2015), calibrated for South Korean rice
 cultivars. Uses slightly higher humidity threshold (95%) reflecting
 Korean monsoon climate.
 
@@ -485,7 +485,7 @@ wth <- get_wth(
   duration = 120L
 )
 
-# Run bacterial blight model with default parameters (Savary et al. 2012)
+# Run bacterial blight model with default parameters (Savary *et al.* 2012)
 bb_sim <- bacterial_blight(
   wth = wth,
   emergence = "2000-06-30"
@@ -581,7 +581,7 @@ plot(tg_sim$simday, tg_sim$intensity, type = "l",
      main = "Rice Tungro Progression",
      xlab = "Days After Emergence", ylab = "Disease Intensity")
 
-# Simulate using Kim et al. (2015) cultivar-adjusted parameters
+# Simulate using Kim *et al.* (2015) cultivar-adjusted parameters
 wth <- get_wth(
   lonlat = c(126.9780, 37.5665),  # Seoul, South Korea
   dates = "2000-06-01",
@@ -595,10 +595,10 @@ kim_lb <- modified_kim_leaf_blast(
 
 # Kim version has shorter duration and higher Sx (larger canopy model)
 plot(kim_lb$simday, kim_lb$intensity, type = "l",
-     main = "Rice Leaf Blast (Kim et al. 2015)",
+     main = "Rice Leaf Blast (Kim *et al.* 2015)",
      xlab = "Days", ylab = "Intensity")
 
-# Simulate sheath blight with Kim et al. (2015) parameters
+# Simulate sheath blight with Kim *et al.* (2015) parameters
 wth <- get_wth(
   lonlat = c(126.9780, 37.5665),
   dates = "2000-06-01",
@@ -611,7 +611,7 @@ kim_sb <- modified_kim_sheath_blight(
 )
 
 plot(kim_sb$simday, kim_sb$intensity, type = "l",
-     main = "Rice Sheath Blight (Kim et al. 2015)",
+     main = "Rice Sheath Blight (Kim *et al.* 2015)",
      xlab = "Days", ylab = "Intensity")
 
 # Simulate wheat leaf rust with DVS (development stage) modelling

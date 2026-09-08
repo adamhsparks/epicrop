@@ -155,11 +155,11 @@ and Tungro spherical viruses) transmitted by the insect vector
 <em>Nephotettix</em> spp. Vector populations increase with temperature and
 humidity; disease pressure peaks mid-season.</p>
 <p><code>modified_kim_leaf_blast()</code> models rice leaf blast using parameters from
-Kim et al. (2015), calibrated for South Korean rice cultivars and growing
+Kim <em>et al.</em> (2015), calibrated for South Korean rice cultivars and growing
 conditions. Offers a simplified (DVS-free) alternative to the standard
 Savary model.</p>
 <p><code>modified_kim_sheath_blight()</code> models rice sheath blight using parameters
-from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
+from Kim <em>et al.</em> (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95%) reflecting Korean monsoon climate.</p>
 <p><code>leaf_rust()</code> models wheat leaf rust (<em>Puccinia triticina</em>). A major wheat
 pathogen globally, favoured by moderate temperatures (15–25°.RC) and high
@@ -554,7 +554,7 @@ Modelling and mapping potential epidemics of wheat diseases.
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120L</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Run bacterial blight model with default parameters (Savary et al. 2012)</span></span></span>
+<span class="r-in"><span><span class="co"># Run bacterial blight model with default parameters (Savary *et al.* 2012)</span></span></span>
 <span class="r-in"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu">bacterial_blight</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  wth <span class="op">=</span> <span class="va">wth</span>,</span></span>
 <span class="r-in"><span>  emergence <span class="op">=</span> <span class="st">"2000-06-30"</span></span></span>
@@ -650,7 +650,7 @@ Modelling and mapping potential epidemics of wheat diseases.
 <span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Rice Tungro Progression"</span>,</span></span>
 <span class="r-in"><span>     xlab <span class="op">=</span> <span class="st">"Days After Emergence"</span>, ylab <span class="op">=</span> <span class="st">"Disease Intensity"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="disease_models-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># Simulate using Kim et al. (2015) cultivar-adjusted parameters</span></span></span>
+<span class="r-in"><span><span class="co"># Simulate using Kim *et al.* (2015) cultivar-adjusted parameters</span></span></span>
 <span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">126.9780</span>, <span class="fl">37.5665</span><span class="op">)</span>,  <span class="co"># Seoul, South Korea</span></span></span>
 <span class="r-in"><span>  dates <span class="op">=</span> <span class="st">"2000-06-01"</span>,</span></span>
@@ -664,10 +664,10 @@ Modelling and mapping potential epidemics of wheat diseases.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Kim version has shorter duration and higher Sx (larger canopy model)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">kim_lb</span><span class="op">$</span><span class="va">simday</span>, <span class="va">kim_lb</span><span class="op">$</span><span class="va">intensity</span>, type <span class="op">=</span> <span class="st">"l"</span>,</span></span>
-<span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Rice Leaf Blast (Kim et al. 2015)"</span>,</span></span>
+<span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Rice Leaf Blast (Kim *et al.* 2015)"</span>,</span></span>
 <span class="r-in"><span>     xlab <span class="op">=</span> <span class="st">"Days"</span>, ylab <span class="op">=</span> <span class="st">"Intensity"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="disease_models-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># Simulate sheath blight with Kim et al. (2015) parameters</span></span></span>
+<span class="r-in"><span><span class="co"># Simulate sheath blight with Kim *et al.* (2015) parameters</span></span></span>
 <span class="r-in"><span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wth.html">get_wth</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">126.9780</span>, <span class="fl">37.5665</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dates <span class="op">=</span> <span class="st">"2000-06-01"</span>,</span></span>
@@ -680,7 +680,7 @@ Modelling and mapping potential epidemics of wheat diseases.
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">kim_sb</span><span class="op">$</span><span class="va">simday</span>, <span class="va">kim_sb</span><span class="op">$</span><span class="va">intensity</span>, type <span class="op">=</span> <span class="st">"l"</span>,</span></span>
-<span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Rice Sheath Blight (Kim et al. 2015)"</span>,</span></span>
+<span class="r-in"><span>     main <span class="op">=</span> <span class="st">"Rice Sheath Blight (Kim *et al.* 2015)"</span>,</span></span>
 <span class="r-in"><span>     xlab <span class="op">=</span> <span class="st">"Days"</span>, ylab <span class="op">=</span> <span class="st">"Intensity"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="disease_models-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># Simulate wheat leaf rust with DVS (development stage) modelling</span></span></span>
