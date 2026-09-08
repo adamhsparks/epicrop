@@ -43,20 +43,20 @@
 
 - Adds EPIWHEAT style functionality to handle complex leaf wetness
   calculations using daily RH to calculate hourly RH and then modify the
-  value of `RcW` using `.fn_Rc()` as already existing with `RcT` and
+  value of `RcW` using interpolation already existing with `RcT` and
   `RcA` by setting the argument, `simple_wetness == FALSE` in
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
 
 - Adds functionality missing in original {cropsim} to handle complex
   leaf wetness calculations using daily RH to calculate hourly RH and
-  then modify the value of `RcW` using `.fn_Rc()` as already existing
+  then modify the value of `RcW` using interpolation as already existing
   with `RcT` and `RcA` by setting the argument,
   `simple_wetness == FALSE` in
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
 
 - Adds functionality to use a matrix in `RRG` and modify it with
-  `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim *et al.*
-  2015 (though not implemented in Kim *et al.* 2015).
+  interpolation over time as with `RcA` and `RcT` as found in Kim *et
+  al.* 2015 (though not implemented in Kim *et al.* 2015).
 
 - Allow pass through of more arguments from helper functions to
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
