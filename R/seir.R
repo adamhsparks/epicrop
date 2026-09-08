@@ -242,8 +242,18 @@
 #'
 #' Savary, S., Nelson, A., Willocquet, L., Pangga, I., and Aunario, J. 2012.
 #' Modeling and mapping potential epidemics of rice diseases globally.
-#' *Crop Protection*, 34, 6–17.
-#' \doi{10.1016/j.cropro.2011.11.009}.
+#' *Crop Protection*, 34: 6–17.
+#' \doi{10.1016/j.cropro.2011.11.009}
+#'
+#' Kim, K. H., Cho, J., Lee, Y. H., and Lee, W. S. 2015.
+#' Predicting potential epidemics of rice leaf blast and sheath blight in South
+#' Korea. *Agricultural and Forest Meteorology*, 203: 191–207.
+#' \doi{10.1016/j.agrformet.2015.01.011}
+#'
+#' Savary, S., Stetkiewicz, S., Brun, F., and Willocquet, L. 2015.
+#' Modelling and mapping potential epidemics of wheat diseases.
+#' *European Journal of Plant Pathology*, 142: 771–790.
+#' \doi{10.1007/s10658-015-0650-7}
 #'
 #' @seealso
 #' **Disease-specific helper functions:**
