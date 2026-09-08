@@ -10,18 +10,18 @@
 #'
 #' @section Available Models:
 #'
-#' **Rice Diseases (Savary et al. 2012):**
+#' **Rice Diseases (Savary *et al.* 2012):**
 #' * [bacterial_blight()] – Bacterial blight (*Xanthomonas oryzae* pv. *oryzae*)
 #' * [brown_spot()] – Brown spot (*Bipolaris oryzae*)
 #' * [leaf_blast()] – Leaf blast (*Magnaporthe oryzae*)
 #' * [sheath_blight()] – Sheath blight (*Rhizoctonia solani*)
 #' * [tungro()] – Tungro (viral, vector-borne)
 #'
-#' **Rice Diseases (Kim et al. 2015 modifications):**
+#' **Rice Diseases (Kim *et al.* 2015 modifications):**
 #' * [modified_kim_leaf_blast()] – Cultivar-adjusted leaf blast
 #' * [modified_kim_sheath_blight()] – Cultivar-adjusted sheath blight
 #'
-#' **Wheat Diseases (Savary et al. 2015):**
+#' **Wheat Diseases (Savary *et al.* 2015):**
 #' * [leaf_rust()] – Leaf rust (*Puccinia triticina*)
 #' * [s_tritici_blotch()] – Septoria tritici blotch (*Zymoseptoria tritici*)
 #'

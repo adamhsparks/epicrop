@@ -381,7 +381,7 @@ sensitivity analysis and custom cultivar/environment modelling.
 \section{Available Models}{
 
 
-\strong{Rice Diseases (Savary et al. 2012):}
+\strong{Rice Diseases (Savary \emph{et al.} 2012):}
 \itemize{
 \item \code{\link[=bacterial_blight]{bacterial_blight()}} – Bacterial blight (\emph{Xanthomonas oryzae} pv. \emph{oryzae})
 \item \code{\link[=brown_spot]{brown_spot()}} – Brown spot (\emph{Bipolaris oryzae})
@@ -390,13 +390,13 @@ sensitivity analysis and custom cultivar/environment modelling.
 \item \code{\link[=tungro]{tungro()}} – Tungro (viral, vector-borne)
 }
 
-\strong{Rice Diseases (Kim et al. 2015 modifications):}
+\strong{Rice Diseases (Kim \emph{et al.} 2015 modifications):}
 \itemize{
 \item \code{\link[=modified_kim_leaf_blast]{modified_kim_leaf_blast()}} – Cultivar-adjusted leaf blast
 \item \code{\link[=modified_kim_sheath_blight]{modified_kim_sheath_blight()}} – Cultivar-adjusted sheath blight
 }
 
-\strong{Wheat Diseases (Savary et al. 2015):}
+\strong{Wheat Diseases (Savary \emph{et al.} 2015):}
 \itemize{
 \item \code{\link[=leaf_rust]{leaf_rust()}} – Leaf rust (\emph{Puccinia triticina})
 \item \code{\link[=s_tritici_blotch]{s_tritici_blotch()}} – Septoria tritici blotch (\emph{Zymoseptoria tritici})
