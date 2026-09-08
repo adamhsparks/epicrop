@@ -55,14 +55,12 @@ start <- as.Date("2000-06-30")
 
 # Using duration = 3
 end1 <- .resolve_end_date(c("2000-06-30"), start, duration = 3L)
-#> Error in .resolve_end_date(c("2000-06-30"), start, duration = 3L): could not find function ".resolve_end_date"
 print(end1)  # 2000-07-02
-#> Error: object 'end1' not found
+#> [1] "2000-07-03"
 # Days: 06-30, 07-01, 07-02 (3 days)
 
 # Using explicit end date
 end2 <- .resolve_end_date(c("2000-06-30", "2000-12-31"), start, NULL)
-#> Error in .resolve_end_date(c("2000-06-30", "2000-12-31"), start, NULL): could not find function ".resolve_end_date"
 print(end2)  # 2000-12-31
-#> Error: object 'end2' not found
+#> [1] "2000-12-31"
 ```

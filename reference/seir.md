@@ -356,12 +356,11 @@ Daily transitions are driven by:
 
 ## Mass Balance
 
-At any day, the constraint is: \#' \$\$ \text{sites}\_t +
-\text{latent}\_t + \text{infectious}\_t + \text{removed}\_t +
-\text{senesced}\_t = H_0 + \text{growth}\_t - \text{senescence}\_t \$\$
-Accumulated growth is `sum(rgrowth)` and accumulated senescence is
-`sum(rsenesced)`. Small numerical deviations may occur due to
-floating-point arithmetic.
+At any day, the constraint is: \$\$ \text{sites}\_t + \text{latent}\_t +
+\text{infectious}\_t + \text{removed}\_t + \text{senesced}\_t = H_0 +
+\text{growth}\_t - \text{senescence}\_t \$\$ Accumulated growth is
+`sum(rgrowth)` and accumulated senescence is `sum(rsenesced)`. Small
+numerical deviations may occur due to floating-point arithmetic.
 
 ## *a* – Aggregation Details
 
