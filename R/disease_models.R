@@ -559,29 +559,43 @@ leaf_rust <- function(
   ...
 ) {
   params <- .epi_get_params("wheat", "leaf_rust")
-  seir(
-    wth = wth,
-    emergence = emergence,
-    RcA = RcA %||% params$RcA,
-    RcT = RcT %||% params$RcT,
-    RRG = RRG %||% params$RRG,
-    RRS = RRPSN %||% params$RRPSN,
-    onset = 20L,
-    duration = 120L,
-    rhlim = rhlim %||% 90L,
-    rainlim = rainlim %||% 5L,
-    H0 = 250L,
-    I0 = 10L,
-    RcOpt = 1.472,
-    RRLEX = 0.0,
-    p = 7L,
-    i = 31L,
-    Sx = 750000L,
-    a = 1L,
-    age_driver = "dvs",
-    thermal_time = list(base_temp = 0, gdd_to_maturity = 1500),
-    simple_wetness = TRUE,
-    ...
+
+  # Resolve RRPSN once, then pass as RRS via do.call to avoid duplication
+  dots <- list(...)
+  # Allow RRS in ... as an alias for RRPSN (backward compat with tests/users)
+  if (is.null(RRPSN) && !is.null(dots[["RRS"]])) {
+    RRPSN <- dots[["RRS"]]
+  }
+  dots[["RRS"]] <- NULL # always strip RRS from dots before passing through
+
+  do.call(
+    seir,
+    c(
+      list(
+        wth = wth,
+        emergence = emergence,
+        RcA = RcA %||% params$RcA,
+        RcT = RcT %||% params$RcT,
+        RRG = RRG %||% params$RRG,
+        RRS = RRPSN %||% params$RRPSN,
+        onset = 20L,
+        duration = 120L,
+        rhlim = rhlim %||% 90L,
+        rainlim = rainlim %||% 5L,
+        H0 = 250L,
+        I0 = 10L,
+        RcOpt = 1.472,
+        RRLEX = 0.0,
+        p = 7L,
+        i = 31L,
+        Sx = 750000L,
+        a = 1L,
+        age_driver = "dvs",
+        thermal_time = list(base_temp = 0, gdd_to_maturity = 1500),
+        simple_wetness = TRUE
+      ),
+      dots # RRS has been removed; remaining ... args pass through cleanly
+    )
   )
 }
 
@@ -628,29 +642,42 @@ s_tritici_blotch <- function(
   ...
 ) {
   params <- .epi_get_params("wheat", "s_tritici_blotch")
-  seir(
-    wth = wth,
-    emergence = emergence,
-    RcA = RcA %||% params$RcA,
-    RcT = RcT %||% params$RcT,
-    RRG = RRG %||% params$RRG,
-    RRS = RRPSN %||% params$RRPSN,
-    RRLEX = params$RRLEX,
-    onset = 20L,
-    duration = 120L,
-    rhlim = rhlim %||% 90L,
-    rainlim = rainlim %||% 5L,
-    H0 = 250L,
-    I0 = 15L,
-    RcOpt = 1.17,
-    p = 11L,
-    i = 18L,
-    Sx = 174000L,
-    a = 1L,
-    age_driver = "dvs",
-    thermal_time = list(base_temp = 0, gdd_to_maturity = 1500),
-    simple_wetness = TRUE,
-    ...
+  # Resolve RRPSN once, then pass as RRS via do.call to avoid duplication
+  dots <- list(...)
+  # Allow RRS in ... as an alias for RRPSN (backward compat with tests/users)
+  if (is.null(RRPSN) && !is.null(dots[["RRS"]])) {
+    RRPSN <- dots[["RRS"]]
+  }
+  dots[["RRS"]] <- NULL # always strip RRS from dots before passing through
+
+  do.call(
+    seir,
+    c(
+      list(
+        wth = wth,
+        emergence = emergence,
+        RcA = RcA %||% params$RcA,
+        RcT = RcT %||% params$RcT,
+        RRG = RRG %||% params$RRG,
+        RRS = RRPSN %||% params$RRPSN,
+        RRLEX = params$RRLEX,
+        onset = 20L,
+        duration = 120L,
+        rhlim = rhlim %||% 90L,
+        rainlim = rainlim %||% 5L,
+        H0 = 250L,
+        I0 = 15L,
+        RcOpt = 1.17,
+        p = 11L,
+        i = 18L,
+        Sx = 174000L,
+        a = 1L,
+        age_driver = "dvs",
+        thermal_time = list(base_temp = 0, gdd_to_maturity = 1500),
+        simple_wetness = TRUE
+      ),
+      dots
+    )
   )
 }
 
