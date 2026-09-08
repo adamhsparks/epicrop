@@ -1,6 +1,6 @@
 # ---- Test fixtures ----------------------------------------------------
 
-# A lightweight stand-in for a real epicrop disease model (e.g.
+# A lightweight stand-in for a real epicrop disease model (*e.g.*
 # bacterial_blight()). It mimics seir()'s real contract: it errors if the
 # weather slice it receives has fewer rows than `duration`, rather than
 # silently truncating, so tests here reflect what a real model would do.
@@ -493,7 +493,7 @@ test_that("explicitly passing duration via ... overrides the auto-filled window_
   expect_identical(nrow(res), 5L)
 })
 
-test_that("duration auto-fill is skipped for model_fun's without a formal duration parameter (e.g. wrapped disease models)", {
+test_that("duration auto-fill is skipped for model_fun's without a formal duration parameter (*e.g.* wrapped disease models)", {
   # Mirrors bacterial_blight() and friends: duration is hardcoded internally
   # and reachable only via `...`, so run_epicrop_model() must not attempt to
   # auto-inject it -- doing so would collide with the hardcoded value.

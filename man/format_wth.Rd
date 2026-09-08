@@ -203,7 +203,7 @@ wth_formatted <- format_wth(
 )
 
 # Example 4: Subset and format existing epicrop.wth
-# (e.g., use only part of a longer dataset)
+# (*e.g.*, use only part of a longer dataset)
 wth_full <- get_wth(
   lonlat = c(121.25562, 14.6774),
   dates = c("2000-06-30", "2000-12-31")

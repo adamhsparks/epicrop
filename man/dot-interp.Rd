@@ -41,7 +41,7 @@ modifiers in multiple convenient formats.
 \itemize{
 \item NULL input aborts
 \item Vector length mismatch aborts
-\item Unsupported class (e.g., character, factor) aborts
+\item Unsupported class (\emph{e.g.}, character, factor) aborts
 \item Matrix with != 2 columns aborts
 \item Matrix with non-numeric values aborts
 \item NA rows in matrix trigger warning and are removed

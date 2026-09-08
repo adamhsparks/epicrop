@@ -133,7 +133,7 @@
 #'
 #' * NULL input aborts
 #' * Vector length mismatch aborts
-#' * Unsupported class (e.g., character, factor) aborts
+#' * Unsupported class (*e.g.*, character, factor) aborts
 #' * Matrix with != 2 columns aborts
 #' * Matrix with non-numeric values aborts
 #' * NA rows in matrix trigger warning and are removed

@@ -11,7 +11,7 @@
 #' [build_epicrop_emergence()] (emergence date generation) with disease models.
 #' For each emergence date, it:
 #' 1. Slices weather data spanning emergence to emergence + `window_days - 1`
-#' 2. Handles year boundaries (e.g., Dec 15 – Jan 15)
+#' 2. Handles year boundaries (*e.g.*, Dec 15 – Jan 15)
 #' 3. Executes the model with the sliced weather
 #' 4. Returns either a compact AUDPC summary or full daily progression
 #'
@@ -37,7 +37,7 @@
 #' @param output Character. Output format:
 #'   * `"audpc"` (default): Compact summary with emergence date and AUDPC
 #'   * `"full"`: All daily model columns plus `emergence` and `AUDPC`
-#' @param ... Additional arguments forwarded to `model_fun` (e.g., `RcOpt`,
+#' @param ... Additional arguments forwarded to `model_fun` (*e.g.*, `RcOpt`,
 #'   `simple_wetness`, custom modifier tables). Overrides model defaults.
 #'
 #' @returns A [data.table::data.table]:
@@ -55,7 +55,7 @@
 #'
 #' @section Cross-Year Windows:
 #'
-#' When an emergence date + `window_days` spans two calendar years (e.g.,
+#' When an emergence date + `window_days` spans two calendar years (*e.g.*,
 #' Dec 15 – Feb 15), the function automatically:
 #' * Fetches weather from both years
 #' * Stitches them in chronological order
@@ -437,7 +437,7 @@ run_epicrop_model <- function(
 #' Slice Weather Data Across a Date Window
 #'
 #' Extracts weather for a single emergence date across one or more calendar
-#' years. Handles year boundaries (e.g., Dec 15 → Jan 15).
+#' years. Handles year boundaries (*e.g.*, Dec 15 → Jan 15).
 #'
 #' @section Algorithm:
 #'

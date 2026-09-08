@@ -16,7 +16,7 @@
 }
 \value{
 An \code{epicrop.wth.list} object: a named list of weather tables,
-one per year. Names are year strings (e.g., "2000", "2001").
+one per year. Names are year strings (\emph{e.g.}, "2000", "2001").
 }
 \description{
 Calls the API to fetch weather data for a single (location, start, duration)

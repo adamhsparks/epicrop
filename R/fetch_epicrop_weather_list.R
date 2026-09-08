@@ -535,7 +535,7 @@ fetch_epicrop_weather_list <- function(
 #' @param x_chr Character vector of month-day strings (with optional leading
 #'   dash or slash separator).
 #'
-#' @returns Character vector in `"MM-DD"` format (e.g., `"06-30"`).
+#' @returns Character vector in `"MM-DD"` format (*e.g.*, `"06-30"`).
 #'
 #' @examplesIf interactive()
 #' .normalize_md(c("6/30", "-6-30", "06-30"))
@@ -907,7 +907,7 @@ fetch_epicrop_weather_list <- function(
 #'   * `duration`: integer duration
 #'
 #' @returns An `epicrop.wth.list` object: a named list of weather tables,
-#'   one per year. Names are year strings (e.g., "2000", "2001").
+#'   one per year. Names are year strings (*e.g.*, "2000", "2001").
 #'
 #' @details
 #' This function calls [get_wth()] to fetch data, then splits by year.

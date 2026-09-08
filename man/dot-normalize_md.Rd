@@ -11,7 +11,7 @@
 dash or slash separator).}
 }
 \value{
-Character vector in \code{"MM-DD"} format (e.g., \code{"06-30"}).
+Character vector in \code{"MM-DD"} format (\emph{e.g.}, \code{"06-30"}).
 }
 \description{
 Converts month-day strings in various formats (\code{"6/30"}, \code{"-06-30"}, etc.)

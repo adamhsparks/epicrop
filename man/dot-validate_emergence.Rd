@@ -17,7 +17,7 @@ error message otherwise.
 \description{
 Converts various date formats (character, Date, IDate, POSIXt) to a
 validated IDate object. Supports multiple date string formats and rejects
-ambiguous numeric dates (e.g., "07/01/2000").
+ambiguous numeric dates (\emph{e.g.}, "07/01/2000").
 }
 \details{
 \strong{Date string formats accepted:}
@@ -29,7 +29,7 @@ ambiguous numeric dates (e.g., "07/01/2000").
 }
 
 \strong{Ambiguous dates rejected:} Dates where both first and second numeric
-components are <= 12 (e.g., \code{"07/01/2000"}) are rejected to prevent
+components are <= 12 (\emph{e.g.}, \code{"07/01/2000"}) are rejected to prevent
 misinterpretation as either July 1 or January 7.
 }
 \keyword{internal}

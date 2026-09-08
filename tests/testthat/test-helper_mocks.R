@@ -4,7 +4,7 @@
 # get_wth(). testthat auto-sources every helper-*.R file before running
 # tests, so these are available everywhere without an explicit source().
 
-# A lightweight stand-in for a real epicrop disease model (e.g.
+# A lightweight stand-in for a real epicrop disease model (*e.g.*
 # bacterial_blight()). Mimics seir()'s real contract: errors if the weather
 # slice it receives has fewer rows than `duration`, rather than silently
 # truncating.

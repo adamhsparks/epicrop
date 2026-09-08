@@ -15,7 +15,7 @@
   dt
 }
 
-# A lightweight stand-in for a real epicrop disease model (e.g.
+# A lightweight stand-in for a real epicrop disease model (*e.g.*
 # bacterial_blight()). Mimics seir()'s real contract: errors if the
 # emergence date isn't present in the weather, or if there isn't enough
 # weather left after emergence to cover `duration`.
@@ -398,7 +398,7 @@ test_that(".cover_from_md_years errors when years is NULL or empty", {
   )
 })
 
-test_that(".cover_from_md_years errors on an invalid calendar month-day (e.g. Feb 30)", {
+test_that(".cover_from_md_years errors on an invalid calendar month-day (*e.g.* Feb 30)", {
   expect_error(
     .cover_from_md_years("02-30", 2001, 10L),
     "Failed to construct valid dates"

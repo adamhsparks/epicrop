@@ -19,7 +19,7 @@ or NULL if weather is completely unavailable.
 }
 \description{
 Extracts weather for a single emergence date across one or more calendar
-years. Handles year boundaries (e.g., Dec 15 → Jan 15).
+years. Handles year boundaries (\emph{e.g.}, Dec 15 → Jan 15).
 }
 \details{
 Missing years or empty segments within a year produce warnings but do not

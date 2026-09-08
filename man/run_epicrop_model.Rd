@@ -42,7 +42,7 @@ is available. If \code{emergence_dates} is at year-end, spans into next year.}
 \item \code{"full"}: All daily model columns plus \code{emergence} and \code{AUDPC}
 }}
 
-\item{...}{Additional arguments forwarded to \code{model_fun} (e.g., \code{RcOpt},
+\item{...}{Additional arguments forwarded to \code{model_fun} (\emph{e.g.}, \code{RcOpt},
 \code{simple_wetness}, custom modifier tables). Overrides model defaults.}
 }
 \value{
@@ -81,7 +81,7 @@ This function bridges \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_wea
 For each emergence date, it:
 \enumerate{
 \item Slices weather data spanning emergence to emergence + \code{window_days - 1}
-\item Handles year boundaries (e.g., Dec 15 – Jan 15)
+\item Handles year boundaries (\emph{e.g.}, Dec 15 – Jan 15)
 \item Executes the model with the sliced weather
 \item Returns either a compact AUDPC summary or full daily progression
 }
@@ -93,7 +93,7 @@ independently and combining results with a \code{location} column.
 \section{Cross-Year Windows}{
 
 
-When an emergence date + \code{window_days} spans two calendar years (e.g.,
+When an emergence date + \code{window_days} spans two calendar years (\emph{e.g.},
 Dec 15 – Feb 15), the function automatically:
 \itemize{
 \item Fetches weather from both years
