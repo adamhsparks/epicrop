@@ -14,13 +14,6 @@
 - Addition of functions to predict rice blast and sheath blight based on
   Kim *et al.* 2015.
 
-- Adds the RcRH parameter to
-  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-  to calculate the relative humidity correction factor for the disease
-  progress curve as published in Savary *et al.* 2012.
-
-- Adds the RcRH parameter to all helper functions.
-
 - AUDPC is now included as an attribute, not in a repeated column for
   efficiency. Two new functions,
   [`get_audpc()`](https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.md)
