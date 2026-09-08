@@ -38,4 +38,5 @@ NULL (invisibly). Called for side effects (validation/abort).
   "2000-06-30",
   120L
 )
+#> Error in .validate_required_args(c(121.255669, 14.16742), "2000-06-30",     120L): could not find function ".validate_required_args"
 ```
