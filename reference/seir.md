@@ -341,8 +341,8 @@ The model tracks five site compartments over time:
 
 Daily transitions are driven by:
 
-- Infection rate: `Rc × I × (1 - D/Sx)^a` (corrected for crowding &
-  aggregation)
+- Infection rate: \\R_c \times I \times \left(1 -
+  \frac{D}{S_x}\right)^a\\ (corrected for crowding & aggregation)
 
 - Latency progression: E→I after `p` days
 

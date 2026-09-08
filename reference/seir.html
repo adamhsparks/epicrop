@@ -309,8 +309,8 @@ pathosystems as well.</p>
 <li><p><strong>Infectious sites (I)</strong>: Can transmit infection (duration = <code>i</code> days)</p></li>
 <li><p><strong>Removed sites (R)</strong>: Diseased but no longer infectious</p></li>
 <li><p><strong>Senesced sites (S)</strong>: Physiologically dead</p></li>
-</ul><p>Daily transitions are driven by:</p><ul><li><p>Infection rate: <code>Rc × I × (1 - D/Sx)^a</code> (corrected for crowding &amp;
-aggregation)</p></li>
+</ul><p>Daily transitions are driven by:</p><ul><li><p>Infection rate: \(R_c \times I \times \left(1 - \frac{D}{S_x}\right)^a\)
+(corrected for crowding &amp; aggregation)</p></li>
 <li><p>Latency progression: E→I after <code>p</code> days</p></li>
 <li><p>Recovery: I→R after <code>i</code> days</p></li>
 <li><p>Growth: H increases based on <code>RRG</code> (if room available)</p></li>
