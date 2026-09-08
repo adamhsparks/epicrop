@@ -8,10 +8,6 @@
 
 - Addition of functions to predict rice blast and sheath blight based on Kim *et al.* 2015.
 
-- Adds the RcRH parameter to `seir()` to calculate the relative humidity correction factor for the disease progress curve as published in Savary *et al.* 2012.
-
-- Adds the RcRH parameter to all helper functions.
-
 - AUDPC is now included as an attribute, not in a repeated column for efficiency.
   Two new functions, `get_audpc()` and `audpc_dt()` are provided to ease extracting values.
 
