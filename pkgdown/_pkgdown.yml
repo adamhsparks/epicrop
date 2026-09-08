@@ -2,6 +2,7 @@ template:
   bootstrap: 5
   params:
     bootswatch: journal
+  math-rendering: mathjax
 url: https://adamhsparks.codeberg.page/epicrop/
 reference:
   - title: Helper Functions for Rice Disease Simulations

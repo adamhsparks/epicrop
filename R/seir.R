@@ -183,7 +183,7 @@
 #' @section Mass Balance:
 #'
 #' At any day, the constraint is:
-#' #' \deqn{
+#' \deqn{
 #'   \text{sites}_t + \text{latent}_t + \text{infectious}_t + \text{removed}_t + \text{senesced}_t
 #'   = H_0 + \text{growth}_t - \text{senescence}_t
 #' }{sites[t] + latent[t] + infectious[t] + removed[t] + senesced[t] = H0 + cumulative_growth[t] - cumulative_senescence[t]}
