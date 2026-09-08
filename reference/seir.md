@@ -400,7 +400,7 @@ provide these.
 
 When `RRLEX > 0`, the model adds a direct pathway H→I, bypassing
 latency: \$\$\text{rlex}\_t = RRLEX \times I_t \times \left(1 -
-\frac{D}{S_x}\right)\$\$'
+\frac{D}{S_x}\right)\$\$
 
 Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute
