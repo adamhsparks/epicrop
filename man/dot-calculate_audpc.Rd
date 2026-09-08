@@ -63,7 +63,7 @@ bb_sim <- bacterial_blight(wth, emergence = "2000-06-30")
 
 # Calculate AUDPC from intensity vector (already in object attribute)
 audpc_value <- .calculate_audpc(intensity = bb_sim$intensity)
-print(audpc_value)
+audpc_value
 
 # Compare with automatic calculation via get_audpc()
 audpc_attr <- get_audpc(bb_sim)
@@ -98,7 +98,7 @@ audpc_res <- get_audpc(resistant)
 
 # Calculate resistance benefit
 reduction <- (audpc_sus - audpc_res) / audpc_sus * 100
-sprintf("Resistant cultivar reduces AUDPC by \%.1f\%\%", reduction)
+reduction
 \dontshow{\}) # examplesIf}
 }
 \references{

@@ -133,7 +133,7 @@
 #'   location = names(lb_results),
 #'   AUDPC = sapply(lb_results, function(x) attr(x, "AUDPC"))
 #' )
-#' print(audpc_comparison)
+#' audpc_comparison
 #'
 #' # Example 6: Cross-year comparison (same location, different years)
 #' years <- 2000:2002
@@ -337,12 +337,12 @@ get_wth <- function(lonlat, dates, duration = NULL) {
 #'
 #' # Using duration = 3
 #' end1 <- .resolve_end_date(c("2000-06-30"), start, duration = 3L)
-#' print(end1)  # 2000-07-02
+#' end1  # 2000-07-02
 #' # Days: 06-30, 07-01, 07-02 (3 days)
 #'
 #' # Using explicit end date
 #' end2 <- .resolve_end_date(c("2000-06-30", "2000-12-31"), start, NULL)
-#' print(end2)  # 2000-12-31
+#' end2  # 2000-12-31
 #'
 #' @autoglobal
 #' @dev

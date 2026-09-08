@@ -316,7 +316,8 @@ simulations.
 
 \code{bacterial_blight()} models rice bacterial blight (\emph{Xanthomonas oryzae}
 pv. \emph{oryzae}). The disease requires high humidity and warm temperatures
-(optimum 25–30\ifelse{latex}{\out{$^\circ$}}{°}.RC) and is most severe in the Philippines and Asia-Pacific
+(optimum 25–30\ifelse{latex}{\out{$^\circ$}}{°}.RC)
+and is most severe in the Philippines and Asia-Pacific
 region.
 
 \code{brown_spot()} models rice brown spot (\emph{Bipolaris oryzae}). A seed-borne
@@ -324,30 +325,31 @@ fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.
 
 \code{leaf_blast()} models rice leaf blast (\emph{Magnaporthe oryzae}). The most
-economically important rice disease worldwide, favoured by cool (25\ifelse{latex}{\out{$^\circ$}}{°}.RC),
-wet conditions. Rapid disease progression can cause total crop loss.
+economically important rice disease worldwide, favoured by cool
+(25\ifelse{latex}{\out{$^\circ$}}{°}.RC), wet conditions. Rapid disease
+progression can cause total crop loss.
 
 \code{sheath_blight()} models rice sheath blight (\emph{Rhizoctonia solani}).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
 damage in high-N fertilized crops.
 
-\code{tungro()} models rice tungro, a viral disease complex (Tungro bacilliform
-and Tungro spherical viruses) transmitted by the insect vector
+\code{tungro()} models rice tungro, a viral disease complex (\emph{Tungro bacilliform}
+and \emph{Tungro spherical viruses}) transmitted by the insect vector
 \emph{Nephotettix} spp. Vector populations increase with temperature and
 humidity; disease pressure peaks mid-season.
 
 \code{modified_kim_leaf_blast()} models rice leaf blast using parameters from
 Kim \emph{et al.} (2015), calibrated for South Korean rice cultivars and growing
-conditions. Offers a simplified (DVS-free) alternative to the standard
-Savary model.
+conditions.
 
 \code{modified_kim_sheath_blight()} models rice sheath blight using parameters
 from Kim \emph{et al.} (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95\%) reflecting Korean monsoon climate.
 
 \code{leaf_rust()} models wheat leaf rust (\emph{Puccinia triticina}). A major wheat
-pathogen globally, favoured by moderate temperatures (15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high
-humidity. Uses DVS-based age driver to account for vernalization effects.
+pathogen globally, favoured by moderate temperatures
+(15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high humidity. #' DVS-based
+modelling accounts for developmental susceptibility.
 
 \code{s_tritici_blotch()} models wheat Septoria tritici blotch (\emph{Zymoseptoria
 tritici}), a major wheat pathogen in temperate regions. Features lesion

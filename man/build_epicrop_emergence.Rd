@@ -179,7 +179,7 @@ single_year <- build_epicrop_emergence(
   years = 2000,
   month_day = c("-06-01", "-06-10", "-06-20", "-07-01")
 )
-print(single_year)
+single_year
 plot(single_year, rep(1, length(single_year)),
      main = "Planting Date Options for 2000",
      xlab = "Date", ylab = "")
@@ -211,18 +211,18 @@ results <- run_epicrop_model(
   wth_list = wth_list,
   output = "audpc"
 )
-print(results)  # AUDPC for each emergence date
+results  # AUDPC for each emergence date
 
 # Example 6: Subset and filter emergence dates
 em <- build_epicrop_emergence(2000:2002, c("-06-01", "-07-01"))
 
 # Keep only June plantings
 june_only <- em[month(em) == 6]
-print(june_only)
+june_only
 
 # Keep only 2001 plantings
 y2001 <- em[year(em) == 2001]
-print(y2001)
+y2001
 
 # Example 7: Error handling
 \dontrun{

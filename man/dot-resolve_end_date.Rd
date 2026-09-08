@@ -47,12 +47,12 @@ start <- as.Date("2000-06-30")
 
 # Using duration = 3
 end1 <- .resolve_end_date(c("2000-06-30"), start, duration = 3L)
-print(end1)  # 2000-07-02
+end1  # 2000-07-02
 # Days: 06-30, 07-01, 07-02 (3 days)
 
 # Using explicit end date
 end2 <- .resolve_end_date(c("2000-06-30", "2000-12-31"), start, NULL)
-print(end2)  # 2000-12-31
+end2  # 2000-12-31
 \dontshow{\}) # examplesIf}
 }
 \keyword{internal}

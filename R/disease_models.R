@@ -89,7 +89,8 @@ NULL
 #' @description
 #' `bacterial_blight()` models rice bacterial blight (*Xanthomonas oryzae*
 #' pv. *oryzae*). The disease requires high humidity and warm temperatures
-#' (optimum 25–30\ifelse{latex}{\out{$^\circ$}}{°}.RC) and is most severe in the Philippines and Asia-Pacific
+#' (optimum 25–30\ifelse{latex}{\out{$^\circ$}}{°}.RC)
+#' and is most severe in the Philippines and Asia-Pacific
 #' region.
 #'
 #' @examplesIf interactive()
@@ -216,8 +217,9 @@ brown_spot <- function(
 #'
 #' @description
 #' `leaf_blast()` models rice leaf blast (*Magnaporthe oryzae*). The most
-#' economically important rice disease worldwide, favoured by cool (25\ifelse{latex}{\out{$^\circ$}}{°}.RC),
-#' wet conditions. Rapid disease progression can cause total crop loss.
+#' economically important rice disease worldwide, favoured by cool
+#' (25\ifelse{latex}{\out{$^\circ$}}{°}.RC), wet conditions. Rapid disease
+#' progression can cause total crop loss.
 #'
 #' @examplesIf interactive()
 #' # Simulate leaf blast under favourable conditions
@@ -338,8 +340,8 @@ sheath_blight <- function(
 #' @export
 #'
 #' @description
-#' `tungro()` models rice tungro, a viral disease complex (Tungro bacilliform
-#' and Tungro spherical viruses) transmitted by the insect vector
+#' `tungro()` models rice tungro, a viral disease complex (*Tungro bacilliform*
+#' and *Tungro spherical viruses*) transmitted by the insect vector
 #' *Nephotettix* spp. Vector populations increase with temperature and
 #' humidity; disease pressure peaks mid-season.
 #'
@@ -403,8 +405,7 @@ tungro <- function(
 #' @description
 #' `modified_kim_leaf_blast()` models rice leaf blast using parameters from
 #' Kim *et al.* (2015), calibrated for South Korean rice cultivars and growing
-#' conditions. Offers a simplified (DVS-free) alternative to the standard
-#' Savary model.
+#' conditions.
 #'
 #' @examplesIf interactive()
 #' # Simulate using Kim *et al.* (2015) cultivar-adjusted parameters
@@ -526,9 +527,10 @@ modified_kim_sheath_blight <- function(
 #'
 #' @description
 #' `leaf_rust()` models wheat leaf rust (*Puccinia triticina*). A major wheat
-#' pathogen globally, favoured by moderate temperatures (15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high
-#' humidity. Uses DVS-based age driver to account for vernalization effects.
-#'
+#' pathogen globally, favoured by moderate temperatures
+#' (15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high humidity. #' DVS-based
+#' modelling accounts for developmental susceptibility.
+
 #' @examplesIf interactive()
 #' # Simulate wheat leaf rust with DVS (development stage) modelling
 #' wth <- get_wth(

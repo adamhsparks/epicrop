@@ -110,19 +110,19 @@ params_kim <- .epi_get_params("rice_modified_kim", "leaf_blast")
 
 # Check parameter differences
 cat("Savary RcOpt would use RcT:\n")
-print(params_savary$RcT)
+params_savary$RcT
 cat("\nKim RcT:\n")
-print(params_kim$RcT)
+params_kim$Rc)
 
 # Example 3: Inspect wheat parameters
 wheat_stb <- .epi_get_params("wheat", "s_tritici_blotch")
 cat("Wheat STB uses RRPSN for senescence:\n")
-print(wheat_stb$RRPSN)
+wheat_stb$RRPSN
 
 # Example 4: List all available diseases for a crop
 rice_diseases <- names(.epi_params$rice)
 cat("Rice diseases in database:\n")
-print(rice_diseases)
+rice_diseases
 
 # Example 5: Programmatic parameter modification
 # Get defaults, then override

@@ -190,7 +190,7 @@ comparison <- data.table(
   resistant_AUDPC = resistant$AUDPC
 )
 comparison[, reduction := 1 - (resistant_AUDPC / susceptible_AUDPC)]
-print(comparison)
+comparison
 
 # --- Example 4: Bundle processing (multiple locations) ---
 

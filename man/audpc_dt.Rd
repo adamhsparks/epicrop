@@ -64,7 +64,7 @@ wth <- get_wth(
 
 sim <- bacterial_blight(wth, emergence = "2000-06-30")
 summary_table <- audpc_dt(sim)
-print(summary_table)
+summary_table
 # Output includes lat, lon, AUDPC, emergence
 
 # Example 2: Batch summarise multiple emergence dates
@@ -74,7 +74,7 @@ summaries <- lapply(emergence_dates, function(ed) {
   audpc_dt(sim)
 })
 summary_all <- data.table::rbindlist(summaries)
-print(summary_all)
+summary_all
 
 # Example 3: Compare multiple locations and emergence dates
 locations <- data.frame(
@@ -102,7 +102,7 @@ results$AUDPC <- mapply(function(loc_name, em_date) {
   get_audpc(sim)
 }, results$location, results$emergence)
 
-print(results)
+results
 # Identify highest risk scenario
 worst <- results[which.max(results$AUDPC), ]
 sprintf("Highest risk: \%s, emergence \%s, AUDPC = \%.1f",

@@ -46,7 +46,7 @@
 #'
 #' # Calculate AUDPC from intensity vector (already in object attribute)
 #' audpc_value <- .calculate_audpc(intensity = bb_sim$intensity)
-#' print(audpc_value)
+#' audpc_value
 #'
 #' # Compare with automatic calculation via get_audpc()
 #' audpc_attr <- get_audpc(bb_sim)
@@ -81,7 +81,7 @@
 #'
 #' # Calculate resistance benefit
 #' reduction <- (audpc_sus - audpc_res) / audpc_sus * 100
-#' sprintf("Resistant cultivar reduces AUDPC by %.1f%%", reduction)
+#' reduction
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #'
@@ -151,7 +151,7 @@
 #'
 #' sim <- bacterial_blight(wth, emergence = "2000-06-30")
 #' audpc <- get_audpc(sim)
-#' print(paste("Bacterial blight AUDPC:", round(audpc, 2)))
+#' paste("Bacterial blight AUDPC:", round(audpc, 2))
 #'
 #' # Example 2: Compare AUDPC across multiple diseases
 #' diseases <- list(
@@ -165,10 +165,10 @@
 #'   disease = names(diseases),
 #'   AUDPC = sapply(diseases, get_audpc)
 #' )
-#' print(audpc_values)
+#' audpc_values
 #' # Identify most damaging disease
 #' worst <- audpc_values[which.max(audpc_values$AUDPC), ]
-#' print(paste("Most severe:", worst$disease, "AUDPC =", round(worst$AUDPC, 1)))
+#' paste("Most severe:", worst$disease, "AUDPC =", round(worst$AUDPC, 1))
 #'
 #' # Example 3: Use in analysis pipeline
 #' locations <- list(
@@ -182,7 +182,7 @@
 #'   get_audpc(sim)
 #' })
 #'
-#' print(audpc_by_location)
+#' audpc_by_location
 #'
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
@@ -246,7 +246,7 @@ get_audpc <- function(x) {
 #'
 #' sim <- bacterial_blight(wth, emergence = "2000-06-30")
 #' summary_table <- audpc_dt(sim)
-#' print(summary_table)
+#' summary_table
 #' # Output includes lat, lon, AUDPC, emergence
 #'
 #' # Example 2: Batch summarise multiple emergence dates
@@ -256,7 +256,7 @@ get_audpc <- function(x) {
 #'   audpc_dt(sim)
 #' })
 #' summary_all <- data.table::rbindlist(summaries)
-#' print(summary_all)
+#' summary_all
 #'
 #' # Example 3: Compare multiple locations and emergence dates
 #' locations <- data.frame(
@@ -284,7 +284,7 @@ get_audpc <- function(x) {
 #'   get_audpc(sim)
 #' }, results$location, results$emergence)
 #'
-#' print(results)
+#' results
 #' # Identify highest risk scenario
 #' worst <- results[which.max(results$AUDPC), ]
 #' sprintf("Highest risk: %s, emergence %s, AUDPC = %.1f",

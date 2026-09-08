@@ -155,7 +155,7 @@ audpc_comparison <- data.frame(
   location = names(lb_results),
   AUDPC = sapply(lb_results, function(x) attr(x, "AUDPC"))
 )
-print(audpc_comparison)
+audpc_comparison
 
 # Example 6: Cross-year comparison (same location, different years)
 years <- 2000:2002
