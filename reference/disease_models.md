@@ -160,7 +160,7 @@ leaf_rust(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -172,7 +172,7 @@ s_tritici_blotch(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -268,7 +268,7 @@ lr(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -280,7 +280,7 @@ brown_rust(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -292,7 +292,7 @@ stb(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -349,7 +349,8 @@ stb(
 - RRS:
 
   Optional custom relative senescence rate (scalar numeric, vector,
-  function, or matrix). Overrides the published default.
+  function, or matrix). Overrides the published default. Applies to rice
+  disease models only.
 
 - RRG:
 
@@ -373,6 +374,12 @@ stb(
   allowing full customization of any parameter (onset, duration, H0, I0,
   p, i, Sx, a, simple_wetness, etc.).
 
+- RRPSN:
+
+  Optional custom relative photoperiod-adjusted senescence rate (scalar
+  numeric, vector, function, or matrix). Overrides the published
+  default. Applies to wheat disease models only.
+
 ## Value
 
 A
@@ -388,7 +395,7 @@ sensitivity analysis and custom cultivar/environment modelling.
 
 ## Available Models
 
-**Rice Diseases (Savary et al. 2012):**
+**Rice Diseases (Savary *et al.* 2012):**
 
 - `bacterial_blight()` – Bacterial blight (*Xanthomonas oryzae* pv.
   *oryzae*)
@@ -401,13 +408,13 @@ sensitivity analysis and custom cultivar/environment modelling.
 
 - `tungro()` – Tungro (viral, vector-borne)
 
-**Rice Diseases (Kim et al. 2015 modifications):**
+**Rice Diseases (Kim *et al.* 2015 modifications):**
 
 - `modified_kim_leaf_blast()` – Cultivar-adjusted leaf blast
 
 - `modified_kim_sheath_blight()` – Cultivar-adjusted sheath blight
 
-**Wheat Diseases (Savary et al. 2015):**
+**Wheat Diseases (Savary *et al.* 2015):**
 
 - `leaf_rust()` – Leaf rust (*Puccinia triticina*)
 

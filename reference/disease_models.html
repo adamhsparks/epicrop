@@ -271,7 +271,7 @@ DVS-based modelling accounts for developmental susceptibility.</p>
 <span>  <span class="va">emergence</span>,</span>
 <span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRPSN <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -283,7 +283,7 @@ DVS-based modelling accounts for developmental susceptibility.</p>
 <span>  <span class="va">emergence</span>,</span>
 <span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRPSN <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -379,7 +379,7 @@ DVS-based modelling accounts for developmental susceptibility.</p>
 <span>  <span class="va">emergence</span>,</span>
 <span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRPSN <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -391,7 +391,7 @@ DVS-based modelling accounts for developmental susceptibility.</p>
 <span>  <span class="va">emergence</span>,</span>
 <span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRPSN <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -403,7 +403,7 @@ DVS-based modelling accounts for developmental susceptibility.</p>
 <span>  <span class="va">emergence</span>,</span>
 <span>  RcA <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RcT <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  RRS <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  RRPSN <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  RRG <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rhlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rainlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -439,7 +439,8 @@ Overrides the published default for this disease.</p></dd>
 
 <dt id="arg-rrs">RRS<a class="anchor" aria-label="anchor" href="#arg-rrs"></a></dt>
 <dd><p>Optional custom relative senescence rate (scalar numeric, vector,
-function, or matrix). Overrides the published default.</p></dd>
+function, or matrix). Overrides the published default. Applies to rice
+disease models only.</p></dd>
 
 
 <dt id="arg-rrg">RRG<a class="anchor" aria-label="anchor" href="#arg-rrg"></a></dt>
@@ -462,6 +463,12 @@ wetness. Defaults to disease-specific value (typically 5).</p></dd>
 customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 simple_wetness, etc.).</p></dd>
 
+
+<dt id="arg-rrpsn">RRPSN<a class="anchor" aria-label="anchor" href="#arg-rrpsn"></a></dt>
+<dd><p>Optional custom relative photoperiod-adjusted senescence rate
+(scalar numeric, vector, function, or matrix). Overrides the published
+default. Applies to wheat disease models only.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -478,14 +485,14 @@ sensitivity analysis and custom cultivar/environment modelling.</p>
 
 
 
-<p><strong>Rice Diseases (Savary et al. 2012):</strong></p><ul><li><p><code>bacterial_blight()</code> – Bacterial blight (<em>Xanthomonas oryzae</em> pv. <em>oryzae</em>)</p></li>
+<p><strong>Rice Diseases (Savary <em>et al.</em> 2012):</strong></p><ul><li><p><code>bacterial_blight()</code> – Bacterial blight (<em>Xanthomonas oryzae</em> pv. <em>oryzae</em>)</p></li>
 <li><p><code>brown_spot()</code> – Brown spot (<em>Bipolaris oryzae</em>)</p></li>
 <li><p><code>leaf_blast()</code> – Leaf blast (<em>Magnaporthe oryzae</em>)</p></li>
 <li><p><code>sheath_blight()</code> – Sheath blight (<em>Rhizoctonia solani</em>)</p></li>
 <li><p><code>tungro()</code> – Tungro (viral, vector-borne)</p></li>
-</ul><p><strong>Rice Diseases (Kim et al. 2015 modifications):</strong></p><ul><li><p><code>modified_kim_leaf_blast()</code> – Cultivar-adjusted leaf blast</p></li>
+</ul><p><strong>Rice Diseases (Kim <em>et al.</em> 2015 modifications):</strong></p><ul><li><p><code>modified_kim_leaf_blast()</code> – Cultivar-adjusted leaf blast</p></li>
 <li><p><code>modified_kim_sheath_blight()</code> – Cultivar-adjusted sheath blight</p></li>
-</ul><p><strong>Wheat Diseases (Savary et al. 2015):</strong></p><ul><li><p><code>leaf_rust()</code> – Leaf rust (<em>Puccinia triticina</em>)</p></li>
+</ul><p><strong>Wheat Diseases (Savary <em>et al.</em> 2015):</strong></p><ul><li><p><code>leaf_rust()</code> – Leaf rust (<em>Puccinia triticina</em>)</p></li>
 <li><p><code>s_tritici_blotch()</code> – Septoria tritici blotch (<em>Zymoseptoria tritici</em>)</p></li>
 </ul></div>
     <div class="section level2">
