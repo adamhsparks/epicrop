@@ -1,7 +1,7 @@
 Type: Package
 Package: epicrop
 Title: SEIR Simulation Modelling of Crop Diseases
-Version: 1.0.0.9000
+Version: 1.0.0
 Authors@R: c(
     person("Adam H.", "Sparks", , "adamhsparks@gmail.com", role = c("cre", "aut"),
            comment = c(ORCID = "0000-0002-0061-8359")),

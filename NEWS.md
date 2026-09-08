@@ -1,48 +1,64 @@
-# epicrop 1.0.9000
+# epicrop 1.0.0
 
 ## Major Changes
 
-- Version now 1.0.0.9000, almost ready for first major release
-
 - `SEIR()` is now `seir()`.
 
-- All helper functions drop the `predict_` prefix for simplicity, _e.g._, `predict_bacterial_blight()` becomes just `bacterial_blight()`.
+- All helper functions drop the `predict_` prefix for simplicity, *e.g.*, `predict_bacterial_blight()` becomes just `bacterial_blight()`.
 
 - Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.
 
-- Adds the RcRH parameter to `seir()` to calculate the relative humidity correction factor for the disease progress curve as published in Savary _et al._ 2012.
+- Adds the RcRH parameter to `seir()` to calculate the relative humidity correction factor for the disease progress curve as published in Savary *et al.* 2012.
 
 - Adds the RcRH parameter to all helper functions.
 
+- AUDPC is now included as an attribute, not in a repeated column for efficiency.
+  Two new functions, `get_audpc()` and `audpc_dt()` are provided to ease extracting values.
+
 ### New Functionality
 
-- Adds functions from Kim et al. 2015 for:
-
+- Adds functions from Kim et al.
+  2015 for South Korean climatic conditions:
   - Leaf blast in South Korean varieties
   - Sheath blight in South Korean varieties
 
-- Adds EPIWHEAT disease models from Savary et al. 2015 for:
-
+- Adds EPIWHEAT disease models from Savary et al.
+  2015 for:
   - Brown (leaf) rust in European wheat
   - Septoria tritici blotch in European wheat
 
-- Adds EPIWHEAT style functionality to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using `.fn_Rc()` as already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`
+- Adds EPIWHEAT style functionality to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using `.fn_Rc()` as already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`.
 
 - Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using `.fn_Rc()` as already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`
 
-- Adds functionality to use a matrix in `RRG` and modify it with `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim et al. 2015 (though not implemented in Kim et al. 2015)
+- Adds functionality to use a matrix in `RRG` and modify it with `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim et al.
+  2015 (though not implemented in Kim et al.
+  2015).
 
-- Allow pass through of more arguments from helper functions to `seir()` via `...` argument
+- Allow pass through of more arguments from helper functions to `seir()` via `...` argument.
 
-- Strict checking of user-inputs with informative messages now provided if inputs are invalid
+- Strict checking of user-inputs with informative messages now provided if inputs are invalid.
+
+- New function `fetch_epicrop_weather_list()` to help automate modelling multiple locations.
+
+- New function `format_wth()` to help format users' own weather data rather than relying on the package's internal `get_wth()`.
+
+- Leaf wetness can be run with an hourly weighted value as opposed to the original EPIRICE default thresholds for T and RH.
+  See the `weighted_wetness` and `simple_wetness` parameters in `seir()` documentation for more on this functionality.
+
+- Implements internal caching to prevent unnecessary recalculations.
+
+- Benchmarking and comparison/validation scripts are included in `/inst`.
 
 ## Minor Changes
 
-- Improvements to the documentation
+- Improvements to the documentation.
 
-- Spelling corrections
+- Spelling corrections.
 
-- Code linting
+- Code linting.
+
+- Improved efficiency, up to 57% faster in some cases depending on hardware and OS version for disease modelling exercises.
 
 # epicrop 0.0.3
 
@@ -142,7 +158,8 @@
 
 ## Bug fixes
 
-- Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit <https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287>. See Lines 124:126 that were changed to Lines 118:120 where
+- Fixes bug in `SEIR()` where `Rc` value was calculated incorrectly that was introduced with commit <https://codeberg.org/r-forge/cropsim/commit/ba093b252deb222f1ffe54b3a7f0d14b6192f18c#diff-17fd120d02f173b87db7e09b563e2057b95391bef823eee29cbff30cb3d80287>.
+  See Lines 124:126 that were changed to Lines 118:120 where
 
 ```r
 Rc[day + 1] <- baseRc *
@@ -160,7 +177,8 @@ Rc[day + 1] <- baseRc *
   RHCoef[day + 1]
 ```
 
-to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://codeberg.org/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
+to calculate the basic infection rate, `Rc`, for `day + 1`.
+Commit: [248df5512b5897e950dd58a0a8b3fd57922add47](https://codeberg.org/adamhsparks/epicrop/commit/248df5512b5897e950dd58a0a8b3fd57922add47).
 
 - Fixes typos in `RcA` values for `predict_bacterial_blight()` and `predict_sheath_blight()`.
   - In `predict_bacterial_blight()` the eighth entry was improperly encoded as 0.42, it has been corrected to 0.41, commit [8b2c36b61d4f949385dcac4c03ff435b8400e335](https://codeberg.org/adamhsparks/epicrop/commit/8b2c36b61d4f949385dcac4c03ff435b8400e335).
@@ -202,7 +220,7 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5
 
 ## Major changes
 
-- **BREAKING CHANGE** `intensity` column, in `SEIR()` is now a proportion, _i.e._ values range between 0 - 1.
+- **BREAKING CHANGE** `intensity` column, in `SEIR()` is now a proportion, *i.e.* values range between 0 - 1.
   If you wish to have the same values as previously reported, `df$intensity*100` will give you these values.
 
 - **BREAKING CHANGE** Removes column, `severity`, in `SEIR()` output.
@@ -213,7 +231,7 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5
 
 ## Major changes
 
-- **BREAKING CHANGE** Add a new column to `SEIR()` output, `severity`, not to be confused with the previous column called `severity` (now called `intensity`), which represents the cumulative proportion of diseased sites on day "x" expressed as, $\frac{diseased\ sites}{total\ sites}\times100$.
+- **BREAKING CHANGE** Add a new column to `SEIR()` output, `severity`, not to be confused with the previous column called `severity` (now called `intensity`), which represents the cumulative proportion of diseased sites on day "x" expressed as, $\frac{diseased\ sites}{total\ sites} \times 100$.
 
 ## Minor changes
 
@@ -223,8 +241,8 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5
 
 ## Major changes
 
-- - **BREAKING CHANGE** The `severity` output column from `SEIR()` has been renamed as `intensity` to follow the nomenclature of Savary _et al._ 2012.
-    This column represents the proportion of actively diseased sites on day "x" expressed as, $\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100$.
+- - **BREAKING CHANGE** The `severity` output column from `SEIR()` has been renamed as `intensity` to follow the nomenclature of Savary *et al.* 2012.
+    This column represents the proportion of actively diseased sites on day "x" expressed as, $\frac{(diseased\ sites - removed\ sites)}{(total\ sites - removed\ sites)} \times 100$.
 
 # epicrop 0.0.0.9007
 
@@ -286,9 +304,11 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit: [248df5512b5
 - Better commenting in code for self and others' reference
 
 - `SEIR()` is simplified and further optimised
-  - In some cases in the `for()` loop, the value of `day + 1` was repeatedly calculated and assigned to a new object. This has been corrected with a single object, `d1` being created at the beginning of each loop instance.
+  - In some cases in the `for()` loop, the value of `day + 1` was repeatedly calculated and assigned to a new object.
+    This has been corrected with a single object, `d1` being created at the beginning of each loop instance.
   - In some cases where RH, TEMP or RAIN are repeatedly checked against, vectors of these three values are created outside the loop to save time when checking or extracting values.
   - Redundant code and other unused objects are cleaned up and removed.
+
 - Standardise library loading calls to use standard evaluation in documentation.
 
 - Standardise italics to use "\_" rather than "\*".

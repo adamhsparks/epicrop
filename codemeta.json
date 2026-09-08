@@ -8,7 +8,7 @@
   "codeRepository": "https://codeberg.org/adamhsparks/epicrop",
   "issueTracker": "https://codeberg.org/adamhsparks/epicrop/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.0.9000",
+  "version": "1.0.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -369,7 +369,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "1670.594KB",
+  "fileSize": "1671.495KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -403,7 +403,7 @@
       "name": "{epicrop}: Simulation Modelling of Crop Diseases Using a Susceptible-Exposed-Infectious-Removed (SEIR) Model",
       "identifier": "10.5281/zenodo.5070395",
       "url": "https://codeberg.org/adamhsparks/epicrop",
-      "description": "R package version 1.0.0.9000",
+      "description": "R package version 1.0.0",
       "@id": "https://doi.org/10.5281/zenodo.5070395",
       "sameAs": "https://doi.org/10.5281/zenodo.5070395"
     }
