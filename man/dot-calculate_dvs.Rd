@@ -11,8 +11,8 @@
 
 \item{thermal_time}{List with thermal accumulation parameters:
 \itemize{
-\item \code{base_temp}: Base temperature for GDD accumulation (°C)
-\item \code{gdd_to_maturity}: Cumulative GDD required to reach DVS = 2 (°C·days)
+\item \code{base_temp}: Base temperature for GDD accumulation (\ifelse{latex}{\out{$^\circ$}}{°}.RC)
+\item \code{gdd_to_maturity}: Cumulative GDD required to reach DVS = 2 (\ifelse{latex}{\out{$^\circ$}}{°}.RC·days)
 }}
 }
 \value{

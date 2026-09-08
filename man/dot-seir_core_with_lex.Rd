@@ -40,7 +40,7 @@
 
 \item{RRLEX_vals}{Daily lesion expansion rate (numeric vector).}
 
-\item{a_vals}{Daily aggregation coefficient (numeric vector, ≥ 1).}
+\item{a_vals}{Daily aggregation coefficient (numeric vector, \ifelse{latex}{\out{$\geq$}}{>=} 1).}
 
 \item{Sx}{Maximum site capacity (integer).}
 }

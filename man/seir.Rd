@@ -39,7 +39,7 @@ seir(
    Column \tab Description \cr
    YYYYMMDD \tab Date (ISO 8601: YYYYMMDD) \cr
    DOY \tab Day of year (1–366) \cr
-   TEMP \tab Mean daily temperature (°C) \cr
+   TEMP \tab Mean daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC) \cr
    RHUM \tab Mean daily relative humidity (\%) \cr
    RAIN \tab Daily rainfall (mm) \cr
 }
@@ -47,8 +47,8 @@ seir(
 
 \strong{Optional Columns (for advanced features):}\tabular{ll}{
    Column \tab Purpose \cr
-   TMIN \tab Minimum daily temperature (°C); required if \code{simple_wetness = FALSE} \cr
-   TMAX \tab Maximum daily temperature (°C); required if \code{simple_wetness = FALSE} \cr
+   TMIN \tab Minimum daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC); required if \code{simple_wetness = FALSE} \cr
+   TMAX \tab Maximum daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC); required if \code{simple_wetness = FALSE} \cr
    LAT \tab Latitude; required if \code{simple_wetness = FALSE} \cr
    LON \tab Longitude; included in output if present \cr
 }}
@@ -81,7 +81,7 @@ Tables 1 and 2 in Savary \emph{et al.} (2012).
 \item{RcT}{Temperature modifier for \emph{Rc} (numeric matrix).
 Two-column format:
 \itemize{
-\item Column 1: temperature (°C)
+\item Column 1: temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC)
 \item Column 2: modifier (0–1, bounded)
 Tables 1 and 2 in Savary \emph{et al.} (2012).
 }}
@@ -168,7 +168,7 @@ applies \code{RcW} curve to 0–24 hour range
 
 \item{weighted_wetness}{Logical. Only used when \code{simple_wetness = FALSE}.
 \itemize{
-\item \code{FALSE} (default): Count hours where hourly RH ≥ \code{rhlim} (0–24)
+\item \code{FALSE} (default): Count hours where hourly RH \ifelse{latex}{\out{$\geq$}}{>=} \code{rhlim} (0–24)
 \item \code{TRUE}: Compute weighted average RH over 24-hour day
 Defaults to \code{FALSE}.
 }}
@@ -184,8 +184,8 @@ requires \code{thermal_time} parameter
 \item{thermal_time}{List with thermal accumulation parameters (required if
 \code{age_driver = "dvs"}). Must contain:
 \itemize{
-\item \code{base_temp}: Base temperature for GDD accumulation (°C)
-\item \code{gdd_to_maturity}: Growing degree-days to reach maturity (°C·days)
+\item \code{base_temp}: Base temperature for GDD accumulation (\ifelse{latex}{\out{$^\circ$}}{°}.RC)
+\item \code{gdd_to_maturity}: Growing degree-days to reach maturity (\ifelse{latex}{\out{$^\circ$}}{°}.RC·days)
 Internally computed as:
 \deqn{DVS = \min\left(2,\ 2 \times \frac{\text{GDD}}{\text{gdd to maturity}}\right)}{DVS = min(2, 2 * GDD / gdd_to_maturity)}
 }}
@@ -356,7 +356,7 @@ res <- seir(
   H0 = 1000,       # 1000 initial healthy sites
   I0 = 1,          # 1 initial infected site
   RcA = rbind(c(0, 0.1), c(120, 0.1)),     # age modifier (constant 0.1)
-  RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25°C)
+  RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25\ifelse{latex}{\out{$^\circ$}}{°}.RC)
   RcOpt = 0.5,     # infection rate optimum
   p = 5,           # 5-day latent period
   i = 10,          # 10-day infectious period

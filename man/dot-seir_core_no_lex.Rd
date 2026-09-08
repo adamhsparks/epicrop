@@ -37,7 +37,7 @@
 
 \item{RRS_vals}{Daily relative senescence rate (numeric vector).}
 
-\item{a_vals}{Daily aggregation coefficient (numeric vector, ≥ 1).}
+\item{a_vals}{Daily aggregation coefficient (numeric vector, \ifelse{latex}{\out{$\geq$}}{>=} 1).}
 
 \item{Sx}{Maximum site capacity (integer).}
 }

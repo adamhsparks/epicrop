@@ -89,7 +89,7 @@ NULL
 #' @description
 #' `bacterial_blight()` models rice bacterial blight (*Xanthomonas oryzae*
 #' pv. *oryzae*). The disease requires high humidity and warm temperatures
-#' (optimum 25–30°C) and is most severe in the Philippines and Asia-Pacific
+#' (optimum 25–30\ifelse{latex}{\out{$^\circ$}}{°}.RC) and is most severe in the Philippines and Asia-Pacific
 #' region.
 #'
 #' @examplesIf interactive()
@@ -216,7 +216,7 @@ brown_spot <- function(
 #'
 #' @description
 #' `leaf_blast()` models rice leaf blast (*Magnaporthe oryzae*). The most
-#' economically important rice disease worldwide, favoured by cool (25°C),
+#' economically important rice disease worldwide, favoured by cool (25\ifelse{latex}{\out{$^\circ$}}{°}.RC),
 #' wet conditions. Rapid disease progression can cause total crop loss.
 #'
 #' @examplesIf interactive()
@@ -526,7 +526,7 @@ modified_kim_sheath_blight <- function(
 #'
 #' @description
 #' `leaf_rust()` models wheat leaf rust (*Puccinia triticina*). A major wheat
-#' pathogen globally, favoured by moderate temperatures (15–25°C) and high
+#' pathogen globally, favoured by moderate temperatures (15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high
 #' humidity. Uses DVS-based age driver to account for vernalization effects.
 #'
 #' @examplesIf interactive()

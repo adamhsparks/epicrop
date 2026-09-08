@@ -186,7 +186,7 @@ test_that(".interp works with temperature response", {
 
   expect_length(result, 9)
   expect_equal(result[1], 0.0)
-  expect_equal(result[5], 1.0) # Peak at 25°C
+  expect_equal(result[5], 1.0) # Peak at 25\ifelse{latex}{\out{$^\circ$}}{°}.RC
   expect_equal(result[9], 0.0)
 })
 

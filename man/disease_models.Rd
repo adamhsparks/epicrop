@@ -259,7 +259,7 @@ stb(
    Column \tab Description \cr
    YYYYMMDD \tab Date (ISO 8601: YYYYMMDD) \cr
    DOY \tab Day of year (1–366) \cr
-   TEMP \tab Mean daily temperature (°C) \cr
+   TEMP \tab Mean daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC) \cr
    RHUM \tab Mean daily relative humidity (\%) \cr
    RAIN \tab Daily rainfall (mm) \cr
 }
@@ -267,8 +267,8 @@ stb(
 
 \strong{Optional Columns (for advanced features):}\tabular{ll}{
    Column \tab Purpose \cr
-   TMIN \tab Minimum daily temperature (°C); required if \code{simple_wetness = FALSE} \cr
-   TMAX \tab Maximum daily temperature (°C); required if \code{simple_wetness = FALSE} \cr
+   TMIN \tab Minimum daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC); required if \code{simple_wetness = FALSE} \cr
+   TMAX \tab Maximum daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC); required if \code{simple_wetness = FALSE} \cr
    LAT \tab Latitude; required if \code{simple_wetness = FALSE} \cr
    LON \tab Longitude; included in output if present \cr
 }}
@@ -316,7 +316,7 @@ simulations.
 
 \code{bacterial_blight()} models rice bacterial blight (\emph{Xanthomonas oryzae}
 pv. \emph{oryzae}). The disease requires high humidity and warm temperatures
-(optimum 25–30°C) and is most severe in the Philippines and Asia-Pacific
+(optimum 25–30\ifelse{latex}{\out{$^\circ$}}{°}.RC) and is most severe in the Philippines and Asia-Pacific
 region.
 
 \code{brown_spot()} models rice brown spot (\emph{Bipolaris oryzae}). A seed-borne
@@ -324,7 +324,7 @@ fungal disease prevalent in tropical and subtropical regions, particularly
 damaging to older rice varieties.
 
 \code{leaf_blast()} models rice leaf blast (\emph{Magnaporthe oryzae}). The most
-economically important rice disease worldwide, favoured by cool (25°C),
+economically important rice disease worldwide, favoured by cool (25\ifelse{latex}{\out{$^\circ$}}{°}.RC),
 wet conditions. Rapid disease progression can cause total crop loss.
 
 \code{sheath_blight()} models rice sheath blight (\emph{Rhizoctonia solani}).
@@ -346,7 +346,7 @@ from Kim et al. (2015), calibrated for South Korean rice cultivars. Uses
 slightly higher humidity threshold (95\%) reflecting Korean monsoon climate.
 
 \code{leaf_rust()} models wheat leaf rust (\emph{Puccinia triticina}). A major wheat
-pathogen globally, favoured by moderate temperatures (15–25°C) and high
+pathogen globally, favoured by moderate temperatures (15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high
 humidity. Uses DVS-based age driver to account for vernalization effects.
 
 \code{s_tritici_blotch()} models wheat Septoria tritici blotch (\emph{Zymoseptoria

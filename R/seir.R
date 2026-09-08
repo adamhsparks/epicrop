@@ -36,15 +36,15 @@
 #'   |--------|-------------|
 #'   | YYYYMMDD | Date (ISO 8601: YYYYMMDD) |
 #'   | DOY | Day of year (1–366) |
-#'   | TEMP | Mean daily temperature (°C) |
+#'   | TEMP | Mean daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC) |
 #'   | RHUM | Mean daily relative humidity (%) |
 #'   | RAIN | Daily rainfall (mm) |
 #'
 #'   **Optional Columns (for advanced features):**
 #'   | Column | Purpose |
 #'   |--------|---------|
-#'   | TMIN | Minimum daily temperature (°C); required if `simple_wetness = FALSE` |
-#'   | TMAX | Maximum daily temperature (°C); required if `simple_wetness = FALSE` |
+#'   | TMIN | Minimum daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC); required if `simple_wetness = FALSE` |
+#'   | TMAX | Maximum daily temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC); required if `simple_wetness = FALSE` |
 #'   | LAT | Latitude; required if `simple_wetness = FALSE` |
 #'   | LON | Longitude; included in output if present |
 #'
@@ -67,7 +67,7 @@
 #'   Tables 1 and 2 in Savary *et al.* (2012).
 #' @param RcT Temperature modifier for *Rc* (numeric matrix).
 #'   Two-column format:
-#'   * Column 1: temperature (°C)
+#'   * Column 1: temperature (\ifelse{latex}{\out{$^\circ$}}{°}.RC)
 #'   * Column 2: modifier (0–1, bounded)
 #'   Tables 1 and 2 in Savary *et al.* (2012).
 #' @param RcOpt Potential infection rate (numeric scalar, unbounded).
@@ -125,7 +125,7 @@
 #'   * `FALSE`: Hourly calculation (requires TMIN, TMAX, LAT, DOY in `wth`);
 #'     applies `RcW` curve to 0–24 hour range
 #' @param weighted_wetness Logical. Only used when `simple_wetness = FALSE`.
-#'   * `FALSE` (default): Count hours where hourly RH ≥ `rhlim` (0–24)
+#'   * `FALSE` (default): Count hours where hourly RH \ifelse{latex}{\out{$\geq$}}{>=} `rhlim` (0–24)
 #'   * `TRUE`: Compute weighted average RH over 24-hour day
 #'   Defaults to `FALSE`.
 #' @param age_driver Character. Age variable for modifiers:
@@ -135,8 +135,8 @@
 #'     requires `thermal_time` parameter
 #' @param thermal_time List with thermal accumulation parameters (required if
 #'   `age_driver = "dvs"`). Must contain:
-#'   * `base_temp`: Base temperature for GDD accumulation (°C)
-#'   * `gdd_to_maturity`: Growing degree-days to reach maturity (°C·days)
+#'   * `base_temp`: Base temperature for GDD accumulation (\ifelse{latex}{\out{$^\circ$}}{°}.RC)
+#'   * `gdd_to_maturity`: Growing degree-days to reach maturity (\ifelse{latex}{\out{$^\circ$}}{°}.RC·days)
 #'   Internally computed as:
 #'    \deqn{DVS = \min\left(2,\ 2 \times \frac{\text{GDD}}{\text{gdd to maturity}}\right)}{DVS = min(2, 2 * GDD / gdd_to_maturity)}
 #' @param infection_window Optional list restricting disease onset to a DVS
@@ -292,7 +292,7 @@
 #'   H0 = 1000,       # 1000 initial healthy sites
 #'   I0 = 1,          # 1 initial infected site
 #'   RcA = rbind(c(0, 0.1), c(120, 0.1)),     # age modifier (constant 0.1)
-#'   RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25°C)
+#'   RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25\ifelse{latex}{\out{$^\circ$}}{°}.RC)
 #'   RcOpt = 0.5,     # infection rate optimum
 #'   p = 5,           # 5-day latent period
 #'   i = 10,          # 10-day infectious period
@@ -510,7 +510,7 @@ seir <- function(
 #' @param i_days Daily infectious period (numeric vector, length = duration).
 #' @param RRG_vals Daily relative growth rate (numeric vector).
 #' @param RRS_vals Daily relative senescence rate (numeric vector).
-#' @param a_vals Daily aggregation coefficient (numeric vector, ≥ 1).
+#' @param a_vals Daily aggregation coefficient (numeric vector, \ifelse{latex}{\out{$\geq$}}{>=} 1).
 #' @param Sx Maximum site capacity (integer).
 #'
 #' @returns A [data.table::data.table()] with columns:
@@ -651,7 +651,7 @@ seir <- function(
 #' @param RRG_vals Daily relative growth rate (numeric vector).
 #' @param RRS_vals Daily relative senescence rate (numeric vector).
 #' @param RRLEX_vals Daily lesion expansion rate (numeric vector).
-#' @param a_vals Daily aggregation coefficient (numeric vector, ≥ 1).
+#' @param a_vals Daily aggregation coefficient (numeric vector, \ifelse{latex}{\out{$\geq$}}{>=} 1).
 #' @param Sx Maximum site capacity (integer).
 #'
 #' @returns A [data.table::data.table()] with columns:
@@ -799,8 +799,8 @@ seir <- function(
 #'
 #' @param w Weather data with a `TEMP` column (data.frame or data.table).
 #' @param thermal_time List with thermal accumulation parameters:
-#'   * `base_temp`: Base temperature for GDD accumulation (°C)
-#'   * `gdd_to_maturity`: Cumulative GDD required to reach DVS = 2 (°C·days)
+#'   * `base_temp`: Base temperature for GDD accumulation (\ifelse{latex}{\out{$^\circ$}}{°}.RC)
+#'   * `gdd_to_maturity`: Cumulative GDD required to reach DVS = 2 (\ifelse{latex}{\out{$^\circ$}}{°}.RC·days)
 #'
 #' @returns Numeric vector of DVS values (0–2), length = nrow(w).
 #'
