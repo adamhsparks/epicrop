@@ -60,7 +60,7 @@ joining.
 
 ## Use Cases
 
-- **Batch processing:** Quickly summarize results from
+- **Batch processing:** Quickly summarise results from
   [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)
 
 - **Mapping:** Combine with spatial data for disease risk mapping
@@ -92,7 +92,7 @@ print(summary_table)
 #> 1: 14.6774 121.2556 37.74063 2000-06-30
 # Output includes lat, lon, AUDPC, emergence
 
-# Example 2: Batch summarize multiple emergence dates
+# Example 2: Batch summarise multiple emergence dates
 emergence_dates <- seq(as.Date("2000-06-15"), as.Date("2000-07-15"), by = 7)
 summaries <- lapply(emergence_dates, function(ed) {
   sim <- bacterial_blight(wth, emergence = as.character(ed))

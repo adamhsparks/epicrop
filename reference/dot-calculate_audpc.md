@@ -28,7 +28,7 @@ curve. Returns 0 if `intensity` has fewer than 2 observations.
 
 ## AUDPC Details
 
-AUDPC is a standard epidemiological metric summarizing cumulative
+AUDPC is a standard epidemiological metric summarising cumulative
 disease intensity over time. It:
 
 - Ranges from 0 (no disease) to duration (maximum disease throughout)

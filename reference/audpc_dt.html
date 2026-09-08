@@ -96,7 +96,7 @@ The table is keyed on <code>emergence</code> for efficient sorting and joining.<
     <h2 id="use-cases">Use Cases<a class="anchor" aria-label="anchor" href="#use-cases"></a></h2>
 
 
-<ul><li><p><strong>Batch processing:</strong> Quickly summarize results from <code><a href="run_epicrop_model.html">run_epicrop_model()</a></code></p></li>
+<ul><li><p><strong>Batch processing:</strong> Quickly summarise results from <code><a href="run_epicrop_model.html">run_epicrop_model()</a></code></p></li>
 <li><p><strong>Mapping:</strong> Combine with spatial data for disease risk mapping</p></li>
 <li><p><strong>Reporting:</strong> Generate summary tables for publications or extension</p></li>
 <li><p><strong>Analysis:</strong> Join with cultivar, management, or climate data</p></li>
@@ -124,7 +124,7 @@ The table is keyed on <code>emergence</code> for efficient sorting and joining.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 14.6774 121.2556 37.74063 2000-06-30</span>
 <span class="r-in"><span><span class="co"># Output includes lat, lon, AUDPC, emergence</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 2: Batch summarize multiple emergence dates</span></span></span>
+<span class="r-in"><span><span class="co"># Example 2: Batch summarise multiple emergence dates</span></span></span>
 <span class="r-in"><span><span class="va">emergence_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-06-15"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-07-15"</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">summaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">emergence_dates</span>, <span class="kw">function</span><span class="op">(</span><span class="va">ed</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">ed</span><span class="op">)</span><span class="op">)</span></span></span>
