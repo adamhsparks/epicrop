@@ -476,8 +476,8 @@ Journal of Plant Pathology*, 142: 771–790.
 
 ## Author
 
-Adam H. Sparks, <adamhsparks@gmail.com> from original code by Robert J.
-Hijmans, Rene Pangga, and Jorrel Aunario.
+Adam H. Sparks, <adamhsparks@gmail.com>, derived from original code by
+Robert J. Hijmans, Rene Pangga, Jorrel Aunario, and Kwang-Hyung Kim.
 
 ## Examples
 
