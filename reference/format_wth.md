@@ -318,7 +318,9 @@ format_wth(
 # This will fail (duplicate dates)
 if (FALSE) { # \dontrun{
 dup_wth <- data.frame(
-  date = c(as.Date("2000-06-30"), as.Date("2000-06-30"), as.Date("2000-07-01")),
+  date = c(as.Date("2000-06-30"),
+           as.Date("2000-06-30"),
+           as.Date("2000-07-01")),
   temp = c(25, 26, 24),
   rhum = c(85, 80, 90),
   rain = c(5, 0, 8)

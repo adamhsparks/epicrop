@@ -49,25 +49,25 @@
 <h3 id="major-changes-1-0-0">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-0"></a></h3>
 <ul><li><p><code>SEIR()</code> is now <code><a href="../reference/seir.html">seir()</a></code>.</p></li>
 <li><p>All helper functions drop the <code>predict_</code> prefix for simplicity, <em>e.g.</em>, <code>predict_bacterial_blight()</code> becomes just <code><a href="../reference/disease_models.html">bacterial_blight()</a></code>.</p></li>
-<li><p>Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.</p></li>
+<li><p>Addition of functions to predict rice blast and sheath blight based on Kim <em>et al.</em> 2015.</p></li>
 <li><p>Adds the RcRH parameter to <code><a href="../reference/seir.html">seir()</a></code> to calculate the relative humidity correction factor for the disease progress curve as published in Savary <em>et al.</em> 2012.</p></li>
 <li><p>Adds the RcRH parameter to all helper functions.</p></li>
 <li><p>AUDPC is now included as an attribute, not in a repeated column for efficiency. Two new functions, <code><a href="../reference/get_audpc.html">get_audpc()</a></code> and <code><a href="../reference/audpc_dt.html">audpc_dt()</a></code> are provided to ease extracting values.</p></li>
 </ul><div class="section level4">
 <h4 id="new-functionality-1-0-0">New Functionality<a class="anchor" aria-label="anchor" href="#new-functionality-1-0-0"></a></h4>
 <ul><li>
-<p>Adds functions from Kim et al. 2015 for South Korean climatic conditions:</p>
+<p>Adds functions from Kim <em>et al.</em> 2015 for South Korean climatic conditions:</p>
 <ul><li>Leaf blast in South Korean varieties</li>
 <li>Sheath blight in South Korean varieties</li>
 </ul></li>
 <li>
-<p>Adds EPIWHEAT disease models from Savary et al. 2015 for:</p>
+<p>Adds EPIWHEAT disease models from Savary <em>et al.</em> 2015 for:</p>
 <ul><li>Brown (leaf) rust in European wheat</li>
 <li>Septoria tritici blotch in European wheat</li>
 </ul></li>
 <li><p>Adds EPIWHEAT style functionality to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code>.fn_Rc()</code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code><a href="../reference/seir.html">seir()</a></code>.</p></li>
 <li><p>Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code>.fn_Rc()</code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code><a href="../reference/seir.html">seir()</a></code></p></li>
-<li><p>Adds functionality to use a matrix in <code>RRG</code> and modify it with <code>.fn_Rc</code> over time as with <code>RcA</code> and <code>RcT</code> as found in Kim et al. 2015 (though not implemented in Kim et al. 2015).</p></li>
+<li><p>Adds functionality to use a matrix in <code>RRG</code> and modify it with <code>.fn_Rc</code> over time as with <code>RcA</code> and <code>RcT</code> as found in Kim <em>et al.</em> 2015 (though not implemented in Kim <em>et al.</em> 2015).</p></li>
 <li><p>Allow pass through of more arguments from helper functions to <code><a href="../reference/seir.html">seir()</a></code> via <code>...</code> argument.</p></li>
 <li><p>Strict checking of user-inputs with informative messages now provided if inputs are invalid.</p></li>
 <li><p>New function <code><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> to help automate modelling multiple locations.</p></li>
