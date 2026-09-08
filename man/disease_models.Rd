@@ -408,15 +408,15 @@ sensitivity analysis and custom cultivar/environment modelling.
 
 \strong{Rice models} use baseline parameters from:
 \itemize{
-\item Savary et al. (2012) – Original parameterization across 3 rice growing
+\item Savary \emph{et al.} (2012) – Original parameterization across 3 rice growing
 seasons in the Philippines
-\item Kim et al. (2015) – Simplified (DVS-free) versions calibrated for Korean
+\item Kim \emph{et al.} (2015) – Simplified (DVS-free) versions calibrated for Korean
 rice cultivars
 }
 
 \strong{Wheat models} use:
 \itemize{
-\item Savary et al. (2015) – Pan-European calibration; uses DVS-based age driver
+\item Savary \emph{et al.} (2015) – Pan-European calibration; uses DVS-based age driver
 to account for vernalization and photoperiod effects
 }
 }

@@ -54,13 +54,13 @@
 #' @section Parameter Sources:
 #'
 #' **Rice models** use baseline parameters from:
-#' * Savary et al. (2012) – Original parameterization across 3 rice growing
+#' * Savary *et al.* (2012) – Original parameterization across 3 rice growing
 #'   seasons in the Philippines
-#' * Kim et al. (2015) – Simplified (DVS-free) versions calibrated for Korean
+#' * Kim *et al.* (2015) – Simplified (DVS-free) versions calibrated for Korean
 #'   rice cultivars
 #'
 #' **Wheat models** use:
-#' * Savary et al. (2015) – Pan-European calibration; uses DVS-based age driver
+#' * Savary *et al.* (2015) – Pan-European calibration; uses DVS-based age driver
 #'   to account for vernalization and photoperiod effects
 #'
 #' @inheritSection seir TMIN/TMAX Details
