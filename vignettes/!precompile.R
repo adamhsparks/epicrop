@@ -4,6 +4,7 @@ library(devtools)
 library(here)
 library(fs)
 library(purrr)
+library(tibble)
 
 pak::pak() # ensure we have all dependencies
 install() # ensure we're using latest version of epicrop
@@ -15,10 +16,14 @@ fig_dir <- here("figure")
 
 # Define vignette sources
 vignettes <- tribble(
-  ~input                         , ~base_name  ,
-  "vignettes/epicrop.Rmd.orig"   , "epicrop"   ,
-  "vignettes/multiples.Rmd.orig" , "multiples" ,
-  "vignettes/mapping.Rmd.orig"   , "mapping"
+  ~input                         ,
+  ~base_name                     ,
+  "vignettes/epicrop.Rmd.orig"   ,
+  "epicrop"                      ,
+  "vignettes/multiples.Rmd.orig" ,
+  "multiples"                    ,
+  "vignettes/mapping.Rmd.orig"   ,
+  "mapping"
 )
 
 # Process each vignette
