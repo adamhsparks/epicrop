@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">epicrop</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,39 +44,45 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0.9000" id="epicrop-109000">epicrop 1.0.9000<a class="anchor" aria-label="anchor" href="#epicrop-109000"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="epicrop-100">epicrop 1.0.0<a class="anchor" aria-label="anchor" href="#epicrop-100"></a></h2>
 <div class="section level3">
-<h3 id="major-changes-1-0-9000">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-9000"></a></h3>
-<ul><li><p>Version now 1.0.0.9000, almost ready for first major release</p></li>
-<li><p><code>SEIR()</code> is now <code><a href="../reference/seir.html">seir()</a></code>.</p></li>
+<h3 id="major-changes-1-0-0">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-0"></a></h3>
+<ul><li><p><code>SEIR()</code> is now <code><a href="../reference/seir.html">seir()</a></code>.</p></li>
 <li><p>All helper functions drop the <code>predict_</code> prefix for simplicity, <em>e.g.</em>, <code>predict_bacterial_blight()</code> becomes just <code><a href="../reference/disease_models.html">bacterial_blight()</a></code>.</p></li>
 <li><p>Addition of functions to predict rice blast and sheath blight based on Kim et al. 2015.</p></li>
 <li><p>Adds the RcRH parameter to <code><a href="../reference/seir.html">seir()</a></code> to calculate the relative humidity correction factor for the disease progress curve as published in Savary <em>et al.</em> 2012.</p></li>
 <li><p>Adds the RcRH parameter to all helper functions.</p></li>
+<li><p>AUDPC is now included as an attribute, not in a repeated column for efficiency. Two new functions, <code><a href="../reference/get_audpc.html">get_audpc()</a></code> and <code><a href="../reference/audpc_dt.html">audpc_dt()</a></code> are provided to ease extracting values.</p></li>
 </ul><div class="section level4">
-<h4 id="new-functionality-1-0-9000">New Functionality<a class="anchor" aria-label="anchor" href="#new-functionality-1-0-9000"></a></h4>
+<h4 id="new-functionality-1-0-0">New Functionality<a class="anchor" aria-label="anchor" href="#new-functionality-1-0-0"></a></h4>
 <ul><li>
-<p>Adds functions from Kim et al. 2015 for:</p>
+<p>Adds functions from Kim et al. 2015 for South Korean climatic conditions:</p>
 <ul><li>Leaf blast in South Korean varieties</li>
 <li>Sheath blight in South Korean varieties</li>
 </ul></li>
 <li>
-<p>Adds EPIWHEAT disease models from Savary et al. 2015 for:</p>
+<p>Adds EPIWHEAT disease models from Savary et al. 2015 for:</p>
 <ul><li>Brown (leaf) rust in European wheat</li>
 <li>Septoria tritici blotch in European wheat</li>
 </ul></li>
-<li><p>Adds EPIWHEAT style functionality to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code>.fn_Rc()</code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code><a href="../reference/seir.html">seir()</a></code></p></li>
+<li><p>Adds EPIWHEAT style functionality to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code>.fn_Rc()</code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code><a href="../reference/seir.html">seir()</a></code>.</p></li>
 <li><p>Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of <code>RcW</code> using <code>.fn_Rc()</code> as already existing with <code>RcT</code> and <code>RcA</code> by setting the argument, <code>simple_wetness == FALSE</code> in <code><a href="../reference/seir.html">seir()</a></code></p></li>
-<li><p>Adds functionality to use a matrix in <code>RRG</code> and modify it with <code>.fn_Rc</code> over time as with <code>RcA</code> and <code>RcT</code> as found in Kim et al. 2015 (though not implemented in Kim et al. 2015)</p></li>
-<li><p>Allow pass through of more arguments from helper functions to <code><a href="../reference/seir.html">seir()</a></code> via <code>...</code> argument</p></li>
-<li><p>Strict checking of user-inputs with informative messages now provided if inputs are invalid</p></li>
+<li><p>Adds functionality to use a matrix in <code>RRG</code> and modify it with <code>.fn_Rc</code> over time as with <code>RcA</code> and <code>RcT</code> as found in Kim et al. 2015 (though not implemented in Kim et al. 2015).</p></li>
+<li><p>Allow pass through of more arguments from helper functions to <code><a href="../reference/seir.html">seir()</a></code> via <code>...</code> argument.</p></li>
+<li><p>Strict checking of user-inputs with informative messages now provided if inputs are invalid.</p></li>
+<li><p>New function <code><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> to help automate modelling multiple locations.</p></li>
+<li><p>New function <code><a href="../reference/format_wth.html">format_wth()</a></code> to help format users’ own weather data rather than relying on the package’s internal <code><a href="../reference/get_wth.html">get_wth()</a></code>.</p></li>
+<li><p>Leaf wetness can be run with an hourly weighted value as opposed to the original EPIRICE default thresholds for T and RH. See the <code>weighted_wetness</code> and <code>simple_wetness</code> parameters in <code><a href="../reference/seir.html">seir()</a></code> documentation for more on this functionality.</p></li>
+<li><p>Implements internal caching to prevent unnecessary recalculations.</p></li>
+<li><p>Benchmarking and comparison/validation scripts are included in <code>/inst</code>.</p></li>
 </ul></div>
 </div>
 <div class="section level3">
-<h3 id="minor-changes-1-0-9000">Minor Changes<a class="anchor" aria-label="anchor" href="#minor-changes-1-0-9000"></a></h3>
-<ul><li><p>Improvements to the documentation</p></li>
-<li><p>Spelling corrections</p></li>
-<li><p>Code linting</p></li>
+<h3 id="minor-changes-1-0-0">Minor Changes<a class="anchor" aria-label="anchor" href="#minor-changes-1-0-0"></a></h3>
+<ul><li><p>Improvements to the documentation.</p></li>
+<li><p>Spelling corrections.</p></li>
+<li><p>Code linting.</p></li>
+<li><p>Improved efficiency, up to 57% faster in some cases depending on hardware and OS version for disease modelling exercises.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -238,7 +244,7 @@
 <div class="section level3">
 <h3 id="major-changes-0-0-0-9009">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-0-9009"></a></h3>
 <ul><li>
-<strong>BREAKING CHANGE</strong> Add a new column to <code>SEIR()</code> output, <code>severity</code>, not to be confused with the previous column called <code>severity</code> (now called <code>intensity</code>), which represents the cumulative proportion of diseased sites on day “x” expressed as, <span class="math inline">\(\frac{diseased\ sites}{total\ sites}\times100\)</span>.</li>
+<strong>BREAKING CHANGE</strong> Add a new column to <code>SEIR()</code> output, <code>severity</code>, not to be confused with the previous column called <code>severity</code> (now called <code>intensity</code>), which represents the cumulative proportion of diseased sites on day “x” expressed as, <span class="math inline">\(\frac{diseased\ sites}{total\ sites} \times 100\)</span>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-changes-0-0-0-9009">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-0-0-0-9009"></a></h3>
@@ -250,7 +256,7 @@
 <div class="section level3">
 <h3 id="major-changes-0-0-0-9008">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-0-0-0-9008"></a></h3>
 <ul><li><ul><li>
-<strong>BREAKING CHANGE</strong> The <code>severity</code> output column from <code>SEIR()</code> has been renamed as <code>intensity</code> to follow the nomenclature of Savary <em>et al.</em> 2012. This column represents the proportion of actively diseased sites on day “x” expressed as, <span class="math inline">\(\frac{(diseased\ sites-removed\ sites)}{(total\ sites-removed\ sites)}\times100\)</span>.</li>
+<strong>BREAKING CHANGE</strong> The <code>severity</code> output column from <code>SEIR()</code> has been renamed as <code>intensity</code> to follow the nomenclature of Savary <em>et al.</em> 2012. This column represents the proportion of actively diseased sites on day “x” expressed as, <span class="math inline">\(\frac{(diseased\ sites - removed\ sites)}{(total\ sites - removed\ sites)} \times 100\)</span>.</li>
 </ul></li>
 </ul></div>
 </div>

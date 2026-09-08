@@ -1,10 +1,8 @@
 # Changelog
 
-## epicrop 1.0.9000
+## epicrop 1.0.0
 
 ### Major Changes
-
-- Version now 1.0.0.9000, almost ready for first major release
 
 - `SEIR()` is now
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
@@ -23,14 +21,22 @@
 
 - Adds the RcRH parameter to all helper functions.
 
+- AUDPC is now included as an attribute, not in a repeated column for
+  efficiency. Two new functions,
+  [`get_audpc()`](https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.md)
+  and
+  [`audpc_dt()`](https://adamhsparks.codeberg.page/epicrop/reference/audpc_dt.md)
+  are provided to ease extracting values.
+
 #### New Functionality
 
-- Adds functions from Kim et al. 2015 for:
+- Adds functions from Kim et al. 2015 for South Korean climatic
+  conditions:
 
   - Leaf blast in South Korean varieties
   - Sheath blight in South Korean varieties
 
-- Adds EPIWHEAT disease models from Savary et al. 2015 for:
+- Adds EPIWHEAT disease models from Savary et al. 2015 for:
 
   - Brown (leaf) rust in European wheat
   - Septoria tritici blotch in European wheat
@@ -39,7 +45,7 @@
   calculations using daily RH to calculate hourly RH and then modify the
   value of `RcW` using `.fn_Rc()` as already existing with `RcT` and
   `RcA` by setting the argument, `simple_wetness == FALSE` in
-  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
+  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
 
 - Adds functionality missing in original {cropsim} to handle complex
   leaf wetness calculations using daily RH to calculate hourly RH and
@@ -49,23 +55,47 @@
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
 
 - Adds functionality to use a matrix in `RRG` and modify it with
-  `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim et al. 2015
-  (though not implemented in Kim et al. 2015)
+  `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim et al. 2015
+  (though not implemented in Kim et al. 2015).
 
 - Allow pass through of more arguments from helper functions to
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-  via `...` argument
+  via `...` argument.
 
 - Strict checking of user-inputs with informative messages now provided
-  if inputs are invalid
+  if inputs are invalid.
+
+- New function
+  [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
+  to help automate modelling multiple locations.
+
+- New function
+  [`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
+  to help format users’ own weather data rather than relying on the
+  package’s internal
+  [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
+
+- Leaf wetness can be run with an hourly weighted value as opposed to
+  the original EPIRICE default thresholds for T and RH. See the
+  `weighted_wetness` and `simple_wetness` parameters in
+  [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
+  documentation for more on this functionality.
+
+- Implements internal caching to prevent unnecessary recalculations.
+
+- Benchmarking and comparison/validation scripts are included in
+  `/inst`.
 
 ### Minor Changes
 
-- Improvements to the documentation
+- Improvements to the documentation.
 
-- Spelling corrections
+- Spelling corrections.
 
-- Code linting
+- Code linting.
+
+- Improved efficiency, up to 57% faster in some cases depending on
+  hardware and OS version for disease modelling exercises.
 
 ## epicrop 0.0.3
 
@@ -279,7 +309,7 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit:
   not to be confused with the previous column called `severity` (now
   called `intensity`), which represents the cumulative proportion of
   diseased sites on day “x” expressed as, \\\frac{diseased\\
-  sites}{total\\ sites}\times100\\.
+  sites}{total\\ sites} \times 100\\.
 
 ### Minor changes
 
@@ -295,8 +325,8 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit:
 - - **BREAKING CHANGE** The `severity` output column from `SEIR()` has
     been renamed as `intensity` to follow the nomenclature of Savary *et
     al.* 2012. This column represents the proportion of actively
-    diseased sites on day “x” expressed as, \\\frac{(diseased\\
-    sites-removed\\ sites)}{(total\\ sites-removed\\ sites)}\times100\\.
+    diseased sites on day “x” expressed as, \\\frac{(diseased\\ sites -
+    removed\\ sites)}{(total\\ sites - removed\\ sites)} \times 100\\.
 
 ## epicrop 0.0.0.9007
 
