@@ -25,11 +25,11 @@
   - Brown (leaf) rust in European wheat
   - Septoria tritici blotch in European wheat
 
-- Adds EPIWHEAT style functionality to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using `.fn_Rc()` as already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`.
+- Adds EPIWHEAT style functionality to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using interpolation already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`.
 
-- Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using `.fn_Rc()` as already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`
+- Adds functionality missing in original {cropsim} to handle complex leaf wetness calculations using daily RH to calculate hourly RH and then modify the value of `RcW` using interpolation as already existing with `RcT` and `RcA` by setting the argument, `simple_wetness == FALSE` in `seir()`
 
-- Adds functionality to use a matrix in `RRG` and modify it with `.fn_Rc` over time as with `RcA` and `RcT` as found in Kim *et al.* 2015 (though not implemented in Kim *et al.* 2015).
+- Adds functionality to use a matrix in `RRG` and modify it with interpolation over time as with `RcA` and `RcT` as found in Kim *et al.* 2015 (though not implemented in Kim *et al.* 2015).
 
 - Allow pass through of more arguments from helper functions to `seir()` via `...` argument.
 
