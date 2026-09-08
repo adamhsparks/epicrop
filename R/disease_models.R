@@ -35,7 +35,11 @@
 #' @param RRG Optional custom relative growth rate (scalar numeric, vector, or
 #'   function). Overrides the published default.
 #' @param RRS Optional custom relative senescence rate (scalar numeric, vector,
-#'   function, or matrix). Overrides the published default.
+#'   function, or matrix). Overrides the published default. Applies to rice
+#'   disease models only.
+#' @param RRPSN Optional custom relative photoperiod-adjusted senescence rate
+#'   (scalar numeric, vector, function, or matrix). Overrides the published
+#'   default. Applies to wheat disease models only.
 #' @param rhlim Optional override for relative humidity threshold (%) for leaf
 #'   wetness. Defaults to disease-specific value (typically 90).
 #' @param rainlim Optional override for rainfall threshold (mm) for leaf
@@ -551,7 +555,7 @@ leaf_rust <- function(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -564,7 +568,7 @@ leaf_rust <- function(
     RcA = RcA %||% params$RcA,
     RcT = RcT %||% params$RcT,
     RRG = RRG %||% params$RRG,
-    RRS = RRS %||% params$RRPSN,
+    RRS = RRPSN %||% params$RRPSN,
     onset = 20L,
     duration = 120L,
     rhlim = rhlim %||% 90L,
@@ -620,7 +624,7 @@ s_tritici_blotch <- function(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -633,7 +637,7 @@ s_tritici_blotch <- function(
     RcA = RcA %||% params$RcA,
     RcT = RcT %||% params$RcT,
     RRG = RRG %||% params$RRG,
-    RRS = RRS %||% params$RRPSN,
+    RRS = RRPSN %||% params$RRPSN,
     RRLEX = params$RRLEX,
     onset = 20L,
     duration = 120L,

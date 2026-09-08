@@ -112,7 +112,7 @@ leaf_rust(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -124,7 +124,7 @@ s_tritici_blotch(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -220,7 +220,7 @@ lr(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -232,7 +232,7 @@ brown_rust(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -244,7 +244,7 @@ stb(
   emergence,
   RcA = NULL,
   RcT = NULL,
-  RRS = NULL,
+  RRPSN = NULL,
   RRG = NULL,
   rhlim = NULL,
   rainlim = NULL,
@@ -284,7 +284,8 @@ matrix).
 Overrides the published default for this disease.}
 
 \item{RRS}{Optional custom relative senescence rate (scalar numeric, vector,
-function, or matrix). Overrides the published default.}
+function, or matrix). Overrides the published default. Applies to rice
+disease models only.}
 
 \item{RRG}{Optional custom relative growth rate (scalar numeric, vector, or
 function). Overrides the published default.}
@@ -298,6 +299,10 @@ wetness. Defaults to disease-specific value (typically 5).}
 \item{...}{Additional parameters passed to \code{\link[=seir]{seir()}}, allowing full
 customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 simple_wetness, etc.).}
+
+\item{RRPSN}{Optional custom relative photoperiod-adjusted senescence rate
+(scalar numeric, vector, function, or matrix). Overrides the published
+default. Applies to wheat disease models only.}
 }
 \value{
 A \code{\link[data.table:data.table]{data.table::data.table()}} of class \code{epicrop.sim} with disease
