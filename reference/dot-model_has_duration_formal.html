@@ -78,9 +78,9 @@ invocation without requiring the user to pass <code>duration</code> explicitly.<
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">.model_has_duration_formal</span><span class="op">(</span><span class="va">leaf_blast</span><span class="op">)</span>  <span class="co"># TRUE</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .model_has_duration_formal(leaf_blast):</span> could not find function ".model_has_duration_formal"</span>
 <span class="r-in"><span><span class="fu">.model_has_duration_formal</span><span class="op">(</span><span class="va">seir</span><span class="op">)</span>        <span class="co"># TRUE (base model)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .model_has_duration_formal(seir):</span> could not find function ".model_has_duration_formal"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

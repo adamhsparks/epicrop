@@ -286,7 +286,7 @@ Savary, Serge, Stacia Stetkiewicz, François Brun, and Laetitia
 Willocquet. 2015. “Modelling and Mapping Potential Epidemics of Wheat
 Diseases—Examples on Leaf Rust and Septoria Tritici Blotch Using
 EPIWHEAT.” *European Journal of Plant Pathology* 142: 771–90.
-<https://api.semanticscholar.org/CorpusID:254474961>.
+<https://doi.org/10.1007/s10658-015-0650-7>.
 
 Shaner, Gregory, and Robert E. Finney. 1977. “The Effect of Nitrogen
 Fertilization on the Expression of Slow-Mildewing Resistance in Knox

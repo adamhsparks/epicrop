@@ -31,7 +31,7 @@ user to pass `duration` explicitly.
 
 ``` r
 .model_has_duration_formal(leaf_blast)  # TRUE
-#> [1] FALSE
+#> Error in .model_has_duration_formal(leaf_blast): could not find function ".model_has_duration_formal"
 .model_has_duration_formal(seir)        # TRUE (base model)
-#> [1] TRUE
+#> Error in .model_has_duration_formal(seir): could not find function ".model_has_duration_formal"
 ```

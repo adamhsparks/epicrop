@@ -51,10 +51,5 @@ years 2000:2002 requires one call from 2000-06-01 to 2002-08-30.
 
 ``` r
 .cover_from_md_years("06-30", 2000:2001, 90L)
-#> $start_chr
-#> [1] "2000-06-30"
-#> 
-#> $duration
-#> [1] 455
-#> 
+#> Error in .cover_from_md_years("06-30", 2000:2001, 90L): could not find function ".cover_from_md_years"
 ```

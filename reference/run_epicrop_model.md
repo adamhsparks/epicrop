@@ -261,7 +261,7 @@ comparison <- data.table(
   susceptible_AUDPC = susceptible$AUDPC,
   resistant_AUDPC = resistant$AUDPC
 )
-#> Error: object 'susceptible' not found
+#> Error in data.table(emergence = susceptible$emergence, susceptible_AUDPC = susceptible$AUDPC,     resistant_AUDPC = resistant$AUDPC): could not find function "data.table"
 comparison[, reduction := 1 - (resistant_AUDPC / susceptible_AUDPC)]
 #> Error: object 'comparison' not found
 print(comparison)
