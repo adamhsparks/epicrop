@@ -2,7 +2,7 @@
 
 Converts various date formats (character, Date, IDate, POSIXt) to a
 validated IDate object. Supports multiple date string formats and
-rejects ambiguous numeric dates (e.g., "07/01/2000").
+rejects ambiguous numeric dates (*e.g.*, "07/01/2000").
 
 ## Usage
 
@@ -38,5 +38,5 @@ object if valid. Aborts with informative error message otherwise.
 - Named month: `"01 Jul 2000"`, `"1 July 2000"`, `"Jul 01 2000"`
 
 **Ambiguous dates rejected:** Dates where both first and second numeric
-components are \<= 12 (e.g., `"07/01/2000"`) are rejected to prevent
+components are \<= 12 (*e.g.*, `"07/01/2000"`) are rejected to prevent
 misinterpretation as either July 1 or January 7.

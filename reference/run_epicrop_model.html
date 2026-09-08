@@ -108,7 +108,7 @@ is available. If <code>emergence_dates</code> is at year-end, spans into next ye
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional arguments forwarded to <code>model_fun</code> (e.g., <code>RcOpt</code>,
+<dd><p>Additional arguments forwarded to <code>model_fun</code> (<em>e.g.</em>, <code>RcOpt</code>,
 <code>simple_wetness</code>, custom modifier tables). Overrides model defaults.</p></dd>
 
 </dl></div>
@@ -134,7 +134,7 @@ is available. If <code>emergence_dates</code> is at year-end, spans into next ye
 <p>This function bridges <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> (weather prep) and
 <code><a href="build_epicrop_emergence.html">build_epicrop_emergence()</a></code> (emergence date generation) with disease models.
 For each emergence date, it:</p><ol><li><p>Slices weather data spanning emergence to emergence + <code>window_days - 1</code></p></li>
-<li><p>Handles year boundaries (e.g., Dec 15 – Jan 15)</p></li>
+<li><p>Handles year boundaries (<em>e.g.</em>, Dec 15 – Jan 15)</p></li>
 <li><p>Executes the model with the sliced weather</p></li>
 <li><p>Returns either a compact AUDPC summary or full daily progression</p></li>
 </ol><p>Supports weather bundles (multiple locations) by processing each location
@@ -145,7 +145,7 @@ independently and combining results with a <code>location</code> column.</p>
 
 
 
-<p>When an emergence date + <code>window_days</code> spans two calendar years (e.g.,
+<p>When an emergence date + <code>window_days</code> spans two calendar years (<em>e.g.</em>,
 Dec 15 – Feb 15), the function automatically:</p><ul><li><p>Fetches weather from both years</p></li>
 <li><p>Stitches them in chronological order</p></li>
 <li><p>Returns a contiguous window</p></li>

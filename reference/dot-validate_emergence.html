@@ -51,7 +51,7 @@ ambiguous numeric dates (e.g., "07/01/2000").'><meta property="og:image" content
     <div class="ref-description section level2">
     <p>Converts various date formats (character, Date, IDate, POSIXt) to a
 validated IDate object. Supports multiple date string formats and rejects
-ambiguous numeric dates (e.g., "07/01/2000").</p>
+ambiguous numeric dates (<em>e.g.</em>, "07/01/2000").</p>
     </div>
 
     <div class="section level2">
@@ -80,7 +80,7 @@ error message otherwise.</p>
 <li><p>US: <code>"07-01-2000"</code>, <code>"07/01/2000"</code></p></li>
 <li><p>Named month: <code>"01 Jul 2000"</code>, <code>"1 July 2000"</code>, <code>"Jul 01 2000"</code></p></li>
 </ul><p><strong>Ambiguous dates rejected:</strong> Dates where both first and second numeric
-components are &lt;= 12 (e.g., <code>"07/01/2000"</code>) are rejected to prevent
+components are &lt;= 12 (<em>e.g.</em>, <code>"07/01/2000"</code>) are rejected to prevent
 misinterpretation as either July 1 or January 7.</p>
     </div>
 

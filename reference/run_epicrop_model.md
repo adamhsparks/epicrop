@@ -77,7 +77,7 @@ run_epicrop_model(
 
 - ...:
 
-  Additional arguments forwarded to `model_fun` (e.g., `RcOpt`,
+  Additional arguments forwarded to `model_fun` (*e.g.*, `RcOpt`,
   `simple_wetness`, custom modifier tables). Overrides model defaults.
 
 ## Value
@@ -119,7 +119,7 @@ date, it:
 1.  Slices weather data spanning emergence to emergence +
     `window_days - 1`
 
-2.  Handles year boundaries (e.g., Dec 15 – Jan 15)
+2.  Handles year boundaries (*e.g.*, Dec 15 – Jan 15)
 
 3.  Executes the model with the sliced weather
 
@@ -130,7 +130,7 @@ location independently and combining results with a `location` column.
 
 ## Cross-Year Windows
 
-When an emergence date + `window_days` spans two calendar years (e.g.,
+When an emergence date + `window_days` spans two calendar years (*e.g.*,
 Dec 15 – Feb 15), the function automatically:
 
 - Fetches weather from both years

@@ -18,7 +18,7 @@ etc.) to a consistent `"MM-DD"` format with zero-padded digits.
 
 ## Value
 
-Character vector in `"MM-DD"` format (e.g., `"06-30"`).
+Character vector in `"MM-DD"` format (*e.g.*, `"06-30"`).
 
 ## Transformations
 

@@ -26,7 +26,7 @@ duration) task and splits the result by calendar year into a named list.
 ## Value
 
 An `epicrop.wth.list` object: a named list of weather tables, one per
-year. Names are year strings (e.g., "2000", "2001").
+year. Names are year strings (*e.g.*, "2000", "2001").
 
 ## Details
 

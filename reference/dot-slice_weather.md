@@ -1,7 +1,7 @@
 # Slice Weather Data Across a Date Window
 
 Extracts weather for a single emergence date across one or more calendar
-years. Handles year boundaries (e.g., Dec 15 → Jan 15).
+years. Handles year boundaries (*e.g.*, Dec 15 → Jan 15).
 
 ## Usage
 

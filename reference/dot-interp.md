@@ -53,7 +53,7 @@ extrapolation are clamped to 0).
 
 - Vector length mismatch aborts
 
-- Unsupported class (e.g., character, factor) aborts
+- Unsupported class (*e.g.*, character, factor) aborts
 
 - Matrix with != 2 columns aborts
 
