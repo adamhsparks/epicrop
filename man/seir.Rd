@@ -440,6 +440,7 @@ Modelling and mapping potential epidemics of wheat diseases.
 }
 }
 \author{
-Adam H. Sparks, \email{adamhsparks@gmail.com} from original code by
-Robert J. Hijmans, Rene Pangga, and Jorrel Aunario.
+Adam H. Sparks, \email{adamhsparks@gmail.com}, derived from original
+code by Robert J. Hijmans, Rene Pangga, Jorrel Aunario, and Kwang-Hyung
+Kim.
 }

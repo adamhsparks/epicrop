@@ -271,8 +271,9 @@
 #' * [get_wth()] – Fetch weather data
 #' * [format_wth()] – Format weather data
 #'
-#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com} from original code by
-#'   Robert J. Hijmans, Rene Pangga, and Jorrel Aunario.
+#' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}, derived from original
+#'   code by Robert J. Hijmans, Rene Pangga, Jorrel Aunario, and Kwang-Hyung
+#'   Kim.
 #'
 #' @examplesIf interactive()
 #' # Create sample weather data
