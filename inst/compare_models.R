@@ -393,7 +393,7 @@ ggplot(
   scale_linetype_manual(values = c("legacy" = "solid", "modern" = "dashed")) +
   labs(
     title = "Disease Intensity Progression: Legacy vs. Modern SEIR",
-    subtitle = "Philippines, 2000 wet season (Savary et al. 2012)",
+    subtitle = "Philippines, 2000 wet season (Savary *et al.* 2012)",
     x = "Days after emergence",
     y = "Disease intensity (proportion)",
     colour = NULL,

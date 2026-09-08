@@ -1,4 +1,4 @@
-# Test wheat disease models (Savary et al. 2015)
+# Test wheat disease models (Savary *et al.* 2015)
 
 test_that("setup: extended weather available", {
   skip_if(

@@ -97,7 +97,7 @@
         y = c(0, 0.35, 0.7, 1.0, 0.7, 0.35, 0, 0)
       ),
       RRG = 0.1,
-      # RRPSN (Groot 1987, via Willocquet et al. 2008): 0 prior to flowering
+      # RRPSN (Groot 1987, via Willocquet *et al.* 2008): 0 prior to flowering
       RRPSN = cbind(
         x = c(0.0, 1.0, 1.2, 1.6, 1.8, 2.0),
         y = c(0.00, 0.00, 0.01, 0.04, 0.10, 0.10)

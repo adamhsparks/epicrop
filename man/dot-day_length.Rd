@@ -21,7 +21,7 @@ day of year. Based on solar declination and hour angle.
 \section{Formula}{
 
 
-Uses solar declination via Forsythe et al. (1995):
+Uses solar declination via Forsythe \emph{et al.} (1995):
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{p = arcsin(0.39795 * cos(0.2163108 + 2*arctan(0.9671396*tan(0.008600*(doy-186)))))
 a = (sin(0.8333 degrees) + sin(lat)*sin(p)) / (cos(lat)*cos(p))

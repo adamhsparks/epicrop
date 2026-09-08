@@ -9,9 +9,9 @@
 \arguments{
 \item{crop}{Character. Crop name (case-insensitive). One of:
 \itemize{
-\item \code{"rice"} – Savary et al. (2012) parameterization
-\item \code{"rice_modified_kim"} – Kim et al. (2015) simplifications
-\item \code{"wheat"} – Savary et al. (2015) parameterization
+\item \code{"rice"} – Savary \emph{et al.} (2012) parameterization
+\item \code{"rice_modified_kim"} – Kim \emph{et al.} (2015) simplifications
+\item \code{"wheat"} – Savary \emph{et al.} (2015) parameterization
 }}
 
 \item{disease}{Character. Disease name (case-insensitive). Must be a
