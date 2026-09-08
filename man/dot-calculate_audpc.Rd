@@ -24,7 +24,7 @@ designed to work with \code{\link[=seir]{seir()}} output where observations are 
 \section{AUDPC Details}{
 
 
-AUDPC is a standard epidemiological metric summarizing cumulative disease
+AUDPC is a standard epidemiological metric summarising cumulative disease
 intensity over time. It:
 \itemize{
 \item Ranges from 0 (no disease) to duration (maximum disease throughout)

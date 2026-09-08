@@ -266,7 +266,7 @@ test_that(".calculate_weighted_hr_wet returns values in [0,1], handles edge case
   expect_lt(mid, 1)
   expect_equal(mid, 0.5, tolerance = 0.01)
 
-  # Vectorized
+  # Vectorised
   rh_values <- c(75, 85, 95, 100)
   v <- .calculate_weighted_hr_wet(rh = rh_values, rhlim = 90)
   expect_length(v, 4)

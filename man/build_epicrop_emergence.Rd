@@ -91,7 +91,7 @@ trigger an abort.
 Fast even for large year/month-day combinations:
 \itemize{
 \item Cross-product via \code{\link[data.table:CJ]{data.table::CJ()}} (optimized)
-\item Vectorized date construction via \code{\link[=sprintf]{sprintf()}}
+\item Vectorised date construction via \code{\link[=sprintf]{sprintf()}}
 \item Sorting via base \code{\link[=sort]{sort()}} on IDate (fast integer representation)
 }
 
@@ -163,8 +163,7 @@ years <- 2000:2001
 month_day <- c("-06-01", "-06-15", "-07-01")
 
 em <- build_epicrop_emergence(years, month_day)
-print(em)
-# [1] 2000-06-01 2000-06-15 2000-07-01 2001-06-01 2001-06-15 2001-07-01
+em
 
 # Check class
 class(em)  # "epicrop.emerge" "IDate" "Date"

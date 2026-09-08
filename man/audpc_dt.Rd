@@ -46,7 +46,7 @@ The table is keyed on \code{emergence} for efficient sorting and joining.
 \section{Use Cases}{
 
 \itemize{
-\item \strong{Batch processing:} Quickly summarize results from \code{\link[=run_epicrop_model]{run_epicrop_model()}}
+\item \strong{Batch processing:} Quickly summarise results from \code{\link[=run_epicrop_model]{run_epicrop_model()}}
 \item \strong{Mapping:} Combine with spatial data for disease risk mapping
 \item \strong{Reporting:} Generate summary tables for publications or extension
 \item \strong{Analysis:} Join with cultivar, management, or climate data
@@ -67,7 +67,7 @@ summary_table <- audpc_dt(sim)
 print(summary_table)
 # Output includes lat, lon, AUDPC, emergence
 
-# Example 2: Batch summarize multiple emergence dates
+# Example 2: Batch summarise multiple emergence dates
 emergence_dates <- seq(as.Date("2000-06-15"), as.Date("2000-07-15"), by = 7)
 summaries <- lapply(emergence_dates, function(ed) {
   sim <- bacterial_blight(wth, emergence = as.character(ed))

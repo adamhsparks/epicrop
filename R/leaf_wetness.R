@@ -328,7 +328,7 @@
   day_idx <- rep(seq_len(n), each = 24L)
   hr <- rep(1:24, times = n)
 
-  # Vectorized parameter lookup
+  # Vectorised parameter lookup
   tmin_v <- tmin[day_idx]
   tmax_v <- tmax[day_idx]
   dayl_v <- dayl[day_idx]

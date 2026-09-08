@@ -7,7 +7,7 @@
 #'
 #' @section AUDPC Details:
 #'
-#' AUDPC is a standard epidemiological metric summarizing cumulative disease
+#' AUDPC is a standard epidemiological metric summarising cumulative disease
 #' intensity over time. It:
 #' * Ranges from 0 (no disease) to duration (maximum disease throughout)
 #' * Accounts for both disease severity and duration
@@ -219,7 +219,7 @@ get_audpc <- function(x) {
 #'
 #' @section Use Cases:
 #'
-#' * **Batch processing:** Quickly summarize results from [run_epicrop_model()]
+#' * **Batch processing:** Quickly summarise results from [run_epicrop_model()]
 #' * **Mapping:** Combine with spatial data for disease risk mapping
 #' * **Reporting:** Generate summary tables for publications or extension
 #' * **Analysis:** Join with cultivar, management, or climate data
@@ -249,7 +249,7 @@ get_audpc <- function(x) {
 #' print(summary_table)
 #' # Output includes lat, lon, AUDPC, emergence
 #'
-#' # Example 2: Batch summarize multiple emergence dates
+#' # Example 2: Batch summarise multiple emergence dates
 #' emergence_dates <- seq(as.Date("2000-06-15"), as.Date("2000-07-15"), by = 7)
 #' summaries <- lapply(emergence_dates, function(ed) {
 #'   sim <- bacterial_blight(wth, emergence = as.character(ed))
