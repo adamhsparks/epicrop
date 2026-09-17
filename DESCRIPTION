@@ -7,7 +7,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-0061-8359")),
     person("Robert", "Hijmans", , "robert.hijmans@gmail.com", role = c("aut", "trl", "cph"),
            comment = c("Original R implementation", ORCID = "0000-0001-5872-2872")),
-    person("Serge", "Savary", , "serge.savary@toulouse.inra.fr", role = c("aut", "ccp", "cph"),
+    person("Serge", "Savary", , "ssavary01@gmail.com", role = c("aut", "ccp", "cph"),
            comment = c("Model conception and development in Stella", ORCID = "0000-0002-6867-180X")),
     person("Ireno", "Pangga", , "ibpangga@yahoo.com", role = c("aut", "trl", "cph"),
            comment = "Model conception, development in Stella and original R\n           implementation"),

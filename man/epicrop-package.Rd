@@ -26,7 +26,7 @@ Authors:
 \itemize{
   \item Adam H. Sparks \email{adamhsparks@gmail.com} (\href{https://orcid.org/0000-0002-0061-8359}{ORCID})
   \item Robert Hijmans \email{robert.hijmans@gmail.com} (\href{https://orcid.org/0000-0001-5872-2872}{ORCID}) (Original R implementation) [translator, copyright holder]
-  \item Serge Savary \email{serge.savary@toulouse.inra.fr} (\href{https://orcid.org/0000-0002-6867-180X}{ORCID}) (Model conception and development in Stella) [conceptor, copyright holder]
+  \item Serge Savary \email{ssavary01@gmail.com} (\href{https://orcid.org/0000-0002-6867-180X}{ORCID}) (Model conception and development in Stella) [conceptor, copyright holder]
   \item Ireno Pangga \email{ibpangga@yahoo.com} (Model conception, development in Stella and original R
  implementation) [translator, copyright holder]
   \item Jorrel Aunario \email{j.aunario@irri.org} (Original R implementation) [translator, copyright holder]

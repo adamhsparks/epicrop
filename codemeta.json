@@ -34,7 +34,7 @@
       "@type": "Person",
       "givenName": "Serge",
       "familyName": "Savary",
-      "email": "serge.savary@toulouse.inra.fr",
+      "email": "ssavary01@gmail.com",
       "@id": "https://orcid.org/0000-0002-6867-180X"
     },
     {
@@ -102,7 +102,7 @@
       "@type": "Person",
       "givenName": "Serge",
       "familyName": "Savary",
-      "email": "serge.savary@toulouse.inra.fr",
+      "email": "ssavary01@gmail.com",
       "@id": "https://orcid.org/0000-0002-6867-180X"
     },
     {
@@ -369,7 +369,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "1671.524KB",
+  "fileSize": "1671.504KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
