@@ -112,7 +112,7 @@ params_kim <- .epi_get_params("rice_modified_kim", "leaf_blast")
 cat("Savary RcOpt would use RcT:\n")
 params_savary$RcT
 cat("\nKim RcT:\n")
-params_kim$Rc
+params_kim$RcT
 
 # Example 3: Inspect wheat parameters
 wheat_stb <- .epi_get_params("wheat", "s_tritici_blotch")
