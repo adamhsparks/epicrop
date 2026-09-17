@@ -17,9 +17,10 @@ Kim et al. 2015
 along with two wheat diseases, brown (leaf) rust and Septoria tritici
 blotch as published in Savary et al. 2015
 [doi:10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7)
-. Functions for fetching and formatting weather data from the NASA POWER
-database are also provided to simplify the process of running
-simulations.
+. Based on a fork of the \`cropsim\` package that only provided the
+EPIRICE model; enhanched functions for fetching and formatting weather
+data from the NASA POWER database are also provided to simplify the
+process of running simulations.
 
 ## See also
 
@@ -45,7 +46,7 @@ Authors:
   ([ORCID](https://orcid.org/0000-0001-5872-2872)) (Original R
   implementation) \[translator, copyright holder\]
 
-- Serge Savary <serge.savary@toulouse.inra.fr>
+- Serge Savary <ssavary01@gmail.com>
   ([ORCID](https://orcid.org/0000-0002-6867-180X)) (Model conception and
   development in Stella) \[conceptor, copyright holder\]
 
