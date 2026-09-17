@@ -47,7 +47,7 @@
       "@type": "Person",
       "givenName": "Jorrel",
       "familyName": "Aunario",
-      "email": "j.aunario@irri.org"
+      "email": "j.aunario@cgiar.org"
     },
     {
       "@type": "Person",
@@ -87,7 +87,7 @@
       "@type": "Person",
       "givenName": "Jorrel",
       "familyName": "Aunario",
-      "email": "j.aunario@irri.org"
+      "email": "j.aunario@cgiar.org"
     }
   ],
   "copyrightHolder": [
@@ -115,7 +115,7 @@
       "@type": "Person",
       "givenName": "Jorrel",
       "familyName": "Aunario",
-      "email": "j.aunario@irri.org"
+      "email": "j.aunario@cgiar.org"
     },
     {
       "@type": "Person",
@@ -369,7 +369,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "1671.504KB",
+  "fileSize": "1671.505KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
