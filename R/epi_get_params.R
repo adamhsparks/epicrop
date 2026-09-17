@@ -88,7 +88,7 @@
 #' cat("Savary RcOpt would use RcT:\n")
 #' params_savary$RcT
 #' cat("\nKim RcT:\n")
-#' params_kim$Rc)
+#' params_kim$Rc
 #'
 #' # Example 3: Inspect wheat parameters
 #' wheat_stb <- .epi_get_params("wheat", "s_tritici_blotch")
