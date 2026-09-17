@@ -143,8 +143,13 @@ params_savary$RcT
 cat("\nKim RcT:\n")
 #> 
 #> Kim RcT:
-params_kim$Rc
-#> NULL
+params_kim$RcT
+#>       x   y
+#> [1,] 15 0.0
+#> [2,] 20 0.5
+#> [3,] 25 1.0
+#> [4,] 30 0.6
+#> [5,] 35 0.2
 
 # Example 3: Inspect wheat parameters
 wheat_stb <- .epi_get_params("wheat", "s_tritici_blotch")
