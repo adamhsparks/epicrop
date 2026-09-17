@@ -11,7 +11,7 @@ Authors@R: c(
            comment = c("Model conception and development in Stella", ORCID = "0000-0002-6867-180X")),
     person("Ireno", "Pangga", , "ibpangga@yahoo.com", role = c("aut", "trl", "cph"),
            comment = "Model conception, development in Stella and original R\n           implementation"),
-    person("Jorrel", "Aunario", , "j.aunario@irri.org", role = c("aut", "trl", "cph"),
+    person("Jorrel", "Aunario", , "j.aunario@cgiar.org", role = c("aut", "trl", "cph"),
            comment = "Original R implementation"),
     person("Kwang-Hyung", "Kim", , "sospicy77@gmail.com", role = c("aut", "cph"),
            comment = "Contributed code for modified Kim leaf blast and sheath blight functions and feedback on the implementation."),
