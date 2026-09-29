@@ -7,35 +7,13 @@
 .postprocess_wth(wth)
 }
 \arguments{
-\item{wth}{data.table from \code{\link[nasapower:get_power]{nasapower::get_power()}} result.}
+\item{wth}{data.table from \code{\link[nasapower:get_power]{nasapower::get_power()}}.}
 }
 \value{
-data.table of class \code{epicrop.wth}, ready for use in \code{\link[=seir]{seir()}} and
-disease models.
+data.table of class \code{epicrop.wth}.
 }
 \description{
-Reformats weather data retrieved from NASA POWER into the standard
-\pkg{epicrop} format: renames columns, converts dates, orders columns,
-and sets appropriate class attributes.
+Renames POWER columns to \pkg{epicrop} standards, converts dates and
+finalises the object via \code{.as_epicrop_wth()}.
 }
-\section{Steps}{
-
-\enumerate{
-\item Remove temporary year/month/day columns (YEAR, MM, DD)
-\item Convert YYYYMMDD to Date class using \code{\link[data.table:as.IDate]{data.table::as.IDate()}}
-\item Rename POWER columns to \pkg{epicrop} standards:
-\itemize{
-\item T2M → TEMP
-\item T2M_MIN → TMIN
-\item T2M_MAX → TMAX
-\item RH2M → RHUM
-\item PRECTOTCORR → RAIN
-}
-\item Ensure DOY (day of year) is present
-\item Reorder columns to standard order (YYYYMMDD, DOY, TEMP, TMIN, ...)
-\item Set primary key on YYYYMMDD for efficient lookup
-\item Add \code{epicrop.wth} class attribute
-}
-}
-
 \keyword{internal}

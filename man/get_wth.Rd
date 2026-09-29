@@ -4,13 +4,12 @@
 \alias{get_wth}
 \title{Get Weather Data for Disease Modelling}
 \usage{
-get_wth(lonlat, dates, duration = NULL)
+get_wth(lonlat, dates, duration = NULL, source = c("power", "era5"))
 }
 \arguments{
 \item{lonlat}{Numeric vector of coordinates as \code{c(longitude, latitude)}.
-Longitude: -180 to 180 degrees (West/East)
-Latitude: -90 to 90 degrees (South/North)
-Example: \code{c(121.255669, 14.167425)} for IRRI, Philippines}
+Longitude: -180 to 180 degrees (West/East) Latitude: -90 to 90 degrees
+(South/North) Example: \code{c(121.255669, 14.167425)} for IRRI, Philippines}
 
 \item{dates}{Character vector of start date and optional end date, or
 character scalar start date. Format: \code{"YYYY-MM-DD"} (ISO 8601).
@@ -19,14 +18,17 @@ character scalar start date. Format: \code{"YYYY-MM-DD"} (ISO 8601).
 \item Length 2+: First is start, second is end; \code{duration} parameter ignored
 }}
 
-\item{duration}{Optional integer. Number of days to retrieve (inclusive).
-Only used if \code{dates} is a single start date. Ignored if \code{dates} has
-length >= 2. Must be positive (> 0).
-If not provided and \code{dates} has only one element, an error is raised.}
+\item{duration}{Optional integer. Number of days to retrieve (inclusive). If
+supplied, it takes precedence over any end date in \code{dates}. Must be
+positive (\verb{> 0}). If not provided and \code{dates} has only one element, an
+error is raised.}
+
+\item{source}{Character. Weather data source, one of \code{"power"} (default) or
+\code{"era5"}.}
 }
 \value{
-An \code{epicrop.wth} object (\code{\link[data.table:data.table]{data.table::data.table()}} subclass)
-containing daily weather data with columns:\tabular{rll}{
+An \code{epicrop.wth} object (\code{\link[data.table:data.table]{data.table::data.table()}} subclass) containing
+daily weather data with columns:\tabular{rll}{
    \strong{Column} \tab \strong{Description} \tab \strong{Units} \cr
    YYYYMMDD \tab Date \tab ISO 8601 (YYYY-MM-DD) \cr
    DOY \tab Day of year \tab Integer (1-365/366) \cr
@@ -40,25 +42,31 @@ containing daily weather data with columns:\tabular{rll}{
 }
 
 
-Ready for direct use in \code{\link[=seir]{seir()}}, \code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=leaf_blast]{leaf_blast()}},
-and other disease models.
+Ready for direct use in \code{\link[=seir]{seir()}}, \code{\link[=bacterial_blight]{bacterial_blight()}}, \code{\link[=leaf_blast]{leaf_blast()}}, and
+other disease models.
 }
 \description{
-Retrieves daily weather data from the NASA POWER database and formats it
-for use in \code{\link[=seir]{seir()}} and \pkg{epicrop} disease models. This function wraps
-\code{\link[nasapower:get_power]{nasapower::get_power()}} with predefined parameters optimized for
-epidemiological modelling.
+#' Retrieves daily weather data from either the NASA POWER database or ERA5
+reanalysis (via the Open-Meteo Archive API) and formats it for use in
+\code{\link[=seir]{seir()}} and \pkg{epicrop} disease models.
 }
 \section{Data Source}{
 
+\itemize{
+\item \code{"power"} (default): NASA POWER via \code{\link[nasapower:get_power]{nasapower::get_power()}}, global daily
+data from 1984 onwards at 0.5-degree resolution.
+\item \code{"era5"}: ERA5 reanalysis via the Open-Meteo Archive API
+(\url{https://open-meteo.com/en/docs/historical-weather-api}). Hourly values
+are aggregated to daily values (mean/min/max temperature, mean relative
+humidity, total precipitation) by local calendar day so that the output
+matches the POWER-derived columns exactly. ERA5 data are typically
+available with a lag of a few days.
+}
 
-Weather data are obtained from NASA's Prediction of Worldwide Energy Resource
-(POWER) database, which provides global daily weather data from 1984 onwards
-at 0.5-degree spatial resolution. See \code{\link[nasapower:get_power]{nasapower::get_power()}} for details.
-
-POWER data are derived from satellite and reanalysis sources and may differ
-from local weather station observations. For critical analyses, consider
-comparing with ground-truth data from your region.
+Both sources are modelled/reanalysis products and may differ from local
+weather station observations. Note that ERA5 precipitation is not the same
+quantity as POWER's bias-corrected \code{PRECTOTCORR}, so rainfall totals will
+differ between sources.
 }
 
 \section{Retrieved Variables}{
@@ -86,8 +94,8 @@ Two methods for specifying the weather window:
 \item \strong{Start date + duration} (integer): \verb{dates = "2000-06-30", duration = 120}
 }
 
-Duration is interpreted as inclusive days: \code{end = start + duration - 1}.
-For example, \code{duration = 120} starting on June 30 ends on October 27 (120 days
+Duration is interpreted as inclusive days: \code{end = start + duration - 1}. For
+example, \code{duration = 120} starting on June 30 ends on October 27 (120 days
 total).
 }
 
@@ -100,7 +108,7 @@ wth_range <- get_wth(
   dates = c("2000-06-30", "2000-12-31")
 )
 head(wth_range)
-nrow(wth_range)  # Number of days
+nrow(wth_range) # Number of days
 
 # Example 2: Get weather by start date and duration
 # 120-day window from June 30, 2000
@@ -109,7 +117,7 @@ wth_duration <- get_wth(
   dates = "2000-06-30",
   duration = 120L
 )
-nrow(wth_duration)  # Should be 120 rows
+nrow(wth_duration) # Should be 120 rows
 
 # Example 3: Verify both methods return equivalent data
 # (within floating-point precision)
@@ -125,8 +133,13 @@ wth <- get_wth(
 # Run bacterial blight model
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
 head(bb_sim)
-plot(bb_sim$simday, bb_sim$intensity, type = "l",
-     xlab = "Days After Emergence", ylab = "Disease Intensity")
+plot(
+  bb_sim$simday,
+  bb_sim$intensity,
+  type = "l",
+  xlab = "Days After Emergence",
+  ylab = "Disease Intensity"
+)
 
 # Example 5: Multiple locations - compare disease risk
 locations <- data.frame(
@@ -136,19 +149,23 @@ locations <- data.frame(
 )
 
 # Get weather for each location
-wth_list <- lapply(1:nrow(locations), function(i) {
-  get_wth(
-    lonlat = c(locations$lon[i], locations$lat[i]),
-    dates = "2000-06-30",
-    duration = 120L
-  )
-})
+wth_list <- lapply(
+  1:nrow(locations),
+  function(i) {
+    get_wth(
+      lonlat = c(locations$lon[i], locations$lat[i]),
+      dates = "2000-06-30",
+      duration = 120L
+    )
+  }
+)
 names(wth_list) <- locations$name
 
 # Run leaf blast model at each location
-lb_results <- lapply(wth_list, function(w) {
-  leaf_blast(w, emergence = "2000-07-01")
-})
+lb_results <- lapply(
+  wth_list,
+  function(w) leaf_blast(w, emergence = "2000-07-01")
+)
 
 # Compare AUDPC (disease intensity summary)
 audpc_comparison <- data.frame(
@@ -159,72 +176,98 @@ audpc_comparison
 
 # Example 6: Cross-year comparison (same location, different years)
 years <- 2000:2002
-wth_by_year <- lapply(years, function(y) {
-  get_wth(
-    lonlat = c(121.255669, 14.167425),
-    dates = paste0(y, "-06-30"),
-    duration = 120L
-  )
-})
+wth_by_year <- lapply(
+  years,
+  function(y) {
+    get_wth(
+      lonlat = c(121.255669, 14.167425),
+      dates = paste0(y, "-06-30"),
+      duration = 120L
+    )
+  }
+)
 names(wth_by_year) <- as.character(years)
 
 # Run model for each year
-bb_by_year <- lapply(wth_by_year, function(w) {
-  bacterial_blight(w, emergence = unique(w$YYYYMMDD)[1])
-})
+bb_by_year <- lapply(
+  wth_by_year,
+  function(w) bacterial_blight(w, emergence = unique(w$YYYYMMDD)[1])
+)
 
 # Compare disease progression across years
-plot_data <- data.table::rbindlist(
-  lapply(seq_along(bb_by_year), function(i) {
+plot_data <- data.table::rbindlist(lapply(
+  seq_along(bb_by_year),
+  function(i) {
     data.frame(
       year = names(bb_by_year)[i],
       simday = bb_by_year[[i]]$simday,
       intensity = bb_by_year[[i]]$intensity
     )
-  })
+  }
+))
+plot(
+  plot_data$simday,
+  plot_data$intensity,
+  col = as.factor(plot_data$year),
+  pch = 16
 )
-plot(plot_data$simday, plot_data$intensity,
-     col = as.factor(plot_data$year), pch = 16)
-legend("topleft", legend = names(bb_by_year),
-       col = seq_along(bb_by_year), pch = 16)
+legend(
+  "topleft",
+  legend = names(bb_by_year),
+  col = seq_along(bb_by_year),
+  pch = 16
+)
 
 # Example 7: Error handling
 \dontrun{
 # This will fail (invalid coordinates)
 get_wth(
-  lonlat = c(200, 95),  # Out of range
-  dates = "2000-06-30",
-  duration = 120
+lonlat = c(200, 95),  # Out of range
+dates = "2000-06-30",
+duration = 120
 )
 # Error: Longitude must be in [-180, 180], got 200
 
 # This will fail (invalid date format)
 get_wth(
-  lonlat = c(121.255669, 14.167425),
-  dates = "30-06-2000",  # Wrong format
-  duration = 120
+lonlat = c(121.255669, 14.167425),
+dates = "30-06-2000",  # Wrong format
+duration = 120
 )
 # Error: dates[1] must be an ISO date ('YYYY-MM-DD')
 
 # This will fail (missing date specification)
 get_wth(
-  lonlat = c(121.255669, 14.167425),
-  dates = "2000-06-30"  # No end date or duration
+lonlat = c(121.255669, 14.167425),
+dates = "2000-06-30"  # No end date or duration
 )
 # Error: Provide dates as c(start, end) or supply duration
 }
+# Example 8: era5 data
+# Get ERA5 data in the same format as POWER
+wth_era5 <- get_wth(
+  lonlat = c(121.255669, 14.167425),
+  dates = "2000-06-30",
+  duration = 120L,
+  source = "era5"
+)
+head(wth_era5)
 \dontshow{\}) # examplesIf}
 }
 \references{
-NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide
-Energy Resource. Funded by NASA's Applied Science Program.
-https://power.larc.nasa.gov/
+NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide Energy
+Resource. Funded by NASA's Applied Science Program.
+https://power.larc.nasa.gov/ Hersbach, H. et al. (2020). The ERA5 global
+reanalysis. \emph{Quarterly Journal of the Royal Meteorological Society}, 146,
+1999-2049. \doi{10.1002/qj.3803}
 
-Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia,
-S. D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and Epidemiology
-in R: Disease Progress over Time. \emph{The Plant Health Instructor}.
+Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
+D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and Epidemiology in R:
+Disease Progress over Time. \emph{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
 }
 \author{
-Adam H. Sparks, \email{adamhsparks@gmail.com}
+Adam H. Sparks, \email{adamhsparks@gmail.com} with era5 support adapted from
+code by Emerson M. Del Ponte \email{delponte@ufv.br} from the
+\CRANpkg{r4pde}.
 }
