@@ -50,6 +50,8 @@
 ^man/dot-get_era5\.Rd$
 ^man/dot-as_epicrop_wth\.Rd$
 ^man/dot-postprocess_wth\.Rd$
+^man/dot-validate_lonlat\.Rd$
+^man/dot-check_coord\.Rd$
 ^man/dot-interp\.Rd$
 ^man/dot-interp_fn\.Rd$
 ^man/dot-interp_vec\.Rd$
