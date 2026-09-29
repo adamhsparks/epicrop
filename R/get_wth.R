@@ -360,6 +360,12 @@ get_wth <- function(
   }
 
   hourly <- data.table::as.data.table(json$hourly)
+
+  # yyjsonr returns whole-number JSON arrays as integer; force double so grouped
+  # results have a consistent type and match POWER's double columns
+  vars <- c("temperature_2m", "relative_humidity_2m", "precipitation")
+  hourly[, (vars) := lapply(.SD, as.numeric), .SDcols = vars]
+
   hourly[, YYYYMMDD := data.table::as.IDate(substr(time, 1L, 10L))]
 
   # min/max that return NA rather than +/-Inf (and a warning) if all missing
@@ -474,4 +480,71 @@ get_wth <- function(
   cli::cli_abort(
     "Provide {.arg dates} as c(start, end) or supply {.arg duration}."
   )
+}
+
+#' Validate Longitude and Latitude Coordinates
+#'
+#' Checks that coordinates are numeric, correct length, and within valid ranges.
+#'
+#' @param lonlat Numeric vector of c(longitude, latitude).
+#'
+#' @returns Numeric vector of c(longitude, latitude) as doubles.
+#'
+#' @details
+#' Validates:
+#' * Length is exactly 2
+#' * Values are numeric (not character, factor, etc.)
+#' * Longitude in \[-180, 180\] (East/West)
+#' * Latitude in \[-90, 90\] (South/North)
+#' * Neither value is NA or Inf
+#'
+#' @examplesIf interactive()
+#' # Valid coordinates
+#' .validate_lonlat(c(121.255669, 14.167425)) # IRRI, Philippines
+#' .validate_lonlat(c(-99.1828, 19.1296))     # CIMMYT, Mexico
+#'
+#' # Invalid (will error)
+#' \dontrun{
+#' .validate_lonlat(c(200, 14))     # Longitude out of range
+#' .validate_lonlat(c(121.25))      # Length not 2
+#' .validate_lonlat(c("121", "14")) # Not numeric
+#' }
+#'
+#' @autoglobal
+#' @dev
+.validate_lonlat <- function(lonlat) {
+  if (!is.numeric(lonlat) || length(lonlat) != 2L) {
+    cli::cli_abort(
+      "{.arg lonlat} must be numeric length-2: {.code c(lon, lat)}."
+    )
+  }
+
+  lon <- as.double(unname(lonlat[1L]))
+  lat <- as.double(unname(lonlat[2L]))
+
+  .check_coord(lon, "Longitude", -180, 180)
+  .check_coord(lat, "Latitude", -90, 90)
+
+  c(lon, lat)
+}
+
+#' Check Coordinate Value is Within Valid Range
+#'
+#' Validates a single coordinate value against min/max bounds.
+#'
+#' @param val Numeric value to check.
+#' @param name Character name of coordinate (for error messages).
+#' @param lo Numeric lower bound (inclusive).
+#' @param hi Numeric upper bound (inclusive).
+#'
+#' @returns NULL (invisibly). Called for side effects (validation/abort).
+#'
+#' @details Aborts if value is NA, Inf, or outside \[lo, hi\].
+#'
+#' @autoglobal
+#' @dev
+.check_coord <- function(val, name, lo, hi) {
+  if (is.na(val) || !is.finite(val) || val < lo || val > hi) {
+    cli::cli_abort("{name} must be in [{lo}, {hi}], got {val}.")
+  }
 }
