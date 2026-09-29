@@ -12,8 +12,8 @@
 \item{location_names}{Optional character vector of location names.}
 }
 \value{
-A character vector of location names with length equal to the
-number of rows in \code{locations}.
+A character vector of location names with length equal to the number of rows
+in \code{locations}.
 }
 \description{
 Determines appropriate names for locations by checking user-provided names,

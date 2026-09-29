@@ -14,8 +14,8 @@ dash or slash separator).}
 Character vector in \code{"MM-DD"} format (\emph{e.g.}, \code{"06-30"}).
 }
 \description{
-Converts month-day strings in various formats (\code{"6/30"}, \code{"-06-30"}, etc.)
-to a consistent \code{"MM-DD"} format with zero-padded digits.
+Converts month-day strings in various formats (\code{"6/30"}, \code{"-06-30"}, etc.) to
+a consistent \code{"MM-DD"} format with zero-padded digits.
 }
 \section{Transformations}{
 

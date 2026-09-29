@@ -13,15 +13,12 @@
 The validated matrix unchanged.
 }
 \description{
-Validates a matrix of coordinate pairs. Checks for exactly 2 columns,
-numeric storage, and finite coordinate values.
+Validates a matrix of coordinate pairs. Checks for exactly 2 columns, numeric
+storage, and finite coordinate values.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-locations <- rbind(
-  c(121.255669, 14.16742),
-  c(120.985, 14.6042)
-)
+locations <- rbind(c(121.255669, 14.16742), c(120.985, 14.6042))
 .process_location_matrix(locations)
 \dontshow{\}) # examplesIf}
 }

@@ -10,7 +10,8 @@ fetch_epicrop_weather_list(
   duration,
   years = NULL,
   mode = "pairwise",
-  location_names = NULL
+  location_names = NULL,
+  source = c("power", "era5")
 )
 }
 \arguments{
@@ -29,11 +30,15 @@ of numeric length-2 vectors.}
 contains any month-day values without a year.}
 
 \item{mode}{Character scalar: \code{"pairwise"} (default) pairs locations and
-dates by position (recycling length-1), or \code{"cross"} forms all
-combinations (locations × dates).}
+dates by position (recycling length-1), or \code{"cross"} forms all combinations
+(locations × dates).}
 
 \item{location_names}{Optional character names for locations (length = number
 of unique locations).}
+
+\item{source}{Character scalar: weather data source, \code{"power"} (default, NASA
+POWER) or \code{"era5"} (ERA5 reanalysis via Open-Meteo). See \code{\link[=get_wth]{get_wth()}} for
+details on the differences between sources.}
 }
 \value{
 \itemize{
@@ -87,17 +92,17 @@ matrix/data.frame, or a list of \code{list(c(lon, lat))}
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Single location, month-day start date
 w1 <- fetch_epicrop_weather_list(
-  lonlat     = c(121.255669, 14.16742),
+  lonlat = c(121.255669, 14.16742),
   start_date = "6/30",
-  duration   = 120L,
-  years      = 2000:2001
+  duration = 120L,
+  years = 2000:2001
 )
 
 # ISO start date
 w2 <- fetch_epicrop_weather_list(
-  lonlat     = c(121.255669, 14.16742),
+  lonlat = c(121.255669, 14.16742),
   start_date = "2000-06-30",
-  duration   = 120L
+  duration = 120L
 )
 
 # Multiple locations × multiple dates (cross mode)
@@ -106,19 +111,26 @@ locations <- rbind(
   "Metro_Manila" = c(120.985, 14.6042)
 )
 w3 <- fetch_epicrop_weather_list(
-  lonlat     = locations,
+  lonlat = locations,
   start_date = c("2000-06-30", "6-30"),
-  duration   = 120L,
-  years      = 2000:2001,
-  mode       = "cross"
+  duration = 120L,
+  years = 2000:2001,
+  mode = "cross"
 )
 
-# Multiple start dates for same location (efficient: 3 API calls, 1 per year)
+# Multiple start dates for same location
 w4 <- fetch_epicrop_weather_list(
-  lonlat     = c(121.255669, 14.16742),
+  lonlat = c(121.255669, 14.16742),
   start_date = c("-06-01", "-06-14", "-06-30"),
-  duration   = 90L,
-  years      = 2001:2003
+  duration = 90L,
+  years = 2001:2003
+)
+# ERA5 instead of NASA POWER
+w5 <- fetch_epicrop_weather_list(
+  lonlat = c(121.255669, 14.16742),
+  start_date = "2000-06-30",
+  duration = 120L,
+  source = "era5"
 )
 \dontshow{\}) # examplesIf}
 }

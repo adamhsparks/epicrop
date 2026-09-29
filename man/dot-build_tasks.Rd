@@ -30,8 +30,8 @@ A list of task objects (lists) with elements:
 }
 }
 \description{
-Constructs a list of (location, start_date, duration) tasks based on
-input locations, dates, and pairing mode.
+Constructs a list of (location, start_date, duration) tasks based on input
+locations, dates, and pairing mode.
 }
 \section{Pairing Modes}{
 

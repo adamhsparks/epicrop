@@ -24,11 +24,7 @@ with helpful error messages if any are missing. Called early in
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # This would trigger validation (not normally called directly)
-.validate_required_args(
-  c(121.255669, 14.16742),
-  "2000-06-30",
-  120L
-)
+.validate_required_args(c(121.255669, 14.16742), "2000-06-30", 120L)
 \dontshow{\}) # examplesIf}
 }
 \keyword{internal}

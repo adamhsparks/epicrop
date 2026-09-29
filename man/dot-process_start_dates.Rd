@@ -17,12 +17,13 @@ Character vector of start dates in \code{"YYYY-MM-DD"} or \code{"MM-DD"} format.
 }
 \description{
 Converts start dates to character format and normalizes month-day strings.
-Month-day dates require the \code{years} parameter to construct complete date ranges.
+Month-day dates require the \code{years} parameter to construct complete date
+ranges.
 }
 \details{
-Month-day strings are normalized to \code{"MM-DD"} format. Full dates
-are converted to character strings. If month-day values are found but
-\code{years} is NULL, an error is raised.
+Month-day strings are normalized to \code{"MM-DD"} format. Full dates are
+converted to character strings. If month-day values are found but \code{years} is
+NULL, an error is raised.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

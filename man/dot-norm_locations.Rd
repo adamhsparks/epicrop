@@ -28,9 +28,9 @@ A numeric 2-column matrix with:
 }
 \description{
 Converts various location input formats (numeric vector, matrix, data frame,
-or list of pairs) to a standard 2-column numeric matrix with columns LON
-and LAT. Preserves row names where available and validates all coordinates
-are finite.
+or list of pairs) to a standard 2-column numeric matrix with columns LON and
+LAT. Preserves row names where available and validates all coordinates are
+finite.
 }
 \section{Input Processing}{
 

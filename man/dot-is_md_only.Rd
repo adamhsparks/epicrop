@@ -13,8 +13,8 @@
 Logical vector indicating which elements are month-day only.
 }
 \description{
-Identifies date strings that contain only month and day without a year,
-in formats like \code{"06-30"}, \code{"-06-30"}, or \code{"6/30"}.
+Identifies date strings that contain only month and day without a year, in
+formats like \code{"06-30"}, \code{"-06-30"}, or \code{"6/30"}.
 }
 \section{Patterns Matched}{
 

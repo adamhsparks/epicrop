@@ -13,8 +13,8 @@
 A numeric matrix with row names (if any) preserved.
 }
 \description{
-Validates and converts a data frame to a location matrix.
-Ensures exactly 2 numeric columns (longitude, latitude).
+Validates and converts a data frame to a location matrix. Ensures exactly 2
+numeric columns (longitude, latitude).
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
