@@ -61,10 +61,7 @@ mock_model <- function(
 }
 
 .mk_wth_list <- function(years, ...) {
-  wl <- stats::setNames(
-    lapply(years, .mk_year_wth, ...),
-    as.character(years)
-  )
+  wl <- stats::setNames(lapply(years, .mk_year_wth, ...), as.character(years))
   class(wl) <- c("epicrop.wth.list", class(wl))
   wl
 }
@@ -78,7 +75,7 @@ mock_model <- function(
 # A fake get_wth() replacement for mocking network calls in
 # fetch_epicrop_weather_list() tests. Returns exactly `duration` consecutive
 # days of synthetic weather starting at `dates`.
-.fake_get_wth <- function(lonlat, dates, duration) {
+.fake_get_wth <- function(lonlat, dates, duration = NULL, source = "power") {
   start <- data.table::as.IDate(dates)
   dt <- data.table::data.table(
     YYYYMMDD = start + seq_len(duration) - 1L,

@@ -1,20 +1,3 @@
-# ---- Local fixtures (kept in this file, not helper-mocks.R, so this file's
-# tests don't depend on helper-file load order/content) --------------------
-
-.fake_get_wth <- function(lonlat, dates, duration) {
-  start <- data.table::as.IDate(dates)
-  dt <- data.table::data.table(
-    YYYYMMDD = start + seq_len(duration) - 1L,
-    TEMP = 25,
-    RAIN = 1,
-    RHUM = 80,
-    TMIN = 20,
-    TMAX = 30
-  )
-  class(dt) <- c("epicrop.wth", class(dt))
-  dt
-}
-
 # A lightweight stand-in for a real epicrop disease model (*e.g.*
 # bacterial_blight()). Mimics seir()'s real contract: errors if the
 # emergence date isn't present in the weather, or if there isn't enough
@@ -681,7 +664,9 @@ test_that(
     class(fake_wth) <- c("epicrop.wth", class(fake_wth))
 
     testthat::local_mocked_bindings(
-      get_wth = function(lonlat, dates, duration) fake_wth,
+      get_wth = function(lonlat, dates, duration = NULL, source = "power") {
+        fake_wth
+      },
       .package = "epicrop"
     )
 
@@ -984,4 +969,39 @@ test_that("run_epicrop_model succeeds end-to-end against a cross-mode weather bu
   # No emergence date should silently fail to find weather now
   expect_false(anyNA(res$AUDPC))
   expect_identical(nrow(res), length(emergence) * 2L) # x2 locations
+})
+
+test_that("fetch_epicrop_weather_list passes `source` through to get_wth()", {
+  seen <- character()
+  testthat::local_mocked_bindings(
+    get_wth = function(lonlat, dates, duration = NULL, source = "power") {
+      seen <<- c(seen, source)
+      data.table::data.table(
+        YYYYMMDD = data.table::as.IDate(dates[1L]) + seq_len(duration) - 1L
+      )
+    }
+  )
+
+  res <- fetch_epicrop_weather_list(
+    lonlat = c(121.25, 14.19),
+    start_date = "2000-06-30",
+    duration = 3L,
+    source = "era5"
+  )
+
+  expect_identical(seen, "era5")
+  expect_s3_class(res, "epicrop.wth.list")
+  expect_identical(nrow(res[["2000"]]), 3L)
+})
+
+test_that("fetch_epicrop_weather_list rejects an invalid `source`", {
+  expect_error(
+    fetch_epicrop_weather_list(
+      lonlat = c(121.25, 14.19),
+      start_date = "2000-06-30",
+      duration = 3L,
+      source = "chirps"
+    ),
+    "source"
+  )
 })
