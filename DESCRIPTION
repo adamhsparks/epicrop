@@ -17,8 +17,8 @@ Authors@R: c(
            comment = "Contributed code for modified Kim leaf blast and sheath blight functions and feedback on the implementation."),
     person("Aji", "Sukarta", , "aji.ixb@gmail.com", role = "ctb",
            comment = "Helped fix bug related to SEIR model and establishment\n           date"),
-    person("Emerson", "Del Ponte", , "delponte@ufv.br", role = "ctb",
-           comment = c("Suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X"))
+    person("Emerson", "Del Ponte", , "delponte@ufv.br", role = "aut",
+           comment = c("Provided code for fetching era5 code via the 'r4pde' package and suggested fixes for several typos in the documentation", ORCID = "0000-0003-4398-409X"))
   )
 Description: Generic simulation modelling of crop diseases using a
     Susceptible-Exposed-Infectious-Removed ('SEIR') model.  This type of
