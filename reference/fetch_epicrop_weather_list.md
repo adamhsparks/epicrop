@@ -16,7 +16,8 @@ fetch_epicrop_weather_list(
   duration,
   years = NULL,
   mode = "pairwise",
-  location_names = NULL
+  location_names = NULL,
+  source = c("power", "era5")
 )
 ```
 
@@ -56,6 +57,13 @@ fetch_epicrop_weather_list(
 
   Optional character names for locations (length = number of unique
   locations).
+
+- source:
+
+  Character scalar: weather data source, `"power"` (default, NASA POWER)
+  or `"era5"` (ERA5 reanalysis via Open-Meteo). See
+  [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
+  for details on the differences between sources.
 
 ## Value
 
@@ -110,17 +118,17 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 ``` r
 # Single location, month-day start date
 w1 <- fetch_epicrop_weather_list(
-  lonlat     = c(121.255669, 14.16742),
+  lonlat = c(121.255669, 14.16742),
   start_date = "6/30",
-  duration   = 120L,
-  years      = 2000:2001
+  duration = 120L,
+  years = 2000:2001
 )
 
 # ISO start date
 w2 <- fetch_epicrop_weather_list(
-  lonlat     = c(121.255669, 14.16742),
+  lonlat = c(121.255669, 14.16742),
   start_date = "2000-06-30",
-  duration   = 120L
+  duration = 120L
 )
 
 # Multiple locations × multiple dates (cross mode)
@@ -129,18 +137,25 @@ locations <- rbind(
   "Metro_Manila" = c(120.985, 14.6042)
 )
 w3 <- fetch_epicrop_weather_list(
-  lonlat     = locations,
+  lonlat = locations,
   start_date = c("2000-06-30", "6-30"),
-  duration   = 120L,
-  years      = 2000:2001,
-  mode       = "cross"
+  duration = 120L,
+  years = 2000:2001,
+  mode = "cross"
 )
 
-# Multiple start dates for same location (efficient: 3 API calls, 1 per year)
+# Multiple start dates for same location
 w4 <- fetch_epicrop_weather_list(
-  lonlat     = c(121.255669, 14.16742),
+  lonlat = c(121.255669, 14.16742),
   start_date = c("-06-01", "-06-14", "-06-30"),
-  duration   = 90L,
-  years      = 2001:2003
+  duration = 90L,
+  years = 2001:2003
+)
+# ERA5 instead of NASA POWER
+w5 <- fetch_epicrop_weather_list(
+  lonlat = c(121.255669, 14.16742),
+  start_date = "2000-06-30",
+  duration = 120L,
+  source = "era5"
 )
 ```

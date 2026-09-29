@@ -40,25 +40,21 @@ Reduces redundant requests for the same location.
 ``` r
 # Multiple tasks for same location across years
 tasks <- list(
-  list(location_id = 1, location_name = "Site1", lonlat = c(0, 0),
-       start_chr = "2000-06-01", duration = 90L),
-  list(location_id = 1, location_name = "Site1", lonlat = c(0, 0),
-       start_chr = "2001-06-01", duration = 90L)
+  list(
+    location_id = 1,
+    location_name = "Site1",
+    lonlat = c(0, 0),
+    start_chr = "2000-06-01",
+    duration = 90L
+  ),
+  list(
+    location_id = 1,
+    location_name = "Site1",
+    lonlat = c(0, 0),
+    start_chr = "2001-06-01",
+    duration = 90L
+  )
 )
 .collapse_one_location(tasks)
-#> $location_id
-#> [1] 1
-#> 
-#> $location_name
-#> [1] "Site1"
-#> 
-#> $lonlat
-#> [1] 0 0
-#> 
-#> $start_chr
-#> [1] "2000-06-01"
-#> 
-#> $duration
-#> [1] 455
-#> 
+#> Error in .collapse_one_location(tasks): could not find function ".collapse_one_location"
 ```

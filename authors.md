@@ -26,9 +26,10 @@
 - **Aji Sukarta**. Contributor.\
   Helped fix bug related to SEIR model and establishment date
 
-- **Emerson Del Ponte**. Contributor.
+- **Emerson Del Ponte**. Author.
   [](https://orcid.org/0000-0003-4398-409X)\
-  Suggested fixes for several typos in the documentation
+  Provided code for fetching era5 code via the 'r4pde' package and
+  suggested fixes for several typos in the documentation
 
 ## Citation
 

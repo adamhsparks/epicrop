@@ -99,7 +99,7 @@ summaries <- lapply(emergence_dates, function(ed) {
   audpc_dt(sim)
 })
 #> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Emergence date not found in weather data
-#> ✖ Emergence 2000-06-15 not in range 2000-06-30--2000-10-28
+#> ✖ Emergence 2000-06-15 not in range 2000-06-30--2000-10-27
 summary_all <- data.table::rbindlist(summaries)
 #> Error: object 'summaries' not found
 summary_all

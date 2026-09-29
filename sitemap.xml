@@ -15,6 +15,7 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/disease_models.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-abort_invalid_location_type.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-apply_infection_window.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-as_epicrop_wth.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-assemble.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-build_primary_inoculum.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-build_tasks.html</loc></url>
@@ -39,6 +40,8 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-fetch_one_weather.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-finalize_output.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-format_results.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-get_era5.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-get_power.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-interp.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-interp_fn.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-interp_table.html</loc></url>

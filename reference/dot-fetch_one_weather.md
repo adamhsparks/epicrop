@@ -6,7 +6,7 @@ duration) task and splits the result by calendar year into a named list.
 ## Usage
 
 ``` r
-.fetch_one_weather(task)
+.fetch_one_weather(task, source = "power")
 ```
 
 ## Arguments

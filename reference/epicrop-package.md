@@ -53,18 +53,19 @@ Authors:
 - Ireno Pangga <ibpangga@yahoo.com> (Model conception, development in
   Stella and original R implementation) \[translator, copyright holder\]
 
-- Jorrel Aunario <j.aunario@irri.org> (Original R implementation)
+- Jorrel Aunario <j.aunario@cgiar.org> (Original R implementation)
   \[translator, copyright holder\]
 
 - Kwang-Hyung Kim <sospicy77@gmail.com> (Contributed code for modified
   Kim leaf blast and sheath blight functions and feedback on the
   implementation.) \[copyright holder\]
 
+- Emerson Del Ponte <delponte@ufv.br>
+  ([ORCID](https://orcid.org/0000-0003-4398-409X)) (Provided code for
+  fetching era5 code via the 'r4pde' package and suggested fixes for
+  several typos in the documentation)
+
 Other contributors:
 
 - Aji Sukarta <aji.ixb@gmail.com> (Helped fix bug related to SEIR model
   and establishment date) \[contributor\]
-
-- Emerson Del Ponte <delponte@ufv.br>
-  ([ORCID](https://orcid.org/0000-0003-4398-409X)) (Suggested fixes for
-  several typos in the documentation) \[contributor\]

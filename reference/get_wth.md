@@ -1,16 +1,15 @@
 # Get Weather Data for Disease Modelling
 
-Retrieves daily weather data from the NASA POWER database and formats it
-for use in
+\#' Retrieves daily weather data from either the NASA POWER database or
+ERA5 reanalysis (via the Open-Meteo Archive API) and formats it for use
+in
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-and epicrop disease models. This function wraps
-[`nasapower::get_power()`](https://docs.ropensci.org/nasapower/reference/get_power.html)
-with predefined parameters optimized for epidemiological modelling.
+and epicrop disease models.
 
 ## Usage
 
 ``` r
-get_wth(lonlat, dates, duration = NULL)
+get_wth(lonlat, dates, duration = NULL, source = c("power", "era5"))
 ```
 
 ## Arguments
@@ -34,10 +33,15 @@ get_wth(lonlat, dates, duration = NULL)
 
 - duration:
 
-  Optional integer. Number of days to retrieve (inclusive). Only used if
-  `dates` is a single start date. Ignored if `dates` has length \>= 2.
-  Must be positive (\> 0). If not provided and `dates` has only one
-  element, an error is raised.
+  Optional integer. Number of days to retrieve (inclusive). If supplied,
+  it takes precedence over any end date in `dates`. Must be positive
+  (`> 0`). If not provided and `dates` has only one element, an error is
+  raised.
+
+- source:
+
+  Character. Weather data source, one of `"power"` (default) or
+  `"era5"`.
 
 ## Value
 
@@ -66,15 +70,21 @@ and other disease models.
 
 ## Data Source
 
-Weather data are obtained from NASA's Prediction of Worldwide Energy
-Resource (POWER) database, which provides global daily weather data from
-1984 onwards at 0.5-degree spatial resolution. See
-[`nasapower::get_power()`](https://docs.ropensci.org/nasapower/reference/get_power.html)
-for details.
+- `"power"` (default): NASA POWER via
+  [`nasapower::get_power()`](https://docs.ropensci.org/nasapower/reference/get_power.html),
+  global daily data from 1984 onwards at 0.5-degree resolution.
 
-POWER data are derived from satellite and reanalysis sources and may
-differ from local weather station observations. For critical analyses,
-consider comparing with ground-truth data from your region.
+- `"era5"`: ERA5 reanalysis via the Open-Meteo Archive API
+  (<https://open-meteo.com/en/docs/historical-weather-api>). Hourly
+  values are aggregated to daily values (mean/min/max temperature, mean
+  relative humidity, total precipitation) by local calendar day so that
+  the output matches the POWER-derived columns exactly. ERA5 data are
+  typically available with a lag of a few days.
+
+Both sources are modelled/reanalysis products and may differ from local
+weather station observations. Note that ERA5 precipitation is not the
+same quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall
+totals will differ between sources.
 
 ## Retrieved Variables
 
@@ -111,7 +121,9 @@ For example, `duration = 120` starting on June 30 ends on October 27
 
 NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide
 Energy Resource. Funded by NASA's Applied Science Program.
-https://power.larc.nasa.gov/
+https://power.larc.nasa.gov/ Hersbach, H. et al. (2020). The ERA5 global
+reanalysis. *Quarterly Journal of the Royal Meteorological Society*,
+146, 1999-2049. [doi:10.1002/qj.3803](https://doi.org/10.1002/qj.3803)
 
 Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia,
 S. D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and
@@ -122,7 +134,9 @@ Instructor*.
 
 ## Author
 
-Adam H. Sparks, <adamhsparks@gmail.com>
+Adam H. Sparks, <adamhsparks@gmail.com> with era5 support adapted from
+code by Emerson M. Del Ponte <delponte@ufv.br> from the
+[r4pde](https://CRAN.R-project.org/package=r4pde).
 
 ## Examples
 
@@ -143,7 +157,7 @@ head(wth_range)
 #> 4: 2000-07-03   185 25.88 24.82 27.53 93.76 19.77 14.16742 121.2557
 #> 5: 2000-07-04   186 26.12 24.97 28.08 91.53 12.15 14.16742 121.2557
 #> 6: 2000-07-05   187 26.28 25.51 27.70 91.45 21.90 14.16742 121.2557
-nrow(wth_range)  # Number of days
+nrow(wth_range) # Number of days
 #> [1] 185
 
 # Example 2: Get weather by start date and duration
@@ -153,13 +167,13 @@ wth_duration <- get_wth(
   dates = "2000-06-30",
   duration = 120L
 )
-nrow(wth_duration)  # Should be 120 rows
-#> [1] 121
+nrow(wth_duration) # Should be 120 rows
+#> [1] 120
 
 # Example 3: Verify both methods return equivalent data
 # (within floating-point precision)
 all.equal(wth_range[1:120], wth_duration)
-#> [1] "Different number of rows"
+#> [1] "Attributes: < Component \"POWER.Dates\": 1 string mismatch >"
 
 # Example 4: Use retrieved weather in disease model
 wth <- get_wth(
@@ -170,26 +184,17 @@ wth <- get_wth(
 
 # Run bacterial blight model
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
 head(bb_sim)
-#>    simday      dates    sites latent infectious removed senesced rateinf  rlex
-#>     <int>     <IDat>    <num>  <num>      <num>   <num>    <num>   <num> <num>
-#> 1:      1 2000-07-01 100.0000      0          0       0 1.000000       0     0
-#> 2:      2 2000-07-02 108.6875      0          0       0 2.086875       0     0
-#> 3:      3 2000-07-03 118.1002      0          0       0 3.267877       0     0
-#> 4:      4 2000-07-04 128.2934      0          0       0 4.550811       0     0
-#> 5:      5 2000-07-05 139.3254      0          0       0 5.944065       0     0
-#> 6:      6 2000-07-06 151.2581      0          0       0 7.456646       0     0
-#>    rtransfer rremoved  rgrowth rsenesced diseased intensity      lat      lon
-#>        <num>    <num>    <num>     <num>    <num>     <num>    <num>    <num>
-#> 1:         0        0  9.68750  1.000000        0         0 14.16742 121.2557
-#> 2:         0        0 10.49959  1.086875        0         0 14.16742 121.2557
-#> 3:         0        0 11.37416  1.181002        0         0 14.16742 121.2557
-#> 4:         0        0 12.31499  1.282934        0         0 14.16742 121.2557
-#> 5:         0        0 13.32593  1.393254        0         0 14.16742 121.2557
-#> 6:         0        0 14.41084  1.512581        0         0 14.16742 121.2557
-plot(bb_sim$simday, bb_sim$intensity, type = "l",
-     xlab = "Days After Emergence", ylab = "Disease Intensity")
-
+#> Error: object 'bb_sim' not found
+plot(
+  bb_sim$simday,
+  bb_sim$intensity,
+  type = "l",
+  xlab = "Days After Emergence",
+  ylab = "Disease Intensity"
+)
+#> Error: object 'bb_sim' not found
 
 # Example 5: Multiple locations - compare disease risk
 locations <- data.frame(
@@ -199,88 +204,120 @@ locations <- data.frame(
 )
 
 # Get weather for each location
-wth_list <- lapply(1:nrow(locations), function(i) {
-  get_wth(
-    lonlat = c(locations$lon[i], locations$lat[i]),
-    dates = "2000-06-30",
-    duration = 120L
-  )
-})
+wth_list <- lapply(
+  1:nrow(locations),
+  function(i) {
+    get_wth(
+      lonlat = c(locations$lon[i], locations$lat[i]),
+      dates = "2000-06-30",
+      duration = 120L
+    )
+  }
+)
 names(wth_list) <- locations$name
 
 # Run leaf blast model at each location
-lb_results <- lapply(wth_list, function(w) {
-  leaf_blast(w, emergence = "2000-07-01")
-})
+lb_results <- lapply(
+  wth_list,
+  function(w) leaf_blast(w, emergence = "2000-07-01")
+)
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
 
 # Compare AUDPC (disease intensity summary)
 audpc_comparison <- data.frame(
   location = names(lb_results),
   AUDPC = sapply(lb_results, function(x) attr(x, "AUDPC"))
 )
+#> Error: object 'lb_results' not found
 audpc_comparison
-#> # Data frame like object (class data.frame) 2 x 3:
-#>              │location     │AUDPC 
-#>              │<chr>        │<dbl> 
-#>   IRRI_Laguna│IRRI_Laguna  │39.449
-#>  BRRI_Gazipur│BRRI_Gazipur │41.452
-#> CIMMYT_Mexico│CIMMYT_Mexico│ 0.035
+#> Error: object 'audpc_comparison' not found
 
 # Example 6: Cross-year comparison (same location, different years)
 years <- 2000:2002
-wth_by_year <- lapply(years, function(y) {
-  get_wth(
-    lonlat = c(121.255669, 14.167425),
-    dates = paste0(y, "-06-30"),
-    duration = 120L
-  )
-})
+wth_by_year <- lapply(
+  years,
+  function(y) {
+    get_wth(
+      lonlat = c(121.255669, 14.167425),
+      dates = paste0(y, "-06-30"),
+      duration = 120L
+    )
+  }
+)
 names(wth_by_year) <- as.character(years)
 
 # Run model for each year
-bb_by_year <- lapply(wth_by_year, function(w) {
-  bacterial_blight(w, emergence = unique(w$YYYYMMDD)[1])
-})
+bb_by_year <- lapply(
+  wth_by_year,
+  function(w) bacterial_blight(w, emergence = unique(w$YYYYMMDD)[1])
+)
 
 # Compare disease progression across years
-plot_data <- data.table::rbindlist(
-  lapply(seq_along(bb_by_year), function(i) {
+plot_data <- data.table::rbindlist(lapply(
+  seq_along(bb_by_year),
+  function(i) {
     data.frame(
       year = names(bb_by_year)[i],
       simday = bb_by_year[[i]]$simday,
       intensity = bb_by_year[[i]]$intensity
     )
-  })
+  }
+))
+plot(
+  plot_data$simday,
+  plot_data$intensity,
+  col = as.factor(plot_data$year),
+  pch = 16
 )
-plot(plot_data$simday, plot_data$intensity,
-     col = as.factor(plot_data$year), pch = 16)
-legend("topleft", legend = names(bb_by_year),
-       col = seq_along(bb_by_year), pch = 16)
+legend(
+  "topleft",
+  legend = names(bb_by_year),
+  col = seq_along(bb_by_year),
+  pch = 16
+)
 
 
 # Example 7: Error handling
 if (FALSE) { # \dontrun{
 # This will fail (invalid coordinates)
 get_wth(
-  lonlat = c(200, 95),  # Out of range
-  dates = "2000-06-30",
-  duration = 120
+lonlat = c(200, 95),  # Out of range
+dates = "2000-06-30",
+duration = 120
 )
 # Error: Longitude must be in [-180, 180], got 200
 
 # This will fail (invalid date format)
 get_wth(
-  lonlat = c(121.255669, 14.167425),
-  dates = "30-06-2000",  # Wrong format
-  duration = 120
+lonlat = c(121.255669, 14.167425),
+dates = "30-06-2000",  # Wrong format
+duration = 120
 )
 # Error: dates[1] must be an ISO date ('YYYY-MM-DD')
 
 # This will fail (missing date specification)
 get_wth(
-  lonlat = c(121.255669, 14.167425),
-  dates = "2000-06-30"  # No end date or duration
+lonlat = c(121.255669, 14.167425),
+dates = "2000-06-30"  # No end date or duration
 )
 # Error: Provide dates as c(start, end) or supply duration
 } # }
+# Example 8: era5 data
+# Get ERA5 data in the same format as POWER
+wth_era5 <- get_wth(
+  lonlat = c(121.255669, 14.167425),
+  dates = "2000-06-30",
+  duration = 120L,
+  source = "era5"
+)
+head(wth_era5)
+#> Key: <YYYYMMDD>
+#>      YYYYMMDD   DOY     TEMP  TMIN  TMAX     RHUM  RAIN     LAT      LON
+#>        <IDat> <int>    <num> <num> <num>    <num> <num>   <num>    <num>
+#> 1: 2000-06-30   182 26.83750  24.6  30.1 90.00000  10.2 14.1652 121.2465
+#> 2: 2000-07-01   183 26.56250  24.9  29.8 88.66667  42.4 14.1652 121.2465
+#> 3: 2000-07-02   184 26.30000  24.7  29.3 91.08333  26.2 14.1652 121.2465
+#> 4: 2000-07-03   185 26.29167  24.9  29.0 90.75000  25.7 14.1652 121.2465
+#> 5: 2000-07-04   186 25.69583  25.1  26.7 93.04167  42.9 14.1652 121.2465
+#> 6: 2000-07-05   187 26.28333  25.5  28.7 90.83333  31.9 14.1652 121.2465
 ```
