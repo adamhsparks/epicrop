@@ -54,6 +54,13 @@
       "givenName": "Kwang-Hyung",
       "familyName": "Kim",
       "email": "sospicy77@gmail.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Emerson",
+      "familyName": "Del Ponte",
+      "email": "delponte@ufv.br",
+      "@id": "https://orcid.org/0000-0003-4398-409X"
     }
   ],
   "contributor": [
@@ -62,13 +69,6 @@
       "givenName": "Aji",
       "familyName": "Sukarta",
       "email": "aji.ixb@gmail.com"
-    },
-    {
-      "@type": "Person",
-      "givenName": "Emerson",
-      "familyName": "Del Ponte",
-      "email": "delponte@ufv.br",
-      "@id": "https://orcid.org/0000-0003-4398-409X"
     },
     {
       "@type": "Person",
@@ -330,6 +330,18 @@
     },
     "5": {
       "@type": "SoftwareApplication",
+      "identifier": "httr2",
+      "name": "httr2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=httr2"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
       "identifier": "memoise",
       "name": "memoise",
       "provider": {
@@ -340,7 +352,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "nasapower",
       "name": "nasapower",
@@ -353,7 +365,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=nasapower"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -365,11 +377,23 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
+    "9": {
+      "@type": "SoftwareApplication",
+      "identifier": "yyjsonr",
+      "name": "yyjsonr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=yyjsonr"
+    },
     "SystemRequirements": null
   },
   "applicationCategory": "Tools",
   "keywords": ["rice", "wheat", "botanical-epidemiology", "disease", "model", "seir", "agricultural-modelling", "agricultural-modeling", "crop-protection", "agricultural-research", "model", "modelling", "modeling", "seir-model", "plant-disease"],
-  "fileSize": "1671.505KB",
+  "fileSize": "1108.091KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
