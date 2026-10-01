@@ -1,14 +1,16 @@
-# Fetch Daily Weather from ERA5 via Open-Meteo
+# Fetch Daily Weather from ERA5-Land via Open-Meteo
 
-Downloads hourly ERA5 data from the Open-Meteo Archive API and
+Downloads hourly ERA5-Land data from the Open-Meteo Archive API and
 aggregates it to daily values matching the columns of the POWER-derived
 output:
 
 - `TEMP`: mean of hourly `temperature_2m`
 
-- `TMIN`/`TMAX`: min/max of hourly `temperature_2m`
+- `TMIN`/`TMAX`: min/max of hourly \`temperature_2m
 
-- `RHUM`: mean of hourly `relative_humidity_2m`
+- `RHUM`: mean of hourly relative humidity derived from `temperature_2m`
+  and `dewpoint_2m` with
+  [`.rh_from_dewpoint()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-rh_from_dewpoint.md).
 
 - `RAIN`: sum of hourly `precipitation`
 

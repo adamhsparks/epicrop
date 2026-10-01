@@ -2,9 +2,9 @@
 
 Determines the end date for weather retrieval using either:
 
-1.  An explicit end date (from `dates` vector), or
+1.  A `duration` (inclusive days from `start`), or
 
-2.  Duration calculation (start + duration)
+2.  An explicit end date (from the `dates` vector)
 
 ## Usage
 
@@ -32,7 +32,7 @@ Date object representing the end date (inclusive).
 
 ## Details
 
-Duration interpretation: `end = start + duration` means the window spans
+Duration is inclusive: `end = start + duration - 1`, so the window spans
 exactly `duration` days.
 
 Example: start = 2000-06-30, duration = 3 gives end = 2000-07-02 (June
@@ -42,7 +42,7 @@ Example: start = 2000-06-30, duration = 3 gives end = 2000-07-02 (June
 
 Priority order:
 
-1.  If `duration` is provided (not NULL), use start + duration
+1.  If `duration` is provided (not NULL), use `start + duration - 1`
 
 2.  Else if `dates` has length \>= 2, use `dates[2]` as end
 

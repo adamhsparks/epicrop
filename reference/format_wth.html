@@ -288,7 +288,7 @@ the following columns (in order):</p><table class="table table"><tr><td><strong>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Subset to June-July only</span></span></span>
-<span class="r-in"><span><span class="va">wth_subset</span> <span class="op">&lt;-</span> <span class="va">wth_full</span><span class="op">[</span><span class="fu">month</span><span class="op">(</span><span class="va">YYYYMMDD</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">6</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">wth_subset</span> <span class="op">&lt;-</span> <span class="va">wth_full</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/IDateTime.html" class="external-link">month</a></span><span class="op">(</span><span class="va">YYYYMMDD</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">6</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in month(YYYYMMDD):</span> could not find function "month"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Re-validate formatting</span></span></span>

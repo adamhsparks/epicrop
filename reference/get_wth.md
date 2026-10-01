@@ -1,8 +1,8 @@
 # Get Weather Data for Disease Modelling
 
-\#' Retrieves daily weather data from either the NASA POWER database or
-ERA5 reanalysis (via the Open-Meteo Archive API) and formats it for use
-in
+Retrieves daily weather data from either the NASA POWER database or
+ERA5-Land reanalysis (via the Open-Meteo Archive API) and formats it for
+use in
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
 and epicrop disease models.
 
@@ -28,8 +28,8 @@ get_wth(lonlat, dates, duration = NULL, source = c("power", "era5"))
 
   - Length 1: Use with `duration` parameter
 
-  - Length 2+: First is start, second is end; `duration` parameter
-    ignored
+  - Length 2+: First is start, second is end (used only if `duration` is
+    not supplied)
 
 - duration:
 
@@ -40,8 +40,8 @@ get_wth(lonlat, dates, duration = NULL, source = c("power", "era5"))
 
 - source:
 
-  Character. Weather data source, one of `"power"` (default) or
-  `"era5"`.
+  Character. Weather data source, one of `"power"` (default) or `"era5"`
+  (ERA5-Land).
 
 ## Value
 
@@ -74,16 +74,19 @@ and other disease models.
   [`nasapower::get_power()`](https://docs.ropensci.org/nasapower/reference/get_power.html),
   global daily data from 1984 onwards at 0.5-degree resolution.
 
-- `"era5"`: ERA5 reanalysis via the Open-Meteo Archive API
-  (<https://open-meteo.com/en/docs/historical-weather-api>). Hourly
-  values are aggregated to daily values (mean/min/max temperature, mean
-  relative humidity, total precipitation) by local calendar day so that
-  the output matches the POWER-derived columns exactly. ERA5 data are
-  typically available with a lag of a few days.
+- `"era5"`: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo
+  Archive API (<https://open-meteo.com/en/docs/historical-weather-api>).
+  Hourly values are aggregated to daily values (mean/min/max
+  temperature, mean relative humidity, total precipitation) by local
+  calendar day so that the output matches the POWER-derived columns
+  exactly. ERA5-Land data are typically available with a lag of a few
+  days. ERA5-Land relative humidity is derived from hourly 2m
+  temperature and dew point using the Magnus form of Alduchov and
+  Eskridge (1996).
 
 Both sources are modelled/reanalysis products and may differ from local
-weather station observations. Note that ERA5 precipitation is not the
-same quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall
+weather station observations. Note that ERA5-Land precipitation is not
+the same quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall
 totals will differ between sources.
 
 ## Retrieved Variables
@@ -121,12 +124,21 @@ For example, `duration = 120` starting on June 30 ends on October 27
 
 NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide
 Energy Resource. Funded by NASA's Applied Science Program.
-https://power.larc.nasa.gov/ Hersbach, H. et al. (2020). The ERA5 global
-reanalysis. *Quarterly Journal of the Royal Meteorological Society*,
-146, 1999-2049. [doi:10.1002/qj.3803](https://doi.org/10.1002/qj.3803)
+https://power.larc.nasa.gov/.
+
+Muñoz-Sabater, J. et al. (2021). ERA5-Land: a state-of-the-art global
+reanalysis dataset for land applications. Earth System Science Data, 13,
+4349-4383.
+[doi:10.5194/essd-13-4349-2021](https://doi.org/10.5194/essd-13-4349-2021)
+.
+
+Alduchov, O. A. and Eskridge, R. E. (1996). Improved Magnus form
+approximation of saturation vapor pressure. *Journal of Applied
+Meteorology and Climatology*, 35(4), 601-609.
+[doi:10.1175/1520-0450(1996)035\<0601:IMFAOS\>2.0.CO;2](https://doi.org/10.1175/1520-0450%281996%29035%3C0601%3AIMFAOS%3E2.0.CO%3B2)
 
 Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia,
-S. D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and
+S. D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and
 Epidemiology in R: Disease Progress over Time. *The Plant Health
 Instructor*.
 [doi:10.1094/PHI-A-2008-0129-02](https://doi.org/10.1094/PHI-A-2008-0129-02)
@@ -134,8 +146,8 @@ Instructor*.
 
 ## Author
 
-Adam H. Sparks, <adamhsparks@gmail.com> with era5 support adapted from
-code by Emerson M. Del Ponte <delponte@ufv.br> from the
+Adam H. Sparks, <adamhsparks@gmail.com> with ERA5-Land support adapted
+from code by Emerson M. Del Ponte <delponte@ufv.br> from the
 [r4pde](https://CRAN.R-project.org/package=r4pde).
 
 ## Examples
@@ -303,7 +315,7 @@ dates = "2000-06-30"  # No end date or duration
 # Error: Provide dates as c(start, end) or supply duration
 } # }
 # Example 8: era5 data
-# Get ERA5 data in the same format as POWER
+# Get ERA5-Land data in the same format as POWER
 wth_era5 <- get_wth(
   lonlat = c(121.255669, 14.167425),
   dates = "2000-06-30",

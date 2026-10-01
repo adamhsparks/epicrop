@@ -6,12 +6,12 @@
     }
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Resolve End Date from Duration or Explicit End Date — .resolve_end_date"><meta name="description" content="Determines the end date for weather retrieval using either:
-An explicit end date (from dates vector), or
-Duration calculation (start + duration)
+A duration (inclusive days from start), or
+An explicit end date (from the dates vector)
 
 "><meta property="og:description" content="Determines the end date for weather retrieval using either:
-An explicit end date (from dates vector), or
-Duration calculation (start + duration)
+A duration (inclusive days from start), or
+An explicit end date (from the dates vector)
 
 "><meta property="og:image" content="https://adamhsparks.codeberg.page/epicrop/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -53,8 +53,8 @@ Duration calculation (start + duration)
     </div>
 
     <div class="ref-description section level2">
-    <p>Determines the end date for weather retrieval using either:</p><ol><li><p>An explicit end date (from <code>dates</code> vector), or</p></li>
-<li><p>Duration calculation (start + duration)</p></li>
+    <p>Determines the end date for weather retrieval using either:</p><ol><li><p>A <code>duration</code> (inclusive days from <code>start</code>), or</p></li>
+<li><p>An explicit end date (from the <code>dates</code> vector)</p></li>
 </ol></div>
 
     <div class="section level2">
@@ -84,7 +84,7 @@ Duration calculation (start + duration)
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Duration interpretation: <code>end = start + duration</code> means the window spans
+    <p>Duration is inclusive: <code>end = start + duration - 1</code>, so the window spans
 exactly <code>duration</code> days.</p>
 <p>Example: start = 2000-06-30, duration = 3 gives end = 2000-07-02 (June 30,
 July 1, July 2 = 3 days total)</p>
@@ -94,7 +94,7 @@ July 1, July 2 = 3 days total)</p>
 
 
 
-<p>Priority order:</p><ol><li><p>If <code>duration</code> is provided (not NULL), use start + duration</p></li>
+<p>Priority order:</p><ol><li><p>If <code>duration</code> is provided (not NULL), use <code>start + duration - 1</code></p></li>
 <li><p>Else if <code>dates</code> has length &gt;= 2, use <code>dates[2]</code> as end</p></li>
 <li><p>Else abort (neither duration nor end date provided)</p></li>
 </ol></div>

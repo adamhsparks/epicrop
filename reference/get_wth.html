@@ -5,9 +5,9 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Get Weather Data for Disease Modelling — get_wth"><meta name="description" content="#' Retrieves daily weather data from either the NASA POWER database or ERA5
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Get Weather Data for Disease Modelling — get_wth"><meta name="description" content="Retrieves daily weather data from either the NASA POWER database or ERA5-Land
 reanalysis (via the Open-Meteo Archive API) and formats it for use in
-seir() and epicrop disease models."><meta property="og:description" content="#' Retrieves daily weather data from either the NASA POWER database or ERA5
+seir() and epicrop disease models."><meta property="og:description" content="Retrieves daily weather data from either the NASA POWER database or ERA5-Land
 reanalysis (via the Open-Meteo Archive API) and formats it for use in
 seir() and epicrop disease models."><meta property="og:image" content="https://adamhsparks.codeberg.page/epicrop/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -49,7 +49,7 @@ seir() and epicrop disease models."><meta property="og:image" content="https://a
     </div>
 
     <div class="ref-description section level2">
-    <p>#' Retrieves daily weather data from either the NASA POWER database or ERA5
+    <p>Retrieves daily weather data from either the NASA POWER database or ERA5-Land
 reanalysis (via the Open-Meteo Archive API) and formats it for use in
 <code><a href="seir.html">seir()</a></code> and <span class="pkg">epicrop</span> disease models.</p>
     </div>
@@ -72,7 +72,7 @@ Longitude: -180 to 180 degrees (West/East) Latitude: -90 to 90 degrees
 <dt id="arg-dates">dates<a class="anchor" aria-label="anchor" href="#arg-dates"></a></dt>
 <dd><p>Character vector of start date and optional end date, or
 character scalar start date. Format: <code>"YYYY-MM-DD"</code> (ISO 8601).</p><ul><li><p>Length 1: Use with <code>duration</code> parameter</p></li>
-<li><p>Length 2+: First is start, second is end; <code>duration</code> parameter ignored</p></li>
+<li><p>Length 2+: First is start, second is end (used only if <code>duration</code> is not supplied)</p></li>
 </ul></dd>
 
 
@@ -85,7 +85,7 @@ error is raised.</p></dd>
 
 <dt id="arg-source">source<a class="anchor" aria-label="anchor" href="#arg-source"></a></dt>
 <dd><p>Character. Weather data source, one of <code>"power"</code> (default) or
-<code>"era5"</code>.</p></dd>
+<code>"era5"</code> (ERA5-Land).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -100,16 +100,18 @@ other disease models.</p>
 
 <ul><li><p><code>"power"</code> (default): NASA POWER via <code><a href="https://docs.ropensci.org/nasapower/reference/get_power.html" class="external-link">nasapower::get_power()</a></code>, global daily
 data from 1984 onwards at 0.5-degree resolution.</p></li>
-<li><p><code>"era5"</code>: ERA5 reanalysis via the Open-Meteo Archive API
+<li><p><code>"era5"</code>: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo Archive API
 (<a href="https://open-meteo.com/en/docs/historical-weather-api" class="external-link">https://open-meteo.com/en/docs/historical-weather-api</a>). Hourly values
 are aggregated to daily values (mean/min/max temperature, mean relative
 humidity, total precipitation) by local calendar day so that the output
-matches the POWER-derived columns exactly. ERA5 data are typically
-available with a lag of a few days.</p></li>
+matches the POWER-derived columns exactly. ERA5-Land data are typically
+available with a lag of a few days. ERA5-Land relative humidity is derived
+from hourly 2m temperature and dew point using the Magnus form of
+Alduchov and Eskridge (1996).</p></li>
 </ul><p>Both sources are modelled/reanalysis products and may differ from local
-weather station observations. Note that ERA5 precipitation is not the same
-quantity as POWER's bias-corrected <code>PRECTOTCORR</code>, so rainfall totals will
-differ between sources.</p>
+weather station observations. Note that ERA5-Land precipitation is not the
+same quantity as POWER's bias-corrected <code>PRECTOTCORR</code>, so rainfall totals
+will differ between sources.</p>
     </div>
     <div class="section level2">
     <h2 id="retrieved-variables">Retrieved Variables<a class="anchor" aria-label="anchor" href="#retrieved-variables"></a></h2>
@@ -139,19 +141,25 @@ total).</p>
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide Energy
 Resource. Funded by NASA's Applied Science Program.
-https://power.larc.nasa.gov/ Hersbach, H. et al. (2020). The ERA5 global
-reanalysis. <em>Quarterly Journal of the Royal Meteorological Society</em>, 146,
-1999-2049. <a href="https://doi.org/10.1002/qj.3803" class="external-link">doi:10.1002/qj.3803</a></p>
+https://power.larc.nasa.gov/.</p>
+<p>Muñoz-Sabater, J. et al. (2021). ERA5-Land: a state-of-the-art global
+reanalysis dataset for land applications. Earth System Science Data, 13,
+4349-4383. <a href="https://doi.org/10.5194/essd-13-4349-2021" class="external-link">doi:10.5194/essd-13-4349-2021</a>
+.</p>
+<p>Alduchov, O. A. and Eskridge, R. E. (1996). Improved Magnus form
+approximation of saturation vapor pressure. <em>Journal of Applied Meteorology
+and Climatology</em>, 35(4), 601-609.
+<a href="https://doi.org/10.1175/1520-0450%281996%29035%3C0601%3AIMFAOS%3E2.0.CO%3B2" class="external-link">doi:10.1175/1520-0450(1996)035&lt;0601:IMFAOS&gt;2.0.CO;2</a></p>
 <p>Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
-D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and Epidemiology in R:
-Disease Progress over Time. <em>The Plant Health Instructor</em>.
+D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
+R: Disease Progress over Time. <em>The Plant Health Instructor</em>.
 <a href="https://doi.org/10.1094/PHI-A-2008-0129-02" class="external-link">doi:10.1094/PHI-A-2008-0129-02</a>
 .</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Adam H. Sparks, <a href="mailto:adamhsparks@gmail.com">adamhsparks@gmail.com</a> with era5 support adapted from
-code by Emerson M. Del Ponte <a href="mailto:delponte@ufv.br">delponte@ufv.br</a> from the
+    <p>Adam H. Sparks, <a href="mailto:adamhsparks@gmail.com">adamhsparks@gmail.com</a> with ERA5-Land support adapted
+from code by Emerson M. Del Ponte <a href="mailto:delponte@ufv.br">delponte@ufv.br</a> from the
 <a href="https://CRAN.R-project.org/package=r4pde" class="external-link"><span class="pkg">r4pde</span></a>.</p>
     </div>
 
@@ -319,7 +327,7 @@ code by Emerson M. Del Ponte <a href="mailto:delponte@ufv.br">delponte@ufv.br</a
 <span class="r-in"><span><span class="co"># Error: Provide dates as c(start, end) or supply duration</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># Example 8: era5 data</span></span></span>
-<span class="r-in"><span><span class="co"># Get ERA5 data in the same format as POWER</span></span></span>
+<span class="r-in"><span><span class="co"># Get ERA5-Land data in the same format as POWER</span></span></span>
 <span class="r-in"><span><span class="va">wth_era5</span> <span class="op">&lt;-</span> <span class="fu">get_wth</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.167425</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dates <span class="op">=</span> <span class="st">"2000-06-30"</span>,</span></span>
