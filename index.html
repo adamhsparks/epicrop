@@ -72,7 +72,7 @@
 </div>
 <!-- badges: start -->
 
-<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package. This package provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and ERA5-Land data (built in courtesy of Emerson Del Ponte) via <a href="https://open-meteo.com/en/docs/historical-weather-api" class="external-link">Open-Meteo</a> and predict disease intensity of five rice and two wheat diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code><a href="reference/seir.html">seir()</a></code>.</p>
+<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package. This package provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and ERA5-Land data (Muñoz-Sabater et al. 2021) (built in courtesy of Emerson Del Ponte) via <a href="https://open-meteo.com/en/docs/historical-weather-api" class="external-link">Open-Meteo</a> and predict disease intensity of five rice and two wheat diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code><a href="reference/seir.html">seir()</a></code>.</p>
 <p>This package fully implements the EPIRICE model first published in Savary <em>et al.</em> (2012), which introduces the model and uses it to model global epidemics of rice diseases illustrating the risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro disease. Additional models included for rice are adapted from Kim <em>et al.</em> (2015) for rice sheath blight and leaf blast. The EPIWHEAT model first published in Savary <em>et al.</em> (2015) that was used to model potential epidemics of two wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.</p>
 <p>The modern core of <code><a href="reference/seir.html">seir()</a></code> in {epicrop} uses a different numerical integration approach than the legacy <code>SEIR()</code> in {cropsim}. While both implement the canonical SEIR formula (diseased = latent + infectious + removed), the modern version uses cumulative delay windows instead of forward Euler integration. This results in different dynamics and typically lower AUDPC values. Additionally, the modern <code><a href="reference/seir.html">seir()</a></code> is 1-indexed (standard R convention) while the legacy <code>SEIR()</code> is 0-indexed (as in the original EPIRICE publication by Savary <em>et al.</em> 2012).</p>
 <p>Scripts are available in <code>inst</code> that benchmark and validate this version against the original EPIRICE. As the original EPIWHEAT code is not available, no such comparisons are possible. I have recreated this as closely as possible to the original, while fixing minor bugs and implementing more efficient routines. In benchmarking this iteration is up to 57% faster in seasonal disease calculations than the original EPIRICE. This varies by OS and hardware, but the gains should be notable across large datasets, <em>e.g.</em>, several years of global data as in Savary <em>et al.</em> 2012.</p>
@@ -119,32 +119,32 @@
 <span><span class="va">wth</span></span>
 <span><span class="co">#&gt; $power</span></span>
 <span><span class="co">#&gt; Key: &lt;YYYYMMDD&gt;</span></span>
-<span><span class="co">#&gt;        YYYYMMDD   DOY  TEMP  TMIN  TMAX</span></span>
-<span><span class="co">#&gt;          &lt;IDat&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1: 2000-07-01   183 25.29 23.86 27.78</span></span>
-<span><span class="co">#&gt;   2: 2000-07-02   184 26.13 23.54 29.90</span></span>
-<span><span class="co">#&gt;   3: 2000-07-03   185 25.50 24.28 27.23</span></span>
-<span><span class="co">#&gt;   4: 2000-07-04   186 25.81 24.50 27.56</span></span>
-<span><span class="co">#&gt;   5: 2000-07-05   187 25.97 25.13 27.40</span></span>
-<span><span class="co">#&gt;  ---                                   </span></span>
-<span><span class="co">#&gt; 116: 2000-10-24   298 25.81 23.54 29.72</span></span>
-<span><span class="co">#&gt; 117: 2000-10-25   299 25.82 23.44 29.54</span></span>
-<span><span class="co">#&gt; 118: 2000-10-26   300 25.44 24.14 26.99</span></span>
-<span><span class="co">#&gt; 119: 2000-10-27   301 25.74 24.54 27.69</span></span>
-<span><span class="co">#&gt; 120: 2000-10-28   302 25.44 24.72 26.62</span></span>
-<span><span class="co">#&gt;       RHUM  RAIN     LAT      LON</span></span>
-<span><span class="co">#&gt;      &lt;num&gt; &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1: 92.20 23.12 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   2: 86.01 17.34 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   3: 94.16 29.08 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   4: 92.42 13.01 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;   5: 92.34 32.20 14.6774 121.2556</span></span>
-<span><span class="co">#&gt;  ---                             </span></span>
-<span><span class="co">#&gt; 116: 87.65  2.76 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 117: 89.76 12.04 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 118: 94.93 13.03 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 119: 91.43 11.54 14.6774 121.2556</span></span>
-<span><span class="co">#&gt; 120: 91.90 74.20 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM</span></span>
+<span><span class="co">#&gt;          &lt;IDat&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1: 2000-07-01   183 25.29 23.86 27.78 92.20</span></span>
+<span><span class="co">#&gt;   2: 2000-07-02   184 26.13 23.54 29.90 86.01</span></span>
+<span><span class="co">#&gt;   3: 2000-07-03   185 25.50 24.28 27.23 94.16</span></span>
+<span><span class="co">#&gt;   4: 2000-07-04   186 25.81 24.50 27.56 92.42</span></span>
+<span><span class="co">#&gt;   5: 2000-07-05   187 25.97 25.13 27.40 92.34</span></span>
+<span><span class="co">#&gt;  ---                                         </span></span>
+<span><span class="co">#&gt; 116: 2000-10-24   298 25.81 23.54 29.72 87.65</span></span>
+<span><span class="co">#&gt; 117: 2000-10-25   299 25.82 23.44 29.54 89.76</span></span>
+<span><span class="co">#&gt; 118: 2000-10-26   300 25.44 24.14 26.99 94.93</span></span>
+<span><span class="co">#&gt; 119: 2000-10-27   301 25.74 24.54 27.69 91.43</span></span>
+<span><span class="co">#&gt; 120: 2000-10-28   302 25.44 24.72 26.62 91.90</span></span>
+<span><span class="co">#&gt;       RAIN     LAT      LON</span></span>
+<span><span class="co">#&gt;      &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1: 23.12 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   2: 17.34 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   3: 29.08 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   4: 13.01 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   5: 32.20 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;  ---                       </span></span>
+<span><span class="co">#&gt; 116:  2.76 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 117: 12.04 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 118: 13.03 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 119: 11.54 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 120: 74.20 14.6774 121.2556</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $era5</span></span>
 <span><span class="co">#&gt; Key: &lt;YYYYMMDD&gt;</span></span>
@@ -210,45 +210,32 @@
 <span><span class="co">#&gt; 118:   309.2779 1491.340 2755.012575       0</span></span>
 <span><span class="co">#&gt; 119:   266.3860 1534.232 2791.854071       0</span></span>
 <span><span class="co">#&gt; 120:   229.5445 1571.073 2824.358958       0</span></span>
-<span><span class="co">#&gt;       rlex rtransfer rremoved  rgrowth</span></span>
-<span><span class="co">#&gt;      &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:     0         0  0.00000  9.68750</span></span>
-<span><span class="co">#&gt;   2:     0         0  0.00000 10.49959</span></span>
-<span><span class="co">#&gt;   3:     0         0  0.00000 11.37416</span></span>
-<span><span class="co">#&gt;   4:     0         0  0.00000 12.31499</span></span>
-<span><span class="co">#&gt;   5:     0         0  0.00000 13.32593</span></span>
-<span><span class="co">#&gt;  ---                                  </span></span>
-<span><span class="co">#&gt; 116:     0         0 43.67864  0.00000</span></span>
-<span><span class="co">#&gt; 117:     0         0 39.69181  0.00000</span></span>
-<span><span class="co">#&gt; 118:     0         0 47.08304  0.00000</span></span>
-<span><span class="co">#&gt; 119:     0         0 42.89198  0.00000</span></span>
-<span><span class="co">#&gt; 120:     0         0 36.84150  0.00000</span></span>
-<span><span class="co">#&gt;      rsenesced diseased intensity     lat</span></span>
-<span><span class="co">#&gt;          &lt;num&gt;    &lt;num&gt;     &lt;num&gt;   &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:  1.000000    0.000         0 14.6774</span></span>
-<span><span class="co">#&gt;   2:  1.086875    0.000         0 14.6774</span></span>
-<span><span class="co">#&gt;   3:  1.181002    0.000         0 14.6774</span></span>
-<span><span class="co">#&gt;   4:  1.282934    0.000         0 14.6774</span></span>
-<span><span class="co">#&gt;   5:  1.393254    0.000         0 14.6774</span></span>
-<span><span class="co">#&gt;  ---                                     </span></span>
-<span><span class="co">#&gt; 116: 39.691810 1800.618         1 14.6774</span></span>
-<span><span class="co">#&gt; 117: 47.083039 1800.618         1 14.6774</span></span>
-<span><span class="co">#&gt; 118: 42.891982 1800.618         1 14.6774</span></span>
-<span><span class="co">#&gt; 119: 36.841497 1800.618         1 14.6774</span></span>
-<span><span class="co">#&gt; 120: 32.504887 1800.618         1 14.6774</span></span>
-<span><span class="co">#&gt;           lon</span></span>
-<span><span class="co">#&gt;         &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1: 121.2556</span></span>
-<span><span class="co">#&gt;   2: 121.2556</span></span>
-<span><span class="co">#&gt;   3: 121.2556</span></span>
-<span><span class="co">#&gt;   4: 121.2556</span></span>
-<span><span class="co">#&gt;   5: 121.2556</span></span>
-<span><span class="co">#&gt;  ---         </span></span>
-<span><span class="co">#&gt; 116: 121.2556</span></span>
-<span><span class="co">#&gt; 117: 121.2556</span></span>
-<span><span class="co">#&gt; 118: 121.2556</span></span>
-<span><span class="co">#&gt; 119: 121.2556</span></span>
-<span><span class="co">#&gt; 120: 121.2556</span></span>
+<span><span class="co">#&gt;       rlex rtransfer rremoved  rgrowth rsenesced</span></span>
+<span><span class="co">#&gt;      &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:     0         0  0.00000  9.68750  1.000000</span></span>
+<span><span class="co">#&gt;   2:     0         0  0.00000 10.49959  1.086875</span></span>
+<span><span class="co">#&gt;   3:     0         0  0.00000 11.37416  1.181002</span></span>
+<span><span class="co">#&gt;   4:     0         0  0.00000 12.31499  1.282934</span></span>
+<span><span class="co">#&gt;   5:     0         0  0.00000 13.32593  1.393254</span></span>
+<span><span class="co">#&gt;  ---                                            </span></span>
+<span><span class="co">#&gt; 116:     0         0 43.67864  0.00000 39.691810</span></span>
+<span><span class="co">#&gt; 117:     0         0 39.69181  0.00000 47.083039</span></span>
+<span><span class="co">#&gt; 118:     0         0 47.08304  0.00000 42.891982</span></span>
+<span><span class="co">#&gt; 119:     0         0 42.89198  0.00000 36.841497</span></span>
+<span><span class="co">#&gt; 120:     0         0 36.84150  0.00000 32.504887</span></span>
+<span><span class="co">#&gt;      diseased intensity     lat      lon</span></span>
+<span><span class="co">#&gt;         &lt;num&gt;     &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   2:    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   3:    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   4:    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   5:    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;  ---                                    </span></span>
+<span><span class="co">#&gt; 116: 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 117: 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 118: 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 119: 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 120: 1800.618         1 14.6774 121.2556</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $era5</span></span>
 <span><span class="co">#&gt;      simday      dates    sites latent</span></span>
@@ -277,45 +264,32 @@
 <span><span class="co">#&gt; 118:   76.27393 1653.217 2639.222092       0</span></span>
 <span><span class="co">#&gt; 119:   76.27393 1653.217 2639.222092       0</span></span>
 <span><span class="co">#&gt; 120:   76.27393 1653.217 2639.222092       0</span></span>
-<span><span class="co">#&gt;       rlex rtransfer rremoved  rgrowth</span></span>
-<span><span class="co">#&gt;      &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:     0         0  0.00000  9.68750</span></span>
-<span><span class="co">#&gt;   2:     0         0  0.00000 10.49959</span></span>
-<span><span class="co">#&gt;   3:     0         0  0.00000 11.37416</span></span>
-<span><span class="co">#&gt;   4:     0         0  0.00000 12.31499</span></span>
-<span><span class="co">#&gt;   5:     0         0  0.00000 13.32593</span></span>
-<span><span class="co">#&gt;  ---                                  </span></span>
-<span><span class="co">#&gt; 116:     0         0 26.44418  0.00000</span></span>
-<span><span class="co">#&gt; 117:     0         0 25.45221  0.00000</span></span>
-<span><span class="co">#&gt; 118:     0         0  0.00000  0.00000</span></span>
-<span><span class="co">#&gt; 119:     0         0  0.00000  0.00000</span></span>
-<span><span class="co">#&gt; 120:     0         0  0.00000  0.00000</span></span>
-<span><span class="co">#&gt;      rsenesced diseased intensity      lat</span></span>
-<span><span class="co">#&gt;          &lt;num&gt;    &lt;num&gt;     &lt;num&gt;    &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1:  1.000000    0.000         0 14.65729</span></span>
-<span><span class="co">#&gt;   2:  1.086875    0.000         0 14.65729</span></span>
-<span><span class="co">#&gt;   3:  1.181002    0.000         0 14.65729</span></span>
-<span><span class="co">#&gt;   4:  1.282934    0.000         0 14.65729</span></span>
-<span><span class="co">#&gt;   5:  1.393254    0.000         0 14.65729</span></span>
-<span><span class="co">#&gt;  ---                                      </span></span>
-<span><span class="co">#&gt; 116: 25.452212 1729.491         1 14.65729</span></span>
-<span><span class="co">#&gt; 117:  0.000000 1729.491         1 14.65729</span></span>
-<span><span class="co">#&gt; 118:  0.000000 1729.491         1 14.65729</span></span>
-<span><span class="co">#&gt; 119:  0.000000 1729.491         1 14.65729</span></span>
-<span><span class="co">#&gt; 120:  0.000000 1729.491         1 14.65729</span></span>
-<span><span class="co">#&gt;           lon</span></span>
-<span><span class="co">#&gt;         &lt;num&gt;</span></span>
-<span><span class="co">#&gt;   1: 121.2825</span></span>
-<span><span class="co">#&gt;   2: 121.2825</span></span>
-<span><span class="co">#&gt;   3: 121.2825</span></span>
-<span><span class="co">#&gt;   4: 121.2825</span></span>
-<span><span class="co">#&gt;   5: 121.2825</span></span>
-<span><span class="co">#&gt;  ---         </span></span>
-<span><span class="co">#&gt; 116: 121.2825</span></span>
-<span><span class="co">#&gt; 117: 121.2825</span></span>
-<span><span class="co">#&gt; 118: 121.2825</span></span>
-<span><span class="co">#&gt; 119: 121.2825</span></span>
-<span><span class="co">#&gt; 120: 121.2825</span></span></code></pre></div>
+<span><span class="co">#&gt;       rlex rtransfer rremoved  rgrowth rsenesced</span></span>
+<span><span class="co">#&gt;      &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;     &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:     0         0  0.00000  9.68750  1.000000</span></span>
+<span><span class="co">#&gt;   2:     0         0  0.00000 10.49959  1.086875</span></span>
+<span><span class="co">#&gt;   3:     0         0  0.00000 11.37416  1.181002</span></span>
+<span><span class="co">#&gt;   4:     0         0  0.00000 12.31499  1.282934</span></span>
+<span><span class="co">#&gt;   5:     0         0  0.00000 13.32593  1.393254</span></span>
+<span><span class="co">#&gt;  ---                                            </span></span>
+<span><span class="co">#&gt; 116:     0         0 26.44418  0.00000 25.452212</span></span>
+<span><span class="co">#&gt; 117:     0         0 25.45221  0.00000  0.000000</span></span>
+<span><span class="co">#&gt; 118:     0         0  0.00000  0.00000  0.000000</span></span>
+<span><span class="co">#&gt; 119:     0         0  0.00000  0.00000  0.000000</span></span>
+<span><span class="co">#&gt; 120:     0         0  0.00000  0.00000  0.000000</span></span>
+<span><span class="co">#&gt;      diseased intensity      lat      lon</span></span>
+<span><span class="co">#&gt;         &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:    0.000         0 14.65729 121.2825</span></span>
+<span><span class="co">#&gt;   2:    0.000         0 14.65729 121.2825</span></span>
+<span><span class="co">#&gt;   3:    0.000         0 14.65729 121.2825</span></span>
+<span><span class="co">#&gt;   4:    0.000         0 14.65729 121.2825</span></span>
+<span><span class="co">#&gt;   5:    0.000         0 14.65729 121.2825</span></span>
+<span><span class="co">#&gt;  ---                                     </span></span>
+<span><span class="co">#&gt; 116: 1729.491         1 14.65729 121.2825</span></span>
+<span><span class="co">#&gt; 117: 1729.491         1 14.65729 121.2825</span></span>
+<span><span class="co">#&gt; 118: 1729.491         1 14.65729 121.2825</span></span>
+<span><span class="co">#&gt; 119: 1729.491         1 14.65729 121.2825</span></span>
+<span><span class="co">#&gt; 120: 1729.491         1 14.65729 121.2825</span></span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -391,6 +365,7 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <p>François Brun, David Makowski, Daniel Wallach, and James W Jones. (2018). <em>ZeBook: Working with Dynamic Models for Agriculture and Environment</em>. DOI: <a href="https://doi.org/10.32614/CRAN.package.ZeBook" class="external-link">10.32614/CRAN.package.ZeBook</a> R package version 1.1, <a href="https://CRAN.R-project.org/package=ZeBook" class="external-link uri">https://CRAN.R-project.org/package=ZeBook</a>.</p>
 <p>Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015). Predicting potential epidemics of rice leaf blast and sheath blight in South Korea. <em>Agricultural and Forest Meteorology</em>, 203: 191-207. DOI: <a href="https://doi.org/10.1016/j.agrformet.2015.01.011" class="external-link">10.1016/j.agrformet.2015.01.011</a></p>
 <p>Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. <em>cropsim</em>. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.</p>
+<p>Joaquín Muñoz-Sabater, Emanuel Dutra, Anna Agustí-Panareda, Clément Albergel, Gabriele Arduini, Gianpaolo Balsamo, Souhail Boussetta, Margarita Choulga, Shaun Harrigan, Hans Hersbach, Brecht Martens, Diego G. Miralles, María Piles, Nemesio J. Rodríguez-Fernández, Ervin Zsoter, Carlo Buontempo, and Jean-Noël Thépaut (2021). ERA5-Land: a state-of-the-art global reanalysis dataset for land applications. Earth System Science Data, 13, 4349-4383. .</p>
 <p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009" class="external-link">10.1016/j.cropro.2011.11.009</a>.</p>
 <p>Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). <em>European Journal of Plant Pathology</em> 142, no. 4:771–90. DOI: <a href="https://doi.org/10.1007/s10658-015-0650-7" class="external-link">10.1007/s10658-015-0650-7</a>.</p>
 <p>Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. <em>Journal of Open Source Software</em>, 3(30), 1035, DOI: <a href="https://doi.org/10.21105/joss.01035" class="external-link">10.21105/joss.01035</a>.</p>
