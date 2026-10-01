@@ -8,7 +8,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![DOI](https://zenodo.org/badge/58613738.svg)](https://zenodo.org/badge/latestdoi/58613738) [![Code Coverage: 95.7%](https://img.shields.io/badge/code_coverage-95.7%25-green)](#code-coverage) [![CRAN status](https://www.r-pkg.org/badges/version/epicrop)](https://CRAN.R-project.org/package=epicrop) <!-- badges: end -->
 
 A fork of [{cropsim}](https://github.com/r-forge/cropsim/tree/master/pkg/cropsim) (Hijmans *et al.* 2009) designed to make using the EPIRICE model (Savary *et al.* 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package.
-This package provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018) and ERA5-Land data (built in courtesy of Emerson Del Ponte) via [Open-Meteo](https://open-meteo.com/en/docs/historical-weather-api) and predict disease intensity of five rice and two wheat diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, `seir()`.
+This package provides easy to use functions to fetch weather data from NASA POWER, via the [{nasapower}](https://cran.r-project.org/package=nasapower) package (Sparks 2018) and ERA5-Land data (Muñoz-Sabater et al. 2021) (built in courtesy of Emerson Del Ponte) via [Open-Meteo](https://open-meteo.com/en/docs/historical-weather-api) and predict disease intensity of five rice and two wheat diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, `seir()`.
 
 This package fully implements the EPIRICE model first published in Savary *et al.* (2012), which introduces the model and uses it to model global epidemics of rice diseases illustrating the risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro disease.
 Additional models included for rice are adapted from Kim *et al.* (2015) for rice sheath blight and leaf blast.
@@ -254,13 +254,6 @@ Lastly, you can visualise the result of the model run.
 ``` r
 library(ggplot2)
 library(data.table)
-#> data.table 1.18.6.1 using 4 threads (see ?getDTthreads).  Latest news: r-datatable.com
-#> 
-#> Attaching package: 'data.table'
-#> 
-#> The following object is masked from 'package:base':
-#> 
-#>     %notin%
 
 # use rbindlist from {data.table} to create a single df for plotting
 bb_sim <- rbindlist(bb_sim, idcol = "source")
