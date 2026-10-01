@@ -1,6 +1,6 @@
 #' Get Weather Data for Disease Modelling
 #'
-#' #' Retrieves daily weather data from either the NASA POWER database or ERA5
+#' Retrieves daily weather data from either the NASA POWER database or ERA5-Land
 #' reanalysis (via the Open-Meteo Archive API) and formats it for use in
 #' [seir()] and \pkg{epicrop} disease models.
 #'
@@ -8,17 +8,17 @@
 #'
 #' * `"power"` (default): NASA POWER via [nasapower::get_power()], global daily
 #'   data from 1984 onwards at 0.5-degree resolution.
-#' * `"era5"`: ERA5 reanalysis via the Open-Meteo Archive API
+#' * `"era5"`: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo Archive API
 #'   (<https://open-meteo.com/en/docs/historical-weather-api>). Hourly values
 #'   are aggregated to daily values (mean/min/max temperature, mean relative
 #'   humidity, total precipitation) by local calendar day so that the output
-#'   matches the POWER-derived columns exactly. ERA5 data are typically
+#'   matches the POWER-derived columns exactly. ERA5-Land data are typically
 #'   available with a lag of a few days.
 #'
 #' Both sources are modelled/reanalysis products and may differ from local
-#' weather station observations. Note that ERA5 precipitation is not the same
-#' quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall totals will
-#' differ between sources.
+#' weather station observations. Note that ERA5-Land precipitation is not the
+#' same quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall totals
+#' will differ between sources.
 #'
 #' @section Retrieved Variables:
 #'
@@ -49,15 +49,14 @@
 #' @param dates Character vector of start date and optional end date, or
 #'   character scalar start date. Format: `"YYYY-MM-DD"` (ISO 8601).
 #'   * Length 1: Use with `duration` parameter
-#'   * Length 2+: First is start, second is end; `duration` parameter ignored
-#'
+#'   * Length 2+: First is start, second is end (used only if `duration` is not supplied)
 #' @param duration Optional integer. Number of days to retrieve (inclusive). If
 #'   supplied, it takes precedence over any end date in `dates`. Must be
 #'   positive (`> 0`). If not provided and `dates` has only one element, an
 #'   error is raised.
 #'
 #' @param source Character. Weather data source, one of `"power"` (default) or
-#'   `"era5"`.
+#'   `"era5"` (ERA5-Land).
 #'
 #' @returns
 #' An `epicrop.wth` object ([data.table::data.table()] subclass) containing
@@ -222,7 +221,7 @@
 #' # Error: Provide dates as c(start, end) or supply duration
 #' }
 #' # Example 8: era5 data
-#' # Get ERA5 data in the same format as POWER
+#' # Get ERA5-Land data in the same format as POWER
 #' wth_era5 <- get_wth(
 #'   lonlat = c(121.255669, 14.167425),
 #'   dates = "2000-06-30",
@@ -234,18 +233,20 @@
 #' @references
 #' NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide Energy
 #' Resource. Funded by NASA's Applied Science Program.
-#' https://power.larc.nasa.gov/ Hersbach, H. et al. (2020). The ERA5 global
-#' reanalysis. *Quarterly Journal of the Royal Meteorological Society*, 146,
-#' 1999-2049. \doi{10.1002/qj.3803}
+#' https://power.larc.nasa.gov/.
+#'
+#' Muñoz-Sabater, J. et al. (2021). ERA5-Land: a state-of-the-art global
+#' reanalysis dataset for land applications. Earth System Science Data, 13,
+#' 4349-4383. \doi{10.5194/essd-13-4349-2021}.
 #'
 #' Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
-#' D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and Epidemiology in R:
-#' Disease Progress over Time. *The Plant Health Instructor*.
+#' D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
+#' R: Disease Progress over Time. *The Plant Health Instructor*.
 #' \doi{10.1094/PHI-A-2008-0129-02}.
 #'
 #' @author
-#' Adam H. Sparks, \email{adamhsparks@@gmail.com} with era5 support adapted from
-#' code by Emerson M. Del Ponte \email{delponte@@ufv.br} from the
+#' Adam H. Sparks, \email{adamhsparks@@gmail.com} with ERA5-Land support adapted
+#' from code by Emerson M. Del Ponte \email{delponte@@ufv.br} from the
 #' \CRANpkg{r4pde}.
 #' @autoglobal
 #' @export
@@ -301,10 +302,11 @@ get_wth <- function(
   .postprocess_wth(wth)
 }
 
-#' Fetch Daily Weather from ERA5 via Open-Meteo
+#' Fetch Daily Weather from ERA5-Land via Open-Meteo
 #'
-#' Downloads hourly ERA5 data from the Open-Meteo Archive API and aggregates it
-#' to daily values matching the columns of the POWER-derived output:
+#' Downloads hourly ERA5-Land data from the Open-Meteo Archive API and
+#' aggregates it to daily values matching the columns of the POWER-derived
+#' output:
 #' * `TEMP`: mean of hourly `temperature_2m`
 #' * `TMIN`/`TMAX`: min/max of hourly `temperature_2m`
 #' * `RHUM`: mean of hourly `relative_humidity_2m`
@@ -324,7 +326,8 @@ get_wth <- function(
       start_date = format(start, "%Y-%m-%d"),
       end_date = format(end, "%Y-%m-%d"),
       hourly = "temperature_2m,relative_humidity_2m,precipitation",
-      timezone = "auto"
+      timezone = "auto",
+      models = "era5_land"
     ) |>
     httr2::req_timeout(60) |>
     httr2::req_retry(max_tries = 3) |>
@@ -373,6 +376,13 @@ get_wth <- function(
     if (all(is.na(x))) NA_real_ else f(x, na.rm = TRUE)
   }
 
+  if (all(is.na(hourly$temperature_2m))) {
+    cli::cli_abort(c(
+      "ERA5-Land returned no data for this location.",
+      i = "ERA5-Land covers land areas only; coastal cells may be empty."
+    ))
+  }
+
   wth <- hourly[,
     .(
       TEMP = mean(temperature_2m, na.rm = TRUE),
@@ -398,7 +408,8 @@ get_wth <- function(
 #' Finalise an epicrop.wth Object
 #'
 #' Orders columns, sets the key on `YYYYMMDD` and adds the `epicrop.wth` class.
-#' Shared by the POWER and ERA5 code paths so both return identical structures.
+#' Shared by the POWER and ERA5-Land code paths so both return identical
+#' structures.
 #'
 #' @param wth data.table with epicrop-standard column names.
 #'
@@ -450,21 +461,16 @@ get_wth <- function(
   .as_epicrop_wth(wth)
 }
 
-.check_coord <- function(val, name, lo, hi) {
-  if (is.na(val) || val < lo || val > hi) {
-    cli::cli_abort("{name} must be in [{lo}, {hi}], got {val}.")
-  }
-}
 #' Resolve End Date from Duration or Explicit End Date
 #'
 #' Determines the end date for weather retrieval using either:
-#' 1. An explicit end date (from `dates` vector), or
-#' 2. Duration calculation (start + duration)
+#' 1. A `duration` (inclusive days from `start`), or
+#' 2. An explicit end date (from the `dates` vector)
 #'
 #' @section Logic:
 #'
 #' Priority order:
-#' 1. If `duration` is provided (not NULL), use start + duration
+#' 1. If `duration` is provided (not NULL), use `start + duration - 1`
 #' 2. Else if `dates` has length >= 2, use `dates[2]` as end
 #' 3. Else abort (neither duration nor end date provided)
 #'
@@ -475,7 +481,7 @@ get_wth <- function(
 #' @returns Date object representing the end date (inclusive).
 #'
 #' @details
-#' Duration interpretation: `end = start + duration` means the window spans
+#' Duration is inclusive: `end = start + duration - 1`, so the window spans
 #' exactly `duration` days.
 #'
 #' Example: start = 2000-06-30, duration = 3 gives end = 2000-07-02 (June 30,
@@ -495,7 +501,6 @@ get_wth <- function(
 #'
 #' @autoglobal
 #' @dev
-
 .resolve_end_date <- function(dates, start, duration) {
   if (!is.null(duration)) {
     if (!rlang::is_integerish(duration, finite = TRUE)) {
