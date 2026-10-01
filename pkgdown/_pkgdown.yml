@@ -3,6 +3,12 @@ template:
   params:
     bootswatch: lux
   math-rendering: mathjax
+  includes:
+    in_header: |
+      <style>
+        body { padding-top: 80px; }
+        html { scroll-padding-top: 90px; }
+      </style>
 url: https://adamhsparks.codeberg.page/epicrop/
 reference:
   - title: Helper Functions for Rice Disease Simulations
