@@ -20,8 +20,10 @@ aggregates it to daily values matching the columns of the POWER-derived
 output:
 \itemize{
 \item \code{TEMP}: mean of hourly \code{temperature_2m}
-\item \code{TMIN}/\code{TMAX}: min/max of hourly \code{temperature_2m}
-\item \code{RHUM}: mean of hourly \code{relative_humidity_2m}
+\item \code{TMIN}/\code{TMAX}: min/max of hourly `temperature_2m
+\item \code{RHUM}: mean of hourly relative humidity derived from
+\code{temperature_2m} and \code{dewpoint_2m} with
+\code{.rh_from_dewpoint()}.
 \item \code{RAIN}: sum of hourly \code{precipitation}
 }
 }

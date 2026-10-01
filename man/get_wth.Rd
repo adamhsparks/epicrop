@@ -60,7 +60,9 @@ data from 1984 onwards at 0.5-degree resolution.
 are aggregated to daily values (mean/min/max temperature, mean relative
 humidity, total precipitation) by local calendar day so that the output
 matches the POWER-derived columns exactly. ERA5-Land data are typically
-available with a lag of a few days.
+available with a lag of a few days. ERA5-Land relative humidity is derived
+from hourly 2m temperature and dew point using the Magnus form of
+Alduchov and Eskridge (1996).
 }
 
 Both sources are modelled/reanalysis products and may differ from local
@@ -262,6 +264,11 @@ https://power.larc.nasa.gov/.
 Muñoz-Sabater, J. et al. (2021). ERA5-Land: a state-of-the-art global
 reanalysis dataset for land applications. Earth System Science Data, 13,
 4349-4383. \doi{10.5194/essd-13-4349-2021}.
+
+Alduchov, O. A. and Eskridge, R. E. (1996). Improved Magnus form
+approximation of saturation vapor pressure. \emph{Journal of Applied Meteorology
+and Climatology}, 35(4), 601-609.
+\doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
 
 Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
 D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
