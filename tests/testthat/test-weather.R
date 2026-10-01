@@ -1,5 +1,3 @@
-# ---- get_wth(): POWER (vcr cassettes) ---------------------------------------
-
 test_that("get_wth works with basic inputs", {
   skip_on_cran()
   skip_if_offline()
@@ -22,9 +20,6 @@ test_that("get_wth works with duration parameter", {
   skip_on_cran()
   skip_if_offline()
 
-  # duration is inclusive: 2015-01-15 + 2 days spans 15th and 16th only.
-  # NOTE: the request end date changed (was 01-17), so delete
-  # tests/testthat/_vcr/get_wth_w_season.yml and re-record.
   vcr::use_cassette("get_wth_w_season", {
     wth_season <- get_wth(
       lonlat = c(151.81, -27.48),
@@ -118,7 +113,6 @@ test_that(".get_era5() aggregates hourly values to daily correctly", {
   expect_equal(wth_e$TEMP[1], 21.5)
   expect_equal(wth_e$TMIN[1], 10)
   expect_equal(wth_e$TMAX[1], 33)
-  expect_equal(wth_e$RHUM, c(80, 60, 70))
   expect_equal(wth_e$RAIN, c(10, 0, 0))
   expect_identical(wth_e$DOY, c(182L, 183L, 184L)) # 2000 is a leap year
 })
@@ -150,9 +144,10 @@ test_that(".get_era5() sends the expected request", {
     expect_match(req$url, "archive-api.open-meteo.com/v1/archive", fixed = TRUE)
     expect_match(req$url, "start_date=2000-06-30", fixed = TRUE)
     expect_match(req$url, "end_date=2000-07-02", fixed = TRUE)
+    expect_match(req$url, "models=era5_land", fixed = TRUE)
     expect_match(
       req$url,
-      "hourly=temperature_2m%2Crelative_humidity_2m%2Cprecipitation",
+      "hourly=temperature_2m%2Cdewpoint_2m%2Cprecipitation",
       fixed = TRUE
     )
     era5_response("era5-ok.json")
@@ -306,4 +301,14 @@ test_that("format_wth accepts consecutive daily data", {
   expect_s3_class(result, "epicrop.wth")
   expect_identical(nrow(result), 30L)
   expect_true(all(diff(result$YYYYMMDD) == 1))
+})
+
+test_that(".get_era5() derives RHUM from temperature and dew point", {
+  httr2::local_mocked_responses(\(req) era5_response("era5-ok.json"))
+
+  wth_e <- .get_era5(121.25, 14.19, era5_start, era5_end)
+
+  expect_equal(wth_e$RHUM[1], 100)
+  expect_equal(wth_e$RHUM[2], 52.5, tolerance = 0.005)
+  expect_true(is.na(wth_e$RHUM[3])) # is.na() is TRUE for NaN too
 })

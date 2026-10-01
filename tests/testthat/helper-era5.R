@@ -12,15 +12,16 @@
         sprintf("%02d", rep(0:23, 3)),
         ":00"
       )
+
       temp <- c(10:33, rep(20, 24), rep(NA, 24))
-      rh <- c(rep(80, 24), rep(60, 24), rep(70, 24))
+      dew <- c(10:33, rep(10, 24), rep(NA, 24))
       rain <- c(rep(0, 20), 1, 2, 3, 4, rep(0, 48))
 
       sprintf(
-        '{"latitude":14.1875,"longitude":121.25,"hourly":{"time":%s,"temperature_2m":%s,"relative_humidity_2m":%s,"precipitation":%s}}',
+        '{"latitude":14.1875,"longitude":121.25,"hourly":{"time":%s,"temperature_2m":%s,"dewpoint_2m":%s,"precipitation":%s}}',
         paste0("[\"", paste(times, collapse = "\",\""), "\"]"),
         arr(temp),
-        arr(rh),
+        arr(dew),
         arr(rain)
       )
     },
