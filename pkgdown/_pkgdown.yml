@@ -1,7 +1,7 @@
 template:
   bootstrap: 5
   params:
-    bootswatch: journal
+    bootswatch: lux
   math-rendering: mathjax
 url: https://adamhsparks.codeberg.page/epicrop/
 reference:
