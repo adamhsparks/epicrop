@@ -160,46 +160,20 @@ By contributing to this project, you agree to abide by its terms.
 
 # References
 
-François Brun, David Makowski, Daniel Wallach, and James W Jones.
-(2018).
-*ZeBook: Working with Dynamic Models for Agriculture and Environment*.
-DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
+François Brun, David Makowski, Daniel Wallach, and James W Jones. (2018). *ZeBook: Working with Dynamic Models for Agriculture and Environment*. DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
 
-Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee.
-(2015).
-Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
-*Agricultural and Forest Meteorology*, 203: 191-207.
-DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
+Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015). Predicting potential epidemics of rice leaf blast and sheath blight in South Korea. *Agricultural and Forest Meteorology*, 203: 191-207. DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
 
-Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
-*cropsim*.
-(2009).
-Simulation modeling of crops and their diseases.
-R package version 0.2-6.
+Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. *cropsim*. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.
 
-Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.
-(2012).
-Modeling and mapping potential epidemics of rice diseases globally.
-*Crop Protection*, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
+Joaquín Muñoz-Sabater, Emanuel Dutra, Anna Agustí-Panareda, Clément Albergel, Gabriele Arduini, Gianpaolo Balsamo, Souhail Boussetta, Margarita Choulga, Shaun Harrigan, Hans Hersbach, Brecht Martens, Diego G. Miralles, María Piles, Nemesio J. Rodríguez-Fernández, Ervin Zsoter, Carlo Buontempo, and Jean-Noël Thépaut (2021). ERA5-Land: a state-of-the-art global reanalysis dataset for land applications. Earth System Science Data, 13, 4349-4383. \doi{10.5194/essd-13-4349-2021}.
 
-Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet.
-Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT.
-(2015).
-*European Journal of Plant Pathology* 142, no.
-4:771--90.
-DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
+Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
-Adam Sparks.
-(2018).
-nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R.
-*Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
+Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). *European Journal of Plant Pathology* 142, no. 4:771--90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
-Jan C Zadoks.
-(1971).
-Systems Analysis and the Dynamics of Epidemics.
-*Phytopathology* 61:600.
-DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. *Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Wallach, Daniel, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*.
-Academic Press.
-DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
+Jan C Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. *Phytopathology* 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+
+Wallach, Daniel, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press. DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).

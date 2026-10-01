@@ -73,32 +73,32 @@ names(wth) <- sources
 wth
 #> $power
 #> Key: <YYYYMMDD>
-#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX
-#>          <IDat> <int> <num> <num> <num>
-#>   1: 2000-07-01   183 25.29 23.86 27.78
-#>   2: 2000-07-02   184 26.13 23.54 29.90
-#>   3: 2000-07-03   185 25.50 24.28 27.23
-#>   4: 2000-07-04   186 25.81 24.50 27.56
-#>   5: 2000-07-05   187 25.97 25.13 27.40
-#>  ---                                   
-#> 116: 2000-10-24   298 25.81 23.54 29.72
-#> 117: 2000-10-25   299 25.82 23.44 29.54
-#> 118: 2000-10-26   300 25.44 24.14 26.99
-#> 119: 2000-10-27   301 25.74 24.54 27.69
-#> 120: 2000-10-28   302 25.44 24.72 26.62
-#>       RHUM  RAIN     LAT      LON
-#>      <num> <num>   <num>    <num>
-#>   1: 92.20 23.12 14.6774 121.2556
-#>   2: 86.01 17.34 14.6774 121.2556
-#>   3: 94.16 29.08 14.6774 121.2556
-#>   4: 92.42 13.01 14.6774 121.2556
-#>   5: 92.34 32.20 14.6774 121.2556
-#>  ---                             
-#> 116: 87.65  2.76 14.6774 121.2556
-#> 117: 89.76 12.04 14.6774 121.2556
-#> 118: 94.93 13.03 14.6774 121.2556
-#> 119: 91.43 11.54 14.6774 121.2556
-#> 120: 91.90 74.20 14.6774 121.2556
+#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM
+#>          <IDat> <int> <num> <num> <num> <num>
+#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20
+#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01
+#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16
+#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42
+#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34
+#>  ---                                         
+#> 116: 2000-10-24   298 25.81 23.54 29.72 87.65
+#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76
+#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93
+#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43
+#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90
+#>       RAIN     LAT      LON
+#>      <num>   <num>    <num>
+#>   1: 23.12 14.6774 121.2556
+#>   2: 17.34 14.6774 121.2556
+#>   3: 29.08 14.6774 121.2556
+#>   4: 13.01 14.6774 121.2556
+#>   5: 32.20 14.6774 121.2556
+#>  ---                       
+#> 116:  2.76 14.6774 121.2556
+#> 117: 12.04 14.6774 121.2556
+#> 118: 13.03 14.6774 121.2556
+#> 119: 11.54 14.6774 121.2556
+#> 120: 74.20 14.6774 121.2556
 #> 
 #> $era5
 #> Key: <YYYYMMDD>
@@ -166,45 +166,32 @@ bb_sim
 #> 118:   309.2779 1491.340 2755.012575       0
 #> 119:   266.3860 1534.232 2791.854071       0
 #> 120:   229.5445 1571.073 2824.358958       0
-#>       rlex rtransfer rremoved  rgrowth
-#>      <num>     <num>    <num>    <num>
-#>   1:     0         0  0.00000  9.68750
-#>   2:     0         0  0.00000 10.49959
-#>   3:     0         0  0.00000 11.37416
-#>   4:     0         0  0.00000 12.31499
-#>   5:     0         0  0.00000 13.32593
-#>  ---                                  
-#> 116:     0         0 43.67864  0.00000
-#> 117:     0         0 39.69181  0.00000
-#> 118:     0         0 47.08304  0.00000
-#> 119:     0         0 42.89198  0.00000
-#> 120:     0         0 36.84150  0.00000
-#>      rsenesced diseased intensity     lat
-#>          <num>    <num>     <num>   <num>
-#>   1:  1.000000    0.000         0 14.6774
-#>   2:  1.086875    0.000         0 14.6774
-#>   3:  1.181002    0.000         0 14.6774
-#>   4:  1.282934    0.000         0 14.6774
-#>   5:  1.393254    0.000         0 14.6774
-#>  ---                                     
-#> 116: 39.691810 1800.618         1 14.6774
-#> 117: 47.083039 1800.618         1 14.6774
-#> 118: 42.891982 1800.618         1 14.6774
-#> 119: 36.841497 1800.618         1 14.6774
-#> 120: 32.504887 1800.618         1 14.6774
-#>           lon
-#>         <num>
-#>   1: 121.2556
-#>   2: 121.2556
-#>   3: 121.2556
-#>   4: 121.2556
-#>   5: 121.2556
-#>  ---         
-#> 116: 121.2556
-#> 117: 121.2556
-#> 118: 121.2556
-#> 119: 121.2556
-#> 120: 121.2556
+#>       rlex rtransfer rremoved  rgrowth rsenesced
+#>      <num>     <num>    <num>    <num>     <num>
+#>   1:     0         0  0.00000  9.68750  1.000000
+#>   2:     0         0  0.00000 10.49959  1.086875
+#>   3:     0         0  0.00000 11.37416  1.181002
+#>   4:     0         0  0.00000 12.31499  1.282934
+#>   5:     0         0  0.00000 13.32593  1.393254
+#>  ---                                            
+#> 116:     0         0 43.67864  0.00000 39.691810
+#> 117:     0         0 39.69181  0.00000 47.083039
+#> 118:     0         0 47.08304  0.00000 42.891982
+#> 119:     0         0 42.89198  0.00000 36.841497
+#> 120:     0         0 36.84150  0.00000 32.504887
+#>      diseased intensity     lat      lon
+#>         <num>     <num>   <num>    <num>
+#>   1:    0.000         0 14.6774 121.2556
+#>   2:    0.000         0 14.6774 121.2556
+#>   3:    0.000         0 14.6774 121.2556
+#>   4:    0.000         0 14.6774 121.2556
+#>   5:    0.000         0 14.6774 121.2556
+#>  ---                                    
+#> 116: 1800.618         1 14.6774 121.2556
+#> 117: 1800.618         1 14.6774 121.2556
+#> 118: 1800.618         1 14.6774 121.2556
+#> 119: 1800.618         1 14.6774 121.2556
+#> 120: 1800.618         1 14.6774 121.2556
 #> 
 #> $era5
 #>      simday      dates    sites latent
@@ -233,45 +220,32 @@ bb_sim
 #> 118:   76.27393 1653.217 2639.222092       0
 #> 119:   76.27393 1653.217 2639.222092       0
 #> 120:   76.27393 1653.217 2639.222092       0
-#>       rlex rtransfer rremoved  rgrowth
-#>      <num>     <num>    <num>    <num>
-#>   1:     0         0  0.00000  9.68750
-#>   2:     0         0  0.00000 10.49959
-#>   3:     0         0  0.00000 11.37416
-#>   4:     0         0  0.00000 12.31499
-#>   5:     0         0  0.00000 13.32593
-#>  ---                                  
-#> 116:     0         0 26.44418  0.00000
-#> 117:     0         0 25.45221  0.00000
-#> 118:     0         0  0.00000  0.00000
-#> 119:     0         0  0.00000  0.00000
-#> 120:     0         0  0.00000  0.00000
-#>      rsenesced diseased intensity      lat
-#>          <num>    <num>     <num>    <num>
-#>   1:  1.000000    0.000         0 14.65729
-#>   2:  1.086875    0.000         0 14.65729
-#>   3:  1.181002    0.000         0 14.65729
-#>   4:  1.282934    0.000         0 14.65729
-#>   5:  1.393254    0.000         0 14.65729
-#>  ---                                      
-#> 116: 25.452212 1729.491         1 14.65729
-#> 117:  0.000000 1729.491         1 14.65729
-#> 118:  0.000000 1729.491         1 14.65729
-#> 119:  0.000000 1729.491         1 14.65729
-#> 120:  0.000000 1729.491         1 14.65729
-#>           lon
-#>         <num>
-#>   1: 121.2825
-#>   2: 121.2825
-#>   3: 121.2825
-#>   4: 121.2825
-#>   5: 121.2825
-#>  ---         
-#> 116: 121.2825
-#> 117: 121.2825
-#> 118: 121.2825
-#> 119: 121.2825
-#> 120: 121.2825
+#>       rlex rtransfer rremoved  rgrowth rsenesced
+#>      <num>     <num>    <num>    <num>     <num>
+#>   1:     0         0  0.00000  9.68750  1.000000
+#>   2:     0         0  0.00000 10.49959  1.086875
+#>   3:     0         0  0.00000 11.37416  1.181002
+#>   4:     0         0  0.00000 12.31499  1.282934
+#>   5:     0         0  0.00000 13.32593  1.393254
+#>  ---                                            
+#> 116:     0         0 26.44418  0.00000 25.452212
+#> 117:     0         0 25.45221  0.00000  0.000000
+#> 118:     0         0  0.00000  0.00000  0.000000
+#> 119:     0         0  0.00000  0.00000  0.000000
+#> 120:     0         0  0.00000  0.00000  0.000000
+#>      diseased intensity      lat      lon
+#>         <num>     <num>    <num>    <num>
+#>   1:    0.000         0 14.65729 121.2825
+#>   2:    0.000         0 14.65729 121.2825
+#>   3:    0.000         0 14.65729 121.2825
+#>   4:    0.000         0 14.65729 121.2825
+#>   5:    0.000         0 14.65729 121.2825
+#>  ---                                     
+#> 116: 1729.491         1 14.65729 121.2825
+#> 117: 1729.491         1 14.65729 121.2825
+#> 118: 1729.491         1 14.65729 121.2825
+#> 119: 1729.491         1 14.65729 121.2825
+#> 120: 1729.491         1 14.65729 121.2825
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -280,6 +254,13 @@ Lastly, you can visualise the result of the model run.
 ``` r
 library(ggplot2)
 library(data.table)
+#> data.table 1.18.6.1 using 4 threads (see ?getDTthreads).  Latest news: r-datatable.com
+#> 
+#> Attaching package: 'data.table'
+#> 
+#> The following object is masked from 'package:base':
+#> 
+#>     %notin%
 
 # use rbindlist from {data.table} to create a single df for plotting
 bb_sim <- rbindlist(bb_sim, idcol = "source")
@@ -346,46 +327,20 @@ By contributing to this project, you agree to abide by its terms.
 
 # References
 
-François Brun, David Makowski, Daniel Wallach, and James W Jones.
-(2018).
-*ZeBook: Working with Dynamic Models for Agriculture and Environment*.
-DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
+François Brun, David Makowski, Daniel Wallach, and James W Jones. (2018). *ZeBook: Working with Dynamic Models for Agriculture and Environment*. DOI: [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook) R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
 
-Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee.
-(2015).
-Predicting potential epidemics of rice leaf blast and sheath blight in South Korea.
-*Agricultural and Forest Meteorology*, 203: 191-207.
-DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
+Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015). Predicting potential epidemics of rice leaf blast and sheath blight in South Korea. *Agricultural and Forest Meteorology*, 203: 191-207. DOI: [10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
 
-Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
-*cropsim*.
-(2009).
-Simulation modeling of crops and their diseases.
-R package version 0.2-6.
+Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. *cropsim*. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.
 
-Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario.
-(2012).
-Modeling and mapping potential epidemics of rice diseases globally.
-*Crop Protection*, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
+Joaquín Muñoz-Sabater, Emanuel Dutra, Anna Agustí-Panareda, Clément Albergel, Gabriele Arduini, Gianpaolo Balsamo, Souhail Boussetta, Margarita Choulga, Shaun Harrigan, Hans Hersbach, Brecht Martens, Diego G. Miralles, María Piles, Nemesio J. Rodríguez-Fernández, Ervin Zsoter, Carlo Buontempo, and Jean-Noël Thépaut (2021). ERA5-Land: a state-of-the-art global reanalysis dataset for land applications. Earth System Science Data, 13, 4349-4383. \doi{10.5194/essd-13-4349-2021}.
 
-Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet.
-Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT.
-(2015).
-*European Journal of Plant Pathology* 142, no.
-4:771--90.
-DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
+Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
-Adam Sparks.
-(2018).
-nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R.
-*Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
+Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). *European Journal of Plant Pathology* 142, no. 4:771--90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
-Jan C Zadoks.
-(1971).
-Systems Analysis and the Dynamics of Epidemics.
-*Phytopathology* 61:600.
-DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. *Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Wallach, Daniel, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*.
-Academic Press.
-DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
+Jan C Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. *Phytopathology* 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
+
+Wallach, Daniel, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press. DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
