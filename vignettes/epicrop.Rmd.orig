@@ -36,7 +36,7 @@ knitr::opts_chunk$set(
 
 {epicrop} provides an R package of the 'EPIRICE' model as described in [@Savary2012], the modified EPIRICE model as described in [@Kim2015], the 'EPIWHEAT' model as described in [@Savary2015] and a generic SEIR model function, `seir()`, for modelling crop disease epidemics.
 The model uses daily weather data to estimate disease intensity.
-A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package [@Sparks2018] and predict disease intensity of five rice diseases using a generic SEIR model [@Zadoks1971] function, `seir()`.
+A function, `get_wth()`, is provided to simplify downloading weather data via the [{nasapower}](https://cran.r-project.org/package=nasapower) package [@Sparks2018] by default and predict disease intensity of five rice diseases using a generic SEIR model [@Zadoks1971] function, `seir()`.
 
 For 'EPIRICE', default values derived from the literature suitable for modelling unmanaged disease intensity of five rice diseases, bacterial blight (`bacterial_blight()`); brown spot (`brown_spot()`); leaf blast (`leaf_blast()`); sheath blight (`sheath_blight()`) and tungro (`tungro()`) and two modified by Kim _et al._ [-@Kim2015], (`modified_kim_leaf_blast()` and `helper_modified_kim_sheath_blight()`), are provided.
 The modified Kim versions provide leaf blast and sheath blight models that include additional weather parameters and modified equations to better reflect disease progress under certain environmental conditions on the Korean Peninsula.
