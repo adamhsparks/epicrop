@@ -15,7 +15,7 @@ Longitude: -180 to 180 degrees (West/East) Latitude: -90 to 90 degrees
 character scalar start date. Format: \code{"YYYY-MM-DD"} (ISO 8601).
 \itemize{
 \item Length 1: Use with \code{duration} parameter
-\item Length 2+: First is start, second is end; \code{duration} parameter ignored
+\item Length 2+: First is start, second is end (used only if \code{duration} is not supplied)
 }}
 
 \item{duration}{Optional integer. Number of days to retrieve (inclusive). If
@@ -24,7 +24,7 @@ positive (\verb{> 0}). If not provided and \code{dates} has only one element, an
 error is raised.}
 
 \item{source}{Character. Weather data source, one of \code{"power"} (default) or
-\code{"era5"}.}
+\code{"era5"} (ERA5-Land).}
 }
 \value{
 An \code{epicrop.wth} object (\code{\link[data.table:data.table]{data.table::data.table()}} subclass) containing
@@ -46,7 +46,7 @@ Ready for direct use in \code{\link[=seir]{seir()}}, \code{\link[=bacterial_blig
 other disease models.
 }
 \description{
-#' Retrieves daily weather data from either the NASA POWER database or ERA5
+Retrieves daily weather data from either the NASA POWER database or ERA5-Land
 reanalysis (via the Open-Meteo Archive API) and formats it for use in
 \code{\link[=seir]{seir()}} and \pkg{epicrop} disease models.
 }
@@ -55,18 +55,18 @@ reanalysis (via the Open-Meteo Archive API) and formats it for use in
 \itemize{
 \item \code{"power"} (default): NASA POWER via \code{\link[nasapower:get_power]{nasapower::get_power()}}, global daily
 data from 1984 onwards at 0.5-degree resolution.
-\item \code{"era5"}: ERA5 reanalysis via the Open-Meteo Archive API
+\item \code{"era5"}: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo Archive API
 (\url{https://open-meteo.com/en/docs/historical-weather-api}). Hourly values
 are aggregated to daily values (mean/min/max temperature, mean relative
 humidity, total precipitation) by local calendar day so that the output
-matches the POWER-derived columns exactly. ERA5 data are typically
+matches the POWER-derived columns exactly. ERA5-Land data are typically
 available with a lag of a few days.
 }
 
 Both sources are modelled/reanalysis products and may differ from local
-weather station observations. Note that ERA5 precipitation is not the same
-quantity as POWER's bias-corrected \code{PRECTOTCORR}, so rainfall totals will
-differ between sources.
+weather station observations. Note that ERA5-Land precipitation is not the
+same quantity as POWER's bias-corrected \code{PRECTOTCORR}, so rainfall totals
+will differ between sources.
 }
 
 \section{Retrieved Variables}{
@@ -244,7 +244,7 @@ dates = "2000-06-30"  # No end date or duration
 # Error: Provide dates as c(start, end) or supply duration
 }
 # Example 8: era5 data
-# Get ERA5 data in the same format as POWER
+# Get ERA5-Land data in the same format as POWER
 wth_era5 <- get_wth(
   lonlat = c(121.255669, 14.167425),
   dates = "2000-06-30",
@@ -257,17 +257,19 @@ head(wth_era5)
 \references{
 NASA POWER project (2019). Agroclimatology, Prediction Of Worldwide Energy
 Resource. Funded by NASA's Applied Science Program.
-https://power.larc.nasa.gov/ Hersbach, H. et al. (2020). The ERA5 global
-reanalysis. \emph{Quarterly Journal of the Royal Meteorological Society}, 146,
-1999-2049. \doi{10.1002/qj.3803}
+https://power.larc.nasa.gov/.
+
+Muñoz-Sabater, J. et al. (2021). ERA5-Land: a state-of-the-art global
+reanalysis dataset for land applications. Earth System Science Data, 13,
+4349-4383. \doi{10.5194/essd-13-4349-2021}.
 
 Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
-D. Silwal, S. Tolos, and K. A. Garrett. 2008. Ecology and Epidemiology in R:
-Disease Progress over Time. \emph{The Plant Health Instructor}.
+D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
+R: Disease Progress over Time. \emph{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
 }
 \author{
-Adam H. Sparks, \email{adamhsparks@gmail.com} with era5 support adapted from
-code by Emerson M. Del Ponte \email{delponte@ufv.br} from the
+Adam H. Sparks, \email{adamhsparks@gmail.com} with ERA5-Land support adapted
+from code by Emerson M. Del Ponte \email{delponte@ufv.br} from the
 \CRANpkg{r4pde}.
 }

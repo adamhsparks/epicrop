@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wth.R
 \name{.get_era5}
 \alias{.get_era5}
-\title{Fetch Daily Weather from ERA5 via Open-Meteo}
+\title{Fetch Daily Weather from ERA5-Land via Open-Meteo}
 \usage{
 .get_era5(lon, lat, start, end)
 }
@@ -15,8 +15,9 @@
 data.table of class \code{epicrop.wth}.
 }
 \description{
-Downloads hourly ERA5 data from the Open-Meteo Archive API and aggregates it
-to daily values matching the columns of the POWER-derived output:
+Downloads hourly ERA5-Land data from the Open-Meteo Archive API and
+aggregates it to daily values matching the columns of the POWER-derived
+output:
 \itemize{
 \item \code{TEMP}: mean of hourly \code{temperature_2m}
 \item \code{TMIN}/\code{TMAX}: min/max of hourly \code{temperature_2m}

@@ -19,12 +19,12 @@ Date object representing the end date (inclusive).
 \description{
 Determines the end date for weather retrieval using either:
 \enumerate{
-\item An explicit end date (from \code{dates} vector), or
-\item Duration calculation (start + duration)
+\item A \code{duration} (inclusive days from \code{start}), or
+\item An explicit end date (from the \code{dates} vector)
 }
 }
 \details{
-Duration interpretation: \code{end = start + duration} means the window spans
+Duration is inclusive: \code{end = start + duration - 1}, so the window spans
 exactly \code{duration} days.
 
 Example: start = 2000-06-30, duration = 3 gives end = 2000-07-02 (June 30,
@@ -35,7 +35,7 @@ July 1, July 2 = 3 days total)
 
 Priority order:
 \enumerate{
-\item If \code{duration} is provided (not NULL), use start + duration
+\item If \code{duration} is provided (not NULL), use \code{start + duration - 1}
 \item Else if \code{dates} has length >= 2, use \code{dates[2]} as end
 \item Else abort (neither duration nor end date provided)
 }
