@@ -1,6 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r}
+#| label: setup
 #| include: false
 
 knitr::opts_chunk$set(
@@ -63,12 +64,24 @@ Using it with the POWER source you can fetch weather data for any place in the w
 library(epicrop)
 
 # Fetch weather for year 2000 wet season for a 120 day rice variety at the IRRI
-# Zeigler Experiment Station
-wth <- get_wth(
+# Zeigler Experiment Station for both weather sources
+
+sources <- c("power", "era5")
+
+wth <- lapply(
+  X = sources,
+  FUN = get_wth,
   lonlat = c(121.25562, 14.6774),
   dates = "2000-07-01",
   duration = 120
-)
+  )
+
+wth <- get_wth(
+  vals,
+  sources = "power"
+  )
+
+names(wth) <- sources
 
 wth
 ```
@@ -80,7 +93,7 @@ Once you have the weather data, run the model for any of the five rice diseases 
 ```{r}
 #| label: example
 
-bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
+bb_sim <- lapply(X = wth, FUN = bacterial_blight, emergence = "2000-07-01")
 
 bb_sim
 ```
@@ -95,12 +108,17 @@ Lastly, you can visualise the result of the model run.
 #|   Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.
 
 library(ggplot2)
+library(data.table)
+
+# use rbindlist from {data.table} to create a single df for plotting
+bb_sim <- rbindlist(bb_sim, idcol = "source")
 
 ggplot(
   data = bb_sim,
   aes(
     x = dates,
-    y = intensity
+    y = intensity,
+    colour = source
   )
 ) +
   labs(
