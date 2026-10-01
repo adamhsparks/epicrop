@@ -13,7 +13,9 @@
 #'   are aggregated to daily values (mean/min/max temperature, mean relative
 #'   humidity, total precipitation) by local calendar day so that the output
 #'   matches the POWER-derived columns exactly. ERA5-Land data are typically
-#'   available with a lag of a few days.
+#'   available with a lag of a few days. ERA5-Land relative humidity is derived
+#'   from hourly 2m temperature and dew point using the Magnus form of
+#'   Alduchov and Eskridge (1996).
 #'
 #' Both sources are modelled/reanalysis products and may differ from local
 #' weather station observations. Note that ERA5-Land precipitation is not the
@@ -239,6 +241,11 @@
 #' reanalysis dataset for land applications. Earth System Science Data, 13,
 #' 4349-4383. \doi{10.5194/essd-13-4349-2021}.
 #'
+#' Alduchov, O. A. and Eskridge, R. E. (1996). Improved Magnus form
+#' approximation of saturation vapor pressure. *Journal of Applied Meteorology
+#' and Climatology*, 35(4), 601-609.
+#' \doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
+#'
 #' Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
 #' D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
 #' R: Disease Progress over Time. *The Plant Health Instructor*.
@@ -308,8 +315,10 @@ get_wth <- function(
 #' aggregates it to daily values matching the columns of the POWER-derived
 #' output:
 #' * `TEMP`: mean of hourly `temperature_2m`
-#' * `TMIN`/`TMAX`: min/max of hourly `temperature_2m`
-#' * `RHUM`: mean of hourly `relative_humidity_2m`
+#' * `TMIN`/`TMAX`: min/max of hourly `temperature_2m
+#' * `RHUM`: mean of hourly relative humidity derived from
+#'  `temperature_2m` and `dewpoint_2m` with
+#'  `.rh_from_dewpoint()`.
 #' * `RAIN`: sum of hourly `precipitation`
 #'
 #' @param lon,lat Numeric longitude and latitude.
@@ -325,7 +334,7 @@ get_wth <- function(
       longitude = lon,
       start_date = format(start, "%Y-%m-%d"),
       end_date = format(end, "%Y-%m-%d"),
-      hourly = "temperature_2m,relative_humidity_2m,precipitation",
+      hourly = "temperature_2m,dewpoint_2m,precipitation",
       timezone = "auto",
       models = "era5_land"
     ) |>
@@ -364,11 +373,25 @@ get_wth <- function(
 
   hourly <- data.table::as.data.table(json$hourly)
 
-  # yyjsonr returns whole-number JSON arrays as integer; force double so grouped
-  # results have a consistent type and match POWER's double columns
-  vars <- c("temperature_2m", "relative_humidity_2m", "precipitation")
-  hourly[, (vars) := lapply(.SD, as.numeric), .SDcols = vars]
+  # yyjsonr gives whole-number arrays as integer and all-null arrays as a list;
+  # coerce everything to double, with NA for null
+  to_num <- function(x) {
+    if (is.list(x)) {
+      x <- vapply(
+        x,
+        function(v) if (is.null(v)) NA_real_ else as.numeric(v),
+        numeric(1L)
+      )
+    }
+    as.numeric(x)
+  }
 
+  vars <- c("temperature_2m", "dewpoint_2m", "precipitation")
+  hourly[, (vars) := lapply(.SD, to_num), .SDcols = vars]
+
+  hourly[,
+    relative_humidity_2m := .rh_from_dewpoint(temperature_2m, dewpoint_2m)
+  ]
   hourly[, YYYYMMDD := data.table::as.IDate(substr(time, 1L, 10L))]
 
   # min/max that return NA rather than +/-Inf (and a warning) if all missing
@@ -392,6 +415,12 @@ get_wth <- function(
       RAIN = sum(precipitation, na.rm = TRUE)
     ),
     by = YYYYMMDD
+  ]
+
+  num_cols <- c("TEMP", "TMIN", "TMAX", "RHUM", "RAIN")
+  wth[,
+    (num_cols) := lapply(.SD, \(x) replace(x, is.nan(x), NA_real_)),
+    .SDcols = num_cols
   ]
 
   wth[,
@@ -595,4 +624,31 @@ get_wth <- function(
   if (is.na(val) || !is.finite(val) || val < lo || val > hi) {
     cli::cli_abort("{name} must be in [{lo}, {hi}], got {val}.")
   }
+}
+
+#' Relative Humidity from Temperature and Dew Point
+#'
+#' Computes relative humidity from air temperature and dew point temperature
+#' using the improved Magnus form of Alduchov and Eskridge (1996),
+#' `es(T) = 6.1094 * exp(17.625 * T / (T + 243.04))` (hPa), so that
+#' `RH = 100 * es(Td) / es(T)`. Values are capped at 100% because reanalysis
+#' dew point can marginally exceed air temperature.
+#'
+#' @param temp Numeric air temperature (degrees C).
+#' @param dewpoint Numeric dew point temperature (degrees C).
+#'
+#' @returns Numeric relative humidity (%), `NA` where either input is `NA`.
+#'
+#' @references
+#' Alduchov, O. A. and Eskridge, R. E. (1996). Improved Magnus form
+#' approximation of saturation vapor pressure. *Journal of Applied Meteorology
+#' and Climatology*, 35(4), 601-609.
+#' \doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
+#'
+#' @autoglobal
+#' @dev
+.rh_from_dewpoint <- function(temp, dewpoint) {
+  a <- 17.625
+  b <- 243.04
+  pmin(100, 100 * exp(a * dewpoint / (b + dewpoint) - a * temp / (b + temp)))
 }
