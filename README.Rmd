@@ -105,7 +105,9 @@ Lastly, you can visualise the result of the model run.
 #| fig-cap: >-
 #|   Bacterial blight disease progress over time.
 #|   Results for wet season year 2000 at IRRI Zeigler Experiment Station shown.
-#|   Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.
+#|   Weather data used to run the model were obtained from
+#|    * the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program, and
+#|    * the Copernicus Climate Change Service (2022): ERA5-Land hourly data from 1950 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac (Accessed on `r Sys.Date()`.
 
 library(ggplot2)
 library(data.table)

@@ -115,19 +115,19 @@ wth
 #> 118: 2000-10-26   300 25.20000  23.8  27.9
 #> 119: 2000-10-27   301 25.27083  23.9  27.2
 #> 120: 2000-10-28   302 23.87917  23.2  24.4
-#>          RHUM  RAIN      LAT      LON
-#>         <num> <num>    <num>    <num>
-#>   1: 89.29167  28.8 14.65729 121.2825
-#>   2: 91.04167  27.9 14.65729 121.2825
-#>   3: 93.25000  43.3 14.65729 121.2825
-#>   4: 96.25000  96.0 14.65729 121.2825
-#>   5: 95.75000  86.9 14.65729 121.2825
-#>  ---                                 
-#> 116: 83.50000   0.1 14.65729 121.2825
-#> 117: 82.54167   1.0 14.65729 121.2825
-#> 118: 85.58333   5.7 14.65729 121.2825
-#> 119: 85.08333   2.8 14.65729 121.2825
-#> 120: 91.58333 162.6 14.65729 121.2825
+#>          RHUM  RAIN      LAT   LON
+#>         <num> <num>    <num> <num>
+#>   1: 89.25408     0 14.70001 121.2
+#>   2: 90.92118     0 14.70001 121.2
+#>   3: 93.22057     0 14.70001 121.2
+#>   4: 96.14362     0 14.70001 121.2
+#>   5: 95.83372     0 14.70001 121.2
+#>  ---                              
+#> 116: 83.49022     0 14.70001 121.2
+#> 117: 82.53308     0 14.70001 121.2
+#> 118: 85.57829     0 14.70001 121.2
+#> 119: 85.04539     0 14.70001 121.2
+#> 120: 91.54700     0 14.70001 121.2
 ```
 
 ## Modelling bacterial blight disease intensity
@@ -202,50 +202,50 @@ bb_sim
 #>   4:      4 2000-07-04 128.2934      0
 #>   5:      5 2000-07-05 139.3254      0
 #>  ---                                  
-#> 116:    116 2000-10-24   0.0000      0
-#> 117:    117 2000-10-25   0.0000      0
-#> 118:    118 2000-10-26   0.0000      0
-#> 119:    119 2000-10-27   0.0000      0
-#> 120:    120 2000-10-28   0.0000      0
-#>      infectious  removed    senesced rateinf
-#>           <num>    <num>       <num>   <num>
-#>   1:    0.00000    0.000    1.000000       0
-#>   2:    0.00000    0.000    2.086875       0
-#>   3:    0.00000    0.000    3.267877       0
-#>   4:    0.00000    0.000    4.550811       0
-#>   5:    0.00000    0.000    5.944065       0
-#>  ---                                        
-#> 116:  101.72614 1627.765 2639.222092       0
-#> 117:   76.27393 1653.217 2639.222092       0
-#> 118:   76.27393 1653.217 2639.222092       0
-#> 119:   76.27393 1653.217 2639.222092       0
-#> 120:   76.27393 1653.217 2639.222092       0
+#> 116:    116 2000-10-24 349.0799      0
+#> 117:    117 2000-10-25 360.9149      0
+#> 118:    118 2000-10-26 373.0178      0
+#> 119:    119 2000-10-27 385.3854      0
+#> 120:    120 2000-10-28 398.0141      0
+#>      infectious  removed    senesced   rateinf
+#>           <num>    <num>       <num>     <num>
+#>   1:     0.0000    0.000    1.000000 0.0000000
+#>   2:     0.0000    0.000    2.086875 0.0000000
+#>   3:     0.0000    0.000    3.267877 0.0000000
+#>   4:     0.0000    0.000    4.550811 0.0000000
+#>   5:     0.0000    0.000    5.944065 0.0000000
+#>  ---                                          
+#> 116:   162.5402 1283.464 2729.674908 0.0000000
+#> 117:   162.5402 1283.464 2733.284057 0.0000000
+#> 118:   162.5402 1283.464 2737.014235 0.0000000
+#> 119:   162.5402 1283.464 2740.868088 0.0000000
+#> 120:   162.5402 1283.464 2744.848229 0.2580636
 #>       rlex rtransfer rremoved  rgrowth rsenesced
 #>      <num>     <num>    <num>    <num>     <num>
-#>   1:     0         0  0.00000  9.68750  1.000000
-#>   2:     0         0  0.00000 10.49959  1.086875
-#>   3:     0         0  0.00000 11.37416  1.181002
-#>   4:     0         0  0.00000 12.31499  1.282934
-#>   5:     0         0  0.00000 13.32593  1.393254
+#>   1:     0         0        0  9.68750  1.000000
+#>   2:     0         0        0 10.49959  1.086875
+#>   3:     0         0        0 11.37416  1.181002
+#>   4:     0         0        0 12.31499  1.282934
+#>   5:     0         0        0 13.32593  1.393254
 #>  ---                                            
-#> 116:     0         0 26.44418  0.00000 25.452212
-#> 117:     0         0 25.45221  0.00000  0.000000
-#> 118:     0         0  0.00000  0.00000  0.000000
-#> 119:     0         0  0.00000  0.00000  0.000000
-#> 120:     0         0  0.00000  0.00000  0.000000
-#>      diseased intensity      lat      lon
-#>         <num>     <num>    <num>    <num>
-#>   1:    0.000         0 14.65729 121.2825
-#>   2:    0.000         0 14.65729 121.2825
-#>   3:    0.000         0 14.65729 121.2825
-#>   4:    0.000         0 14.65729 121.2825
-#>   5:    0.000         0 14.65729 121.2825
-#>  ---                                     
-#> 116: 1729.491         1 14.65729 121.2825
-#> 117: 1729.491         1 14.65729 121.2825
-#> 118: 1729.491         1 14.65729 121.2825
-#> 119: 1729.491         1 14.65729 121.2825
-#> 120: 1729.491         1 14.65729 121.2825
+#> 116:     0         0        0 15.32587  3.490799
+#> 117:     0         0        0 15.71198  3.609149
+#> 118:     0         0        0 16.09779  3.730178
+#> 119:     0         0        0 16.48257  3.853854
+#> 120:     0         0        0 16.86561  3.980141
+#>      diseased intensity      lat   lon
+#>         <num>     <num>    <num> <num>
+#>   1:    0.000 0.0000000 14.70001 121.2
+#>   2:    0.000 0.0000000 14.70001 121.2
+#>   3:    0.000 0.0000000 14.70001 121.2
+#>   4:    0.000 0.0000000 14.70001 121.2
+#>   5:    0.000 0.0000000 14.70001 121.2
+#>  ---                                  
+#> 116: 1446.005 0.3176971 14.70001 121.2
+#> 117: 1446.005 0.3105142 14.70001 121.2
+#> 118: 1446.005 0.3034970 14.70001 121.2
+#> 119: 1446.005 0.2966465 14.70001 121.2
+#> 120: 1446.005 0.2899634 14.70001 121.2
 ```
 
 Lastly, you can visualise the result of the model run.
@@ -254,6 +254,13 @@ Lastly, you can visualise the result of the model run.
 ``` r
 library(ggplot2)
 library(data.table)
+#> data.table 1.18.6.1 using 4 threads (see ?getDTthreads).  Latest news: r-datatable.com
+#> 
+#> Attaching package: 'data.table'
+#> 
+#> The following object is masked from 'package:base':
+#> 
+#>     %notin%
 
 # use rbindlist from {data.table} to create a single df for plotting
 bb_sim <- rbindlist(bb_sim, idcol = "source")
@@ -276,8 +283,10 @@ ggplot(
 ```
 
 <div class="figure">
-<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program." width="100%" />
-<p class="caption">Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.</p>
+<img src="man/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from&#10; * the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program, and&#10; * the Copernicus Climate Change Service (2022): ERA5-Land hourly data from 1950 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac (Accessed on `r Sys.Date()`." width="100%" />
+<p class="caption">Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from
+ * the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program, and
+ * the Copernicus Climate Change Service (2022): ERA5-Land hourly data from 1950 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac (Accessed on `r Sys.Date()`.</p>
 </div>
 
 # Meta
