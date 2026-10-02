@@ -103,7 +103,8 @@ other disease models.</p>
 
 <ul><li><p><code>"power"</code> (default): NASA POWER via <code><a href="https://docs.ropensci.org/nasapower/reference/get_power.html" class="external-link">nasapower::get_power()</a></code>, global daily
 data from 1984 onwards at 0.5-degree resolution.</p></li>
-<li><p><code>"era5"</code>: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo Archive API
+<li><p><code>"era5"</code>: ERA5-Land from 1950 onwards at about 0.1-degree resolusion,
+roughly 10 km via the Open-Meteo Archive API
 (<a href="https://open-meteo.com/en/docs/historical-weather-api" class="external-link">https://open-meteo.com/en/docs/historical-weather-api</a>). Hourly values
 are aggregated to daily values (mean/min/max temperature, mean relative
 humidity, total precipitation) by local calendar day so that the output
@@ -121,12 +122,12 @@ will differ between sources.</p>
 
 
 
-<p>This function automatically retrieves:</p><ul><li><p><strong>T2M</strong>: Mean daily temperature (2-meter height)</p></li>
-<li><p><strong>T2M_MIN</strong>: Daily minimum temperature</p></li>
-<li><p><strong>T2M_MAX</strong>: Daily maximum temperature</p></li>
-<li><p><strong>RH2M</strong>: Mean daily relative humidity (2-meter height)</p></li>
-<li><p><strong>PRECTOTCORR</strong>: Daily precipitation (bias-corrected)</p></li>
-</ul><p>All variables are returned in standard units: temperature in degrees C,
+<p>This function automatically provides:</p><ul><li><p>Mean daily temperature (2-meter height)</p></li>
+<li><p>Daily minimum temperature</p></li>
+<li><p>Daily maximum temperature</p></li>
+<li><p>Mean daily relative humidity (2-meter height)</p></li>
+<li><p>Daily precipitation (bias-corrected)</p></li>
+</ul><p>All variables are provided in standard units: temperature in degrees C,
 humidity in %, rainfall in mm.</p>
     </div>
     <div class="section level2">

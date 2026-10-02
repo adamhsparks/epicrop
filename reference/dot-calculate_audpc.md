@@ -95,29 +95,28 @@ bb_sim <- bacterial_blight(wth, emergence = "2000-06-30")
 
 # Calculate AUDPC from intensity vector (already in object attribute)
 audpc_value <- .calculate_audpc(intensity = bb_sim$intensity)
-#> Error in .calculate_audpc(intensity = bb_sim$intensity): could not find function ".calculate_audpc"
 audpc_value
-#> Error: object 'audpc_value' not found
+#> [1] 37.74063
 
 # Compare with automatic calculation via get_audpc()
 audpc_attr <- get_audpc(bb_sim)
 all.equal(audpc_value, audpc_attr)  # Should be TRUE
-#> Error: object 'audpc_value' not found
+#> [1] TRUE
 
 # Example 2: Effect of disease severity on AUDPC
 # Mild disease (slow progression)
 mild <- seq(0, 0.3, length.out = 120)
 audpc_mild <- .calculate_audpc(mild)
-#> Error in .calculate_audpc(mild): could not find function ".calculate_audpc"
 
 # Severe disease (rapid progression)
 severe <- seq(0, 1.0, length.out = 120)
 audpc_severe <- .calculate_audpc(severe)
-#> Error in .calculate_audpc(severe): could not find function ".calculate_audpc"
 
 cbind(Scenario = c("Mild", "Severe"),
       AUDPC = c(audpc_mild, audpc_severe))
-#> Error: object 'audpc_mild' not found
+#>      Scenario AUDPC  
+#> [1,] "Mild"   "17.85"
+#> [2,] "Severe" "59.5" 
 
 # Example 3: Compare resistant vs susceptible cultivars
 wth <- get_wth(

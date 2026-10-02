@@ -74,15 +74,15 @@ and other disease models.
   [`nasapower::get_power()`](https://docs.ropensci.org/nasapower/reference/get_power.html),
   global daily data from 1984 onwards at 0.5-degree resolution.
 
-- `"era5"`: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo
-  Archive API (<https://open-meteo.com/en/docs/historical-weather-api>).
-  Hourly values are aggregated to daily values (mean/min/max
-  temperature, mean relative humidity, total precipitation) by local
-  calendar day so that the output matches the POWER-derived columns
-  exactly. ERA5-Land data are typically available with a lag of a few
-  days. ERA5-Land relative humidity is derived from hourly 2m
-  temperature and dew point using the Magnus form of Alduchov and
-  Eskridge (1996).
+- `"era5"`: ERA5-Land from 1950 onwards at about 0.1-degree resolusion,
+  roughly 10 km via the Open-Meteo Archive API
+  (<https://open-meteo.com/en/docs/historical-weather-api>). Hourly
+  values are aggregated to daily values (mean/min/max temperature, mean
+  relative humidity, total precipitation) by local calendar day so that
+  the output matches the POWER-derived columns exactly. ERA5-Land data
+  are typically available with a lag of a few days. ERA5-Land relative
+  humidity is derived from hourly 2m temperature and dew point using the
+  Magnus form of Alduchov and Eskridge (1996).
 
 Both sources are modelled/reanalysis products and may differ from local
 weather station observations. Note that ERA5-Land precipitation is not
@@ -91,19 +91,19 @@ totals will differ between sources.
 
 ## Retrieved Variables
 
-This function automatically retrieves:
+This function automatically provides:
 
-- **T2M**: Mean daily temperature (2-meter height)
+- Mean daily temperature (2-meter height)
 
-- **T2M_MIN**: Daily minimum temperature
+- Daily minimum temperature
 
-- **T2M_MAX**: Daily maximum temperature
+- Daily maximum temperature
 
-- **RH2M**: Mean daily relative humidity (2-meter height)
+- Mean daily relative humidity (2-meter height)
 
-- **PRECTOTCORR**: Daily precipitation (bias-corrected)
+- Daily precipitation (bias-corrected)
 
-All variables are returned in standard units: temperature in degrees C,
+All variables are provided in standard units: temperature in degrees C,
 humidity in %, rainfall in mm.
 
 ## Date Handling

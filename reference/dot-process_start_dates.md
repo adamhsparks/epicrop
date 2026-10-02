@@ -35,5 +35,5 @@ converted to character strings. If month-day values are found but
 
 ``` r
 .process_start_dates(c("2000-06-30", "-06-30"), c(2000, 2001))
-#> Error in .process_start_dates(c("2000-06-30", "-06-30"), c(2000, 2001)): could not find function ".process_start_dates"
+#> [1] "2000-06-30" "06-30"     
 ```
