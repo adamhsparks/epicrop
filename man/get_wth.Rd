@@ -55,7 +55,8 @@ reanalysis (via the Open-Meteo Archive API) and formats it for use in
 \itemize{
 \item \code{"power"} (default): NASA POWER via \code{\link[nasapower:get_power]{nasapower::get_power()}}, global daily
 data from 1984 onwards at 0.5-degree resolution.
-\item \code{"era5"}: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo Archive API
+\item \code{"era5"}: ERA5-Land from 1950 onwards at about 0.1-degree resolusion,
+roughly 10 km via the Open-Meteo Archive API
 (\url{https://open-meteo.com/en/docs/historical-weather-api}). Hourly values
 are aggregated to daily values (mean/min/max temperature, mean relative
 humidity, total precipitation) by local calendar day so that the output
@@ -74,16 +75,16 @@ will differ between sources.
 \section{Retrieved Variables}{
 
 
-This function automatically retrieves:
+This function automatically provides:
 \itemize{
-\item \strong{T2M}: Mean daily temperature (2-meter height)
-\item \strong{T2M_MIN}: Daily minimum temperature
-\item \strong{T2M_MAX}: Daily maximum temperature
-\item \strong{RH2M}: Mean daily relative humidity (2-meter height)
-\item \strong{PRECTOTCORR}: Daily precipitation (bias-corrected)
+\item Mean daily temperature (2-meter height)
+\item Daily minimum temperature
+\item Daily maximum temperature
+\item Mean daily relative humidity (2-meter height)
+\item Daily precipitation (bias-corrected)
 }
 
-All variables are returned in standard units: temperature in degrees C,
+All variables are provided in standard units: temperature in degrees C,
 humidity in \%, rainfall in mm.
 }
 

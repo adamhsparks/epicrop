@@ -8,7 +8,8 @@
 #'
 #' * `"power"` (default): NASA POWER via [nasapower::get_power()], global daily
 #'   data from 1984 onwards at 0.5-degree resolution.
-#' * `"era5"`: ERA5-Land (about 0.1°, roughly 10 km) via the Open-Meteo Archive API
+#' * `"era5"`: ERA5-Land from 1950 onwards at about 0.1-degree resolusion,
+#'   roughly 10 km via the Open-Meteo Archive API
 #'   (<https://open-meteo.com/en/docs/historical-weather-api>). Hourly values
 #'   are aggregated to daily values (mean/min/max temperature, mean relative
 #'   humidity, total precipitation) by local calendar day so that the output
@@ -24,14 +25,14 @@
 #'
 #' @section Retrieved Variables:
 #'
-#' This function automatically retrieves:
-#' * **T2M**: Mean daily temperature (2-meter height)
-#' * **T2M_MIN**: Daily minimum temperature
-#' * **T2M_MAX**: Daily maximum temperature
-#' * **RH2M**: Mean daily relative humidity (2-meter height)
-#' * **PRECTOTCORR**: Daily precipitation (bias-corrected)
+#' This function automatically provides:
+#' * Mean daily temperature (2-meter height)
+#' * Daily minimum temperature
+#' * Daily maximum temperature
+#' * Mean daily relative humidity (2-meter height)
+#' * Daily precipitation (bias-corrected)
 #'
-#' All variables are returned in standard units: temperature in degrees C,
+#' All variables are provided in standard units: temperature in degrees C,
 #' humidity in %, rainfall in mm.
 #'
 #' @section Date Handling:

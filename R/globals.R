@@ -7,8 +7,9 @@ utils::globalVariables(c(
   "relative_humidity_2m", # <.get_era5>
   "temperature_2m", # <.get_era5>
   "dewpoint_2m", # <.get_era5>
-  "precipitation", # <.get_era5>
   "YYYYMMDD", # <.get_era5>
+  "time", # <.get_era5>
+  "precipitation", # <.get_era5>
   "YYYYMMDD", # <.postprocess_wth>
   "location", # <.run_bundle>
   "YYYYMMDD", # <.slice_weather>
