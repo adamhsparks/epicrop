@@ -265,30 +265,28 @@ results <- run_epicrop_model(
   output = "audpc"
 )
 results  # AUDPC for each emergence date
-#> Key: <emergence, AUDPC>
-#>           emergence    AUDPC
-#>    <epicrop.emerge>    <num>
-#> 1:       2000-06-30 39.08646
-#> 2:       2000-07-15 37.25022
-#> 3:       2001-06-30 38.98097
-#> 4:       2001-07-15 42.57670
-#> 5:       2002-06-30 38.30150
-#> 6:       2002-07-15 39.27781
+#> # Data table (class data.table) 2 x 6:
+#>  │emergence │AUDPC
+#>  │<oth>     │<dbl>
+#> 1│2000-06-30│   39
+#> 2│2000-07-15│   37
+#> 3│2001-06-30│   39
+#> 4│2001-07-15│   43
+#> 5│2002-06-30│   38
+#> 6│2002-07-15│   39
 
 # Example 6: Subset and filter emergence dates
 em <- build_epicrop_emergence(2000:2002, c("-06-01", "-07-01"))
 
 # Keep only June plantings
 june_only <- em[month(em) == 6]
-#> Error in month(em): could not find function "month"
 june_only
-#> Error: object 'june_only' not found
+#> [1] "2000-06-01" "2001-06-01" "2002-06-01"
 
 # Keep only 2001 plantings
 y2001 <- em[year(em) == 2001]
-#> Error in year(em): could not find function "year"
 y2001
-#> Error: object 'y2001' not found
+#> [1] "2001-06-01" "2001-07-01"
 
 # Example 7: Error handling
 if (FALSE) { # \dontrun{

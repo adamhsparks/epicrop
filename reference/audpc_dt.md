@@ -86,10 +86,10 @@ wth <- get_wth(
 sim <- bacterial_blight(wth, emergence = "2000-06-30")
 summary_table <- audpc_dt(sim)
 summary_table
-#> Key: <emergence>
-#>        lat      lon    AUDPC  emergence
-#>      <num>    <num>    <num>     <char>
-#> 1: 14.6774 121.2556 37.74063 2000-06-30
+#> # Data table (class data.table) 4 x 1:
+#>  │lat  │lon  │AUDPC│emergence 
+#>  │<dbl>│<dbl>│<dbl>│<chr>     
+#> 1│   15│  121│   38│2000-06-30
 # Output includes lat, lon, AUDPC, emergence
 
 # Example 2: Batch summarise multiple emergence dates
@@ -99,7 +99,8 @@ summaries <- lapply(emergence_dates, function(ed) {
   audpc_dt(sim)
 })
 #> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Emergence date not found in weather data
-#> ✖ Emergence 2000-06-15 not in range 2000-06-30--2000-10-27
+#> ✖ Emergence 2000-06-15 not in range
+#>   2000-06-30--2000-10-27
 summary_all <- data.table::rbindlist(summaries)
 #> Error: object 'summaries' not found
 summary_all

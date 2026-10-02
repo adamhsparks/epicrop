@@ -510,22 +510,16 @@ res <- seir(
 
 # Inspect results
 head(res)
-#>    simday      dates sites latent infectious removed senesced rateinf  rlex
-#>     <int>     <IDat> <num>  <num>      <num>   <num>    <num>   <num> <num>
-#> 1:      1 2000-06-30  1000      0          0       0        0       0     0
-#> 2:      2 2000-07-01  1000      0          0       0        0       0     0
-#> 3:      3 2000-07-02  1000      0          0       0        0       0     0
-#> 4:      4 2000-07-03  1000      0          0       0        0       0     0
-#> 5:      5 2000-07-04  1000      0          0       0        0       0     0
-#> 6:      6 2000-07-05  1000      0          0       0        0       0     0
-#>    rtransfer rremoved rgrowth rsenesced diseased intensity      lat      lon
-#>        <num>    <num>   <num>     <num>    <num>     <num>    <num>    <num>
-#> 1:         0        0       0         0        0         0 14.16742 121.2557
-#> 2:         0        0       0         0        0         0 14.16742 121.2557
-#> 3:         0        0       0         0        0         0 14.16742 121.2557
-#> 4:         0        0       0         0        0         0 14.16742 121.2557
-#> 5:         0        0       0         0        0         0 14.16742 121.2557
-#> 6:         0        0       0         0        0         0 14.16742 121.2557
+#> # Data table (class data.table) 17 x 6:
+#>  │simday│dates     │sites│latent│infectious│removed│senesced│rateinf│rlex 
+#>  │<int> │<oth>     │<dbl>│<dbl> │<dbl>     │<dbl>  │<dbl>   │<dbl>  │<dbl>
+#> 1│     1│2000-06-30│ 1000│     0│         0│      0│       0│      0│    0
+#> 2│     2│2000-07-01│ 1000│     0│         0│      0│       0│      0│    0
+#> 3│     3│2000-07-02│ 1000│     0│         0│      0│       0│      0│    0
+#> 4│     4│2000-07-03│ 1000│     0│         0│      0│       0│      0│    0
+#> 5│     5│2000-07-04│ 1000│     0│         0│      0│       0│      0│    0
+#> 6│     6│2000-07-05│ 1000│     0│         0│      0│       0│      0│    0
+#> # 8 more columns: rtransfer (<dbl>), rremoved (<dbl>), rgrowth (<dbl>), rsenesced (<dbl>), diseased (<dbl>), intensity (<dbl>), lat (<dbl>), lon (<dbl>)
 attr(res, "AUDPC")  # area under disease progress curve
 #> [1] 0.02033845
 

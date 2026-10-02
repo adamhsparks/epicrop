@@ -492,22 +492,16 @@ bb_sim <- bacterial_blight(
 
 # Inspect results
 head(bb_sim)
-#>    simday      dates    sites latent infectious removed senesced rateinf  rlex
-#>     <int>     <IDat>    <num>  <num>      <num>   <num>    <num>   <num> <num>
-#> 1:      1 2000-06-30 100.0000      0          0       0 1.000000       0     0
-#> 2:      2 2000-07-01 108.6875      0          0       0 2.086875       0     0
-#> 3:      3 2000-07-02 118.1002      0          0       0 3.267877       0     0
-#> 4:      4 2000-07-03 128.2934      0          0       0 4.550811       0     0
-#> 5:      5 2000-07-04 139.3254      0          0       0 5.944065       0     0
-#> 6:      6 2000-07-05 151.2581      0          0       0 7.456646       0     0
-#>    rtransfer rremoved  rgrowth rsenesced diseased intensity      lat      lon
-#>        <num>    <num>    <num>     <num>    <num>     <num>    <num>    <num>
-#> 1:         0        0  9.68750  1.000000        0         0 14.16742 121.2557
-#> 2:         0        0 10.49959  1.086875        0         0 14.16742 121.2557
-#> 3:         0        0 11.37416  1.181002        0         0 14.16742 121.2557
-#> 4:         0        0 12.31499  1.282934        0         0 14.16742 121.2557
-#> 5:         0        0 13.32593  1.393254        0         0 14.16742 121.2557
-#> 6:         0        0 14.41084  1.512581        0         0 14.16742 121.2557
+#> # Data table (class data.table) 17 x 6:
+#>  │simday│dates     │sites│latent│infectious│removed│senesced│rateinf│rlex 
+#>  │<int> │<oth>     │<dbl>│<dbl> │<dbl>     │<dbl>  │<dbl>   │<dbl>  │<dbl>
+#> 1│     1│2000-06-30│  100│     0│         0│      0│     1.0│      0│    0
+#> 2│     2│2000-07-01│  109│     0│         0│      0│     2.1│      0│    0
+#> 3│     3│2000-07-02│  118│     0│         0│      0│     3.3│      0│    0
+#> 4│     4│2000-07-03│  128│     0│         0│      0│     4.6│      0│    0
+#> 5│     5│2000-07-04│  139│     0│         0│      0│     5.9│      0│    0
+#> 6│     6│2000-07-05│  151│     0│         0│      0│     7.5│      0│    0
+#> # 8 more columns: rtransfer (<dbl>), rremoved (<dbl>), rgrowth (<dbl>), rsenesced (<dbl>), diseased (<dbl>), intensity (<dbl>), lat (<dbl>), lon (<dbl>)
 plot(bb_sim$simday, bb_sim$intensity, type = "l",
      main = "Rice Bacterial Blight Progression",
      xlab = "Days", ylab = "Disease Intensity")

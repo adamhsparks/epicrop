@@ -53,9 +53,9 @@ capabilities.
 `)`\
 \
 [`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``bb_sim``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``lon``, y ``=`` ``lat``)``)`` ``+`\
-`  ``annotation_map_tile``(``type ``=`` ``"osm"``, zoomin ``=`` ``0``)`` ``+`\
-`  ``geom_spatial_point``(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``size ``=`` ``AUDPC``)``)`` ``+`\
-`  ``geom_spatial_label_repel``(`\
+`  `[`annotation_map_tile`](https://paleolimbot.github.io/ggspatial/reference/annotation_map_tile.html)`(``type ``=`` ``"osm"``, zoomin ``=`` ``0``)`` ``+`\
+`  `[`geom_spatial_point`](https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html)`(`[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``size ``=`` ``AUDPC``)``)`` ``+`\
+`  `[`geom_spatial_label_repel`](https://paleolimbot.github.io/ggspatial/reference/stat_spatial_identity.html)`(`\
 `    `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``label ``=`` `[`paste`](https://rdrr.io/r/base/paste.html)`(``location``, `[`round`](https://rdrr.io/r/base/Round.html)`(``AUDPC``, ``0``)``, sep ``=`` ``", "``)``)``,`\
 `    box.padding ``=`` ``1``,`\
 `    size ``=`` ``3`\

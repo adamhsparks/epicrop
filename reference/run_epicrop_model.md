@@ -204,15 +204,15 @@ results <- run_epicrop_model(
   output = "audpc"
 )
 head(results)
-#> Key: <emergence, AUDPC>
-#>           emergence    AUDPC
-#>    <epicrop.emerge>    <num>
-#> 1:       2001-06-01 38.19575
-#> 2:       2001-06-15 36.86150
-#> 3:       2001-07-01 43.86372
-#> 4:       2002-06-01 40.34144
-#> 5:       2002-06-15 38.03268
-#> 6:       2002-07-01 37.42458
+#> # Data table (class data.table) 2 x 6:
+#>  │emergence │AUDPC
+#>  │<oth>     │<dbl>
+#> 1│2001-06-01│   38
+#> 2│2001-06-15│   37
+#> 3│2001-07-01│   44
+#> 4│2002-06-01│   40
+#> 5│2002-06-15│   38
+#> 6│2002-07-01│   37
 
 # --- Example 2: Full progression output for detailed analysis ---
 
@@ -261,7 +261,7 @@ comparison <- data.table(
   susceptible_AUDPC = susceptible$AUDPC,
   resistant_AUDPC = resistant$AUDPC
 )
-#> Error in data.table(emergence = susceptible$emergence, susceptible_AUDPC = susceptible$AUDPC,     resistant_AUDPC = resistant$AUDPC): could not find function "data.table"
+#> Error: object 'susceptible' not found
 comparison[, reduction := 1 - (resistant_AUDPC / susceptible_AUDPC)]
 #> Error: object 'comparison' not found
 comparison
@@ -292,8 +292,9 @@ bundle_results <- run_epicrop_model(
 
 # Results now have a 'location' column
 bundle_results[, .N, by = location]
-#>    location     N
-#>      <char> <int>
-#> 1:     IRRI     9
-#> 2:   Laguna     9
+#> # Data table (class data.table) 2 x 2:
+#>  │location│N    
+#>  │<chr>   │<int>
+#> 1│IRRI    │    9
+#> 2│Laguna  │    9
 ```

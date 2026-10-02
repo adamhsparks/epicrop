@@ -207,15 +207,15 @@ with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weat
 <span class="r-in"><span>  output <span class="op">=</span> <span class="st">"audpc"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;emergence, AUDPC&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           emergence    AUDPC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;epicrop.emerge&gt;    &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:       2001-06-01 38.19575</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:       2001-06-15 36.86150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:       2001-07-01 43.86372</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:       2002-06-01 40.34144</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:       2002-06-15 38.03268</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:       2002-07-01 37.42458</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555; font-style: italic;"># Data table (class data.table) 2 x 6:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000000; background-color: #BBBBBB; font-weight: bold;"> │emergence │AUDPC</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  │<span style="font-style: italic;">&lt;oth&gt;     </span>│<span style="font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">1</span>│<span style="color: #EEEEEE;">2001-06-01</span>│   38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">2</span><span style="background-color: #1C1C1C;">│</span><span style="color: #EEEEEE; background-color: #1C1C1C;">2001-06-15</span><span style="background-color: #1C1C1C;">│   37</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">3</span>│<span style="color: #EEEEEE;">2001-07-01</span>│   44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">4</span><span style="background-color: #1C1C1C;">│</span><span style="color: #EEEEEE; background-color: #1C1C1C;">2002-06-01</span><span style="background-color: #1C1C1C;">│   40</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">5</span>│<span style="color: #EEEEEE;">2002-06-15</span>│   38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">6</span><span style="background-color: #1C1C1C;">│</span><span style="color: #EEEEEE; background-color: #1C1C1C;">2002-07-01</span><span style="background-color: #1C1C1C;">│   37</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># --- Example 2: Full progression output for detailed analysis ---</span></span></span>
 <span class="r-in"><span></span></span>
@@ -264,7 +264,7 @@ with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weat
 <span class="r-in"><span>  susceptible_AUDPC <span class="op">=</span> <span class="va">susceptible</span><span class="op">$</span><span class="va">AUDPC</span>,</span></span>
 <span class="r-in"><span>  resistant_AUDPC <span class="op">=</span> <span class="va">resistant</span><span class="op">$</span><span class="va">AUDPC</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in data.table(emergence = susceptible$emergence, susceptible_AUDPC = susceptible$AUDPC,     resistant_AUDPC = resistant$AUDPC):</span> could not find function "data.table"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'susceptible' not found</span>
 <span class="r-in"><span><span class="va">comparison</span><span class="op">[</span>, <span class="va">reduction</span> <span class="op">:=</span> <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="va">resistant_AUDPC</span> <span class="op">/</span> <span class="va">susceptible_AUDPC</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'comparison' not found</span>
 <span class="r-in"><span><span class="va">comparison</span></span></span>
@@ -295,10 +295,11 @@ with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weat
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Results now have a 'location' column</span></span></span>
 <span class="r-in"><span><span class="va">bundle_results</span><span class="op">[</span>, <span class="va">.N</span>, by <span class="op">=</span> <span class="va">location</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    location     N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      &lt;char&gt; &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     IRRI     9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   Laguna     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555; font-style: italic;"># Data table (class data.table) 2 x 2:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000000; background-color: #BBBBBB; font-weight: bold;"> │location│N    </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  │<span style="font-style: italic;">&lt;chr&gt;   </span>│<span style="font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">1</span>│<span style="font-style: italic;">IRRI    </span>│    9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">2</span><span style="background-color: #1C1C1C;">│</span><span style="background-color: #1C1C1C; font-style: italic;">Laguna  </span><span style="background-color: #1C1C1C;">│    9</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

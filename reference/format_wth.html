@@ -223,22 +223,15 @@ the following columns (in order):</p><table class="table table"><tr><td><strong>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">wth</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "epicrop.wth" "data.table"  "data.frame" </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wth</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      YYYYMMDD   DOY     TEMP     TMIN     TMAX     RHUM     RAIN     LAT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;Date&gt; &lt;int&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;   &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2000-06-30   182 20.79987 25.97933 30.53644 71.94048 1.842904 14.6774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 2000-07-01   183 25.76595 19.53764 27.90471 81.05665 2.102449 14.6774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 2000-07-02   184 17.68821 27.69323 27.11865 76.66400 8.544918 14.6774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4: 2000-07-03   185 24.98329 23.18600 27.07373 96.41848 1.002127 14.6774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 2000-07-04   186 26.86466 23.42808 28.98427 73.56094 5.496244 14.6774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 2000-07-05   187 28.44523 23.37152 33.45704 85.87021 1.620152 14.6774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         LON</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4: 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 121.2556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 121.2556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #555555; font-style: italic;"># Data table (class data.table) 9 x 6:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000000; background-color: #BBBBBB; font-weight: bold;"> │YYYYMMDD  │DOY  │TEMP │TMIN │TMAX │RHUM │RAIN │LAT  │LON  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  │<span style="font-style: italic;">&lt;oth&gt;     </span>│<span style="font-style: italic;">&lt;int&gt;</span>│<span style="font-style: italic;">&lt;dbl&gt;</span>│<span style="font-style: italic;">&lt;dbl&gt;</span>│<span style="font-style: italic;">&lt;dbl&gt;</span>│<span style="font-style: italic;">&lt;dbl&gt;</span>│<span style="font-style: italic;">&lt;dbl&gt;</span>│<span style="font-style: italic;">&lt;dbl&gt;</span>│<span style="font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">1</span>│<span style="color: #EEEEEE;">2000-06-30</span>│  182│   21│   26│   31│   72│  1.8│   15│  121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">2</span><span style="background-color: #1C1C1C;">│</span><span style="color: #EEEEEE; background-color: #1C1C1C;">2000-07-01</span><span style="background-color: #1C1C1C;">│  183│   26│   20│   28│   81│  2.1│   15│  121</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">3</span>│<span style="color: #EEEEEE;">2000-07-02</span>│  184│   18│   28│   27│   77│  8.5│   15│  121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">4</span><span style="background-color: #1C1C1C;">│</span><span style="color: #EEEEEE; background-color: #1C1C1C;">2000-07-03</span><span style="background-color: #1C1C1C;">│  185│   25│   23│   27│   96│  1.0│   15│  121</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; font-style: italic;">5</span>│<span style="color: #EEEEEE;">2000-07-04</span>│  186│   27│   23│   29│   74│  5.5│   15│  121</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #B2B2B2; background-color: #1C1C1C; font-style: italic;">6</span><span style="background-color: #1C1C1C;">│</span><span style="color: #EEEEEE; background-color: #1C1C1C;">2000-07-05</span><span style="background-color: #1C1C1C;">│  187│   28│   23│   33│   86│  1.6│   15│  121</span></span>
 <span class="r-in"><span><span class="co"># Ready for use in disease models</span></span></span>
 <span class="r-in"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -292,7 +285,6 @@ the following columns (in order):</p><table class="table table"><tr><td><strong>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Subset to June-July only</span></span></span>
 <span class="r-in"><span><span class="va">wth_subset</span> <span class="op">&lt;-</span> <span class="va">wth_full</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/IDateTime.html" class="external-link">month</a></span><span class="op">(</span><span class="va">YYYYMMDD</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">6</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in month(YYYYMMDD):</span> could not find function "month"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Re-validate formatting</span></span></span>
 <span class="r-in"><span><span class="va">wth_check</span> <span class="op">&lt;-</span> <span class="fu">format_wth</span><span class="op">(</span></span></span>
@@ -306,7 +298,8 @@ the following columns (in order):</p><table class="table table"><tr><td><strong>
 <span class="r-in"><span>  lat <span class="op">=</span> <span class="st">"LAT"</span>,</span></span>
 <span class="r-in"><span>  lon <span class="op">=</span> <span class="st">"LON"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'wth_subset' not found</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`wth` is already an <span style="color: #0000BB;">&lt;epicrop.wth&gt;</span> object.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No formatting is necessary; returning as-is.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 5: Error handling - demonstrating validation</span></span></span>
 <span class="r-in"><span><span class="co"># This will fail (missing column)</span></span></span>
