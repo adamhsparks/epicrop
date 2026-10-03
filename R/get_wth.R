@@ -52,7 +52,8 @@
 #' @param dates Character vector of start date and optional end date, or
 #'   character scalar start date. Format: `"YYYY-MM-DD"` (ISO 8601).
 #'   * Length 1: Use with `duration` parameter
-#'   * Length 2+: First is start, second is end (used only if `duration` is not supplied)
+#'   * Length 2+: First is start, second is end (used only if `duration` is not
+#'     supplied)
 #' @param duration Optional integer. Number of days to retrieve (inclusive). If
 #'   supplied, it takes precedence over any end date in `dates`. Must be
 #'   positive (`> 0`). If not provided and `dates` has only one element, an
