@@ -15,7 +15,8 @@ Longitude: -180 to 180 degrees (West/East) Latitude: -90 to 90 degrees
 character scalar start date. Format: \code{"YYYY-MM-DD"} (ISO 8601).
 \itemize{
 \item Length 1: Use with \code{duration} parameter
-\item Length 2+: First is start, second is end (used only if \code{duration} is not supplied)
+\item Length 2+: First is start, second is end (used only if \code{duration} is not
+supplied)
 }}
 
 \item{duration}{Optional integer. Number of days to retrieve (inclusive). If
