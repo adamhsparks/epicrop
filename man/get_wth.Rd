@@ -56,14 +56,14 @@ reanalysis (via the Open-Meteo Archive API) and formats it for use in
 \itemize{
 \item \code{"power"} (default): NASA POWER via \code{\link[nasapower:get_power]{nasapower::get_power()}}, global daily
 data from 1984 onwards at 0.5-degree resolution.
-\item \code{"era5"}: ERA5-Land from 1950 onwards at about 0.1-degree resolusion,
+\item \code{"era5"}: ERA5-Land from 1950 onwards at about 0.1-degree resolution,
 roughly 10 km via the Open-Meteo Archive API
 (\url{https://open-meteo.com/en/docs/historical-weather-api}). Hourly values
 are aggregated to daily values (mean/min/max temperature, mean relative
 humidity, total precipitation) by local calendar day so that the output
 matches the POWER-derived columns exactly. ERA5-Land data are typically
 available with a lag of a few days. ERA5-Land relative humidity is derived
-from hourly 2m temperature and dew point using the Magnus form of
+from hourly 2m temperature and dewpoint using the Magnus form of
 Alduchov and Eskridge (1996).
 }
 
@@ -94,8 +94,10 @@ humidity in \%, rainfall in mm.
 
 Two methods for specifying the weather window:
 \enumerate{
-\item \strong{Start and end dates} (character vector): \code{dates = c("2000-06-30", "2000-12-31")}
-\item \strong{Start date + duration} (integer): \verb{dates = "2000-06-30", duration = 120}
+\item \strong{Start and end dates} (character vector):
+\code{dates = c("2000-06-30", "2000-12-31")}
+\item \strong{Start date + duration} (integer):
+\verb{dates = "2000-06-30", duration = 120}
 }
 
 Duration is interpreted as inclusive days: \code{end = start + duration - 1}. For

@@ -8,14 +8,14 @@
 #'
 #' * `"power"` (default): NASA POWER via [nasapower::get_power()], global daily
 #'   data from 1984 onwards at 0.5-degree resolution.
-#' * `"era5"`: ERA5-Land from 1950 onwards at about 0.1-degree resolusion,
+#' * `"era5"`: ERA5-Land from 1950 onwards at about 0.1-degree resolution,
 #'   roughly 10 km via the Open-Meteo Archive API
 #'   (<https://open-meteo.com/en/docs/historical-weather-api>). Hourly values
 #'   are aggregated to daily values (mean/min/max temperature, mean relative
 #'   humidity, total precipitation) by local calendar day so that the output
 #'   matches the POWER-derived columns exactly. ERA5-Land data are typically
 #'   available with a lag of a few days. ERA5-Land relative humidity is derived
-#'   from hourly 2m temperature and dew point using the Magnus form of
+#'   from hourly 2m temperature and dewpoint using the Magnus form of
 #'   Alduchov and Eskridge (1996).
 #'
 #' Both sources are modelled/reanalysis products and may differ from local
@@ -38,8 +38,10 @@
 #' @section Date Handling:
 #'
 #' Two methods for specifying the weather window:
-#' 1. **Start and end dates** (character vector): `dates = c("2000-06-30", "2000-12-31")`
-#' 2. **Start date + duration** (integer): `dates = "2000-06-30", duration = 120`
+#' 1. **Start and end dates** (character vector):
+#'    `dates = c("2000-06-30", "2000-12-31")`
+#' 2. **Start date + duration** (integer):
+#'    `dates = "2000-06-30", duration = 120`
 #'
 #' Duration is interpreted as inclusive days: `end = start + duration - 1`. For
 #' example, `duration = 120` starting on June 30 ends on October 27 (120 days
@@ -409,15 +411,27 @@ get_wth <- function(
   }
 
   wth <- hourly[,
-    .(
+    list(
       TEMP = mean(temperature_2m, na.rm = TRUE),
       TMIN = safe_stat(temperature_2m, min),
       TMAX = safe_stat(temperature_2m, max),
       RHUM = mean(relative_humidity_2m, na.rm = TRUE),
-      RAIN = sum(precipitation, na.rm = TRUE)
+      RAIN = if (all(is.na(precipitation))) {
+        NA_real_
+      } else {
+        sum(precipitation, na.rm = TRUE)
+      }
     ),
     by = YYYYMMDD
   ]
+
+  if (all(is.na(wth$precipitation))) {
+    cli::cli_abort(c(
+      "ERA5-Land returned no precipitation data for this location.",
+      i = "ERA5-Land covers land areas only; coastal cells may be empty.",
+      i = "Or there may be a bug in the API, you might try again later."
+    ))
+  }
 
   num_cols <- c("TEMP", "TMIN", "TMAX", "RHUM", "RAIN")
   wth[,

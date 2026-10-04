@@ -74,12 +74,7 @@ wth <- lapply(
   lonlat = c(121.25562, 14.6774),
   dates = "2000-07-01",
   duration = 120
-  )
-
-wth <- get_wth(
-  vals,
-  sources = "power"
-  )
+)
 
 names(wth) <- sources
 
