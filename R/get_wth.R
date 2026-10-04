@@ -21,6 +21,12 @@
 #' quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall totals will
 #' differ between sources.
 #'
+#' @section Citing Weather Data
+#' Please be kind and cite the data and their sources. To do so, please see the
+#' [NASA POWER](https://power.larc.nasa.gov/docs/referencing/) and
+#' [Openmeteo](https://open-meteo.com/en/docs/historical-weather-api?models=era5#citation)
+#' websites for how to cite the data when you use them.
+#'
 #' @section Retrieved Variables:
 #'
 #' This function automatically provides:
@@ -248,6 +254,9 @@
 #' D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
 #' R: Disease Progress over Time. *The Plant Health Instructor*.
 #' \doi{10.1094/PHI-A-2008-0129-02}.
+#'
+#' Zippenfenig, P. (2023) Open-Meteo.com Weather API. Zenodo. doi:
+#' \doi{10.5281/ZENODO.7970649}.
 #'
 #' @author
 #' Adam H. Sparks, \email{adamhsparks@@gmail.com} with ERA5 support adapted
