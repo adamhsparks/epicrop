@@ -249,6 +249,9 @@
 #' R: Disease Progress over Time. *The Plant Health Instructor*.
 #' \doi{10.1094/PHI-A-2008-0129-02}.
 #'
+#' Zippenfenig, P. (2023) Open-Meteo.com Weather API. Zenodo. doi:
+#' \doi{10.5281/ZENODO.7970649}.
+#'
 #' @author
 #' Adam H. Sparks, \email{adamhsparks@@gmail.com} with ERA5 support adapted
 #' from code by Emerson M. Del Ponte \email{delponte@@ufv.br} from the
