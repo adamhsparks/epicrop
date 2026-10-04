@@ -196,9 +196,33 @@ wth <- get_wth(
 
 # Run bacterial blight model
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
-#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run
+#> 120 days after emergence
 head(bb_sim)
-#> Error: object 'bb_sim' not found
+#>    source simday      dates    sites latent infectious removed senesced rateinf
+#>    <char>  <int>     <IDat>    <num>  <num>      <num>   <num>    <num>   <num>
+#> 1:  power      1 2000-07-01 100.0000      0          0       0 1.000000       0
+#> 2:  power      2 2000-07-02 108.6875      0          0       0 2.086875       0
+#> 3:  power      3 2000-07-03 118.1002      0          0       0 3.267877       0
+#> 4:  power      4 2000-07-04 128.2934      0          0       0 4.550811       0
+#> 5:  power      5 2000-07-05 139.3254      0          0       0 5.944065       0
+#> 6:  power      6 2000-07-06 151.2581      0          0       0 7.456646       0
+#>     rlex rtransfer rremoved  rgrowth rsenesced diseased intensity     lat
+#>    <num>     <num>    <num>    <num>     <num>    <num>     <num>   <num>
+#> 1:     0         0        0  9.68750  1.000000        0         0 14.6774
+#> 2:     0         0        0 10.49959  1.086875        0         0 14.6774
+#> 3:     0         0        0 11.37416  1.181002        0         0 14.6774
+#> 4:     0         0        0 12.31499  1.282934        0         0 14.6774
+#> 5:     0         0        0 13.32593  1.393254        0         0 14.6774
+#> 6:     0         0        0 14.41084  1.512581        0         0 14.6774
+#>         lon
+#>       <num>
+#> 1: 121.2556
+#> 2: 121.2556
+#> 3: 121.2556
+#> 4: 121.2556
+#> 5: 121.2556
+#> 6: 121.2556
 plot(
   bb_sim$simday,
   bb_sim$intensity,
@@ -206,7 +230,7 @@ plot(
   xlab = "Days After Emergence",
   ylab = "Disease Intensity"
 )
-#> Error: object 'bb_sim' not found
+
 
 # Example 5: Multiple locations - compare disease risk
 locations <- data.frame(
@@ -233,7 +257,8 @@ lb_results <- lapply(
   wth_list,
   function(w) leaf_blast(w, emergence = "2000-07-01")
 )
-#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run
+#> 120 days after emergence
 
 # Compare AUDPC (disease intensity summary)
 audpc_comparison <- data.frame(

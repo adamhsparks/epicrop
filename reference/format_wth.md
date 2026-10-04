@@ -279,7 +279,6 @@ wth_full <- get_wth(
 
 # Subset to June-July only
 wth_subset <- wth_full[month(YYYYMMDD) %in% 6:7]
-#> Error in month(YYYYMMDD): could not find function "month"
 
 # Re-validate formatting
 wth_check <- format_wth(
@@ -293,7 +292,10 @@ wth_check <- format_wth(
   lat = "LAT",
   lon = "LON"
 )
-#> Error: object 'wth_subset' not found
+#> Warning: `wth` is already an <epicrop.wth>
+#> object.
+#> ℹ No formatting is necessary; returning
+#>   as-is.
 
 # Example 5: Error handling - demonstrating validation
 # This will fail (missing column)
