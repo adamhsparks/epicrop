@@ -280,13 +280,15 @@ em <- build_epicrop_emergence(2000:2002, c("-06-01", "-07-01"))
 
 # Keep only June plantings
 june_only <- em[month(em) == 6]
+#> Error in month(em): could not find function "month"
 june_only
-#> [1] "2000-06-01" "2001-06-01" "2002-06-01"
+#> Error: object 'june_only' not found
 
 # Keep only 2001 plantings
 y2001 <- em[year(em) == 2001]
+#> Error in year(em): could not find function "year"
 y2001
-#> [1] "2001-06-01" "2001-07-01"
+#> Error: object 'y2001' not found
 
 # Example 7: Error handling
 if (FALSE) { # \dontrun{
