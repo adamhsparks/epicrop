@@ -7,8 +7,8 @@ A fork of
 EPIWHEAT model in the same R package. This package provides easy to use
 functions to fetch weather data from NASA POWER, via the
 [{nasapower}](https://cran.r-project.org/package=nasapower) package
-(Sparks 2018) and ERA5-Land data (Muñoz-Sabater et al. 2021) (built in
-courtesy of Emerson Del Ponte) via
+(Sparks 2018) and ERA5 reanalysis data (Hersbach *et al.* 2020) (built
+in courtesy of Emerson Del Ponte) via
 [Open-Meteo](https://open-meteo.com/en/docs/historical-weather-api) and
 predict disease intensity of five rice and two wheat diseases using a
 generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks
@@ -68,10 +68,15 @@ provided meet the model’s requirements.
 First you need to provide weather data for the model; {epicrop} provides
 the
 [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
-function to do this. Using it with the POWER source you can fetch
-weather data for any place in the world from 1983 to near present by
-providing the and latitude and dates or length of rice growing season as
-shown below.
+function to do this. You can fetch weather data for any place in the
+world from either NASA POWER (the default, from 1984 onwards at
+0.5-degree resolution) or ERA5 reanalysis (from 1940 onwards at about
+0.25-degree resolution, roughly 25 km, via Open-Meteo) by providing the
+longitude and latitude and dates or length of rice growing season as
+shown below. Choose the source with the `source` argument, `"power"` or
+`"era5"`. Both return the same format, ready for the disease models, but
+they are different products: rainfall totals in particular will differ
+between them.
 
 \
 [`library`](https://rdrr.io/r/base/library.html)`(`[`epicrop`](https://codeberg.org/adamhsparks/epicrop)`)`\
@@ -87,71 +92,68 @@ shown below.
 `  lonlat ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``121.25562``, ``14.6774``)``,`\
 `  dates ``=`` ``"2000-07-01"``,`\
 `  duration ``=`` ``120`\
-`  ``)`\
-\
-`wth`` ``<-`` `[`get_wth`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)`(`\
-`  ``vals``,`\
-`  sources ``=`` ``"power"`\
-`  ``)`\
-`` #> Error in `get_wth()`: ``\
-`#> ! unused argument (sources = "power")`\
+`)`\
 \
 [`names`](https://rdrr.io/r/base/names.html)`(``wth``)`` ``<-`` ``sources`\
 \
 `wth`\
 `#> $power`\
-`#> # Data table (class data.table) 9 x 120:`\
-`#> # (Showing rows 1 - 20 out of 120)`\
-`#>   │YYYYMMDD  │DOY  │TEMP │TMIN │TMAX │RHUM `\
-`#>   │<oth>     │<int>│<dbl>│<dbl>│<dbl>│<dbl>`\
-`#>  1│2000-07-01│  183│   25│   24│   28│   92`\
-`#>  2│2000-07-02│  184│   26│   24│   30│   86`\
-`#>  3│2000-07-03│  185│   26│   24│   27│   94`\
-`#>  4│2000-07-04│  186│   26│   24│   28│   92`\
-`#>  5│2000-07-05│  187│   26│   25│   27│   92`\
-`#>  6│2000-07-06│  188│   26│   25│   28│   89`\
-`#>  7│2000-07-07│  189│   26│   25│   27│   91`\
-`#>  8│2000-07-08│  190│   26│   25│   28│   91`\
-`#>  9│2000-07-09│  191│   26│   25│   27│   93`\
-`#> 10│2000-07-10│  192│   26│   24│   27│   94`\
-`#> 11│2000-07-11│  193│   26│   24│   29│   86`\
-`#> 12│2000-07-12│  194│   25│   23│   27│   90`\
-`#> 13│2000-07-13│  195│   25│   23│   26│   95`\
-`#> 14│2000-07-14│  196│   25│   24│   27│   94`\
-`#> 15│2000-07-15│  197│   25│   24│   26│   93`\
-`#> 16│2000-07-16│  198│   26│   24│   29│   86`\
-`#> 17│2000-07-17│  199│   26│   23│   28│   88`\
-`#> 18│2000-07-18│  200│   25│   23│   28│   86`\
-`#> 19│2000-07-19│  201│   25│   23│   29│   83`\
-`#> 20│2000-07-20│  202│   26│   23│   29│   78`\
-`#> # 3 more columns: RAIN (<dbl>), LAT (<dbl>), LON (<dbl>)`\
+`#> Key: <YYYYMMDD>`\
+`#>        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT`\
+`#>          <IDat> <int> <num> <num> <num> <num> <num>   <num>`\
+`#>   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774`\
+`#>   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774`\
+`#>   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774`\
+`#>   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774`\
+`#>   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774`\
+`#>  ---                                                       `\
+`#> 116: 2000-10-24   298 25.81 23.54 29.72 87.65  2.76 14.6774`\
+`#> 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774`\
+`#> 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774`\
+`#> 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774`\
+`#> 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774`\
+`#>           LON`\
+`#>         <num>`\
+`#>   1: 121.2556`\
+`#>   2: 121.2556`\
+`#>   3: 121.2556`\
+`#>   4: 121.2556`\
+`#>   5: 121.2556`\
+`#>  ---         `\
+`#> 116: 121.2556`\
+`#> 117: 121.2556`\
+`#> 118: 121.2556`\
+`#> 119: 121.2556`\
+`#> 120: 121.2556`\
 `#> `\
 `#> $era5`\
-`#> # Data table (class data.table) 9 x 120:`\
-`#> # (Showing rows 1 - 20 out of 120)`\
-`#>   │YYYYMMDD  │DOY  │TEMP │TMIN │TMAX │RHUM `\
-`#>   │<oth>     │<int>│<dbl>│<dbl>│<dbl>│<dbl>`\
-`#>  1│2000-07-01│  183│   25│   23│   28│   89`\
-`#>  2│2000-07-02│  184│   24│   23│   26│   91`\
-`#>  3│2000-07-03│  185│   24│   23│   26│   93`\
-`#>  4│2000-07-04│  186│   23│   23│   24│   96`\
-`#>  5│2000-07-05│  187│   24│   23│   25│   96`\
-`#>  6│2000-07-06│  188│   24│   23│   26│   94`\
-`#>  7│2000-07-07│  189│   24│   23│   26│   93`\
-`#>  8│2000-07-08│  190│   24│   23│   25│   93`\
-`#>  9│2000-07-09│  191│   24│   23│   26│   93`\
-`#> 10│2000-07-10│  192│   24│   23│   27│   92`\
-`#> 11│2000-07-11│  193│   25│   23│   29│   85`\
-`#> 12│2000-07-12│  194│   24│   23│   27│   90`\
-`#> 13│2000-07-13│  195│   24│   22│   25│   95`\
-`#> 14│2000-07-14│  196│   23│   23│   24│   95`\
-`#> 15│2000-07-15│  197│   24│   22│   26│   92`\
-`#> 16│2000-07-16│  198│   26│   23│   29│   83`\
-`#> 17│2000-07-17│  199│   26│   23│   29│   80`\
-`#> 18│2000-07-18│  200│   25│   23│   28│   84`\
-`#> 19│2000-07-19│  201│   24│   23│   27│   90`\
-`#> 20│2000-07-20│  202│   24│   22│   27│   89`\
-`#> # 3 more columns: RAIN (<dbl>), LAT (<dbl>), LON (<dbl>)`
+`#> Key: <YYYYMMDD>`\
+`#>        YYYYMMDD   DOY     TEMP  TMIN  TMAX     RHUM  RAIN   LAT`\
+`#>          <IDat> <int>    <num> <num> <num>    <num> <num> <num>`\
+`#>   1: 2000-07-01   183 25.43750  23.3  29.0 91.95833  28.8 14.75`\
+`#>   2: 2000-07-02   184 24.85000  21.9  28.0 92.45833  27.9 14.75`\
+`#>   3: 2000-07-03   185 23.87083  23.1  25.6 94.91667  43.3 14.75`\
+`#>   4: 2000-07-04   186 23.41250  22.9  24.0 97.29167  96.0 14.75`\
+`#>   5: 2000-07-05   187 24.05833  23.3  24.9 97.04167  86.9 14.75`\
+`#>  ---                                                           `\
+`#> 116: 2000-10-24   298 26.96667  23.3  30.8 82.62500   0.1 14.75`\
+`#> 117: 2000-10-25   299 26.63750  23.1  30.9 83.45833   1.0 14.75`\
+`#> 118: 2000-10-26   300 26.04583  23.8  28.6 86.62500   5.7 14.75`\
+`#> 119: 2000-10-27   301 26.26250  23.9  28.6 87.37500   2.8 14.75`\
+`#> 120: 2000-10-28   302 24.11250  23.2  25.1 93.95833 162.6 14.75`\
+`#>         LON`\
+`#>       <num>`\
+`#>   1: 121.25`\
+`#>   2: 121.25`\
+`#>   3: 121.25`\
+`#>   4: 121.25`\
+`#>   5: 121.25`\
+`#>  ---       `\
+`#> 116: 121.25`\
+`#> 117: 121.25`\
+`#> 118: 121.25`\
+`#> 119: 121.25`\
+`#> 120: 121.25`
 
 ## Modelling bacterial blight disease intensity
 
@@ -164,58 +166,86 @@ transplanted rice.
 \
 `bb_sim`\
 `#> $power`\
-`#> # Data table (class data.table) 17 x 120:`\
-`#> # (Showing rows 1 - 20 out of 120)`\
-`#>   │simday│dates     │sites│latent│infectious`\
-`#>   │<int> │<oth>     │<dbl>│<dbl> │<dbl>     `\
-`#>  1│     1│2000-07-01│  100│     0│         0`\
-`#>  2│     2│2000-07-02│  109│     0│         0`\
-`#>  3│     3│2000-07-03│  118│     0│         0`\
-`#>  4│     4│2000-07-04│  128│     0│         0`\
-`#>  5│     5│2000-07-05│  139│     0│         0`\
-`#>  6│     6│2000-07-06│  151│     0│         0`\
-`#>  7│     7│2000-07-07│  164│     0│         0`\
-`#>  8│     8│2000-07-08│  178│     0│         0`\
-`#>  9│     9│2000-07-09│  193│     0│         0`\
-`#> 10│    10│2000-07-10│  209│     0│         0`\
-`#> 11│    11│2000-07-11│  227│     0│         0`\
-`#> 12│    12│2000-07-12│  246│     0│         0`\
-`#> 13│    13│2000-07-13│  266│     0│         0`\
-`#> 14│    14│2000-07-14│  288│     0│         0`\
-`#> 15│    15│2000-07-15│  311│     0│         0`\
-`#> 16│    16│2000-07-16│  336│     0│         0`\
-`#> 17│    17│2000-07-17│  363│     0│         0`\
-`#> 18│    18│2000-07-18│  391│     0│         0`\
-`#> 19│    19│2000-07-19│  421│     0│         0`\
-`#> 20│    20│2000-07-20│  454│     0│         0`\
-`#> # 12 more columns: removed (<dbl>), senesced (<dbl>), rateinf (<dbl>), rlex (<dbl>), rtransfer (<dbl>), rremoved (<dbl>), rgrowth (<dbl>), rsenesced (<dbl>), diseased (<dbl>), intensity (<dbl>), lat (<dbl>), lon (<dbl>)`\
+`#>      simday      dates    sites latent infectious  removed`\
+`#>       <int>     <IDat>    <num>  <num>      <num>    <num>`\
+`#>   1:      1 2000-07-01 100.0000      0     0.0000    0.000`\
+`#>   2:      2 2000-07-02 108.6875      0     0.0000    0.000`\
+`#>   3:      3 2000-07-03 118.1002      0     0.0000    0.000`\
+`#>   4:      4 2000-07-04 128.2934      0     0.0000    0.000`\
+`#>   5:      5 2000-07-05 139.3254      0     0.0000    0.000`\
+`#>  ---                                                      `\
+`#> 116:    116 2000-10-24   0.0000      0   396.0528 1404.565`\
+`#> 117:    117 2000-10-25   0.0000      0   356.3610 1444.257`\
+`#> 118:    118 2000-10-26   0.0000      0   309.2779 1491.340`\
+`#> 119:    119 2000-10-27   0.0000      0   266.3860 1534.232`\
+`#> 120:    120 2000-10-28   0.0000      0   229.5445 1571.073`\
+`#>         senesced rateinf  rlex rtransfer rremoved  rgrowth`\
+`#>            <num>   <num> <num>     <num>    <num>    <num>`\
+`#>   1:    1.000000       0     0         0  0.00000  9.68750`\
+`#>   2:    2.086875       0     0         0  0.00000 10.49959`\
+`#>   3:    3.267877       0     0         0  0.00000 11.37416`\
+`#>   4:    4.550811       0     0         0  0.00000 12.31499`\
+`#>   5:    5.944065       0     0         0  0.00000 13.32593`\
+`#>  ---                                                      `\
+`#> 116: 2665.037553       0     0         0 43.67864  0.00000`\
+`#> 117: 2712.120592       0     0         0 39.69181  0.00000`\
+`#> 118: 2755.012575       0     0         0 47.08304  0.00000`\
+`#> 119: 2791.854071       0     0         0 42.89198  0.00000`\
+`#> 120: 2824.358958       0     0         0 36.84150  0.00000`\
+`#>      rsenesced diseased intensity     lat      lon`\
+`#>          <num>    <num>     <num>   <num>    <num>`\
+`#>   1:  1.000000    0.000         0 14.6774 121.2556`\
+`#>   2:  1.086875    0.000         0 14.6774 121.2556`\
+`#>   3:  1.181002    0.000         0 14.6774 121.2556`\
+`#>   4:  1.282934    0.000         0 14.6774 121.2556`\
+`#>   5:  1.393254    0.000         0 14.6774 121.2556`\
+`#>  ---                                              `\
+`#> 116: 39.691810 1800.618         1 14.6774 121.2556`\
+`#> 117: 47.083039 1800.618         1 14.6774 121.2556`\
+`#> 118: 42.891982 1800.618         1 14.6774 121.2556`\
+`#> 119: 36.841497 1800.618         1 14.6774 121.2556`\
+`#> 120: 32.504887 1800.618         1 14.6774 121.2556`\
 `#> `\
 `#> $era5`\
-`#> # Data table (class data.table) 17 x 120:`\
-`#> # (Showing rows 1 - 20 out of 120)`\
-`#>   │simday│dates     │sites│latent│infectious`\
-`#>   │<int> │<oth>     │<dbl>│<dbl> │<dbl>     `\
-`#>  1│     1│2000-07-01│  100│     0│         0`\
-`#>  2│     2│2000-07-02│  109│     0│         0`\
-`#>  3│     3│2000-07-03│  118│     0│         0`\
-`#>  4│     4│2000-07-04│  128│     0│         0`\
-`#>  5│     5│2000-07-05│  139│     0│         0`\
-`#>  6│     6│2000-07-06│  151│     0│         0`\
-`#>  7│     7│2000-07-07│  164│     0│         0`\
-`#>  8│     8│2000-07-08│  178│     0│         0`\
-`#>  9│     9│2000-07-09│  193│     0│         0`\
-`#> 10│    10│2000-07-10│  209│     0│         0`\
-`#> 11│    11│2000-07-11│  227│     0│         0`\
-`#> 12│    12│2000-07-12│  246│     0│         0`\
-`#> 13│    13│2000-07-13│  266│     0│         0`\
-`#> 14│    14│2000-07-14│  288│     0│         0`\
-`#> 15│    15│2000-07-15│  311│     0│         0`\
-`#> 16│    16│2000-07-16│  336│     0│         0`\
-`#> 17│    17│2000-07-17│  363│     0│         0`\
-`#> 18│    18│2000-07-18│  391│     0│         0`\
-`#> 19│    19│2000-07-19│  421│     0│         0`\
-`#> 20│    20│2000-07-20│  454│     0│         0`\
-`#> # 12 more columns: removed (<dbl>), senesced (<dbl>), rateinf (<dbl>), rlex (<dbl>), rtransfer (<dbl>), rremoved (<dbl>), rgrowth (<dbl>), rsenesced (<dbl>), diseased (<dbl>), intensity (<dbl>), lat (<dbl>), lon (<dbl>)`
+`#>      simday      dates    sites latent infectious  removed`\
+`#>       <int>     <IDat>    <num>  <num>      <num>    <num>`\
+`#>   1:      1 2000-07-01 100.0000      0    0.00000    0.000`\
+`#>   2:      2 2000-07-02 108.6875      0    0.00000    0.000`\
+`#>   3:      3 2000-07-03 118.1002      0    0.00000    0.000`\
+`#>   4:      4 2000-07-04 128.2934      0    0.00000    0.000`\
+`#>   5:      5 2000-07-05 139.3254      0    0.00000    0.000`\
+`#>  ---                                                      `\
+`#> 116:    116 2000-10-24   0.0000      0   95.67886 1642.141`\
+`#> 117:    117 2000-10-25   0.0000      0   77.09091 1660.729`\
+`#> 118:    118 2000-10-26   0.0000      0   77.09091 1660.729`\
+`#> 119:    119 2000-10-27   0.0000      0   77.09091 1660.729`\
+`#> 120:    120 2000-10-28   0.0000      0   77.09091 1660.729`\
+`#>         senesced rateinf  rlex rtransfer rremoved  rgrowth`\
+`#>            <num>   <num> <num>     <num>    <num>    <num>`\
+`#>   1:    1.000000       0     0         0  0.00000  9.68750`\
+`#>   2:    2.086875       0     0         0  0.00000 10.49959`\
+`#>   3:    3.267877       0     0         0  0.00000 11.37416`\
+`#>   4:    4.550811       0     0         0  0.00000 12.31499`\
+`#>   5:    5.944065       0     0         0  0.00000 13.32593`\
+`#>  ---                                                      `\
+`#> 116: 2664.640605       0     0         0 20.45989  0.00000`\
+`#> 117: 2664.640605       0     0         0 18.58794  0.00000`\
+`#> 118: 2664.640605       0     0         0  0.00000  0.00000`\
+`#> 119: 2664.640605       0     0         0  0.00000  0.00000`\
+`#> 120: 2664.640605       0     0         0  0.00000  0.00000`\
+`#>      rsenesced diseased intensity   lat    lon`\
+`#>          <num>    <num>     <num> <num>  <num>`\
+`#>   1:  1.000000     0.00         0 14.75 121.25`\
+`#>   2:  1.086875     0.00         0 14.75 121.25`\
+`#>   3:  1.181002     0.00         0 14.75 121.25`\
+`#>   4:  1.282934     0.00         0 14.75 121.25`\
+`#>   5:  1.393254     0.00         0 14.75 121.25`\
+`#>  ---                                          `\
+`#> 116: 18.587944  1737.82         1 14.75 121.25`\
+`#> 117:  0.000000  1737.82         1 14.75 121.25`\
+`#> 118:  0.000000  1737.82         1 14.75 121.25`\
+`#> 119:  0.000000  1737.82         1 14.75 121.25`\
+`#> 120:  0.000000  1737.82         1 14.75 121.25`
 
 Lastly, you can visualise the result of the model run.
 
@@ -246,19 +276,22 @@ Lastly, you can visualise the result of the model run.
 year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to
 run the model were obtained from the NASA Langley Research Center POWER
 Project funded through the NASA Earth Science Directorate Applied
-Science Program, and the Copernicus Climate Change Service (2022):
-ERA5-Land hourly data from 1950 to present. Copernicus Climate Change
-Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac
-(Accessed on 2026-10-02).](reference/figures/README-plot-1.png)
+Science Program, and from the Copernicus Climate Change Service (C3S):
+ERA5 hourly data on single levels from 1940 to present, Climate Data
+Store (CDS), DOI: 10.24381/cds.adbb2d47, accessed via Open-Meteo
+(Accessed on 2026-10-04). Zippenfenig, P. (2023) Open-Meteo.com Weather
+API. Zenodo. doi:
+10.5281/ZENODO.7970649.](reference/figures/README-plot-1.png)
 
 Bacterial blight disease progress over time. Results for wet season year
 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run
 the model were obtained from the NASA Langley Research Center POWER
 Project funded through the NASA Earth Science Directorate Applied
-Science Program, and the Copernicus Climate Change Service (2022):
-ERA5-Land hourly data from 1950 to present. Copernicus Climate Change
-Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac
-(Accessed on 2026-10-02).
+Science Program, and from the Copernicus Climate Change Service (C3S):
+ERA5 hourly data on single levels from 1940 to present, Climate Data
+Store (CDS), DOI: 10.24381/cds.adbb2d47, accessed via Open-Meteo
+(Accessed on 2026-10-04). Zippenfenig, P. (2023) Open-Meteo.com Weather
+API. Zenodo. doi: 10.5281/ZENODO.7970649.
 
 # Meta
 
@@ -272,11 +305,11 @@ Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac
 
 ## Code Coverage
 
-    #> epicrop Coverage: 96.04%
+    #> epicrop Coverage: 96.71%
     #> R/interpolation.R: 80.34%
     #> R/validation.R: 84.62%
-    #> R/get_wth.R: 86.96%
     #> R/format_wth.R: 91.18%
+    #> R/get_wth.R: 94.12%
     #> R/leaf_wetness.R: 97.54%
     #> R/audpc.R: 97.83%
     #> R/run_epicrop_model.R: 99.26%
@@ -313,22 +346,28 @@ Environment*. DOI:
 [10.32614/CRAN.package.ZeBook](https://doi.org/10.32614/CRAN.package.ZeBook)
 R package version 1.1, <https://CRAN.R-project.org/package=ZeBook>.
 
-Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015).
-Predicting potential epidemics of rice leaf blast and sheath blight in
-South Korea. *Agricultural and Forest Meteorology*, 203: 191-207. DOI:
-[10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
+Hans Hersbach, Bill Bell, Paul Berrisford, Shoji Hirahara, András
+Horányi, Joaquín Muñoz-Sabater, Julien Nicolas, Carole Peubey, Raluca
+Radu, Dinand Schepers, Adrian Simmons, Cornel Soci, Saleh Abdalla,
+Xavier Abellan, Gianpaolo Balsamo, Peter Bechtold, Gionata Biavati, Jean
+Bidlot, Massimo Bonavita, Giovanna De Chiara, Per Dahlgren, Dick Dee,
+Michail Diamantakis, Rossana Dragani, Johannes Flemming, Richard Forbes,
+Manuel Fuentes, Alan Geer, Leopold Haimberger, Sean Healy, Robin J.
+Hogan, Elías Hólm, Marta Janisková, Sarah Keeley, Patrick Laloyaux,
+Philippe Lopez, Cristina Lupu, Gabor Radnoti, Patricia de Rosnay, Iryna
+Rozum, Freja Vamborg, Sebastien Villaume, and Jean-Noël Thépaut. (2020).
+The ERA5 global reanalysis. *Quarterly Journal of the Royal
+Meteorological Society*, 146(730): 1999-2049. DOI:
+[10.1002/qj.3803](https://doi.org/10.1002/qj.3803).
 
 Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario.
 *cropsim*. (2009). Simulation modeling of crops and their diseases. R
 package version 0.2-6.
 
-Joaquín Muñoz-Sabater, Emanuel Dutra, Anna Agustí-Panareda, Clément
-Albergel, Gabriele Arduini, Gianpaolo Balsamo, Souhail Boussetta,
-Margarita Choulga, Shaun Harrigan, Hans Hersbach, Brecht Martens, Diego
-G. Miralles, María Piles, Nemesio J. Rodríguez-Fernández, Ervin Zsoter,
-Carlo Buontempo, and Jean-Noël Thépaut (2021). ERA5-Land: a
-state-of-the-art global reanalysis dataset for land applications. Earth
-System Science Data, 13, 4349-4383. .
+Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015).
+Predicting potential epidemics of rice leaf blast and sheath blight in
+South Korea. *Agricultural and Forest Meteorology*, 203: 191-207. DOI:
+[10.1016/j.agrformet.2015.01.011](https://doi.org/10.1016/j.agrformet.2015.01.011)
 
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and
 Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice

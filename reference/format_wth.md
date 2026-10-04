@@ -210,15 +210,22 @@ wth <- format_wth(
 class(wth)
 #> [1] "epicrop.wth" "data.table"  "data.frame" 
 head(wth)
-#> # Data table (class data.table) 9 x 6:
-#>  │YYYYMMDD  │DOY  │TEMP │TMIN │TMAX │RHUM │RAIN │LAT  │LON  
-#>  │<oth>     │<int>│<dbl>│<dbl>│<dbl>│<dbl>│<dbl>│<dbl>│<dbl>
-#> 1│2000-06-30│  182│   21│   26│   31│   72│  1.8│   15│  121
-#> 2│2000-07-01│  183│   26│   20│   28│   81│  2.1│   15│  121
-#> 3│2000-07-02│  184│   18│   28│   27│   77│  8.5│   15│  121
-#> 4│2000-07-03│  185│   25│   23│   27│   96│  1.0│   15│  121
-#> 5│2000-07-04│  186│   27│   23│   29│   74│  5.5│   15│  121
-#> 6│2000-07-05│  187│   28│   23│   33│   86│  1.6│   15│  121
+#>      YYYYMMDD   DOY     TEMP     TMIN     TMAX     RHUM     RAIN     LAT
+#>        <Date> <int>    <num>    <num>    <num>    <num>    <num>   <num>
+#> 1: 2000-06-30   182 20.79987 25.97933 30.53644 71.94048 1.842904 14.6774
+#> 2: 2000-07-01   183 25.76595 19.53764 27.90471 81.05665 2.102449 14.6774
+#> 3: 2000-07-02   184 17.68821 27.69323 27.11865 76.66400 8.544918 14.6774
+#> 4: 2000-07-03   185 24.98329 23.18600 27.07373 96.41848 1.002127 14.6774
+#> 5: 2000-07-04   186 26.86466 23.42808 28.98427 73.56094 5.496244 14.6774
+#> 6: 2000-07-05   187 28.44523 23.37152 33.45704 85.87021 1.620152 14.6774
+#>         LON
+#>       <num>
+#> 1: 121.2556
+#> 2: 121.2556
+#> 3: 121.2556
+#> 4: 121.2556
+#> 5: 121.2556
+#> 6: 121.2556
 # Ready for use in disease models
 sim <- bacterial_blight(wth, emergence = "2000-07-01")
 
@@ -272,6 +279,7 @@ wth_full <- get_wth(
 
 # Subset to June-July only
 wth_subset <- wth_full[month(YYYYMMDD) %in% 6:7]
+#> Error in month(YYYYMMDD): could not find function "month"
 
 # Re-validate formatting
 wth_check <- format_wth(
@@ -285,8 +293,7 @@ wth_check <- format_wth(
   lat = "LAT",
   lon = "LON"
 )
-#> Warning: `wth` is already an <epicrop.wth> object.
-#> ℹ No formatting is necessary; returning as-is.
+#> Error: object 'wth_subset' not found
 
 # Example 5: Error handling - demonstrating validation
 # This will fail (missing column)

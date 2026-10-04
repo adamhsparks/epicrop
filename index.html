@@ -76,7 +76,7 @@
 </div>
 <!-- badges: start -->
 
-<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package. This package provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and ERA5-Land data (Muñoz-Sabater et al. 2021) (built in courtesy of Emerson Del Ponte) via <a href="https://open-meteo.com/en/docs/historical-weather-api" class="external-link">Open-Meteo</a> and predict disease intensity of five rice and two wheat diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code><a href="reference/seir.html">seir()</a></code>.</p>
+<p>A fork of <a href="https://github.com/r-forge/cropsim/tree/master/pkg/cropsim" class="external-link">{cropsim}</a> (Hijmans <em>et al.</em> 2009) designed to make using the EPIRICE model (Savary <em>et al.</em> 2012) for rice diseases easier to use and to implement the EPIWHEAT model in the same R package. This package provides easy to use functions to fetch weather data from NASA POWER, via the <a href="https://cran.r-project.org/package=nasapower" class="external-link">{nasapower}</a> package (Sparks 2018) and ERA5 reanalysis data (Hersbach <em>et al.</em> 2020) (built in courtesy of Emerson Del Ponte) via <a href="https://open-meteo.com/en/docs/historical-weather-api" class="external-link">Open-Meteo</a> and predict disease intensity of five rice and two wheat diseases using a generic Susceptible-Exposed-Infectious-Removed (SEIR) model (Zadoks 1971) function, <code><a href="reference/seir.html">seir()</a></code>.</p>
 <p>This package fully implements the EPIRICE model first published in Savary <em>et al.</em> (2012), which introduces the model and uses it to model global epidemics of rice diseases illustrating the risk of bacterial blight, brown spot, leaf blast, sheath blight and rice tungro disease. Additional models included for rice are adapted from Kim <em>et al.</em> (2015) for rice sheath blight and leaf blast. The EPIWHEAT model first published in Savary <em>et al.</em> (2015) that was used to model potential epidemics of two wheat diseases, leaf rust and Septoria tritici blotch, is also included in this package.</p>
 <p>The modern core of <code><a href="reference/seir.html">seir()</a></code> in {epicrop} uses a different numerical integration approach than the legacy <code>SEIR()</code> in {cropsim}. While both implement the canonical SEIR formula (diseased = latent + infectious + removed), the modern version uses cumulative delay windows instead of forward Euler integration. This results in different dynamics and typically lower AUDPC values. Additionally, the modern <code><a href="reference/seir.html">seir()</a></code> is 1-indexed (standard R convention) while the legacy <code>SEIR()</code> is 0-indexed (as in the original EPIRICE publication by Savary <em>et al.</em> 2012).</p>
 <p>Scripts are available in <code>inst</code> that benchmark and validate this version against the original EPIRICE. As the original EPIWHEAT code is not available, no such comparisons are possible. I have recreated this as closely as possible to the original, while fixing minor bugs and implementing more efficient routines. In benchmarking this iteration is up to 57% faster in seasonal disease calculations than the original EPIRICE. This varies by OS and hardware, but the gains should be notable across large datasets, <em>e.g.</em>, several years of global data as in Savary <em>et al.</em> 2012.</p>
@@ -94,7 +94,7 @@
 <div class="section level2">
 <h2 id="get-weather-data">Get weather data<a class="anchor" aria-label="anchor" href="#get-weather-data"></a>
 </h2>
-<p>First you need to provide weather data for the model; {epicrop} provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. Using it with the POWER source you can fetch weather data for any place in the world from 1983 to near present by providing the and latitude and dates or length of rice growing season as shown below.</p>
+<p>First you need to provide weather data for the model; {epicrop} provides the <code><a href="reference/get_wth.html">get_wth()</a></code> function to do this. You can fetch weather data for any place in the world from either NASA POWER (the default, from 1984 onwards at 0.5-degree resolution) or ERA5 reanalysis (from 1940 onwards at about 0.25-degree resolution, roughly 25 km, via Open-Meteo) by providing the longitude and latitude and dates or length of rice growing season as shown below. Choose the source with the <code>source</code> argument, <code>"power"</code> or <code>"era5"</code>. Both return the same format, ready for the disease models, but they are different products: rainfall totals in particular will differ between them.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://codeberg.org/adamhsparks/epicrop" class="external-link">epicrop</a></span><span class="op">)</span></span>
 <span></span>
@@ -109,71 +109,68 @@
 <span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.25562</span>, <span class="fl">14.6774</span><span class="op">)</span>,</span>
 <span>  dates <span class="op">=</span> <span class="st">"2000-07-01"</span>,</span>
 <span>  duration <span class="op">=</span> <span class="fl">120</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="va">wth</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_wth.html">get_wth</a></span><span class="op">(</span></span>
-<span>  <span class="va">vals</span>,</span>
-<span>  sources <span class="op">=</span> <span class="st">"power"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `get_wth()`:</span></span>
-<span><span class="co">#&gt; ! unused argument (sources = "power")</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">wth</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sources</span></span>
 <span></span>
 <span><span class="va">wth</span></span>
 <span><span class="co">#&gt; $power</span></span>
-<span><span class="co">#&gt; # Data table (class data.table) 9 x 120:</span></span>
-<span><span class="co">#&gt; # (Showing rows 1 - 20 out of 120)</span></span>
-<span><span class="co">#&gt;   │YYYYMMDD  │DOY  │TEMP │TMIN │TMAX │RHUM </span></span>
-<span><span class="co">#&gt;   │&lt;oth&gt;     │&lt;int&gt;│&lt;dbl&gt;│&lt;dbl&gt;│&lt;dbl&gt;│&lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1│2000-07-01│  183│   25│   24│   28│   92</span></span>
-<span><span class="co">#&gt;  2│2000-07-02│  184│   26│   24│   30│   86</span></span>
-<span><span class="co">#&gt;  3│2000-07-03│  185│   26│   24│   27│   94</span></span>
-<span><span class="co">#&gt;  4│2000-07-04│  186│   26│   24│   28│   92</span></span>
-<span><span class="co">#&gt;  5│2000-07-05│  187│   26│   25│   27│   92</span></span>
-<span><span class="co">#&gt;  6│2000-07-06│  188│   26│   25│   28│   89</span></span>
-<span><span class="co">#&gt;  7│2000-07-07│  189│   26│   25│   27│   91</span></span>
-<span><span class="co">#&gt;  8│2000-07-08│  190│   26│   25│   28│   91</span></span>
-<span><span class="co">#&gt;  9│2000-07-09│  191│   26│   25│   27│   93</span></span>
-<span><span class="co">#&gt; 10│2000-07-10│  192│   26│   24│   27│   94</span></span>
-<span><span class="co">#&gt; 11│2000-07-11│  193│   26│   24│   29│   86</span></span>
-<span><span class="co">#&gt; 12│2000-07-12│  194│   25│   23│   27│   90</span></span>
-<span><span class="co">#&gt; 13│2000-07-13│  195│   25│   23│   26│   95</span></span>
-<span><span class="co">#&gt; 14│2000-07-14│  196│   25│   24│   27│   94</span></span>
-<span><span class="co">#&gt; 15│2000-07-15│  197│   25│   24│   26│   93</span></span>
-<span><span class="co">#&gt; 16│2000-07-16│  198│   26│   24│   29│   86</span></span>
-<span><span class="co">#&gt; 17│2000-07-17│  199│   26│   23│   28│   88</span></span>
-<span><span class="co">#&gt; 18│2000-07-18│  200│   25│   23│   28│   86</span></span>
-<span><span class="co">#&gt; 19│2000-07-19│  201│   25│   23│   29│   83</span></span>
-<span><span class="co">#&gt; 20│2000-07-20│  202│   26│   23│   29│   78</span></span>
-<span><span class="co">#&gt; # 3 more columns: RAIN (&lt;dbl&gt;), LAT (&lt;dbl&gt;), LON (&lt;dbl&gt;)</span></span>
+<span><span class="co">#&gt; Key: &lt;YYYYMMDD&gt;</span></span>
+<span><span class="co">#&gt;        YYYYMMDD   DOY  TEMP  TMIN  TMAX  RHUM  RAIN     LAT</span></span>
+<span><span class="co">#&gt;          &lt;IDat&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;   &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1: 2000-07-01   183 25.29 23.86 27.78 92.20 23.12 14.6774</span></span>
+<span><span class="co">#&gt;   2: 2000-07-02   184 26.13 23.54 29.90 86.01 17.34 14.6774</span></span>
+<span><span class="co">#&gt;   3: 2000-07-03   185 25.50 24.28 27.23 94.16 29.08 14.6774</span></span>
+<span><span class="co">#&gt;   4: 2000-07-04   186 25.81 24.50 27.56 92.42 13.01 14.6774</span></span>
+<span><span class="co">#&gt;   5: 2000-07-05   187 25.97 25.13 27.40 92.34 32.20 14.6774</span></span>
+<span><span class="co">#&gt;  ---                                                       </span></span>
+<span><span class="co">#&gt; 116: 2000-10-24   298 25.81 23.54 29.72 87.65  2.76 14.6774</span></span>
+<span><span class="co">#&gt; 117: 2000-10-25   299 25.82 23.44 29.54 89.76 12.04 14.6774</span></span>
+<span><span class="co">#&gt; 118: 2000-10-26   300 25.44 24.14 26.99 94.93 13.03 14.6774</span></span>
+<span><span class="co">#&gt; 119: 2000-10-27   301 25.74 24.54 27.69 91.43 11.54 14.6774</span></span>
+<span><span class="co">#&gt; 120: 2000-10-28   302 25.44 24.72 26.62 91.90 74.20 14.6774</span></span>
+<span><span class="co">#&gt;           LON</span></span>
+<span><span class="co">#&gt;         &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1: 121.2556</span></span>
+<span><span class="co">#&gt;   2: 121.2556</span></span>
+<span><span class="co">#&gt;   3: 121.2556</span></span>
+<span><span class="co">#&gt;   4: 121.2556</span></span>
+<span><span class="co">#&gt;   5: 121.2556</span></span>
+<span><span class="co">#&gt;  ---         </span></span>
+<span><span class="co">#&gt; 116: 121.2556</span></span>
+<span><span class="co">#&gt; 117: 121.2556</span></span>
+<span><span class="co">#&gt; 118: 121.2556</span></span>
+<span><span class="co">#&gt; 119: 121.2556</span></span>
+<span><span class="co">#&gt; 120: 121.2556</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $era5</span></span>
-<span><span class="co">#&gt; # Data table (class data.table) 9 x 120:</span></span>
-<span><span class="co">#&gt; # (Showing rows 1 - 20 out of 120)</span></span>
-<span><span class="co">#&gt;   │YYYYMMDD  │DOY  │TEMP │TMIN │TMAX │RHUM </span></span>
-<span><span class="co">#&gt;   │&lt;oth&gt;     │&lt;int&gt;│&lt;dbl&gt;│&lt;dbl&gt;│&lt;dbl&gt;│&lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1│2000-07-01│  183│   25│   23│   28│   89</span></span>
-<span><span class="co">#&gt;  2│2000-07-02│  184│   24│   23│   26│   91</span></span>
-<span><span class="co">#&gt;  3│2000-07-03│  185│   24│   23│   26│   93</span></span>
-<span><span class="co">#&gt;  4│2000-07-04│  186│   23│   23│   24│   96</span></span>
-<span><span class="co">#&gt;  5│2000-07-05│  187│   24│   23│   25│   96</span></span>
-<span><span class="co">#&gt;  6│2000-07-06│  188│   24│   23│   26│   94</span></span>
-<span><span class="co">#&gt;  7│2000-07-07│  189│   24│   23│   26│   93</span></span>
-<span><span class="co">#&gt;  8│2000-07-08│  190│   24│   23│   25│   93</span></span>
-<span><span class="co">#&gt;  9│2000-07-09│  191│   24│   23│   26│   93</span></span>
-<span><span class="co">#&gt; 10│2000-07-10│  192│   24│   23│   27│   92</span></span>
-<span><span class="co">#&gt; 11│2000-07-11│  193│   25│   23│   29│   85</span></span>
-<span><span class="co">#&gt; 12│2000-07-12│  194│   24│   23│   27│   90</span></span>
-<span><span class="co">#&gt; 13│2000-07-13│  195│   24│   22│   25│   95</span></span>
-<span><span class="co">#&gt; 14│2000-07-14│  196│   23│   23│   24│   95</span></span>
-<span><span class="co">#&gt; 15│2000-07-15│  197│   24│   22│   26│   92</span></span>
-<span><span class="co">#&gt; 16│2000-07-16│  198│   26│   23│   29│   83</span></span>
-<span><span class="co">#&gt; 17│2000-07-17│  199│   26│   23│   29│   80</span></span>
-<span><span class="co">#&gt; 18│2000-07-18│  200│   25│   23│   28│   84</span></span>
-<span><span class="co">#&gt; 19│2000-07-19│  201│   24│   23│   27│   90</span></span>
-<span><span class="co">#&gt; 20│2000-07-20│  202│   24│   22│   27│   89</span></span>
-<span><span class="co">#&gt; # 3 more columns: RAIN (&lt;dbl&gt;), LAT (&lt;dbl&gt;), LON (&lt;dbl&gt;)</span></span></code></pre></div>
+<span><span class="co">#&gt; Key: &lt;YYYYMMDD&gt;</span></span>
+<span><span class="co">#&gt;        YYYYMMDD   DOY     TEMP  TMIN  TMAX     RHUM  RAIN   LAT</span></span>
+<span><span class="co">#&gt;          &lt;IDat&gt; &lt;int&gt;    &lt;num&gt; &lt;num&gt; &lt;num&gt;    &lt;num&gt; &lt;num&gt; &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1: 2000-07-01   183 25.43750  23.3  29.0 91.95833  28.8 14.75</span></span>
+<span><span class="co">#&gt;   2: 2000-07-02   184 24.85000  21.9  28.0 92.45833  27.9 14.75</span></span>
+<span><span class="co">#&gt;   3: 2000-07-03   185 23.87083  23.1  25.6 94.91667  43.3 14.75</span></span>
+<span><span class="co">#&gt;   4: 2000-07-04   186 23.41250  22.9  24.0 97.29167  96.0 14.75</span></span>
+<span><span class="co">#&gt;   5: 2000-07-05   187 24.05833  23.3  24.9 97.04167  86.9 14.75</span></span>
+<span><span class="co">#&gt;  ---                                                           </span></span>
+<span><span class="co">#&gt; 116: 2000-10-24   298 26.96667  23.3  30.8 82.62500   0.1 14.75</span></span>
+<span><span class="co">#&gt; 117: 2000-10-25   299 26.63750  23.1  30.9 83.45833   1.0 14.75</span></span>
+<span><span class="co">#&gt; 118: 2000-10-26   300 26.04583  23.8  28.6 86.62500   5.7 14.75</span></span>
+<span><span class="co">#&gt; 119: 2000-10-27   301 26.26250  23.9  28.6 87.37500   2.8 14.75</span></span>
+<span><span class="co">#&gt; 120: 2000-10-28   302 24.11250  23.2  25.1 93.95833 162.6 14.75</span></span>
+<span><span class="co">#&gt;         LON</span></span>
+<span><span class="co">#&gt;       &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1: 121.25</span></span>
+<span><span class="co">#&gt;   2: 121.25</span></span>
+<span><span class="co">#&gt;   3: 121.25</span></span>
+<span><span class="co">#&gt;   4: 121.25</span></span>
+<span><span class="co">#&gt;   5: 121.25</span></span>
+<span><span class="co">#&gt;  ---       </span></span>
+<span><span class="co">#&gt; 116: 121.25</span></span>
+<span><span class="co">#&gt; 117: 121.25</span></span>
+<span><span class="co">#&gt; 118: 121.25</span></span>
+<span><span class="co">#&gt; 119: 121.25</span></span>
+<span><span class="co">#&gt; 120: 121.25</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="modelling-bacterial-blight-disease-intensity">Modelling bacterial blight disease intensity<a class="anchor" aria-label="anchor" href="#modelling-bacterial-blight-disease-intensity"></a>
@@ -184,58 +181,86 @@
 <span></span>
 <span><span class="va">bb_sim</span></span>
 <span><span class="co">#&gt; $power</span></span>
-<span><span class="co">#&gt; # Data table (class data.table) 17 x 120:</span></span>
-<span><span class="co">#&gt; # (Showing rows 1 - 20 out of 120)</span></span>
-<span><span class="co">#&gt;   │simday│dates     │sites│latent│infectious</span></span>
-<span><span class="co">#&gt;   │&lt;int&gt; │&lt;oth&gt;     │&lt;dbl&gt;│&lt;dbl&gt; │&lt;dbl&gt;     </span></span>
-<span><span class="co">#&gt;  1│     1│2000-07-01│  100│     0│         0</span></span>
-<span><span class="co">#&gt;  2│     2│2000-07-02│  109│     0│         0</span></span>
-<span><span class="co">#&gt;  3│     3│2000-07-03│  118│     0│         0</span></span>
-<span><span class="co">#&gt;  4│     4│2000-07-04│  128│     0│         0</span></span>
-<span><span class="co">#&gt;  5│     5│2000-07-05│  139│     0│         0</span></span>
-<span><span class="co">#&gt;  6│     6│2000-07-06│  151│     0│         0</span></span>
-<span><span class="co">#&gt;  7│     7│2000-07-07│  164│     0│         0</span></span>
-<span><span class="co">#&gt;  8│     8│2000-07-08│  178│     0│         0</span></span>
-<span><span class="co">#&gt;  9│     9│2000-07-09│  193│     0│         0</span></span>
-<span><span class="co">#&gt; 10│    10│2000-07-10│  209│     0│         0</span></span>
-<span><span class="co">#&gt; 11│    11│2000-07-11│  227│     0│         0</span></span>
-<span><span class="co">#&gt; 12│    12│2000-07-12│  246│     0│         0</span></span>
-<span><span class="co">#&gt; 13│    13│2000-07-13│  266│     0│         0</span></span>
-<span><span class="co">#&gt; 14│    14│2000-07-14│  288│     0│         0</span></span>
-<span><span class="co">#&gt; 15│    15│2000-07-15│  311│     0│         0</span></span>
-<span><span class="co">#&gt; 16│    16│2000-07-16│  336│     0│         0</span></span>
-<span><span class="co">#&gt; 17│    17│2000-07-17│  363│     0│         0</span></span>
-<span><span class="co">#&gt; 18│    18│2000-07-18│  391│     0│         0</span></span>
-<span><span class="co">#&gt; 19│    19│2000-07-19│  421│     0│         0</span></span>
-<span><span class="co">#&gt; 20│    20│2000-07-20│  454│     0│         0</span></span>
-<span><span class="co">#&gt; # 12 more columns: removed (&lt;dbl&gt;), senesced (&lt;dbl&gt;), rateinf (&lt;dbl&gt;), rlex (&lt;dbl&gt;), rtransfer (&lt;dbl&gt;), rremoved (&lt;dbl&gt;), rgrowth (&lt;dbl&gt;), rsenesced (&lt;dbl&gt;), diseased (&lt;dbl&gt;), intensity (&lt;dbl&gt;), lat (&lt;dbl&gt;), lon (&lt;dbl&gt;)</span></span>
+<span><span class="co">#&gt;      simday      dates    sites latent infectious  removed</span></span>
+<span><span class="co">#&gt;       &lt;int&gt;     &lt;IDat&gt;    &lt;num&gt;  &lt;num&gt;      &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:      1 2000-07-01 100.0000      0     0.0000    0.000</span></span>
+<span><span class="co">#&gt;   2:      2 2000-07-02 108.6875      0     0.0000    0.000</span></span>
+<span><span class="co">#&gt;   3:      3 2000-07-03 118.1002      0     0.0000    0.000</span></span>
+<span><span class="co">#&gt;   4:      4 2000-07-04 128.2934      0     0.0000    0.000</span></span>
+<span><span class="co">#&gt;   5:      5 2000-07-05 139.3254      0     0.0000    0.000</span></span>
+<span><span class="co">#&gt;  ---                                                      </span></span>
+<span><span class="co">#&gt; 116:    116 2000-10-24   0.0000      0   396.0528 1404.565</span></span>
+<span><span class="co">#&gt; 117:    117 2000-10-25   0.0000      0   356.3610 1444.257</span></span>
+<span><span class="co">#&gt; 118:    118 2000-10-26   0.0000      0   309.2779 1491.340</span></span>
+<span><span class="co">#&gt; 119:    119 2000-10-27   0.0000      0   266.3860 1534.232</span></span>
+<span><span class="co">#&gt; 120:    120 2000-10-28   0.0000      0   229.5445 1571.073</span></span>
+<span><span class="co">#&gt;         senesced rateinf  rlex rtransfer rremoved  rgrowth</span></span>
+<span><span class="co">#&gt;            &lt;num&gt;   &lt;num&gt; &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:    1.000000       0     0         0  0.00000  9.68750</span></span>
+<span><span class="co">#&gt;   2:    2.086875       0     0         0  0.00000 10.49959</span></span>
+<span><span class="co">#&gt;   3:    3.267877       0     0         0  0.00000 11.37416</span></span>
+<span><span class="co">#&gt;   4:    4.550811       0     0         0  0.00000 12.31499</span></span>
+<span><span class="co">#&gt;   5:    5.944065       0     0         0  0.00000 13.32593</span></span>
+<span><span class="co">#&gt;  ---                                                      </span></span>
+<span><span class="co">#&gt; 116: 2665.037553       0     0         0 43.67864  0.00000</span></span>
+<span><span class="co">#&gt; 117: 2712.120592       0     0         0 39.69181  0.00000</span></span>
+<span><span class="co">#&gt; 118: 2755.012575       0     0         0 47.08304  0.00000</span></span>
+<span><span class="co">#&gt; 119: 2791.854071       0     0         0 42.89198  0.00000</span></span>
+<span><span class="co">#&gt; 120: 2824.358958       0     0         0 36.84150  0.00000</span></span>
+<span><span class="co">#&gt;      rsenesced diseased intensity     lat      lon</span></span>
+<span><span class="co">#&gt;          &lt;num&gt;    &lt;num&gt;     &lt;num&gt;   &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:  1.000000    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   2:  1.086875    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   3:  1.181002    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   4:  1.282934    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;   5:  1.393254    0.000         0 14.6774 121.2556</span></span>
+<span><span class="co">#&gt;  ---                                              </span></span>
+<span><span class="co">#&gt; 116: 39.691810 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 117: 47.083039 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 118: 42.891982 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 119: 36.841497 1800.618         1 14.6774 121.2556</span></span>
+<span><span class="co">#&gt; 120: 32.504887 1800.618         1 14.6774 121.2556</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $era5</span></span>
-<span><span class="co">#&gt; # Data table (class data.table) 17 x 120:</span></span>
-<span><span class="co">#&gt; # (Showing rows 1 - 20 out of 120)</span></span>
-<span><span class="co">#&gt;   │simday│dates     │sites│latent│infectious</span></span>
-<span><span class="co">#&gt;   │&lt;int&gt; │&lt;oth&gt;     │&lt;dbl&gt;│&lt;dbl&gt; │&lt;dbl&gt;     </span></span>
-<span><span class="co">#&gt;  1│     1│2000-07-01│  100│     0│         0</span></span>
-<span><span class="co">#&gt;  2│     2│2000-07-02│  109│     0│         0</span></span>
-<span><span class="co">#&gt;  3│     3│2000-07-03│  118│     0│         0</span></span>
-<span><span class="co">#&gt;  4│     4│2000-07-04│  128│     0│         0</span></span>
-<span><span class="co">#&gt;  5│     5│2000-07-05│  139│     0│         0</span></span>
-<span><span class="co">#&gt;  6│     6│2000-07-06│  151│     0│         0</span></span>
-<span><span class="co">#&gt;  7│     7│2000-07-07│  164│     0│         0</span></span>
-<span><span class="co">#&gt;  8│     8│2000-07-08│  178│     0│         0</span></span>
-<span><span class="co">#&gt;  9│     9│2000-07-09│  193│     0│         0</span></span>
-<span><span class="co">#&gt; 10│    10│2000-07-10│  209│     0│         0</span></span>
-<span><span class="co">#&gt; 11│    11│2000-07-11│  227│     0│         0</span></span>
-<span><span class="co">#&gt; 12│    12│2000-07-12│  246│     0│         0</span></span>
-<span><span class="co">#&gt; 13│    13│2000-07-13│  266│     0│         0</span></span>
-<span><span class="co">#&gt; 14│    14│2000-07-14│  288│     0│         0</span></span>
-<span><span class="co">#&gt; 15│    15│2000-07-15│  311│     0│         0</span></span>
-<span><span class="co">#&gt; 16│    16│2000-07-16│  336│     0│         0</span></span>
-<span><span class="co">#&gt; 17│    17│2000-07-17│  363│     0│         0</span></span>
-<span><span class="co">#&gt; 18│    18│2000-07-18│  391│     0│         0</span></span>
-<span><span class="co">#&gt; 19│    19│2000-07-19│  421│     0│         0</span></span>
-<span><span class="co">#&gt; 20│    20│2000-07-20│  454│     0│         0</span></span>
-<span><span class="co">#&gt; # 12 more columns: removed (&lt;dbl&gt;), senesced (&lt;dbl&gt;), rateinf (&lt;dbl&gt;), rlex (&lt;dbl&gt;), rtransfer (&lt;dbl&gt;), rremoved (&lt;dbl&gt;), rgrowth (&lt;dbl&gt;), rsenesced (&lt;dbl&gt;), diseased (&lt;dbl&gt;), intensity (&lt;dbl&gt;), lat (&lt;dbl&gt;), lon (&lt;dbl&gt;)</span></span></code></pre></div>
+<span><span class="co">#&gt;      simday      dates    sites latent infectious  removed</span></span>
+<span><span class="co">#&gt;       &lt;int&gt;     &lt;IDat&gt;    &lt;num&gt;  &lt;num&gt;      &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:      1 2000-07-01 100.0000      0    0.00000    0.000</span></span>
+<span><span class="co">#&gt;   2:      2 2000-07-02 108.6875      0    0.00000    0.000</span></span>
+<span><span class="co">#&gt;   3:      3 2000-07-03 118.1002      0    0.00000    0.000</span></span>
+<span><span class="co">#&gt;   4:      4 2000-07-04 128.2934      0    0.00000    0.000</span></span>
+<span><span class="co">#&gt;   5:      5 2000-07-05 139.3254      0    0.00000    0.000</span></span>
+<span><span class="co">#&gt;  ---                                                      </span></span>
+<span><span class="co">#&gt; 116:    116 2000-10-24   0.0000      0   95.67886 1642.141</span></span>
+<span><span class="co">#&gt; 117:    117 2000-10-25   0.0000      0   77.09091 1660.729</span></span>
+<span><span class="co">#&gt; 118:    118 2000-10-26   0.0000      0   77.09091 1660.729</span></span>
+<span><span class="co">#&gt; 119:    119 2000-10-27   0.0000      0   77.09091 1660.729</span></span>
+<span><span class="co">#&gt; 120:    120 2000-10-28   0.0000      0   77.09091 1660.729</span></span>
+<span><span class="co">#&gt;         senesced rateinf  rlex rtransfer rremoved  rgrowth</span></span>
+<span><span class="co">#&gt;            &lt;num&gt;   &lt;num&gt; &lt;num&gt;     &lt;num&gt;    &lt;num&gt;    &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:    1.000000       0     0         0  0.00000  9.68750</span></span>
+<span><span class="co">#&gt;   2:    2.086875       0     0         0  0.00000 10.49959</span></span>
+<span><span class="co">#&gt;   3:    3.267877       0     0         0  0.00000 11.37416</span></span>
+<span><span class="co">#&gt;   4:    4.550811       0     0         0  0.00000 12.31499</span></span>
+<span><span class="co">#&gt;   5:    5.944065       0     0         0  0.00000 13.32593</span></span>
+<span><span class="co">#&gt;  ---                                                      </span></span>
+<span><span class="co">#&gt; 116: 2664.640605       0     0         0 20.45989  0.00000</span></span>
+<span><span class="co">#&gt; 117: 2664.640605       0     0         0 18.58794  0.00000</span></span>
+<span><span class="co">#&gt; 118: 2664.640605       0     0         0  0.00000  0.00000</span></span>
+<span><span class="co">#&gt; 119: 2664.640605       0     0         0  0.00000  0.00000</span></span>
+<span><span class="co">#&gt; 120: 2664.640605       0     0         0  0.00000  0.00000</span></span>
+<span><span class="co">#&gt;      rsenesced diseased intensity   lat    lon</span></span>
+<span><span class="co">#&gt;          &lt;num&gt;    &lt;num&gt;     &lt;num&gt; &lt;num&gt;  &lt;num&gt;</span></span>
+<span><span class="co">#&gt;   1:  1.000000     0.00         0 14.75 121.25</span></span>
+<span><span class="co">#&gt;   2:  1.086875     0.00         0 14.75 121.25</span></span>
+<span><span class="co">#&gt;   3:  1.181002     0.00         0 14.75 121.25</span></span>
+<span><span class="co">#&gt;   4:  1.282934     0.00         0 14.75 121.25</span></span>
+<span><span class="co">#&gt;   5:  1.393254     0.00         0 14.75 121.25</span></span>
+<span><span class="co">#&gt;  ---                                          </span></span>
+<span><span class="co">#&gt; 116: 18.587944  1737.82         1 14.75 121.25</span></span>
+<span><span class="co">#&gt; 117:  0.000000  1737.82         1 14.75 121.25</span></span>
+<span><span class="co">#&gt; 118:  0.000000  1737.82         1 14.75 121.25</span></span>
+<span><span class="co">#&gt; 119:  0.000000  1737.82         1 14.75 121.25</span></span>
+<span><span class="co">#&gt; 120:  0.000000  1737.82         1 14.75 121.25</span></span></code></pre></div>
 <p>Lastly, you can visualise the result of the model run.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -260,8 +285,8 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="reference/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program, and the Copernicus Climate Change Service (2022): ERA5-Land hourly data from 1950 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac (Accessed on 2026-10-02)." width="100%"><p class="caption">
-Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program, and the Copernicus Climate Change Service (2022): ERA5-Land hourly data from 1950 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.e2161bac (Accessed on 2026-10-02).
+<img src="reference/figures/README-plot-1.png" alt="Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program, and from the Copernicus Climate Change Service (C3S): ERA5 hourly data on single levels from 1940 to present, Climate Data Store (CDS), DOI: 10.24381/cds.adbb2d47, accessed via Open-Meteo (Accessed on 2026-10-04). Zippenfenig, P. (2023) Open-Meteo.com Weather API. Zenodo. doi: 10.5281/ZENODO.7970649." width="100%"><p class="caption">
+Bacterial blight disease progress over time. Results for wet season year 2000 at IRRI Zeigler Experiment Station shown. Weather data used to run the model were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program, and from the Copernicus Climate Change Service (C3S): ERA5 hourly data on single levels from 1940 to present, Climate Data Store (CDS), DOI: 10.24381/cds.adbb2d47, accessed via Open-Meteo (Accessed on 2026-10-04). Zippenfenig, P. (2023) Open-Meteo.com Weather API. Zenodo. doi: 10.5281/ZENODO.7970649.
 </p>
 </div>
 </div>
@@ -277,11 +302,11 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <div class="section level2">
 <h2 id="code-coverage">Code Coverage<a class="anchor" aria-label="anchor" href="#code-coverage"></a>
 </h2>
-<pre><code><span><span class="co">#&gt; epicrop Coverage: 96.04%</span></span>
+<pre><code><span><span class="co">#&gt; epicrop Coverage: 96.71%</span></span>
 <span><span class="co">#&gt; R/interpolation.R: 80.34%</span></span>
 <span><span class="co">#&gt; R/validation.R: 84.62%</span></span>
-<span><span class="co">#&gt; R/get_wth.R: 86.96%</span></span>
 <span><span class="co">#&gt; R/format_wth.R: 91.18%</span></span>
+<span><span class="co">#&gt; R/get_wth.R: 94.12%</span></span>
 <span><span class="co">#&gt; R/leaf_wetness.R: 97.54%</span></span>
 <span><span class="co">#&gt; R/audpc.R: 97.83%</span></span>
 <span><span class="co">#&gt; R/run_epicrop_model.R: 99.26%</span></span>
@@ -309,9 +334,9 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h1>
 <p>François Brun, David Makowski, Daniel Wallach, and James W Jones. (2018). <em>ZeBook: Working with Dynamic Models for Agriculture and Environment</em>. DOI: <a href="https://doi.org/10.32614/CRAN.package.ZeBook" class="external-link">10.32614/CRAN.package.ZeBook</a> R package version 1.1, <a href="https://CRAN.R-project.org/package=ZeBook" class="external-link uri">https://CRAN.R-project.org/package=ZeBook</a>.</p>
-<p>Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015). Predicting potential epidemics of rice leaf blast and sheath blight in South Korea. <em>Agricultural and Forest Meteorology</em>, 203: 191-207. DOI: <a href="https://doi.org/10.1016/j.agrformet.2015.01.011" class="external-link">10.1016/j.agrformet.2015.01.011</a></p>
+<p>Hans Hersbach, Bill Bell, Paul Berrisford, Shoji Hirahara, András Horányi, Joaquín Muñoz-Sabater, Julien Nicolas, Carole Peubey, Raluca Radu, Dinand Schepers, Adrian Simmons, Cornel Soci, Saleh Abdalla, Xavier Abellan, Gianpaolo Balsamo, Peter Bechtold, Gionata Biavati, Jean Bidlot, Massimo Bonavita, Giovanna De Chiara, Per Dahlgren, Dick Dee, Michail Diamantakis, Rossana Dragani, Johannes Flemming, Richard Forbes, Manuel Fuentes, Alan Geer, Leopold Haimberger, Sean Healy, Robin J. Hogan, Elías Hólm, Marta Janisková, Sarah Keeley, Patrick Laloyaux, Philippe Lopez, Cristina Lupu, Gabor Radnoti, Patricia de Rosnay, Iryna Rozum, Freja Vamborg, Sebastien Villaume, and Jean-Noël Thépaut. (2020). The ERA5 global reanalysis. <em>Quarterly Journal of the Royal Meteorological Society</em>, 146(730): 1999-2049. DOI: <a href="https://doi.org/10.1002/qj.3803" class="external-link">10.1002/qj.3803</a>.</p>
 <p>Robert J Hijmans, Serge Savary, Rene Pangga and Jorrel Aunario. <em>cropsim</em>. (2009). Simulation modeling of crops and their diseases. R package version 0.2-6.</p>
-<p>Joaquín Muñoz-Sabater, Emanuel Dutra, Anna Agustí-Panareda, Clément Albergel, Gabriele Arduini, Gianpaolo Balsamo, Souhail Boussetta, Margarita Choulga, Shaun Harrigan, Hans Hersbach, Brecht Martens, Diego G. Miralles, María Piles, Nemesio J. Rodríguez-Fernández, Ervin Zsoter, Carlo Buontempo, and Jean-Noël Thépaut (2021). ERA5-Land: a state-of-the-art global reanalysis dataset for land applications. Earth System Science Data, 13, 4349-4383. .</p>
+<p>Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015). Predicting potential epidemics of rice leaf blast and sheath blight in South Korea. <em>Agricultural and Forest Meteorology</em>, 203: 191-207. DOI: <a href="https://doi.org/10.1016/j.agrformet.2015.01.011" class="external-link">10.1016/j.agrformet.2015.01.011</a></p>
 <p>Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice diseases globally. <em>Crop Protection</em>, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: <a href="https://doi.org/10.1016/j.cropro.2011.11.009" class="external-link">10.1016/j.cropro.2011.11.009</a>.</p>
 <p>Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). <em>European Journal of Plant Pathology</em> 142, no. 4:771–90. DOI: <a href="https://doi.org/10.1007/s10658-015-0650-7" class="external-link">10.1007/s10658-015-0650-7</a>.</p>
 <p>Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. <em>Journal of Open Source Software</em>, 3(30), 1035, DOI: <a href="https://doi.org/10.21105/joss.01035" class="external-link">10.21105/joss.01035</a>.</p>
@@ -370,7 +395,7 @@ Bacterial blight disease progress over time. Results for wet season year 2000 at
 <li><a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://zenodo.org/badge/latestdoi/58613738" class="external-link"><img src="https://zenodo.org/badge/58613738.svg" alt="DOI"></a></li>
-<li><a href="#code-coverage"><img src="https://img.shields.io/badge/code_coverage-96%25-green" alt="Code Coverage: 96%"></a></li>
+<li><a href="#code-coverage"><img src="https://img.shields.io/badge/code_coverage-96.7%25-green" alt="Code Coverage: 96.7%"></a></li>
 <li><a href="https://CRAN.R-project.org/package=epicrop" class="external-link"><img src="https://www.r-pkg.org/badges/version/epicrop" alt="CRAN status"></a></li>
 </ul>
 </div>

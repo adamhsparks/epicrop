@@ -24,7 +24,5 @@ The validated matrix unchanged.
 ``` r
 locations <- rbind(c(121.255669, 14.16742), c(120.985, 14.6042))
 .process_location_matrix(locations)
-#>          [,1]     [,2]
-#> [1,] 121.2557 14.16742
-#> [2,] 120.9850 14.60420
+#> Error in .process_location_matrix(locations): could not find function ".process_location_matrix"
 ```

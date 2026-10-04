@@ -42,14 +42,17 @@ Adam H. Sparks
 # Vapor pressure curve over typical temperature range
 temps <- seq(0, 40, by = 5)
 es <- .saturated_vapour_pressure(temps)
+#> Error in .saturated_vapour_pressure(temps): could not find function ".saturated_vapour_pressure"
 plot(temps, es, type = "b", xlab = "Temperature (degrees C)",
      ylab = "es (kPa)",
      main = "Saturated Vapor Pressure")
-
+#> Error: object 'es' not found
 
 # Rapid increase at higher temps (why RH drops in afternoon)
 es_20 <- .saturated_vapour_pressure(20)
+#> Error in .saturated_vapour_pressure(20): could not find function ".saturated_vapour_pressure"
 es_30 <- .saturated_vapour_pressure(30)
+#> Error in .saturated_vapour_pressure(30): could not find function ".saturated_vapour_pressure"
 es_30 / es_20  # ~1.5x increase for 10 degrees C rise
-#> [1] 1.815624
+#> Error: object 'es_30' not found
 ```
