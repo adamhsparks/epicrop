@@ -292,10 +292,8 @@ wth_check <- format_wth(
   lat = "LAT",
   lon = "LON"
 )
-#> Warning: `wth` is already an <epicrop.wth>
-#> object.
-#> ℹ No formatting is necessary; returning
-#>   as-is.
+#> Warning: `wth` is already an <epicrop.wth> object.
+#> ℹ No formatting is necessary; returning as-is.
 
 # Example 5: Error handling - demonstrating validation
 # This will fail (missing column)
