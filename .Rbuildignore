@@ -53,7 +53,6 @@
 ^man/dot-resolve_end_date\.Rd$
 ^man/dot-validate_lonlat\.Rd$
 ^man/dot-check_coord\.Rd$
-^man/dot-rh_from_dewpoint\.Rd$
 ^man/dot-interp\.Rd$
 ^man/dot-interp_fn\.Rd$
 ^man/dot-interp_vec\.Rd$
