@@ -7,7 +7,7 @@
 #'
 #' @section Workflow:
 #'
-#' This function bridges [fetch_epicrop_weather_list()] (weather prep) and
+#' This function bridges [get_epicrop_weather_list()] (weather prep) and
 #' [build_epicrop_emergence()] (emergence date generation) with disease models.
 #' For each emergence date, it:
 #' 1. Slices weather data spanning emergence to emergence + `window_days - 1`
@@ -29,7 +29,7 @@
 #'  year.
 #'   * **Names** must be year strings (*e.g.*, `"2001"`, `"2002"`)
 #'   * Each table must have a `YYYYMMDD` column (Date, IDate, or ISO string)
-#'   * Typically created by [fetch_epicrop_weather_list()]
+#'   * Typically created by [get_epicrop_weather_list()]
 #'   * Can also be an `epicrop.wth.bundle` (multiple locations)
 #' @param window_days Integer. Days after emergence to simulate (default 120L).
 #'   The model will run for exactly `window_days` rows when sufficient weather
@@ -66,7 +66,7 @@
 #'
 #' @section Bundle Processing:
 #'
-#' If `wth_list` is an `epicrop.wth.bundle` (from [fetch_epicrop_weather_list()]
+#' If `wth_list` is an `epicrop.wth.bundle` (from [get_epicrop_weather_list()]
 #' with multiple locations or location-date pairs):
 #' * Each bundled weather object is processed independently
 #' * Results are combined with a `location` column
@@ -82,7 +82,7 @@
 #'
 #' # Fetch weather (one year per element)
 #' lonlat <- c(121.255669, 14.16742)
-#' wth_list <- fetch_epicrop_weather_list(
+#' wth_list <- get_epicrop_weather_list(
 #'   lonlat = lonlat,
 #'   start_date = month_days,
 #'   duration = 120L,
@@ -153,7 +153,7 @@
 #'   "Laguna" = c(121.2, 14.1)
 #' )
 #'
-#' wth_bundle <- fetch_epicrop_weather_list(
+#' wth_bundle <- get_epicrop_weather_list(
 #'   lonlat = locations,
 #'   start_date = month_days,
 #'   duration = 120L,
@@ -174,7 +174,7 @@
 #'
 #' @seealso
 #' * [build_epicrop_emergence()] – Construct emergence date vectors
-#' * [fetch_epicrop_weather_list()] – Prepare weather data
+#' * [get_epicrop_weather_list()] – Prepare weather data
 #' * [get_audpc()] – Extract/compute AUDPC from results
 #' * [seir()] – Core SEIR model
 #' * [leaf_blast()], [sheath_blight()], etc. – Individual disease models
@@ -287,7 +287,7 @@ run_epicrop_model <- function(
     cli::cli_abort(c(
       "{.arg wth_list} must be {.cls epicrop.wth.list} or
         {.cls epicrop.wth.bundle}.",
-      i = "Use {.fn fetch_epicrop_weather_list}."
+      i = "Use {.fn get_epicrop_weather_list}."
     ))
   }
 }
@@ -340,7 +340,7 @@ run_epicrop_model <- function(
 #'
 #' @details
 #' The function extracts location labels from the bundle's names by taking the
-#' text before the `"__"` delimiter (used by [fetch_epicrop_weather_list()]).
+#' text before the `"__"` delimiter (used by [get_epicrop_weather_list()]).
 #' For unnamed or empty-named entries, generates default labels (`location01`,
 #' `location02`, etc.).
 #'
@@ -357,7 +357,7 @@ run_epicrop_model <- function(
 #'   "Site2" = c(121.3, 14.2)
 #' )
 #' emergence <- build_epicrop_emergence(2001:2003, "-06-30")
-#' wth_bundle <- fetch_epicrop_weather_list(
+#' wth_bundle <- get_epicrop_weather_list(
 #'   lonlat = locations,
 #'   start_date = "-06-30",
 #'   duration = 120L,
@@ -374,7 +374,7 @@ run_epicrop_model <- function(
 #' )
 #' # Results now include a 'location' column
 #'
-#' @seealso [run_epicrop_model()], [fetch_epicrop_weather_list()]
+#' @seealso [run_epicrop_model()], [get_epicrop_weather_list()]
 #' @autoglobal
 #' @dev
 .run_bundle <- function(

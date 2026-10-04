@@ -44,7 +44,7 @@
 ^man/dot-cover_from_md_years\.Rd$
 ^man/dot-collapse_one_location\.Rd$
 ^man/dot-collapse_tasks_by_location\.Rd$
-^man/dot-fetch_one_weather\.Rd$
+^man/dot-get_one_weather\.Rd$
 ^man/dot-format_results\.Rd$
 ^man/dot-get_power\.Rd$
 ^man/dot-get_era5\.Rd$

@@ -19,7 +19,7 @@ NULL (invisibly). Called for side effects (validation/abort).
 \description{
 Checks that \code{lonlat}, \code{start_date}, and \code{duration} are provided and aborts
 with helpful error messages if any are missing. Called early in
-\code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} to fail fast.
+\code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}} to fail fast.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

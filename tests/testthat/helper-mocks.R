@@ -1,5 +1,5 @@
 # Shared test fixtures used across test-run_epicrop_model.R,
-# test-fetch_epicrop_weather_list.R, and any other file that needs a
+# test-get_epicrop_weather_list.R, and any other file that needs a
 # lightweight stand-in for a real epicrop disease model or a mocked
 # get_wth(). testthat auto-sources every helper-*.R file before running
 # tests, so these are available everywhere without an explicit source().
@@ -73,7 +73,7 @@ mock_model <- function(
 }
 
 # A fake get_wth() replacement for mocking network calls in
-# fetch_epicrop_weather_list() tests. Returns exactly `duration` consecutive
+# get_epicrop_weather_list() tests. Returns exactly `duration` consecutive
 # days of synthetic weather starting at `dates`.
 .fake_get_wth <- function(lonlat, dates, duration = NULL, source = "power") {
   start <- data.table::as.IDate(dates)

@@ -8,7 +8,7 @@
 }
 \arguments{
 \item{results}{A list of \code{epicrop.wth.list} objects (from
-\code{\link[=.fetch_one_weather]{.fetch_one_weather()}}).}
+\code{\link[=.get_one_weather]{.get_one_weather()}}).}
 
 \item{tasks}{A list of task objects (from \code{\link[=.collapse_tasks_by_location]{.collapse_tasks_by_location()}}).}
 }

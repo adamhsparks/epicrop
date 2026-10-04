@@ -643,10 +643,10 @@ test_that(
   }
 )
 
-# ---- .fetch_one_weather: isolated with a mocked get_wth() -----------
+# ---- .get_one_weather: isolated with a mocked get_wth() -----------
 
 test_that(
-  ".fetch_one_weather splits a fetched weather table into a per-year named list",
+  ".get_one_weather splits a fetched weather table into a per-year named list",
   {
     fake_wth <- data.table::data.table(
       YYYYMMDD = data.table::as.IDate(c(
@@ -678,7 +678,7 @@ test_that(
       duration = 6L
     )
 
-    out <- .fetch_one_weather(task)
+    out <- .get_one_weather(task)
 
     expect_s3_class(out, "epicrop.wth.list")
     expect_setequal(names(out), c("2000", "2001"))
@@ -687,11 +687,11 @@ test_that(
   }
 )
 
-# ---- fetch_epicrop_weather_list(): validation happens before any fetch ----
+# ---- get_epicrop_weather_list(): validation happens before any fetch ----
 # These do not need vcr since they error before get_wth() is ever called.
 
-test_that("fetch_epicrop_weather_list errors on invalid mode before fetching", {
-  expect_error(fetch_epicrop_weather_list(
+test_that("get_epicrop_weather_list errors on invalid mode before fetching", {
+  expect_error(get_epicrop_weather_list(
     lonlat = c(121.25, 14.16),
     start_date = "2000-06-30",
     duration = 10L,
@@ -700,10 +700,10 @@ test_that("fetch_epicrop_weather_list errors on invalid mode before fetching", {
 })
 
 test_that(
-  "fetch_epicrop_weather_list errors on malformed lonlat before fetching",
+  "get_epicrop_weather_list errors on malformed lonlat before fetching",
   {
     expect_error(
-      fetch_epicrop_weather_list(
+      get_epicrop_weather_list(
         lonlat = c(121.25, 14.16, 120.98), # odd length
         start_date = "2000-06-30",
         duration = 10L
@@ -713,9 +713,9 @@ test_that(
   }
 )
 
-test_that("fetch_epicrop_weather_list errors on month-day start_date without years, before fetching", {
+test_that("get_epicrop_weather_list errors on month-day start_date without years, before fetching", {
   expect_error(
-    fetch_epicrop_weather_list(
+    get_epicrop_weather_list(
       lonlat = c(121.25, 14.16),
       start_date = "06-30",
       duration = 10L
@@ -724,15 +724,15 @@ test_that("fetch_epicrop_weather_list errors on month-day start_date without yea
   )
 })
 
-# ---- fetch_epicrop_weather_list(): end-to-end via {vcr} cassettes --------
+# ---- get_epicrop_weather_list(): end-to-end via {vcr} cassettes --------
 # These record/replay real NASA POWER (or equivalent) responses through
 # get_wth(). Cassettes must be recorded once with network access available;
 # see other test files in this suite for the vcr::vcr_configure() setup this
 # relies on (fixture directory, filter_sensitive_data, etc.).
 
-test_that("fetch_epicrop_weather_list returns a single epicrop.wth.list for one location/date", {
-  vcr::use_cassette("fetch_epicrop_weather_list-single-location", {
-    result <- fetch_epicrop_weather_list(
+test_that("get_epicrop_weather_list returns a single epicrop.wth.list for one location/date", {
+  vcr::use_cassette("get_epicrop_weather_list-single-location", {
+    result <- get_epicrop_weather_list(
       lonlat = c(121.255669, 14.16742),
       start_date = "2000-06-30",
       duration = 10L
@@ -748,10 +748,10 @@ test_that("fetch_epicrop_weather_list returns a single epicrop.wth.list for one 
 })
 
 test_that(
-  "fetch_epicrop_weather_list splits a cross-year window into two year buckets",
+  "get_epicrop_weather_list splits a cross-year window into two year buckets",
   {
-    vcr::use_cassette("fetch_epicrop_weather_list-cross-year", {
-      result <- fetch_epicrop_weather_list(
+    vcr::use_cassette("get_epicrop_weather_list-cross-year", {
+      result <- get_epicrop_weather_list(
         lonlat = c(121.255669, 14.16742),
         start_date = "2000-12-28",
         duration = 10L
@@ -764,9 +764,9 @@ test_that(
   }
 )
 
-test_that("fetch_epicrop_weather_list returns an epicrop.wth.bundle for multiple locations (pairwise)", {
-  vcr::use_cassette("fetch_epicrop_weather_list-multi-location-pairwise", {
-    result <- fetch_epicrop_weather_list(
+test_that("get_epicrop_weather_list returns an epicrop.wth.bundle for multiple locations (pairwise)", {
+  vcr::use_cassette("get_epicrop_weather_list-multi-location-pairwise", {
+    result <- get_epicrop_weather_list(
       lonlat = rbind(
         IRRI_ZES = c(121.255669, 14.16742),
         Metro_Manila = c(120.985, 14.6042)
@@ -782,9 +782,9 @@ test_that("fetch_epicrop_weather_list returns an epicrop.wth.bundle for multiple
   expect_true(all(grepl("^IRRI_ZES__|^Metro_Manila__", names(result))))
 })
 
-test_that("fetch_epicrop_weather_list computes an efficient covering window for repeated month-day start dates", {
-  vcr::use_cassette("fetch_epicrop_weather_list-md-years-coverage", {
-    result <- fetch_epicrop_weather_list(
+test_that("get_epicrop_weather_list computes an efficient covering window for repeated month-day start dates", {
+  vcr::use_cassette("get_epicrop_weather_list-md-years-coverage", {
+    result <- get_epicrop_weather_list(
       lonlat = c(121.255669, 14.16742),
       start_date = c("-06-01", "-06-14", "-06-30"),
       duration = 5L,
@@ -799,12 +799,12 @@ test_that("fetch_epicrop_weather_list computes an efficient covering window for 
   expect_setequal(names(result), c("2001", "2002"))
 })
 
-# ---- fetch_epicrop_weather_list(): end-to-end, mocked get_wth() ----------
+# ---- get_epicrop_weather_list(): end-to-end, mocked get_wth() ----------
 
-test_that("fetch_epicrop_weather_list returns a single epicrop.wth.list for one location/date", {
+test_that("get_epicrop_weather_list returns a single epicrop.wth.list for one location/date", {
   testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
 
-  result <- fetch_epicrop_weather_list(
+  result <- get_epicrop_weather_list(
     lonlat = c(121.255669, 14.16742),
     start_date = "2000-06-30",
     duration = 10L
@@ -818,14 +818,14 @@ test_that("fetch_epicrop_weather_list returns a single epicrop.wth.list for one 
 })
 
 test_that(
-  "fetch_epicrop_weather_list splits a cross-year window into two year buckets",
+  "get_epicrop_weather_list splits a cross-year window into two year buckets",
   {
     testthat::local_mocked_bindings(
       get_wth = .fake_get_wth,
       .package = "epicrop"
     )
 
-    result <- fetch_epicrop_weather_list(
+    result <- get_epicrop_weather_list(
       lonlat = c(121.255669, 14.16742),
       start_date = "2000-12-28",
       duration = 10L
@@ -837,10 +837,10 @@ test_that(
   }
 )
 
-test_that("fetch_epicrop_weather_list returns an epicrop.wth.bundle for multiple locations (pairwise)", {
+test_that("get_epicrop_weather_list returns an epicrop.wth.bundle for multiple locations (pairwise)", {
   testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
 
-  result <- fetch_epicrop_weather_list(
+  result <- get_epicrop_weather_list(
     lonlat = rbind(
       IRRI_ZES = c(121.255669, 14.16742),
       Metro_Manila = c(120.985, 14.6042)
@@ -855,10 +855,10 @@ test_that("fetch_epicrop_weather_list returns an epicrop.wth.bundle for multiple
   expect_true(all(grepl("^IRRI_ZES__|^Metro_Manila__", names(result))))
 })
 
-test_that("fetch_epicrop_weather_list returns one bundle entry per location in cross mode too", {
+test_that("get_epicrop_weather_list returns one bundle entry per location in cross mode too", {
   testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
 
-  result <- fetch_epicrop_weather_list(
+  result <- get_epicrop_weather_list(
     lonlat = rbind(
       IRRI_ZES = c(121.255669, 14.16742),
       Metro_Manila = c(120.985, 14.6042)
@@ -876,10 +876,10 @@ test_that("fetch_epicrop_weather_list returns one bundle entry per location in c
   expect_setequal(labels, c("IRRI_ZES", "Metro_Manila"))
 })
 
-test_that("fetch_epicrop_weather_list computes an efficient covering window for repeated month-day start dates", {
+test_that("get_epicrop_weather_list computes an efficient covering window for repeated month-day start dates", {
   testthat::local_mocked_bindings(get_wth = .fake_get_wth, .package = "epicrop")
 
-  result <- fetch_epicrop_weather_list(
+  result <- get_epicrop_weather_list(
     lonlat = c(121.255669, 14.16742),
     start_date = c("-06-01", "-06-14", "-06-30"),
     duration = 5L,
@@ -891,7 +891,7 @@ test_that("fetch_epicrop_weather_list computes an efficient covering window for 
 })
 
 test_that(
-  "fetch_epicrop_weather_list collapses per-location even in cross mode",
+  "get_epicrop_weather_list collapses per-location even in cross mode",
   {
     testthat::local_mocked_bindings(
       get_wth = .fake_get_wth,
@@ -900,7 +900,7 @@ test_that(
 
     locs <- list(Merredin = c(118.28, -31.48), Corrigin = c(117.87, -32.33))
 
-    result <- fetch_epicrop_weather_list(
+    result <- get_epicrop_weather_list(
       lonlat = locs,
       start_date = c("-04-15", "-05-13"),
       duration = 100L,
@@ -924,7 +924,7 @@ test_that(
       .package = "epicrop"
     )
 
-    result <- fetch_epicrop_weather_list(
+    result <- get_epicrop_weather_list(
       lonlat = list(Merredin = c(118.28, -31.48)),
       start_date = c("-04-15", "-05-13"),
       duration = 100L,
@@ -948,7 +948,7 @@ test_that("run_epicrop_model succeeds end-to-end against a cross-mode weather bu
   years <- 2019:2020
   patterns <- c("-04-15", "-05-13")
 
-  wth_list <- fetch_epicrop_weather_list(
+  wth_list <- get_epicrop_weather_list(
     lonlat = list(Merredin = c(118.28, -31.48), Corrigin = c(117.87, -32.33)),
     start_date = patterns,
     duration = 120L,
@@ -971,7 +971,7 @@ test_that("run_epicrop_model succeeds end-to-end against a cross-mode weather bu
   expect_identical(nrow(res), length(emergence) * 2L) # x2 locations
 })
 
-test_that("fetch_epicrop_weather_list passes `source` through to get_wth()", {
+test_that("get_epicrop_weather_list passes `source` through to get_wth()", {
   seen <- character()
   testthat::local_mocked_bindings(
     get_wth = function(lonlat, dates, duration = NULL, source = "power") {
@@ -982,7 +982,7 @@ test_that("fetch_epicrop_weather_list passes `source` through to get_wth()", {
     }
   )
 
-  res <- fetch_epicrop_weather_list(
+  res <- get_epicrop_weather_list(
     lonlat = c(121.25, 14.19),
     start_date = "2000-06-30",
     duration = 3L,
@@ -994,9 +994,9 @@ test_that("fetch_epicrop_weather_list passes `source` through to get_wth()", {
   expect_identical(nrow(res[["2000"]]), 3L)
 })
 
-test_that("fetch_epicrop_weather_list rejects an invalid `source`", {
+test_that("get_epicrop_weather_list rejects an invalid `source`", {
   expect_error(
-    fetch_epicrop_weather_list(
+    get_epicrop_weather_list(
       lonlat = c(121.25, 14.19),
       start_date = "2000-06-30",
       duration = 3L,

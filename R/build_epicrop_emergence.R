@@ -119,7 +119,7 @@
 #' emergence <- build_epicrop_emergence(years, month_day)
 #'
 #' # Fetch weather data (one year per list element)
-#' wth_list <- fetch_epicrop_weather_list(
+#' wth_list <- get_epicrop_weather_list(
 #'   lonlat = c(121.255669, 14.167425),
 #'   start_date = month_day,
 #'   duration = 120L,
@@ -194,7 +194,7 @@
 #'
 #' @seealso
 #' * [run_epicrop_model()] – primary consumer of `epicrop.emerge` vectors
-#' * [fetch_epicrop_weather_list()] – companion for building weather lists
+#' * [get_epicrop_weather_list()] – companion for building weather lists
 #' * [base::Date], [data.table::IDate] – underlying date classes
 #' * [base::seq.Date()] – alternative for building date sequences
 #'

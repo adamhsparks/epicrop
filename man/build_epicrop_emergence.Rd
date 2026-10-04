@@ -197,7 +197,7 @@ month_day <- c("-06-30", "-07-15")
 emergence <- build_epicrop_emergence(years, month_day)
 
 # Fetch weather data (one year per list element)
-wth_list <- fetch_epicrop_weather_list(
+wth_list <- get_epicrop_weather_list(
   lonlat = c(121.255669, 14.167425),
   start_date = month_day,
   duration = 120L,
@@ -243,7 +243,7 @@ build_epicrop_emergence(2000, "6-1")
 \seealso{
 \itemize{
 \item \code{\link[=run_epicrop_model]{run_epicrop_model()}} – primary consumer of \code{epicrop.emerge} vectors
-\item \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} – companion for building weather lists
+\item \code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}} – companion for building weather lists
 \item \link[base:Date]{base::Date}, \link[data.table:IDate]{data.table::IDate} – underlying date classes
 \item \code{\link[base:seq.Date]{base::seq.Date()}} – alternative for building date sequences
 }

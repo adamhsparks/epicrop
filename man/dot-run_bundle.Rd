@@ -32,7 +32,7 @@ for each bundled weather list and combining results with location labels.
 }
 \details{
 The function extracts location labels from the bundle's names by taking the
-text before the \code{"__"} delimiter (used by \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}).
+text before the \code{"__"} delimiter (used by \code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}}).
 For unnamed or empty-named entries, generates default labels (\code{location01},
 \code{location02}, etc.).
 
@@ -63,7 +63,7 @@ locations <- rbind(
   "Site2" = c(121.3, 14.2)
 )
 emergence <- build_epicrop_emergence(2001:2003, "-06-30")
-wth_bundle <- fetch_epicrop_weather_list(
+wth_bundle <- get_epicrop_weather_list(
   lonlat = locations,
   start_date = "-06-30",
   duration = 120L,
@@ -82,6 +82,6 @@ results <- .run_bundle(
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[=run_epicrop_model]{run_epicrop_model()}}, \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}
+\code{\link[=run_epicrop_model]{run_epicrop_model()}}, \code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}}
 }
 \keyword{internal}

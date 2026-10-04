@@ -1,4 +1,4 @@
-#' Fetch Weather for One or More Locations and Split by Calendar Year
+#' Get Weather for One or More Locations and Split by Calendar Year
 #'
 #' Retrieves one or more continuous blocks of weather data for one or more
 #' locations from given start dates and durations, then splits each result into
@@ -26,8 +26,7 @@
 #' - Only used when `start_date` contains month-day values without a year
 #' - Computes a **cover window** per distinct month-day:
 #'   - `start = min(paste(years, md))`
-#'   - `end = max(paste(years, md)) + (duration - 1)`
-#' - Enables efficient API calls: fetching once per year for multiple dates
+#'   - `end = max(paste(years, md)) + (duration - 1)`.
 #'
 #' @param lonlat Numeric length-2 vector `c(lon, lat)`, OR multiple locations
 #'   as: numeric vector of length `2n`, a 2-column matrix/data.frame, or a list
@@ -54,7 +53,7 @@
 #'
 #' @examplesIf interactive()
 #' # Single location, month-day start date
-#' w1 <- fetch_epicrop_weather_list(
+#' w1 <- get_epicrop_weather_list(
 #'   lonlat = c(121.255669, 14.16742),
 #'   start_date = "6/30",
 #'   duration = 120L,
@@ -62,7 +61,7 @@
 #' )
 #'
 #' # ISO start date
-#' w2 <- fetch_epicrop_weather_list(
+#' w2 <- get_epicrop_weather_list(
 #'   lonlat = c(121.255669, 14.16742),
 #'   start_date = "2000-06-30",
 #'   duration = 120L
@@ -73,7 +72,7 @@
 #'   "IRRI_ZES" = c(121.255669, 14.16742),
 #'   "Metro_Manila" = c(120.985, 14.6042)
 #' )
-#' w3 <- fetch_epicrop_weather_list(
+#' w3 <- get_epicrop_weather_list(
 #'   lonlat = locations,
 #'   start_date = c("2000-06-30", "6-30"),
 #'   duration = 120L,
@@ -82,14 +81,14 @@
 #' )
 #'
 #' # Multiple start dates for same location
-#' w4 <- fetch_epicrop_weather_list(
+#' w4 <- get_epicrop_weather_list(
 #'   lonlat = c(121.255669, 14.16742),
 #'   start_date = c("-06-01", "-06-14", "-06-30"),
 #'   duration = 90L,
 #'   years = 2001:2003
 #' )
 #' # ERA5 instead of NASA POWER
-#' w5 <- fetch_epicrop_weather_list(
+#' w5 <- get_epicrop_weather_list(
 #'   lonlat = c(121.255669, 14.16742),
 #'   start_date = "2000-06-30",
 #'   duration = 120L,
@@ -98,7 +97,7 @@
 #' @author Adam H. Sparks, \email{adamhsparks@@gmail.com}
 #' @autoglobal
 #' @export
-fetch_epicrop_weather_list <- function(
+get_epicrop_weather_list <- function(
   lonlat,
   start_date,
   duration,
@@ -133,7 +132,7 @@ fetch_epicrop_weather_list <- function(
   tasks <- .collapse_tasks_by_location(tasks)
 
   # Fetch weather data
-  results <- lapply(tasks, .fetch_one_weather, source = source)
+  results <- lapply(tasks, .get_one_weather, source = source)
 
   return(.format_results(results, tasks))
 }
@@ -142,7 +141,7 @@ fetch_epicrop_weather_list <- function(
 #'
 #' Checks that `lonlat`, `start_date`, and `duration` are provided and aborts
 #' with helpful error messages if any are missing. Called early in
-#' [fetch_epicrop_weather_list()] to fail fast.
+#' [get_epicrop_weather_list()] to fail fast.
 #'
 #' @param lonlat Numeric coordinates or matrix of coordinates (required).
 #' @param start_date A date string or vector of dates (required).
@@ -590,7 +589,8 @@ fetch_epicrop_weather_list <- function(
 
   if (any(md_idx) && is.null(years)) {
     cli::cli_abort(c(
-      "When {.arg start_date} is month-day only (e.g., '06-30'), you must provide {.arg years}.",
+      "When {.arg start_date} is month-day only (e.g., '06-30')
+       you must provide {.arg years}.",
       i = "Example: {.code years = 2001:2003}"
     ))
   }
@@ -796,7 +796,8 @@ fetch_epicrop_weather_list <- function(
 .cover_from_md_years <- function(md_mmdd, yrs, window_days) {
   if (is.null(yrs) || length(yrs) == 0L) {
     cli::cli_abort(c(
-      "When {.arg start_date} is month-day only, you must provide {.arg years}.",
+      "When {.arg start_date} is month-day only,
+       you must provide {.arg years}.",
       i = "Example: {.code years = 2001:2003}"
     ))
   }
@@ -808,7 +809,8 @@ fetch_epicrop_weather_list <- function(
 
   if (anyNA(em)) {
     cli::cli_abort(c(
-      "Failed to construct valid dates from {.arg years} and month-day {.val {md_mmdd}}.",
+      "Failed to construct valid dates from 
+       {.arg years} and month-day {.val {md_mmdd}}.",
       i = "Check that month-day values are valid (e.g., not 02-30)."
     ))
   }
@@ -910,7 +912,7 @@ fetch_epicrop_weather_list <- function(
   unname(lapply(by_location, .collapse_one_location))
 }
 
-#' Fetch Weather Data for One Task
+#' Get Weather Data for One Task
 #'
 #' Calls the API to fetch weather data for a single (location, start, duration)
 #' task and splits the result by calendar year into a named list.
@@ -924,18 +926,19 @@ fetch_epicrop_weather_list <- function(
 #'   * `lonlat`: numeric vector c(lon, lat)
 #'   * `start_chr`: character start date
 #'   * `duration`: integer duration
-#'
+#   #' @param source Character scalar passed to [get_wth()]: `"power"` (default)
+#'   or `"era5"`.'
 #' @returns
 #' An `epicrop.wth.list` object: a named list of weather tables, one per year.
 #' Names are year strings (*e.g.*, "2000", "2001").
 #'
 #' @details
 #' This function calls [get_wth()] to fetch data, then splits by year. It is
-#' called internally by [fetch_epicrop_weather_list()].
+#' called internally by [get_epicrop_weather_list()].
 #'
 #' @autoglobal
 #' @dev
-.fetch_one_weather <- function(task, source = "power") {
+.get_one_weather <- function(task, source = "power") {
   tab <- get_wth(
     lonlat = task$lonlat,
     dates = task$start_chr,
@@ -961,7 +964,7 @@ fetch_epicrop_weather_list <- function(
 #'   with keys like `"location01__2000-01-01__365d"`.
 #'
 #' @param results A list of `epicrop.wth.list` objects (from
-#'   [.fetch_one_weather()]).
+#'   [.get_one_weather()]).
 #' @param tasks A list of task objects (from [.collapse_tasks_by_location()]).
 #'
 #' @returns Either an `epicrop.wth.list` or an `epicrop.wth.bundle` object.

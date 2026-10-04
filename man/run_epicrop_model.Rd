@@ -28,7 +28,7 @@ year.
 \itemize{
 \item \strong{Names} must be year strings (\emph{e.g.}, \code{"2001"}, \code{"2002"})
 \item Each table must have a \code{YYYYMMDD} column (Date, IDate, or ISO string)
-\item Typically created by \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}
+\item Typically created by \code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}}
 \item Can also be an \code{epicrop.wth.bundle} (multiple locations)
 }}
 
@@ -76,7 +76,7 @@ windows automatically without global weather binding.
 \section{Workflow}{
 
 
-This function bridges \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} (weather prep) and
+This function bridges \code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}} (weather prep) and
 \code{\link[=build_epicrop_emergence]{build_epicrop_emergence()}} (emergence date generation) with disease models.
 For each emergence date, it:
 \enumerate{
@@ -108,7 +108,7 @@ Missing data (no weather for a required year) produces a warning and
 \section{Bundle Processing}{
 
 
-If \code{wth_list} is an \code{epicrop.wth.bundle} (from \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}}
+If \code{wth_list} is an \code{epicrop.wth.bundle} (from \code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}}
 with multiple locations or location-date pairs):
 \itemize{
 \item Each bundled weather object is processed independently
@@ -128,7 +128,7 @@ emergence <- build_epicrop_emergence(years, month_days)
 
 # Fetch weather (one year per element)
 lonlat <- c(121.255669, 14.16742)
-wth_list <- fetch_epicrop_weather_list(
+wth_list <- get_epicrop_weather_list(
   lonlat = lonlat,
   start_date = month_days,
   duration = 120L,
@@ -199,7 +199,7 @@ locations <- rbind(
   "Laguna" = c(121.2, 14.1)
 )
 
-wth_bundle <- fetch_epicrop_weather_list(
+wth_bundle <- get_epicrop_weather_list(
   lonlat = locations,
   start_date = month_days,
   duration = 120L,
@@ -222,7 +222,7 @@ bundle_results[, .N, by = location]
 \seealso{
 \itemize{
 \item \code{\link[=build_epicrop_emergence]{build_epicrop_emergence()}} – Construct emergence date vectors
-\item \code{\link[=fetch_epicrop_weather_list]{fetch_epicrop_weather_list()}} – Prepare weather data
+\item \code{\link[=get_epicrop_weather_list]{get_epicrop_weather_list()}} – Prepare weather data
 \item \code{\link[=get_audpc]{get_audpc()}} – Extract/compute AUDPC from results
 \item \code{\link[=seir]{seir()}} – Core SEIR model
 \item \code{\link[=leaf_blast]{leaf_blast()}}, \code{\link[=sheath_blight]{sheath_blight()}}, etc. – Individual disease models
