@@ -71,6 +71,15 @@ quantity as POWER's bias-corrected \code{PRECTOTCORR}, so rainfall totals will
 differ between sources.
 }
 
+\section{Citing Weather Data}{
+
+
+Please be kind and cite the data and their sources. To do so, please see the
+\href{https://power.larc.nasa.gov/docs/referencing/}{NASA POWER} and
+\href{https://open-meteo.com/en/docs/historical-weather-api?models=era5#citation}{Openmeteo}
+websites for how to cite the data when you use them.
+}
+
 \section{Retrieved Variables}{
 
 

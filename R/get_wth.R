@@ -21,7 +21,8 @@
 #' quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall totals will
 #' differ between sources.
 #'
-#' @section Citing Weather Data
+#' @section Citing Weather Data:
+#'
 #' Please be kind and cite the data and their sources. To do so, please see the
 #' [NASA POWER](https://power.larc.nasa.gov/docs/referencing/) and
 #' [Openmeteo](https://open-meteo.com/en/docs/historical-weather-api?models=era5#citation)
