@@ -1,6 +1,6 @@
 #' Get Weather Data for Disease Modelling
 #'
-#' Retrieves daily weather data from either the NASA POWER database or ERA5-Land
+#' Retrieves daily weather data from either the NASA POWER database or ERA5
 #' reanalysis (via the Open-Meteo Archive API) and formats it for use in
 #' [seir()] and \pkg{epicrop} disease models.
 #'
@@ -8,20 +8,18 @@
 #'
 #' * `"power"` (default): NASA POWER via [nasapower::get_power()], global daily
 #'   data from 1984 onwards at 0.5-degree resolution.
-#' * `"era5"`: ERA5-Land from 1950 onwards at about 0.1-degree resolution,
-#'   roughly 10 km via the Open-Meteo Archive API
+#' * `"era5"`: ERA5 from 1940 onwards at about 0.25-degree resolution, roughly
+#'   25 km, via the Open-Meteo Archive API
 #'   (<https://open-meteo.com/en/docs/historical-weather-api>). Hourly values
 #'   are aggregated to daily values (mean/min/max temperature, mean relative
 #'   humidity, total precipitation) by local calendar day so that the output
-#'   matches the POWER-derived columns exactly. ERA5-Land data are typically
-#'   available with a lag of a few days. ERA5-Land relative humidity is derived
-#'   from hourly 2m temperature and dewpoint using the Magnus form of
-#'   Alduchov and Eskridge (1996).
+#'   matches the POWER-derived columns. ERA5 data are typically available with
+#'   a lag of about five days from 1940 onwards.
 #'
 #' Both sources are modelled/reanalysis products and may differ from local
-#' weather station observations. Note that ERA5-Land precipitation is not the
-#' same quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall totals
-#' will differ between sources.
+#' weather station observations. Note that ERA5 precipitation is not the same
+#' quantity as POWER's bias-corrected `PRECTOTCORR`, so rainfall totals will
+#' differ between sources.
 #'
 #' @section Retrieved Variables:
 #'
@@ -30,7 +28,7 @@
 #' * Daily minimum temperature
 #' * Daily maximum temperature
 #' * Mean daily relative humidity (2-meter height)
-#' * Daily precipitation (bias-corrected)
+#' * Total daily precipitation (bias-corrected for POWER)
 #'
 #' All variables are provided in standard units: temperature in degrees C,
 #' humidity in %, rainfall in mm.
@@ -62,7 +60,7 @@
 #'   error is raised.
 #'
 #' @param source Character. Weather data source, one of `"power"` (default) or
-#'   `"era5"` (ERA5-Land).
+#'   `"era5"`.
 #'
 #' @returns
 #' An `epicrop.wth` object ([data.table::data.table()] subclass) containing
@@ -226,8 +224,9 @@
 #' )
 #' # Error: Provide dates as c(start, end) or supply duration
 #' }
-#' # Example 8: era5 data
-#' # Get ERA5-Land data in the same format as POWER
+#'
+#' # Example 8: ERA5 data
+#' # Get ERA5 data in the same format as POWER
 #' wth_era5 <- get_wth(
 #'   lonlat = c(121.255669, 14.167425),
 #'   dates = "2000-06-30",
@@ -241,14 +240,9 @@
 #' Resource. Funded by NASA's Applied Science Program.
 #' https://power.larc.nasa.gov/.
 #'
-#' Muñoz-Sabater, J. et al. (2021). ERA5-Land: a state-of-the-art global
-#' reanalysis dataset for land applications. Earth System Science Data, 13,
-#' 4349-4383. \doi{10.5194/essd-13-4349-2021}.
-#'
-#' Alduchov, O. A. and Eskridge, R. E. (1996). Improved Magnus form
-#' approximation of saturation vapor pressure. *Journal of Applied Meteorology
-#' and Climatology*, 35(4), 601-609.
-#' \doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
+#' Hersbach, H. et al. (2020). The ERA5 global reanalysis. *Quarterly Journal
+#' of the Royal Meteorological Society*, 146, 1999-2049.
+#' \doi{10.1002/qj.3803}.
 #'
 #' Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
 #' D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
@@ -256,7 +250,7 @@
 #' \doi{10.1094/PHI-A-2008-0129-02}.
 #'
 #' @author
-#' Adam H. Sparks, \email{adamhsparks@@gmail.com} with ERA5-Land support adapted
+#' Adam H. Sparks, \email{adamhsparks@@gmail.com} with ERA5 support adapted
 #' from code by Emerson M. Del Ponte \email{delponte@@ufv.br} from the
 #' \CRANpkg{r4pde}.
 #' @autoglobal
@@ -313,17 +307,23 @@ get_wth <- function(
   .postprocess_wth(wth)
 }
 
-#' Fetch Daily Weather from ERA5-Land via Open-Meteo
+#' Fetch Daily Weather from ERA5 via Open-Meteo
 #'
-#' Downloads hourly ERA5-Land data from the Open-Meteo Archive API and
-#' aggregates it to daily values matching the columns of the POWER-derived
-#' output:
+#' Downloads hourly ERA5 data from the Open-Meteo Archive API and aggregates it
+#' to daily values matching the columns of the POWER-derived output:
 #' * `TEMP`: mean of hourly `temperature_2m`
-#' * `TMIN`/`TMAX`: min/max of hourly `temperature_2m
-#' * `RHUM`: mean of hourly relative humidity derived from
-#'  `temperature_2m` and `dewpoint_2m` with
-#'  `.rh_from_dewpoint()`.
+#' * `TMIN`/`TMAX`: min/max of hourly `temperature_2m`
+#' * `RHUM`: mean of hourly `relative_humidity_2m`
 #' * `RAIN`: sum of hourly `precipitation`
+#'
+#' Hourly data are used because the Open-Meteo Archive API does not offer a
+#' daily mean relative humidity variable.
+#'
+#' @section Time zones:
+#' The request uses `timezone = "auto"`, so Open-Meteo resolves the location's
+#' local time zone, interprets `start_date`/`end_date` as local calendar dates
+#' and returns hourly timestamps in local time. Hours are grouped by their local
+#' calendar date, so each daily value covers one local day.
 #'
 #' @param lon,lat Numeric longitude and latitude.
 #' @param start,end Date start and end (inclusive).
@@ -338,9 +338,11 @@ get_wth <- function(
       longitude = lon,
       start_date = format(start, "%Y-%m-%d"),
       end_date = format(end, "%Y-%m-%d"),
-      hourly = "temperature_2m,dewpoint_2m,precipitation",
+      hourly = "temperature_2m,relative_humidity_2m,precipitation",
+      # local time zone of the location: dates are local calendar days and the
+      # returned timestamps are local, so grouping by date gives local-day values
       timezone = "auto",
-      models = "era5_land"
+      models = "era5"
     ) |>
     httr2::req_timeout(60) |>
     httr2::req_retry(max_tries = 3) |>
@@ -390,24 +392,38 @@ get_wth <- function(
     as.numeric(x)
   }
 
-  vars <- c("temperature_2m", "dewpoint_2m", "precipitation")
+  vars <- c("temperature_2m", "relative_humidity_2m", "precipitation")
   hourly[, (vars) := lapply(.SD, to_num), .SDcols = vars]
 
-  hourly[,
-    relative_humidity_2m := .rh_from_dewpoint(temperature_2m, dewpoint_2m)
-  ]
+  if (all(is.na(hourly$temperature_2m))) {
+    cli::cli_abort(c(
+      "Open-Meteo returned no ERA5 data for this location/period.",
+      i = "ERA5 is typically available with a lag of about 5 days.",
+      i = "Check that {.arg dates} are not too recent."
+    ))
+  }
+
+  if (all(is.na(hourly$relative_humidity_2m))) {
+    cli::cli_abort(c(
+      "Open-Meteo returned no ERA5 relative humidity for this location/period.",
+      i = "Disease models need {.field RHUM}; try again later."
+    ))
+  }
+
+  if (all(is.na(hourly$precipitation))) {
+    cli::cli_abort(c(
+      "Open-Meteo returned no ERA5 precipitation for this location/period.",
+      i = "Check that {.arg dates} are not too recent, or try again later."
+    ))
+  }
+
+  # `time` is local ISO 8601 (e.g. "2000-06-30T13:00"), so its first ten
+  # characters are the local calendar date
   hourly[, YYYYMMDD := data.table::as.IDate(substr(time, 1L, 10L))]
 
   # min/max that return NA rather than +/-Inf (and a warning) if all missing
   safe_stat <- function(x, f) {
     if (all(is.na(x))) NA_real_ else f(x, na.rm = TRUE)
-  }
-
-  if (all(is.na(hourly$temperature_2m))) {
-    cli::cli_abort(c(
-      "ERA5-Land returned no data for this location.",
-      i = "ERA5-Land covers land areas only; coastal cells may be empty."
-    ))
   }
 
   wth <- hourly[,
@@ -425,14 +441,7 @@ get_wth <- function(
     by = YYYYMMDD
   ]
 
-  if (all(is.na(wth$precipitation))) {
-    cli::cli_abort(c(
-      "ERA5-Land returned no precipitation data for this location.",
-      i = "ERA5-Land covers land areas only; coastal cells may be empty.",
-      i = "Or there may be a bug in the API, you might try again later."
-    ))
-  }
-
+  # mean() of an all-missing day is NaN; use NA throughout
   num_cols <- c("TEMP", "TMIN", "TMAX", "RHUM", "RAIN")
   wth[,
     (num_cols) := lapply(.SD, \(x) replace(x, is.nan(x), NA_real_)),
@@ -453,8 +462,7 @@ get_wth <- function(
 #' Finalise an epicrop.wth Object
 #'
 #' Orders columns, sets the key on `YYYYMMDD` and adds the `epicrop.wth` class.
-#' Shared by the POWER and ERA5-Land code paths so both return identical
-#' structures.
+#' Shared by the POWER and ERA5 code paths so both return identical structures.
 #'
 #' @param wth data.table with epicrop-standard column names.
 #'
@@ -640,31 +648,4 @@ get_wth <- function(
   if (is.na(val) || !is.finite(val) || val < lo || val > hi) {
     cli::cli_abort("{name} must be in [{lo}, {hi}], got {val}.")
   }
-}
-
-#' Relative Humidity from Temperature and Dew Point
-#'
-#' Computes relative humidity from air temperature and dew point temperature
-#' using the improved Magnus form of Alduchov and Eskridge (1996),
-#' `es(T) = 6.1094 * exp(17.625 * T / (T + 243.04))` (hPa), so that
-#' `RH = 100 * es(Td) / es(T)`. Values are capped at 100% because reanalysis
-#' dew point can marginally exceed air temperature.
-#'
-#' @param temp Numeric air temperature (degrees C).
-#' @param dewpoint Numeric dew point temperature (degrees C).
-#'
-#' @returns Numeric relative humidity (%), `NA` where either input is `NA`.
-#'
-#' @references
-#' Alduchov, O. A. and Eskridge, R. E. (1996). Improved Magnus form
-#' approximation of saturation vapor pressure. *Journal of Applied Meteorology
-#' and Climatology*, 35(4), 601-609.
-#' \doi{10.1175/1520-0450(1996)035<0601:IMFAOS>2.0.CO;2}
-#'
-#' @autoglobal
-#' @dev
-.rh_from_dewpoint <- function(temp, dewpoint) {
-  a <- 17.625
-  b <- 243.04
-  pmin(100, 100 * exp(a * dewpoint / (b + dewpoint) - a * temp / (b + temp)))
 }
