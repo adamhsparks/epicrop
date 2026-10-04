@@ -171,3 +171,5 @@ Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar E
 Jan C Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. *Phytopathology* 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
 Wallach, Daniel, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press. DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
+
+Zippenfenig, P. (2023) Open-Meteo.com Weather API. Zenodo. doi: [10.5281/ZENODO.7970649](https://doi.org/10.5281/ZENODO.7970649).
