@@ -14,7 +14,6 @@ data.table of class \code{epicrop.wth}.
 }
 \description{
 Orders columns, sets the key on \code{YYYYMMDD} and adds the \code{epicrop.wth} class.
-Shared by the POWER and ERA5-Land code paths so both return identical
-structures.
+Shared by the POWER and ERA5 code paths so both return identical structures.
 }
 \keyword{internal}

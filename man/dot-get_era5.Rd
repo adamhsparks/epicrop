@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wth.R
 \name{.get_era5}
 \alias{.get_era5}
-\title{Fetch Daily Weather from ERA5-Land via Open-Meteo}
+\title{Fetch Daily Weather from ERA5 via Open-Meteo}
 \usage{
 .get_era5(lon, lat, start, end)
 }
@@ -15,16 +15,25 @@
 data.table of class \code{epicrop.wth}.
 }
 \description{
-Downloads hourly ERA5-Land data from the Open-Meteo Archive API and
-aggregates it to daily values matching the columns of the POWER-derived
-output:
+Downloads hourly ERA5 data from the Open-Meteo Archive API and aggregates it
+to daily values matching the columns of the POWER-derived output:
 \itemize{
 \item \code{TEMP}: mean of hourly \code{temperature_2m}
-\item \code{TMIN}/\code{TMAX}: min/max of hourly `temperature_2m
-\item \code{RHUM}: mean of hourly relative humidity derived from
-\code{temperature_2m} and \code{dewpoint_2m} with
-\code{.rh_from_dewpoint()}.
+\item \code{TMIN}/\code{TMAX}: min/max of hourly \code{temperature_2m}
+\item \code{RHUM}: mean of hourly \code{relative_humidity_2m}
 \item \code{RAIN}: sum of hourly \code{precipitation}
 }
 }
+\details{
+Hourly data are used because the Open-Meteo Archive API does not offer a
+daily mean relative humidity variable.
+}
+\section{Time zones}{
+
+The request uses \code{timezone = "auto"}, so Open-Meteo resolves the location's
+local time zone, interprets \code{start_date}/\code{end_date} as local calendar dates
+and returns hourly timestamps in local time. Hours are grouped by their local
+calendar date, so each daily value covers one local day.
+}
+
 \keyword{internal}

@@ -4,11 +4,10 @@ utils::globalVariables(c(
   "emergence", # <audpc_dt>
   "YYYYMMDD", # <format_wth>
   "DOY", # <format_wth>
-  "relative_humidity_2m", # <.get_era5>
-  "temperature_2m", # <.get_era5>
-  "dewpoint_2m", # <.get_era5>
   "YYYYMMDD", # <.get_era5>
   "time", # <.get_era5>
+  "temperature_2m", # <.get_era5>
+  "relative_humidity_2m", # <.get_era5>
   "precipitation", # <.get_era5>
   "YYYYMMDD", # <.postprocess_wth>
   "location", # <.run_bundle>
