@@ -511,7 +511,7 @@ test_that("seir maintains mass balance", {
       result$removed[i] +
       result$senesced[i]
     expect_true(is.finite(total))
-    expect_true(total >= 0)
+    expect_gt(total, 0)
   }
 })
 

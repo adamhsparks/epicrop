@@ -152,10 +152,10 @@ test_that(".get_era5() aggregates hourly values to daily correctly", {
   wth_e <- .get_era5(121.25, 14.19, era5_start, era5_end)
 
   expect_equal(wth_e$TEMP[1:2], c(21.5, 20))
-  expect_equal(wth_e$TMIN[1], 10)
-  expect_equal(wth_e$TMAX[1], 33)
-  expect_equal(wth_e$RHUM[1:2], c(80, 60))
-  expect_equal(wth_e$RAIN[1:2], c(10, 0))
+  expect_identical(wth_e$TMIN[1], 10)
+  expect_identical(wth_e$TMAX[1], 33)
+  expect_identical(wth_e$RHUM[1:2], c(80, 60))
+  expect_identical(wth_e$RAIN[1:2], c(10, 0))
   expect_identical(wth_e$DOY, c(182L, 183L, 184L)) # 2000 is a leap year
 })
 
@@ -261,8 +261,8 @@ test_that("ERA5 and POWER outputs are structurally interchangeable", {
   )
   power <- .postprocess_wth(power)
 
-  expect_identical(names(era5), names(power))
-  expect_identical(class(era5), class(power))
+  expect_named(era5, names(power))
+  expect_s3_class(era5, class(power))
   expect_identical(data.table::key(era5), data.table::key(power))
   expect_identical(
     vapply(era5, typeof, character(1L)),
