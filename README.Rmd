@@ -168,8 +168,8 @@ Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Model
 
 Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. *Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
+Daniel Wallach, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press. DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
+
 Jan C Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. *Phytopathology* 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
-Wallach, Daniel, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press. DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
-
-Zippenfenig, P. (2023) Open-Meteo.com Weather API. Zenodo. doi: [10.5281/ZENODO.7970649](https://doi.org/10.5281/ZENODO.7970649).
+Patrick Zippenfenig. (2023). Open-Meteo.com Weather API. Zenodo. doi: [10.5281/ZENODO.7970649](https://doi.org/10.5281/ZENODO.7970649).
