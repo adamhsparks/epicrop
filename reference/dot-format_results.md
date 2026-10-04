@@ -13,7 +13,7 @@ Prepares final results in the appropriate class and structure.
 - results:
 
   A list of `epicrop.wth.list` objects (from
-  [`.fetch_one_weather()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-fetch_one_weather.md)).
+  [`.get_one_weather()`](https://adamhsparks.codeberg.page/epicrop/reference/dot-get_one_weather.md)).
 
 - tasks:
 

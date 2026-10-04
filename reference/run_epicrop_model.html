@@ -93,7 +93,7 @@ windows automatically without global weather binding.</p>
 <dd><p>Named list of weather <a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table::data.table</a>s, one per
 year.</p><ul><li><p><strong>Names</strong> must be year strings (<em>e.g.</em>, <code>"2001"</code>, <code>"2002"</code>)</p></li>
 <li><p>Each table must have a <code>YYYYMMDD</code> column (Date, IDate, or ISO string)</p></li>
-<li><p>Typically created by <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code></p></li>
+<li><p>Typically created by <code><a href="get_epicrop_weather_list.html">get_epicrop_weather_list()</a></code></p></li>
 <li><p>Can also be an <code>epicrop.wth.bundle</code> (multiple locations)</p></li>
 </ul></dd>
 
@@ -134,7 +134,7 @@ is available. If <code>emergence_dates</code> is at year-end, spans into next ye
 
 
 
-<p>This function bridges <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> (weather prep) and
+<p>This function bridges <code><a href="get_epicrop_weather_list.html">get_epicrop_weather_list()</a></code> (weather prep) and
 <code><a href="build_epicrop_emergence.html">build_epicrop_emergence()</a></code> (emergence date generation) with disease models.
 For each emergence date, it:</p><ol><li><p>Slices weather data spanning emergence to emergence + <code>window_days - 1</code></p></li>
 <li><p>Handles year boundaries (<em>e.g.</em>, Dec 15 – Jan 15)</p></li>
@@ -160,7 +160,7 @@ Dec 15 – Feb 15), the function automatically:</p><ul><li><p>Fetches weather fr
 
 
 
-<p>If <code>wth_list</code> is an <code>epicrop.wth.bundle</code> (from <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code>
+<p>If <code>wth_list</code> is an <code>epicrop.wth.bundle</code> (from <code><a href="get_epicrop_weather_list.html">get_epicrop_weather_list()</a></code>
 with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weather object is processed independently</p></li>
 <li><p>Results are combined with a <code>location</code> column</p></li>
 <li><p>Location labels extracted from bundle names (text before <code>"__"</code>)</p></li>
@@ -169,7 +169,7 @@ with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weat
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index">
 <ul><li><p><code><a href="build_epicrop_emergence.html">build_epicrop_emergence()</a></code> – Construct emergence date vectors</p></li>
-<li><p><code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> – Prepare weather data</p></li>
+<li><p><code><a href="get_epicrop_weather_list.html">get_epicrop_weather_list()</a></code> – Prepare weather data</p></li>
 <li><p><code><a href="get_audpc.html">get_audpc()</a></code> – Extract/compute AUDPC from results</p></li>
 <li><p><code><a href="seir.html">seir()</a></code> – Core SEIR model</p></li>
 <li><p><code><a href="disease_models.html">leaf_blast()</a></code>, <code><a href="disease_models.html">sheath_blight()</a></code>, etc. – Individual disease models</p></li>
@@ -191,7 +191,7 @@ with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weat
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Fetch weather (one year per element)</span></span></span>
 <span class="r-in"><span><span class="va">lonlat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_epicrop_weather_list.html">get_epicrop_weather_list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="va">lonlat</span>,</span></span>
 <span class="r-in"><span>  start_date <span class="op">=</span> <span class="va">month_days</span>,</span></span>
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120L</span>,</span></span>
@@ -264,7 +264,7 @@ with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weat
 <span class="r-in"><span>  susceptible_AUDPC <span class="op">=</span> <span class="va">susceptible</span><span class="op">$</span><span class="va">AUDPC</span>,</span></span>
 <span class="r-in"><span>  resistant_AUDPC <span class="op">=</span> <span class="va">resistant</span><span class="op">$</span><span class="va">AUDPC</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in data.table(emergence = susceptible$emergence, susceptible_AUDPC = susceptible$AUDPC,     resistant_AUDPC = resistant$AUDPC):</span> could not find function "data.table"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'susceptible' not found</span>
 <span class="r-in"><span><span class="va">comparison</span><span class="op">[</span>, <span class="va">reduction</span> <span class="op">:=</span> <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="va">resistant_AUDPC</span> <span class="op">/</span> <span class="va">susceptible_AUDPC</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'comparison' not found</span>
 <span class="r-in"><span><span class="va">comparison</span></span></span>
@@ -277,7 +277,7 @@ with multiple locations or location-date pairs):</p><ul><li><p>Each bundled weat
 <span class="r-in"><span>  <span class="st">"Laguna"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.2</span>, <span class="fl">14.1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">wth_bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">wth_bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_epicrop_weather_list.html">get_epicrop_weather_list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="va">locations</span>,</span></span>
 <span class="r-in"><span>  start_date <span class="op">=</span> <span class="va">month_days</span>,</span></span>
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120L</span>,</span></span>

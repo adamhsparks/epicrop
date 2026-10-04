@@ -58,9 +58,8 @@
 - Strict checking of user-inputs with informative messages now provided
   if inputs are invalid.
 
-- New function
-  [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
-  to help automate modelling multiple locations.
+- New function `fetch_epicrop_weather_list()` to help automate modelling
+  multiple locations.
 
 - New function
   [`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)

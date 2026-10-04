@@ -1,4 +1,4 @@
-# Fetch Weather Data for One Task
+# Get Weather Data for One Task
 
 Calls the API to fetch weather data for a single (location, start,
 duration) task and splits the result by calendar year into a named list.
@@ -6,7 +6,7 @@ duration) task and splits the result by calendar year into a named list.
 ## Usage
 
 ``` r
-.fetch_one_weather(task, source = "power")
+.get_one_weather(task, source = "power")
 ```
 
 ## Arguments
@@ -21,7 +21,7 @@ duration) task and splits the result by calendar year into a named list.
 
   - `start_chr`: character start date
 
-  - `duration`: integer duration
+  - `duration`: integer duration or `"era5"`.'
 
 ## Value
 
@@ -33,7 +33,7 @@ year. Names are year strings (*e.g.*, "2000", "2001").
 This function calls
 [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
 to fetch data, then splits by year. It is called internally by
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md).
+[`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md).
 
 ## Return Structure
 

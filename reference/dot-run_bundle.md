@@ -49,7 +49,7 @@ additional `location` column identifying the source bundle member.
 
 The function extracts location labels from the bundle's names by taking
 the text before the `"__"` delimiter (used by
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)).
+[`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)).
 For unnamed or empty-named entries, generates default labels
 (`location01`, `location02`, etc.).
 
@@ -77,7 +77,7 @@ with automatic column alignment.
 ## See also
 
 [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md),
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
+[`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)
 
 ## Examples
 
@@ -90,7 +90,7 @@ locations <- rbind(
   "Site2" = c(121.3, 14.2)
 )
 emergence <- build_epicrop_emergence(2001:2003, "-06-30")
-wth_bundle <- fetch_epicrop_weather_list(
+wth_bundle <- get_epicrop_weather_list(
   lonlat = locations,
   start_date = "-06-30",
   duration = 120L,
@@ -105,6 +105,5 @@ results <- .run_bundle(
   window_days = 120L,
   output = "audpc"
 )
-#> Error in .run_bundle(leaf_blast, emergence, wth_bundle, window_days = 120L,     output = "audpc"): could not find function ".run_bundle"
 # Results now include a 'location' column
 ```

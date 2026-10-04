@@ -57,7 +57,7 @@ run_epicrop_model(
     string)
 
   - Typically created by
-    [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
+    [`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)
 
   - Can also be an `epicrop.wth.bundle` (multiple locations)
 
@@ -110,7 +110,7 @@ A
 ## Workflow
 
 This function bridges
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
+[`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)
 (weather prep) and
 [`build_epicrop_emergence()`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)
 (emergence date generation) with disease models. For each emergence
@@ -145,7 +145,7 @@ Missing data (no weather for a required year) produces a warning and
 ## Bundle Processing
 
 If `wth_list` is an `epicrop.wth.bundle` (from
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
+[`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)
 with multiple locations or location-date pairs):
 
 - Each bundled weather object is processed independently
@@ -159,7 +159,7 @@ with multiple locations or location-date pairs):
 - [`build_epicrop_emergence()`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)
   – Construct emergence date vectors
 
-- [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
+- [`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)
   – Prepare weather data
 
 - [`get_audpc()`](https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.md)
@@ -188,7 +188,7 @@ emergence <- build_epicrop_emergence(years, month_days)
 
 # Fetch weather (one year per element)
 lonlat <- c(121.255669, 14.16742)
-wth_list <- fetch_epicrop_weather_list(
+wth_list <- get_epicrop_weather_list(
   lonlat = lonlat,
   start_date = month_days,
   duration = 120L,
@@ -261,7 +261,7 @@ comparison <- data.table(
   susceptible_AUDPC = susceptible$AUDPC,
   resistant_AUDPC = resistant$AUDPC
 )
-#> Error in data.table(emergence = susceptible$emergence, susceptible_AUDPC = susceptible$AUDPC,     resistant_AUDPC = resistant$AUDPC): could not find function "data.table"
+#> Error: object 'susceptible' not found
 comparison[, reduction := 1 - (resistant_AUDPC / susceptible_AUDPC)]
 #> Error: object 'comparison' not found
 comparison
@@ -274,7 +274,7 @@ locations <- rbind(
   "Laguna" = c(121.2, 14.1)
 )
 
-wth_bundle <- fetch_epicrop_weather_list(
+wth_bundle <- get_epicrop_weather_list(
   lonlat = locations,
   start_date = month_days,
   duration = 120L,

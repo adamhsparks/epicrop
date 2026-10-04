@@ -196,7 +196,8 @@ wth <- get_wth(
 
 # Run bacterial blight model
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
-#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run
+#> 120 days after emergence
 head(bb_sim)
 #> Error: object 'bb_sim' not found
 plot(
@@ -233,7 +234,8 @@ lb_results <- lapply(
   wth_list,
   function(w) leaf_blast(w, emergence = "2000-07-01")
 )
-#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run
+#> 120 days after emergence
 
 # Compare AUDPC (disease intensity summary)
 audpc_comparison <- data.frame(
@@ -325,12 +327,12 @@ wth_era5 <- get_wth(
 )
 head(wth_era5)
 #> Key: <YYYYMMDD>
-#>      YYYYMMDD   DOY     TEMP  TMIN  TMAX     RHUM  RAIN   LAT   LON
-#>        <IDat> <int>    <num> <num> <num>    <num> <num> <num> <num>
-#> 1: 2000-06-30   182 26.83750  24.6  30.1 90.15715     0  14.1 121.3
-#> 2: 2000-07-01   183 26.56250  24.9  29.8 88.68720     0  14.1 121.3
-#> 3: 2000-07-02   184 26.30000  24.7  29.3 90.96565     0  14.1 121.3
-#> 4: 2000-07-03   185 26.29167  24.9  29.0 90.70723     0  14.1 121.3
-#> 5: 2000-07-04   186 25.69583  25.1  26.7 93.06900     0  14.1 121.3
-#> 6: 2000-07-05   187 26.28333  25.5  28.7 90.84751     0  14.1 121.3
+#>      YYYYMMDD   DOY     TEMP  TMIN  TMAX     RHUM  RAIN   LAT    LON
+#>        <IDat> <int>    <num> <num> <num>    <num> <num> <num>  <num>
+#> 1: 2000-06-30   182 26.82917  24.9  30.0 89.37500  10.2 14.25 121.25
+#> 2: 2000-07-01   183 27.02083  25.3  30.2 87.00000  42.4 14.25 121.25
+#> 3: 2000-07-02   184 26.65000  24.1  29.5 89.62500  26.2 14.25 121.25
+#> 4: 2000-07-03   185 26.23333  25.4  27.7 89.00000  25.7 14.25 121.25
+#> 5: 2000-07-04   186 25.72083  25.0  26.4 92.37500  42.9 14.25 121.25
+#> 6: 2000-07-05   187 26.34167  25.5  27.5 90.95833  31.9 14.25 121.25
 ```

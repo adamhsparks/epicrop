@@ -99,7 +99,7 @@ automatically be determined by <code><a href="../reference/get_wth.html">get_wth
 as many seasons as you desire, but for the purposes of speed in this
 vignette, only two will be used.</p>
 <p>Use <code><a href="../reference/build_epicrop_emergence.html">build_epicrop_emergence()</a></code> and
-<code><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> to fetch the weather data from
+<code>fetch_epicrop_weather_list()</code> to fetch the weather data from
 the <a href="https://power.larc.nasa.gov" class="external-link">POWER API</a>. In this example
 we will use the IRRI Zeigler Experiment Station coordinates as shown in
 the example for <code><a href="../reference/get_wth.html">get_wth()</a></code>.</p>
@@ -111,7 +111,7 @@ the example for <code><a href="../reference/get_wth.html">get_wth()</a></code>.<
 <span><span class="va">duration</span> <span class="op">&lt;-</span> <span class="fl">120L</span></span>
 <span></span>
 <span><span class="va">ymd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_epicrop_emergence.html">build_epicrop_emergence</a></span><span class="op">(</span>years <span class="op">=</span> <span class="va">years</span>, month_day <span class="op">=</span> <span class="va">emergence_date</span><span class="op">)</span></span></code></pre></div>
-<p>A helper function, <code><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code>, is
+<p>A helper function, <code>fetch_epicrop_weather_list()</code>, is
 provided to simplify fetching multiple years of weather data from NASA
 POWER that uses very similar arguments to <code><a href="../reference/get_wth.html">get_wth()</a></code>. Note
 that since we only need the starting date as we have supplied
@@ -121,7 +121,7 @@ function uses the <code>duration</code> value to fetch the necessary
 weather data for all years and start dates inclusive of the end of the
 last season of the last start date.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu">fetch_epicrop_weather_list</span><span class="op">(</span></span>
 <span>  years <span class="op">=</span> <span class="va">years</span>,</span>
 <span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span>
 <span>  start_date <span class="op">=</span> <span class="va">emergence_date</span>,</span>
@@ -185,7 +185,7 @@ simplify running multiple establishment dates.</p>
 <span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_epicrop_emergence.html">build_epicrop_emergence</a></span><span class="op">(</span><span class="va">years</span>, <span class="va">month_day</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># select 200 days duration to allow for multiple seasonal runs on same data</span></span>
-<span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span>
+<span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu">fetch_epicrop_weather_list</span><span class="op">(</span></span>
 <span>  years <span class="op">=</span> <span class="va">years</span>,</span>
 <span>  lonlat <span class="op">=</span> <span class="va">lonlat</span>,</span>
 <span>  start_date <span class="op">=</span> <span class="va">month_day</span>,</span>
@@ -269,7 +269,7 @@ simplify running multiple establishment dates.</p>
 <h4 id="multiple-sites-and-seasons">Multiple Sites and Seasons<a class="anchor" aria-label="anchor" href="#multiple-sites-and-seasons"></a>
 </h4>
 <p>Multiple locations can also be simulated using
-<code><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> and
+<code>fetch_epicrop_weather_list()</code> and
 <code><a href="../reference/run_epicrop_model.html">run_epicrop_model()</a></code>. Here Septoria tritici blotch is
 simulated for three locations in Western Australia and New South Wales
 over two seasons and two planting dates with a 240 day growing
@@ -286,7 +286,7 @@ season.</p>
 <span>  <span class="st">"Tamworth"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">150.84</span>, y <span class="op">=</span> <span class="op">-</span><span class="fl">31.07</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span>
+<span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu">fetch_epicrop_weather_list</span><span class="op">(</span></span>
 <span>  lonlat <span class="op">=</span> <span class="va">locs</span>,</span>
 <span>  start_date <span class="op">=</span> <span class="va">start_date</span>,</span>
 <span>  duration <span class="op">=</span> <span class="fl">240L</span>,</span>

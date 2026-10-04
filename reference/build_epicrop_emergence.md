@@ -186,7 +186,7 @@ and [base::Date](https://rdrr.io/r/base/Dates.html)). This tag enables:
 - [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md)
   – primary consumer of `epicrop.emerge` vectors
 
-- [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
+- [`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)
   – companion for building weather lists
 
 - [base::Date](https://rdrr.io/r/base/Dates.html),
@@ -250,7 +250,7 @@ month_day <- c("-06-30", "-07-15")
 emergence <- build_epicrop_emergence(years, month_day)
 
 # Fetch weather data (one year per list element)
-wth_list <- fetch_epicrop_weather_list(
+wth_list <- get_epicrop_weather_list(
   lonlat = c(121.255669, 14.167425),
   start_date = month_day,
   duration = 120L,

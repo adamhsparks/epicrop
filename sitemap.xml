@@ -37,10 +37,10 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-epi_get_params.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-expand_daily.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-fast_interp_approx_internal.html</loc></url>
-<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-fetch_one_weather.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-finalize_output.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-format_results.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-get_era5.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-get_one_weather.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-get_power.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-interp.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-interp_fn.html</loc></url>
@@ -79,9 +79,9 @@
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-validate_run_inputs.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/dot-window_weather.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/epicrop-package.html</loc></url>
-<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/format_wth.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/get_audpc.html</loc></url>
+<url><loc>https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/get_wth.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/index.html</loc></url>
 <url><loc>https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.html</loc></url>

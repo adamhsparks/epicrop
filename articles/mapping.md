@@ -36,7 +36,7 @@ capabilities.
 `emergence_date`` ``<-`` ``"06-30"`\
 `ymd`` ``<-`` `[`build_epicrop_emergence`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)`(``years ``=`` ``year``, month_day ``=`` ``emergence_date``)`\
 \
-`wth_list`` ``<-`` `[`fetch_epicrop_weather_list`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)`(`\
+`wth_list`` ``<-`` ``fetch_epicrop_weather_list``(`\
 `  lonlat ``=`` ``locations``,`\
 `  start_date ``=`` ``"2000-06-30"``,`\
 `  duration ``=`` ``120L``,`\

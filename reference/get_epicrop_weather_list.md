@@ -1,4 +1,4 @@
-# Fetch Weather for One or More Locations and Split by Calendar Year
+# Get Weather for One or More Locations and Split by Calendar Year
 
 Retrieves one or more continuous blocks of weather data for one or more
 locations from given start dates and durations, then splits each result
@@ -10,7 +10,7 @@ single `epicrop.wth.list`.
 ## Usage
 
 ``` r
-fetch_epicrop_weather_list(
+get_epicrop_weather_list(
   lonlat,
   start_date,
   duration,
@@ -105,9 +105,7 @@ fetch_epicrop_weather_list(
 
   - `start = min(paste(years, md))`
 
-  - `end = max(paste(years, md)) + (duration - 1)`
-
-- Enables efficient API calls: fetching once per year for multiple dates
+  - `end = max(paste(years, md)) + (duration - 1)`.
 
 ## Author
 
@@ -117,7 +115,7 @@ Adam H. Sparks, <adamhsparks@gmail.com>
 
 ``` r
 # Single location, month-day start date
-w1 <- fetch_epicrop_weather_list(
+w1 <- get_epicrop_weather_list(
   lonlat = c(121.255669, 14.16742),
   start_date = "6/30",
   duration = 120L,
@@ -125,7 +123,7 @@ w1 <- fetch_epicrop_weather_list(
 )
 
 # ISO start date
-w2 <- fetch_epicrop_weather_list(
+w2 <- get_epicrop_weather_list(
   lonlat = c(121.255669, 14.16742),
   start_date = "2000-06-30",
   duration = 120L
@@ -136,7 +134,7 @@ locations <- rbind(
   "IRRI_ZES" = c(121.255669, 14.16742),
   "Metro_Manila" = c(120.985, 14.6042)
 )
-w3 <- fetch_epicrop_weather_list(
+w3 <- get_epicrop_weather_list(
   lonlat = locations,
   start_date = c("2000-06-30", "6-30"),
   duration = 120L,
@@ -145,14 +143,14 @@ w3 <- fetch_epicrop_weather_list(
 )
 
 # Multiple start dates for same location
-w4 <- fetch_epicrop_weather_list(
+w4 <- get_epicrop_weather_list(
   lonlat = c(121.255669, 14.16742),
   start_date = c("-06-01", "-06-14", "-06-30"),
   duration = 90L,
   years = 2001:2003
 )
 # ERA5 instead of NASA POWER
-w5 <- fetch_epicrop_weather_list(
+w5 <- get_epicrop_weather_list(
   lonlat = c(121.255669, 14.16742),
   start_date = "2000-06-30",
   duration = 120L,

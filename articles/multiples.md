@@ -19,11 +19,10 @@ but for the purposes of speed in this vignette, only two will be used.
 
 Use
 [`build_epicrop_emergence()`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)
-and
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
-to fetch the weather data from the [POWER
-API](https://power.larc.nasa.gov). In this example we will use the IRRI
-Zeigler Experiment Station coordinates as shown in the example for
+and `fetch_epicrop_weather_list()` to fetch the weather data from the
+[POWER API](https://power.larc.nasa.gov). In this example we will use
+the IRRI Zeigler Experiment Station coordinates as shown in the example
+for
 [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
 
 \
@@ -35,10 +34,9 @@ Zeigler Experiment Station coordinates as shown in the example for
 \
 `ymd`` ``<-`` `[`build_epicrop_emergence`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)`(``years ``=`` ``years``, month_day ``=`` ``emergence_date``)`
 
-A helper function,
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md),
-is provided to simplify fetching multiple years of weather data from
-NASA POWER that uses very similar arguments to
+A helper function, `fetch_epicrop_weather_list()`, is provided to
+simplify fetching multiple years of weather data from NASA POWER that
+uses very similar arguments to
 [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md).
 Note that since we only need the starting date as we have supplied
 `duration`, that the argument is rather `start_date`, a single value,
@@ -47,7 +45,7 @@ necessary weather data for all years and start dates inclusive of the
 end of the last season of the last start date.
 
 \
-`wth_list`` ``<-`` `[`fetch_epicrop_weather_list`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)`(`\
+`wth_list`` ``<-`` ``fetch_epicrop_weather_list``(`\
 `  years ``=`` ``years``,`\
 `  lonlat ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``121.255669``, ``14.16742``)``,`\
 `  start_date ``=`` ``emergence_date``,`\
@@ -115,7 +113,7 @@ is provided to simplify running multiple establishment dates.
 `emergence`` ``<-`` `[`build_epicrop_emergence`](https://adamhsparks.codeberg.page/epicrop/reference/build_epicrop_emergence.md)`(``years``, ``month_day``)`\
 \
 `# select 200 days duration to allow for multiple seasonal runs on same data`\
-`wth_list`` ``<-`` `[`fetch_epicrop_weather_list`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)`(`\
+`wth_list`` ``<-`` ``fetch_epicrop_weather_list``(`\
 `  years ``=`` ``years``,`\
 `  lonlat ``=`` ``lonlat``,`\
 `  start_date ``=`` ``month_day``,`\
@@ -199,8 +197,7 @@ is provided to simplify running multiple establishment dates.
 #### Multiple Sites and Seasons
 
 Multiple locations can also be simulated using
-[`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
-and
+`fetch_epicrop_weather_list()` and
 [`run_epicrop_model()`](https://adamhsparks.codeberg.page/epicrop/reference/run_epicrop_model.md).
 Here Septoria tritici blotch is simulated for three locations in Western
 Australia and New South Wales over two seasons and two planting dates
@@ -218,7 +215,7 @@ with a 240 day growing season.
 `  ``"Tamworth"`` ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``x ``=`` ``150.84``, y ``=`` ``-``31.07``)`\
 `)`\
 \
-`wth_list`` ``<-`` `[`fetch_epicrop_weather_list`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)`(`\
+`wth_list`` ``<-`` ``fetch_epicrop_weather_list``(`\
 `  lonlat ``=`` ``locs``,`\
 `  start_date ``=`` ``start_date``,`\
 `  duration ``=`` ``240L``,`\

@@ -182,7 +182,7 @@ output.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index">
 <ul><li><p><code><a href="run_epicrop_model.html">run_epicrop_model()</a></code> – primary consumer of <code>epicrop.emerge</code> vectors</p></li>
-<li><p><code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code> – companion for building weather lists</p></li>
+<li><p><code><a href="get_epicrop_weather_list.html">get_epicrop_weather_list()</a></code> – companion for building weather lists</p></li>
 <li><p><a href="https://rdrr.io/r/base/Dates.html" class="external-link">base::Date</a>, <a href="https://rdrr.io/pkg/data.table/man/IDateTime.html" class="external-link">data.table::IDate</a> – underlying date classes</p></li>
 <li><p><code><a href="https://rdrr.io/r/base/seq.Date.html" class="external-link">base::seq.Date()</a></code> – alternative for building date sequences</p></li>
 </ul></div>
@@ -241,7 +241,7 @@ output.</p>
 <span class="r-in"><span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="fu">build_epicrop_emergence</span><span class="op">(</span><span class="va">years</span>, <span class="va">month_day</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Fetch weather data (one year per list element)</span></span></span>
-<span class="r-in"><span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">wth_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_epicrop_weather_list.html">get_epicrop_weather_list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.167425</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  start_date <span class="op">=</span> <span class="va">month_day</span>,</span></span>
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120L</span>,</span></span>

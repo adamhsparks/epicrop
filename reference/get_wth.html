@@ -222,7 +222,8 @@ from code by Emerson M. Del Ponte <a href="mailto:delponte@ufv.br">delponte@ufv.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Run bacterial blight model</span></span></span>
 <span class="r-in"><span><span class="va">bb_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="disease_models.html">bacterial_blight</a></span><span class="op">(</span><span class="va">wth</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .window_weather(wth = wth, emergence = emergence, duration = duration):</span> Insufficient weather data to run 120 days after emergence</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .window_weather(wth = wth, emergence = emergence, duration = duration):</span> Insufficient weather data to run</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> 120 days after emergence</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bb_sim</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'bb_sim' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
@@ -259,7 +260,8 @@ from code by Emerson M. Del Ponte <a href="mailto:delponte@ufv.br">delponte@ufv.
 <span class="r-in"><span>  <span class="va">wth_list</span>,</span></span>
 <span class="r-in"><span>  <span class="kw">function</span><span class="op">(</span><span class="va">w</span><span class="op">)</span> <span class="fu"><a href="disease_models.html">leaf_blast</a></span><span class="op">(</span><span class="va">w</span>, emergence <span class="op">=</span> <span class="st">"2000-07-01"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .window_weather(wth = wth, emergence = emergence, duration = duration):</span> Insufficient weather data to run 120 days after emergence</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .window_weather(wth = wth, emergence = emergence, duration = duration):</span> Insufficient weather data to run</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> 120 days after emergence</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compare AUDPC (disease intensity summary)</span></span></span>
 <span class="r-in"><span><span class="va">audpc_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
@@ -351,14 +353,14 @@ from code by Emerson M. Del Ponte <a href="mailto:delponte@ufv.br">delponte@ufv.
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wth_era5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;YYYYMMDD&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      YYYYMMDD   DOY     TEMP  TMIN  TMAX     RHUM  RAIN   LAT   LON</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;IDat&gt; &lt;int&gt;    &lt;num&gt; &lt;num&gt; &lt;num&gt;    &lt;num&gt; &lt;num&gt; &lt;num&gt; &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2000-06-30   182 26.83750  24.6  30.1 90.15715     0  14.1 121.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 2000-07-01   183 26.56250  24.9  29.8 88.68720     0  14.1 121.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 2000-07-02   184 26.30000  24.7  29.3 90.96565     0  14.1 121.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4: 2000-07-03   185 26.29167  24.9  29.0 90.70723     0  14.1 121.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 2000-07-04   186 25.69583  25.1  26.7 93.06900     0  14.1 121.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 2000-07-05   187 26.28333  25.5  28.7 90.84751     0  14.1 121.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      YYYYMMDD   DOY     TEMP  TMIN  TMAX     RHUM  RAIN   LAT    LON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;IDat&gt; &lt;int&gt;    &lt;num&gt; &lt;num&gt; &lt;num&gt;    &lt;num&gt; &lt;num&gt; &lt;num&gt;  &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2000-06-30   182 26.82917  24.9  30.0 89.37500  10.2 14.25 121.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 2000-07-01   183 27.02083  25.3  30.2 87.00000  42.4 14.25 121.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 2000-07-02   184 26.65000  24.1  29.5 89.62500  26.2 14.25 121.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4: 2000-07-03   185 26.23333  25.4  27.7 89.00000  25.7 14.25 121.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 2000-07-04   186 25.72083  25.0  26.4 92.37500  42.9 14.25 121.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 2000-07-05   187 26.34167  25.5  27.5 90.95833  31.9 14.25 121.25</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

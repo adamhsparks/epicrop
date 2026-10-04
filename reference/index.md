@@ -51,8 +51,8 @@ Functions for fetching and formatting weather data for use in {epicrop}
 
 - [`get_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/get_wth.md)
   : Get Weather Data for Disease Modelling
-- [`fetch_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/fetch_epicrop_weather_list.md)
-  : Fetch Weather for One or More Locations and Split by Calendar Year
+- [`get_epicrop_weather_list()`](https://adamhsparks.codeberg.page/epicrop/reference/get_epicrop_weather_list.md)
+  : Get Weather for One or More Locations and Split by Calendar Year
 - [`format_wth()`](https://adamhsparks.codeberg.page/epicrop/reference/format_wth.md)
   : Format Weather Data for Use in seir() Simulations
 

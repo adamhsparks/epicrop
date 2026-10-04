@@ -100,7 +100,7 @@ source bundle member.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function extracts location labels from the bundle's names by taking the
-text before the <code>"__"</code> delimiter (used by <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code>).
+text before the <code>"__"</code> delimiter (used by <code><a href="get_epicrop_weather_list.html">get_epicrop_weather_list()</a></code>).
 For unnamed or empty-named entries, generates default labels (<code>location01</code>,
 <code>location02</code>, etc.).</p>
 <p>Each bundled weather list is processed independently via <code><a href="run_epicrop_model.html">run_epicrop_model()</a></code>,
@@ -119,7 +119,7 @@ column alignment.</p>
 </ol></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="run_epicrop_model.html">run_epicrop_model()</a></code>, <code><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="run_epicrop_model.html">run_epicrop_model()</a></code>, <code><a href="get_epicrop_weather_list.html">get_epicrop_weather_list()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -132,7 +132,7 @@ column alignment.</p>
 <span class="r-in"><span>  <span class="st">"Site2"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.3</span>, <span class="fl">14.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">emergence</span> <span class="op">&lt;-</span> <span class="fu"><a href="build_epicrop_emergence.html">build_epicrop_emergence</a></span><span class="op">(</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2003</span>, <span class="st">"-06-30"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">wth_bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="fetch_epicrop_weather_list.html">fetch_epicrop_weather_list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">wth_bundle</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_epicrop_weather_list.html">get_epicrop_weather_list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lonlat <span class="op">=</span> <span class="va">locations</span>,</span></span>
 <span class="r-in"><span>  start_date <span class="op">=</span> <span class="st">"-06-30"</span>,</span></span>
 <span class="r-in"><span>  duration <span class="op">=</span> <span class="fl">120L</span>,</span></span>
@@ -147,7 +147,6 @@ column alignment.</p>
 <span class="r-in"><span>  window_days <span class="op">=</span> <span class="fl">120L</span>,</span></span>
 <span class="r-in"><span>  output <span class="op">=</span> <span class="st">"audpc"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .run_bundle(leaf_blast, emergence, wth_bundle, window_days = 120L,     output = "audpc"):</span> could not find function ".run_bundle"</span>
 <span class="r-in"><span><span class="co"># Results now include a 'location' column</span></span></span>
 </code></pre></div>
     </div>
