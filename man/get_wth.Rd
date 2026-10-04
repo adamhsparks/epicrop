@@ -272,6 +272,9 @@ Sparks, A. H., P. D. Esker, M. Bates, W. Dall'Acqua, Z. Guo, V. Segovia, S.
 D. Silwal, S. Tolos, and K. A. Garrett. (2008). Ecology and Epidemiology in
 R: Disease Progress over Time. \emph{The Plant Health Instructor}.
 \doi{10.1094/PHI-A-2008-0129-02}.
+
+Zippenfenig, P. (2023) Open-Meteo.com Weather API. Zenodo. doi:
+\doi{10.5281/ZENODO.7970649}.
 }
 \author{
 Adam H. Sparks, \email{adamhsparks@gmail.com} with ERA5 support adapted
