@@ -38,7 +38,7 @@ reference:
       Functions for fetching and formatting weather data for use in {epicrop}
     contents:
       - get_wth
-      - fetch_epicrop_weather_list
+      - get_epicrop_weather_list
       - format_wth
   - title: Miscellaneous
     desc: |
