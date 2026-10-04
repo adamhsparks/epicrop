@@ -247,11 +247,11 @@ Kwang-Hyung Kim, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. (2015). Predicting
 
 Serge Savary, Andrew Nelson, Laetitia Willocquet, Ireneo Pangga and Jorrel Aunario. (2012). Modeling and mapping potential epidemics of rice diseases globally. *Crop Protection*, Volume 34, Pages 6-17, ISSN 0261-2194 DOI: [10.1016/j.cropro.2011.11.009](https://doi.org/10.1016/j.cropro.2011.11.009).
 
-Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. (2015). *European Journal of Plant Pathology* 142, no. 4:771--90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
+Serge Savary, Stacia Stetkiewicz, François Brun, and Laetitia Willocquet. (2015). Modelling and Mapping Potential Epidemics of Wheat Diseases-Examples on Leaf Rust and Septoria Tritici Blotch Using EPIWHEAT. *European Journal of Plant Pathology* 142, no. 4:771--90. DOI: [10.1007/s10658-015-0650-7](https://doi.org/10.1007/s10658-015-0650-7).
 
 Adam Sparks. (2018). nasapower: A NASA POWER Global Meteorology, Surface Solar Energy and Climatology Data Client for R. *Journal of Open Source Software*, 3(30), 1035, DOI: [10.21105/joss.01035](https://doi.org/10.21105/joss.01035).
 
-Daniel Wallach, David Makowski, James W Jones, and François Brun. (2018) *Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press. DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
+Daniel Wallach, David Makowski, James W Jones, and François Brun. (2018). *Working with dynamic crop models: methods, tools and examples for agriculture and environment*. Academic Press. DOI: [10.1016/C2016-0-01552-8](https://doi.org/10.1016/C2016-0-01552-8).
 
 Jan C Zadoks. (1971). Systems Analysis and the Dynamics of Epidemics. *Phytopathology* 61:600. DOI: [10.1094/Phyto-61-600](https://doi.org/10.1094/Phyto-61-600).
 
