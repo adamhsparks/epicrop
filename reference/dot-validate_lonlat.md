@@ -38,9 +38,9 @@ Validates:
 ``` r
 # Valid coordinates
 .validate_lonlat(c(121.255669, 14.167425)) # IRRI, Philippines
-#> [1] 121.25567  14.16742
+#> Error in .validate_lonlat(c(121.255669, 14.167425)): could not find function ".validate_lonlat"
 .validate_lonlat(c(-99.1828, 19.1296))     # CIMMYT, Mexico
-#> [1] -99.1828  19.1296
+#> Error in .validate_lonlat(c(-99.1828, 19.1296)): could not find function ".validate_lonlat"
 
 # Invalid (will error)
 if (FALSE) { # \dontrun{

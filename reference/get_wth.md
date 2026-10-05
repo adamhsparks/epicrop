@@ -196,8 +196,7 @@ wth <- get_wth(
 
 # Run bacterial blight model
 bb_sim <- bacterial_blight(wth, emergence = "2000-07-01")
-#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run
-#> 120 days after emergence
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
 head(bb_sim)
 #> Error: object 'bb_sim' not found
 plot(
@@ -234,8 +233,7 @@ lb_results <- lapply(
   wth_list,
   function(w) leaf_blast(w, emergence = "2000-07-01")
 )
-#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run
-#> 120 days after emergence
+#> Error in .window_weather(wth = wth, emergence = emergence, duration = duration): Insufficient weather data to run 120 days after emergence
 
 # Compare AUDPC (disease intensity summary)
 audpc_comparison <- data.frame(
