@@ -405,7 +405,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["crop-disease", "plant-pathology", "plant-disease-epidemiology", "seir-model", "compartmental-model", "disease-simulation", "crop-modeling", "crop-protection", "epirice", "epiwheat", "rice", "wheat", "nasa-power", "era5", "weather-data"],
-  "fileSize": "1602.867KB",
+  "fileSize": "1602.9KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

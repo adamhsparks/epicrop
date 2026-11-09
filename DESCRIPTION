@@ -78,7 +78,7 @@ Config/roxyglobals/unique: FALSE
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
-Language: en-US
+Language: en-AU
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet", "devtag::dev_roclet"))
 X-schema.org-applicationCategory: Tools
