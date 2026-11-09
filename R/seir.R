@@ -293,7 +293,7 @@
 #'   H0 = 1000,       # 1000 initial healthy sites
 #'   I0 = 1,          # 1 initial infected site
 #'   RcA = rbind(c(0, 0.1), c(120, 0.1)),     # age modifier (constant 0.1)
-#'   RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25\ifelse{latex}{\out{$^\circ$}}{°}.RC)
+#'   RcT = rbind(c(25, 1), c(30, 1)),         # temp modifier (optimum at 25C)
 #'   RcOpt = 0.5,     # infection rate optimum
 #'   p = 5,           # 5-day latent period
 #'   i = 10,          # 10-day infectious period
