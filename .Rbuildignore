@@ -92,3 +92,4 @@
 ^man/dot-finalise_output\.Rd$
 ^man/dot-validate_emergence\.Rd$
 ^man/dot-is_ambiguous_numeric_date\.Rd$
+^CRAN-SUBMISSION$
