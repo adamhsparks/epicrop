@@ -39,7 +39,7 @@ Edge cases:
 \enumerate{
 \item Prepare x-y points (sorted, deduplicated)
 \item Use \code{\link[base:findInterval]{base::findInterval()}} to locate each output point in x-grid
-\item Categorize points:
+\item Categorise points:
 \itemize{
 \item Below \eqn{min(x)}: use \eqn{y[1]} (constant)
 \item Above \eqn{max(x)}: use \eqn{y[n]} (constant)

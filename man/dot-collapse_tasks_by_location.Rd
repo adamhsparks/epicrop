@@ -14,7 +14,7 @@ A list of collapsed tasks, one per unique location.
 }
 \description{
 Groups tasks by location and collapses each group into a single task. This
-minimizes the number of API calls required to fetch all data.
+minimises the number of API calls required to fetch all data.
 }
 \details{
 By combining all date ranges for a single location, we can fetch the entire

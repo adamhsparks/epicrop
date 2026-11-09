@@ -91,7 +91,7 @@
 #' class(em)  # "epicrop.emerge" "IDate" "Date"
 #' length(em) # 6 (2 years × 3 month-days)
 #'
-#' # Example 2: Month-day without leading dash (auto-normalized)
+#' # Example 2: Month-day without leading dash (auto-normalised)
 #' em2 <- build_epicrop_emergence(2000, c("06-01", "06-15", "07-01"))
 #' identical(em2, build_epicrop_emergence(2000, c("-06-01", "-06-15", "-07-01")))
 #'
@@ -165,11 +165,11 @@
 #'
 #' ## Internal Algorithm
 #'
-#' 1. Normalize `month_day` strings:
+#' 1. Normalise `month_day` strings:
 #'    - If matches `"^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"`: use as-is
 #'    - If matches `"^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"`: prepend `-`
 #'    - Otherwise: abort with error message
-#' 2. Create cross-product: every year × every normalized month-day
+#' 2. Create cross-product: every year × every normalised month-day
 #' 3. Construct ISO date strings: `sprintf("%s%s", year, month_day)`
 #' 4. Parse to [data.table::IDate] with format `"%Y-%m-%d"`
 #' 5. Sort by date and tag with `epicrop.emerge` class
@@ -186,7 +186,7 @@
 #' ## Performance
 #'
 #' Fast even for large year/month-day combinations:
-#' * Cross-product via [data.table::CJ()] (optimized)
+#' * Cross-product via [data.table::CJ()] (optimised)
 #' * Vectorised date construction via [sprintf()]
 #' * Sorting via base [sort()] on IDate (fast integer representation)
 #'
@@ -202,7 +202,7 @@
 #' @autoglobal
 #' @export
 build_epicrop_emergence <- function(years, month_day) {
-  # Normalize month-day format: accept both "-MM-DD" and "MM-DD"
+  # Normalise month-day format: accept both "-MM-DD" and "MM-DD"
   md <- data.table::fcase(
     !is.na(month_day) & grepl("^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", month_day) ,
     month_day                                                                           ,
@@ -219,7 +219,7 @@ build_epicrop_emergence <- function(years, month_day) {
     )
   }
 
-  # Create cross-product: all combinations of years × normalized month-days
+  # Create cross-product: all combinations of years × normalised month-days
   # CJ() = Cartesian join (cross-product of unique values)
   g <- data.table::CJ(years = years, month_day = md, sorted = FALSE)
 

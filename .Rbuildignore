@@ -89,6 +89,6 @@
 ^man/dot-prepare_lesion_expansion\.Rd$
 ^man/dot-build_primary_inoculum\.Rd$
 ^man/dot-run_seir_core\.Rd$
-^man/dot-finalize_output\.Rd$
+^man/dot-finalise_output\.Rd$
 ^man/dot-validate_emergence\.Rd$
 ^man/dot-is_ambiguous_numeric_date\.Rd$

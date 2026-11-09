@@ -111,7 +111,7 @@ get_epicrop_weather_list <- function(
   mode <- rlang::arg_match0(mode, c("pairwise", "cross"))
   source <- rlang::arg_match(source)
 
-  # Normalize locations
+  # Normalise locations
   locations <- .norm_locations(lonlat)
   location_names <- .resolve_location_names(locations, location_names)
 
@@ -181,7 +181,7 @@ get_epicrop_weather_list <- function(
   }
 }
 
-#' Normalize Location Input to Standard Matrix Format
+#' Normalise Location Input to Standard Matrix Format
 #'
 #' Converts various location input formats (numeric vector, matrix, data frame,
 #' or list of pairs) to a standard 2-column numeric matrix with columns LON and
@@ -250,7 +250,7 @@ get_epicrop_weather_list <- function(
     .abort_invalid_location_type(ll)
   }
 
-  # Finalize: ensure double storage mode and column names
+  # Finalise: ensure double storage mode and column names
   storage.mode(ll) <- "double"
   colnames(ll) <- c("LON", "LAT")
   ll
@@ -525,13 +525,13 @@ get_epicrop_weather_list <- function(
     !grepl("^\\d{4}-\\d{2}-\\d{2}$", x_chr)
 }
 
-#' Normalize Month-Day Strings to Standard MM-DD Format
+#' Normalise Month-Day Strings to Standard MM-DD Format
 #'
 #' Converts month-day strings in various formats (`"6/30"`, `"-06-30"`, etc.) to
 #' a consistent `"MM-DD"` format with zero-padded digits.
 #'
 #' @section Transformations:
-#' - Slashes or dashes as separators (normalized to dashes)
+#' - Slashes or dashes as separators (normalised to dashes)
 #' - Optional leading dash (removed)
 #' - Single or double-digit month/day (zero-padded)
 #'
@@ -562,7 +562,7 @@ get_epicrop_weather_list <- function(
 
 #' Process Start Dates to Character Format
 #'
-#' Converts start dates to character format and normalizes month-day strings.
+#' Converts start dates to character format and normalises month-day strings.
 #' Month-day dates require the `years` parameter to construct complete date
 #' ranges.
 #'
@@ -574,7 +574,7 @@ get_epicrop_weather_list <- function(
 #' Character vector of start dates in `"YYYY-MM-DD"` or `"MM-DD"` format.
 #'
 #' @details
-#' Month-day strings are normalized to `"MM-DD"` format. Full dates are
+#' Month-day strings are normalised to `"MM-DD"` format. Full dates are
 #' converted to character strings. If month-day values are found but `years` is
 #' NULL, an error is raised.
 #'
@@ -890,7 +890,7 @@ get_epicrop_weather_list <- function(
 #' Collapse Tasks by Location for Efficient API Calls
 #'
 #' Groups tasks by location and collapses each group into a single task. This
-#' minimizes the number of API calls required to fetch all data.
+#' minimises the number of API calls required to fetch all data.
 #'
 #' @param tasks A list of task objects (from [.build_tasks()]).
 #'

@@ -310,7 +310,7 @@ test_that(".process_start_dates converts Date/IDate input to character", {
 })
 
 test_that(
-  ".process_start_dates normalizes month-day-only strings when years is supplied",
+  ".process_start_dates normalises month-day-only strings when years is supplied",
   {
     res <- .process_start_dates("6-30", years = 2000:2001)
     expect_identical(res, "06-30")
@@ -354,7 +354,7 @@ test_that(
   }
 )
 
-test_that(".resolve_date_and_duration routes normalized MM-DD strings to the years-coverage path", {
+test_that(".resolve_date_and_duration routes normalised MM-DD strings to the years-coverage path", {
   res <- .resolve_date_and_duration("06-30", 10L, years = 2000)
 
   expect_identical(res$start_chr, "2000-06-30")

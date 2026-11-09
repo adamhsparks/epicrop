@@ -61,13 +61,13 @@ batch modelling functions.
 \details{
 \subsection{Internal Algorithm}{
 \enumerate{
-\item Normalize \code{month_day} strings:
+\item Normalise \code{month_day} strings:
 \itemize{
 \item If matches \code{"^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"}: use as-is
 \item If matches \code{"^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"}: prepend \code{-}
 \item Otherwise: abort with error message
 }
-\item Create cross-product: every year × every normalized month-day
+\item Create cross-product: every year × every normalised month-day
 \item Construct ISO date strings: \code{sprintf("\%s\%s", year, month_day)}
 \item Parse to \link[data.table:IDate]{data.table::IDate} with format \code{"\%Y-\%m-\%d"}
 \item Sort by date and tag with \code{epicrop.emerge} class
@@ -90,7 +90,7 @@ trigger an abort.
 
 Fast even for large year/month-day combinations:
 \itemize{
-\item Cross-product via \code{\link[data.table:CJ]{data.table::CJ()}} (optimized)
+\item Cross-product via \code{\link[data.table:CJ]{data.table::CJ()}} (optimised)
 \item Vectorised date construction via \code{\link[=sprintf]{sprintf()}}
 \item Sorting via base \code{\link[=sort]{sort()}} on IDate (fast integer representation)
 }
@@ -169,7 +169,7 @@ em
 class(em)  # "epicrop.emerge" "IDate" "Date"
 length(em) # 6 (2 years × 3 month-days)
 
-# Example 2: Month-day without leading dash (auto-normalized)
+# Example 2: Month-day without leading dash (auto-normalised)
 em2 <- build_epicrop_emergence(2000, c("06-01", "06-15", "07-01"))
 identical(em2, build_epicrop_emergence(2000, c("-06-01", "-06-15", "-07-01")))
 

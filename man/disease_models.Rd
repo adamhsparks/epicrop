@@ -297,7 +297,7 @@ wetness. Defaults to disease-specific value (typically 90).}
 wetness. Defaults to disease-specific value (typically 5).}
 
 \item{...}{Additional parameters passed to \code{\link[=seir]{seir()}}, allowing full
-customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
+customisation of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 simple_wetness, etc.).}
 
 \item{RRPSN}{Optional custom relative photoperiod-adjusted senescence rate
@@ -310,7 +310,7 @@ progression over time. See \code{\link[=seir]{seir()}} for output details.
 }
 \description{
 Convenience wrappers around \code{\link[=seir]{seir()}} with pre-configured parameter tables
-for well-characterized crop diseases. Each function encapsulates parameters
+for well-characterised crop diseases. Each function encapsulates parameters
 from published epidemiological studies, allowing one-line disease
 simulations.
 
@@ -331,7 +331,7 @@ progression can cause total crop loss.
 
 \code{sheath_blight()} models rice sheath blight (\emph{Rhizoctonia solani}).
 A soil-borne disease that infects the leaf sheath; can cause catastrophic
-damage in high-N fertilized crops.
+damage in high-N fertilised crops.
 
 \code{tungro()} models rice tungro, a viral disease complex (\emph{Tungro bacilliform}
 and \emph{Tungro spherical viruses}) transmitted by the insect vector

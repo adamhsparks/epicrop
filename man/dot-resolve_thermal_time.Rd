@@ -32,7 +32,7 @@ A \code{thermal_time} list (possibly unchanged input, or derived from
 \code{infection_window}) or \code{NULL} when not needed.
 }
 \description{
-This function centralizes logic for:
+This function centralises logic for:
 \itemize{
 \item enforcing that \code{thermal_time} is supplied when \code{age_driver = "dvs"};
 \item validating \code{infection_window} structure when provided; and

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{.norm_locations}
 \alias{.norm_locations}
-\title{Normalize Location Input to Standard Matrix Format}
+\title{Normalise Location Input to Standard Matrix Format}
 \usage{
 .norm_locations(ll)
 }

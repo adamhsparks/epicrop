@@ -16,12 +16,12 @@ contains month-day values.}
 Character vector of start dates in \code{"YYYY-MM-DD"} or \code{"MM-DD"} format.
 }
 \description{
-Converts start dates to character format and normalizes month-day strings.
+Converts start dates to character format and normalises month-day strings.
 Month-day dates require the \code{years} parameter to construct complete date
 ranges.
 }
 \details{
-Month-day strings are normalized to \code{"MM-DD"} format. Full dates are
+Month-day strings are normalised to \code{"MM-DD"} format. Full dates are
 converted to character strings. If month-day values are found but \code{years} is
 NULL, an error is raised.
 }

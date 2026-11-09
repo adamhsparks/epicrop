@@ -2,7 +2,7 @@
 #'
 #' A dynamical systems model for plant disease epidemiology that tracks disease
 #' progression through latent, infectious, and removed stages. Supports flexible
-#' aging (day or development stage), lesion expansion, and hourly leaf wetness
+#' ageing (day or development stage), lesion expansion, and hourly leaf wetness
 #' calculations.
 #'
 #' This function originated from specific disease models in \sQuote{EPIRICE} and
@@ -228,7 +228,7 @@
 #'
 #' Lesion expansion is computed in a two-stage update to avoid circular
 #' dependency: (1) compute pre-expansion infectious sites, (2) compute rlex,
-#' (3) finalize infectious count. This ensures that *Rc*-driven infections and
+#' (3) finalise infectious count. This ensures that *Rc*-driven infections and
 #' lesion expansion are properly sequenced.
 #'
 #' @references
@@ -500,7 +500,7 @@ seir <- function(
     RRLEX_vals = lex$RRLEX_vals
   )
 
-  .finalize_output(out = out, w = w, duration = duration)
+  .finalise_output(out = out, w = w, duration = duration)
 }
 
 #' SEIR Core Simulation (No Lesion Expansion)
@@ -513,7 +513,7 @@ seir <- function(
 #'
 #' Computes daily transitions using lagged cumulative sums to efficiently
 #' extract windowed counts (infectious periods are handled via integer delays
-#' into history arrays). Day 1 initializes pools; main loop (days 2+) updates
+#' into history arrays). Day 1 initialises pools; main loop (days 2+) updates
 #' compartments based on infection rate, latency exit, and recovery.
 #'
 #' @param duration Simulation duration (integer days).
@@ -536,7 +536,7 @@ seir <- function(
 #' @details
 #' **rlex** is always 0 in this variant (no lesion expansion).
 #'
-#' **Cumulative Sum Optimization:**
+#' **Cumulative Sum Optimisation:**
 #' Instead of summing over a sliding window (latent/infectious durations),
 #' this implementation maintains `cs_lat` and `cs_inf` (cumulative sums of
 #' latency inflows and infectious inflows). The count of sites currently
@@ -651,7 +651,7 @@ seir <- function(
 #' Uses a two-stage update to avoid circular dependency:
 #' 1. Compute windowed infectious sites before today's lesion expansion
 #' 2. Compute rlex from pre-expansion infectious count and crowding factor
-#' 3. Finalize infectious window including today's lesion expansion
+#' 3. Finalise infectious window including today's lesion expansion
 #'
 #' This ensures that *Rc*-driven infections and lesion expansion are
 #' properly sequenced and both respond to the same crowding factor.
@@ -755,7 +755,7 @@ seir <- function(
     # Today's lesion expansion
     rlex[t] <- RRLEX_vals[t] * now_inf_pre * max(0, COFR)
 
-    # Finalize infectious window including lesion expansion
+    # Finalise infectious window including lesion expansion
     infectious_flow[t] <- rtransfer[t] + rlex[t]
     cs_inf[t] <- cs_inf[t - 1L] + infectious_flow[t]
     win_inf0 <- if (inf_src > 2L) cs_inf[inf_src - 2L] else 0
@@ -800,7 +800,7 @@ seir <- function(
 #' Calculate Development Stage (DVS) from Thermal Time
 #'
 #' Computes growing degree days (GDD) cumulative sum and converts to a
-#' normalized development stage (DVS) on scale 0–2 (emergence to maturity).
+#' normalised development stage (DVS) on scale 0–2 (emergence to maturity).
 #'
 #' @section DVS Calculation:
 #'
@@ -892,7 +892,7 @@ seir <- function(
 #' infection-window constraint.
 #'
 #' @description
-#' This function centralizes logic for:
+#' This function centralises logic for:
 #' * enforcing that `thermal_time` is supplied when `age_driver = "dvs"`;
 #' * validating `infection_window` structure when provided; and
 #' * constructing a fallback `thermal_time` list from `infection_window`
@@ -1103,7 +1103,7 @@ seir <- function(
 
 #' Expand Flexible Inputs to Daily Vectors
 #'
-#' Internal helper that normalizes scalar, vector/matrix, or function inputs
+#' Internal helper that normalises scalar, vector/matrix, or function inputs
 #' into daily vectors for simulation.
 #'
 #' @description
@@ -1349,7 +1349,7 @@ seir <- function(
   }
 }
 
-#' Finalize SEIR Output Table and Attributes
+#' Finalise SEIR Output Table and Attributes
 #'
 #' Internal helper that appends calendar/spatial columns, orders output fields,
 #' and assigns standard simulation attributes.
@@ -1360,7 +1360,7 @@ seir <- function(
 #' @param duration Integer simulation length.
 #'
 #' @returns
-#' A finalized `data.table` of class `epicrop.sim` with:
+#' A finalised `data.table` of class `epicrop.sim` with:
 #' * ordered state/flow/derived columns;
 #' * `simday` and `dates` columns;
 #' * optional `lat`/`lon` columns;
@@ -1370,7 +1370,7 @@ seir <- function(
 #' @autoglobal
 #' @keywords internal
 #' @dev
-.finalize_output <- function(out, w, duration) {
+.finalise_output <- function(out, w, duration) {
   out[, `:=`(simday = seq_len(duration), dates = w$dates)]
 
   if (rlang::has_name(w, "LAT")) {

@@ -244,7 +244,7 @@ the trapezoidal rule over all days.
 \description{
 A dynamical systems model for plant disease epidemiology that tracks disease
 progression through latent, infectious, and removed stages. Supports flexible
-aging (day or development stage), lesion expansion, and hourly leaf wetness
+ageing (day or development stage), lesion expansion, and hourly leaf wetness
 calculations.
 }
 \details{
@@ -335,7 +335,7 @@ When \code{RRLEX > 0}, the model adds a direct pathway H→I, bypassing latency:
 
 Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute rlex,
-(3) finalize infectious count. This ensures that \emph{Rc}-driven infections and
+(3) finalise infectious count. This ensures that \emph{Rc}-driven infections and
 lesion expansion are properly sequenced.
 }
 

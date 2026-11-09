@@ -74,7 +74,7 @@ Uses a two-stage update to avoid circular dependency:
 \enumerate{
 \item Compute windowed infectious sites before today's lesion expansion
 \item Compute rlex from pre-expansion infectious count and crowding factor
-\item Finalize infectious window including today's lesion expansion
+\item Finalise infectious window including today's lesion expansion
 }
 
 This ensures that \emph{Rc}-driven infections and lesion expansion are

@@ -43,7 +43,7 @@ published parameter values.
 \section{Parameter Database}{
 
 
-The internal \code{.epi_params} list is organized hierarchically:
+The internal \code{.epi_params} list is organised hierarchically:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{.epi_params
   $rice

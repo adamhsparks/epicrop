@@ -115,7 +115,7 @@
 #' RcA_clean <- .interp(RcA_messy, age_vec = age)
 #' # Internally sorted to: 0->0.05, 60->0.6, 120->0.6
 #'
-#' # Example 6: Comparing DVS-based vs day-based aging
+#' # Example 6: Comparing DVS-based vs day-based ageing
 #' dvs <- seq(0, 2, length.out = 120)  # DVS 0-2 over 120 days
 #'
 #' RcA_dvs <- rbind(
@@ -370,7 +370,7 @@
 #'
 #' 1. Prepare x-y points (sorted, deduplicated)
 #' 2. Use [base::findInterval()] to locate each output point in x-grid
-#' 3. Categorize points:
+#' 3. Categorise points:
 #'    - Below \eqn{min(x)}: use \eqn{y[1]} (constant)
 #'    - Above \eqn{max(x)}: use \eqn{y[n]} (constant)
 #'    - Between \eqn{x[i]} and \eqn{x[i+1]}: linear interpolation

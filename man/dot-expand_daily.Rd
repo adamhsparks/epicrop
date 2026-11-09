@@ -32,7 +32,7 @@ Accepted input forms:
 }
 }
 \details{
-Internal helper that normalizes scalar, vector/matrix, or function inputs
+Internal helper that normalises scalar, vector/matrix, or function inputs
 into daily vectors for simulation.
 }
 \seealso{

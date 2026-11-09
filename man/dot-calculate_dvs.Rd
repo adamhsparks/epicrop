@@ -20,7 +20,7 @@ Numeric vector of DVS values (0–2), length = nrow(w).
 }
 \description{
 Computes growing degree days (GDD) cumulative sum and converts to a
-normalized development stage (DVS) on scale 0–2 (emergence to maturity).
+normalised development stage (DVS) on scale 0–2 (emergence to maturity).
 }
 \details{
 \strong{Validation:} Checks that \code{w} is a data.frame or data.table with a \code{TEMP}

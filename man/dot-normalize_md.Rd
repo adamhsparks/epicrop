@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_epicrop_weather_list.R
 \name{.normalize_md}
 \alias{.normalize_md}
-\title{Normalize Month-Day Strings to Standard MM-DD Format}
+\title{Normalise Month-Day Strings to Standard MM-DD Format}
 \usage{
 .normalize_md(x_chr)
 }
@@ -20,7 +20,7 @@ a consistent \code{"MM-DD"} format with zero-padded digits.
 \section{Transformations}{
 
 \itemize{
-\item Slashes or dashes as separators (normalized to dashes)
+\item Slashes or dashes as separators (normalised to dashes)
 \item Optional leading dash (removed)
 \item Single or double-digit month/day (zero-padded)
 }

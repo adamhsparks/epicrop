@@ -196,6 +196,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "hunspell",
+      "name": "hunspell",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=hunspell"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "knitr",
       "name": "knitr",
       "provider": {
@@ -405,7 +417,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["crop-disease", "plant-pathology", "plant-disease-epidemiology", "seir-model", "compartmental-model", "disease-simulation", "crop-modeling", "crop-protection", "epirice", "epiwheat", "rice", "wheat", "nasa-power", "era5", "weather-data"],
-  "fileSize": "1602.9KB",
+  "fileSize": "1603.573KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

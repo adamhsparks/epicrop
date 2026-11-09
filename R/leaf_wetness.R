@@ -414,7 +414,7 @@
 #' @autoglobal
 #' @dev
 .day_length <- function(lat, doy) {
-  # Normalize DOY to [1, 365]
+  # Normalise DOY to [1, 365]
   doy <- (doy - 1) %% 365 + 1
 
   # Solar declination (radians)

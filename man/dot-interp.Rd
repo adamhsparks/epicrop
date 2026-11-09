@@ -163,7 +163,7 @@ RcA_messy <- rbind(
 RcA_clean <- .interp(RcA_messy, age_vec = age)
 # Internally sorted to: 0->0.05, 60->0.6, 120->0.6
 
-# Example 6: Comparing DVS-based vs day-based aging
+# Example 6: Comparing DVS-based vs day-based ageing
 dvs <- seq(0, 2, length.out = 120)  # DVS 0-2 over 120 days
 
 RcA_dvs <- rbind(

@@ -1,7 +1,7 @@
 #' Rice and Wheat Disease Models
 #'
 #' Convenience wrappers around [seir()] with pre-configured parameter tables
-#' for well-characterized crop diseases. Each function encapsulates parameters
+#' for well-characterised crop diseases. Each function encapsulates parameters
 #' from published epidemiological studies, allowing one-line disease
 #' simulations.
 #'
@@ -45,7 +45,7 @@
 #' @param rainlim Optional override for rainfall threshold (mm) for leaf
 #'   wetness. Defaults to disease-specific value (typically 5).
 #' @param ... Additional parameters passed to [seir()], allowing full
-#'   customization of any parameter (onset, duration, H0, I0, p, i, Sx, a,
+#'   customisation of any parameter (onset, duration, H0, I0, p, i, Sx, a,
 #'   simple_wetness, etc.).
 #'
 #' @returns A [data.table::data.table()] of class `epicrop.sim` with disease
@@ -281,7 +281,7 @@ leaf_blast <- function(
 #' @description
 #' `sheath_blight()` models rice sheath blight (*Rhizoctonia solani*).
 #' A soil-borne disease that infects the leaf sheath; can cause catastrophic
-#' damage in high-N fertilized crops.
+#' damage in high-N fertilised crops.
 #'
 #' @examplesIf interactive()
 #' wth <- get_wth(

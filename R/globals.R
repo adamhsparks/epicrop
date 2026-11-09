@@ -14,7 +14,7 @@ utils::globalVariables(c(
   "YYYYMMDD", # <.slice_weather>
   "dates", # <.window_weather>
   "YYYYMMDD", # <.window_weather>
-  "lat", # <.finalize_output>
-  "lon", # <.finalize_output>
+  "lat", # <.finalise_output>
+  "lon", # <.finalise_output>
   NULL
 ))

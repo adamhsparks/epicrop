@@ -59,6 +59,7 @@ Suggests:
     ggplot2,
     ggrepel,
     ggspatial,
+    hunspell,
     knitr,
     rmarkdown,
     roxyglobals,

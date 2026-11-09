@@ -57,7 +57,7 @@ efficient cumulative sum techniques to avoid O(n²) nested loops.
 \details{
 \strong{rlex} is always 0 in this variant (no lesion expansion).
 
-\strong{Cumulative Sum Optimization:}
+\strong{Cumulative Sum Optimisation:}
 Instead of summing over a sliding window (latent/infectious durations),
 this implementation maintains \code{cs_lat} and \code{cs_inf} (cumulative sums of
 latency inflows and infectious inflows). The count of sites currently
@@ -69,7 +69,7 @@ inner loops.
 
 Computes daily transitions using lagged cumulative sums to efficiently
 extract windowed counts (infectious periods are handled via integer delays
-into history arrays). Day 1 initializes pools; main loop (days 2+) updates
+into history arrays). Day 1 initialises pools; main loop (days 2+) updates
 compartments based on infection rate, latency exit, and recovery.
 }
 
