@@ -261,6 +261,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "vcr",
       "name": "vcr",
       "version": ">= 0.6.0",
@@ -393,7 +405,7 @@
   },
   "applicationCategory": "Tools",
   "keywords": ["plant-disease", "plant-pathology", "botanical-epidemiology", "crop-disease", "seir", "seir-model", "compartmental-model", "epirice", "rice", "wheat", "rice-blast", "sheath-blight", "tungro", "agricultural-modelling", "agricultural-modeling", "crop-protection", "nasa-power", "era5", "weather-data."],
-  "fileSize": "1199.684KB",
+  "fileSize": "1602.409KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
