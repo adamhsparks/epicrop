@@ -404,8 +404,8 @@
     "SystemRequirements": null
   },
   "applicationCategory": "Tools",
-  "keywords": ["plant-disease", "plant-pathology", "botanical-epidemiology", "crop-disease", "seir", "seir-model", "compartmental-model", "epirice", "rice", "wheat", "rice-blast", "sheath-blight", "tungro", "agricultural-modelling", "agricultural-modeling", "crop-protection", "nasa-power", "era5", "weather-data."],
-  "fileSize": "1602.926KB",
+  "keywords": ["crop-disease", "plant-pathology", "plant-disease-epidemiology", "seir-model", "compartmental-model", "disease-simulation", "crop-modeling", "crop-protection", "epirice", "rice", "wheat", "nasa-power", "era5", "weather-data"],
+  "fileSize": "1602.857KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

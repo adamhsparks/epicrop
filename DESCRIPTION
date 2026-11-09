@@ -82,8 +82,7 @@ Language: en-US
 Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
     "roxyglobals::global_roclet", "devtag::dev_roclet"))
 X-schema.org-applicationCategory: Tools
-X-schema.org-keywords: plant-disease, plant-pathology,
-    botanical-epidemiology, crop-disease, seir, seir-model,
-    compartmental-model, epirice, rice, wheat, rice-blast, sheath-blight,
-    tungro, agricultural-modelling, agricultural-modeling,
-    crop-protection, nasa-power, era5, weather-data.
+X-schema.org-keywords: crop-disease, plant-pathology,
+    plant-disease-epidemiology, seir-model, compartmental-model,
+    disease-simulation, crop-modeling, crop-protection, epirice,
+    rice, wheat, nasa-power, era5, weather-data
