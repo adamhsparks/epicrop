@@ -23,6 +23,8 @@
 
 ^air\.toml$
 
+^\.github$
+
 ^\.woodpecker$
 
 ^man/dot-calculate_audpc\.Rd$
