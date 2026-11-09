@@ -66,11 +66,14 @@ A numeric 2-column matrix with:
 ``` r
 # Single location as vector
 .norm_locations(c(121.255669, 14.16742))
-#> Error in .norm_locations(c(121.255669, 14.16742)): could not find function ".norm_locations"
+#>           LON      LAT
+#> [1,] 121.2557 14.16742
 
 # Multiple locations as vector
 .norm_locations(c(121.255669, 14.16742, 120.985, 14.6042))
-#> Error in .norm_locations(c(121.255669, 14.16742, 120.985, 14.6042)): could not find function ".norm_locations"
+#>           LON      LAT
+#> [1,] 121.2557 14.16742
+#> [2,] 120.9850 14.60420
 
 # Named matrix
 locs <- rbind(
@@ -78,12 +81,16 @@ locs <- rbind(
   "Metro_Manila" = c(120.985, 14.6042)
 )
 .norm_locations(locs)
-#> Error in .norm_locations(locs): could not find function ".norm_locations"
+#>                   LON      LAT
+#> IRRI_ZES     121.2557 14.16742
+#> Metro_Manila 120.9850 14.60420
 
 # Named list
 .norm_locations(list(
   site1 = c(121.255669, 14.16742),
   site2 = c(120.985, 14.6042)
 ))
-#> Error in .norm_locations(list(site1 = c(121.255669, 14.16742), site2 = c(120.985,     14.6042))): could not find function ".norm_locations"
+#>            LON      LAT
+#> site1 121.2557 14.16742
+#> site2 120.9850 14.60420
 ```

@@ -109,11 +109,14 @@ names are preserved as row names.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Single location as vector</span></span></span>
 <span class="r-in"><span><span class="fu">.norm_locations</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .norm_locations(c(121.255669, 14.16742)):</span> could not find function ".norm_locations"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           LON      LAT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 121.2557 14.16742</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Multiple locations as vector</span></span></span>
 <span class="r-in"><span><span class="fu">.norm_locations</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span>, <span class="fl">120.985</span>, <span class="fl">14.6042</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .norm_locations(c(121.255669, 14.16742, 120.985, 14.6042)):</span> could not find function ".norm_locations"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           LON      LAT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 121.2557 14.16742</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 120.9850 14.60420</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Named matrix</span></span></span>
 <span class="r-in"><span><span class="va">locs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span></span>
@@ -121,14 +124,18 @@ names are preserved as row names.</p></li>
 <span class="r-in"><span>  <span class="st">"Metro_Manila"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">120.985</span>, <span class="fl">14.6042</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">.norm_locations</span><span class="op">(</span><span class="va">locs</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .norm_locations(locs):</span> could not find function ".norm_locations"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   LON      LAT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IRRI_ZES     121.2557 14.16742</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Metro_Manila 120.9850 14.60420</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Named list</span></span></span>
 <span class="r-in"><span><span class="fu">.norm_locations</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  site1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">121.255669</span>, <span class="fl">14.16742</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  site2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">120.985</span>, <span class="fl">14.6042</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .norm_locations(list(site1 = c(121.255669, 14.16742), site2 = c(120.985,     14.6042))):</span> could not find function ".norm_locations"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            LON      LAT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> site1 121.2557 14.16742</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> site2 120.9850 14.60420</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

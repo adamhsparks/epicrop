@@ -591,6 +591,8 @@ kim_lb <- modified_kim_leaf_blast(
   wth = wth,
   emergence = "2000-06-01"
 )
+#> Warning: partial argument match of 'i' to 'id'
+#> ! `duration` is <80 days.
 
 # Kim version has shorter duration and higher Sx (larger canopy model)
 plot(kim_lb$simday, kim_lb$intensity, type = "l",

@@ -105,6 +105,5 @@ results <- .run_bundle(
   window_days = 120L,
   output = "audpc"
 )
-#> Error in .run_bundle(leaf_blast, emergence, wth_bundle, window_days = 120L,     output = "audpc"): could not find function ".run_bundle"
 # Results now include a 'location' column
 ```

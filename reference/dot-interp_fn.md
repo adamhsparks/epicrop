@@ -39,7 +39,5 @@ RcT_fn <- function(temp) {
 }
 temps <- seq(10, 40, by = 2)
 modifiers <- .interp_fn(RcT_fn, temps)
-#> Error in .interp_fn(RcT_fn, temps): could not find function ".interp_fn"
 plot(temps, modifiers, type = "b", main = "Temperature Response")
-#> Error: object 'modifiers' not found
 ```

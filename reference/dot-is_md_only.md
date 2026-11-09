@@ -33,6 +33,6 @@ Logical vector indicating which elements are month-day only.
 
 ``` r
 .is_md_only(c("06-30", "2000-06-30", "6/30", "-06-30"))
-#> Error in .is_md_only(c("06-30", "2000-06-30", "6/30", "-06-30")): could not find function ".is_md_only"
+#> [1]  TRUE FALSE  TRUE  TRUE
 # [1]  TRUE FALSE  TRUE  TRUE
 ```

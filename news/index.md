@@ -4,6 +4,8 @@
 
 ### Major Changes
 
+- First CRAN Release
+
 - `SEIR()` is now
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md).
 
