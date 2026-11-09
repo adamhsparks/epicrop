@@ -122,11 +122,11 @@ Matrix inputs use fast linear interpolation:
 
 - For each output point:
 
-  - If below minimum x: use \\y\[1\]\\ (constant extrapolation)
+  - If below minimum x: use \\(y\[1\]\\) (constant extrapolation)
 
-  - If above maximum x: use \\y\[n\]\\ (constant extrapolation)
+  - If above maximum x: use \\(y\[n\]\\) (constant extrapolation)
 
-  - If between \\x\[i\]\\ and \\x\[i+1\]\\: linear interpolation
+  - If between \\(x\[i\]\\) and \\(x\[i+1\]\\): linear interpolation
 
 Matches [`stats::approx()`](https://rdrr.io/r/stats/approxfun.html) with
 `rule = 2` exactly.
@@ -194,7 +194,7 @@ RcA_clean <- .interp(RcA_messy, age_vec = age)
 #> Error in .interp(RcA_messy, age_vec = age): could not find function ".interp"
 # Internally sorted to: 0->0.05, 60->0.6, 120->0.6
 
-# Example 6: Comparing DVS-based vs day-based aging
+# Example 6: Comparing DVS-based vs day-based ageing
 dvs <- seq(0, 2, length.out = 120)  # DVS 0-2 over 120 days
 
 RcA_dvs <- rbind(

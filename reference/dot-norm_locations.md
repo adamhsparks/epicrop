@@ -1,4 +1,4 @@
-# Normalize Location Input to Standard Matrix Format
+# Normalise Location Input to Standard Matrix Format
 
 Converts various location input formats (numeric vector, matrix, data
 frame, or list of pairs) to a standard 2-column numeric matrix with

@@ -37,11 +37,11 @@ Numeric vector of interpolated y-values.
 
 Computes linear interpolation between consecutive x-y points:
 
-\\y_interp = y\[i\] + w \* (y\[i+1\] - y\[i\])\\ where \\w = (x -
-x\[i\]) / (x\[i+1\] - x\[i\])\\
+\\(y_interp = y\[i\] + w \* (y\[i+1\] - y\[i\])\\) where \\(w = (x -
+x\[i\]) / (x\[i+1\] - x\[i\])\\)
 
 Boundary handling:
 
-- `x < min(x_vec)`: \\y = y\[1\]\\
+- `x < min(x_vec)`: \\(y = y\[1\]\\)
 
-- `x > max(x_vec)`: \\y = y\[n\]\\
+- `x > max(x_vec)`: \\(y = y\[n\]\\)

@@ -300,8 +300,8 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit:
 - **BREAKING CHANGE** Add a new column to `SEIR()` output, `severity`,
   not to be confused with the previous column called `severity` (now
   called `intensity`), which represents the cumulative proportion of
-  diseased sites on day “x” expressed as, \\\frac{diseased\\
-  sites}{total\\ sites} \times 100\\.
+  diseased sites on day “x” expressed as, \\(\frac{diseased\\
+  sites}{total\\ sites} \times 100\\).
 
 ### Minor changes
 
@@ -317,8 +317,8 @@ to calculate the basic infection rate, `Rc`, for `day + 1`. Commit:
 - - **BREAKING CHANGE** The `severity` output column from `SEIR()` has
     been renamed as `intensity` to follow the nomenclature of Savary *et
     al.* 2012. This column represents the proportion of actively
-    diseased sites on day “x” expressed as, \\\frac{(diseased\\ sites -
-    removed\\ sites)}{(total\\ sites - removed\\ sites)} \times 100\\.
+    diseased sites on day “x” expressed as, \\(\frac{(diseased\\ sites -
+    removed\\ sites)}{(total\\ sites - removed\\ sites)} \times 100\\).
 
 ## epicrop 0.0.0.9007
 

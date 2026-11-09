@@ -1,6 +1,6 @@
 # Process Start Dates to Character Format
 
-Converts start dates to character format and normalizes month-day
+Converts start dates to character format and normalises month-day
 strings. Month-day dates require the `years` parameter to construct
 complete date ranges.
 
@@ -27,7 +27,7 @@ Character vector of start dates in `"YYYY-MM-DD"` or `"MM-DD"` format.
 
 ## Details
 
-Month-day strings are normalized to `"MM-DD"` format. Full dates are
+Month-day strings are normalised to `"MM-DD"` format. Full dates are
 converted to character strings. If month-day values are found but
 `years` is NULL, an error is raised.
 

@@ -47,7 +47,7 @@ RH %).
     all day)
 
 2.  Compute hourly saturated vapour pressure using diurnal temperature:
-    \$\$\\RH = 100 \times \frac{\text{VP}}{\text{VP}\_{sat}}\$\$'
+    \$\$\\%RH = 100 \times \frac{\text{VP}}{\text{VP}\_{sat}}\$\$'
 
 This accounts for the inverse relationship between temperature and RH
 even when actual water vapour content is unchanged.

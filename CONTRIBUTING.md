@@ -9,6 +9,35 @@ in the *source* file.
 - YES: you edit a roxygen comment in a `.R` file below `R/`.
 - NO: you edit an `.Rd` file below `man/`.
 
+## Spell checking
+
+The package uses Australian English. To run the spelling check, install
+an `en_AU` Hunspell dictionary with UTF-8 encoding. On Debian or Ubuntu
+Linux, install the system package:
+
+``` sh
+sudo apt install hunspell-en-au
+```
+
+On macOS, including Apple silicon, install the UTF-8 dictionary from
+[LibreOffice](https://github.com/LibreOffice/dictionaries/tree/master/en)
+into the user spelling directory:
+
+``` sh
+mkdir -p ~/Library/Spelling
+curl -fL https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_AU.aff -o ~/Library/Spelling/en_AU.aff
+curl -fL https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_AU.dic -o ~/Library/Spelling/en_AU.dic
+```
+
+On either system, check the selected dictionary in R:
+
+\
+`hunspell``::`[`hunspell_info`](https://docs.ropensci.org/hunspell/reference/hunspell.html)`(``"en_AU"``)``$``encoding`
+
+The result must be `"UTF-8"`. If another `en_AU` dictionary takes
+precedence, set `DICPATH` to the directory containing the UTF-8
+dictionary before starting R.
+
 ## Prerequisites
 
 Before you make a substantial pull request, you should always file an

@@ -1,4 +1,4 @@
-# Normalize Month-Day Strings to Standard MM-DD Format
+# Normalise Month-Day Strings to Standard MM-DD Format
 
 Converts month-day strings in various formats (`"6/30"`, `"-06-30"`,
 etc.) to a consistent `"MM-DD"` format with zero-padded digits.
@@ -22,7 +22,7 @@ Character vector in `"MM-DD"` format (*e.g.*, `"06-30"`).
 
 ## Transformations
 
-- Slashes or dashes as separators (normalized to dashes)
+- Slashes or dashes as separators (normalised to dashes)
 
 - Optional leading dash (removed)
 

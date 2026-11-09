@@ -1,7 +1,7 @@
 # Calculate Development Stage (DVS) from Thermal Time
 
 Computes growing degree days (GDD) cumulative sum and converts to a
-normalized development stage (DVS) on scale 0–2 (emergence to maturity).
+normalised development stage (DVS) on scale 0–2 (emergence to maturity).
 
 ## Usage
 

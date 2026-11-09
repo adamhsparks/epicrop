@@ -1,6 +1,6 @@
 # Resolve Thermal Time Configuration for SEIR
 
-This function centralizes logic for:
+This function centralises logic for:
 
 - enforcing that `thermal_time` is supplied when `age_driver = "dvs"`;
 

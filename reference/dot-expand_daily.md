@@ -45,7 +45,7 @@ Numeric vector of length `duration`.
 
 ## Details
 
-Internal helper that normalizes scalar, vector/matrix, or function
+Internal helper that normalises scalar, vector/matrix, or function
 inputs into daily vectors for simulation.
 
 ## See also

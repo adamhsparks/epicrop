@@ -383,7 +383,7 @@ dry season, which was predicted to have less disease intensity.
 
 Kim, Kwang-Hyung, Jaepil Cho, Yong Hwan Lee, and Woo-Seop Lee. 2015.
 “Predicting Potential Epidemics of Rice Leaf Blast and Sheath Blight in
-South Korea Under the RCP 4.5 and RCP 8.5 Climate Change Scenarios Using
+South Korea under the RCP 4.5 and RCP 8.5 Climate Change Scenarios Using
 a Rice Disease Epidemiology Model, EPIRICE.” *Agricultural and Forest
 Meteorology* 203 (April): 191–207.
 <https://doi.org/10.1016/j.agrformet.2015.01.011>.

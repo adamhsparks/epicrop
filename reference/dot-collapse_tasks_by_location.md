@@ -1,7 +1,7 @@
 # Collapse Tasks by Location for Efficient API Calls
 
 Groups tasks by location and collapses each group into a single task.
-This minimizes the number of API calls required to fetch all data.
+This minimises the number of API calls required to fetch all data.
 
 ## Usage
 

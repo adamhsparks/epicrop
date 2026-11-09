@@ -2,7 +2,7 @@
 
 Convenience wrappers around
 [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md)
-with pre-configured parameter tables for well-characterized crop
+with pre-configured parameter tables for well-characterised crop
 diseases. Each function encapsulates parameters from published
 epidemiological studies, allowing one-line disease simulations.
 
@@ -22,7 +22,7 @@ loss.
 
 `sheath_blight()` models rice sheath blight (*Rhizoctonia solani*). A
 soil-borne disease that infects the leaf sheath; can cause catastrophic
-damage in high-N fertilized crops.
+damage in high-N fertilised crops.
 
 `tungro()` models rice tungro, a viral disease complex (*Tungro
 bacilliform* and *Tungro spherical viruses*) transmitted by the insect
@@ -371,7 +371,7 @@ stb(
 
   Additional parameters passed to
   [`seir()`](https://adamhsparks.codeberg.page/epicrop/reference/seir.md),
-  allowing full customization of any parameter (onset, duration, H0, I0,
+  allowing full customisation of any parameter (onset, duration, H0, I0,
   p, i, Sx, a, simple_wetness, etc.).
 
 - RRPSN:

@@ -1,4 +1,4 @@
-# Finalize SEIR Output Table and Attributes
+# Finalise SEIR Output Table and Attributes
 
 Internal helper that appends calendar/spatial columns, orders output
 fields, and assigns standard simulation attributes.
@@ -6,7 +6,7 @@ fields, and assigns standard simulation attributes.
 ## Usage
 
 ``` r
-.finalize_output(out, w, duration)
+.finalise_output(out, w, duration)
 ```
 
 ## Arguments
@@ -26,7 +26,7 @@ fields, and assigns standard simulation attributes.
 
 ## Value
 
-A finalized `data.table` of class `epicrop.sim` with:
+A finalised `data.table` of class `epicrop.sim` with:
 
 - ordered state/flow/derived columns;
 

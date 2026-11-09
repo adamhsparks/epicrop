@@ -55,13 +55,13 @@ Edge cases:
     [`base::findInterval()`](https://rdrr.io/r/base/findInterval.html)
     to locate each output point in x-grid
 
-3.  Categorize points:
+3.  Categorise points:
 
-    - Below \\min(x)\\: use \\y\[1\]\\ (constant)
+    - Below \\(min(x)\\): use \\(y\[1\]\\) (constant)
 
-    - Above \\max(x)\\: use \\y\[n\]\\ (constant)
+    - Above \\(max(x)\\): use \\(y\[n\]\\) (constant)
 
-    - Between \\x\[i\]\\ and \\x\[i+1\]\\: linear interpolation
+    - Between \\(x\[i\]\\) and \\(x\[i+1\]\\): linear interpolation
 
 4.  Return interpolated y-values
 

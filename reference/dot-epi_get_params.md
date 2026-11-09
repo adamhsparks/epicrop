@@ -53,7 +53,7 @@ Scalar entries are constants applied uniformly.
 
 ## Parameter Database
 
-The internal `.epi_params` list is organized hierarchically:
+The internal `.epi_params` list is organised hierarchically:
 
     .epi_params
       $rice

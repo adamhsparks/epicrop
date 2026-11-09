@@ -76,7 +76,7 @@ Length = `length(years) × length(month_day)`.
 
 ### Internal Algorithm
 
-1.  Normalize `month_day` strings:
+1.  Normalise `month_day` strings:
 
     - If matches `"^-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"`: use
       as-is
@@ -86,7 +86,7 @@ Length = `length(years) × length(month_day)`.
 
     - Otherwise: abort with error message
 
-2.  Create cross-product: every year × every normalized month-day
+2.  Create cross-product: every year × every normalised month-day
 
 3.  Construct ISO date strings: `sprintf("%s%s", year, month_day)`
 
@@ -113,7 +113,7 @@ Fast even for large year/month-day combinations:
 
 - Cross-product via
   [`data.table::CJ()`](https://rdrr.io/pkg/data.table/man/J.html)
-  (optimized)
+  (optimised)
 
 - Vectorised date construction via
   [`sprintf()`](https://rdrr.io/r/base/sprintf.html)
@@ -218,7 +218,7 @@ class(em)  # "epicrop.emerge" "IDate" "Date"
 length(em) # 6 (2 years × 3 month-days)
 #> [1] 6
 
-# Example 2: Month-day without leading dash (auto-normalized)
+# Example 2: Month-day without leading dash (auto-normalised)
 em2 <- build_epicrop_emergence(2000, c("06-01", "06-15", "07-01"))
 identical(em2, build_epicrop_emergence(2000, c("-06-01", "-06-15", "-07-01")))
 #> [1] TRUE

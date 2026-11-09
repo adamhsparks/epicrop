@@ -103,7 +103,7 @@ Uses a two-stage update to avoid circular dependency:
 
 2.  Compute rlex from pre-expansion infectious count and crowding factor
 
-3.  Finalize infectious window including today's lesion expansion
+3.  Finalise infectious window including today's lesion expansion
 
 This ensures that *Rc*-driven infections and lesion expansion are
 properly sequenced and both respond to the same crowding factor.

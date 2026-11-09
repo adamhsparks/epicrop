@@ -2,7 +2,7 @@
 
 A dynamical systems model for plant disease epidemiology that tracks
 disease progression through latent, infectious, and removed stages.
-Supports flexible aging (day or development stage), lesion expansion,
+Supports flexible ageing (day or development stage), lesion expansion,
 and hourly leaf wetness calculations.
 
 ## Usage
@@ -81,7 +81,8 @@ seir(
 - duration:
 
   Growing season length / simulation duration (integer days). Table 1 in
-  Savary *et al.* (2012) discusses typical ranges per crop.
+  Savary *et al.* (2012) discusses typical ranges per rice crop. This
+  value *must be* \>2, but a warning is emitted for values \<80 days.
 
 - H0:
 
@@ -341,8 +342,8 @@ The model tracks five site compartments over time:
 
 Daily transitions are driven by:
 
-- Infection rate: \\R_c \times I \times \left(1 -
-  \frac{D}{S_x}\right)^a\\ (corrected for crowding & aggregation)
+- Infection rate: \\(R_c \times I \times \left(1 -
+  \frac{D}{S_x}\right)^a\\) (corrected for crowding & aggregation)
 
 - Latency progression: E→I after `p` days
 
@@ -404,7 +405,7 @@ latency: \$\$\text{rlex}\_t = RRLEX \times I_t \times \left(1 -
 
 Lesion expansion is computed in a two-stage update to avoid circular
 dependency: (1) compute pre-expansion infectious sites, (2) compute
-rlex, (3) finalize infectious count. This ensures that *Rc*-driven
+rlex, (3) finalise infectious count. This ensures that *Rc*-driven
 infections and lesion expansion are properly sequenced.
 
 ## References
