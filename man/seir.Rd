@@ -61,7 +61,8 @@ integer). Value of 1 means disease begins on emergence day. When comparing
 with legacy SEIR(), use \code{legacy_onset = onset - 1}.}
 
 \item{duration}{Growing season length / simulation duration (integer days).
-Table 1 in Savary \emph{et al.} (2012) discusses typical ranges per crop.}
+Table 1 in Savary \emph{et al.} (2012) discusses typical ranges per rice crop.
+This value \emph{must be} >2, but a warning is emitted for values <80 days.}
 
 \item{H0}{Initial healthy sites (integer). Starting condition for compartment
 H at emergence. Typically 1000 or proportional to plant canopy size.}

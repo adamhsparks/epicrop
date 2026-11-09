@@ -54,7 +54,8 @@
 #'   integer). Value of 1 means disease begins on emergence day. When comparing
 #'   with legacy SEIR(), use `legacy_onset = onset - 1`.
 #' @param duration Growing season length / simulation duration (integer days).
-#'   Table 1 in Savary *et al.* (2012) discusses typical ranges per crop.
+#'   Table 1 in Savary *et al.* (2012) discusses typical ranges per rice crop.
+#'   This value *must be* >2, but a warning is emitted for values <80 days.
 #' @param H0 Initial healthy sites (integer). Starting condition for compartment
 #'   H at emergence. Typically 1000 or proportional to plant canopy size.
 #' @param I0 Initial infective sites (integer). Inoculum at `onset` day.
@@ -363,6 +364,20 @@ seir <- function(
       "{.arg wth} must be of class {.class epicrop.wth}",
       i = "Use {.fun get_wth} or {.fun format_wth} to create one"
     ))
+  }
+
+  if (duration < 80L) {
+    if (duration < 2L) {
+      cli::cli_abort(
+        x = "{.arg duration} is <2 days.",
+        i = "For the model to work, duration must be >2 days,
+        prefereably >100 days."
+      )
+    }
+    cli::cli_alert_warning(
+      "{.arg duration} is <80 days.",
+      i = "Most broadacre crops mature in >= 100 days."
+    )
   }
 
   thermal_time <- .resolve_thermal_time(
