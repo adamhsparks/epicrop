@@ -2,6 +2,8 @@
 
 ## Major Changes
 
+- First CRAN Release
+
 - `SEIR()` is now `seir()`.
 
 - All helper functions drop the `predict_` prefix for simplicity, *e.g.*, `predict_bacterial_blight()` becomes just `bacterial_blight()`.
