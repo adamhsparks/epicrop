@@ -1,3 +1,9 @@
+# epicrop 1.0.1
+
+## Bug fixes
+
+- Replace `fetch_epicrop_weather_list()` calls with correct `get_epicrop_weather_list()`, thanks, Emerson!
+
 # epicrop 1.0.0
 
 ## Major Changes
@@ -33,7 +39,7 @@
 
 - Strict checking of user-inputs with informative messages now provided if inputs are invalid.
 
-- New function `fetch_epicrop_weather_list()` to help automate modelling multiple locations.
+- New function `get_epicrop_weather_list()` to help automate modelling multiple locations.
 
 - New function `format_wth()` to help format users' own weather data rather than relying on the package's internal `get_wth()`.
 

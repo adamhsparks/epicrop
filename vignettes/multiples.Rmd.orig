@@ -44,7 +44,7 @@ Start by creating a list of the dates representing the seasons that you want to 
 In this case, since we specify the duration of the season, there is no need to explicitly state the end-date, that will automatically be determined by `get_wth()` with the `duration` argument that we pass along in the `purrr::map()`.
 You can use as many start dates, representing as many seasons as you desire, but for the purposes of speed in this vignette, only two will be used.
 
-Use `build_epicrop_emergence()` and `fetch_epicrop_weather_list()` to fetch the weather data from the [POWER API](https://power.larc.nasa.gov).
+Use `build_epicrop_emergence()` and `get_epicrop_weather_list()` to fetch the weather data from the [POWER API](https://power.larc.nasa.gov).
 In this example we will use the IRRI Zeigler Experiment Station coordinates as shown in the example for `get_wth()`.
 
 ```{r seasons-list}
@@ -57,12 +57,12 @@ duration <- 120L
 ymd <- build_epicrop_emergence(years = years, month_day = emergence_date)
 ```
 
-A helper function, `fetch_epicrop_weather_list()`, is provided to simplify fetching multiple years of weather data from NASA POWER that uses very similar arguments to `get_wth()`.
+A helper function, `get_epicrop_weather_list()`, is provided to simplify fetching multiple years of weather data from NASA POWER that uses very similar arguments to `get_wth()`.
 Note that since we only need the starting date as we have supplied `duration`, that the argument is rather `start_date`, a single value, not `dates`.
 The function uses the `duration` value to fetch the necessary weather data for all years and start dates inclusive of the end of the last season of the last start date.
 
 ```{r get-seasons}
-wth_list <- fetch_epicrop_weather_list(
+wth_list <- get_epicrop_weather_list(
   years = years,
   lonlat = c(121.255669, 14.16742),
   start_date = emergence_date,
@@ -113,7 +113,7 @@ duration <- 120L
 emergence <- build_epicrop_emergence(years, month_day)
 
 # select 200 days duration to allow for multiple seasonal runs on same data
-wth_list <- fetch_epicrop_weather_list(
+wth_list <- get_epicrop_weather_list(
   years = years,
   lonlat = lonlat,
   start_date = month_day,
@@ -134,7 +134,7 @@ wth_list <- fetch_epicrop_weather_list(
 
 #### Multiple Sites and Seasons
 
-Multiple locations can also be simulated using `fetch_epicrop_weather_list()` and `run_epicrop_model()`.
+Multiple locations can also be simulated using `get_epicrop_weather_list()` and `run_epicrop_model()`.
 Here Septoria tritici blotch is simulated for three locations in Western Australia and New South Wales over two seasons and two planting dates with a 240 day growing season.
 
 ```{r multiple-sites-seasons}
@@ -149,7 +149,7 @@ locs <- list(
   "Tamworth" = c(x = 150.84, y = -31.07)
 )
 
-wth_list <- fetch_epicrop_weather_list(
+wth_list <- get_epicrop_weather_list(
   lonlat = locs,
   start_date = start_date,
   duration = 240L,

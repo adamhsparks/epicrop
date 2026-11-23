@@ -202,7 +202,7 @@ ggplot(
 #> R/build_epicrop_emergence.R: 100.00%
 #> R/disease_models.R: 100.00%
 #> R/epi_get_params.R: 100.00%
-#> R/fetch_epicrop_weather_list.R: 100.00%
+#> R/get_epicrop_weather_list.R: 100.00%
 ```
 
 ## Code of Conduct
