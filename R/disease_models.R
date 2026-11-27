@@ -529,8 +529,9 @@ modified_kim_sheath_blight <- function(
 #' `leaf_rust()` models wheat leaf rust (*Puccinia triticina*). A major wheat
 #' pathogen globally, favoured by moderate temperatures
 #' (15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high humidity. #' DVS-based
-#' modelling accounts for developmental susceptibility. By default, rainfall is
-#' not used in the wetness trigger for this model.
+#' modelling accounts for developmental susceptibility. By default, neither
+#' relative humidity nor rainfall is used in the wetness trigger for this
+#' model.
 
 #' @examplesIf interactive()
 #' # Simulate wheat leaf rust with DVS (development stage) modelling
@@ -583,7 +584,7 @@ leaf_rust <- function(
         RRS = RRPSN %||% params$RRPSN,
         onset = 20L,
         duration = 120L,
-        rhlim = rhlim %||% 90L,
+        rhlim = rhlim %||% Inf,
         rainlim = rainlim %||% Inf,
         H0 = 250L,
         I0 = 10L,
