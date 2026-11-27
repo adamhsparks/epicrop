@@ -349,7 +349,8 @@ slightly higher humidity threshold (95\%) reflecting Korean monsoon climate.
 \code{leaf_rust()} models wheat leaf rust (\emph{Puccinia triticina}). A major wheat
 pathogen globally, favoured by moderate temperatures
 (15–25\ifelse{latex}{\out{$^\circ$}}{°}.RC) and high humidity. #' DVS-based
-modelling accounts for developmental susceptibility.
+modelling accounts for developmental susceptibility. By default, rainfall is
+not used in the wetness trigger for this model.
 
 \code{s_tritici_blotch()} models wheat Septoria tritici blotch (\emph{Zymoseptoria
 tritici}), a major wheat pathogen in temperate regions. Features lesion

@@ -134,6 +134,17 @@ test_that("leaf_rust runs without errors", {
   expect_identical(nrow(res), 120L)
 })
 
+test_that("leaf_rust defaults to wetness independent of rainfall", {
+  wth_no_humidity <- data.table::copy(wth_formatted)
+  wth_no_humidity$RHUM <- 0
+  wth_no_humidity$RAIN <- 10
+
+  default_res <- run_model(leaf_rust, wth = wth_no_humidity)
+  explicit_no_rain_res <- run_model(leaf_rust, wth = wth_no_humidity, rainlim = Inf)
+
+  expect_identical(default_res, explicit_no_rain_res)
+})
+
 # ---- Core engine accepts custom parameters ---------------------------------
 
 test_that("seir accepts all custom parameters", {
